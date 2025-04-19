@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { FeaturedItem } from '../types/content'
+import { FeaturedItem } from '@/types'
 
 interface ContentGridProps {
   items?: FeaturedItem[]

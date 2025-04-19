@@ -6,4 +6,9 @@ export interface FeaturedItem {
   slug: string;
   category: string;
   date: string;
+  photographer?: {
+    name: string;
+    username: string;
+    url: string;
+  };
 } 

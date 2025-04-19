@@ -3,10 +3,15 @@ export const featuredItems = [
     id: '1',
     title: 'Why 2025 Is the Year of River Cruising',
     summary: 'River cruises are making a big comeback in 2025 — here\'s why savvy travellers are jumping onboard.',
-    image: '/images/news-1.jpg',
+    image: 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
     category: 'Cruise',
     date: '2025-04-19',
     slug: 'river-cruising-2025',
+    photographer: {
+      name: 'Chris Lawton',
+      username: 'chrislawton',
+      url: 'https://unsplash.com/@chrislawton'
+    }
   },
   {
     id: '2',
@@ -17,9 +22,9 @@ export const featuredItems = [
     date: '2025-04-18',
     slug: 'bali-hidden-gems',
     photographer: {
-      name: 'David Emrich',
-      username: 'davidemrich',
-      url: 'https://unsplash.com/@davidemrich'
+      name: 'Sean Oulashin',
+      username: 'oulashin',
+      url: 'https://unsplash.com/@oulashin'
     }
   },
   {

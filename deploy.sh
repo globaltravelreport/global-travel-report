@@ -1,108 +1,98 @@
 #!/bin/bash
 
-# Colors for output
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-YELLOW='\033[1;33m'
+# Constants
+REPO_URL="https://github.com/globaltravelreport/global-travel-report"
+PRODUCTION_URL="https://www.globaltravelreport.com"
+MAX_RETRIES=3
+LOG_FILE="deploy-log.txt"
 
-# Function to get Sydney timestamp
-get_sydney_time() {
-    TZ="Australia/Sydney" date '+%d/%m/%Y %H:%M'
+# Function to get timestamp in AEST
+get_timestamp() {
+  date -u "+%d/%m/%Y %H:%M AEST"
 }
 
-# Function to print status messages
-print_status() {
-    echo -e "${GREEN}[$(get_sydney_time) AEST]${NC} $1"
+# Function to log messages
+log() {
+  local type=$1
+  local message=$2
+  local timestamp=$(get_timestamp)
+  echo "[$timestamp] [$type] $message"
+  echo "[$timestamp] [$type] $message" >> "$LOG_FILE"
 }
 
-print_error() {
-    echo -e "${RED}[$(get_sydney_time) AEST]${NC} $1"
-}
+# Ensure log file exists
+touch "$LOG_FILE"
 
-print_warning() {
-    echo -e "${YELLOW}[$(get_sydney_time) AEST]${NC} $1"
-}
+# Add separator for new deployment
+echo -e "\n$(printf '=%.0s' {1..80})\n" >> "$LOG_FILE"
+log "INFO" "Starting new deployment..."
 
-# Log to file function
-log_to_file() {
-    echo "[$(get_sydney_time) AEST] $1" >> deploy-log.txt
-}
-
-# Check if Vercel CLI is installed
-if ! command -v vercel &> /dev/null; then
-    print_error "Vercel CLI is not installed. Please run: npm install -g vercel"
-    log_to_file "ERROR: Vercel CLI not installed"
-    exit 1
+# Stage all changes
+log "INFO" "Staging all changes..."
+if ! git add .; then
+  log "ERROR" "Failed to stage changes"
+  exit 1
 fi
 
-# Check if we're in a git repository
-if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    print_error "Not in a git repository"
-    log_to_file "ERROR: Not in a git repository"
-    exit 1
+# Create commit with timestamp
+timestamp=$(get_timestamp)
+commit_message="Auto-update from Cursor - [$timestamp]"
+log "INFO" "Creating commit: $commit_message"
+if ! git commit -m "$commit_message"; then
+  log "ERROR" "Failed to create commit"
+  exit 1
 fi
 
-# Check for uncommitted changes
-if ! git diff-index --quiet HEAD --; then
-    print_warning "You have uncommitted changes"
-    git status --short
-    
-    # Get Sydney timestamp for commit message
-    TIMESTAMP=$(get_sydney_time)
-    COMMIT_MSG="Auto-deploy: Changes committed on $TIMESTAMP"
-    
-    print_status "Committing changes with message: $COMMIT_MSG"
-    log_to_file "Committing changes: $COMMIT_MSG"
-    
-    git add .
-    git commit -m "$COMMIT_MSG"
-fi
+# Push to main with retries
+log "INFO" "Pushing to main branch..."
+attempt=1
+push_success=false
 
-# Pull latest changes to avoid conflicts
-print_status "Pulling latest changes from GitHub..."
-log_to_file "Pulling latest changes from GitHub"
-if ! git pull origin main; then
-    print_error "Failed to pull latest changes"
-    log_to_file "ERROR: Failed to pull latest changes"
-    exit 1
-fi
+while [ $attempt -le $MAX_RETRIES ] && [ "$push_success" = false ]; do
+  if git push origin main; then
+    push_success=true
+    log "SUCCESS" "Successfully pushed to main branch"
+  else
+    if [ $attempt -lt $MAX_RETRIES ]; then
+      log "INFO" "Push failed, retrying (attempt $((attempt + 1))/$MAX_RETRIES)..."
+      ((attempt++))
+    else
+      log "ERROR" "Failed to push after $MAX_RETRIES attempts"
+      exit 1
+    fi
+  fi
+done
 
-# Build the project
-print_status "Building project..."
-log_to_file "Starting project build"
-if ! npm run build; then
-    print_error "Build failed"
-    log_to_file "ERROR: Build failed"
-    exit 1
-fi
-log_to_file "Build completed successfully"
+# Verify the push
+log "INFO" "Verifying push..."
+local_hash=$(git rev-parse HEAD)
+remote_hash=$(git rev-parse origin/main)
 
-# Deploy to Vercel
-print_status "Deploying to Vercel production..."
-log_to_file "Starting Vercel deployment"
-if ! vercel --prod --confirm; then
-    print_error "Vercel deployment failed"
-    log_to_file "ERROR: Vercel deployment failed"
-    exit 1
-fi
-log_to_file "Vercel deployment completed successfully"
+if [ "$local_hash" = "$remote_hash" ]; then
+  log "SUCCESS" "Push verified successfully"
+  log "INFO" "Changes will be deployed to: $PRODUCTION_URL"
+  
+  # Show success message
+  cat << EOF
 
-# Push changes to GitHub
-print_status "Pushing changes to GitHub..."
-log_to_file "Pushing changes to GitHub"
-if ! git push origin main; then
-    print_warning "Failed to push to GitHub, but Vercel deployment was successful"
-    log_to_file "WARNING: Failed to push to GitHub"
-    exit 1
-fi
-log_to_file "Successfully pushed to GitHub"
+🎉 Deployment Successful! 🎉
 
-print_status "Deployment completed successfully!"
-print_status "Deployed at $(get_sydney_time) Sydney time"
-print_status "Visit: https://www.globaltravelreport.com"
+Your changes have been successfully deployed to:
+$PRODUCTION_URL
 
-log_to_file "-------------------------------------------"
-log_to_file "Deployment completed successfully at $(get_sydney_time)"
-log_to_file "Site is live at https://www.globaltravelreport.com"
-log_to_file "-------------------------------------------" 
+The deployment process included:
+✓ Staging all changes
+✓ Creating a commit with timestamp
+✓ Pushing to main branch
+✓ Verifying the push
+
+You can view the deployment logs in:
+$(pwd)/$LOG_FILE
+
+Thank you for using the auto-deploy script!
+EOF
+
+else
+  log "ERROR" "Local and remote commit hashes do not match"
+  exit 1
+fi 

@@ -3,10 +3,10 @@ import FeaturedArticle from './components/FeaturedArticle'
 import LatestNews from './components/LatestNews'
 import Deals from './components/Deals'
 import Newsletter from './components/Newsletter'
-import { StoryDraft } from './types/content'
+import { StoryDraft } from '@/types/content'
 import PageLayout from './components/PageLayout'
 import ContentGrid from './components/ContentGrid'
-import { featuredItems } from './data/featured'
+import { featuredItems } from '@/data/featured'
 
 async function getPublishedStories() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stories`, {

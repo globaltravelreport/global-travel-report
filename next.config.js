@@ -8,7 +8,6 @@ const nextConfig = {
         pathname: '/photo-*',
       },
     ],
-    domains: ['images.unsplash.com'],
   },
   experimental: {
     serverActions: {

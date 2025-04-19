@@ -12,6 +12,11 @@ interface FeaturedArticleProps {
   category: Category;
   author: string;
   publishedAt: string;
+  photographer?: {
+    name: string;
+    username: string;
+    url: string;
+  };
 }
 
 export default function FeaturedArticle({
@@ -21,7 +26,8 @@ export default function FeaturedArticle({
   imageAlt,
   category,
   author,
-  publishedAt
+  publishedAt,
+  photographer
 }: FeaturedArticleProps) {
   const formattedDate = new Date(publishedAt).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -36,12 +42,37 @@ export default function FeaturedArticle({
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="relative h-96">
             {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={imageAlt}
-                fill
-                className="object-cover"
-              />
+              <>
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt}
+                  fill
+                  className="object-cover"
+                />
+                {photographer && (
+                  <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-3 py-1.5 rounded-tl">
+                    Photo by{' '}
+                    <a
+                      href={photographer.url}
+                      className="underline hover:text-gray-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${photographer.name}'s profile on Unsplash`}
+                    >
+                      {photographer.name}
+                    </a>
+                    {' '}on{' '}
+                    <a
+                      href="https://unsplash.com"
+                      className="underline hover:text-gray-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Unsplash
+                    </a>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-400">No image available</span>

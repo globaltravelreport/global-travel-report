@@ -4,8 +4,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { StoryDraft } from '@/types/content';
 
+interface Story {
+  title: string;
+  summary: string;
+  publishedAt: string;
+  category: string;
+  featuredImage: {
+    url: string;
+    alt: string;
+    photographer?: {
+      name: string;
+      username: string;
+      url: string;
+    };
+  };
+}
+
 interface LatestNewsProps {
-  stories: StoryDraft[];
+  stories: Story[];
 }
 
 export default function LatestNews({ stories }: LatestNewsProps) {
@@ -18,12 +34,37 @@ export default function LatestNews({ stories }: LatestNewsProps) {
             <article key={story.publishedAt} className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative h-48">
                 {story.featuredImage.url ? (
-                  <Image
-                    src={story.featuredImage.url}
-                    alt={story.featuredImage.alt}
-                    fill
-                    className="object-cover"
-                  />
+                  <>
+                    <Image
+                      src={story.featuredImage.url}
+                      alt={story.featuredImage.alt}
+                      fill
+                      className="object-cover"
+                    />
+                    {story.featuredImage.photographer && (
+                      <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-3 py-1.5 rounded-tl">
+                        Photo by{' '}
+                        <a
+                          href={story.featuredImage.photographer.url}
+                          className="underline hover:text-gray-200"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View ${story.featuredImage.photographer.name}'s profile on Unsplash`}
+                        >
+                          {story.featuredImage.photographer.name}
+                        </a>
+                        {' '}on{' '}
+                        <a
+                          href="https://unsplash.com"
+                          className="underline hover:text-gray-200"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Unsplash
+                        </a>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                     <span className="text-gray-400">No image available</span>

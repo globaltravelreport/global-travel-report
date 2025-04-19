@@ -8,7 +8,12 @@ const deals = [
     description: 'Earn 5x points on travel purchases',
     badge: 'Best Deal',
     icon: FireIcon,
-    imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f',
+    photographer: {
+      name: 'Avery Evans',
+      username: 'averye457',
+      url: 'https://unsplash.com/@averye457'
+    }
   },
   {
     id: 2,
@@ -16,7 +21,12 @@ const deals = [
     description: 'No foreign transaction fees',
     badge: 'Staff Pick',
     icon: TagIcon,
-    imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1580828343064-fde4fc206bc6',
+    photographer: {
+      name: 'Towfiqu barbhuiya',
+      username: 'towfiqu999999',
+      url: 'https://unsplash.com/@towfiqu999999'
+    }
   },
 ]
 
@@ -50,6 +60,19 @@ const Deals = () => {
                     fill
                     className="object-cover rounded-lg"
                   />
+                  {deal.photographer && (
+                    <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-2 py-1 rounded-tl">
+                      <a
+                        href={deal.photographer.url}
+                        className="underline hover:text-gray-200"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`View ${deal.photographer.name}'s profile on Unsplash`}
+                      >
+                        {deal.photographer.name}
+                      </a>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-4 md:mt-0 md:ml-8">
                   <button className="w-full md:w-auto bg-brand-navy hover:bg-opacity-90 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
