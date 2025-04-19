@@ -49,11 +49,15 @@ const destinationItems = [
 export default function DestinationsPage() {
   return (
     <PageLayout
-      title="Travel Destinations"
-      description="Explore our curated collection of must-visit destinations around the world."
-      heroImage="/images/destinations-hero.jpg"
+      title="Explore Destinations"
+      description="Discover amazing places around the world with detailed guides and insider tips."
+      heroType="destinations"
     >
-      <ContentGrid items={destinationItems} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Destination cards will go here */}
+        </div>
+      </div>
     </PageLayout>
   )
 } 

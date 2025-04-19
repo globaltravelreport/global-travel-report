@@ -50,10 +50,12 @@ export default function ReviewsPage() {
   return (
     <PageLayout
       title="Travel Reviews"
-      description="Honest reviews and detailed guides from experienced travelers around the world."
-      heroImage="/images/destinations-hero.jpg"
+      description="Honest, detailed reviews of destinations, hotels, and experiences from our expert team."
+      heroType="destinations"
     >
-      <ContentGrid items={reviewItems} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <ContentGrid items={reviewItems} />
+      </div>
     </PageLayout>
   )
 } 

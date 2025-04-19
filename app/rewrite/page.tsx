@@ -1,12 +1,54 @@
+'use client';
+
+import { useState } from 'react';
+import StoryEditor from '../components/StoryEditor';
 import ContentRewriter from '../components/ContentRewriter';
 import PageLayout from '../components/PageLayout';
+import { RewrittenContent, StoryDraft } from '@/types/content';
 
 export default function RewritePage() {
+  const [rewrittenContent, setRewrittenContent] = useState<RewrittenContent | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleRewriteComplete = (content: RewrittenContent) => {
+    setRewrittenContent(content);
+  };
+
+  const handlePublish = async (story: StoryDraft) => {
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/stories', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...story,
+          publishedAt: new Date().toISOString(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to publish story');
+      }
+
+      // Reset the form after successful publish
+      setRewrittenContent(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred while publishing');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <PageLayout
       title="Private Content Rewriter"
       description="Private tool for content adaptation across different platforms. Access restricted to authorized users only."
-      heroImage="/images/hero-rewrite.jpg"
+      heroType="rewrite"
     >
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
@@ -35,7 +77,30 @@ export default function RewritePage() {
             <li>Instagram: Concise, visual-friendly content with hashtags</li>
           </ul>
         </div>
-        <ContentRewriter />
+
+        {!rewrittenContent ? (
+          <ContentRewriter onRewriteComplete={handleRewriteComplete} />
+        ) : (
+          <StoryEditor
+            content={rewrittenContent.content}
+            initialData={{
+              title: rewrittenContent.title,
+              summary: rewrittenContent.summary,
+              seo: {
+                title: rewrittenContent.title,
+                description: rewrittenContent.summary,
+                keywords: rewrittenContent.keywords,
+              }
+            }}
+            onPublish={handlePublish}
+          />
+        )}
+
+        {error && (
+          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+            <p className="text-red-600">{error}</p>
+          </div>
+        )}
       </div>
     </PageLayout>
   );

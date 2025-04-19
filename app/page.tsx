@@ -3,15 +3,32 @@ import FeaturedArticle from './components/FeaturedArticle'
 import LatestNews from './components/LatestNews'
 import Deals from './components/Deals'
 import Newsletter from './components/Newsletter'
+import { StoryDraft } from './types/content'
+import PageLayout from './components/PageLayout'
+import ContentGrid from './components/ContentGrid'
+import { featuredItems } from './data/featured'
 
-export default function Home() {
+async function getPublishedStories() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stories`, {
+    cache: 'no-store'
+  });
+  if (!response.ok) {
+    return [];
+  }
+  return response.json();
+}
+
+export default function HomePage() {
   return (
-    <main>
-      <Hero />
-      <FeaturedArticle />
-      <LatestNews />
-      <Deals />
-      <Newsletter />
-    </main>
-  )
+    <PageLayout
+      title="Global Travel Report"
+      description="Your trusted source for travel news, reviews, tips and exclusive deals."
+      heroType="home"
+      priority={true}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <ContentGrid items={featuredItems} />
+      </div>
+    </PageLayout>
+  );
 } 

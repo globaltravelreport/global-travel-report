@@ -50,10 +50,12 @@ export default function NewsPage() {
   return (
     <PageLayout
       title="Travel News"
-      description="Stay updated with the latest travel news, industry updates, and travel-related developments from around the world."
-      heroImage="/images/news-hero.jpg"
+      description="Stay updated with the latest travel news, industry updates, and destination insights."
+      heroType="news"
     >
-      <ContentGrid items={newsItems} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <ContentGrid items={newsItems} />
+      </div>
     </PageLayout>
   )
 } 

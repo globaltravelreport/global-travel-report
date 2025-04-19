@@ -1,20 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'localhost',
-      'images.unsplash.com',
-      'source.unsplash.com',
-      'picsum.photos',
-      'placehold.co'
-    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'images.unsplash.com',
+        pathname: '/photo-*',
       },
     ],
-  }
+    domains: ['images.unsplash.com'],
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000'],
+    },
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': __dirname,
+    };
+    return config;
+  },
 }
 
 module.exports = nextConfig 
