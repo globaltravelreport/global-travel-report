@@ -121,7 +121,7 @@ function createEmailTemplate(name: string, email: string, message: string) {
         <!-- Logo Container -->
         <div class="logo-container">
           <img 
-            src="https://www.globaltravelreport.com/logo.png" 
+            src="https://www.globaltravelreport.com/images/logo.png" 
             alt="Global Travel Report Logo" 
             class="logo" 
             style="max-width: 200px; height: auto; display: block; margin: 0 auto; background-color: transparent;"

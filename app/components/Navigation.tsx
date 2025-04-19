@@ -22,15 +22,15 @@ const Navigation = () => {
   return (
     <nav className="bg-gradient-to-r from-brand-navy to-brand-teal text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="Global Travel Report Logo"
-                width={40}
-                height={40}
-                className="mr-2"
+                width={60}
+                height={60}
+                className="mr-3"
                 priority
               />
               <span className="text-xl font-bold">Global Travel Report</span>

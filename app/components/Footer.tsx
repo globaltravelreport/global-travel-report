@@ -26,14 +26,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="Global Travel Report Logo"
-                width={40}
-                height={40}
-                className="mr-2 invert"
-              />
-              <span className="text-xl font-bold text-white">Global Travel Report</span>
+              <div className="relative w-[150px] h-[150px]">
+                <Image
+                  src="/images/logo.png"
+                  alt="Global Travel Report Logo"
+                  fill
+                  className="invert object-contain"
+                />
+              </div>
             </Link>
             <p className="mt-4 text-sm">
               Your trusted source for authentic travel experiences and industry insights.
