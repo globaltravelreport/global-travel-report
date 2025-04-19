@@ -1,78 +1,52 @@
 import { notFound } from 'next/navigation';
-import fs from 'fs/promises';
-import path from 'path';
-import { StoryDraft } from '@/types/content';
+import articles from '../../data/articles';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import ArticleImage from '@/app/components/ArticleImage';
 
-const ARTICLES_FILE = path.join(process.cwd(), 'app/data/articles.json');
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
 
-async function getArticle(slug: string): Promise<StoryDraft | null> {
-  try {
-    // Check if file exists
-    try {
-      await fs.access(ARTICLES_FILE);
-    } catch (error) {
-      console.error('Articles file not found:', ARTICLES_FILE);
-      return null;
-    }
-
-    const fileContent = await fs.readFile(ARTICLES_FILE, 'utf-8');
-    const articles = JSON.parse(fileContent);
-    const article = articles.find((article: StoryDraft) => article.slug === slug);
-    
-    if (!article) {
-      console.log('Article not found for slug:', slug);
-      return null;
-    }
-    
-    console.log('Found article:', article.title);
-    return article;
-  } catch (error) {
-    console.error('Error reading article:', error);
-    return null;
-  }
+interface Article {
+  id: string;
+  title: string;
+  content: string;
+  category?: string;
+  status?: string;
+  author?: string;
+  isReadyToPublish?: boolean;
+  summary: string;
+  image?: string;
+  featuredImage?: {
+    url: string;
+    alt: string;
+  };
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+  date?: string;
+  createdAt: string;
+  publishedAt?: string;
+  slug: string;
 }
 
 export async function generateStaticParams() {
-  try {
-    // Check if file exists
-    try {
-      await fs.access(ARTICLES_FILE);
-    } catch (error) {
-      console.error('Articles file not found for static params:', ARTICLES_FILE);
-      return [];
-    }
-
-    const fileContent = await fs.readFile(ARTICLES_FILE, 'utf-8');
-    const articles = JSON.parse(fileContent);
-    
-    if (!Array.isArray(articles)) {
-      console.error('Articles data is not an array');
-      return [];
-    }
-
-    const params = articles.map((article: StoryDraft) => ({
-      slug: article.slug,
-    }));
-
-    console.log('Generated static params for articles:', params.length);
-    return params;
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
-  }
+  const paths = articles.map((article: Article) => ({
+    slug: article.slug,
+  }));
+  console.log('Generating static paths for articles:', paths);
+  return paths;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = await getArticle(params.slug);
-
+  const article = articles.find((a: Article) => a.slug === params.slug);
+  
   if (!article) {
     return {
       title: 'Article Not Found',
-      description: 'The requested article could not be found.',
     };
   }
 
@@ -91,8 +65,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticle(params.slug);
+export default function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = articles.find((a: Article) => a.slug === params.slug);
 
   if (!article) {
     notFound();
@@ -106,36 +80,22 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   const imageAlt = article.featuredImage?.alt || article.title;
 
   return (
-    <article className="container mx-auto px-4 py-8">
-      <Link href="/" className="text-blue-600 hover:underline mb-8 inline-block">
-        ← Back to Articles
-      </Link>
-      
+    <article className="max-w-4xl mx-auto px-4 py-8">
       <header className="mb-8">
         <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
-        <div className="flex items-center text-gray-600 mb-4">
-          <span className="mr-4">{article.category}</span>
-          <span>{formattedDate}</span>
+        <div className="flex items-center text-gray-600">
+          <span>By {article.author}</span>
+          <span className="mx-2">•</span>
+          <time dateTime={article.date}>{formattedDate}</time>
         </div>
       </header>
 
-      <ArticleImage src={imageUrl} alt={imageAlt} />
+      {article.featuredImage && (
+        <ArticleImage src={imageUrl} alt={imageAlt} />
+      )}
 
       <div className="prose max-w-none mb-8">
-        <p className="text-xl text-gray-700 mb-6">{article.summary}</p>
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
-      </div>
-
-      <div className="flex gap-4">
-        <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          aria-label="Share on Twitter"
-        >
-          Share on Twitter
-        </a>
       </div>
     </article>
   );

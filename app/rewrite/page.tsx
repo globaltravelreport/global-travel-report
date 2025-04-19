@@ -17,9 +17,10 @@ export default function RewritePage() {
     content: '',
     category: 'news' as Category,
     status: 'draft',
-    author: 'Admin',
+    author: 'Nuch',
     isReadyToPublish: false,
     summary: '',
+    slug: '',
     featuredImage: {
       url: '',
       alt: ''

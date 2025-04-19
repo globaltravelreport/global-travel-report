@@ -17,18 +17,16 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
     title: initialData?.title || '',
     content: initialData?.content || '',
     category: initialData?.category || 'news',
-    status: initialData?.status || 'pending',
+    status: initialData?.status || 'draft',
     author: initialData?.author || 'Nuch',
     isReadyToPublish: initialData?.isReadyToPublish || false,
     summary: initialData?.summary || '',
-    featuredImage: initialData?.featuredImage || {
-      url: '',
-      alt: ''
-    },
-    seo: {
-      title: initialData?.seo?.title || '',
-      description: initialData?.seo?.description || '',
-      keywords: initialData?.seo?.keywords || []
+    slug: initialData?.slug || '',
+    featuredImage: initialData?.featuredImage || undefined,
+    seo: initialData?.seo || {
+      title: '',
+      description: '',
+      keywords: []
     }
   });
 
@@ -180,10 +178,10 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
             </label>
             <input
               type="text"
-              value={story.seo.title}
+              value={story.seo?.title || ''}
               onChange={(e) => setStory({
                 ...story,
-                seo: { ...story.seo, title: e.target.value }
+                seo: { ...story.seo || {}, title: e.target.value }
               })}
               className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
               placeholder="SEO-friendly title"
@@ -195,13 +193,13 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
               Meta Description
             </label>
             <textarea
-              value={story.seo.description}
+              value={story.seo?.description || ''}
               onChange={(e) => setStory({
                 ...story,
-                seo: { ...story.seo, description: e.target.value }
+                seo: { ...story.seo || {}, description: e.target.value }
               })}
               className="w-full h-24 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
-              placeholder="Enter meta description"
+              placeholder="Meta description for search engines"
             />
           </div>
 
@@ -211,13 +209,13 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
             </label>
             <input
               type="text"
-              value={story.seo.keywords.join(', ')}
+              value={story.seo?.keywords?.join(', ') || ''}
               onChange={(e) => setStory({
                 ...story,
-                seo: { ...story.seo, keywords: e.target.value.split(',').map(k => k.trim()) }
+                seo: { ...story.seo || {}, keywords: e.target.value.split(',').map(k => k.trim()) }
               })}
               className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
-              placeholder="travel, news, destination"
+              placeholder="Keywords (comma-separated)"
             />
           </div>
         </div>
@@ -228,7 +226,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Featured Image
         </label>
-        {story.featuredImage.url ? (
+        {story.featuredImage?.url ? (
           <div className="relative h-48 mb-4">
             <Image
               src={story.featuredImage.url}
@@ -239,7 +237,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
             <button
               onClick={() => setStory({
                 ...story,
-                featuredImage: { url: '', alt: '' }
+                featuredImage: undefined
               })}
               className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
             >

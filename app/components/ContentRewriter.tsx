@@ -64,7 +64,6 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
       setOriginalContent('')
       setSourceUrl('')
       setSuccess(true)
-      setArticleSlug(rewrittenContent.slug)
     } catch (err) {
       console.error('Error rewriting content:', err)
       setError(err instanceof Error ? err.message : 'An unexpected error occurred')

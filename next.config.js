@@ -28,9 +28,9 @@ const nextConfig = {
   output: 'standalone',
   // Enable static file serving
   staticPageGenerationTimeout: 1000,
-  // Include articles.json in the build
-  experimental: {
-    serverComponentsExternalPackages: ['fs'],
+  // Enable static generation for all pages
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
   },
 };
 
