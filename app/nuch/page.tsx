@@ -54,7 +54,7 @@ export default function NuchPage() {
     <PageLayout
       title="AI Rewriter Tool"
       description="Private content rewriting tool"
-      heroImage="/images/destinations-hero.jpg"
+      heroType="default"
     >
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-6 md:p-8 border border-gray-200/50">

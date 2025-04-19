@@ -34,4 +34,12 @@ export interface ImageSearchResult {
   alt: string;
   source: string;
   photographer?: string;
+}
+
+export interface RewrittenContent {
+  title: string;
+  summary: string;
+  content: string;
+  keywords: string[];
+  callToAction?: string;
 } 

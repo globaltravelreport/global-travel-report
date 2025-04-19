@@ -1,48 +1,61 @@
 import PageLayout from '../components/PageLayout'
 import ContentGrid from '../components/ContentGrid'
+import { FeaturedItem } from '@/types'
 
-const reviewItems = [
+const reviewItems: FeaturedItem[] = [
   {
     id: 1,
     title: 'Best Hotels in Paris',
-    description: 'A curated selection of luxury and boutique hotels in the City of Light.',
-    imageUrl: '/images/destinations/paris.jpg',
-    href: '/review/paris-hotels',
+    summary: 'A comprehensive guide to luxury and boutique hotels in the City of Light.',
+    image: '/images/reviews/paris-hotels.jpg',
+    slug: 'best-hotels-paris',
+    category: 'Hotels',
+    date: '2024-02-28',
   },
   {
     id: 2,
-    title: 'Tokyo Food Guide',
-    description: 'From street food to Michelin stars - the ultimate Tokyo dining experience.',
-    imageUrl: '/images/destinations/tokyo.jpg',
-    href: '/review/tokyo-food',
+    title: 'Top Airlines for Business Class',
+    summary: 'Comparing premium services and amenities across major carriers.',
+    image: '/images/reviews/business-class.jpg',
+    slug: 'top-airlines-business',
+    category: 'Airlines',
+    date: '2024-02-27',
   },
   {
     id: 3,
-    title: 'New York City Attractions',
-    description: 'Must-visit attractions and hidden gems in the Big Apple.',
-    imageUrl: '/images/destinations/new-york.jpg',
-    href: '/review/nyc-attractions',
+    title: 'Luxury Resorts in Maldives',
+    summary: 'Exclusive review of the most stunning overwater villas and island retreats.',
+    image: '/images/reviews/maldives-resorts.jpg',
+    slug: 'maldives-luxury-resorts',
+    category: 'Resorts',
+    date: '2024-02-26',
   },
   {
     id: 4,
-    title: 'Sydney Beach Guide',
-    description: 'Discover the best beaches and coastal walks in Sydney.',
-    imageUrl: '/images/destinations/sydney.jpg',
-    href: '/review/sydney-beaches',
+    title: 'Best Travel Credit Cards',
+    summary: 'Comparing rewards, benefits, and perks of premium travel cards.',
+    image: '/images/reviews/credit-cards.jpg',
+    slug: 'travel-credit-cards',
+    category: 'Finance',
+    date: '2024-02-25',
   },
   {
     id: 5,
-    title: 'Cape Town Adventures',
-    description: 'Top outdoor activities and adventure sports in Cape Town.',
-    imageUrl: '/images/destinations/cape-town.jpg',
-    href: '/review/capetown-adventures',
+    title: 'Safari Lodges in Africa',
+    summary: 'Ultimate guide to luxury safari accommodations and wildlife experiences.',
+    image: '/images/reviews/safari-lodges.jpg',
+    slug: 'african-safari-lodges',
+    category: 'Adventure',
+    date: '2024-02-24',
   },
   {
     id: 6,
-    title: 'Rio Carnival Experience',
-    description: 'Everything you need to know about experiencing Rio Carnival.',
-    imageUrl: '/images/destinations/rio.jpg',
-    href: '/review/rio-carnival',
+    title: 'First Class Train Journeys',
+    summary: 'Exploring the worlds most luxurious rail experiences.',
+    image: '/images/reviews/train-journeys.jpg',
+    slug: 'luxury-train-journeys',
+    category: 'Rail',
+    date: '2024-02-23',
   },
 ]
 
@@ -50,8 +63,8 @@ export default function ReviewsPage() {
   return (
     <PageLayout
       title="Travel Reviews"
-      description="Honest, detailed reviews of destinations, hotels, and experiences from our expert team."
-      heroType="destinations"
+      description="In-depth reviews of hotels, airlines, destinations, and travel services."
+      heroType="reviews"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <ContentGrid items={reviewItems} />

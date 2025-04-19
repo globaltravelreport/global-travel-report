@@ -46,7 +46,7 @@ export default function DealsPage() {
     <PageLayout
       title="Travel Deals"
       description="Find the best travel deals, discounts, and special offers for your next adventure."
-      heroImage="/images/deals-hero.jpg"
+      heroType="deals"
     >
       <ContentGrid items={dealItems} />
     </PageLayout>

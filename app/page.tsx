@@ -24,7 +24,6 @@ export default function HomePage() {
       title="Global Travel Report"
       description="Your trusted source for travel news, reviews, tips and exclusive deals."
       heroType="home"
-      priority={true}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <ContentGrid items={featuredItems} />
