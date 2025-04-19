@@ -1,49 +1,44 @@
 import PageLayout from '../components/PageLayout'
 import ContentGrid from '../components/ContentGrid'
+import { FeaturedItem } from '@/types'
 
-const dealItems = [
+const dealItems: FeaturedItem[] = [
   {
     id: 1,
-    title: 'Summer Vacation Package',
-    description: 'All-inclusive resort stay with flights included. Limited time offer!',
-    imageUrl: '/images/deals/summer-vacation.jpg',
-    href: '/deal/summer-vacation',
+    title: 'Bali Beach Resort Package',
+    summary: 'Enjoy 7 nights at a luxury beach resort in Bali with all-inclusive meals and spa treatments.',
+    image: '/images/deals/bali-resort.jpg',
+    slug: 'bali-beach-resort-package',
+    category: 'Deals',
+    date: '2024-04-01',
   },
   {
     id: 2,
-    title: 'Business Class Upgrade',
-    description: 'Special rates on business class upgrades for select routes.',
-    imageUrl: '/images/deals/business-class.jpg',
-    href: '/deal/business-class',
+    title: 'European City Break',
+    summary: 'Explore Paris, Rome, and Barcelona with this 10-day guided tour package including flights and hotels.',
+    image: '/images/deals/europe-tour.jpg',
+    slug: 'european-city-break',
+    category: 'Deals',
+    date: '2024-04-15',
   },
   {
     id: 3,
-    title: 'Hotel Loyalty Program',
-    description: 'Join our loyalty program and get exclusive member rates and benefits.',
-    imageUrl: '/images/deals/hotel-loyalty.jpg',
-    href: '/deal/hotel-loyalty',
+    title: 'Safari Adventure',
+    summary: 'Experience a 5-day safari in Kenya with luxury accommodation and expert guides.',
+    image: '/images/deals/safari.jpg',
+    slug: 'safari-adventure',
+    category: 'Deals',
+    date: '2024-05-01',
   },
   {
     id: 4,
-    title: 'Family Travel Package',
-    description: 'Special rates for family vacations with kids stay free.',
-    imageUrl: '/images/deals/family-package.jpg',
-    href: '/deal/family-package',
-  },
-  {
-    id: 5,
-    title: 'Last Minute Getaways',
-    description: 'Amazing deals on last-minute travel bookings.',
-    imageUrl: '/images/deals/last-minute.jpg',
-    href: '/deal/last-minute',
-  },
-  {
-    id: 6,
-    title: 'Group Travel Discounts',
-    description: 'Special rates for group bookings of 10 or more people.',
-    imageUrl: '/images/deals/group-travel.jpg',
-    href: '/deal/group-travel',
-  },
+    title: 'Caribbean Cruise',
+    summary: '7-day Caribbean cruise visiting multiple islands with all-inclusive dining and entertainment.',
+    image: '/images/deals/caribbean-cruise.jpg',
+    slug: 'caribbean-cruise',
+    category: 'Deals',
+    date: '2024-05-15',
+  }
 ]
 
 export default function DealsPage() {

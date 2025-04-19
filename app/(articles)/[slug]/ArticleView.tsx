@@ -1,15 +1,16 @@
+'use client'
+
 import { featuredItems } from '@/data/featured'
 import { FeaturedItem } from '@/types'
 import Link from 'next/link'
 import Image from 'next/image'
 import { format } from 'date-fns'
 
-interface PageProps {
-  params: Promise<{ slug: string }>
+interface ArticleViewProps {
+  slug: string
 }
 
-export default async function Page({ params }: PageProps) {
-  const { slug } = await params
+export default function ArticleView({ slug }: ArticleViewProps) {
   const article = featuredItems.find(item => item.slug === slug)
 
   if (!article) {
@@ -56,33 +57,27 @@ export default async function Page({ params }: PageProps) {
       </div>
 
       <div className="flex gap-4">
-        <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`, '_blank')}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           aria-label="Share on Twitter"
         >
           Share on Twitter
-        </a>
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        </button>
+        <button
+          onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           aria-label="Share on Facebook"
         >
           Share on Facebook
-        </a>
-        <a
-          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}&title=${encodeURIComponent(article.title)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        </button>
+        <button
+          onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(article.title)}`, '_blank')}
           className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
           aria-label="Share on LinkedIn"
         >
           Share on LinkedIn
-        </a>
+        </button>
       </div>
     </article>
   )

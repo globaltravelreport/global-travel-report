@@ -1,21 +1,70 @@
 'use client';
 
-import HeroImage from './HeroImage';
+import Image from 'next/image'
+import { heroImages } from '../config/images'
 
-export default function Hero() {
+interface HeroProps {
+  title: string
+  description: string
+  heroType?: keyof typeof heroImages
+}
+
+export default function Hero({ 
+  title, 
+  description, 
+  heroType = 'home'
+}: HeroProps) {
+  const imageConfig = heroImages[heroType] || heroImages.home
+  const heightClass = heroType === 'article' ? 'h-[300px]' : 'h-[400px]'
+  const overlayClass = heroType === 'article' ? 'bg-black/60' : 'bg-black/40'
+  
   return (
-    <div className="relative">
-      <HeroImage type="home" height={600} />
-      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-        <div className="text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Discover Your Next Adventure
+    <div className={`relative ${heightClass}`}>
+      <Image
+        src={imageConfig.url}
+        alt={imageConfig.alt}
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className={`absolute inset-0 ${overlayClass} flex items-center justify-center`}>
+        <div className="text-center text-white px-4 max-w-3xl">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            {title}
           </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto">
-            Expert travel insights, destination guides, and exclusive deals
-          </p>
+          {description && (
+            <p className="text-lg md:text-xl opacity-90">
+              {description}
+            </p>
+          )}
         </div>
       </div>
+      <div className="absolute bottom-0 right-0 bg-black/60 text-white text-xs px-3 py-2 rounded-tl-lg backdrop-blur-sm">
+        <span className="block font-medium">Photo by{' '}
+          <a
+            href={`https://unsplash.com/@${imageConfig.photographer.username}`}
+            className="underline hover:text-brand-teal transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`View ${imageConfig.photographer.name}'s profile on Unsplash`}
+          >
+            {imageConfig.photographer.name}
+          </a>
+        </span>
+        <span className="text-gray-300">
+          on{' '}
+          <a
+            href="https://unsplash.com"
+            className="underline hover:text-brand-teal transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Unsplash
+          </a>
+        </span>
+      </div>
     </div>
-  );
+  )
 } 

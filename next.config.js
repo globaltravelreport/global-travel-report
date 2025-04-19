@@ -5,10 +5,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        pathname: '/photo-*',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudfront.net',
       },
     ],
-    domains: ['images.unsplash.com'],
   },
   experimental: {
     serverActions: {
@@ -16,12 +18,9 @@ const nextConfig = {
     },
   },
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': __dirname,
-    };
+    config.resolve.alias['@'] = process.cwd();
     return config;
   },
-}
+};
 
-export default nextConfig 
+module.exports = nextConfig; 
