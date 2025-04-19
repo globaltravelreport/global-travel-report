@@ -124,7 +124,7 @@ function createEmailTemplate(name: string, email: string, message: string) {
             src="https://www.globaltravelreport.com/logo.png" 
             alt="Global Travel Report Logo" 
             class="logo" 
-            style="max-width: 200px; height: auto; display: block; margin: 0 auto;"
+            style="max-width: 200px; height: auto; display: block; margin: 0 auto; background-color: transparent;"
             width="200"
           />
         </div>
