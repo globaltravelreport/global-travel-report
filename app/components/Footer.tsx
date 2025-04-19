@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaTwitter, FaYoutube, FaTumblr, FaLinkedin, FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
 
 const Footer = () => {
@@ -24,8 +25,15 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <Link href="/" className="text-xl font-bold text-white">
-              Global Travel Report
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Global Travel Report Logo"
+                width={40}
+                height={40}
+                className="mr-2 invert"
+              />
+              <span className="text-xl font-bold text-white">Global Travel Report</span>
             </Link>
             <p className="mt-4 text-sm">
               Your trusted source for authentic travel experiences and industry insights.

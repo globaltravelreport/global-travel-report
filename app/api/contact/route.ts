@@ -118,8 +118,8 @@ function createEmailTemplate(name: string, email: string, message: string) {
         </style>
       </head>
       <body>
-        <!-- Logo Container with Fallback -->
-        <div class="logo-container" style="text-align: center; padding: 20px 0; margin-bottom: 24px; background-color: #0A192F;">
+        <!-- Logo Container -->
+        <div class="logo-container">
           <img 
             src="https://www.globaltravelreport.com/logo.png" 
             alt="Global Travel Report Logo" 
@@ -127,37 +127,31 @@ function createEmailTemplate(name: string, email: string, message: string) {
             style="max-width: 200px; height: auto; display: block; margin: 0 auto;"
             width="200"
           />
-          <!-- Fallback text if image is blocked -->
-          <!--[if !mso]><!-->
-          <div style="display: none; font-size: 18px; color: #C4A052; font-weight: bold; margin-top: 10px;">
-            GLOBAL TRAVEL REPORT
-          </div>
-          <!--<![endif]-->
         </div>
         
-        <div class="header" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+        <div class="header">
           <h1 style="margin: 0; color: #2c3e50;">📬 New Contact Form Submission</h1>
         </div>
         
-        <div class="content" style="background-color: #fff; padding: 20px; border-radius: 5px; border: 1px solid #e9ecef;">
-          <div class="field" style="margin-bottom: 15px;">
-            <span class="label" style="font-weight: bold; color: #495057;">Name:</span>
+        <div class="content">
+          <div class="field">
+            <span class="label">Name:</span>
             <div>${name}</div>
           </div>
           
-          <div class="field" style="margin-bottom: 15px;">
-            <span class="label" style="font-weight: bold; color: #495057;">Email:</span>
+          <div class="field">
+            <span class="label">Email:</span>
             <div>${email}</div>
           </div>
           
-          <div class="field" style="margin-bottom: 15px;">
-            <span class="label" style="font-weight: bold; color: #495057;">Message:</span>
-            <div class="message" style="white-space: pre-wrap; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, '<br>')}</div>
+          <div class="field">
+            <span class="label">Message:</span>
+            <div class="message">${message}</div>
           </div>
         </div>
         
-        <div class="footer" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 0.9em; color: #6c757d; text-align: center;">
-          Sent from Global Travel Report
+        <div class="footer">
+          <p>This message was sent from the contact form at Global Travel Report.</p>
         </div>
       </body>
     </html>

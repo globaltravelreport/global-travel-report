@@ -52,3 +52,8 @@
 [19/04/2025 14:11 AEST] -------------------------------------------
 [19/04/2025 14:12] [INFO] Auto-deployment service started
 [19/04/2025 14:12] [INFO] Changes detected, starting deployment process
+[19/04/2025 14:12] [INFO] Deployment attempt 1 of 3
+[19/04/2025 14:14] [INFO] Deployment successful
+[19/04/2025 14:14] [INFO] Auto-deployment completed successfully
+[19/04/2025 14:16] [INFO] Auto-deployment service started
+[19/04/2025 14:16] [INFO] Changes detected, starting deployment process
