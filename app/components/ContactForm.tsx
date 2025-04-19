@@ -7,54 +7,78 @@ interface FormData {
   name: string;
   email: string;
   message: string;
+  recaptchaToken: string;
 }
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    recaptchaToken: ''
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const { executeRecaptcha } = useGoogleReCaptcha();
 
+  // Check if reCAPTCHA is ready
+  useEffect(() => {
+    if (!executeRecaptcha) {
+      console.log('reCAPTCHA not ready');
+      setErrorMessage('reCAPTCHA is not ready. Please refresh the page.');
+    } else {
+      console.log('reCAPTCHA is ready');
+    }
+  }, [executeRecaptcha]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!executeRecaptcha) {
+      console.log('reCAPTCHA execution failed: not ready');
       setStatus('error');
-      setErrorMessage('reCAPTCHA not initialized');
+      setErrorMessage('reCAPTCHA is not ready. Please refresh the page.');
       return;
     }
 
     try {
       setStatus('loading');
+      setErrorMessage('');
       
+      console.log('Executing reCAPTCHA...');
       // Get reCAPTCHA token
       const token = await executeRecaptcha('contact_form');
+      console.log('reCAPTCHA token received:', token);
+      
+      if (!token) {
+        console.log('reCAPTCHA token is empty');
+        throw new Error('Failed to get reCAPTCHA token');
+      }
 
-      // Submit form data with token
+      // Update form data with token
+      setFormData(prev => ({ ...prev, recaptchaToken: token }));
+
+      console.log('Submitting form with token...');
+      // Submit form data
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          token,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
+      console.log('Server response:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong');
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', recaptchaToken: '' });
     } catch (error) {
+      console.error('Form submission error:', error);
       setStatus('error');
       setErrorMessage(error instanceof Error ? error.message : 'Failed to submit form');
     }
@@ -71,13 +95,16 @@ export default function ContactForm() {
       
       {status === 'success' && (
         <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
-          Thank you for your message! We'll get back to you soon.
+          <h3 className="font-semibold">Message Sent Successfully!</h3>
+          <p>Thank you for contacting us. We'll get back to you as soon as possible.</p>
         </div>
       )}
 
       {status === 'error' && (
         <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
-          {errorMessage}
+          <h3 className="font-semibold">Error Sending Message</h3>
+          <p>{errorMessage}</p>
+          <p className="mt-2 text-sm">Please try again or contact us directly at editorial@globaltravelreport.com</p>
         </div>
       )}
 
@@ -127,11 +154,18 @@ export default function ContactForm() {
           />
         </div>
 
+        {/* Hidden reCAPTCHA token field */}
+        <input
+          type="hidden"
+          name="recaptchaToken"
+          value={formData.recaptchaToken}
+        />
+
         <button
           type="submit"
-          disabled={status === 'loading'}
+          disabled={status === 'loading' || !executeRecaptcha}
           className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-            status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
+            status === 'loading' || !executeRecaptcha ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
           {status === 'loading' ? 'Sending...' : 'Send Message'}
