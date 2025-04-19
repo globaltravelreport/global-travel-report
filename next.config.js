@@ -8,6 +8,7 @@ const nextConfig = {
         pathname: '/photo-*',
       },
     ],
+    domains: ['images.unsplash.com'],
   },
   experimental: {
     serverActions: {
@@ -23,4 +24,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig 
+export default nextConfig 

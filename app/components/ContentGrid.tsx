@@ -43,26 +43,31 @@ export default function ContentGrid({ items = [] }: ContentGridProps) {
                 quality={75}
               />
               {item.photographer && (
-                <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-3 py-1.5 rounded-tl">
-                  Photo by{' '}
-                  <a
-                    href={item.photographer.url}
-                    className="underline hover:text-gray-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`View ${item.photographer.name}'s profile on Unsplash`}
-                  >
-                    {item.photographer.name}
-                  </a>
-                  {' '}on{' '}
-                  <a
-                    href="https://unsplash.com"
-                    className="underline hover:text-gray-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Unsplash
-                  </a>
+                <div className="absolute bottom-0 right-0 bg-black/80 text-white text-xs px-3 py-2 rounded-tl-lg backdrop-blur-sm">
+                  <span className="block font-medium">Photo by{' '}
+                    <a
+                      href={item.photographer.url}
+                      className="underline hover:text-brand-teal transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`View ${item.photographer.name}'s profile on Unsplash`}
+                    >
+                      {item.photographer.name}
+                    </a>
+                  </span>
+                  <span className="text-gray-300">
+                    on{' '}
+                    <a
+                      href="https://unsplash.com"
+                      className="underline hover:text-brand-teal transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Unsplash
+                    </a>
+                  </span>
                 </div>
               )}
             </div>
