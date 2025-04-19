@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import fs from 'fs/promises';
 import path from 'path';
-import Image from 'next/image';
 import { StoryDraft } from '@/types/content';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import ArticleImage from '@/app/components/ArticleImage';
 
 async function getArticle(slug: string): Promise<StoryDraft | null> {
   try {
@@ -74,19 +74,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         </div>
       </header>
 
-      <div className="relative w-full h-[400px] mb-8 bg-gray-100 rounded-lg overflow-hidden">
-        <Image
-          src={imageUrl}
-          alt={imageAlt}
-          fill
-          className="object-cover"
-          priority
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/images/news-hero.jpg';
-          }}
-        />
-      </div>
+      <ArticleImage src={imageUrl} alt={imageAlt} />
 
       <div className="prose max-w-none mb-8">
         <p className="text-xl text-gray-700 mb-6">{article.summary}</p>
