@@ -12,7 +12,9 @@ async function getArticle(slug: string): Promise<StoryDraft | null> {
     const filePath = path.join(process.cwd(), 'app/data/articles.json');
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const articles = JSON.parse(fileContent);
-    return articles.find((article: StoryDraft) => article.slug === slug) || null;
+    const article = articles.find((article: StoryDraft) => article.slug === slug);
+    console.log('Found article:', article ? 'yes' : 'no', 'for slug:', slug);
+    return article || null;
   } catch (error) {
     console.error('Error reading article:', error);
     return null;
@@ -100,24 +102,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           aria-label="Share on Twitter"
         >
           Share on Twitter
-        </a>
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          aria-label="Share on Facebook"
-        >
-          Share on Facebook
-        </a>
-        <a
-          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://globaltravelreport.com/articles/${article.slug}`)}&title=${encodeURIComponent(article.title)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
-          aria-label="Share on LinkedIn"
-        >
-          Share on LinkedIn
         </a>
       </div>
     </article>
