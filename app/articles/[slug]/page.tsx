@@ -21,6 +21,20 @@ async function getArticle(slug: string): Promise<StoryDraft | null> {
   }
 }
 
+export async function generateStaticParams() {
+  try {
+    const filePath = path.join(process.cwd(), 'app/data/articles.json');
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const articles = JSON.parse(fileContent);
+    return articles.map((article: StoryDraft) => ({
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const article = await getArticle(params.slug);
 

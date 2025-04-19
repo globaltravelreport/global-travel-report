@@ -24,6 +24,10 @@ const nextConfig = {
     config.resolve.alias['@'] = process.cwd();
     return config;
   },
+  // Ensure static files are served correctly
+  output: 'standalone',
+  // Enable static file serving
+  staticPageGenerationTimeout: 1000,
 };
 
 module.exports = nextConfig; 
