@@ -13,9 +13,6 @@ export const metadata: Metadata = {
   description: 'Your trusted source for travel news, reviews, and tips',
 }
 
-// Google Analytics Measurement ID
-const GA_MEASUREMENT_ID = 'G-10453772720'
-
 export default function RootLayout({
   children,
 }: {
@@ -29,29 +26,24 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        {/* Google Analytics - Only loads in production */}
+      <body className={`${inter.className} bg-gray-50`}>
+        {/* Google Analytics - Production Only */}
         {process.env.NODE_ENV === 'production' && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              src="https://www.googletagmanager.com/gtag/js?id=G-10453772720"
               strategy="afterInteractive"
-              async
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="ga4-analytics" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}', {
-                  page_path: window.location.pathname,
-                });
+                gtag('config', 'G-10453772720');
               `}
             </Script>
           </>
         )}
-      </head>
-      <body className={`${inter.className} bg-gray-50`}>
         <GoogleReCaptchaProvider
           reCaptchaKey={recaptchaKey || 'missing-key'}
           scriptProps={{
