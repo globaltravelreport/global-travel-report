@@ -7,14 +7,29 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import ArticleImage from '@/app/components/ArticleImage';
 
+const ARTICLES_FILE = path.join(process.cwd(), 'app/data/articles.json');
+
 async function getArticle(slug: string): Promise<StoryDraft | null> {
   try {
-    const filePath = path.join(process.cwd(), 'app/data/articles.json');
-    const fileContent = await fs.readFile(filePath, 'utf-8');
+    // Check if file exists
+    try {
+      await fs.access(ARTICLES_FILE);
+    } catch (error) {
+      console.error('Articles file not found:', ARTICLES_FILE);
+      return null;
+    }
+
+    const fileContent = await fs.readFile(ARTICLES_FILE, 'utf-8');
     const articles = JSON.parse(fileContent);
     const article = articles.find((article: StoryDraft) => article.slug === slug);
-    console.log('Found article:', article ? 'yes' : 'no', 'for slug:', slug);
-    return article || null;
+    
+    if (!article) {
+      console.log('Article not found for slug:', slug);
+      return null;
+    }
+    
+    console.log('Found article:', article.title);
+    return article;
   } catch (error) {
     console.error('Error reading article:', error);
     return null;
@@ -23,12 +38,28 @@ async function getArticle(slug: string): Promise<StoryDraft | null> {
 
 export async function generateStaticParams() {
   try {
-    const filePath = path.join(process.cwd(), 'app/data/articles.json');
-    const fileContent = await fs.readFile(filePath, 'utf-8');
+    // Check if file exists
+    try {
+      await fs.access(ARTICLES_FILE);
+    } catch (error) {
+      console.error('Articles file not found for static params:', ARTICLES_FILE);
+      return [];
+    }
+
+    const fileContent = await fs.readFile(ARTICLES_FILE, 'utf-8');
     const articles = JSON.parse(fileContent);
-    return articles.map((article: StoryDraft) => ({
+    
+    if (!Array.isArray(articles)) {
+      console.error('Articles data is not an array');
+      return [];
+    }
+
+    const params = articles.map((article: StoryDraft) => ({
       slug: article.slug,
     }));
+
+    console.log('Generated static params for articles:', params.length);
+    return params;
   } catch (error) {
     console.error('Error generating static params:', error);
     return [];

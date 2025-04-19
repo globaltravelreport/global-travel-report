@@ -28,6 +28,10 @@ const nextConfig = {
   output: 'standalone',
   // Enable static file serving
   staticPageGenerationTimeout: 1000,
+  // Include articles.json in the build
+  experimental: {
+    serverComponentsExternalPackages: ['fs'],
+  },
 };
 
 module.exports = nextConfig; 
