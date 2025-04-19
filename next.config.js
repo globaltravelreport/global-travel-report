@@ -11,11 +11,7 @@ const nextConfig = {
         hostname: '**.cloudfront.net',
       },
     ],
-  },
-  experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000'],
-    },
+    domains: ['localhost', 'globaltravelreport.com'],
   },
   webpack: (config) => {
     config.resolve.alias['@'] = process.cwd();

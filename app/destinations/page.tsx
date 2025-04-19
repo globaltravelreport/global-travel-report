@@ -1,5 +1,6 @@
 import PageLayout from '../components/PageLayout'
 import { FeaturedItem } from '@/types'
+import Image from 'next/image'
 
 const destinations: FeaturedItem[] = [
   {
@@ -73,10 +74,13 @@ export default function DestinationsPage() {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-48">
-                <img
+                <Image
                   src={destination.image}
-                  alt={destination.title}
-                  className="w-full h-full object-cover"
+                  alt={`Featured image for ${destination.title}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
                 />
               </div>
               <div className="p-6">

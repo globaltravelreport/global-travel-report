@@ -1,16 +1,77 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import GoogleAnalytics from './components/GoogleAnalytics'
-import ReCaptchaProvider from './components/ReCaptchaProvider'
+import { AuthProvider } from './contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// Base metadata configuration
 export const metadata: Metadata = {
-  title: 'Global Travel Report',
+  metadataBase: new URL('https://www.globaltravelreport.com'),
+  title: {
+    default: 'Global Travel Report',
+    template: '%s | Global Travel Report'
+  },
   description: 'Your trusted source for travel news, reviews, and tips',
+  keywords: ['travel', 'news', 'reviews', 'tips', 'destinations', 'deals'],
+  authors: [{ name: 'Global Travel Report' }],
+  creator: 'Global Travel Report',
+  publisher: 'Global Travel Report',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.globaltravelreport.com',
+    siteName: 'Global Travel Report',
+    title: 'Global Travel Report',
+    description: 'Your trusted source for travel news, reviews, and tips',
+    images: [
+      {
+        url: 'https://www.globaltravelreport.com/images/og-default.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Global Travel Report',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Global Travel Report',
+    description: 'Your trusted source for travel news, reviews, and tips',
+    images: ['https://www.globaltravelreport.com/images/twitter-default.jpg'],
+    creator: '@globaltravelreport',
+    site: '@globaltravelreport',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'TODO: Add Google Search Console verification code',
+  },
+  alternates: {
+    canonical: 'https://www.globaltravelreport.com',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0D9488', // brand-teal color
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -21,6 +82,44 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Global Travel Report',
+              url: 'https://www.globaltravelreport.com',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.globaltravelreport.com/search?q={search_term_string}'
+                },
+                'query-input': 'required name=search_term_string'
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Global Travel Report',
+              url: 'https://www.globaltravelreport.com',
+              logo: 'https://www.globaltravelreport.com/images/logo.png',
+              sameAs: [
+                'https://twitter.com/globaltravelreport',
+                'https://www.facebook.com/globaltravelreport',
+                'https://www.instagram.com/globaltravelreport',
+                'https://www.linkedin.com/company/globaltravelreport'
+              ]
+            })
+          }}
+        />
         {process.env.NODE_ENV === 'production' && (
           <>
             {/* Google Analytics */}
@@ -38,13 +137,13 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className={`${inter.className} bg-gray-50`}>
-        <GoogleAnalytics />
-        <ReCaptchaProvider>
+      <body className={inter.className}>
+        <AuthProvider>
           <Navigation />
           {children}
           <Footer />
-        </ReCaptchaProvider>
+          <GoogleAnalytics />
+        </AuthProvider>
       </body>
     </html>
   )

@@ -1,43 +1,42 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Hardcoded credentials for testing
-const VALID_USERNAME = 'admin'
-const VALID_PASSWORD = 'Nuch07!'
-
 export function middleware(request: NextRequest) {
-  const rewritePath = '/rewrite'
-  
-  // Only protect the rewrite route
-  if (request.nextUrl.pathname.startsWith(rewritePath)) {
+  // Only apply to /rewrite route
+  if (request.nextUrl.pathname.startsWith('/rewrite')) {
     const authHeader = request.headers.get('authorization')
-    
+
     if (!authHeader) {
-      console.log('No auth header present')
-      return new NextResponse('Authentication required', {
+      return new NextResponse(null, {
         status: 401,
         headers: {
-          'WWW-Authenticate': 'Basic realm="Secure Area"',
+          'WWW-Authenticate': 'Basic realm="Global Travel Report"',
         },
       })
     }
 
-    const auth = authHeader.split(' ')[1]
-    if (!auth) {
-      console.log('Invalid auth header format')
-      return new NextResponse('Invalid authentication', { status: 401 })
+    const base64Credentials = authHeader.split(' ')[1]
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii')
+    const [username, password] = credentials.split(':')
+
+    if (username === 'Admin' && password === 'Nuch07!') {
+      const response = NextResponse.next()
+      // Set a session cookie
+      response.cookies.set('auth', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/rewrite'
+      })
+      return response
     }
 
-    const [username, password] = Buffer.from(auth, 'base64').toString().split(':')
-    console.log('Auth attempt:', { username, password })
-
-    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-      console.log('Authentication successful')
-      return NextResponse.next()
-    }
-
-    console.log('Invalid credentials')
-    return new NextResponse('Invalid credentials', { status: 401 })
+    return new NextResponse(null, {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Global Travel Report"',
+      },
+    })
   }
 
   return NextResponse.next()
@@ -45,5 +44,5 @@ export function middleware(request: NextRequest) {
 
 // Configure which routes to run middleware on
 export const config = {
-  matcher: '/rewrite/:path*',
+  matcher: ['/rewrite/:path*'],
 } 

@@ -24,8 +24,29 @@ export interface Story {
   publishedAt?: string;
 }
 
-export interface StoryDraft extends Omit<Story, 'id' | 'slug' | 'createdAt' | 'updatedAt'> {
-  isReadyToPublish: boolean;
+export interface StoryDraft {
+  id?: string;
+  title: string;
+  content: string;
+  category: Category;
+  status?: 'draft' | 'published';
+  author?: string;
+  isReadyToPublish?: boolean;
+  summary: string;
+  image?: string;
+  featuredImage?: {
+    url: string;
+    alt: string;
+  };
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
+  date?: string;
+  createdAt?: string;
+  publishedAt?: string;
+  slug: string;
 }
 
 export interface ImageSearchResult {
