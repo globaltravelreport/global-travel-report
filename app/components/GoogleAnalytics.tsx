@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
 
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 measurement ID
+const GA_MEASUREMENT_ID = 'G-K8BJQ43XFT'; // GA4 Measurement ID for Global Travel Report (Stream ID: 10453772720)
 
 export default function GoogleAnalytics() {
   useEffect(() => {
