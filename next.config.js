@@ -10,8 +10,15 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.cloudfront.net',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'globaltravelreport.com',
+      },
     ],
-    domains: ['localhost', 'globaltravelreport.com'],
   },
   webpack: (config) => {
     config.resolve.alias['@'] = process.cwd();
