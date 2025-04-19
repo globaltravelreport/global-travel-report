@@ -4,7 +4,7 @@ import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
-import Script from 'next/script'
+import Analytics from './components/Analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,23 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-50`}>
-        {/* Google Analytics - Production Only */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <Script
-              src="https://www.googletagmanager.com/gtag/js?id=G-10453772720"
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-10453772720');
-              `}
-            </Script>
-          </>
-        )}
+        <Analytics />
         <GoogleReCaptchaProvider
           reCaptchaKey={recaptchaKey || 'missing-key'}
           scriptProps={{
