@@ -15,3 +15,7 @@
 [19/04/2025 14:04 AEST] Starting project build
 [19/04/2025 14:04 AEST] ERROR: Build failed
 [19/04/2025 14:05 AEST] Committing changes: Auto-deploy: Changes committed on 19/04/2025 14:05
+[19/04/2025 14:05 AEST] Pulling latest changes from GitHub
+[19/04/2025 14:05 AEST] Starting project build
+[19/04/2025 14:05 AEST] ERROR: Build failed
+[19/04/2025 14:06 AEST] Committing changes: Auto-deploy: Changes committed on 19/04/2025 14:06

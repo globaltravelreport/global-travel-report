@@ -4,6 +4,7 @@ import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -44,6 +45,7 @@ export default function RootLayout({
         )}
       </head>
       <body className={`${inter.className} bg-gray-50`}>
+        <GoogleAnalytics />
         <GoogleReCaptchaProvider
           reCaptchaKey={recaptchaKey || 'missing-key'}
           scriptProps={{
