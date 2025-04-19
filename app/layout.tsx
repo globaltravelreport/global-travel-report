@@ -3,8 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import GoogleAnalytics from './components/GoogleAnalytics'
+import ReCaptchaProvider from './components/ReCaptchaProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,12 +18,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  
-  if (!recaptchaKey) {
-    console.error('Warning: NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not set in environment variables');
-  }
-
   return (
     <html lang="en">
       <head>
@@ -46,19 +40,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gray-50`}>
         <GoogleAnalytics />
-        <GoogleReCaptchaProvider
-          reCaptchaKey={recaptchaKey || 'missing-key'}
-          scriptProps={{
-            async: false,
-            defer: false,
-            appendTo: 'head',
-            nonce: undefined,
-          }}
-        >
+        <ReCaptchaProvider>
           <Navigation />
           {children}
           <Footer />
-        </GoogleReCaptchaProvider>
+        </ReCaptchaProvider>
       </body>
     </html>
   )
