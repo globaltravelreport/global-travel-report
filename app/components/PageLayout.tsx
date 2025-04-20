@@ -1,9 +1,7 @@
-'use client';
-
 import { ReactNode } from 'react';
 import Hero from './Hero';
 import { heroImages } from '../config/images';
-import { usePathname } from 'next/navigation';
+import { Metadata } from 'next';
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -28,13 +26,11 @@ export default function PageLayout({
   schemaType = 'WebPage',
   schemaData = {}
 }: PageLayoutProps) {
-  const pathname = usePathname();
   const imageConfig = heroImages[heroType] || heroImages.home;
   const siteTitle = 'Global Travel Report';
   const fullTitle = `${title} | ${siteTitle}`;
   const fullDescription = description || 'Your trusted source for travel news, reviews, tips and exclusive deals.';
   const imageUrl = ogImage || imageConfig.url;
-  const canonicalUrl = `https://www.globaltravelreport.com${pathname}`;
 
   return (
     <main>

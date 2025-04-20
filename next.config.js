@@ -7,8 +7,15 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**',
       },
-    ],
-    unoptimized: false,
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+      }
+    ]
   },
   webpack: (config) => {
     config.resolve.alias = {
@@ -29,9 +36,6 @@ const nextConfig = {
   },
   experimental: {
     // Remove serverActions as it's now enabled by default
-  },
-  viewport: {
-    themeColor: '#000000',
   },
 };
 

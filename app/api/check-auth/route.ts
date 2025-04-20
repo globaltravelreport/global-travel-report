@@ -10,4 +10,27 @@ export async function GET() {
   }
 
   return NextResponse.json({ authenticated: true })
+}
+
+export async function POST(request: Request) {
+  try {
+    const { username, password } = await request.json()
+
+    // Check credentials
+    if (username === 'Admin' && password === 'Nuch07!') {
+      const response = NextResponse.json({ authenticated: true })
+      response.cookies.set('auth', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/'
+      })
+      return response
+    }
+
+    return new NextResponse(null, { status: 401 })
+  } catch (error) {
+    console.error('Authentication error:', error)
+    return new NextResponse(null, { status: 500 })
+  }
 } 

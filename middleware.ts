@@ -1,48 +1,75 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// ✅ Middleware config with experimental-edge runtime
+export const config = {
+  matcher: ['/nuch', '/nuch/:path*'],
+  runtime: 'experimental-edge'
+}
+
+// ✅ Get credentials from environment variables
+const VALID_USERNAME = process.env.BASIC_AUTH_USERNAME || 'admin'
+const VALID_PASSWORD = process.env.BASIC_AUTH_PASSWORD || 'Nuch07!'
+
+// ✅ Constant-time comparison function to prevent timing attacks
+function safeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false
+  let result = 0
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  }
+  return result === 0
+}
+
+// ✅ Auth header decoder and validator
+function checkBasicAuth(authHeader: string | null): boolean {
+  if (!authHeader) return false
+
+  try {
+    const base64Credentials = authHeader.split(' ')[1]
+    const credentials = atob(base64Credentials) // Edge-compatible alternative to Buffer
+    const [username, password] = credentials.includes(':') ? credentials.split(':') : ['', '']
+
+    return safeCompare(username, VALID_USERNAME) && safeCompare(password, VALID_PASSWORD)
+  } catch {
+    return false
+  }
+}
+
+// ✅ Edge Middleware function
 export function middleware(request: NextRequest) {
-  // Only apply to /rewrite route
-  if (request.nextUrl.pathname.startsWith('/rewrite')) {
+  if (request.nextUrl.pathname.startsWith('/nuch')) {
     const authHeader = request.headers.get('authorization')
 
-    if (!authHeader) {
-      return new NextResponse(null, {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Global Travel Report"',
-        },
-      })
-    }
-
-    const base64Credentials = authHeader.split(' ')[1]
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii')
-    const [username, password] = credentials.split(':')
-
-    if (username === 'Admin' && password === 'Nuch07!') {
+    if (checkBasicAuth(authHeader)) {
       const response = NextResponse.next()
-      // Set a session cookie
-      response.cookies.set('auth', 'true', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/rewrite'
-      })
+
+      // Add strict security headers
+      response.headers.set('Cache-Control', 'no-store, must-revalidate')
+      response.headers.set('Pragma', 'no-cache')
+      response.headers.set('Expires', '0')
+      response.headers.set('X-Frame-Options', 'DENY')
+      response.headers.set('X-Content-Type-Options', 'nosniff')
+      response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
+      response.headers.set('Content-Security-Policy', "default-src 'self'")
+
       return response
     }
 
-    return new NextResponse(null, {
+    // Return a 401 prompt if credentials are missing or incorrect
+    return new NextResponse('Authentication required', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic realm="Global Travel Report"',
-      },
+        'WWW-Authenticate': 'Basic realm="Secure Area", charset="UTF-8"',
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff'
+      }
     })
   }
 
   return NextResponse.next()
 }
-
-// Configure which routes to run middleware on
-export const config = {
-  matcher: ['/rewrite/:path*'],
-} 

@@ -14,7 +14,7 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [articleSlug, setArticleSlug] = useState('')
+  const [rewrittenContent, setRewrittenContent] = useState<RewrittenContent | null>(null)
 
   const handleRewrite = async () => {
     if (!originalContent && !sourceUrl) {
@@ -25,6 +25,7 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
     setIsLoading(true)
     setError(null)
     setSuccess(false)
+    setRewrittenContent(null)
 
     try {
       const response = await fetch('/api/rewrite', {
@@ -34,23 +35,7 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
         },
         body: JSON.stringify({
           content: originalContent,
-          sourceUrl,
-          guidelines: {
-            type: 'editorial',
-            platform: 'Global Travel Report',
-            tone: 'informative and friendly',
-            format: 'article',
-            length: '300-400 words',
-            requirements: [
-              'Original editorial content',
-              'No reference to original source',
-              'Conversational tone without emojis',
-              'Strong engaging title',
-              'One-sentence summary',
-              '3-5 SEO keywords',
-              'Optional CTA'
-            ]
-          }
+          url: sourceUrl,
         }),
       })
 
@@ -59,10 +44,9 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
         throw new Error(errorData.error || 'Failed to rewrite content')
       }
 
-      const rewrittenContent: RewrittenContent = await response.json()
-      onRewriteComplete(rewrittenContent)
-      setOriginalContent('')
-      setSourceUrl('')
+      const data = await response.json()
+      setRewrittenContent(data)
+      onRewriteComplete(data)
       setSuccess(true)
     } catch (err) {
       console.error('Error rewriting content:', err)
@@ -105,18 +89,41 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
         </div>
       )}
 
-      {success && (
-        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
-          <p className="font-medium">Content successfully rewritten!</p>
-          <p className="text-sm mt-1">
-            View your article: {' '}
-            <Link 
-              href={`/articles/${articleSlug}`}
-              className="text-brand-teal hover:underline"
-            >
-              Click here
-            </Link>
-          </p>
+      {success && rewrittenContent && (
+        <div className="space-y-4">
+          <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
+            <p className="font-medium">Content successfully rewritten!</p>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Title</h3>
+              <p className="text-gray-700">{rewrittenContent.title}</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Summary</h3>
+              <p className="text-gray-700">{rewrittenContent.summary}</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Content</h3>
+              <div className="bg-gray-50 p-4 rounded-md">
+                <pre className="whitespace-pre-wrap text-gray-700">{rewrittenContent.content}</pre>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Keywords</h3>
+              <div className="flex flex-wrap gap-2">
+                {rewrittenContent.keywords.map((keyword, index) => (
+                  <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

@@ -14,10 +14,11 @@ class ErrorBot {
     }
 
     this.targetUrl = process.env.TARGET_URL.replace(/\/$/, ''); // Remove trailing slash if present
-    this.dataDir = path.join(process.cwd(), 'data', 'errors');
-    this.timeout = parseInt(process.env.TIMEOUT_MS || '15000');
-    this.maxRetries = 3;
-    this.rateLimit = 1000; // 1 second between requests
+    this.dataDir = process.env.DATA_DIR || path.join(process.cwd(), 'data', 'errors');
+    this.timeout = parseInt(process.env.TIMEOUT_MS) || 30000;
+    this.maxRetries = parseInt(process.env.MAX_RETRIES) || 3;
+    this.rateLimit = parseInt(process.env.RATE_LIMIT) || 1000;
+    this.headers = {}; // Initialize empty headers object
     this.visitedUrls = new Set(); // Track visited URLs to avoid duplicates
   }
 
@@ -33,6 +34,11 @@ class ErrorBot {
     }
   }
 
+  setHeaders(headers) {
+    this.headers = { ...this.headers, ...headers };
+    logger.info('Updated request headers', { headers: this.headers });
+  }
+
   async checkUrl(url, retryCount = 0) {
     try {
       // Skip if already visited
@@ -43,13 +49,14 @@ class ErrorBot {
 
       const response = await axios.get(url, {
         timeout: this.timeout,
-        validateStatus: null // Accept all status codes
+        headers: this.headers, // Include custom headers in request
+        validateStatus: null // Allow any status code
       });
       
       return {
         url,
         status: response.status,
-        ok: response.status >= 200 && response.status < 400
+        ok: response.status >= 200 && response.status < 300
       };
     } catch (error) {
       if (retryCount < this.maxRetries) {
@@ -59,18 +66,127 @@ class ErrorBot {
       }
       return {
         url,
-        status: 0,
+        status: error.response?.status || 500,
         ok: false,
         error: error.message
       };
     }
   }
 
+  async checkAuthIntegration(url, retryCount = 0) {
+    try {
+      const response = await axios.get(url, {
+        timeout: this.timeout,
+        headers: this.headers,
+        validateStatus: null // Allow any status code to handle auth redirects
+      });
+      
+      const $ = cheerio.load(response.data);
+      const hasLoginForm = $('form[action*="login"], form[action*="auth"], form[action*="signin"]').length > 0;
+      const hasAuthInputs = $('input[name*="username"], input[name*="email"], input[name*="password"]').length >= 2;
+      const hasAuthEndpoint = response.request?.path?.includes('auth') || response.request?.path?.includes('login');
+      const hasSecureConnection = url.startsWith('https');
+      
+      return {
+        url,
+        hasLoginForm,
+        hasAuthInputs,
+        hasAuthEndpoint,
+        hasSecureConnection,
+        status: response.status,
+        ok: response.status >= 200 && response.status < 300
+      };
+    } catch (error) {
+      if (retryCount < this.maxRetries) {
+        logger.warn(`Error checking auth integration at ${url}, retrying (${retryCount + 1}/${this.maxRetries}):`, error.message);
+        await new Promise(resolve => setTimeout(resolve, this.rateLimit * Math.pow(2, retryCount)));
+        return this.checkAuthIntegration(url, retryCount + 1);
+      }
+      return {
+        url,
+        error: error.message,
+        ok: false
+      };
+    }
+  }
+
+  async checkOpenAIIntegration(url, retryCount = 0) {
+    try {
+      const response = await axios.get(url, {
+        timeout: this.timeout,
+        headers: this.headers,
+        validateStatus: null // Allow any status code
+      });
+      
+      const $ = cheerio.load(response.data);
+      const hasOpenAIKey = process.env.OPENAI_API_KEY !== undefined;
+      const hasRewriteForm = $('form[action*="rewrite"], form[action*="generate"], form[action*="ai"]').length > 0;
+      const hasStoryInput = $('textarea[name*="story"], textarea[name*="content"], textarea[name*="text"]').length > 0;
+      const hasAIEndpoint = response.request?.path?.includes('openai') || response.request?.path?.includes('ai');
+      
+      // Check for common OpenAI-related elements
+      const hasAIElements = $('[data-ai], [data-openai], .ai-powered, .openai').length > 0;
+      
+      return {
+        url,
+        hasOpenAIKey,
+        hasRewriteForm,
+        hasStoryInput,
+        hasAIEndpoint,
+        hasAIElements,
+        status: response.status,
+        ok: response.status >= 200 && response.status < 300
+      };
+    } catch (error) {
+      if (retryCount < this.maxRetries) {
+        logger.warn(`Error checking OpenAI integration at ${url}, retrying (${retryCount + 1}/${this.maxRetries}):`, error.message);
+        await new Promise(resolve => setTimeout(resolve, this.rateLimit * Math.pow(2, retryCount)));
+        return this.checkOpenAIIntegration(url, retryCount + 1);
+      }
+      return {
+        url,
+        error: error.message,
+        ok: false
+      };
+    }
+  }
+
   async crawlPage(url) {
     try {
-      const response = await axios.get(url, { timeout: this.timeout });
+      const response = await axios.get(url, { 
+        timeout: this.timeout,
+        headers: this.headers
+      });
       const $ = cheerio.load(response.data);
       const errors = [];
+
+      // Check authentication integration for /nuch page
+      if (url.includes('/nuch')) {
+        const authCheck = await this.checkAuthIntegration(url);
+        if (!authCheck.hasLoginForm || !authCheck.hasAuthInputs) {
+          errors.push({
+            type: 'auth_missing',
+            url,
+            details: 'Login form or authentication inputs missing'
+          });
+        }
+
+        const openAICheck = await this.checkOpenAIIntegration(url);
+        if (!openAICheck.hasOpenAIKey) {
+          errors.push({
+            type: 'openai_key_missing',
+            url,
+            details: 'OpenAI API key not configured'
+          });
+        }
+        if (!openAICheck.hasRewriteForm || !openAICheck.hasStoryInput) {
+          errors.push({
+            type: 'rewrite_form_missing',
+            url,
+            details: 'Story rewrite form or input missing'
+          });
+        }
+      }
 
       // Check all links
       $('a').each((_, element) => {
