@@ -16,7 +16,8 @@
     "start:seo": "node bots/seo/seoBot.js",
     "start:errors": "node bots/errors/errorBot.js",
     "run:all": "npm run start:seo && npm run start:errors",
-    "deploy:bots": "./deploy-bots.sh"
+    "deploy:bots": "./deploy-bots.sh",
+    "update-article-seo": "node scripts/update-article-seo.js"
   },
   "dependencies": {
     "@heroicons/react": "2.1.1",

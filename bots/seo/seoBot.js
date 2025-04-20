@@ -113,9 +113,13 @@ class SEOBot {
                 lighthouse: await this.runLighthouse(url)
             };
 
-            // Get AI content feedback
+            // Get AI content feedback and SEO suggestions
             const content = $('body').text().substring(0, 4000);
-            analysis.aiFeedback = await this.getAIContentFeedback(content);
+            const title = $('h1').first().text() || $('title').text();
+            const summary = $('meta[name="description"]').attr('content') || '';
+            
+            const seoSuggestions = await this.generateSEOSuggestions(title, summary, content);
+            analysis.seoSuggestions = seoSuggestions;
 
             this.results.push(analysis);
             await this.saveResults(analysis);
@@ -128,6 +132,124 @@ class SEOBot {
                 return this.analyzePage(url, retryCount + 1);
             }
             logger.error(`Error analyzing page ${url} after 3 retries:`, error);
+            throw error;
+        }
+    }
+
+    async generateSEOSuggestions(title, summary, content) {
+        try {
+            const response = await this.config.openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "system",
+                        content: `You are an SEO expert. Generate optimized metadata for the following content.
+                        Follow these rules:
+                        - Meta title: max 60 characters
+                        - Meta description: max 160 characters
+                        - Keywords: 5-10 relevant terms
+                        - OG title: engaging and shareable
+                        - OG description: compelling and clickable
+                        - Image alt text: descriptive and SEO-friendly`
+                    },
+                    {
+                        role: "user",
+                        content: `Title: ${title}\nSummary: ${summary}\nContent: ${content.substring(0, 2000)}`
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 500
+            });
+
+            const suggestions = response.choices[0].message.content;
+            return this.parseSEOSuggestions(suggestions);
+        } catch (error) {
+            logger.error('Error generating SEO suggestions:', error);
+            return this.generateFallbackSEOSuggestions(title, summary);
+        }
+    }
+
+    parseSEOSuggestions(suggestions) {
+        try {
+            const lines = suggestions.split('\n');
+            const result = {
+                metaTitle: '',
+                metaDescription: '',
+                keywords: [],
+                ogTitle: '',
+                ogDescription: '',
+                imageAlt: ''
+            };
+
+            for (const line of lines) {
+                if (line.toLowerCase().includes('meta title:')) {
+                    result.metaTitle = line.split(':')[1].trim();
+                } else if (line.toLowerCase().includes('meta description:')) {
+                    result.metaDescription = line.split(':')[1].trim();
+                } else if (line.toLowerCase().includes('keywords:')) {
+                    result.keywords = line.split(':')[1].trim().split(',').map(k => k.trim());
+                } else if (line.toLowerCase().includes('og title:')) {
+                    result.ogTitle = line.split(':')[1].trim();
+                } else if (line.toLowerCase().includes('og description:')) {
+                    result.ogDescription = line.split(':')[1].trim();
+                } else if (line.toLowerCase().includes('image alt:')) {
+                    result.imageAlt = line.split(':')[1].trim();
+                }
+            }
+
+            // Validate lengths
+            if (result.metaTitle.length > 60) {
+                result.metaTitle = result.metaTitle.substring(0, 57) + '...';
+            }
+            if (result.metaDescription.length > 160) {
+                result.metaDescription = result.metaDescription.substring(0, 157) + '...';
+            }
+
+            return result;
+        } catch (error) {
+            logger.error('Error parsing SEO suggestions:', error);
+            return this.generateFallbackSEOSuggestions('', '');
+        }
+    }
+
+    generateFallbackSEOSuggestions(title, summary) {
+        return {
+            metaTitle: title.substring(0, 60),
+            metaDescription: summary.substring(0, 160),
+            keywords: ['travel', 'destination', 'guide', 'tips', 'adventure'],
+            ogTitle: title,
+            ogDescription: summary,
+            imageAlt: 'Travel destination image'
+        };
+    }
+
+    async updateArticleMetadata(articleId, seoSuggestions) {
+        try {
+            const articlesPath = path.join(process.cwd(), 'data', 'articles.json');
+            const articles = JSON.parse(await fs.readFile(articlesPath, 'utf-8'));
+            
+            const article = articles.find(a => a.id === articleId);
+            if (!article) {
+                throw new Error(`Article ${articleId} not found`);
+            }
+
+            // Update article metadata
+            article.seo = {
+                title: seoSuggestions.metaTitle,
+                description: seoSuggestions.metaDescription,
+                keywords: seoSuggestions.keywords
+            };
+
+            if (!article.featuredImage) {
+                article.featuredImage = {};
+            }
+            article.featuredImage.alt = seoSuggestions.imageAlt;
+
+            // Save updated articles
+            await fs.writeFile(articlesPath, JSON.stringify(articles, null, 2));
+            logger.info(`Updated SEO metadata for article ${articleId}`);
+        } catch (error) {
+            logger.error('Error updating article metadata:', error);
             throw error;
         }
     }

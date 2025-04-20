@@ -29,25 +29,33 @@ export async function POST(request: Request) {
     if (url) {
       try {
         console.log('Fetching content from URL:', url)
-        const response = await axios.get(url)
+        const response = await axios.get(url, {
+          timeout: 10000,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; GlobalTravelReport/1.0; +https://www.globaltravelreport.com)'
+          }
+        })
         const $ = cheerio.load(response.data)
         
         // Remove unwanted elements
-        $('script, style, iframe, noscript').remove()
+        $('script, style, iframe, noscript, nav, footer, header').remove()
         
         // Extract main content
-        const title = $('h1').first().text().trim()
-        const paragraphs = $('p')
-          .map((_index: number, el: any) => $(el).text().trim())
+        const title = $('h1').first().text().trim() || $('title').text().trim()
+        const paragraphs = $('p, h2, h3')
+          .map((_index: number, el: any) => {
+            const text = $(el).text().trim()
+            return text.length > 30 ? text : null // Filter out very short paragraphs
+          })
           .get()
-          .filter((text: string) => text.length > 50) // Filter out short paragraphs
+          .filter(Boolean)
         
         articleContent = `${title}\n\n${paragraphs.join('\n\n')}`
         console.log('Extracted content length:', articleContent.length)
       } catch (error) {
         console.error('Error fetching URL:', error)
         return NextResponse.json(
-          { error: 'Failed to fetch content from URL' },
+          { error: 'Failed to fetch content from URL. Please check the URL and try again.' },
           { status: 400 }
         )
       }
@@ -56,7 +64,7 @@ export async function POST(request: Request) {
     if (!articleContent) {
       console.error('No content provided')
       return NextResponse.json(
-        { error: 'No content provided' },
+        { error: 'Please provide either a URL or content to rewrite' },
         { status: 400 }
       )
     }
@@ -68,12 +76,15 @@ export async function POST(request: Request) {
         {
           role: 'system',
           content: `You are an expert travel journalist rewriting this article to sound original, engaging, and informative. 
-          Remove fluff, avoid repetition, preserve facts, and rewrite in a tone suitable for Global Travel Report. 
-          Include:
-          - Rewritten title
-          - Article summary
-          - Main content (optimised for clarity and flow)
-          - 8–10 relevant keywords for SEO
+          Follow these guidelines:
+          1. Create a compelling title that captures attention
+          2. Write a concise summary (2-3 sentences)
+          3. Rewrite the content to be:
+             - Original and unique
+             - Well-structured with clear sections
+             - Engaging and informative
+             - Free of fluff and repetition
+          4. Include 8-10 relevant SEO keywords
           Return as structured JSON: { title, summary, content, keywords }`
         },
         {
