@@ -1,0 +1,62 @@
+name: Auto-fix and Bot Execution
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  auto-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run SEO Bot
+        run: npm run seo-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Run Error Bot
+        run: npm run error-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Run Screenshot Bot
+        run: npm run screenshot-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          SCREENSHOT_PAGES: ${{ secrets.SCREENSHOT_PAGES }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Auto-fix and Commit
+        run: |
+          git config --global user.name 'Auto-fix Bot'
+          git config --global user.email 'auto-fix@globaltravelreport.com'
+          git add .
+          git commit -m "🤖 auto-fix: Apply automated fixes" || exit 0
+          git push || exit 0 

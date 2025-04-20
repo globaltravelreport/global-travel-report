@@ -38,6 +38,9 @@ export default function RewritePage() {
       try {
         const response = await fetch('/rewrite', {
           credentials: 'include',
+          headers: {
+            'Authorization': 'Basic ' + btoa('Admin:Nuch07!')
+          }
         })
         if (response.ok) {
           setIsAuthenticated(true)

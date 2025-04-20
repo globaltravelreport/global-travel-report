@@ -8,14 +8,18 @@ import { AuthProvider } from './contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const viewport: Viewport = {
+  themeColor: '#000000',
+}
+
 // Base metadata configuration
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.globaltravelreport.com'),
-  title: {
-    default: 'Global Travel Report',
-    template: '%s | Global Travel Report'
+  title: 'Global Travel Report',
+  description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
+  icons: {
+    icon: '/favicon.ico',
   },
-  description: 'Your trusted source for travel news, reviews, and tips',
+  metadataBase: new URL('https://www.globaltravelreport.com'),
   keywords: ['travel', 'news', 'reviews', 'tips', 'destinations', 'deals'],
   authors: [{ name: 'Global Travel Report' }],
   creator: 'Global Travel Report',
@@ -26,12 +30,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
+    title: 'Global Travel Report',
+    description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
     url: 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
-    title: 'Global Travel Report',
-    description: 'Your trusted source for travel news, reviews, and tips',
+    locale: 'en_US',
+    type: 'website',
     images: [
       {
         url: 'https://www.globaltravelreport.com/images/og-default.jpg',
@@ -44,10 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Global Travel Report',
-    description: 'Your trusted source for travel news, reviews, and tips',
-    images: ['https://www.globaltravelreport.com/images/twitter-default.jpg'],
+    description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
     creator: '@globaltravelreport',
-    site: '@globaltravelreport',
   },
   robots: {
     index: true,
@@ -61,17 +63,11 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'TODO: Add Google Search Console verification code',
+    google: 'google-site-verification-code',
   },
   alternates: {
     canonical: 'https://www.globaltravelreport.com',
   },
-}
-
-export const viewport: Viewport = {
-  themeColor: '#0D9488', // brand-teal color
-  width: 'device-width',
-  initialScale: 1,
 }
 
 export default function RootLayout({

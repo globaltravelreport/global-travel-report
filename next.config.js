@@ -1,36 +1,37 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.cloudfront.net',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-      {
-        protocol: 'https',
-        hostname: 'globaltravelreport.com',
+        hostname: '**',
       },
     ],
+    unoptimized: false,
   },
   webpack: (config) => {
-    config.resolve.alias['@'] = process.cwd();
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, './'),
+    };
     return config;
   },
-  // Ensure static files are served correctly
-  output: 'standalone',
-  // Enable static file serving
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  // Remove experimental.serverActions as it's now enabled by default
   staticPageGenerationTimeout: 1000,
-  // Enable static generation for all pages
   generateBuildId: async () => {
     return 'build-' + Date.now();
+  },
+  experimental: {
+    // Remove serverActions as it's now enabled by default
+  },
+  viewport: {
+    themeColor: '#000000',
   },
 };
 

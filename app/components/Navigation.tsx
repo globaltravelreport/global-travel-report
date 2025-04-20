@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,7 +16,13 @@ const Navigation = () => {
     { label: 'Deals', href: '/deals' },
     { label: 'Destinations', href: '/destinations' },
     { label: 'Tips', href: '/tips' },
+    { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
+  ]
+
+  const secondaryMenuItems = [
+    { label: 'Terms', href: '/terms' },
+    { label: 'Privacy', href: '/privacy' },
   ]
 
   return (
@@ -54,6 +60,22 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
+              <div className="border-l border-white border-opacity-20 pl-4 ml-4">
+                {secondaryMenuItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-navy ${
+                      pathname === item.href
+                        ? 'bg-white bg-opacity-20'
+                        : 'hover:bg-white hover:bg-opacity-10'
+                    }`}
+                    aria-current={pathname === item.href ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -128,6 +150,23 @@ const Navigation = () => {
                     {item.label}
                   </Link>
                 ))}
+                <div className="border-t border-white border-opacity-20 mt-4 pt-4">
+                  {secondaryMenuItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`block px-4 py-3 text-base font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-navy ${
+                        pathname === item.href
+                          ? 'bg-white bg-opacity-20'
+                          : 'hover:bg-white hover:bg-opacity-10'
+                      }`}
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={pathname === item.href ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               </nav>
             </div>
           </div>
