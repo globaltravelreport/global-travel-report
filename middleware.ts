@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// ✅ Middleware config with edge runtime
+// ✅ Middleware config with experimental-edge runtime
 export const config = {
   matcher: ['/nuch', '/nuch/:path*'],
-  runtime: 'edge'
+  runtime: 'experimental-edge'
 }
 
 // ✅ Hardcoded credentials as specified
