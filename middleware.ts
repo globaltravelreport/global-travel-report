@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// ✅ Middleware config with experimental-edge runtime
+// ✅ Middleware config with edge runtime
 export const config = {
   matcher: ['/nuch', '/nuch/:path*'],
-  runtime: 'experimental-edge'
+  runtime: 'edge'
 }
 
-// ✅ Get credentials from environment variables
-const VALID_USERNAME = process.env.BASIC_AUTH_USERNAME || 'admin'
-const VALID_PASSWORD = process.env.BASIC_AUTH_PASSWORD || 'Nuch07!'
+// ✅ Hardcoded credentials as specified
+const VALID_USERNAME = 'Admin'
+const VALID_PASSWORD = 'Nuch07!'
 
 // ✅ Constant-time comparison function to prevent timing attacks
 function safeCompare(a: string, b: string): boolean {
