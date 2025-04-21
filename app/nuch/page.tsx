@@ -80,13 +80,22 @@ export default function NuchPage() {
                       className="flex-1 min-w-0 block w-full px-4 py-3 rounded-l-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal text-base bg-white"
                     />
                     <button
-                      type="button"
-                      onClick={() => setUrl('')}
-                      className="ml-px inline-flex items-center px-6 py-3 border-2 border-gray-300 text-base font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
+                      type="submit"
+                      disabled={isLoading || (!url && !content)}
+                      className="ml-px inline-flex items-center px-6 py-3 border-2 border-gray-300 text-base font-medium rounded-r-md text-white bg-brand-teal hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Clear
+                      {isLoading ? 'Sending...' : 'Send'}
                     </button>
                   </div>
+                  {url && (
+                    <button
+                      type="button"
+                      onClick={() => setUrl('')}
+                      className="mt-2 text-sm text-gray-500 hover:text-gray-700"
+                    >
+                      Clear URL
+                    </button>
+                  )}
                 </div>
 
                 <div className="relative">
@@ -111,16 +120,6 @@ export default function NuchPage() {
                     className="mt-1 block w-full rounded-md border-2 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal text-base bg-white px-4 py-3"
                   />
                 </div>
-              </div>
-
-              <div className="mt-8">
-                <button
-                  type="submit"
-                  disabled={isLoading || (!url && !content)}
-                  className="w-full flex justify-center py-3 px-6 border border-transparent rounded-md shadow-lg text-base font-medium text-white bg-brand-teal hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? 'Rewriting...' : 'Fetch & Rewrite'}
-                </button>
               </div>
             </div>
           </form>
