@@ -33,7 +33,7 @@ export default function PageLayout({
   const imageUrl = ogImage || imageConfig.url;
 
   return (
-    <main>
+    <main className="bg-white min-h-screen">
       <Hero 
         title={title} 
         description={description} 

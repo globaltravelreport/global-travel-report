@@ -59,28 +59,28 @@ export default function NuchPage() {
       description="Transform your content with AI-powered rewriting"
       heroType="simple"
     >
-      <div className="min-h-screen bg-white">
-        <div className="max-w-4xl mx-auto p-6">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-              <div className="space-y-4">
+            <div className="bg-white shadow-xl rounded-lg p-8 border-2 border-gray-200">
+              <div className="space-y-6">
                 <div>
-                  <label htmlFor="url" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="url" className="block text-lg font-medium text-gray-700 mb-2">
                     Paste a URL
                   </label>
-                  <div className="mt-1 flex rounded-md shadow-sm">
+                  <div className="flex rounded-md shadow-sm">
                     <input
                       type="url"
                       id="url"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       placeholder="https://example.com/article"
-                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal sm:text-sm bg-white"
+                      className="flex-1 min-w-0 block w-full px-4 py-3 rounded-l-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal text-base bg-white"
                     />
                     <button
                       type="button"
                       onClick={() => setUrl('')}
-                      className="ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
+                      className="ml-px inline-flex items-center px-6 py-3 border-2 border-gray-300 text-base font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
                     >
                       Clear
                     </button>
@@ -89,15 +89,15 @@ export default function NuchPage() {
 
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div className="w-full border-t border-gray-300" />
+                    <div className="w-full border-t-2 border-gray-200" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="px-2 bg-white text-sm text-gray-500">Or</span>
+                    <span className="px-4 py-1 bg-white text-base text-gray-500 font-medium">Or</span>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="content" className="block text-lg font-medium text-gray-700 mb-2">
                     Paste content directly
                   </label>
                   <textarea
@@ -106,16 +106,16 @@ export default function NuchPage() {
                     onChange={(e) => setContent(e.target.value)}
                     rows={10}
                     placeholder="Paste your content here..."
-                    className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal sm:text-sm bg-white"
+                    className="mt-1 block w-full rounded-md border-2 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-teal focus:border-brand-teal text-base bg-white px-4 py-3"
                   />
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-8">
                 <button
                   type="submit"
                   disabled={isLoading || (!url && !content)}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-teal hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex justify-center py-3 px-6 border border-transparent rounded-md shadow-lg text-base font-medium text-white bg-brand-teal hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Rewriting...' : 'Fetch & Rewrite'}
                 </button>
@@ -124,7 +124,7 @@ export default function NuchPage() {
           </form>
 
           {result && (
-            <div className="mt-8 bg-white shadow rounded-lg p-6">
+            <div className="mt-8 bg-white shadow-xl rounded-lg p-8 border-2 border-gray-200">
               <div className="space-y-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{result.title}</h2>
