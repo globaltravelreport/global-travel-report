@@ -57,10 +57,12 @@ export default function NuchPage() {
     <PageLayout
       title="AI Content Rewriter"
       description="Transform your content with AI-powered rewriting"
-      heroType="simple"
+      heroType="none"
     >
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12 mt-16">
         <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">AI Content Rewriter</h1>
+          <p className="text-lg text-gray-600 mb-8 text-center">Transform your content with AI-powered rewriting</p>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-white shadow-xl rounded-lg p-8 border-2 border-gray-200">
               <div className="space-y-6">

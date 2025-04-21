@@ -34,11 +34,13 @@ export default function PageLayout({
 
   return (
     <main className="bg-white min-h-screen">
-      <Hero 
-        title={title} 
-        description={description} 
-        heroType={heroType}
-      />
+      {heroType !== 'none' && (
+        <Hero 
+          title={title} 
+          description={description} 
+          heroType={heroType}
+        />
+      )}
       {children}
     </main>
   );
