@@ -5,13 +5,20 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT = 10 // requests
 const RATE_LIMIT_WINDOW = 10 // seconds
 
-// Valid credentials
-const VALID_USERNAMES = ['Admin', 'admin']
-const VALID_PASSWORD = 'Nuch07!'
+// Define protected route paths as a type
+type ProtectedRoute = '/nuch' | '/rodney'
 
-// Rodney page credentials
-const RODNEY_USERNAME = 'Rodney'
-const RODNEY_PASSWORD = 'Travel2024!'
+// Valid credentials for protected routes
+const CREDENTIALS: Record<ProtectedRoute, { username: string; password: string }> = {
+  '/nuch': {
+    username: 'Admin',
+    password: 'Nuch07!'
+  },
+  '/rodney': {
+    username: 'Rodney',
+    password: 'Rodney07!'
+  }
+}
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
@@ -37,11 +44,13 @@ function isRateLimited(ip: string): boolean {
 
 // Middleware config
 export const config = {
-  matcher: ['/nuch', '/rodney'],
+  matcher: ['/nuch', '/rodney']
 }
 
 // Middleware function
 export async function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new NextResponse(null, {
@@ -62,34 +71,40 @@ export async function middleware(req: NextRequest) {
     return new NextResponse('Too Many Requests', { status: 429 })
   }
 
-  const protectedPaths = ['/nuch', '/rodney']
-  const pathname = req.nextUrl.pathname
-
-  if (protectedPaths.includes(pathname)) {
+  // Check if path requires authentication
+  if (pathname in CREDENTIALS && (pathname === '/nuch' || pathname === '/rodney')) {
     const authHeader = req.headers.get('authorization')
 
-    if (authHeader) {
-      const base64 = authHeader.split(' ')[1]
-      const [user, pass] = atob(base64).split(':')
-
-      // Check credentials based on path
-      if (pathname === '/nuch') {
-        if (user === 'Admin' && pass === 'Nuch07!') {
-          return NextResponse.next()
-        }
-      } else if (pathname === '/rodney') {
-        if (user === 'Rodney' && pass === 'Travel2024!') {
-          return NextResponse.next()
-        }
-      }
+    if (!authHeader) {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Global Travel Report"',
+        },
+      })
     }
 
-    return new NextResponse('Unauthorized', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Global Travel Report"',
-      },
-    })
+    try {
+      const base64 = authHeader.split(' ')[1]
+      const [user, pass] = atob(base64).split(':')
+      const validCreds = CREDENTIALS[pathname as ProtectedRoute]
+
+      if (user !== validCreds.username || pass !== validCreds.password) {
+        return new NextResponse('Unauthorized', {
+          status: 401,
+          headers: {
+            'WWW-Authenticate': 'Basic realm="Global Travel Report"',
+          },
+        })
+      }
+    } catch (e) {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Global Travel Report"',
+        },
+      })
+    }
   }
 
   // Continue with the request
