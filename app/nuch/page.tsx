@@ -17,7 +17,7 @@ export default function NuchPage() {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Basic ${btoa('nuch:' + process.env.NUCH_PASSWORD)}`
+          'Authorization': `Basic ${btoa('admin:Nuch07!')}`
         },
         body: JSON.stringify({ url }),
       })

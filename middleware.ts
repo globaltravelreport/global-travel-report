@@ -6,7 +6,7 @@ const RATE_LIMIT = 10 // requests
 const RATE_LIMIT_WINDOW = 10 // seconds
 
 // Define protected route paths as a type
-type ProtectedRoute = '/nuch' | '/rodney'
+type ProtectedRoute = '/nuch' | '/rodney' | '/api/rewrite'
 
 // Valid credentials for protected routes
 const CREDENTIALS: Record<ProtectedRoute, { username: string; password: string }> = {
@@ -17,6 +17,10 @@ const CREDENTIALS: Record<ProtectedRoute, { username: string; password: string }
   '/rodney': {
     username: 'rodneyp',
     password: 'Rodney07!'
+  },
+  '/api/rewrite': {
+    username: 'admin',
+    password: 'Nuch07!'
   }
 }
 
@@ -44,7 +48,7 @@ function isRateLimited(ip: string): boolean {
 
 // Middleware config
 export const config = {
-  matcher: ['/nuch', '/rodney']
+  matcher: ['/nuch', '/rodney', '/api/rewrite']
 }
 
 // Middleware function
