@@ -1,3 +1,5 @@
+'use client'
+
 import { XMarkIcon, ShareIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
