@@ -11,11 +11,11 @@ type ProtectedRoute = '/nuch' | '/rodney'
 // Valid credentials for protected routes
 const CREDENTIALS: Record<ProtectedRoute, { username: string; password: string }> = {
   '/nuch': {
-    username: 'Admin',
+    username: 'admin',
     password: 'Nuch07!'
   },
   '/rodney': {
-    username: 'Rodney',
+    username: 'rodneyp',
     password: 'Rodney07!'
   }
 }
