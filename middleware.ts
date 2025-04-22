@@ -9,6 +9,10 @@ const RATE_LIMIT_WINDOW = 10 // seconds
 const VALID_USERNAMES = ['Admin', 'admin']
 const VALID_PASSWORD = 'Nuch07!'
 
+// Rodney page credentials
+const RODNEY_USERNAME = 'Rodney'
+const RODNEY_PASSWORD = 'Travel2024!'
+
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
   const rateLimit = rateLimitMap.get(ip)
@@ -68,11 +72,15 @@ export async function middleware(req: NextRequest) {
       const base64 = authHeader.split(' ')[1]
       const [user, pass] = atob(base64).split(':')
 
-      if (
-        user === 'Admin' &&
-        pass === 'Nuch07!'
-      ) {
-        return NextResponse.next()
+      // Check credentials based on path
+      if (pathname === '/nuch') {
+        if (user === 'Admin' && pass === 'Nuch07!') {
+          return NextResponse.next()
+        }
+      } else if (pathname === '/rodney') {
+        if (user === 'Rodney' && pass === 'Travel2024!') {
+          return NextResponse.next()
+        }
       }
     }
 
