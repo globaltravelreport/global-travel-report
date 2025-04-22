@@ -70,4 +70,5 @@ jest.mock('next/image', () => ({
 
 // Mock environment variables
 process.env.NEXT_PUBLIC_SITE_URL = 'http://localhost:3000'
-process.env.OPENAI_API_KEY = 'test-key' 
+process.env.OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'test-key'
+process.env.NEXT_PUBLIC_OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY || 'test-key' 

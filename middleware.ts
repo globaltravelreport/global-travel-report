@@ -33,7 +33,7 @@ function isRateLimited(ip: string): boolean {
 
 // Middleware config
 export const config = {
-  matcher: ['/nuch'],
+  matcher: ['/nuch', '/rodney'],
 }
 
 // Middleware function
@@ -58,7 +58,7 @@ export async function middleware(req: NextRequest) {
     return new NextResponse('Too Many Requests', { status: 429 })
   }
 
-  const protectedPaths = ['/nuch']
+  const protectedPaths = ['/nuch', '/rodney']
   const pathname = req.nextUrl.pathname
 
   if (protectedPaths.includes(pathname)) {

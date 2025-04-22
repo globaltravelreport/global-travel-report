@@ -31,6 +31,7 @@ interface FormData {
   tags?: string[]
   isSponsored?: boolean
   editorsPick?: boolean
+  author: string
 }
 
 interface StoryData {
@@ -166,7 +167,8 @@ export default function RodneyPage() {
     heroImage: null,
     tags: [],
     isSponsored: false,
-    editorsPick: false
+    editorsPick: false,
+    author: 'Rodney Pattison' // Default author
   })
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -228,7 +230,8 @@ export default function RodneyPage() {
         editorsPick: formData.editorsPick,
         tags: formData.tags,
         heroImage: formData.heroImage || undefined,
-        readTime: Math.ceil(formData.body.split(/\s+/).length / 200)
+        readTime: Math.ceil(formData.body.split(/\s+/).length / 200),
+        author: formData.author
       }
 
       // Submit to API
@@ -257,7 +260,8 @@ export default function RodneyPage() {
         heroImage: null,
         tags: [],
         isSponsored: false,
-        editorsPick: false
+        editorsPick: false,
+        author: 'Rodney Pattison' // Default author
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while saving the story')
@@ -296,6 +300,21 @@ export default function RodneyPage() {
                 id="title"
                 value={formData.title}
                 onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                required
+              />
+            </div>
+
+            {/* Author */}
+            <div>
+              <label htmlFor="author" className="block text-sm font-medium text-gray-700">
+                Author
+              </label>
+              <input
+                type="text"
+                id="author"
+                value={formData.author}
+                onChange={e => setFormData(prev => ({ ...prev, author: e.target.value }))}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 required
               />
