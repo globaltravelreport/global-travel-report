@@ -9,6 +9,9 @@
       "use": "@vercel/next"
     }
   ],
+  "includeFiles": [
+    "data/**"
+  ],
   "headers": [
     {
       "source": "/(.*)",
