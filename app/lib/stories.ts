@@ -20,6 +20,17 @@ export interface Story {
   editorsPick?: boolean
 }
 
+interface StoryMetadata {
+  title: string
+  slug: string
+  category: string
+  country: string
+  timestamp: string
+  featured?: boolean
+  published?: boolean
+  tags: string[]
+}
+
 async function fetchStory(slug: string): Promise<Story | null> {
   try {
     const response = await fetch(`/stories/${slug}.json`)
@@ -44,14 +55,22 @@ async function fetchStory(slug: string): Promise<Story | null> {
   }
 }
 
+async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
+  try {
+    const response = await fetch('/stories/index.json')
+    if (!response.ok) return []
+    return await response.json() as StoryMetadata[]
+  } catch (error) {
+    console.warn('Failed to fetch story metadata:', error)
+    return []
+  }
+}
+
 export async function getAllStories(): Promise<Story[]> {
   try {
-    const response = await fetch('/stories/manifest.json')
-    if (!response.ok) return []
-    
-    const manifest = await response.json() as string[]
+    const metadata = await fetchStoryMetadata()
     const stories = await Promise.all(
-      manifest.map(slug => fetchStory(slug))
+      metadata.map(meta => fetchStory(meta.slug))
     )
     
     return stories
