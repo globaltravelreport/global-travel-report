@@ -7,31 +7,77 @@ assignees: ''
 ---
 
 ## Feature Description
-<!-- Provide a clear and concise description of the feature -->
+<!-- Provide a clear description of the new feature -->
+
+## Requirements
+<!-- List the requirements this feature addresses -->
+
+## Implementation Details
+<!-- Explain the technical implementation -->
+- Architecture changes:
+- New components:
+- Database changes:
+- API changes:
+
+## Testing
+<!-- Describe the testing approach -->
+### Unit Tests
+- [ ] Tests added for new components
+- [ ] Tests added for new functions
+- [ ] Edge cases covered
+
+### Integration Tests
+- [ ] API integration tests
+- [ ] Component integration tests
+- [ ] End-to-end tests
+
+## Performance Impact
+<!-- Describe any performance implications -->
+- [ ] Load testing performed
+- [ ] Memory usage analyzed
+- [ ] Database query optimization checked
+
+## Screenshots
+<!-- Add screenshots/videos of the new feature -->
+
+## Documentation
+- [ ] API documentation updated
+- [ ] README updated
+- [ ] Code comments added
+- [ ] User documentation updated
+
+## Deployment Plan
+<!-- Outline the deployment strategy -->
+- [ ] Database migrations required
+- [ ] Environment variables added
+- [ ] Third-party service dependencies
+- [ ] Rollback plan defined
+
+## Checklist
+- [ ] Code follows style guide
+- [ ] All tests passing
+- [ ] Documentation complete
+- [ ] No security vulnerabilities
+- [ ] Feature flags configured (if applicable)
+- [ ] Analytics tracking added (if applicable)
+- [ ] Accessibility requirements met
+- [ ] Browser compatibility verified
+
+## Additional Notes
+<!-- Any additional information for reviewers -->
 
 ### Motivation
 <!-- Why is this feature needed? What problems does it solve? -->
 
-### Implementation Details
-<!-- Explain the changes you've made -->
-
-- [ ] Major changes
-- [ ] Database changes
-- [ ] API changes
-- [ ] UI changes
-
-### Testing
-<!-- Describe the tests you've added -->
+## Testing Done
+<!-- Describe the tests performed to validate the feature -->
 
 - [ ] Unit tests added
 - [ ] Integration tests added
 - [ ] Manual testing completed
 
-### Screenshots
-<!-- If applicable, add screenshots -->
-
-### Performance Impact
-<!-- Describe any performance implications -->
+## Screenshots (if applicable)
+<!-- Add screenshots to help explain your feature -->
 
 ### Documentation
 <!-- List documentation updates needed -->
@@ -46,10 +92,5 @@ assignees: ''
 ### Related Issues
 Closes #
 
-### Checklist
-- [ ] Code follows project style guidelines
-- [ ] Tests added/updated
-- [ ] Documentation updated
-- [ ] No new warnings generated
-- [ ] Tested in development environment
-- [ ] Reviewed own code 
+## Additional Notes
+<!-- Any additional information that reviewers should know --> 

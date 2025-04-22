@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { StoryDraft } from '@/types/content';
 import fs from 'fs/promises';
 import path from 'path';
@@ -8,47 +8,23 @@ const ARTICLES_FILE = path.join(process.cwd(), 'app/data/articles.json');
 // In a real application, this would be a database
 let publishedStories: StoryDraft[] = [];
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const story: StoryDraft = await request.json();
+    const storyData = await request.json();
+    
+    // Save to JSON file
+    const storiesDir = path.join(process.cwd(), 'data', 'stories');
+    await fs.mkdir(storiesDir, { recursive: true });
+    await fs.writeFile(
+      path.join(storiesDir, `${storyData.slug}.json`),
+      JSON.stringify(storyData, null, 2)
+    );
 
-    // Validate required fields
-    if (!story.title || !story.content || !story.category) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    // Read existing articles
-    let articles = [];
-    try {
-      const fileContent = await fs.readFile(ARTICLES_FILE, 'utf-8');
-      articles = JSON.parse(fileContent);
-    } catch (error) {
-      // File doesn't exist or is empty, create it with an empty array
-      await fs.writeFile(ARTICLES_FILE, '[]', 'utf-8');
-    }
-
-    // Add new article with timestamp and slug
-    const newArticle = {
-      ...story,
-      createdAt: new Date().toISOString(),
-      slug: story.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-      image: story.featuredImage?.url || '/images/articles/default.jpg'
-    };
-
-    // Add to beginning of array (most recent first)
-    articles.unshift(newArticle);
-
-    // Save back to file
-    await fs.writeFile(ARTICLES_FILE, JSON.stringify(articles, null, 2));
-
-    return NextResponse.json(newArticle, { status: 201 });
+    return NextResponse.json({ success: true, data: storyData });
   } catch (error) {
-    console.error('Error publishing story:', error);
+    console.error('Error saving story:', error);
     return NextResponse.json(
-      { error: 'Failed to publish story' },
+      { error: 'Failed to save story' },
       { status: 500 }
     );
   }

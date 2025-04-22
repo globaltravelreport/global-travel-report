@@ -1,3 +1,19 @@
+<!-- 
+Please choose the appropriate template for your PR:
+
+- Bug Fix: [Use bug fix template](?template=PULL_REQUEST_TEMPLATE/bugfix.md)
+- New Feature: [Use feature template](?template=PULL_REQUEST_TEMPLATE/feature.md)
+- Documentation: [Use documentation template](?template=PULL_REQUEST_TEMPLATE/documentation.md)
+- Security Changes: [Use security template](?template=PULL_REQUEST_TEMPLATE/security.md)
+- Refactoring: [Use refactor template](?template=PULL_REQUEST_TEMPLATE/refactor.md)
+- Configuration: [Use config template](?template=PULL_REQUEST_TEMPLATE/config.md)
+- Other Changes: [Use default template](?template=PULL_REQUEST_TEMPLATE/default.md)
+
+Choose the most appropriate template for your changes. If your PR spans multiple categories, choose the template that best fits the primary purpose of your changes.
+
+Note: Click the appropriate link above to automatically load the template.
+-->
+
 ## Description
 Please include a summary of the changes and the related issue. Please also include relevant motivation and context.
 

@@ -1,75 +1,97 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-// ✅ Middleware config with experimental-edge runtime
-export const config = {
-  matcher: ['/nuch', '/nuch/:path*'],
-  runtime: 'experimental-edge'
-}
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
+const RATE_LIMIT = 10 // requests
+const RATE_LIMIT_WINDOW = 10 // seconds
 
-// ✅ Hardcoded credentials as specified
-const VALID_USERNAME = 'Admin'
+// Valid credentials
+const VALID_USERNAMES = ['Admin', 'admin']
 const VALID_PASSWORD = 'Nuch07!'
 
-// ✅ Constant-time comparison function to prevent timing attacks
-function safeCompare(a: string, b: string): boolean {
-  if (a.length !== b.length) return false
-  let result = 0
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i)
-  }
-  return result === 0
-}
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const rateLimit = rateLimitMap.get(ip)
 
-// ✅ Auth header decoder and validator
-function checkBasicAuth(authHeader: string | null): boolean {
-  if (!authHeader) return false
-
-  try {
-    const base64Credentials = authHeader.split(' ')[1]
-    const credentials = atob(base64Credentials) // Edge-compatible alternative to Buffer
-    const [username, password] = credentials.includes(':') ? credentials.split(':') : ['', '']
-
-    return safeCompare(username, VALID_USERNAME) && safeCompare(password, VALID_PASSWORD)
-  } catch {
+  if (!rateLimit) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW * 1000 })
     return false
   }
+
+  if (now > rateLimit.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW * 1000 })
+    return false
+  }
+
+  if (rateLimit.count >= RATE_LIMIT) {
+    return true
+  }
+
+  rateLimit.count++
+  return false
 }
 
-// ✅ Edge Middleware function
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/nuch')) {
-    const authHeader = request.headers.get('authorization')
+// Middleware config
+export const config = {
+  matcher: ['/nuch'],
+}
 
-    if (checkBasicAuth(authHeader)) {
-      const response = NextResponse.next()
-
-      // Add strict security headers
-      response.headers.set('Cache-Control', 'no-store, must-revalidate')
-      response.headers.set('Pragma', 'no-cache')
-      response.headers.set('Expires', '0')
-      response.headers.set('X-Frame-Options', 'DENY')
-      response.headers.set('X-Content-Type-Options', 'nosniff')
-      response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
-      response.headers.set('Content-Security-Policy', "default-src 'self'")
-
-      return response
-    }
-
-    // Return a 401 prompt if credentials are missing or incorrect
-    return new NextResponse('Authentication required', {
-      status: 401,
+// Middleware function
+export async function middleware(req: NextRequest) {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
       headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area", charset="UTF-8"',
-        'Content-Type': 'text/plain',
-        'Cache-Control': 'no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'X-Frame-Options': 'DENY',
-        'X-Content-Type-Options': 'nosniff'
-      }
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
     })
   }
 
-  return NextResponse.next()
+  // Get IP address
+  const ip = req.ip || req.headers.get('x-forwarded-for') || 'unknown'
+  
+  // Check rate limit
+  if (isRateLimited(ip)) {
+    return new NextResponse('Too Many Requests', { status: 429 })
+  }
+
+  const protectedPaths = ['/nuch']
+  const pathname = req.nextUrl.pathname
+
+  if (protectedPaths.includes(pathname)) {
+    const authHeader = req.headers.get('authorization')
+
+    if (authHeader) {
+      const base64 = authHeader.split(' ')[1]
+      const [user, pass] = atob(base64).split(':')
+
+      if (
+        user === 'Admin' &&
+        pass === 'Nuch07!'
+      ) {
+        return NextResponse.next()
+      }
+    }
+
+    return new NextResponse('Unauthorized', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Global Travel Report"',
+      },
+    })
+  }
+
+  // Continue with the request
+  const response = NextResponse.next()
+
+  // Add security headers
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
+  response.headers.set('X-XSS-Protection', '1; mode=block')
+
+  return response
 }

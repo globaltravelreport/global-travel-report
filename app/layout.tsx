@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import GoogleAnalytics from './components/GoogleAnalytics'
 import { AuthProvider } from './contexts/AuthContext'
 import { Toaster } from 'react-hot-toast'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +17,10 @@ export const viewport: Viewport = {
 
 // Base metadata configuration
 export const metadata: Metadata = {
-  title: 'Global Travel Report',
+  title: {
+    default: 'Global Travel Report',
+    template: '%s | Global Travel Report'
+  },
   description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
   icons: {
     icon: '/favicon.ico',
@@ -31,26 +36,22 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Global Travel Report',
-    description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
+    type: 'website',
+    locale: 'en_US',
     url: 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
-    locale: 'en_US',
-    type: 'website',
     images: [
       {
-        url: 'https://www.globaltravelreport.com/images/og-default.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Global Travel Report',
-      },
-    ],
+        alt: 'Global Travel Report'
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Global Travel Report',
-    description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
-    creator: '@globaltravelreport',
+    site: '@globaltravelreport'
   },
   robots: {
     index: true,
@@ -79,6 +80,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -141,6 +144,8 @@ export default function RootLayout({
           <Footer />
           <GoogleAnalytics />
           <Toaster position="top-right" />
+          <Analytics />
+          <SpeedInsights />
         </AuthProvider>
       </body>
     </html>

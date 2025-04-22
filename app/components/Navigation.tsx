@@ -5,8 +5,59 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
+const CATEGORIES = [
+  'Flights',
+  'Ocean Cruises',
+  'River Cruises',
+  'Hotels',
+  'Tours',
+  'Car Hire',
+  'Insurance',
+  'Travel Tips'
+]
+
+const COUNTRIES = [
+  'Thailand',
+  'Japan',
+  'Australia',
+  'France',
+  'Italy',
+  'Vietnam',
+  'New Zealand',
+  'Greece',
+  'Egypt',
+  'Turkey',
+  'Canada',
+  'USA',
+  'Mexico',
+  'Indonesia',
+  'Bali',
+  'Spain',
+  'Portugal',
+  'Romania',
+  'Slovenia',
+  'Germany',
+  'Netherlands',
+  'UK',
+  'Ireland',
+  'Scotland',
+  'Croatia',
+  'Switzerland',
+  'Austria',
+  'Hungary',
+  'Czech',
+  'Dubai',
+  'Singapore',
+  'China',
+  'South Korea',
+  'Philippines',
+  'Malaysia'
+]
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
+  const [isCountriesOpen, setIsCountriesOpen] = useState(false)
   const pathname = usePathname()
 
   const menuItems = [

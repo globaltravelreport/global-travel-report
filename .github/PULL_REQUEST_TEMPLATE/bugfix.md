@@ -7,39 +7,82 @@ assignees: ''
 ---
 
 ## Bug Description
-<!-- Link to the issue if it exists -->
-Fixes #
+<!-- Describe the bug in detail -->
 
-### Root Cause
-<!-- Describe what caused the bug -->
+### Expected Behavior
+<!-- What should happen -->
 
-### Fix Implementation
-<!-- Explain how your changes fix the bug -->
+### Current Behavior
+<!-- What is happening -->
 
-### Testing
-<!-- Describe how you tested the fix -->
-
-- [ ] Added regression tests
-- [ ] Tested edge cases
-- [ ] Verified fix in development
-
-### Screenshots
-<!-- Before/After if applicable -->
-
-### Potential Risks
-<!-- Any potential side effects or areas that could be impacted -->
-
-### Verification Steps
-<!-- Steps to verify the fix -->
+### Steps to Reproduce
 1. 
 2. 
 3. 
 
-### Checklist
-- [ ] Root cause understood and documented
-- [ ] Fix tested thoroughly
+### Environment
+- Browser/Device:
+- OS Version:
+- App Version:
+
+## Root Cause Analysis
+<!-- Explain what caused the bug -->
+
+### Potential Risks
+<!-- Any potential side effects or areas that could be impacted -->
+
+## Fix Implementation
+<!-- Describe how the bug was fixed -->
+- [ ] Code changes
+- [ ] Configuration changes
+- [ ] Database changes
+- [ ] Added monitoring/logging
+
+## Testing
+### Verification Steps
+1. 
+2. 
+3. 
+
+### Test Coverage
+- [ ] Unit tests added/updated
+- [ ] Integration tests added/updated
+- [ ] Edge cases covered
+- [ ] Regression testing performed
+- [ ] Bug fix tested in development environment
 - [ ] No new bugs introduced
-- [ ] Documentation updated if needed
-- [ ] Tests added for regression prevention
-- [ ] Reviewed own code
-- [ ] Added monitoring/logging if needed 
+
+## Impact Analysis
+<!-- Describe the impact of this fix -->
+- [ ] Breaking changes
+- [ ] Performance impact
+- [ ] Security implications
+- [ ] Data migration needed
+
+## Screenshots
+<!-- Before/After screenshots if applicable -->
+
+### Before
+
+### After
+
+## Documentation
+- [ ] Code comments updated
+- [ ] README updated
+- [ ] Release notes prepared
+- [ ] User documentation updated
+
+## Final Checklist
+- [ ] Code follows project style guidelines
+- [ ] All tests passing
+- [ ] No new warnings/errors
+- [ ] Reviewed by security team (if needed)
+- [ ] Verified in staging environment
+- [ ] Rollback plan defined
+- [ ] Self-review completed
+
+## Related Issues
+Fixes #
+
+## Additional Notes
+<!-- Any additional context about the bug fix --> 

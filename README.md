@@ -1,128 +1,102 @@
 # Global Travel Report
 
-A Next.js-based travel news and content platform.
+A modern travel blog platform built with Next.js, TypeScript, and Tailwind CSS.
 
-## Prerequisites
+## Getting Started
 
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-- Vercel account (for deployment)
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create a `.env` file with required environment variables
+4. Run the development server: `npm run dev`
 
-## Environment Variables
+## Adding New Stories
 
-Create a `.env.local` file in the root directory with:
+Stories are stored as JSON files in the `data/stories` directory. Each story should follow this structure:
 
-```env
-# OpenAI API Key for content generation
-OPENAI_API_KEY=your_openai_key
-
-# reCAPTCHA Keys
-RECAPTCHA_SITE_KEY=your_site_key
-RECAPTCHA_SECRET_KEY=your_secret_key
-
-# Optional: Development overrides
-NODE_ENV=development
-```
-
-## Setup
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Start development server:
-```bash
-npm run dev
-```
-
-3. Build for production:
-```bash
-npm run build
-```
-
-## Project Structure
-
-```
-global-travel-report/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   ├── components/        # React components
-│   ├── data/             # Static data
-│   └── (articles)/       # Article pages
-├── public/               # Static assets
-├── scripts/             # Build and utility scripts
-└── types/              # TypeScript types
-```
-
-## Authentication
-
-The `/rewrite` route is protected with Basic Authentication:
-- Username: `Admin`
-- Password: `Nuch07!`
-
-## Deployment
-
-1. Push to GitHub:
-```bash
-git push origin main
-```
-
-2. Vercel will automatically deploy from the main branch.
-
-### Required Vercel Environment Variables
-
-- `OPENAI_API_KEY`
-- `RECAPTCHA_SITE_KEY`
-- `RECAPTCHA_SECRET_KEY`
-
-## Data Structure
-
-Articles are stored in `app/data/articles.json` with the following structure:
-
-```typescript
-interface Article {
-  title: string;
-  slug: string;
-  content: string;
-  date: string;
-  featuredImage?: {
-    url: string;
-    alt: string;
-  };
-  summary?: string;
-  category?: string;
-  status?: 'draft' | 'published';
-  author?: string;
+```json
+{
+  "title": "Story Title",
+  "slug": "story-title",
+  "metaTitle": "SEO Title",
+  "metaDescription": "SEO Description",
+  "category": "Category",
+  "country": "Country",
+  "body": "Story content in Markdown format",
+  "featured": false,
+  "published": true,
+  "timestamp": "2024-03-20T12:00:00Z",
+  "imageName": "image.jpg",
+  "author": "Author Name",
+  "readTime": 5,
+  "tags": ["tag1", "tag2"],
+  "isSponsored": false,
+  "editorsPick": false
 }
 ```
 
-## Troubleshooting
+## Configuration
 
-### Common Issues
+### Authors
+Add new authors in `data/authors.json`. Each author should have:
+- name
+- bio
+- social links
+- profile image
 
-1. **Build Failures**
-   - Check `.env.local` exists with required variables
-   - Verify `articles.json` is valid JSON
-   - Ensure all required fields are present in articles
+### Countries & Categories
+Update `data/countries.json` and `data/categories.json` to add new options.
 
-2. **Image Loading**
-   - Verify image paths in articles
-   - Check `next.config.js` remote patterns
-   - Ensure images are in the correct format
+### Tags
+Tags are managed in `data/tags.json`. Add new tags with:
+- name
+- description
+- related keywords
 
-3. **Authentication**
-   - Verify middleware.ts configuration
-   - Check credentials in development
-   - Confirm production environment variables
+### Feature Toggles
+Enable/disable features in `config/features.json`:
+- comments
+- social sharing
+- newsletter signup
+- related stories
 
-## Contributing
+## SEO & Sitemap
 
-1. Create a feature branch
-2. Make changes
-3. Run tests: `npm run test`
-4. Submit pull request
+- Each story has meta title and description
+- Dynamic sitemap generated at `/sitemap.xml`
+- Robots.txt at `/robots.txt`
+- OpenGraph and Twitter card meta tags
 
-## License
+## reCAPTCHA Setup
 
-MIT 
+1. Get API keys from Google reCAPTCHA
+2. Add to `.env`:
+   ```
+   RECAPTCHA_SITE_KEY=your_site_key
+   RECAPTCHA_SECRET_KEY=your_secret_key
+   ```
+
+## Deployment
+
+The project is configured for Vercel deployment:
+
+1. Push to main branch
+2. Vercel will automatically deploy
+3. Environment variables are managed in Vercel dashboard
+
+## Version 1.0 Features
+
+- Story listing with pagination
+- Filtering by category, country, tags
+- Search functionality
+- Mobile-responsive design
+- SEO optimization
+- Basic analytics
+
+## Future Enhancements
+
+- User authentication
+- Comments system
+- Newsletter integration
+- Advanced analytics
+- Story export functionality
+- Additional sort options 
