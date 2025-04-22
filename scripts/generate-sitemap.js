@@ -50,4 +50,4 @@ async function generateSitemap() {
   console.log('Sitemap generated successfully!')
 }
 
-generateSitemap().catch(console.error) 
+generateSitemap().catch(console.error)

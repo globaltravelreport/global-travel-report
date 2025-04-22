@@ -196,7 +196,7 @@ export default function RodneyPage() {
       const autoTags = autoTagStory(formData.title, formData.body)
       const seo = generateLocalSEO(formData.title, formData.body, Date.now().toString())
       
-      let imageUrl = null
+      let imageName = null
       if (formData.heroImage) {
         const formDataFile = new FormData()
         formDataFile.append('file', formData.heroImage)
@@ -211,7 +211,7 @@ export default function RodneyPage() {
         }
         
         const uploadResult = await uploadResponse.json()
-        imageUrl = uploadResult.url
+        imageName = uploadResult.imageName
       }
       
       // Create story data with proper type handling
@@ -231,7 +231,8 @@ export default function RodneyPage() {
         tags: formData.tags,
         heroImage: formData.heroImage || undefined,
         readTime: Math.ceil(formData.body.split(/\s+/).length / 200),
-        author: formData.author
+        author: formData.author,
+        imageName: imageName || undefined
       }
 
       // Submit to API
@@ -248,9 +249,7 @@ export default function RodneyPage() {
       }
 
       const result = await response.json()
-      setPreview(JSON.stringify(result.data, null, 2))
-      
-      // Reset form
+      // Reset form after successful submission
       setFormData({
         title: '',
         body: '',
@@ -261,10 +260,12 @@ export default function RodneyPage() {
         tags: [],
         isSponsored: false,
         editorsPick: false,
-        author: 'Rodney Pattison' // Default author
+        author: 'Rodney Pattison'
       })
+      setPreview(null)
+      alert('Story submitted successfully!')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred while saving the story')
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setIsSubmitting(false)
     }
