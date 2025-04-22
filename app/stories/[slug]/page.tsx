@@ -29,7 +29,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
 
       <div className="mb-8">
         <img 
-          src={`/uploads/${story.imageName}`}
+          src={`/stories/${story.imageName}`}
           alt={story.title}
           className="w-full h-96 object-cover rounded-lg"
         />
