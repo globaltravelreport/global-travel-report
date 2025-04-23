@@ -15,6 +15,10 @@ updates:
     ignore:
       - dependency-name: "next"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
+      - dependency-name: "@types/react"
+      - dependency-name: "@types/react-dom"
 
   - package-ecosystem: "github-actions"
     directory: "/"
