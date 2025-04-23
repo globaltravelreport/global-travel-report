@@ -44,11 +44,6 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
   const handlePublish = async () => {
     console.log('StoryEditor: Attempting to publish');
-    if (!story.isReadyToPublish) {
-      alert('Please mark the story as ready to publish');
-      return;
-    }
-
     setIsSaving(true);
     try {
       await onPublish(story);
@@ -111,10 +106,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       {/* Title */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
           Title
         </label>
         <input
+          id="title"
           type="text"
           value={story.title}
           onChange={(e) => setStory({ ...story, title: e.target.value })}
@@ -125,17 +121,18 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       {/* Category */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
           Category
         </label>
         <select
+          id="category"
           value={story.category}
           onChange={(e) => setStory({ ...story, category: e.target.value as Category })}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
         >
           {categories.map((category) => (
             <option key={category} value={category}>
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              {category}
             </option>
           ))}
         </select>
@@ -143,10 +140,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       {/* Content */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
           Content
         </label>
         <textarea
+          id="content"
           value={story.content}
           onChange={(e) => setStory({ ...story, content: e.target.value })}
           className="w-full h-64 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
@@ -156,10 +154,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       {/* Summary */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Summary (Optional)
+        <label htmlFor="summary" className="block text-sm font-medium text-gray-700 mb-2">
+          Summary
         </label>
         <textarea
+          id="summary"
           value={story.summary || ''}
           onChange={(e) => setStory({ ...story, summary: e.target.value })}
           className="w-full h-24 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
@@ -173,10 +172,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="seo-title" className="block text-sm font-medium text-gray-700 mb-2">
               SEO Title
             </label>
             <input
+              id="seo-title"
               type="text"
               value={story.seo?.title || ''}
               onChange={(e) => setStory({
@@ -189,10 +189,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="meta-description" className="block text-sm font-medium text-gray-700 mb-2">
               Meta Description
             </label>
             <textarea
+              id="meta-description"
               value={story.seo?.description || ''}
               onChange={(e) => setStory({
                 ...story,
@@ -204,10 +205,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="keywords" className="block text-sm font-medium text-gray-700 mb-2">
               Keywords (comma-separated)
             </label>
             <input
+              id="keywords"
               type="text"
               value={story.seo?.keywords?.join(', ') || ''}
               onChange={(e) => setStory({
@@ -223,7 +225,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       {/* Featured Image */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="featured-image" className="block text-sm font-medium text-gray-700 mb-2">
           Featured Image
         </label>
         {story.featuredImage?.url ? (
@@ -247,35 +249,33 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
         ) : (
           <div className="flex flex-col gap-4">
             <div className="w-full h-48 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center">
-              <label className="cursor-pointer text-center">
-                <div className="text-gray-500 hover:text-gray-700">
-                  Click to upload image
-                </div>
+              <label htmlFor="featured-image" className="cursor-pointer text-center">
                 <input
+                  id="featured-image"
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
                   className="hidden"
                 />
+                <span className="text-gray-600">Click to upload or drag and drop</span>
               </label>
             </div>
-            <div className="text-center">
-              <span className="text-gray-500">or</span>
-            </div>
             <button
+              type="button"
               onClick={() => setIsSearchingImage(true)}
-              className="w-full h-12 border-2 border-gray-300 rounded-md flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-500 transition-colors"
+              className="text-brand-teal hover:text-teal-700"
             >
-              Search Unsplash Images
+              Or search for an image
             </button>
           </div>
         )}
       </div>
 
-      {/* Ready to Publish Checkbox */}
+      {/* Ready to Publish */}
       <div className="mb-6">
         <label className="flex items-center space-x-2">
           <input
+            id="ready-to-publish"
             type="checkbox"
             checked={story.isReadyToPublish}
             onChange={(e) => setStory({ ...story, isReadyToPublish: e.target.checked })}
@@ -288,14 +288,16 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
       {/* Action Buttons */}
       <div className="flex justify-end space-x-4">
         <button
+          type="button"
           onClick={() => setPreviewMode(!previewMode)}
           className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
-          {previewMode ? 'Edit' : 'Preview'}
+          Preview
         </button>
         <button
+          type="button"
           onClick={handlePublish}
-          disabled={isSaving || !story.isReadyToPublish}
+          disabled={!story.isReadyToPublish || isSaving}
           className="px-4 py-2 text-white bg-brand-teal rounded-md hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-brand-teal focus:ring-offset-2"
         >
           {isSaving ? 'Publishing...' : 'Publish'}

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 
 interface ImageMetadata {
   name: string
@@ -55,6 +56,11 @@ interface StoryData {
   imageName?: string
   galleryImages?: ImageMetadata[]
   author?: string
+}
+
+interface UploadedFile {
+  url: string
+  imageName: string
 }
 
 const CATEGORIES = [
@@ -173,6 +179,11 @@ export default function RodneyPage() {
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [previews, setPreviews] = useState<string[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
+  const [isUploading, setIsUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Auto-detect category and country based on content
   useEffect(() => {
@@ -276,6 +287,55 @@ export default function RodneyPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null
     setFormData(prev => ({ ...prev, heroImage: file }))
+  }
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    setSelectedFiles(files)
+    setError(null)
+
+    // Create previews
+    const newPreviews = files.map(file => URL.createObjectURL(file))
+    setPreviews(newPreviews)
+  }
+
+  const handleUpload = async () => {
+    if (selectedFiles.length === 0) {
+      setError('Please select at least one file')
+      return
+    }
+
+    setIsUploading(true)
+    setError(null)
+
+    try {
+      const formData = new FormData()
+      selectedFiles.forEach(file => {
+        formData.append('files', file)
+      })
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed')
+      }
+
+      setUploadedFiles(result.files)
+      setSelectedFiles([])
+      setPreviews([])
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Upload failed')
+    } finally {
+      setIsUploading(false)
+    }
   }
 
   return (
@@ -435,6 +495,80 @@ export default function RodneyPage() {
               >
                 {preview}
               </pre>
+            </div>
+          )}
+
+          {/* File Input */}
+          <div>
+            <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 mb-2">
+              Select Images to Upload
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              multiple
+              accept="image/jpeg,image/png,image/webp"
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100"
+            />
+            <p className="mt-1 text-sm text-gray-500">
+              Supported formats: JPEG, PNG, WebP (max 5MB each)
+            </p>
+          </div>
+
+          {/* Preview Section */}
+          {previews.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold mb-2">Selected Images</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {previews.map((preview, index) => (
+                  <div key={index} className="relative aspect-video">
+                    <Image
+                      src={preview}
+                      alt={`Preview ${index + 1}`}
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Upload Button */}
+          <button
+            onClick={handleUpload}
+            disabled={isUploading || selectedFiles.length === 0}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {isUploading ? 'Uploading...' : 'Upload Images'}
+          </button>
+
+          {/* Uploaded Images */}
+          {uploadedFiles.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold mb-2">Uploaded Images</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {uploadedFiles.map((file, index) => (
+                  <div key={index} className="relative aspect-video">
+                    <Image
+                      src={file.url}
+                      alt={`Uploaded ${index + 1}`}
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm">
+                      {file.imageName}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs/promises'
 
 export interface Story {
   title: string
@@ -13,6 +14,11 @@ export interface Story {
   published?: boolean
   timestamp: string
   imageName?: string
+  imageUrl?: string
+  imagePhotographer?: {
+    name: string
+    username: string
+  }
   author: string
   readTime?: number
   tags: string[]
@@ -45,15 +51,17 @@ const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
 async function fetchStory(slug: string): Promise<Story | null> {
   try {
-    const baseUrl = getBaseUrl()
-    const response = await fetch(`${baseUrl}/stories/${slug}.json`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
-    })
-    if (!response.ok) {
-      console.warn(`Failed to fetch story ${slug}: ${response.status} ${response.statusText}`)
+    // Check if the slug is an image file
+    if (slug.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      console.warn(`Attempted to fetch image file as story: ${slug}`)
       return null
     }
-    const story = await response.json() as Story
+
+    const storiesDir = path.join(process.cwd(), 'public', 'stories')
+    const filePath = path.join(storiesDir, `${slug}.json`)
+    
+    const fileContent = await fs.readFile(filePath, 'utf-8')
+    const story = JSON.parse(fileContent) as Story
     
     // Calculate readTime if not provided
     if (!story.readTime) {
@@ -64,6 +72,15 @@ async function fetchStory(slug: string): Promise<Story | null> {
     // Set excerpt if not provided
     if (!story.excerpt) {
       story.excerpt = story.metaDescription || story.body.split('\n')[0]
+    }
+
+    // Set default image if not provided
+    if (!story.imageUrl) {
+      story.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&h=800&fit=crop&q=80'
+      story.imagePhotographer = {
+        name: 'Dino Reichmuth',
+        username: 'dinoreichmuth'
+      }
     }
     
     return story
@@ -81,15 +98,11 @@ async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
       return storyMetadataCache
     }
 
-    const baseUrl = getBaseUrl()
-    const response = await fetch(`${baseUrl}/stories/index.json`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
-    })
-    if (!response.ok) {
-      console.warn(`Failed to fetch story metadata: ${response.status} ${response.statusText}`)
-      return []
-    }
-    const metadata = await response.json() as StoryMetadata[]
+    const storiesDir = path.join(process.cwd(), 'public', 'stories')
+    const indexPath = path.join(storiesDir, 'index.json')
+    
+    const fileContent = await fs.readFile(indexPath, 'utf-8')
+    const metadata = JSON.parse(fileContent) as StoryMetadata[]
     
     // Update cache
     storyMetadataCache = metadata
@@ -248,14 +261,13 @@ export async function getPaginatedStories(
 ): Promise<{
   stories: Story[]
   totalPages: number
-  currentPage: number
 }> {
   const start = (page - 1) * perPage
   const end = start + perPage
+  const totalPages = Math.ceil(stories.length / perPage)
   
   return {
     stories: stories.slice(start, end),
-    totalPages: Math.ceil(stories.length / perPage),
-    currentPage: page
+    totalPages
   }
 } 

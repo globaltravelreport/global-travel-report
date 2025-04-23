@@ -14,15 +14,21 @@ export default function StoryCard({ story }: StoryCardProps) {
   const [imageError, setImageError] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
 
+  // Construct UTM-tagged URLs for attribution
+  const photographerUrl = story.imagePhotographer 
+    ? `https://unsplash.com/@${story.imagePhotographer.username}?utm_source=global_travel_report&utm_medium=referral`
+    : null
+  const unsplashUrl = 'https://unsplash.com?utm_source=global_travel_report&utm_medium=referral'
+
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
       <Link href={`/stories/${story.slug}`}>
         <div className="relative h-48 w-full">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600" />
-          {story.imageName && !imageError && (
+          {story.imageUrl && !imageError && (
             <div className={`absolute inset-0 transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}>
               <Image
-                src={`/stories/images/${story.imageName}`}
+                src={story.imageUrl}
                 alt={story.title}
                 fill
                 className="object-cover"
@@ -35,6 +41,30 @@ export default function StoryCard({ story }: StoryCardProps) {
                   setImageLoading(false)
                 }}
               />
+              {story.imagePhotographer && (
+                <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs px-2 py-1 rounded-tl">
+                  Photo by{' '}
+                  <Link
+                    href={photographerUrl!}
+                    className="underline hover:text-gray-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {story.imagePhotographer.name}
+                  </Link>
+                  {' '}on{' '}
+                  <Link
+                    href={unsplashUrl}
+                    className="underline hover:text-gray-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Unsplash
+                  </Link>
+                </div>
+              )}
             </div>
           )}
           <div className="absolute inset-0 flex items-center justify-center p-4 text-center">

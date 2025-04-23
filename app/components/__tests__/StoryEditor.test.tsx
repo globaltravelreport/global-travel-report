@@ -25,6 +25,10 @@ const mockInitialData: StoryDraft = {
 
 const mockOnPublish = jest.fn()
 
+// Mock window.alert before tests
+const mockAlert = jest.fn()
+window.alert = mockAlert
+
 describe('StoryEditor', () => {
   it('renders with initial data', () => {
     render(<StoryEditor initialData={mockInitialData} onPublish={mockOnPublish} />)
@@ -80,13 +84,47 @@ describe('StoryEditor', () => {
   })
 
   it('handles publish action', async () => {
-    render(<StoryEditor initialData={mockInitialData} onPublish={mockOnPublish} />)
+    // Mock successful publish
+    mockOnPublish.mockResolvedValueOnce(undefined)
     
+    render(<StoryEditor initialData={mockInitialData} onPublish={mockOnPublish} />)
+
+    // First check the "Ready to Publish" checkbox
+    const readyToPublishCheckbox = screen.getByLabelText('Ready to Publish')
+    fireEvent.click(readyToPublishCheckbox)
+
+    // Then click the publish button
     const publishButton = screen.getByText('Publish')
     fireEvent.click(publishButton)
-    
+
+    // Wait for the async publish action to complete
     await waitFor(() => {
-      expect(mockOnPublish).toHaveBeenCalled()
+      expect(mockOnPublish).toHaveBeenCalledWith(expect.objectContaining({
+        ...mockInitialData,
+        isReadyToPublish: true
+      }))
+      expect(mockAlert).toHaveBeenCalledWith('✅ Story published successfully!')
+    })
+  })
+
+  it('handles publish errors', async () => {
+    // Mock failed publish
+    const error = new Error('Failed to publish')
+    mockOnPublish.mockRejectedValueOnce(error)
+    
+    render(<StoryEditor initialData={mockInitialData} onPublish={mockOnPublish} />)
+
+    // First check the "Ready to Publish" checkbox
+    const readyToPublishCheckbox = screen.getByLabelText('Ready to Publish')
+    fireEvent.click(readyToPublishCheckbox)
+
+    // Then click the publish button
+    const publishButton = screen.getByText('Publish')
+    fireEvent.click(publishButton)
+
+    // Wait for the error alert
+    await waitFor(() => {
+      expect(mockAlert).toHaveBeenCalledWith('Failed to publish story. Please try again.')
     })
   })
 }) 

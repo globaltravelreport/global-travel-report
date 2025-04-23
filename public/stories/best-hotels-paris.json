@@ -1,19 +1,23 @@
 {
   "title": "Best Hotels in Paris",
   "slug": "best-hotels-paris",
-  "metaTitle": "Best Hotels in Paris: Luxury and Boutique Accommodations",
-  "metaDescription": "A comprehensive guide to luxury and boutique hotels in the City of Light, featuring top-rated accommodations and insider tips.",
-  "excerpt": "Discover the finest hotels in Paris, from historic luxury palaces to charming boutique accommodations in the heart of the city.",
-  "category": "Hotels",
+  "metaTitle": "Best Luxury Hotels in Paris - Ultimate Guide",
+  "metaDescription": "Discover the finest luxury hotels in Paris, from historic palaces to boutique gems. Expert reviews and insider tips for your perfect Parisian stay.",
+  "excerpt": "An insider's guide to the most luxurious and elegant hotels in the City of Light.",
+  "category": "Luxury",
   "country": "France",
-  "body": "Paris, the City of Light, offers some of the world's most luxurious and charming hotel accommodations. From historic palaces to modern boutique hotels, there's something for every traveler's taste and budget.\n\nLuxury Hotels:\n- The Ritz Paris: Iconic luxury with a rich history\n- Four Seasons Hotel George V: Opulent rooms and Michelin-starred dining\n- Hotel de Crillon: Recently renovated with modern amenities\n\nBoutique Hotels:\n- Hotel Le Bristol: Classic French elegance\n- Le Meurice: Art-inspired luxury\n- Hotel Plaza Athénée: Famous for its Eiffel Tower views\n\nBudget-Friendly Options:\n- Hotel du Louvre: Historic charm at reasonable rates\n- Hotel de la Paix: Central location with classic Parisian style\n- Hotel des Grands Boulevards: Modern comfort in a great location\n\nPro tip: Book well in advance, especially during peak seasons, and consider staying in different arrondissements to experience various aspects of Parisian life.",
+  "body": "Paris, the city of lights and romance, is home to some of the world's most prestigious hotels...",
   "featured": true,
   "published": true,
-  "timestamp": "2024-02-28T10:00:00Z",
-  "imageName": "best-hotels-paris.jpg",
-  "author": "Rodney Pattison",
-  "readTime": 5,
-  "tags": ["Paris", "Hotels", "Luxury", "Boutique", "France", "Travel"],
+  "timestamp": "2024-04-22T00:00:00.000Z",
+  "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&h=800&fit=crop&q=80",
+  "imagePhotographer": {
+    "name": "Paris Photographer",
+    "username": "paris_photographer"
+  },
+  "author": "Sophie Laurent",
+  "readTime": 8,
+  "tags": ["luxury", "hotels", "paris", "france"],
   "isSponsored": false,
   "editorsPick": true
 } 
