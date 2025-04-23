@@ -17,6 +17,12 @@ export default async function StoryPage({ params }: StoryPageProps) {
     notFound()
   }
 
+  // Construct UTM-tagged URLs for attribution
+  const photographerUrl = story.imagePhotographer 
+    ? `https://unsplash.com/@${story.imagePhotographer.username}?utm_source=global_travel_report&utm_medium=referral`
+    : null
+  const unsplashUrl = 'https://unsplash.com?utm_source=global_travel_report&utm_medium=referral'
+
   return (
     <article className="max-w-4xl mx-auto px-4 py-8">
       {story.isSponsored && (
@@ -27,12 +33,42 @@ export default async function StoryPage({ params }: StoryPageProps) {
         </div>
       )}
 
-      <div className="mb-8">
-        <img 
-          src={`/stories/${story.imageName}`}
-          alt={story.title}
-          className="w-full h-96 object-cover rounded-lg"
-        />
+      <div className="relative mb-8 h-[32rem] w-full">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg" />
+        {story.imageUrl && (
+          <>
+            <Image
+              src={story.imageUrl}
+              alt={story.title}
+              fill
+              className="object-cover rounded-lg"
+              priority
+              sizes="(max-width: 1536px) 100vw, 1536px"
+            />
+            {story.imagePhotographer && (
+              <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs px-2 py-1 rounded-tl">
+                Photo by{' '}
+                <Link
+                  href={photographerUrl!}
+                  className="underline hover:text-gray-200"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {story.imagePhotographer.name}
+                </Link>
+                {' '}on{' '}
+                <Link
+                  href={unsplashUrl}
+                  className="underline hover:text-gray-200"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Unsplash
+                </Link>
+              </div>
+            )}
+          </>
+        )}
       </div>
       
       <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
