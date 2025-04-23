@@ -31,10 +31,28 @@ interface StoryMetadata {
   tags: string[]
 }
 
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin
+  }
+  return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+}
+
+// Add caching for story metadata
+let storyMetadataCache: StoryMetadata[] | null = null
+let storyMetadataCacheTime = 0
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+
 async function fetchStory(slug: string): Promise<Story | null> {
   try {
-    const response = await fetch(`/stories/${slug}.json`)
-    if (!response.ok) return null
+    const baseUrl = getBaseUrl()
+    const response = await fetch(`${baseUrl}/stories/${slug}.json`, {
+      next: { revalidate: 3600 } // Cache for 1 hour
+    })
+    if (!response.ok) {
+      console.warn(`Failed to fetch story ${slug}: ${response.status} ${response.statusText}`)
+      return null
+    }
     const story = await response.json() as Story
     
     // Calculate readTime if not provided
@@ -57,9 +75,27 @@ async function fetchStory(slug: string): Promise<Story | null> {
 
 async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
   try {
-    const response = await fetch('/stories/index.json')
-    if (!response.ok) return []
-    return await response.json() as StoryMetadata[]
+    // Check cache first
+    const now = Date.now()
+    if (storyMetadataCache && now - storyMetadataCacheTime < CACHE_DURATION) {
+      return storyMetadataCache
+    }
+
+    const baseUrl = getBaseUrl()
+    const response = await fetch(`${baseUrl}/stories/index.json`, {
+      next: { revalidate: 3600 } // Cache for 1 hour
+    })
+    if (!response.ok) {
+      console.warn(`Failed to fetch story metadata: ${response.status} ${response.statusText}`)
+      return []
+    }
+    const metadata = await response.json() as StoryMetadata[]
+    
+    // Update cache
+    storyMetadataCache = metadata
+    storyMetadataCacheTime = now
+    
+    return metadata
   } catch (error) {
     console.warn('Failed to fetch story metadata:', error)
     return []

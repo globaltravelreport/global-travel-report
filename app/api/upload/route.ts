@@ -18,23 +18,35 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const filename = `${Date.now()}-${file.name}`;
-    const uploadDir = path.join(process.cwd(), 'public/uploads');
+    const uploadDir = path.join(process.cwd(), 'public/stories');
     
     // Ensure upload directory exists
     try {
       await mkdir(uploadDir, { recursive: true });
     } catch (error) {
       console.error('Error creating upload directory:', error);
+      return NextResponse.json(
+        { error: 'Failed to create upload directory' },
+        { status: 500 }
+      );
     }
     
     const filePath = path.join(uploadDir, filename);
 
     // Save the file
-    await writeFile(filePath, buffer);
+    try {
+      await writeFile(filePath, buffer);
+    } catch (error) {
+      console.error('Error saving file:', error);
+      return NextResponse.json(
+        { error: 'Failed to save file' },
+        { status: 500 }
+      );
+    }
 
     // Return the public URL of the uploaded file
     return NextResponse.json({
-      url: `/uploads/${filename}`,
+      url: `/stories/${filename}`,
       imageName: filename
     });
   } catch (error) {

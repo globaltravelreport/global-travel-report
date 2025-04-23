@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Story } from '../lib/stories'
+import { formatDate } from '../lib/utils'
 
 interface StoryCardProps {
   story: Story
@@ -8,55 +9,38 @@ interface StoryCardProps {
 
 export default function StoryCard({ story }: StoryCardProps) {
   return (
-    <article className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-      <Link href={`/stories/${story.slug}`} className="block">
-        {story.imageName && (
-          <div className="relative h-48 w-full">
-            <Image
-              src={`/images/${story.imageName}`}
-              alt={story.title}
-              fill
-              className="object-cover"
-            />
-            {story.isSponsored && (
-              <span className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                Sponsored
-              </span>
-            )}
-          </div>
-        )}
-        
+    <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+      <Link href={`/stories/${story.slug}`}>
+        <div className="relative h-48 w-full">
+          <Image
+            src={`/stories/${story.imageName}`}
+            alt={story.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={story.featured}
+            loading={story.featured ? 'eager' : 'lazy'}
+          />
+          {story.isSponsored && (
+            <span className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">
+              Sponsored
+            </span>
+          )}
+        </div>
         <div className="p-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {story.country}
-            </span>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
               {story.category}
             </span>
+            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+              {story.country}
+            </span>
           </div>
-          
-          <h2 className="text-xl font-semibold text-gray-900 mb-2 hover:text-blue-600">
-            {story.title}
-          </h2>
-          
-          <p className="text-gray-600 mb-4 line-clamp-3">
-            {story.metaDescription}
-          </p>
-          
+          <h2 className="text-xl font-semibold mb-2 line-clamp-2">{story.title}</h2>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{story.excerpt}</p>
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <div className="flex items-center">
-              <span>{story.author}</span>
-              <span className="mx-2">•</span>
-              <span>{story.readTime} min read</span>
-            </div>
-            <time>
-              {new Date(story.timestamp).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
+            <span>{story.author}</span>
+            <span>{formatDate(story.timestamp)}</span>
           </div>
           
           {story.tags.length > 0 && (

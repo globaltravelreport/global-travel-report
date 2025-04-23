@@ -207,7 +207,8 @@ export default function RodneyPage() {
         })
         
         if (!uploadResponse.ok) {
-          throw new Error('Failed to upload image')
+          const errorData = await uploadResponse.json()
+          throw new Error(errorData.error || 'Failed to upload image')
         }
         
         const uploadResult = await uploadResponse.json()
@@ -245,11 +246,11 @@ export default function RodneyPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to save story')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to save story')
       }
 
-      const result = await response.json()
-      // Reset form after successful submission
+      // Reset form and show success message
       setFormData({
         title: '',
         body: '',
@@ -263,9 +264,10 @@ export default function RodneyPage() {
         author: 'Rodney Pattison'
       })
       setPreview(null)
-      alert('Story submitted successfully!')
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      alert('Story published successfully!')
+    } catch (error) {
+      console.error('Error submitting story:', error)
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setIsSubmitting(false)
     }

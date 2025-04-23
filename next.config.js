@@ -5,18 +5,17 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
-      },
-      {
-        protocol: 'https',
         hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'example.com',
+        hostname: 'www.globaltravelreport.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'globaltravelreport.com',
       }
-    ],
-    domains: ['www.globaltravelreport.com', 'globaltravelreport.com']
+    ]
   },
   headers: async () => {
     return [
