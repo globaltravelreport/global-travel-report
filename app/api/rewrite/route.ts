@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import OpenAI from 'openai'
-import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { logger } from '@/utils/logger'
 import { safeLogError } from '../../utils/safeLogger'
@@ -142,34 +141,38 @@ Important rules:
 }
 
 async function extractFromURL(url: string): Promise<string> {
-  const headers: Record<string, string> = {
-    'User-Agent': 'Mozilla/5.0 (compatible; GlobalTravelReport/1.0; +https://www.globaltravelreport.com)'
-  }
-
-  const response = await axios.get(url, {
-    timeout: 15000,
-    headers,
-    validateStatus: status => status < 500
-  })
-
-  if (response.status !== 200) {
-    throw new Error(`Failed to fetch URL. Status: ${response.status}`)
-  }
-
-  const $ = cheerio.load(response.data)
-  $('script, style, iframe, noscript, nav, footer, header, aside, .ads, .comments, .sidebar').remove()
-
-  const title = $('h1').first().text().trim() || $('title').text().trim()
-  const content = $('p, h2, h3, h4, li')
-    .map((_i, el) => {
-      const text = $(el).text().trim()
-      return text.length > 30 ? text : null
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; GlobalTravelReport/1.0; +https://www.globaltravelreport.com)'
+      }
     })
-    .get()
-    .filter(Boolean)
-    .join('\n\n')
 
-  return `${title}\n\n${content}`
+    if (!response.ok) {
+      throw new Error(`Failed to fetch URL. Status: ${response.status}`)
+    }
+
+    const html = await response.text()
+    const $ = cheerio.load(html)
+    
+    // Remove non-content elements
+    $('script, style, iframe, noscript, nav, footer, header, aside, .ads, .comments, .sidebar').remove()
+
+    const title = $('h1').first().text().trim() || $('title').text().trim()
+    const content = $('p, h2, h3, h4, li')
+      .map((_i, el) => {
+        const text = $(el).text().trim()
+        return text.length > 30 ? text : null
+      })
+      .get()
+      .filter(Boolean)
+      .join('\n\n')
+
+    return `${title}\n\n${content}`
+  } catch (error) {
+    console.error('Error extracting content:', error)
+    throw new Error('Failed to extract content from URL')
+  }
 }
 
 // === API Handler ===
@@ -198,35 +201,22 @@ export async function POST(request: NextRequest) {
         articleContent = await extractFromURL(url)
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Could not extract content from URL'
-        return NextResponse.json(
-          { error: errorMessage },
-          { status: 400, headers }
-        )
+        return NextResponse.json({ error: errorMessage }, { status: 400, headers })
       }
     }
 
-    if (!articleContent) {
+    if (!articleContent || articleContent.length < MIN_CONTENT_LENGTH) {
       return NextResponse.json(
-        { error: 'Please provide either a URL or content to rewrite' },
+        { error: 'Please provide valid content to rewrite' },
         { status: 400, headers }
       )
     }
 
-    if (articleContent.length < MIN_CONTENT_LENGTH) {
-      return NextResponse.json(
-        { error: `Please provide at least ${MIN_CONTENT_LENGTH} characters of content` },
-        { status: 400, headers }
-      )
-    }
-
-    const rewritten = await rewriteContent(articleContent)
-    return NextResponse.json(rewritten, { headers })
+    const result = await rewriteContent(articleContent)
+    return NextResponse.json(result, { headers })
   } catch (error: unknown) {
-    safeLogError('Unhandled error in POST handler', error)
-    const errorMessage = error instanceof Error ? error.message : 'Unexpected error'
-    return NextResponse.json(
-      { error: errorMessage },
-      { status: 500, headers }
-    )
+    safeLogError('POST /api/rewrite error', error)
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred'
+    return NextResponse.json({ error: message }, { status: 500, headers })
   }
 } 
