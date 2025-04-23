@@ -12,15 +12,25 @@ export default function StoryCard({ story }: StoryCardProps) {
     <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
       <Link href={`/stories/${story.slug}`}>
         <div className="relative h-48 w-full">
-          <Image
-            src={`/stories/${story.imageName}`}
-            alt={story.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={story.featured}
-            loading={story.featured ? 'eager' : 'lazy'}
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600" />
+          {story.imageName && (
+            <Image
+              src={`/stories/images/${story.imageName}`}
+              alt={story.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={story.featured}
+              loading={story.featured ? 'eager' : 'lazy'}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement
+                target.style.opacity = '0'
+              }}
+            />
+          )}
+          <div className="absolute inset-0 flex items-center justify-center p-4 text-center text-white bg-black/30">
+            <h3 className="text-lg font-semibold">{story.title}</h3>
+          </div>
           {story.isSponsored && (
             <span className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">
               Sponsored
