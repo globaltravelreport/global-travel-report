@@ -14,7 +14,7 @@ jobs:
       
       - id: set-type
         name: Determine workflow type
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -46,7 +46,7 @@ jobs:
         run: npm run test:regression
         
       - name: Check for similar issues
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const issues = await github.rest.issues.listForRepo({
