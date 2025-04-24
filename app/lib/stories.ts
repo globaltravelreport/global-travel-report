@@ -1,5 +1,7 @@
 import path from 'path'
-import fs from 'fs/promises'
+import fs from 'fs'
+import matter from 'gray-matter'
+import { isWithinLast7Days, isValidDate } from './utils'
 
 export interface Story {
   title: string
@@ -21,9 +23,17 @@ export interface Story {
   }
   author: string
   readTime?: number
-  tags: string[]
+  keywords: string[]
   isSponsored?: boolean
   editorsPick?: boolean
+  summary: string
+  date: string
+  type: string
+  content: string
+  thumbnail?: string
+  imageAlt?: string
+  imageCredit?: string
+  imageLink?: string
 }
 
 interface StoryMetadata {
@@ -35,6 +45,25 @@ interface StoryMetadata {
   featured?: boolean
   published?: boolean
   tags: string[]
+}
+
+interface RawStory extends Story {
+  dateObj: Date
+}
+
+interface FrontMatter {
+  title: string
+  summary: string
+  slug?: string
+  date: string
+  country: string
+  type: string
+  keywords?: string[]
+  thumbnail?: string
+  imageUrl?: string
+  imageAlt?: string
+  imageCredit?: string
+  imageLink?: string
 }
 
 const getBaseUrl = () => {
@@ -49,6 +78,9 @@ let storyMetadataCache: StoryMetadata[] | null = null
 let storyMetadataCacheTime = 0
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
+const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles')
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+
 async function fetchStory(slug: string): Promise<Story | null> {
   try {
     // Check if the slug is an image file
@@ -60,7 +92,7 @@ async function fetchStory(slug: string): Promise<Story | null> {
     const storiesDir = path.join(process.cwd(), 'public', 'stories')
     const filePath = path.join(storiesDir, `${slug}.json`)
     
-    const fileContent = await fs.readFile(filePath, 'utf-8')
+    const fileContent = await fs.promises.readFile(filePath, 'utf-8')
     const story = JSON.parse(fileContent) as Story
     
     // Calculate readTime if not provided
@@ -101,7 +133,7 @@ async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
     const storiesDir = path.join(process.cwd(), 'public', 'stories')
     const indexPath = path.join(storiesDir, 'index.json')
     
-    const fileContent = await fs.readFile(indexPath, 'utf-8')
+    const fileContent = await fs.promises.readFile(indexPath, 'utf-8')
     const metadata = JSON.parse(fileContent) as StoryMetadata[]
     
     // Update cache
@@ -115,29 +147,132 @@ async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
   }
 }
 
-export async function getAllStories(): Promise<Story[]> {
-  try {
-    const metadata = await fetchStoryMetadata()
-    const stories = await Promise.all(
-      metadata.map(meta => fetchStory(meta.slug))
-    )
-    
-    return stories
-      .filter((story): story is Story => story !== null)
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-  } catch (error) {
-    console.warn('Failed to fetch stories:', error)
-    return []
+// Function to get all stories without filtering
+async function getAllStories(): Promise<Story[]> {
+  const files = fs.readdirSync(ARTICLES_DIRECTORY)
+  const markdownFiles = files.filter((file: string) => file.endsWith('.md'))
+
+  const stories = markdownFiles.map((filename: string) => {
+    const filePath = path.join(ARTICLES_DIRECTORY, filename)
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const { data, content } = matter(fileContents)
+    const frontmatter = data as FrontMatter
+
+    return {
+      title: frontmatter.title,
+      slug: frontmatter.slug || filename.replace(/\.md$/, ''),
+      metaTitle: frontmatter.title,
+      metaDescription: frontmatter.summary,
+      excerpt: frontmatter.summary,
+      category: 'Travel',
+      country: frontmatter.country,
+      body: content,
+      featured: false,
+      published: true,
+      timestamp: frontmatter.date,
+      author: 'Global Travel Report',
+      readTime: Math.ceil(content.split(/\s+/).length / 200),
+      keywords: frontmatter.keywords || [],
+      isSponsored: false,
+      editorsPick: false,
+      summary: frontmatter.summary,
+      date: frontmatter.date,
+      type: frontmatter.type,
+      content: content,
+      imageUrl: frontmatter.imageUrl,
+      imageAlt: frontmatter.imageAlt,
+      imageCredit: frontmatter.imageCredit,
+      imageLink: frontmatter.imageLink
+    }
+  })
+
+  return stories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+// Function to get unique countries from all stories
+export async function getUniqueCountries(): Promise<string[]> {
+  const stories = await getAllStories()
+  const countries = new Set(stories.map(story => story.country))
+  return Array.from(countries).sort()
+}
+
+// Function to get unique types from all stories
+export async function getUniqueTypes(): Promise<string[]> {
+  const stories = await getAllStories()
+  const types = new Set(stories.map(story => story.type))
+  return Array.from(types).sort()
+}
+
+// Function to get stories with optional filtering
+export async function getStories(options: { 
+  recentOnly?: boolean
+  country?: string
+  type?: string
+  tag?: string
+  searchQuery?: string
+} = {}): Promise<Story[]> {
+  const stories = await getAllStories()
+  
+  return stories.filter(story => {
+    // Skip invalid dates
+    if (!isValidDate(story.date)) return false
+
+    // Apply recent filter if requested
+    if (options.recentOnly && !isWithinLast7Days(story.date)) return false
+
+    // Apply country filter if provided
+    if (options.country && story.country.toLowerCase() !== options.country.toLowerCase()) return false
+
+    // Apply type filter if provided
+    if (options.type && story.type.toLowerCase() !== options.type.toLowerCase()) return false
+
+    // Apply tag filter if provided
+    if (options.tag && (!story.keywords || !story.keywords.some(k => 
+      k.toLowerCase() === options.tag?.toLowerCase()
+    ))) return false
+
+    // Apply search filter if provided
+    if (options.searchQuery) {
+      const searchTerm = options.searchQuery.toLowerCase()
+      const searchableText = [
+        story.title,
+        story.summary,
+        ...(story.keywords || [])
+      ].join(' ').toLowerCase()
+
+      if (!searchableText.includes(searchTerm)) return false
+    }
+
+    return true
+  })
+}
+
+// Function specifically for getting recent stories (used by homepage)
+export async function getRecentStories(filters?: { country?: string; type?: string }): Promise<Story[]> {
+  return getStories({ recentOnly: true, ...filters })
+}
+
+// Function to get a single story by slug
+export async function getStoryBySlug(slug: string): Promise<Story | null> {
+  const stories = await getAllStories()
+  return stories.find(story => story.slug === slug) || null
+}
+
+export async function getPaginatedStories(stories: Story[], page: number = 1, perPage: number = 12) {
+  const startIndex = (page - 1) * perPage
+  const endIndex = startIndex + perPage
+  const paginatedStories = stories.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(stories.length / perPage)
+
+  return {
+    stories: paginatedStories,
+    totalPages
   }
 }
 
 export async function getPublishedStories(): Promise<Story[]> {
   const stories = await getAllStories()
   return stories.filter(story => story.published !== false)
-}
-
-export async function getStoryBySlug(slug: string): Promise<Story | null> {
-  return fetchStory(slug)
 }
 
 export async function getStoriesByCategory(category: string): Promise<Story[]> {
@@ -152,20 +287,6 @@ export async function getStoriesByCountry(country: string): Promise<Story[]> {
   return stories
     .filter(story => story.country === country)
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-}
-
-export async function getRecentStories(): Promise<Story[]> {
-  const stories = await getPublishedStories()
-  const thirtyDaysAgo = new Date()
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-  
-  return stories
-    .filter(story => 
-      new Date(story.timestamp) > thirtyDaysAgo || story.featured
-    )
-    .sort((a, b) => 
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    )
 }
 
 export async function getTrendingStories(): Promise<Story[]> {
@@ -204,7 +325,7 @@ export async function getMetrics() {
   
   // Get top tags
   const tagCounts = stories.reduce((acc, story) => {
-    story.tags.forEach(tag => {
+    story.keywords.forEach(tag => {
       acc[tag] = (acc[tag] || 0) + 1
     })
     return acc
@@ -240,7 +361,7 @@ export async function searchStories(query: string): Promise<Story[]> {
       story.metaDescription,
       story.body,
       story.author,
-      ...story.tags
+      ...story.keywords
     ].join(' ').toLowerCase()
     
     return searchTerms.every(term => searchableText.includes(term))
@@ -250,24 +371,6 @@ export async function searchStories(query: string): Promise<Story[]> {
 export async function getStoriesByTag(tag: string): Promise<Story[]> {
   const stories = await getAllStories()
   return stories
-    .filter(story => story.tags.includes(tag))
+    .filter(story => story.keywords.includes(tag))
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-}
-
-export async function getPaginatedStories(
-  stories: Story[],
-  page: number = 1,
-  perPage: number = 6
-): Promise<{
-  stories: Story[]
-  totalPages: number
-}> {
-  const start = (page - 1) * perPage
-  const end = start + perPage
-  const totalPages = Math.ceil(stories.length / perPage)
-  
-  return {
-    stories: stories.slice(start, end),
-    totalPages
-  }
 } 

@@ -30,4 +30,4 @@ async function testUpload() {
   }
 }
 
-testUpload(); 
+testUpload();
