@@ -19,7 +19,7 @@ function isAuthorized(): boolean {
   return authToken === process.env.PUBLISH_SECRET_TOKEN
 }
 
-export async function POST(request: Request) {
+export async function POST(_request: Request) {
   try {
     // Check authorization
     if (!isAuthorized()) {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     
     // Verify script exists
     try {
-      const { stdout, stderr } = await execAsync(`test -f ${scriptPath}`)
+      await execAsync(`test -f ${scriptPath}`)
     } catch (error) {
       logger.error('Publishing script not found', { scriptPath });
       return NextResponse.json({
