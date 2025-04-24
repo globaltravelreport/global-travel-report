@@ -8,12 +8,16 @@ export interface Story {
   slug: string
   metaTitle: string
   metaDescription: string
-  excerpt?: string
+  excerpt: string
+  summary: string
   category: string
+  type: string
   country: string
   body: string
-  featured?: boolean
-  published?: boolean
+  content: string
+  date: string
+  featured: boolean
+  published: boolean
   timestamp: string
   imageName?: string
   imageUrl?: string
@@ -24,16 +28,16 @@ export interface Story {
   author: string
   readTime?: number
   keywords: string[]
+  tags: string[]
   isSponsored?: boolean
   editorsPick?: boolean
-  summary: string
-  date: string
-  type: string
-  content: string
-  thumbnail?: string
   imageAlt?: string
   imageCredit?: string
   imageLink?: string
+}
+
+export interface RawStory extends Story {
+  timestamp: string
 }
 
 interface StoryMetadata {
@@ -45,10 +49,6 @@ interface StoryMetadata {
   featured?: boolean
   published?: boolean
   tags: string[]
-}
-
-interface RawStory extends Story {
-  dateObj: Date
 }
 
 interface FrontMatter {
@@ -148,7 +148,7 @@ async function fetchStoryMetadata(): Promise<StoryMetadata[]> {
 }
 
 // Function to get all stories without filtering
-async function getAllStories(): Promise<Story[]> {
+export async function getAllStories(): Promise<Story[]> {
   const files = fs.readdirSync(ARTICLES_DIRECTORY)
   const markdownFiles = files.filter((file: string) => file.endsWith('.md'))
 
@@ -173,6 +173,7 @@ async function getAllStories(): Promise<Story[]> {
       author: 'Global Travel Report',
       readTime: Math.ceil(content.split(/\s+/).length / 200),
       keywords: frontmatter.keywords || [],
+      tags: frontmatter.keywords || [],
       isSponsored: false,
       editorsPick: false,
       summary: frontmatter.summary,
@@ -369,7 +370,7 @@ export async function searchStories(query: string): Promise<Story[]> {
 }
 
 export async function getStoriesByTag(tag: string): Promise<Story[]> {
-  const stories = await getAllStories()
+  const stories = await getStories()
   return stories
     .filter(story => story.keywords.includes(tag))
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())

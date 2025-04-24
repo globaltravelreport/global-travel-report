@@ -19,21 +19,15 @@ export default function StoryCard({ story }: StoryCardProps) {
       <Link href={`/stories/${story.slug}`}>
         <div className="relative h-48 w-full">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600" />
-          {story.thumbnail && !imageError && (
+          {story.imageUrl && !imageError && (
             <div className={`absolute inset-0 transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}>
               <Image
-                src={story.thumbnail}
-                alt={story.title}
+                src={story.imageUrl}
+                alt={story.imageAlt || story.title}
                 fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={false}
-                loading="lazy"
-                onLoadingComplete={() => setImageLoading(false)}
-                onError={() => {
-                  setImageError(true)
-                  setImageLoading(false)
-                }}
+                className="object-cover rounded-t-lg"
+                onLoad={() => setImageLoading(false)}
+                onError={() => setImageError(true)}
               />
             </div>
           )}
