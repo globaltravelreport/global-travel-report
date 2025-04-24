@@ -4,7 +4,8 @@ import StoryList from './components/StoryList'
 import StoryFilters from './components/StoryFilters'
 import Image from 'next/image'
 import { FaCompass, FaHotel, FaPlane, FaUmbrellaBeach } from 'react-icons/fa'
-import './metadata'
+import { generateMetadata as generatePageMetadata } from './lib/utils'
+import { Metadata } from 'next'
 
 interface HomePageProps {
   searchParams: {
@@ -12,6 +13,15 @@ interface HomePageProps {
     country?: string
     type?: string
   }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata({
+    title: 'Latest Travel Stories',
+    description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
+    path: '/',
+    type: 'website'
+  })
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
@@ -37,6 +47,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   // Get the latest featured story
   const featuredStory = stories[0]
 
+  // Build the base path for pagination
+  const params = new URLSearchParams()
+  if (selectedCountry) params.set('country', selectedCountry)
+  if (selectedType) params.set('type', selectedType)
+  const basePath = `/?${params.toString()}`
+
   // Categories for quick navigation
   const categories = [
     { name: 'Destinations', icon: FaCompass, href: '/filtered?type=Destination', color: 'bg-blue-500' },
@@ -57,6 +73,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               fill
               className="object-cover opacity-60"
               priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
           </>
@@ -115,13 +132,25 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             View All →
           </Link>
         </div>
+
+        <div className="mb-8">
+          <StoryFilters
+            countries={countries}
+            types={types}
+            selectedCountry={selectedCountry}
+            selectedType={selectedType}
+            basePath="/"
+          />
+        </div>
         
         <StoryList
           stories={paginatedStories}
           currentPage={currentPage}
           totalPages={totalPages}
-          basePath="/"
+          basePath={basePath}
           showTags={true}
+          totalCount={stories.length}
+          isLoading={false}
         />
       </div>
 

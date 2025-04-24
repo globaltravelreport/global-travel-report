@@ -1,47 +1,54 @@
 import { render, screen } from '@testing-library/react'
 import StoryCard from '../StoryCard'
+import { Story } from '../../lib/stories'
 
-const mockStory = {
+const mockStory: Story = {
   title: 'Test Story',
+  summary: 'Test summary',
+  keywords: ['test', 'story'],
   slug: 'test-story',
-  metaTitle: 'Test Story - Meta Title',
-  metaDescription: 'Test story description',
-  excerpt: 'Test excerpt',
-  category: 'Test Category',
+  date: '2024-04-22',
   country: 'Test Country',
-  body: 'Test body content',
-  featured: true,
-  published: true,
-  timestamp: '2024-04-22T00:00:00.000Z',
-  imageName: 'test-image.jpg',
-  author: 'Test Author',
-  readTime: 5,
-  tags: ['test', 'story'],
-  isSponsored: false,
-  editorsPick: true
+  type: 'Travel News',
+  content: 'Test content that is long enough to calculate reading time',
+  imageUrl: 'https://example.com/test-image.jpg',
+  imageAlt: 'Test image',
+  imageCredit: 'Test Photographer',
+  imageLink: 'https://example.com/photo',
+  lastModified: '2024-04-22T00:00:00.000Z'
 }
 
 describe('StoryCard', () => {
   it('renders story information correctly', () => {
     render(<StoryCard story={mockStory} />)
     
-    // Check the main heading (h2)
-    expect(screen.getByRole('heading', { level: 2, name: mockStory.title })).toBeInTheDocument()
-    expect(screen.getByText(mockStory.category)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: mockStory.title })).toBeInTheDocument()
+    expect(screen.getByText(mockStory.type)).toBeInTheDocument()
     expect(screen.getByText(mockStory.country)).toBeInTheDocument()
-    expect(screen.getByText(mockStory.author)).toBeInTheDocument()
-    expect(screen.getByText(mockStory.excerpt)).toBeInTheDocument()
+    expect(screen.getByText(mockStory.summary)).toBeInTheDocument()
     
-    mockStory.tags.forEach(tag => {
+    mockStory.keywords.forEach(tag => {
       expect(screen.getByText(tag)).toBeInTheDocument()
     })
   })
 
-  it('renders without image when imageName is not provided', () => {
-    const storyWithoutImage = { ...mockStory, imageName: undefined }
+  it('renders without image when imageUrl is not provided', () => {
+    const storyWithoutImage = { ...mockStory, imageUrl: undefined }
     render(<StoryCard story={storyWithoutImage} />)
     
-    expect(screen.getByRole('heading', { level: 2, name: storyWithoutImage.title })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: storyWithoutImage.title })).toBeInTheDocument()
+  })
+
+  it('shows reading time', () => {
+    render(<StoryCard story={mockStory} />)
+    expect(screen.getByText(/min read$/)).toBeInTheDocument()
+  })
+
+  it('renders with hidden tags', () => {
+    render(<StoryCard story={mockStory} showTags={false} />)
+    mockStory.keywords.forEach(tag => {
+      expect(screen.queryByText(tag)).not.toBeInTheDocument()
+    })
   })
 
   it('shows sponsored tag when story is sponsored', () => {

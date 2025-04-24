@@ -6,14 +6,14 @@ import { useCallback } from 'react'
 interface StoryFiltersProps {
   countries: string[]
   types: string[]
+  selectedCountry?: string
+  selectedType?: string
+  basePath?: string
 }
 
-export default function StoryFilters({ countries, types }: StoryFiltersProps) {
+export default function StoryFilters({ countries, types, selectedCountry = '', selectedType = '', basePath = '/' }: StoryFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-
-  const currentCountry = searchParams.get('country') || ''
-  const currentType = searchParams.get('type') || ''
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -32,19 +32,19 @@ export default function StoryFilters({ countries, types }: StoryFiltersProps) {
 
   const handleCountryChange = (country: string) => {
     const query = createQueryString('country', country)
-    router.push(`/?${query}`)
+    router.push(`${basePath}${query ? `?${query}` : ''}`)
   }
 
   const handleTypeChange = (type: string) => {
     const query = createQueryString('type', type)
-    router.push(`/?${query}`)
+    router.push(`${basePath}${query ? `?${query}` : ''}`)
   }
 
   const clearFilters = () => {
-    router.push('/')
+    router.push(basePath)
   }
 
-  const hasFilters = currentCountry || currentType
+  const hasFilters = selectedCountry || selectedType
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-8">
@@ -54,7 +54,7 @@ export default function StoryFilters({ countries, types }: StoryFiltersProps) {
         </label>
         <select
           id="country"
-          value={currentCountry}
+          value={selectedCountry}
           onChange={(e) => handleCountryChange(e.target.value)}
           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
@@ -73,7 +73,7 @@ export default function StoryFilters({ countries, types }: StoryFiltersProps) {
         </label>
         <select
           id="type"
-          value={currentType}
+          value={selectedType}
           onChange={(e) => handleTypeChange(e.target.value)}
           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >

@@ -3,14 +3,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Story } from '../lib/stories'
-import { formatDate } from '../lib/utils'
+import { formatDate, formatReadingTime, getTagColor } from '../lib/utils'
 import { useState } from 'react'
 
 interface StoryCardProps {
   story: Story
+  showTags?: boolean
 }
 
-export default function StoryCard({ story }: StoryCardProps) {
+export default function StoryCard({ story, showTags = true }: StoryCardProps) {
   const [imageError, setImageError] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
 
@@ -45,9 +46,39 @@ export default function StoryCard({ story }: StoryCardProps) {
             <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
               {story.country}
             </span>
+            {story.isSponsored && (
+              <span className="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
+                Sponsored
+              </span>
+            )}
+            <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full ml-auto">
+              {formatReadingTime(story.content)}
+            </span>
           </div>
           <h2 className="text-xl font-semibold mb-2 line-clamp-2">{story.title}</h2>
           <p className="text-gray-600 text-sm mb-4 line-clamp-2">{story.summary}</p>
+          
+          {showTags && story.keywords && story.keywords.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {story.keywords.slice(0, 3).map(tag => {
+                const { bg, text } = getTagColor(tag)
+                return (
+                  <Link
+                    key={tag}
+                    href={`/filtered?tag=${encodeURIComponent(tag)}`}
+                    className={`px-2 py-1 text-xs font-medium rounded-full ${bg} ${text} hover:opacity-80 transition-opacity`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {tag}
+                  </Link>
+                )
+              })}
+              {story.keywords.length > 3 && (
+                <span className="text-xs text-gray-500">+{story.keywords.length - 3} more</span>
+              )}
+            </div>
+          )}
+          
           <div className="flex items-center justify-end text-sm text-gray-500">
             <span>{formatDate(story.date)}</span>
           </div>

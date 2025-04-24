@@ -1,18 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { FaArrowUp } from 'react-icons/fa'
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      setIsVisible(scrollTop > 500)
+    const toggleVisibility = () => {
+      // Show button when page is scrolled 400px
+      if (window.scrollY > 400) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', toggleVisibility)
+    return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
 
   const scrollToTop = () => {
@@ -22,27 +27,15 @@ export default function BackToTop() {
     })
   }
 
+  if (!isVisible) return null
+
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-opacity duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      className="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-50"
       aria-label="Back to top"
     >
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        />
-      </svg>
+      <FaArrowUp className="h-5 w-5" />
     </button>
   )
 } 
