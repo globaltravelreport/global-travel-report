@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import OpenAI from 'openai'
 import * as cheerio from 'cheerio'
-import { logger } from '@/utils/logger'
 import { safeLogError } from '../../utils/safeLogger'
 
 // === Config & Constants ===

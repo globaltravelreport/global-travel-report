@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir, readFile, access } from 'fs/promises'
+import { writeFile, mkdir, access } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import sharp from 'sharp'

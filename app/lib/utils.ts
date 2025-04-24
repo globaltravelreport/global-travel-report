@@ -153,3 +153,14 @@ export function generateMetadata(params: {
 
   return metadata
 }
+
+// This function should only be used in server components
+export async function getFileModifiedDate(date: string): Promise<string> {
+  try {
+    const parsedDate = parseISO(date)
+    return isValid(parsedDate) ? parsedDate.toISOString() : new Date().toISOString()
+  } catch (error) {
+    console.warn(`Error parsing date: ${date}`, error)
+    return new Date().toISOString()
+  }
+}

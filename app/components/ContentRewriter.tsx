@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { RewrittenContent } from '@/types/content'
-import Link from 'next/link'
 
 interface ContentRewriterProps {
   onRewriteComplete: (content: RewrittenContent) => void
+  content?: string
 }
 
 export default function ContentRewriter({ onRewriteComplete }: ContentRewriterProps) {

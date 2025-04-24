@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import articles from '@/app/data/articles';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { format } from 'date-fns';
 import ArticleImage from '@/app/components/ArticleImage';
 

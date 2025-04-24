@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { StoryDraft } from '@/types/content';
+import { StoryDraft } from '@/app/types/content';
 import fs from 'fs/promises';
 import path from 'path';
-
-const ARTICLES_FILE = path.join(process.cwd(), 'app/data/articles.json');
 
 // In a real application, this would be a database
 let publishedStories: StoryDraft[] = [];

@@ -3,22 +3,19 @@
 import { XMarkIcon, ShareIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { Story } from '../lib/stories'
 
 interface ActiveFiltersProps {
   category?: string
   country?: string
   tag?: string
   query?: string
-  stories: Story[]
 }
 
 export default function ActiveFilters({
   category,
   country,
   tag,
-  query,
-  stories
+  query
 }: ActiveFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()

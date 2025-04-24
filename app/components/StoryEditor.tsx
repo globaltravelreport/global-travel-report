@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Category, StoryDraft } from '@/types/content';
 import ImageSearchModal from './ImageSearchModal';
+import { logger } from '@/app/utils/logger';
 
 interface StoryEditorProps {
   initialData?: StoryDraft;
@@ -11,19 +12,17 @@ interface StoryEditorProps {
 }
 
 export default function StoryEditor({ initialData, onPublish }: StoryEditorProps) {
-  console.log('StoryEditor: Component rendering with props:', { initialData });
-
-  const [story, setStory] = useState<StoryDraft>({
-    title: initialData?.title || '',
-    content: initialData?.content || '',
-    category: initialData?.category || 'news',
-    status: initialData?.status || 'draft',
-    author: initialData?.author || 'Nuch',
-    isReadyToPublish: initialData?.isReadyToPublish || false,
-    summary: initialData?.summary || '',
-    slug: initialData?.slug || '',
-    featuredImage: initialData?.featuredImage || undefined,
-    seo: initialData?.seo || {
+  const [story, setStory] = useState<StoryDraft>(initialData || {
+    title: '',
+    content: '',
+    category: 'news',
+    status: 'draft',
+    author: 'Nuch',
+    isReadyToPublish: false,
+    summary: '',
+    slug: '',
+    featuredImage: undefined,
+    seo: {
       title: '',
       description: '',
       keywords: []
@@ -31,9 +30,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
   });
 
   useEffect(() => {
-    console.log('StoryEditor: Component mounted');
-    console.log('StoryEditor: Initial story state:', story);
-  }, []);
+    if (initialData) {
+      logger.debug('Initializing story editor', { storyId: initialData.slug });
+      setStory(initialData);
+    }
+  }, [initialData]);
 
   const [isSearchingImage, setIsSearchingImage] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
@@ -47,8 +48,10 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
     setIsSaving(true);
     try {
       await onPublish(story);
+      logger.info('Story published successfully', { storyId: story.slug });
       alert('✅ Story published successfully!');
     } catch (error) {
+      logger.error('Failed to publish story', error);
       console.error('StoryEditor: Publish error:', error);
       alert('Failed to publish story. Please try again.');
     } finally {
@@ -56,10 +59,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
     }
   };
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
+  const handleImageUpload = async (file: File) => {
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -75,14 +75,17 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
 
       const data = await response.json();
       
-      setStory({
-        ...story,
+      setStory(prev => ({
+        ...prev,
         featuredImage: {
           url: data.url,
-          alt: file.name
+          alt: data.alt || file.name
         }
-      });
+      }));
+
+      logger.info('Image uploaded successfully', { imageUrl: data.url });
     } catch (error) {
+      logger.error('Failed to upload image', error);
       console.error('Error uploading image:', error);
       alert('Failed to upload image. Please try again.');
     }
@@ -254,7 +257,11 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
                   id="featured-image"
                   type="file"
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      handleImageUpload(e.target.files[0]);
+                    }
+                  }}
                   className="hidden"
                 />
                 <span className="text-gray-600">Click to upload or drag and drop</span>

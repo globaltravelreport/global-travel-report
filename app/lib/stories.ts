@@ -49,48 +49,85 @@ export interface FrontMatter {
   body?: string
 }
 
-export interface Story extends FrontMatter {
+export interface Story {
+  title: string
+  summary: string
   content: string
+  slug: string
+  date: string
   timestamp: number
   lastModified: number
+  country: string
+  type: string
+  keywords: string[]
+  imageUrl?: string
+  imageAlt?: string
+  author?: string
+  source?: string
+  sourceUrl?: string
+  tags?: string[]
+  body?: string
+  published?: boolean
+  category?: string
+  featured?: boolean
+  editorsPick?: boolean
+  readTime?: number
+  metaDescription?: string
 }
 
 const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles')
 
 export async function getAllStories(): Promise<Story[]> {
   const articlesDirectory = path.join(process.cwd(), 'content/articles')
-  const filenames = await fs.promises.readdir(articlesDirectory)
-  const mdFiles = filenames.filter((filename) => filename.endsWith('.md'))
+  const files = await fs.promises.readdir(articlesDirectory)
+  const mdFiles = files.filter(file => file.endsWith('.md'))
 
-  const stories = await Promise.all(
-    mdFiles.map(async (filename) => {
-      try {
-        const filePath = path.join(articlesDirectory, filename)
-        const fileContents = await fs.promises.readFile(filePath, 'utf8')
-        const stats = await fs.promises.stat(filePath)
-        const { data: frontmatter, content } = matter(fileContents)
+  const stories = await Promise.all(mdFiles.map(async (filename) => {
+    const filePath = path.join(articlesDirectory, filename)
+    const fileContents = await fs.promises.readFile(filePath, 'utf8')
+    const stats = await fs.promises.stat(filePath)
+    const { data, content } = matter(fileContents)
 
-        if (!frontmatter.date || !isValidDate(frontmatter.date)) {
-          console.error(`Invalid or missing date in ${filename}`)
-          return null
-        }
+    // Convert date string to timestamp
+    const timestamp = new Date(data.date).getTime()
+    if (isNaN(timestamp)) {
+      console.warn(`Invalid date in ${filename}: ${data.date}`)
+    }
 
-        const timestamp = new Date(frontmatter.date).getTime()
+    // Ensure all required fields are present
+    if (!data.title || !data.summary || !data.date || !data.country || !data.type || !data.keywords) {
+      console.warn(`Missing required fields in ${filename}`)
+      return null
+    }
 
-        const story: Story = {
-          ...(frontmatter as FrontMatter),
-          content,
-          timestamp,
-          lastModified: stats.mtimeMs
-        }
+    const story: Story = {
+      title: data.title,
+      summary: data.summary,
+      content,
+      slug: filename.replace('.md', ''),
+      date: data.date,
+      timestamp: timestamp || Date.now(),
+      lastModified: stats.mtimeMs,
+      country: data.country,
+      type: data.type,
+      keywords: data.keywords,
+      imageUrl: data.imageUrl,
+      imageAlt: data.imageAlt,
+      author: data.author,
+      source: data.source,
+      sourceUrl: data.sourceUrl,
+      tags: data.tags,
+      body: data.body,
+      published: data.published,
+      category: data.category,
+      featured: data.featured,
+      editorsPick: data.editorsPick,
+      readTime: data.readTime,
+      metaDescription: data.metaDescription
+    }
 
-        return story
-      } catch (error) {
-        console.error(`Error processing ${filename}:`, error)
-        return null
-      }
-    })
-  )
+    return story
+  }))
 
   return stories.filter((story): story is Story => story !== null)
 }
@@ -105,44 +142,46 @@ export async function getUniqueTypes(): Promise<string[]> {
   return Array.from(new Set(stories.map(story => story.type))).sort()
 }
 
-export function getStories(options: {
+export async function getStories(options: {
   recentOnly?: boolean
   country?: string
   type?: string
   tag?: string
-  searchQuery?: string
-} = {}): Promise<Story[]> {
-  return getAllStories().then(stories => {
-    let filteredStories = [...stories]
+  search?: string
+} = {}) {
+  const stories = await getAllStories()
+  
+  let filteredStories = [...stories]
 
-    if (options.recentOnly) {
-      filteredStories = filteredStories.filter((story) => isWithinLast7Days(story.date))
-    }
+  if (options.recentOnly) {
+    const now = Date.now()
+    const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000)
+    filteredStories = filteredStories.filter(story => story.timestamp >= thirtyDaysAgo)
+  }
 
-    if (options.country) {
-      filteredStories = filteredStories.filter((story) => story.country === options.country)
-    }
+  if (options.country) {
+    filteredStories = filteredStories.filter(story => story.country === options.country)
+  }
 
-    if (options.type) {
-      filteredStories = filteredStories.filter((story) => story.type === options.type)
-    }
+  if (options.type) {
+    filteredStories = filteredStories.filter(story => story.type === options.type)
+  }
 
-    if (options.tag) {
-      filteredStories = filteredStories.filter((story) => story.keywords.includes(options.tag!))
-    }
+  if (options.tag) {
+    filteredStories = filteredStories.filter(story => story.tags?.includes(options.tag!))
+  }
 
-    if (options.searchQuery) {
-      const query = options.searchQuery.toLowerCase()
-      filteredStories = filteredStories.filter(
-        (story) =>
-          story.title.toLowerCase().includes(query) ||
-          story.summary.toLowerCase().includes(query) ||
-          story.content.toLowerCase().includes(query)
-      )
-    }
+  if (options.search) {
+    const query = options.search.toLowerCase()
+    filteredStories = filteredStories.filter(
+      (story) =>
+        story.title.toLowerCase().includes(query) ||
+        story.summary.toLowerCase().includes(query) ||
+        story.content.toLowerCase().includes(query)
+    )
+  }
 
-    return filteredStories.sort((a, b) => b.timestamp - a.timestamp)
-  })
+  return filteredStories.sort((a, b) => b.timestamp - a.timestamp)
 }
 
 export async function getRecentStories({ country, type }: { country?: string, type?: string } = {}): Promise<Story[]> {
@@ -180,16 +219,14 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
   }
 }
 
-export function getPaginatedStories(stories: Story[], page: number = 1, perPage: number = 10) {
+export async function getPaginatedStories(stories: Story[], page: number = 1, perPage: number = 10) {
   const start = (page - 1) * perPage
   const end = start + perPage
   const paginatedStories = stories.slice(start, end)
-  const totalPages = Math.ceil(stories.length / perPage)
   
   return {
     stories: paginatedStories,
-    currentPage: page,
-    totalPages
+    totalPages: Math.ceil(stories.length / perPage)
   }
 }
 

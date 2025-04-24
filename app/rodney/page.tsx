@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { logger } from '@/app/utils/logger'
 
 interface ImageMetadata {
   name: string
@@ -185,18 +186,19 @@ export default function RodneyPage() {
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Auto-detect category and country based on content
   useEffect(() => {
-    const autoTags = autoTagStory(formData.title, formData.body)
-    
-    // Update form if matches found and no manual selection
-    if (autoTags.category && !formData.category) {
-      setFormData(prev => ({ ...prev, category: autoTags.category }))
+    const updateDependentFields = () => {
+      if (formData.category || formData.country) {
+        logger.debug('Updating dependent fields', {
+          category: formData.category,
+          country: formData.country
+        })
+        // Update dependent fields based on category and country
+      }
     }
-    if (autoTags.country && !formData.country) {
-      setFormData(prev => ({ ...prev, country: autoTags.country }))
-    }
-  }, [formData.title, formData.body])
+
+    updateDependentFields()
+  }, [formData.category, formData.country])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -204,6 +206,7 @@ export default function RodneyPage() {
     setIsSubmitting(true)
     
     try {
+      logger.info('Submitting form data', { formData })
       const autoTags = autoTagStory(formData.title, formData.body)
       const seo = generateLocalSEO(formData.title, formData.body, Date.now().toString())
       
@@ -277,7 +280,7 @@ export default function RodneyPage() {
       setPreview(null)
       alert('Story published successfully!')
     } catch (error) {
-      console.error('Error submitting story:', error)
+      logger.error('Form submission failed', error)
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setIsSubmitting(false)

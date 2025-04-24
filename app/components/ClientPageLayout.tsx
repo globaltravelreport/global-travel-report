@@ -1,31 +1,29 @@
 'use client';
 
 import { ReactNode } from 'react';
-import Hero from './Hero';
-import { heroImages } from '../config/images';
+import { heroImages } from '../config/hero-images';
 
 interface ClientPageLayoutProps {
   children: ReactNode;
-  title: string;
-  description: string;
   heroType?: keyof typeof heroImages;
 }
 
 export default function ClientPageLayout({ 
   children, 
-  title, 
-  description, 
   heroType = 'home',
 }: ClientPageLayoutProps) {
-  const imageConfig = heroImages[heroType] || heroImages.home;
+  const { src, alt } = heroImages[heroType] || heroImages.home;
 
   return (
     <main>
-      <Hero 
-        title={title} 
-        description={description} 
-        heroType={heroType}
-      />
+      <div className="relative h-[400px] bg-gray-900">
+        <img
+          src={src}
+          alt={alt}
+          className="object-cover w-full h-full opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+      </div>
       {children}
     </main>
   );

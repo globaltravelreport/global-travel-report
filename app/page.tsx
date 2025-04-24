@@ -64,10 +64,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   // Categories for quick navigation
   const categories = [
-    { name: 'Destinations', icon: FaCompass, href: '/filtered?type=Destination', color: 'bg-blue-500' },
-    { name: 'Hotels', icon: FaHotel, href: '/filtered?type=Hotels', color: 'bg-green-500' },
-    { name: 'Airlines', icon: FaPlane, href: '/filtered?type=Airlines', color: 'bg-purple-500' },
-    { name: 'Experiences', icon: FaUmbrellaBeach, href: '/filtered?type=Experiences', color: 'bg-orange-500' },
+    { name: 'Destinations', icon: FaCompass, href: '/categories/destination', color: 'bg-blue-500' },
+    { name: 'Hotels', icon: FaHotel, href: '/categories/hotels', color: 'bg-green-500' },
+    { name: 'Airlines', icon: FaPlane, href: '/categories/airlines', color: 'bg-purple-500' },
+    { name: 'Experiences', icon: FaUmbrellaBeach, href: '/categories/experiences', color: 'bg-orange-500' },
   ]
 
   return (
