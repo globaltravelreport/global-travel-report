@@ -4,8 +4,7 @@ import StoryList from './components/StoryList'
 import StoryFilters from './components/StoryFilters'
 import Image from 'next/image'
 import { FaCompass, FaHotel, FaPlane, FaUmbrellaBeach } from 'react-icons/fa'
-import { generateMetadata as generatePageMetadata } from './lib/utils'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 interface HomePageProps {
   searchParams: {
@@ -16,12 +15,22 @@ interface HomePageProps {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata({
-    title: 'Latest Travel Stories',
+  return {
+    title: 'Latest Travel Stories – Global Travel Report',
     description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
-    path: '/',
-    type: 'website'
-  })
+    openGraph: {
+      title: 'Latest Travel Stories – Global Travel Report',
+      description: 'Explore curated travel news and updates for Aussie travelers.',
+      siteName: 'Global Travel Report',
+      locale: 'en_AU',
+      type: 'website',
+      url: 'https://www.globaltravelreport.com',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Latest Travel Stories – Global Travel Report',
+    },
+  }
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
