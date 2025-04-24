@@ -1,29 +1,10 @@
-'use client'
-
-import { Metadata } from 'next'
 import Link from 'next/link'
 import { getRecentStories, getPaginatedStories, getUniqueCountries, getUniqueTypes } from './lib/stories'
 import StoryList from './components/StoryList'
 import StoryFilters from './components/StoryFilters'
 import Image from 'next/image'
 import { FaCompass, FaHotel, FaPlane, FaUmbrellaBeach } from 'react-icons/fa'
-
-export const metadata: Metadata = {
-  title: 'Latest Travel Stories – Global Travel Report',
-  description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
-  openGraph: {
-    title: 'Latest Travel Stories – Global Travel Report',
-    description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
-    type: 'website',
-    url: 'https://globaltravelreport.com',
-    siteName: 'Global Travel Report',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Latest Travel Stories – Global Travel Report',
-    description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
-  }
-}
+import './metadata'
 
 interface HomePageProps {
   searchParams: {
