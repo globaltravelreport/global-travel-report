@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { withSentryConfig } = require('@sentry/nextjs');
-
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -68,12 +66,7 @@ const nextConfig = {
   },
   poweredByHeader: false,
   compress: true,
-  generateEtags: true,
-  sentry: {
-    hideSourceMaps: true,
-    tunnelRoute: '/monitoring',
-    widenClientFileUpload: true,
-  }
+  generateEtags: true
 };
 
-module.exports = withSentryConfig(nextConfig); 
+module.exports = nextConfig; 
