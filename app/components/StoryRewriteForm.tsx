@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { logger } from '@/app/utils/logger';
 
 export default function StoryRewriteForm() {
   const [story, setStory] = useState('');
@@ -28,7 +29,8 @@ export default function StoryRewriteForm() {
 
       const data = await response.json();
       setRewrittenStory(data.rewrittenStory);
-    } catch (err) {
+    } catch (error) {
+      logger.error('Failed to rewrite story:', error);
       setError('Failed to rewrite story. Please try again.');
     } finally {
       setIsLoading(false);

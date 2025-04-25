@@ -1,15 +1,32 @@
 ---
-title: "Southeast Asia: The New Favorite of Australian Travelers"
-summary: "Southeast Asia has surged in popularity among Australian tourists in 2025, with countries like Thailand, Vietnam and Indonesia topping the list. Improved connectivity, competitive pricing, and a keen interest in authentic cultural experiences are driving this trend."
-keywords: ["Southeast Asia","Australian tourists","travel destination","Thailand","Vietnam","Indonesia","cultural experiences","airline connectivity","affordable travel","tourism boards"]
+title: 'Southeast Asia: The New Favorite of Australian Travelers'
+summary: >-
+  Southeast Asia has surged in popularity among Australian tourists in 2025,
+  with countries like Thailand, Vietnam and Indonesia topping the list. Improved
+  connectivity, competitive pricing, and a keen interest in authentic cultural
+  experiences are driving this trend.
+keywords:
+  - Australian tourists
+  - Indonesia
+  - Southeast Asia
+  - Thailand
+  - Vietnam
+  - affordable travel
+  - airline connectivity
+  - cultural experiences
+  - tourism boards
+  - travel destination
 slug: southeast-asia-the-new-favorite-of-australian-travelers
-date: 2025-04-24
+date: 2025-04-24T00:00:00.000Z
 country: Australia
-type: Travel News
-imageUrl: "https://images.unsplash.com/photo-1571930884569-f455bb00aceb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxTb3V0aGVhc3QlMjBBc2lhfGVufDB8MHx8fDE3NDU0Nzk2NzF8MA&ixlib=rb-4.0.3&q=80&w=1080"
-imageAlt: "city buildings during daytime"
-imageCredit: "Aniq Danial on Unsplash"
-imageLink: "https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY"
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1571930884569-f455bb00aceb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxTb3V0aGVhc3QlMjBBc2lhfGVufDB8MHx8fDE3NDU0Nzk2NzF8MA&ixlib=rb-4.0.3&q=80&w=1080
+imageAlt: city buildings during daytime
+imageCredit: Aniq Danial on Unsplash
+imageLink: 'https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'
+published: true
+categories: []
 ---
 
 In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as the most preferred travel destination for Australians in 2025. A blend of rich culture, breathtaking beaches, and the promise of affordable luxury has won the hearts of Australian globetrotters.

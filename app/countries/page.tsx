@@ -11,7 +11,7 @@ export default async function CountriesPage() {
   }, {} as Record<string, number>)
   
   // Sort countries by story count (descending)
-  const sortedCountries = Object.entries(countryCounts)
+  const sortedCountries = (Object.entries(countryCounts) as [string, number][])
     .sort(([, a], [, b]) => b - a)
 
   return (

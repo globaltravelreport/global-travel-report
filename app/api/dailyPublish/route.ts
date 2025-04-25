@@ -61,13 +61,13 @@ export async function POST(_request: Request) {
       }
     })
 
-  } catch (error) {
-    logger.error('Error in publishing process', error);
+  } catch (_error) {
+    logger.error('Error in publishing process', _error);
     
     return NextResponse.json({
       success: false,
       error: 'Failed to execute publishing process',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 })
   }
 }
@@ -77,10 +77,10 @@ export async function GET() {
   try {
     // Your publishing logic here
     return NextResponse.json({ success: true });
-  } catch (err) {
-    logger.error('Failed to run daily publish:', err);
+  } catch (error) {
+    logger.error('Failed to run daily publish:', error);
     return NextResponse.json(
-      { error: 'Failed to run daily publish' },
+      { error: error instanceof Error ? error.message : 'Failed to run daily publish' },
       { status: 500 }
     );
   }

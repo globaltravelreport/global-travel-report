@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
-import { getStories, getUniqueCountries, getUniqueTypes } from '../../lib/stories'
+import { getUniqueCountries, getUniqueTypes, getPublishedStories } from '@/app/lib/stories'
+import { Story } from '@/app/types/story'
+import { getCountrySlug } from '@/app/utils/countryHelpers'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
@@ -9,18 +11,15 @@ function formatDate(date: Date): string {
 
 export async function GET() {
   try {
-    // Get all stories, countries, and types
-    const [stories, countries, types] = await Promise.all([
-      getStories(),
-      getUniqueCountries(),
-      getUniqueTypes()
-    ])
+    const stories = await getPublishedStories()
+    const countries = await getUniqueCountries()
+    const types = await getUniqueTypes()
 
     // Get unique tags from all stories
     const tags = new Set<string>()
-    stories.forEach(story => {
+    stories.forEach((story: Story) => {
       if (story.keywords) {
-        story.keywords.forEach(tag => tags.add(tag))
+        story.keywords.forEach((tag: string) => tags.add(tag))
       }
     })
 
@@ -43,7 +42,7 @@ export async function GET() {
     `
 
     // Add story pages
-    stories.forEach(story => {
+    stories.forEach((story: Story) => {
       sitemap += `
         <url>
           <loc>${BASE_URL}/stories/${story.slug}</loc>
@@ -55,18 +54,18 @@ export async function GET() {
     })
 
     // Add country pages
-    countries.forEach(country => {
+    countries.forEach((countryName: string) => {
       sitemap += `
         <url>
-          <loc>${BASE_URL}/countries/${encodeURIComponent(country)}</loc>
-          <changefreq>weekly</changefreq>
+          <loc>${BASE_URL}/countries/${encodeURIComponent(getCountrySlug(countryName))}</loc>
+          <changefreq>daily</changefreq>
           <priority>0.7</priority>
         </url>
       `
     })
 
     // Add type pages
-    types.forEach(type => {
+    types.forEach((type: string) => {
       sitemap += `
         <url>
           <loc>${BASE_URL}/type/${encodeURIComponent(type)}</loc>
@@ -77,7 +76,7 @@ export async function GET() {
     })
 
     // Add tag pages
-    Array.from(tags).forEach(tag => {
+    Array.from(tags).forEach((tag: string) => {
       sitemap += `
         <url>
           <loc>${BASE_URL}/filtered?tag=${encodeURIComponent(tag)}</loc>

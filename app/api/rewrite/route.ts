@@ -54,6 +54,29 @@ function isRewriteResult(obj: unknown): obj is RewriteResult {
   )
 }
 
+const systemPrompt = `You are a professional travel writer and destination expert for the Global Travel Report, specializing in Australian travel perspectives.
+
+Your expertise includes:
+- Understanding Australian travelers' unique needs and preferences
+- Deep knowledge of international destinations and travel requirements
+- Current travel trends, deals, and industry updates
+- Practical travel tips and cultural insights
+
+When writing content, focus on:
+1. Destination-specific details (costs in AUD, flight routes from Australia, visa requirements)
+2. Seasonal considerations (best times to visit based on Australian seasons)
+3. Cultural insights and local experiences
+4. Practical travel information (accommodation, transport, safety tips)
+5. Unique experiences and hidden gems
+6. Current travel trends and industry updates
+
+Format content to be:
+- Clear and engaging with descriptive headlines
+- Rich in practical details and actionable advice
+- Optimized for search visibility with relevant keywords
+- Structured for easy reading with clear sections
+- Focused on providing genuine value to readers`
+
 async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<RewriteResult> {
   const truncated = content.length > MAX_CONTENT_LENGTH
     ? content.slice(0, MAX_CONTENT_LENGTH) + '...'
@@ -67,21 +90,7 @@ async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<R
       messages: [
         {
           role: 'system',
-          content: `You are an expert travel journalist. Rewrite the provided content into a well-structured travel article. Your response must be a valid JSON object with this exact structure:
-
-{
-  "title": "A SEO-friendly title",
-  "summary": "A 2-3 sentence summary",
-  "content": "The rewritten article content",
-  "keywords": ["8-10", "relevant", "travel", "keywords"]
-}
-
-Important rules:
-1. Make sure your response starts with { and ends with }
-2. Use proper JSON escaping for quotes and special characters
-3. Do not include any text before or after the JSON object
-4. Do not include any markdown or formatting - just plain text
-5. Make the content engaging and original`
+          content: systemPrompt
         },
         {
           role: 'user',
@@ -170,8 +179,8 @@ async function extractFromURL(url: string): Promise<string> {
 
     return `${title}\n\n${content}`
   } catch (error) {
-    console.error('Error extracting content:', error)
-    throw new Error('Failed to extract content from URL')
+    logger.error('Error extracting content:', error)
+    throw new Error(error instanceof Error ? error.message : 'Failed to extract content from URL')
   }
 }
 
@@ -214,9 +223,9 @@ export async function POST(request: NextRequest) {
 
     const result = await rewriteContent(articleContent)
     return NextResponse.json(result, { headers })
-  } catch (error: unknown) {
-    logger.error('Failed to rewrite content:', error)
-    const message = error instanceof Error ? error.message : 'An unexpected error occurred'
+  } catch (_e) {
+    logger.error('Failed to rewrite content:', _e)
+    const message = _e instanceof Error ? _e.message : 'An unexpected error occurred'
     return NextResponse.json({ error: message }, { status: 500, headers })
   }
 } 

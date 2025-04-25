@@ -1,67 +1,68 @@
 import { NextResponse } from 'next/server';
 import { logger } from '@/app/utils/logger';
 
-// Fallback images while API approval is pending
-const FALLBACK_IMAGES = [
-  {
-    id: 'fallback-1',
-    urls: {
-      raw: '/images/fallback/travel-1.jpg',
-      full: '/images/fallback/travel-1.jpg',
-      regular: '/images/fallback/travel-1.jpg',
-      small: '/images/fallback/travel-1-small.jpg',
-      thumb: '/images/fallback/travel-1-thumb.jpg',
-    },
-    alt_description: 'Scenic travel destination',
-    user: {
-      name: 'Global Travel Report',
-      links: { html: 'https://globaltravelreport.com' }
-    }
-  },
-  // Add more fallback images as needed
-];
+const UNSPLASH_API_URL = 'https://api.unsplash.com';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('query');
 
   if (!process.env.UNSPLASH_ACCESS_KEY) {
-    logger.warn('Unsplash API key not configured, using fallback images');
-    return NextResponse.json({
-      total: FALLBACK_IMAGES.length,
-      total_pages: 1,
-      results: FALLBACK_IMAGES,
-      message: 'Using fallback images while Unsplash API integration is pending approval.'
-    });
+    logger.error('Unsplash API key not configured');
+    return NextResponse.json({ error: 'Unsplash API key not configured' }, { status: 500 });
   }
 
   try {
-    // Once approved, implement actual Unsplash API call here
-    logger.info('Unsplash API integration pending, using fallback images', { query });
-    return NextResponse.json({
-      total: FALLBACK_IMAGES.length,
-      total_pages: 1,
-      results: FALLBACK_IMAGES,
-      message: 'Unsplash API integration is pending approval. Using fallback images.'
-    });
+    const response = await fetch(
+      `${UNSPLASH_API_URL}/search/photos?query=${encodeURIComponent(query || '')}&per_page=30`,
+      {
+        headers: {
+          'Authorization': `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Unsplash API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    logger.error('Error fetching images from Unsplash', error);
-    return NextResponse.json({
-      total: FALLBACK_IMAGES.length,
-      total_pages: 1,
-      results: FALLBACK_IMAGES,
-      error: 'Failed to fetch images from Unsplash API'
-    }, { status: 500 });
+    logger.error('Error fetching images from Unsplash:', error);
+    return NextResponse.json({ error: 'Failed to fetch images' }, { status: 500 });
   }
 }
 
-// Track downloads (will be enabled after approval)
+// Track downloads
 export async function POST(request: Request) {
-  const body = await request.json();
-  logger.info('Download tracking request received', { downloadId: body.downloadId });
-  
-  return NextResponse.json({ 
-    success: true,
-    message: 'Download tracking will be enabled after Unsplash API approval'
-  });
+  const { searchParams } = new URL(request.url);
+  const downloadLocation = searchParams.get('downloadLocation');
+
+  if (!downloadLocation) {
+    return NextResponse.json({ error: 'Download location is required' }, { status: 400 });
+  }
+
+  if (!process.env.UNSPLASH_ACCESS_KEY) {
+    logger.error('Unsplash API key not configured');
+    return NextResponse.json({ error: 'Unsplash API key not configured' }, { status: 500 });
+  }
+
+  try {
+    const response = await fetch(downloadLocation, {
+      headers: {
+        'Authorization': `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to track download: ${response.status} ${response.statusText}`);
+    }
+
+    logger.info('Successfully tracked Unsplash download');
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    logger.error('Error tracking Unsplash download:', error);
+    return NextResponse.json({ error: 'Failed to track download' }, { status: 500 });
+  }
 } 

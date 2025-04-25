@@ -1,7 +1,5 @@
 ---
-title: |-
-  1. Direct Flights to Doha: Your Gateway to Qatar from Manila
-  2.
+title: 'Direct Flights to Doha: Your Gateway to Qatar from Manila'
 summary: >-
   Exploring the vibrant culture and breathtaking landscapes of Qatar has just
   become easier for Aussie adventurers, thanks to Philippine Airlines' direct
@@ -76,10 +74,7 @@ country: >-
   for Australians, and cultural experiences await those ready to immerse
   themselves in this dynamic destination. Prepare for an adventure filled with
   luxury, culture, and the warmth of Qatari hospitality.
-type: |-
-  ### Primary destination country
-
-  Qatar
+type: Destination
 imageUrl: >-
   https://images.unsplash.com/photo-1494625927555-6ec4433b1571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwlMjMlMjMlMjMlMjBCcmllZiUyMFN1bW1hcnklMEElMEFGb3IlMjBBdXN0cmFsaWFuJTIwdHJhdmVsZXJzJTIwbG9va2luZyUyMHRvJTIwZXhwbG9yZSUyMFFhdGFyJTJDJTIwUGhpbGlwcGluZSUyMEFpcmxpbmVzJTIwYW5kJTIwUWF0YXIlMjBBaXJ3YXlzJTIwb2ZmZXIlMjBhJTIwc2VhbWxlc3MlMjBjb25uZWN0aW9uJTIwZnJvbSUyME1hbmlsYSUyMHRvJTIwRG9oYS4lMjBUaGUlMjBiZXN0JTIwdHJhdmVsJTIwdGltZXMlMjBhbGlnbiUyMHdpdGglMjB0aGUlMjBBdXN0cmFsaWFuJTIwYXV0dW1uJTIwYW5kJTIwc3ByaW5nJTJDJTIwdmlzYSUyMGVudHJ5JTIwaXMlMjBoYXNzbGUtZnJlZSUyMGZvciUyMEF1c3RyYWxpYW5zJTJDJTIwYW5kJTIwY3VsdHVyYWwlMjBleHBlcmllbmNlcyUyMGF3YWl0JTIwdGhvc2UlMjByZWFkeSUyMHRvJTIwaW1tZXJzZSUyMHRoZW1zZWx2ZXMlMjBpbiUyMHRoaXMlMjBkeW5hbWljJTIwZGVzdGluYXRpb24uJTIwUHJlcGFyZSUyMGZvciUyMGFuJTIwYWR2ZW50dXJlJTIwZmlsbGVkJTIwd2l0aCUyMGx1eHVyeSUyQyUyMGN1bHR1cmUlMkMlMjBhbmQlMjB0aGUlMjB3YXJtdGglMjBvZiUyMFFhdGFyaSUyMGhvc3BpdGFsaXR5LiUyMCUyMyUyMyUyMyUyMFByaW1hcnklMjBkZXN0aW5hdGlvbiUyMGNvdW50cnklMEElMEFRYXRhciUyMHRyYXZlbCUyMGxhbmRzY2FwZXxlbnwwfDB8fHwxNzQ1NTQ4MTk5fDA&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
@@ -97,12 +92,11 @@ metaDescription: >-
 
   4.
 keywords:
-  - |-
-    5. Keywords (comma-separated)
-    6.
+  - Keywords (comma-separated)
 originalTitle: >-
   Philippine Airlines’ nonstop flights from Manila to Doha in codeshare with
   Qatar Airways - travelweekly.com.au
+published: true
+categories: []
 ---
 Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian travelers to Qatar, AUD flight deals, best time to visit Qatar, Australian visa requirements, travel tips for Australians, currency in Qatar, accommodation in Doha
-7.

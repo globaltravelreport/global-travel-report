@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { logger } from '@/app/utils/logger'
 
 interface DeploymentNotification {
   status: 'started' | 'success' | 'failed'
@@ -12,7 +13,7 @@ interface DeploymentNotification {
 export async function sendDeploymentNotification(notification: DeploymentNotification) {
   const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL
   if (!slackWebhookUrl) {
-    console.warn('Slack webhook URL not configured, skipping deployment notification')
+    logger.warn('Slack webhook URL not configured, skipping deployment notification')
     return
   }
 
@@ -64,6 +65,6 @@ export async function sendDeploymentNotification(notification: DeploymentNotific
   try {
     await axios.post(slackWebhookUrl, message)
   } catch (error) {
-    console.error('Failed to send Slack notification:', error)
+    logger.error('Failed to send Slack notification:', error)
   }
 } 

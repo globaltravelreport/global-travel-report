@@ -10,12 +10,13 @@ const mockStory: Story = {
   date: '2024-04-22',
   country: 'Test Country',
   type: 'Travel News',
+  categories: ['Luxury', 'Adventure'],
   content: 'Test content that is long enough to calculate reading time',
   imageUrl: 'https://example.com/test-image.jpg',
   imageAlt: 'Test image',
-  imageCredit: 'Test Photographer',
-  imageLink: 'https://example.com/photo',
-  lastModified: '2024-04-22T00:00:00.000Z'
+  timestamp: Date.now(),
+  lastModified: Date.now(),
+  tags: ['test', 'story']
 }
 
 describe('StoryCard', () => {

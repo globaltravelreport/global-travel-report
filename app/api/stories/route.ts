@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { StoryDraft } from '@/app/types/content';
+import { StoryDraft } from '@/types/content';
 import fs from 'fs/promises';
 import path from 'path';
 

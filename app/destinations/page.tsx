@@ -1,102 +1,105 @@
-import PageLayout from '../components/PageLayout'
-import { FeaturedItem } from '@/types'
-import Image from 'next/image'
+import { getUniqueCountries } from '@/app/lib/stories'
+import Link from 'next/link'
+import { FaCompass } from 'react-icons/fa'
+import { Metadata } from 'next'
+import { logger } from '@/app/utils/logger'
 
-const destinations: FeaturedItem[] = [
-  {
-    id: 1,
-    title: 'Paris, France',
-    summary: 'Discover the magic of the City of Light with our comprehensive guide to Paris.',
-    image: '/images/destinations/paris.jpg',
-    slug: 'paris-france',
-    category: 'Destinations',
-    date: '2024-04-01',
-  },
-  {
-    id: 2,
-    title: 'Tokyo, Japan',
-    summary: 'Explore the vibrant culture and modern wonders of Tokyo.',
-    image: '/images/destinations/tokyo.jpg',
-    slug: 'tokyo-japan',
-    category: 'Destinations',
-    date: '2024-04-15',
-  },
-  {
-    id: 3,
-    title: 'New York City, USA',
-    summary: 'Experience the energy and excitement of the Big Apple.',
-    image: '/images/destinations/nyc.jpg',
-    slug: 'new-york-city',
-    category: 'Destinations',
-    date: '2024-05-01',
-  },
-  {
-    id: 4,
-    title: 'Sydney, Australia',
-    summary: 'Discover the natural beauty and urban charm of Sydney.',
-    image: '/images/destinations/sydney.jpg',
-    slug: 'sydney-australia',
-    category: 'Destinations',
-    date: '2024-05-15',
-  },
-  {
-    id: 5,
-    title: 'Dubai, UAE',
-    summary: 'Experience luxury and adventure in the heart of the desert.',
-    image: '/images/destinations/dubai.jpg',
-    slug: 'dubai-uae',
-    category: 'Destinations',
-    date: '2024-06-01',
-  },
-  {
-    id: 6,
-    title: 'Rio de Janeiro, Brazil',
-    summary: 'Explore the vibrant culture and stunning beaches of Rio.',
-    image: '/images/destinations/rio.jpg',
-    slug: 'rio-de-janeiro',
-    category: 'Destinations',
-    date: '2024-06-15',
+export const metadata: Metadata = {
+  title: 'Travel Destinations - Global Travel Report',
+  description: 'Explore travel guides and stories for destinations around the world, curated for Australian travelers.',
+  openGraph: {
+    title: 'Travel Destinations - Global Travel Report',
+    description: 'Explore travel guides and stories for destinations around the world.',
+    siteName: 'Global Travel Report',
+    locale: 'en_AU',
+    type: 'website',
   }
-]
+}
 
-export default function DestinationsPage() {
-  return (
-    <PageLayout
-      title="Explore Destinations"
-      description="Discover amazing places around the world with detailed guides and insider tips."
-      heroType="destinations"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {destinations.map((destination) => (
-            <article
-              key={destination.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="relative h-48">
-                <Image
-                  src={destination.image}
-                  alt={`Featured image for ${destination.title}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  loading="lazy"
-                />
+export default async function DestinationsPage() {
+  try {
+    // Get all unique countries from stories
+    const countries = await getUniqueCountries()
+
+    // Group countries by continent (simplified version)
+    const continents = {
+      'Asia & Pacific': ['Japan', 'Thailand', 'Vietnam', 'Singapore', 'Indonesia', 'Malaysia', 'Philippines', 'South Korea', 'China', 'India'],
+      'Europe': ['France', 'Italy', 'Spain', 'Greece', 'Germany', 'United Kingdom', 'Netherlands', 'Switzerland', 'Portugal'],
+      'Americas': ['United States', 'Canada', 'Mexico', 'Brazil', 'Argentina'],
+      'Middle East': ['Dubai', 'Qatar', 'United Arab Emirates', 'Saudi Arabia', 'Turkey'],
+      'Africa': ['South Africa', 'Morocco', 'Egypt', 'Kenya', 'Tanzania']
+    }
+
+    // Filter countries by those that have stories
+    const groupedCountries = Object.entries(continents).reduce((acc, [continent, countryList]) => {
+      const availableCountries = countryList.filter(country => 
+        countries.includes(country)
+      )
+      if (availableCountries.length > 0) {
+        acc[continent] = availableCountries
+      }
+      return acc
+    }, {} as Record<string, string[]>)
+
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <div className="bg-gray-900 py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+                Explore Destinations
+              </h1>
+              <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-300">
+                Discover amazing places around the world with detailed guides and insider tips curated for Australian travelers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Destinations Grid */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {Object.entries(groupedCountries).map(([continent, countryList]) => (
+            <div key={continent} className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{continent}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {countryList.map(country => {
+                  const slug = country.toLowerCase().replace(/\s+/g, '-')
+                  return (
+                    <Link
+                      key={country}
+                      href={`/destinations/${slug}`}
+                      className="group block bg-white rounded-lg shadow-lg hover:shadow-xl transition overflow-hidden"
+                    >
+                      <div className="p-6">
+                        <div className="inline-flex p-3 rounded-lg bg-blue-500 mb-4">
+                          <FaCompass className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600">
+                          {country}
+                        </h3>
+                        <p className="mt-2 text-gray-600">
+                          Explore travel stories and guides about {country}
+                        </p>
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
-              <div className="p-6">
-                <h2 className="text-xl font-bold mb-2">{destination.title}</h2>
-                <p className="text-gray-600 mb-4">{destination.summary}</p>
-                <a
-                  href={`/destinations/${destination.slug}`}
-                  className="text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  Read More →
-                </a>
-              </div>
-            </article>
+            </div>
           ))}
         </div>
       </div>
-    </PageLayout>
-  )
+    )
+  } catch (error) {
+    logger.error('Error in DestinationsPage:', error)
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">Something went wrong</h1>
+          <p className="mt-4 text-gray-600">We're working on fixing this issue. Please try again later.</p>
+        </div>
+      </div>
+    )
+  }
 } 

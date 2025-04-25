@@ -1,7 +1,5 @@
 ---
-title: |-
-  1. UK Travel Guide: Tips & Tricks for Aussies Abroad
-  2.
+title: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 summary: >-
   Discovering the UK: An Australian Traveler's Handbook
 
@@ -81,17 +79,7 @@ country: >-
   a smooth journey. Whether you're exploring historical sites or enjoying
   British hospitality, the UK offers a wealth of experiences for Aussie
   adventurers.
-
-
-  9.
-type: >-
-  Australia to UK travel can be a breeze with the right preparation. Key
-  takeaways include the best times to travel, understanding visa requirements,
-  and navigating cultural differences. Armed with these tips, Australian
-  travelers can enjoy a hassle-free and enriching UK adventure.
-
-
-  10.
+type: Airline
 imageUrl: >-
   https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxEaXNjb3ZlcmluZyUyMHRoZSUyMFVLJTIwYXMlMjBhbiUyMEF1c3RyYWxpYW4lMjB0cmF2ZWxlciUyMGlzJTIwYW4lMjBleGNpdGluZyUyMHZlbnR1cmUuJTIwRnJvbSUyMGZpbmRpbmclMjB0aGUlMjBiZXN0JTIwZmxpZ2h0JTIwZGVhbHMlMjBhbmQlMjB0cmF2ZWwlMjB0aW1lcyUyMHRvJTIwdW5kZXJzdGFuZGluZyUyMHZpc2ElMjByZXF1aXJlbWVudHMlMjBhbmQlMjBjdWx0dXJhbCUyMG51YW5jZXMlMkMlMjB0aGlzJTIwZ3VpZGUlMjBjb3ZlcnMlMjBlc3NlbnRpYWwlMjB0aXBzJTIwdG8lMjBlbnN1cmUlMjBhJTIwc21vb3RoJTIwam91cm5leS4lMjBXaGV0aGVyJTIweW91JTI3cmUlMjBleHBsb3JpbmclMjBoaXN0b3JpY2FsJTIwc2l0ZXMlMjBvciUyMGVuam95aW5nJTIwQnJpdGlzaCUyMGhvc3BpdGFsaXR5JTJDJTIwdGhlJTIwVUslMjBvZmZlcnMlMjBhJTIwd2VhbHRoJTIwb2YlMjBleHBlcmllbmNlcyUyMGZvciUyMEF1c3NpZSUyMGFkdmVudHVyZXJzLiUwQSUwQTkuJTIwQXVzdHJhbGlhJTIwdG8lMjBVSyUyMHRyYXZlbCUyMGNhbiUyMGJlJTIwYSUyMGJyZWV6ZSUyMHdpdGglMjB0aGUlMjByaWdodCUyMHByZXBhcmF0aW9uLiUyMEtleSUyMHRha2Vhd2F5cyUyMGluY2x1ZGUlMjB0aGUlMjBiZXN0JTIwdGltZXMlMjB0byUyMHRyYXZlbCUyQyUyMHVuZGVyc3RhbmRpbmclMjB2aXNhJTIwcmVxdWlyZW1lbnRzJTJDJTIwYW5kJTIwbmF2aWdhdGluZyUyMGN1bHR1cmFsJTIwZGlmZmVyZW5jZXMuJTIwQXJtZWQlMjB3aXRoJTIwdGhlc2UlMjB0aXBzJTJDJTIwQXVzdHJhbGlhbiUyMHRyYXZlbGVycyUyMGNhbiUyMGVuam95JTIwYSUyMGhhc3NsZS1mcmVlJTIwYW5kJTIwZW5yaWNoaW5nJTIwVUslMjBhZHZlbnR1cmUuJTBBJTBBMTAuJTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1MDA1ODB8MA&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: aerial photography of flowers at daytime
@@ -108,12 +96,11 @@ metaDescription: >-
 
   4.
 keywords:
-  - |-
-    5. Keywords (comma-separated)
-    6.
+  - Keywords (comma-separated)
 originalTitle: >-
   Travel body accuses government of ‘sabotaging’ UK tourism industry | Economic
   growth (GDP) - The Guardian
+published: true
+categories: []
 ---
 UK travel guide, Australian travelers, flight deals from Australia to UK, UK visa requirements, travel tips for Australians, AUD to GBP exchange, UK cultural differences
-7.

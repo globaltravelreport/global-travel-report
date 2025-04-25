@@ -1,7 +1,5 @@
 ---
-title: |-
-  1. Discover Thailand: New Deals to Spark Aussie Wanderlust
-  2.
+title: 'Discover Thailand: New Deals to Spark Aussie Wanderlust'
 summary: >-
   **Thailand's New Flight Subsidies: A Golden Opportunity for Aussie
   Travellers**
@@ -66,7 +64,7 @@ summary: >-
   8.
 date: '2025-04-25T02:32:54.268Z'
 country: >-
-  **Key Takeaways for Aussie Travellers:**
+  Key Takeaways for Aussie Travellers:
 
 
   - Take advantage of the new flight subsidies to explore Thailand's rich
@@ -77,12 +75,7 @@ country: >-
 
   - Enjoy visa-free travel for up to 30 days, making your Thai adventure both
   spontaneous and straightforward.
-
-
-  9.
-type: |-
-  **Primary destination country:**
-  10.
+type: Destination
 imageUrl: >-
   https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwqKktleSUyMFRha2Vhd2F5cyUyMGZvciUyMEF1c3NpZSUyMFRyYXZlbGxlcnMlM0EqKiUwQSUwQS0lMjBUYWtlJTIwYWR2YW50YWdlJTIwb2YlMjB0aGUlMjBuZXclMjBmbGlnaHQlMjBzdWJzaWRpZXMlMjB0byUyMGV4cGxvcmUlMjBUaGFpbGFuZCUyN3MlMjByaWNoJTIwY3VsdHVyZSUyMGFuZCUyMGJyZWF0aHRha2luZyUyMGxhbmRzY2FwZXMuJTBBLSUyMFBsYW4lMjB5b3VyJTIwdHJpcCUyMGJldHdlZW4lMjBOb3ZlbWJlciUyMGFuZCUyMEFwcmlsJTIwZm9yJTIwdGhlJTIwYmVzdCUyMHdlYXRoZXIlMkMlMjBhbGlnbmluZyUyMHBlcmZlY3RseSUyMHdpdGglMjBBdXN0cmFsaWFuJTIwc3VtbWVyJTIwaG9saWRheXMuJTBBLSUyMEVuam95JTIwdmlzYS1mcmVlJTIwdHJhdmVsJTIwZm9yJTIwdXAlMjB0byUyMDMwJTIwZGF5cyUyQyUyMG1ha2luZyUyMHlvdXIlMjBUaGFpJTIwYWR2ZW50dXJlJTIwYm90aCUyMHNwb250YW5lb3VzJTIwYW5kJTIwc3RyYWlnaHRmb3J3YXJkLiUwQSUwQTkuJTIwKipQcmltYXJ5JTIwZGVzdGluYXRpb24lMjBjb3VudHJ5JTNBKiolMEExMC4lMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU0ODM3NHww&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: body of water surrounding with trees
@@ -98,13 +91,12 @@ metaDescription: >-
 
   4.
 keywords:
-  - |-
-    5. Keywords (comma-separated)
-    6.
+  - Keywords (comma-separated)
 originalTitle: >-
   Thailand Proposes New Subsidized Flights to Revive Chinese Tourism as it Falls
   Out of Top 5 Preferred Destinations for Chinese Travelers - Travel And Tour
   World
+published: true
+categories: []
 ---
 Thailand travel for Australians, flight deals to Thailand, Australian to Thailand visa, travel tips for Australians, best time to visit Thailand
-7.

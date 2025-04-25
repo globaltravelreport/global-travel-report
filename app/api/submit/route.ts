@@ -97,6 +97,7 @@ async function validateStory(story: Partial<Story>): Promise<ValidationError[]> 
       errors.push({ field: 'slug', message: 'A story with this title already exists' })
     } catch (error) {
       // File doesn't exist, which is what we want
+      logger.debug('Slug is unique:', story.slug);
     }
   }
 

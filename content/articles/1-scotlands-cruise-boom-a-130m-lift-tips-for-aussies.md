@@ -1,5 +1,5 @@
 ---
-title: '1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
+title: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
 summary: >-
   9. 
 
@@ -12,12 +12,8 @@ summary: >-
   highlands or the charm of ancient cities, Scotland awaits with open arms and a
   spirit of adventure.
 date: '2025-04-25T02:31:16.826Z'
-country: |-
-  11. Primary destination country
-  Scotland
-type: |-
-  13. Type of travel
-  Culture, Luxury, Adventure
+country: Scotland
+type: Airline
 imageUrl: >-
   https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBQcmltYXJ5JTIwZGVzdGluYXRpb24lMjBjb3VudHJ5JTBBU2NvdGxhbmQlMjAxMy4lMjBUeXBlJTIwb2YlMjB0cmF2ZWwlMEFDdWx0dXJlJTJDJTIwTHV4dXJ5JTJDJTIwQWR2ZW50dXJlJTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1NDgyNzZ8MA&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: aerial photography of flowers at daytime
@@ -30,19 +26,19 @@ metaDescription: >-
   3. Discover Scotland's cruise sector boom & how it benefits Aussie travelers.
   Get tips on flights, visas, and cultural insights tailored for you.
 keywords:
-  - 5. Australian travelers
-  - Scotland tourism
-  - cruise vacations
   - AUD price comparisons
-  - visa requirements
-  - cultural tips for Australians
+  - Australian travelers
+  - Scotland tourism
   - Scotland travel guide
+  - cruise vacations
+  - cultural tips for Australians
+  - visa requirements
 originalTitle: >-
   Cruise tourism brings estimated £130m boost to Scotland’s economy - Seatrade
   Cruise News
+published: true
+categories: []
 ---
-7. 
-
 Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian travelers, this opens up an enticing avenue to explore the historic beauty and natural landscapes that Scotland is renowned for. Here's everything you need to know to make this trip a seamless adventure.
 
 ### Flights and Connections
@@ -58,8 +54,8 @@ Good news for Australian passport holders – you can enter the UK, including Sc
 While Australians and Scots share a love for sports and a good chat, be prepared for the Scottish accent, which might take some getting used to. Also, tipping is more common in Scotland, especially in restaurants and for taxi services, where 10% is the standard.
 
 ### Practical Travel Information
-- **Currency:** Scotland uses the British Pound (GBP), so it's wise to watch the exchange rate (1 AUD is approximately 0.56 GBP as of the last check).
-- **Local Transport:** Scotland’s cities offer excellent public transport options, including buses and trains. For those planning to explore the countryside, renting a car might be the best option.
-- **Accommodation:** Options range from luxurious castles to cozy B&Bs. Prices for a hotel room in a city center start at around AUD 150 per night.
+- Currency: Scotland uses the British Pound (GBP), so it's wise to watch the exchange rate (1 AUD is approximately 0.56 GBP as of the last check).
+- Local Transport: Scotland’s cities offer excellent public transport options, including buses and trains. For those planning to explore the countryside, renting a car might be the best option.
+- Accommodation: Options range from luxurious castles to cozy B&Bs. Prices for a hotel room in a city center start at around AUD 150 per night.
 
 Scotland's cruise sector is not just a significant economic boost for the country; it's a beacon for Australian travelers seeking a blend of adventure, history, and natural beauty. From majestic castles to dramatic coastlines, Scotland offers an unforgettable escape from the ordinary.

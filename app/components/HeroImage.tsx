@@ -1,78 +1,71 @@
 'use client';
 
+import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { heroImages } from '../config/images';
+import { formatUnsplashAttribution, trackUnsplashDownload } from '../lib/unsplash';
+import { logger } from '../lib/logger';
 
 interface HeroImageProps {
-  type: keyof typeof heroImages;
+  type: string;
   showAttribution?: boolean;
-  height?: number;
   priority?: boolean;
+  className?: string;
 }
 
-export default function HeroImage({ 
-  type, 
-  showAttribution = true, 
-  height = 600,
-  priority = false 
-}: HeroImageProps) {
-  const image = heroImages[type];
-  
-  if (!image) {
-    console.error(`No image configuration found for type: ${type}`);
-    return null;
-  }
+const HeroImage: FC<HeroImageProps> = ({
+  type,
+  showAttribution = true,
+  priority = false,
+  className = '',
+}) => {
+  const image = heroImages[type] || heroImages.notFound;
+  const { photographerUrl, unsplashUrl } = formatUnsplashAttribution(image.photographer);
 
-  // Construct UTM-tagged URLs for attribution
-  const photographerUrl = `https://unsplash.com/@${image.photographer.username}?utm_source=global_travel_report&utm_medium=referral`;
-  const unsplashUrl = 'https://unsplash.com?utm_source=global_travel_report&utm_medium=referral';
-
-  // Track download when image is loaded
   const handleLoad = async () => {
-    try {
-      if (image.downloadLocation) {
-        await fetch(`/api/unsplash/search?downloadLocation=${encodeURIComponent(image.downloadLocation)}`, {
-          method: 'POST',
-        });
+    if (image.downloadLocation) {
+      try {
+        await trackUnsplashDownload(image.downloadLocation);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        logger.error('Failed to track image download:', message);
       }
-    } catch (error) {
-      console.error('Failed to track download:', error);
     }
   };
 
   return (
-    <div className="relative">
-      <div className={`relative w-full`} style={{ height: `${height}px` }}>
+    <div className="relative w-full">
+      <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
         <Image
           src={image.url}
           alt={image.alt}
           fill
           priority={priority}
-          loading={priority ? 'eager' : 'lazy'}
-          className="object-cover"
+          quality={90}
+          className={`object-cover brightness-110 hover:brightness-105 transition-all duration-300 ${className}`}
           sizes="100vw"
           onLoad={handleLoad}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
       </div>
       {showAttribution && (
-        <div className="absolute bottom-0 right-0 bg-black/50 text-white text-sm px-4 py-2 rounded-tl">
+        <div className="absolute bottom-0 right-0 p-2 text-xs text-white bg-black bg-opacity-50 rounded-tl">
           Photo by{' '}
           <Link
             href={photographerUrl}
-            className="underline hover:text-gray-200"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`View ${image.photographer.name}'s profile on Unsplash`}
+            className="underline hover:text-gray-200"
           >
             {image.photographer.name}
           </Link>
           {' '}on{' '}
           <Link
             href={unsplashUrl}
-            className="underline hover:text-gray-200"
             target="_blank"
             rel="noopener noreferrer"
+            className="underline hover:text-gray-200"
           >
             Unsplash
           </Link>
@@ -80,4 +73,6 @@ export default function HeroImage({
       )}
     </div>
   );
-} 
+};
+
+export default HeroImage; 

@@ -17,6 +17,12 @@ const nextConfig = {
       }
     ]
   },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: false,
+    dirs: ['app', 'components', 'lib', 'types']
+  },
   headers: async () => {
     return [
       {
@@ -73,13 +79,10 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 300,
   generateBuildId: async () => {
     return 'build-' + Date.now();
-  },
-  experimental: {
-    // Remove serverActions as it's now enabled by default
-  },
+  }
 };
 
 module.exports = nextConfig; 

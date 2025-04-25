@@ -1,7 +1,5 @@
 ---
-title: |-
-  1. Exploring Scotland by Sea: A Cruise Adventure from Australia
-  2.
+title: 'Exploring Scotland by Sea: A Cruise Adventure from Australia'
 summary: >-
   **Setting Sail to Scotland: A Guide for Aussie Adventurers**
 
@@ -83,7 +81,7 @@ summary: >-
   8.
 date: '2025-04-25T02:23:39.753Z'
 country: >-
-  **Brief Summary**
+  Brief Summary
 
 
   For Australians looking to explore Scotland, a cruise offers a unique and
@@ -93,11 +91,7 @@ country: >-
   adventurers are well-prepared for their Scottish journey. Don't forget to
   immerse yourself in the local culture and enjoy the stunning landscapes and
   historical sites Scotland is famous for.
-
-  9.
-type: |-
-  **Primary destination country**
-  10.
+type: Destination
 imageUrl: >-
   https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwqKkJyaWVmJTIwU3VtbWFyeSoqJTBBJTBBRm9yJTIwQXVzdHJhbGlhbnMlMjBsb29raW5nJTIwdG8lMjBleHBsb3JlJTIwU2NvdGxhbmQlMkMlMjBhJTIwY3J1aXNlJTIwb2ZmZXJzJTIwYSUyMHVuaXF1ZSUyMGFuZCUyMGhhc3NsZS1mcmVlJTIwd2F5JTIwdG8lMjBzZWUlMjB0aGUlMjBiZXN0JTIwb2YlMjB3aGF0JTIwdGhpcyUyMGNvdW50cnklMjBoYXMlMjB0byUyMG9mZmVyLiUyMEZyb20lMjBjb252ZW5pZW50JTIwZmxpZ2h0JTIwY29ubmVjdGlvbnMlMjBhbmQlMjBjb21wcmVoZW5zaXZlJTIwY29zdCUyMGJyZWFrZG93bnMlMjBpbiUyMEFVRCUyMHRvJTIwdGhlJTIwYmVzdCUyMHRyYXZlbCUyMHRpbWVzJTIwYW5kJTIwcHJhY3RpY2FsJTIwdmlzYSUyMGluZm9ybWF0aW9uJTJDJTIwdGhpcyUyMGd1aWRlJTIwZW5zdXJlcyUyMEF1c3NpZSUyMGFkdmVudHVyZXJzJTIwYXJlJTIwd2VsbC1wcmVwYXJlZCUyMGZvciUyMHRoZWlyJTIwU2NvdHRpc2glMjBqb3VybmV5LiUyMERvbiUyN3QlMjBmb3JnZXQlMjB0byUyMGltbWVyc2UlMjB5b3Vyc2VsZiUyMGluJTIwdGhlJTIwbG9jYWwlMjBjdWx0dXJlJTIwYW5kJTIwZW5qb3klMjB0aGUlMjBzdHVubmluZyUyMGxhbmRzY2FwZXMlMjBhbmQlMjBoaXN0b3JpY2FsJTIwc2l0ZXMlMjBTY290bGFuZCUyMGlzJTIwZmFtb3VzJTIwZm9yLiUwQTkuJTIwKipQcmltYXJ5JTIwZGVzdGluYXRpb24lMjBjb3VudHJ5KiolMEExMC4lMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU0NzgxOXww&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: aerial photography of flowers at daytime
@@ -115,12 +109,11 @@ metaDescription: >-
 
   4.
 keywords:
-  - |-
-    5. Keywords (comma-separated)
-    6.
+  - Keywords (comma-separated)
 originalTitle: >-
   Cruise tourism brings estimated £130m boost to Scotland’s economy - Seatrade
   Cruise News
+published: true
+categories: []
 ---
 Australia to Scotland cruises, Scotland travel guide, Australian travelers, AUD price comparisons, visa requirements Australia, travel tips Scotland
-7.

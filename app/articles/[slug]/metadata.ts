@@ -1,15 +1,23 @@
 import { Metadata } from 'next'
 import fs from 'fs/promises'
 import path from 'path'
+import { logger } from '@/app/utils/logger'
 
-async function getArticle(slug: string) {
+interface Article {
+  slug: string
+  title: string
+  summary: string
+  image: string
+}
+
+async function getArticle(slug: string): Promise<Article | null> {
   try {
     const filePath = path.join(process.cwd(), 'app/data/articles.json')
     const fileContent = await fs.readFile(filePath, 'utf-8')
-    const articles = JSON.parse(fileContent)
-    return articles.find((article: any) => article.slug === slug)
+    const articles = JSON.parse(fileContent) as Article[]
+    return articles.find(article => article.slug === slug) || null
   } catch (error) {
-    console.error('Error reading article:', error)
+    logger.error('Error reading article:', error)
     return null
   }
 }

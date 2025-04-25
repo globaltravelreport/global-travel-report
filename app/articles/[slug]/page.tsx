@@ -3,6 +3,7 @@ import articles from '@/app/data/articles';
 import { Metadata } from 'next';
 import { format } from 'date-fns';
 import ArticleImage from '@/app/components/ArticleImage';
+import { logger } from '@/app/utils/logger';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate every hour
@@ -36,7 +37,7 @@ export async function generateStaticParams() {
   const paths = articles.map((article: Article) => ({
     slug: article.slug,
   }));
-  console.log('Generating static paths for articles:', paths);
+  logger.info('Generating static paths for articles:', paths);
   return paths;
 }
 

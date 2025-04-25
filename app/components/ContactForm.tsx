@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { logger } from '@/app/utils/logger';
 
 interface FormData {
   name: string;
@@ -24,10 +25,10 @@ export default function ContactForm() {
   // Check if reCAPTCHA is ready
   useEffect(() => {
     if (!executeRecaptcha) {
-      console.log('reCAPTCHA not ready');
+      logger.warn('reCAPTCHA not ready');
       setErrorMessage('reCAPTCHA is not ready. Please refresh the page.');
     } else {
-      console.log('reCAPTCHA is ready');
+      logger.info('reCAPTCHA is ready');
     }
   }, [executeRecaptcha]);
 
@@ -35,7 +36,7 @@ export default function ContactForm() {
     e.preventDefault();
     
     if (!executeRecaptcha) {
-      console.log('reCAPTCHA execution failed: not ready');
+      logger.error('reCAPTCHA execution failed: not ready');
       setStatus('error');
       setErrorMessage('reCAPTCHA is not ready. Please refresh the page.');
       return;
@@ -45,20 +46,20 @@ export default function ContactForm() {
       setStatus('loading');
       setErrorMessage('');
       
-      console.log('Executing reCAPTCHA...');
+      logger.info('Executing reCAPTCHA...');
       // Get reCAPTCHA token
       const token = await executeRecaptcha('contact_form');
-      console.log('reCAPTCHA token received:', token);
+      logger.info('reCAPTCHA token received');
       
       if (!token) {
-        console.log('reCAPTCHA token is empty');
+        logger.error('reCAPTCHA token is empty');
         throw new Error('Failed to get reCAPTCHA token');
       }
 
       // Update form data with token
       setFormData(prev => ({ ...prev, recaptchaToken: token }));
 
-      console.log('Submitting form with token...');
+      logger.info('Submitting form with token...');
       // Submit form data
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -69,7 +70,7 @@ export default function ContactForm() {
       });
 
       const data = await response.json();
-      console.log('Server response:', data);
+      logger.info('Server response received', { status: response.status });
 
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong');
@@ -78,7 +79,7 @@ export default function ContactForm() {
       setStatus('success');
       setFormData({ name: '', email: '', message: '', recaptchaToken: '' });
     } catch (error) {
-      console.error('Form submission error:', error);
+      logger.error('Form submission error:', error);
       setStatus('error');
       setErrorMessage(error instanceof Error ? error.message : 'Failed to submit form');
     }

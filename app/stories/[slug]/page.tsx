@@ -41,44 +41,44 @@ export default async function StoryPage({ params }: StoryPageProps) {
   return (
     <article className="min-h-screen bg-white">
       {/* Hero Image */}
-      <div className="relative h-[60vh] min-h-[400px] bg-gray-900">
+      <div className="relative w-full h-[600px]">
         {story.imageUrl && (
           <>
             <Image
               src={story.imageUrl}
               alt={story.imageAlt || story.title}
               fill
-              className="object-cover opacity-70"
               priority
-              sizes="100vw"
+              className="object-cover brightness-110"
+              quality={90}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+              <div className="flex flex-wrap gap-3 mb-4">
+                <Link
+                  href={`/filtered?type=${encodeURIComponent(story.type)}`}
+                  className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
+                >
+                  {story.type}
+                </Link>
+                <Link
+                  href={`/filtered?country=${encodeURIComponent(story.country)}`}
+                  className="px-3 py-1 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition"
+                >
+                  {story.country}
+                </Link>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+                {story.title}
+              </h1>
+              <div className="flex items-center gap-4 text-gray-300 text-sm">
+                <time dateTime={story.date}>{formatDate(story.date)}</time>
+                <span>·</span>
+                <span>{formatReadingTime(story.content)}</span>
+              </div>
+            </div>
           </>
         )}
-        <div className="relative h-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16">
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Link
-              href={`/filtered?type=${encodeURIComponent(story.type)}`}
-              className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
-            >
-              {story.type}
-            </Link>
-            <Link
-              href={`/filtered?country=${encodeURIComponent(story.country)}`}
-              className="px-3 py-1 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition"
-            >
-              {story.country}
-            </Link>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
-            {story.title}
-          </h1>
-          <div className="flex items-center gap-4 text-gray-300 text-sm">
-            <time dateTime={story.date}>{formatDate(story.date)}</time>
-            <span>·</span>
-            <span>{formatReadingTime(story.content)}</span>
-          </div>
-        </div>
       </div>
 
       {/* Article Content */}

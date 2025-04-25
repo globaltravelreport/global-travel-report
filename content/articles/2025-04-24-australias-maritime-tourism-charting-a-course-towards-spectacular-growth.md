@@ -1,15 +1,31 @@
 ---
-title: "Australia's Maritime Tourism: Charting a Course Towards Spectacular Growth"
-summary: "With new partnerships, expanded routes, and a focus on sustainable practices, Australia's cruise industry is poised for remarkable growth. South Australia, with its unique blend of attractions, is emerging as a leading cruise destination."
-keywords: ["Australia","cruise industry","maritime tourism","growth","South Australia","CLIA partnership","sustainability","infrastructure upgrades","economic benefits"]
+title: 'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
+summary: >-
+  With new partnerships, expanded routes, and a focus on sustainable practices,
+  Australia's cruise industry is poised for remarkable growth. South Australia,
+  with its unique blend of attractions, is emerging as a leading cruise
+  destination.
+keywords:
+  - Australia
+  - CLIA partnership
+  - South Australia
+  - cruise industry
+  - economic benefits
+  - growth
+  - infrastructure upgrades
+  - maritime tourism
+  - sustainability
 slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
-date: 2025-04-24
+date: 2025-04-24T00:00:00.000Z
 country: Australia
-type: Travel News
-imageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxBdXN0cmFsaWF8ZW58MHwwfHx8MTc0NTQ3OTY5M3ww&ixlib=rb-4.0.3&q=80&w=1080"
-imageAlt: "Sydney Opera House, Australia"
-imageCredit: "Photoholgic on Unsplash"
-imageLink: "https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI"
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxBdXN0cmFsaWF8ZW58MHwwfHx8MTc0NTQ3OTY5M3ww&ixlib=rb-4.0.3&q=80&w=1080
+imageAlt: 'Sydney Opera House, Australia'
+imageCredit: Photoholgic on Unsplash
+imageLink: 'https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'
+published: true
+categories: []
 ---
 
 Australia's cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vibrant future for maritime tourism. Both domestic and international cruise bookings have witnessed a significant uptick, as per industry top brass.

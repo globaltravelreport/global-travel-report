@@ -17,7 +17,7 @@ interface HomePageProps {
 
 export const metadata: Metadata = {
   title: 'Latest Travel Stories – Global Travel Report',
-  description: 'Explore the latest curated travel news and updates for Australian travelers, rewritten and optimized by AI.',
+  description: 'Explore the latest curated travel news and updates for Australian travelers. Discover destinations, tips, and industry insights.',
   openGraph: {
     title: 'Latest Travel Stories – Global Travel Report',
     description: 'Explore curated travel news and updates for Aussie travelers.',
@@ -64,7 +64,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
     // Categories for quick navigation
     const categories = [
-      { name: 'Destinations', icon: FaCompass, href: '/categories/destination', color: 'bg-blue-500' },
+      { name: 'Destinations', icon: FaCompass, href: '/destinations', color: 'bg-blue-500' },
       { name: 'Hotels', icon: FaHotel, href: '/categories/hotels', color: 'bg-green-500' },
       { name: 'Airlines', icon: FaPlane, href: '/categories/airlines', color: 'bg-purple-500' },
       { name: 'Experiences', icon: FaUmbrellaBeach, href: '/categories/experiences', color: 'bg-orange-500' },
@@ -80,11 +80,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                 src={featuredStory?.imageUrl ?? ''}
                 alt={featuredStory?.title ?? ''}
                 fill
-                className="object-cover opacity-60"
+                className="object-cover opacity-80"
                 priority
                 sizes="100vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20" />
             </>
           ) : (
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
@@ -113,7 +113,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
 
         {/* Quick Navigation Categories */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {categories.map((category) => (
               <Link
@@ -148,8 +148,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             <StoryFilters
               countries={countries}
               types={types}
-              selectedCountry={selectedCountry}
-              selectedType={selectedType}
               basePath="/"
             />
           </div>

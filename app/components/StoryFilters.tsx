@@ -1,99 +1,91 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface Country {
+  name: string
+  slug: string
+}
 
 interface StoryFiltersProps {
-  countries: string[]
+  countries: Country[]
   types: string[]
   selectedCountry?: string
   selectedType?: string
-  basePath?: string
+  basePath: string
 }
 
-export default function StoryFilters({ countries, types, selectedCountry = '', selectedType = '', basePath = '/' }: StoryFiltersProps) {
+export default function StoryFilters({ 
+  countries, 
+  types, 
+  selectedCountry, 
+  selectedType, 
+  basePath 
+}: StoryFiltersProps) {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      
-      if (value) {
-        params.set(name, value)
-      } else {
-        params.delete(name)
-      }
-
-      return params.toString()
-    },
-    [searchParams]
-  )
-
-  const handleCountryChange = (country: string) => {
-    const query = createQueryString('country', country)
-    router.push(`${basePath}${query ? `?${query}` : ''}`)
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const countrySlug = e.target.value
+    if (countrySlug) {
+      router.push(`/countries/${countrySlug}`)
+    } else {
+      // If no country is selected, go back to the base path
+      router.push(basePath)
+    }
   }
 
-  const handleTypeChange = (type: string) => {
-    const query = createQueryString('type', type)
-    router.push(`${basePath}${query ? `?${query}` : ''}`)
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const type = e.target.value
+    if (type) {
+      const params = new URLSearchParams()
+      params.set('type', type)
+      if (selectedCountry) params.set('country', selectedCountry)
+      router.push(`${basePath}?${params.toString()}`)
+    }
   }
 
-  const clearFilters = () => {
-    router.push(basePath)
-  }
-
-  const hasFilters = selectedCountry || selectedType
+  // Find the selected country's slug
+  const selectedCountrySlug = selectedCountry?.toLowerCase().replace(/\s+/g, '-')
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-8">
-      <div className="flex-1 w-full sm:w-auto">
-        <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
-          🗺️ Filter by Country
+    <div className="flex flex-col sm:flex-row gap-4 mb-8">
+      <div className="flex-1">
+        <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+          🌍 Filter by Country
         </label>
         <select
           id="country"
-          value={selectedCountry}
-          onChange={(e) => handleCountryChange(e.target.value)}
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          onChange={handleCountryChange}
+          value={selectedCountrySlug || ''}
         >
           <option value="">All Countries</option>
-          {countries.map(country => (
-            <option key={country} value={country}>
-              {country}
+          {countries.map((country) => (
+            <option key={country.slug} value={country.slug}>
+              {country.name}
             </option>
           ))}
         </select>
       </div>
 
-      <div className="flex-1 w-full sm:w-auto">
-        <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-          🏖️ Filter by Type
+      <div className="flex-1">
+        <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
+          🎯 Filter by Type
         </label>
         <select
           id="type"
-          value={selectedType}
-          onChange={(e) => handleTypeChange(e.target.value)}
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          onChange={handleTypeChange}
+          value={selectedType || ''}
         >
           <option value="">All Types</option>
-          {types.map(type => (
+          {types.map((type) => (
             <option key={type} value={type}>
               {type}
             </option>
           ))}
         </select>
       </div>
-
-      {hasFilters && (
-        <button
-          onClick={clearFilters}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-6 sm:mt-0"
-        >
-          Clear Filters
-        </button>
-      )}
     </div>
   )
 } 

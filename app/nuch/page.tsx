@@ -1,10 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import { logger } from '@/app/utils/logger'
+
+interface RewriteResult {
+  title: string
+  summary: string
+  content: string
+  keywords: string[]
+}
 
 export default function NuchPage() {
   const [url, setUrl] = useState('')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<RewriteResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,8 +36,10 @@ export default function NuchPage() {
       }
 
       setResult(data)
-    } catch (err: any) {
-      setError(err.message)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'An unknown error occurred'
+      logger.error('Error rewriting content:', error)
+      setError(message)
     } finally {
       setLoading(false)
     }

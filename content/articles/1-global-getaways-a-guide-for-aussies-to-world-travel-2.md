@@ -1,7 +1,5 @@
 ---
-title: |-
-  1. **Global Getaways: A Guide for Aussies to World Travel**
-  2.
+title: 'Global Getaways: A Guide for Aussies to World Travel'
 summary: >-
   **Unlock the World: Essential Travel Guide for Australians**
 
@@ -75,7 +73,7 @@ summary: >-
   everything from city apartments to rural homestays.
 date: '2025-04-24T13:14:06.520Z'
 country: >-
-  **Brief Summary**
+  Brief Summary
 
 
   For Australian travelers eager to explore international destinations,
@@ -83,10 +81,7 @@ country: >-
   times, and navigating visa requirements are key. Embracing cultural
   differences and planning practical travel logistics like currency, local
   transport, and accommodation will ensure a memorable and smooth journey.
-type: |-
-  **Primary destination country**
-
-  Various
+type: Destination
 imageUrl: >-
   https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwqKkJyaWVmJTIwU3VtbWFyeSoqJTBBJTBBRm9yJTIwQXVzdHJhbGlhbiUyMHRyYXZlbGVycyUyMGVhZ2VyJTIwdG8lMjBleHBsb3JlJTIwaW50ZXJuYXRpb25hbCUyMGRlc3RpbmF0aW9ucyUyQyUyMHVuZGVyc3RhbmRpbmclMjB0aGUlMjBiZXN0JTIwZmxpZ2h0JTIwcm91dGVzJTJDJTIwYnVkZ2V0aW5nJTIwaW4lMjBBVUQlMkMlMjBrbm93aW5nJTIwdGhlJTIwYmVzdCUyMHZpc2l0JTIwdGltZXMlMkMlMjBhbmQlMjBuYXZpZ2F0aW5nJTIwdmlzYSUyMHJlcXVpcmVtZW50cyUyMGFyZSUyMGtleS4lMjBFbWJyYWNpbmclMjBjdWx0dXJhbCUyMGRpZmZlcmVuY2VzJTIwYW5kJTIwcGxhbm5pbmclMjBwcmFjdGljYWwlMjB0cmF2ZWwlMjBsb2dpc3RpY3MlMjBsaWtlJTIwY3VycmVuY3klMkMlMjBsb2NhbCUyMHRyYW5zcG9ydCUyQyUyMGFuZCUyMGFjY29tbW9kYXRpb24lMjB3aWxsJTIwZW5zdXJlJTIwYSUyMG1lbW9yYWJsZSUyMGFuZCUyMHNtb290aCUyMGpvdXJuZXkuJTIwKipQcmltYXJ5JTIwZGVzdGluYXRpb24lMjBjb3VudHJ5KiolMEElMEFWYXJpb3VzJTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1MDA0NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: aerial photography of flowers at daytime
@@ -104,14 +99,14 @@ metaDescription: >-
 
   4.
 keywords:
-  - 5. **Australian travelers
-  - international destinations
-  - flight deals from Australia
-  - travel tips for Aussies
   - AUD travel budgeting
-  - |-
-    visa guide for Australians**
-    6.
+  - Australian travelers
+  - flight deals from Australia
+  - international destinations
+  - travel tips for Aussies
+  - visa guide for Australians
 originalTitle: Drake Content expands tourism and travel portfolio - AdNews
+published: true
+categories: []
 ---
-7. **Rewritten article**
+Rewritten article

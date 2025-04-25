@@ -1,6 +1,6 @@
 ---
 title: |-
-  1. **SEO-optimized title**
+  SEO-optimized title
      "Unlock Thailand: Subsidized Flights & Tips for Aussies"
 summary: >-
   **Discover Thailand: A New Wave of Subsidized Flights Beckons Australian
@@ -62,7 +62,7 @@ summary: >-
   affordable guesthouses, catering to every budget and preference.
 date: '2025-04-25T02:00:45.521Z'
 country: >-
-  9. **Brief summary**
+  Brief summary
 
 
   For Australians craving an exotic getaway, Thailand's new subsidized flights
@@ -71,9 +71,7 @@ country: >-
   winter or summer extremes back home. With visa-free entry for up to 30 days
   and a plethora of cultural experiences awaiting, there's never been a better
   time to explore the wonders of Thailand.
-type: |-
-  11. **Primary destination country**
-      Thailand
+type: Destination
 imageUrl: >-
   https://images.unsplash.com/photo-1420585269105-d908ec316eb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHw5LiUyMCoqQnJpZWYlMjBzdW1tYXJ5KiolMEElMEFGb3IlMjBBdXN0cmFsaWFucyUyMGNyYXZpbmclMjBhbiUyMGV4b3RpYyUyMGdldGF3YXklMkMlMjBUaGFpbGFuZCUyN3MlMjBuZXclMjBzdWJzaWRpemVkJTIwZmxpZ2h0cyUyMG1ha2UlMjB0aGlzJTIwZHJlYW0lMjBkZXN0aW5hdGlvbiUyMG1vcmUlMjBhY2Nlc3NpYmxlJTIwYW5kJTIwYWZmb3JkYWJsZS4lMjBJZGVhbCUyMHZpc2l0aW5nJTIwdGltZXMlMjBhbGlnbiUyMHdlbGwlMjB3aXRoJTIwQXVzdHJhbGlhbiUyMHNlYXNvbnMlMkMlMjBvZmZlcmluZyUyMGElMjBwZXJmZWN0JTIwZXNjYXBlJTIwZnJvbSUyMHdpbnRlciUyMG9yJTIwc3VtbWVyJTIwZXh0cmVtZXMlMjBiYWNrJTIwaG9tZS4lMjBXaXRoJTIwdmlzYS1mcmVlJTIwZW50cnklMjBmb3IlMjB1cCUyMHRvJTIwMzAlMjBkYXlzJTIwYW5kJTIwYSUyMHBsZXRob3JhJTIwb2YlMjBjdWx0dXJhbCUyMGV4cGVyaWVuY2VzJTIwYXdhaXRpbmclMkMlMjB0aGVyZSUyN3MlMjBuZXZlciUyMGJlZW4lMjBhJTIwYmV0dGVyJTIwdGltZSUyMHRvJTIwZXhwbG9yZSUyMHRoZSUyMHdvbmRlcnMlMjBvZiUyMFRoYWlsYW5kLiUyMDExLiUyMCoqUHJpbWFyeSUyMGRlc3RpbmF0aW9uJTIwY291bnRyeSoqJTBBJTIwJTIwJTIwJTIwVGhhaWxhbmQlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU0NjQ0NXww&ixlib=rb-4.0.3&q=80&w=1080
 imageAlt: shallow focus photography of trees filled of snow
@@ -88,18 +86,20 @@ metaDescription: |-
   3. **Meta description**
      "Explore Thailand with new subsidized flights! Get the best travel tips, visa info, and cultural insights tailored for Australian travelers. Book your adventure today!"
 keywords:
-  - |-
-    5. **Keywords (comma-separated)**
-       Thailand travel for Australians
-  - subsidized flights to Thailand
-  - Australian to Thailand visa
-  - best time to visit Thailand
-  - Thailand travel tips
   - AUD to Thai Baht
+  - Australian to Thailand visa
+  - |-
+    Keywords (comma-separated)
+       Thailand travel for Australians
   - Thailand accommodation
+  - Thailand travel tips
+  - best time to visit Thailand
+  - subsidized flights to Thailand
 originalTitle: >-
   Thailand Proposes New Subsidized Flights to Revive Chinese Tourism as it Falls
   Out of Top 5 Preferred Destinations for Chinese Travelers - Travel And Tour
   World
+published: true
+categories: []
 ---
-7. **Rewritten article**
+Rewritten article

@@ -2,12 +2,12 @@ import { NextRequest } from 'next/server'
 
 interface LogData {
   request?: NextRequest
-  error?: Error
+  error?: Error | string
   url?: string
   hasContent?: boolean
   contentLength?: number
   duration?: number
-  [key: string]: any
+  [key: string]: unknown
 }
 
 class Logger {
@@ -24,7 +24,11 @@ class Logger {
         formattedMessage += ` ${JSON.stringify(rest)}`
       }
       if (error) {
-        formattedMessage += `\nError: ${error.message}\nStack: ${error.stack}`
+        if (error instanceof Error) {
+          formattedMessage += `\nError: ${error.message}\nStack: ${error.stack}`
+        } else {
+          formattedMessage += `\nError: ${error}`
+        }
       }
     }
     

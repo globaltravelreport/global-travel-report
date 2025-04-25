@@ -1,4 +1,5 @@
 import { getPublishedStories, getPaginatedStories } from '../lib/stories'
+import { cleanCountryName } from '../utils/storyUtils'
 import StoryList from '../components/StoryList'
 
 interface StoriesPageProps {
@@ -26,7 +27,14 @@ export default async function StoriesPage({ searchParams }: StoriesPageProps) {
     stories = stories.filter(story => story.category === category)
   }
   if (country) {
-    stories = stories.filter(story => story.country === country)
+    const cleanedTargetCountry = cleanCountryName(country)
+    stories = stories.filter(story => {
+      const storyCountries = story.country
+        .split(/,|\sand\s/)
+        .map(cleanCountryName)
+        .filter(Boolean)
+      return storyCountries.includes(cleanedTargetCountry)
+    })
   }
   if (tag) {
     stories = stories.filter(story => Array.isArray(story.tags) && story.tags.includes(tag))

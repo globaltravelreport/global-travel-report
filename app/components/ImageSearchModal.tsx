@@ -2,16 +2,34 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { logger } from '@/app/utils/logger';
+import { formatUnsplashAttribution } from '@/app/lib/unsplash';
+
+interface UnsplashImage {
+  id: string;
+  urls: {
+    regular: string;
+    thumb: string;
+  };
+  alt_description: string | null;
+  user: {
+    username: string;
+    name: string;
+  };
+  links: {
+    download_location: string;
+  };
+}
 
 interface ImageSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectImage: (url: string, alt: string) => void;
+  onSelectImage: (url: string, alt: string, attribution: { photographer: string; photographerUrl: string; unsplashUrl: string }) => void;
 }
 
 export default function ImageSearchModal({ isOpen, onClose, onSelectImage }: ImageSearchModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [images, setImages] = useState<any[]>([]);
+  const [images, setImages] = useState<UnsplashImage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const searchImages = async (query: string) => {
@@ -24,40 +42,53 @@ export default function ImageSearchModal({ isOpen, onClose, onSelectImage }: Ima
       const data = await response.json();
       setImages(data.results || []);
     } catch (error) {
-      console.error('Error searching images:', error);
+      logger.error('Error searching images:', error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleImageSelect = (image: UnsplashImage) => {
+    const { photographerUrl, unsplashUrl } = formatUnsplashAttribution(image.user);
+    onSelectImage(
+      image.urls.regular,
+      image.alt_description || 'Article image',
+      {
+        photographer: image.user.name,
+        photographerUrl,
+        unsplashUrl
+      }
+    );
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Search for Images</h2>
+          <h2 className="text-xl font-bold">Search Images</h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
-            ✕
+            Close
           </button>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && searchImages(searchQuery)}
             placeholder="Search for images..."
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-teal focus:border-transparent"
+            className="w-full px-4 py-2 border rounded-lg"
           />
           <button
             onClick={() => searchImages(searchQuery)}
-            disabled={isLoading || !searchQuery}
-            className="mt-2 px-4 py-2 bg-brand-teal text-white rounded-md hover:bg-teal-700 disabled:opacity-50"
+            disabled={isLoading}
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
           >
             {isLoading ? 'Searching...' : 'Search'}
           </button>
@@ -68,7 +99,7 @@ export default function ImageSearchModal({ isOpen, onClose, onSelectImage }: Ima
             <div
               key={image.id}
               className="relative aspect-video cursor-pointer group"
-              onClick={() => onSelectImage(image.urls.regular, image.alt_description || 'Article image')}
+              onClick={() => handleImageSelect(image)}
             >
               <Image
                 src={image.urls.thumb}
@@ -79,12 +110,23 @@ export default function ImageSearchModal({ isOpen, onClose, onSelectImage }: Ima
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 rounded-b-md">
                 Photo by{' '}
                 <a
-                  href={`https://unsplash.com/@${image.user.username}`}
+                  href={formatUnsplashAttribution(image.user).photographerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline hover:text-gray-200"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   {image.user.name}
+                </a>
+                {' '}on{' '}
+                <a
+                  href={formatUnsplashAttribution(image.user).unsplashUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-200"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Unsplash
                 </a>
               </div>
             </div>

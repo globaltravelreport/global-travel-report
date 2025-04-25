@@ -73,9 +73,6 @@ export default function LatestNews({ stories }: LatestNewsProps) {
               </div>
               <div className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
-                  <span className="px-3 py-1 bg-brand-teal text-white text-sm font-medium rounded-full">
-                    {story.category.charAt(0).toUpperCase() + story.category.slice(1)}
-                  </span>
                   <span className="text-gray-500">
                     {new Date(story.publishedAt || '').toLocaleDateString('en-AU', {
                       day: 'numeric',

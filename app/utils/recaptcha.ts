@@ -1,5 +1,7 @@
+import { logger } from '@/app/utils/logger'
+
 const isDev = process.env.NODE_ENV === 'development'
-const isDebug = process.env.RECAPTCHA_DEBUG === 'true'
+const isDebug = process.env.DEBUG_RECAPTCHA === 'true'
 
 // Site keys
 const PROD_SITE_KEY = '6LfuvR0rAAAAAKCLSAhbtRfyquD-xwRKnrWdRJJV'
@@ -7,27 +9,31 @@ const TEST_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Google's tes
 
 export const SITE_KEY = isDev ? TEST_SITE_KEY : PROD_SITE_KEY
 
+interface RecaptchaLogData {
+  [key: string]: unknown
+}
+
 // Logging utilities
 export const recaptchaLog = {
-  info: (message: string, data?: any) => {
+  info: (message: string, data?: RecaptchaLogData) => {
     if (isDebug || isDev) {
-      console.info(`🔒 reCAPTCHA [INFO]: ${message}`, data || '')
+      logger.info(`🔒 reCAPTCHA: ${message}`, data)
     }
   },
-  warn: (message: string, data?: any) => {
-    console.warn(`⚠️ reCAPTCHA [WARN]: ${message}`, data || '')
+  warn: (message: string, data?: RecaptchaLogData) => {
+    logger.warn(`⚠️ reCAPTCHA: ${message}`, data)
   },
-  error: (message: string, error?: any) => {
-    console.error(`❌ reCAPTCHA [ERROR]: ${message}`, error || '')
+  error: (message: string, error?: Error | unknown) => {
+    logger.error(`❌ reCAPTCHA: ${message}`, error)
   },
-  success: (message: string, data?: any) => {
+  success: (message: string, data?: RecaptchaLogData) => {
     if (isDebug || isDev) {
-      console.log(`✅ reCAPTCHA [SUCCESS]: ${message}`, data || '')
+      logger.info(`✅ reCAPTCHA: ${message}`, data)
     }
   },
-  debug: (message: string, data?: any) => {
+  debug: (message: string, data?: RecaptchaLogData) => {
     if (isDebug) {
-      console.debug(`🔍 reCAPTCHA [DEBUG]: ${message}`, data || '')
+      logger.debug(`🔍 reCAPTCHA: ${message}`, data)
     }
   }
 }

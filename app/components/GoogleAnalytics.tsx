@@ -2,10 +2,16 @@
 
 import Script from 'next/script';
 
+type GtagArgs = [
+  string,
+  string | Date,
+  ...unknown[]
+];
+
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: (...args: GtagArgs) => void;
   }
 }
 

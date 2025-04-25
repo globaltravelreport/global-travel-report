@@ -17,32 +17,22 @@ export const viewport: Viewport = {
 
 // Base metadata configuration
 export const metadata: Metadata = {
+  metadataBase: new URL('https://globaltravelreport.com'),
   title: {
-    default: 'Global Travel Report',
+    default: 'Global Travel Report - Travel News, Stories & Guides',
     template: '%s | Global Travel Report'
   },
-  description: 'Your trusted source for travel news, reviews, tips and exclusive deals.',
-  icons: {
-    icon: '/favicon.ico',
-  },
-  metadataBase: new URL('https://www.globaltravelreport.com'),
-  keywords: ['travel', 'news', 'reviews', 'tips', 'destinations', 'deals'],
-  authors: [{ name: 'Global Travel Report' }],
-  creator: 'Global Travel Report',
-  publisher: 'Global Travel Report',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  description: 'Stay informed with the latest travel news, stories, and guides from around the world. Discover destinations, travel tips, and insider experiences.',
+  keywords: ['travel news', 'travel stories', 'travel guides', 'destinations', 'travel tips'],
+  authors: [{ name: 'Global Travel Report Team' }],
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
+    title: 'Global Travel Report - Travel News, Stories & Guides',
+    description: 'Stay informed with the latest travel news, stories, and guides from around the world.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Global Travel Report'
@@ -51,19 +41,27 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@globaltravelreport'
+    site: '@globaltravelrpt',
+    creator: '@globaltravelrpt',
+    title: 'Global Travel Report',
+    description: 'Latest travel news, stories & guides',
+    images: ['/images/twitter-image.jpg']
   },
   robots: {
     index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    follow: true
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png'
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  creator: 'Global Travel Report',
+  publisher: 'Global Travel Report',
   verification: {
     google: 'google-site-verification-code',
   },

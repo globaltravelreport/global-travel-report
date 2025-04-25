@@ -43,7 +43,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
   const categories: Category[] = ['news', 'reviews', 'tips', 'deals', 'destinations'];
 
   const handlePublish = async () => {
-    console.log('StoryEditor: Attempting to publish');
+    logger.info('StoryEditor: Attempting to publish');
     setIsSaving(true);
     try {
       await onPublish(story);
@@ -51,7 +51,6 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
       alert('✅ Story published successfully!');
     } catch (error) {
       logger.error('Failed to publish story', error);
-      console.error('StoryEditor: Publish error:', error);
       alert('Failed to publish story. Please try again.');
     } finally {
       setIsSaving(false);
@@ -85,7 +84,6 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
       logger.info('Image uploaded successfully', { imageUrl: data.url });
     } catch (error) {
       logger.error('Failed to upload image', error);
-      console.error('Error uploading image:', error);
       alert('Failed to upload image. Please try again.');
     }
   };
@@ -101,7 +99,7 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
     setIsSearchingImage(false);
   };
 
-  console.log('StoryEditor: Rendering form');
+  logger.debug('StoryEditor: Rendering form');
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6">Story Editor</h2>

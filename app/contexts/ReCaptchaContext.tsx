@@ -7,6 +7,18 @@ interface ReCaptchaContextType {
   executeReCaptcha: (action: string) => Promise<string>
 }
 
+interface ReCaptcha {
+  ready: (callback: () => void) => void
+  execute: (siteKey: string, options: { action: string }) => Promise<string>
+}
+
+// Extend the global Window interface
+declare global {
+  interface Window {
+    grecaptcha: ReCaptcha
+  }
+}
+
 const ReCaptchaContext = createContext<ReCaptchaContextType | undefined>(undefined)
 
 // Google reCAPTCHA v2 site key and configuration
@@ -38,15 +50,15 @@ export function ReCaptchaProvider({ children }: { children: React.ReactNode }) {
 }
 
 // Helper function to load reCAPTCHA script
-async function loadReCaptchaScript(): Promise<any> {
+async function loadReCaptchaScript(): Promise<ReCaptcha> {
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined') {
       reject(new Error('reCAPTCHA can only be loaded in browser environment'))
       return
     }
 
-    if ((window as any).grecaptcha) {
-      resolve((window as any).grecaptcha)
+    if (window.grecaptcha) {
+      resolve(window.grecaptcha)
       return
     }
 
@@ -54,7 +66,13 @@ async function loadReCaptchaScript(): Promise<any> {
     script.src = RECAPTCHA_CONFIG.SCRIPT_URL(RECAPTCHA_CONFIG.SITE_KEY)
     script.async = true
     script.defer = true
-    script.onload = () => resolve((window as any).grecaptcha)
+    script.onload = () => {
+      if (window.grecaptcha) {
+        resolve(window.grecaptcha)
+      } else {
+        reject(new Error('reCAPTCHA failed to load'))
+      }
+    }
     script.onerror = () => reject(new Error('Failed to load reCAPTCHA script'))
     document.head.appendChild(script)
   })

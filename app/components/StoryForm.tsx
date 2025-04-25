@@ -30,6 +30,7 @@ export default function StoryForm({
     lastModified: Date.now(),
     country: '',
     type: '',
+    categories: [],
     imageUrl: '',
     imageAlt: '',
     author: '',
@@ -71,7 +72,7 @@ export default function StoryForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target
-    setStory(prev => ({ ...prev, [name]: value }))
+    setStory((prev: Story) => ({ ...prev, [name]: value }))
   }
 
   return (

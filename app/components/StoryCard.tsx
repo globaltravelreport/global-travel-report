@@ -15,37 +15,49 @@ export default function StoryCard({ story, showTags = true }: StoryCardProps) {
   const [imageError, setImageError] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
 
+  // Get categories to display (fallback to single category if categories array is empty)
+  const displayCategories = story.categories?.length 
+    ? story.categories.slice(0, 2) 
+    : story.category 
+    ? [story.category]
+    : []
+
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
       <Link href={`/stories/${story.slug}`}>
         <div className="relative h-48 w-full">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600" />
           {story.imageUrl && !imageError && (
             <div className={`absolute inset-0 transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}>
               <Image
                 src={story.imageUrl}
                 alt={story.imageAlt || story.title}
                 fill
-                className="object-cover rounded-t-lg"
+                className="object-cover rounded-t-lg brightness-105"
                 onLoad={() => setImageLoading(false)}
                 onError={() => setImageError(true)}
+                quality={85}
               />
             </div>
           )}
           <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
-            <div className="relative z-10 bg-black/30 p-3 rounded backdrop-blur-sm">
+            <div className="relative z-10 bg-black/20 p-3 rounded backdrop-blur-sm">
               <h3 className="text-lg font-semibold text-white">{story.title}</h3>
             </div>
           </div>
         </div>
         <div className="p-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-              {story.type}
-            </span>
             <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
               {story.country}
             </span>
+            {displayCategories.map((category) => (
+              <span 
+                key={category} 
+                className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full"
+              >
+                {category}
+              </span>
+            ))}
             {story.isSponsored && (
               <span className="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
                 Sponsored
@@ -60,7 +72,7 @@ export default function StoryCard({ story, showTags = true }: StoryCardProps) {
           
           {showTags && story.keywords && story.keywords.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
-              {story.keywords.slice(0, 3).map(tag => {
+              {story.keywords.slice(0, 3).map((tag: string) => {
                 const { bg, text } = getTagColor(tag)
                 return (
                   <Link

@@ -25,23 +25,38 @@
 'use server'
 
 import path from 'path'
-import fs from 'fs'
+import fs from 'fs/promises'
 import matter from 'gray-matter'
 import { Story, StoryDraft } from '../types/story'
 import { logger } from '../utils/logger'
+import {
+  cleanCountryName,
+  sortStoriesByDate,
+  filterStoriesByCountry,
+  filterStoriesByType,
+  filterStoriesByCategory,
+  filterStoriesByTag,
+  filterStoriesBySearch,
+  paginateStories
+} from '../utils/storyUtils'
 
 const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles')
 
 export type { Story, StoryDraft }
 
+export interface Country {
+  name: string
+  slug: string
+}
+
 export async function getAllStories(): Promise<Story[]> {
-  const files = await fs.promises.readdir(ARTICLES_DIRECTORY)
+  const files = await fs.readdir(ARTICLES_DIRECTORY)
   const mdFiles = files.filter(file => file.endsWith('.md'))
 
   const stories = await Promise.all(mdFiles.map(async (filename) => {
     const filePath = path.join(ARTICLES_DIRECTORY, filename)
-    const fileContents = await fs.promises.readFile(filePath, 'utf8')
-    const stats = await fs.promises.stat(filePath)
+    const fileContents = await fs.readFile(filePath, 'utf8')
+    const stats = await fs.stat(filePath)
     const { data, content } = matter(fileContents)
 
     // Convert date string to timestamp
@@ -66,13 +81,14 @@ export async function getAllStories(): Promise<Story[]> {
       lastModified: stats.mtimeMs,
       country: data.country,
       type: data.type,
+      categories: data.categories || [],
       keywords: data.keywords,
       imageUrl: data.imageUrl,
       imageAlt: data.imageAlt,
       author: data.author,
       source: data.source,
       sourceUrl: data.sourceUrl,
-      tags: data.tags,
+      tags: data.tags || [],
       body: data.body,
       published: data.published,
       category: data.category,
@@ -92,7 +108,27 @@ export async function getAllStories(): Promise<Story[]> {
 
 export async function getUniqueCountries(): Promise<string[]> {
   const stories = await getAllStories()
-  return Array.from(new Set(stories.map(story => story.country))).sort()
+  
+  // Get all countries from stories, including those with multiple countries
+  const allCountries = stories.flatMap(story => {
+    // Split by commas or 'and' if multiple countries
+    const countryList = story.country.split(/,|\sand\s/);
+    return countryList.map(country => cleanCountryName(country)).filter(Boolean);
+  });
+
+  // Create a Set for deduplication and sort alphabetically
+  return Array.from(new Set(allCountries))
+    .filter(country => 
+      // Filter out invalid entries
+      country.length > 0 && 
+      // Filter out entries that are likely not countries
+      !country.includes('Introduction') &&
+      !country.includes('Conclusion') &&
+      !country.includes('Summary') &&
+      !country.includes('Chapter') &&
+      !country.includes('Section')
+    )
+    .sort();
 }
 
 export async function getUniqueTypes(): Promise<string[]> {
@@ -104,42 +140,39 @@ export async function getStories(options: {
   recentOnly?: boolean
   country?: string
   type?: string
+  category?: string
   tag?: string
   search?: string
-} = {}) {
-  const stories = await getAllStories()
+} = {}): Promise<Story[]> {
+  let stories = await getAllStories()
   
-  let filteredStories = [...stories]
-
   if (options.recentOnly) {
     const now = Date.now()
     const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000)
-    filteredStories = filteredStories.filter(story => story.timestamp >= thirtyDaysAgo)
+    stories = stories.filter(story => story.timestamp >= thirtyDaysAgo)
   }
 
   if (options.country) {
-    filteredStories = filteredStories.filter(story => story.country === options.country)
+    stories = filterStoriesByCountry(stories, options.country)
   }
 
   if (options.type) {
-    filteredStories = filteredStories.filter(story => story.type === options.type)
+    stories = filterStoriesByType(stories, options.type)
+  }
+
+  if (options.category) {
+    stories = filterStoriesByCategory(stories, options.category)
   }
 
   if (options.tag) {
-    filteredStories = filteredStories.filter(story => story.tags?.includes(options.tag!))
+    stories = filterStoriesByTag(stories, options.tag)
   }
 
   if (options.search) {
-    const query = options.search.toLowerCase()
-    filteredStories = filteredStories.filter(
-      (story) =>
-        story.title.toLowerCase().includes(query) ||
-        story.summary.toLowerCase().includes(query) ||
-        story.content.toLowerCase().includes(query)
-    )
+    stories = filterStoriesBySearch(stories, options.search)
   }
 
-  return filteredStories.sort((a, b) => b.timestamp - a.timestamp)
+  return sortStoriesByDate(stories)
 }
 
 export async function getRecentStories({ country, type }: { country?: string, type?: string } = {}): Promise<Story[]> {
@@ -149,9 +182,9 @@ export async function getRecentStories({ country, type }: { country?: string, ty
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
     const filePath = path.join(ARTICLES_DIRECTORY, `${slug}.md`)
-    const fileContent = fs.readFileSync(filePath, 'utf8')
+    const fileContent = await fs.readFile(filePath, 'utf8')
     const { data, content } = matter(fileContent)
-    const stats = fs.statSync(filePath)
+    const stats = await fs.stat(filePath)
     const timestamp = new Date(data.date).getTime()
     const lastModified = stats.mtime.getTime()
 
@@ -165,6 +198,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
       lastModified,
       country: data.country,
       type: data.type,
+      categories: data.categories || [],
       keywords: data.keywords,
       imageUrl: data.imageUrl,
       imageAlt: data.imageAlt,
@@ -191,14 +225,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 }
 
 export async function getPaginatedStories(stories: Story[], page: number = 1, perPage: number = 10) {
-  const start = (page - 1) * perPage
-  const end = start + perPage
-  const paginatedStories = stories.slice(start, end)
-  
-  return {
-    stories: paginatedStories,
-    totalPages: Math.ceil(stories.length / perPage)
-  }
+  return paginateStories(stories, page, perPage)
 }
 
 export async function getPublishedStories(): Promise<Story[]> {
@@ -208,16 +235,12 @@ export async function getPublishedStories(): Promise<Story[]> {
 
 export async function getStoriesByCategory(category: string): Promise<Story[]> {
   const stories = await getPublishedStories()
-  return stories
-    .filter(story => story.category === category)
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+  return filterStoriesByCategory(stories, category)
 }
 
 export async function getStoriesByCountry(country: string): Promise<Story[]> {
   const stories = await getPublishedStories()
-  return stories
-    .filter(story => story.country === country)
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+  return sortStoriesByDate(filterStoriesByCountry(stories, country))
 }
 
 export async function getTrendingStories(): Promise<Story[]> {
@@ -284,24 +307,20 @@ export async function getMetrics() {
 
 export async function searchStories(query: string): Promise<Story[]> {
   const stories = await getAllStories()
-  const searchTerms = query.toLowerCase().split(' ')
-  
-  return stories.filter(story => {
-    const searchableText = [
-      story.title,
-      story.metaDescription,
-      story.body,
-      story.author,
-      ...story.keywords
-    ].join(' ').toLowerCase()
-    
-    return searchTerms.every(term => searchableText.includes(term))
-  })
+  return filterStoriesBySearch(stories, query)
 }
 
 export async function getStoriesByTag(tag: string): Promise<Story[]> {
-  const stories = await getStories()
-  return stories
-    .filter(story => story.keywords.includes(tag))
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+  const stories = await getPublishedStories()
+  return sortStoriesByDate(filterStoriesByTag(stories, tag))
+}
+
+export async function getStoriesByType(type: string): Promise<Story[]> {
+  const stories = await getAllStories()
+  return sortStoriesByDate(filterStoriesByType(stories, type))
+}
+
+export async function getUniqueCategories(): Promise<string[]> {
+  const stories = await getAllStories()
+  return Array.from(new Set(stories.flatMap(story => story.categories || []))).sort()
 } 

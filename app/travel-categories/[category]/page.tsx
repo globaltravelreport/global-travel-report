@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return generatePageMetadata({
     title: `${category} Travel Stories`,
     description: `Explore ${category} travel stories, news, and updates. Get insights on destinations, experiences, and travel tips.`,
-    path: `/categories/${params.category}`,
+    path: `/travel-categories/${params.category}`,
     type: 'website'
   })
 }
@@ -37,7 +37,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         stories={stories}
         currentPage={currentPage}
         totalPages={Math.ceil(stories.length / 10)}
-        basePath={`/categories/${params.category}`}
+        basePath={`/travel-categories/${params.category}`}
         showTags={true}
         totalCount={stories.length}
         isLoading={false}

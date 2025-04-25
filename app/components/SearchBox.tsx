@@ -15,25 +15,28 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
   const [searchTerm, setSearchTerm] = useState(initialValue)
 
   // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce((term: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      if (term) {
-        params.set('q', term)
-      } else {
-        params.delete('q')
-      }
-      params.delete('page') // Reset to first page on new search
-      router.push(`/filtered?${params.toString()}`)
-    }, 300),
-    [searchParams, router]
+  const debouncedSearch = useCallback((term: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (term) {
+      params.set('q', term)
+    } else {
+      params.delete('q')
+    }
+    params.delete('page') // Reset to first page on new search
+    router.push(`/filtered?${params.toString()}`)
+  }, [searchParams, router])
+
+  // Create debounced version of the search function
+  const debouncedSearchWithDelay = useCallback(
+    debounce((term: string) => debouncedSearch(term), 300),
+    [debouncedSearch]
   )
 
   // Update search when input changes
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value
     setSearchTerm(term)
-    debouncedSearch(term)
+    debouncedSearchWithDelay(term)
   }
 
   // Handle Enter key
@@ -53,9 +56,9 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
   // Clean up debounce on unmount
   useEffect(() => {
     return () => {
-      debouncedSearch.cancel()
+      debouncedSearchWithDelay.cancel()
     }
-  }, [debouncedSearch])
+  }, [debouncedSearchWithDelay])
 
   return (
     <div className="relative">
