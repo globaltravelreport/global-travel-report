@@ -2,18 +2,7 @@ import axios from 'axios'
 import { logger } from './logger'
 
 interface UnsplashResponse {
-  results: Array<{
-    urls: {
-      regular: string;
-    };
-    alt_description: string;
-    user: {
-      name: string;
-      links: {
-        html: string;
-      };
-    };
-  }>;
+  results: Array<UnsplashImageResult>;
 }
 
 interface UnsplashError {
@@ -94,7 +83,7 @@ export async function fetchUnsplashImage(query: string, country: string): Promis
     // Construct a more specific search query
     const searchQuery = `${country} ${query} travel photo landscape destination`;
     
-    const response = await axios.get(
+    const response = await axios.get<UnsplashResponse>(
       `https://api.unsplash.com/search/photos`,
       {
         params: {
@@ -115,12 +104,12 @@ export async function fetchUnsplashImage(query: string, country: string): Promis
 
     // Filter and sort results
     const filteredResults = response.data.results
-      .filter((image: UnsplashImageResult) => {
+      .filter((image) => {
         // Ensure landscape orientation
         const aspectRatio = image.width / image.height;
         return aspectRatio >= 1.5;
       })
-      .filter((image: UnsplashImageResult) => {
+      .filter((image) => {
         // Filter out generic nature shots unless they match the destination
         const description = (image.description || '').toLowerCase();
         const altDescription = (image.alt_description || '').toLowerCase();
