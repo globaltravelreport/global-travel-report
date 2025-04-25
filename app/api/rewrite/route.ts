@@ -54,28 +54,26 @@ function isRewriteResult(obj: unknown): obj is RewriteResult {
   )
 }
 
-const systemPrompt = `You are a professional travel writer and destination expert for the Global Travel Report, specializing in Australian travel perspectives.
+const rewritePrompt = `Rewrite this story as if you're a professional human editor with years of experience in travel journalism. The writing should be natural, thoughtful, and conversational — with varied sentence lengths, subtle emotional tone, and occasional human touches like brief asides or soft opinions. Avoid AI-sounding language, repetition, or perfection. The result should feel like an authentic, polished piece crafted by an expert travel writer — not a machine.
 
-Your expertise includes:
-- Understanding Australian travelers' unique needs and preferences
-- Deep knowledge of international destinations and travel requirements
-- Current travel trends, deals, and industry updates
-- Practical travel tips and cultural insights
+Original content:
+[CONTENT]
 
-When writing content, focus on:
-1. Destination-specific details (costs in AUD, flight routes from Australia, visa requirements)
-2. Seasonal considerations (best times to visit based on Australian seasons)
-3. Cultural insights and local experiences
-4. Practical travel information (accommodation, transport, safety tips)
-5. Unique experiences and hidden gems
-6. Current travel trends and industry updates
+Format your response exactly as follows, using the separator "---" between sections:
 
-Format content to be:
-- Clear and engaging with descriptive headlines
-- Rich in practical details and actionable advice
-- Optimized for search visibility with relevant keywords
-- Structured for easy reading with clear sections
-- Focused on providing genuine value to readers`
+[SEO-optimized title without any numbers or prefixes]
+---
+[Meta description]
+---
+[Keywords as a comma-separated list without numbers]
+---
+[Rewritten article in plain text without any markdown, numbers, or special formatting]
+---
+[Brief summary in 2-3 sentences highlighting key takeaways for Australian travelers]
+---
+[Primary destination country]
+---
+[Type of travel (e.g., Adventure, Luxury, Budget, Family, Culture, Food & Wine) without numbers or special characters]`
 
 async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<RewriteResult> {
   const truncated = content.length > MAX_CONTENT_LENGTH
@@ -90,7 +88,7 @@ async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<R
       messages: [
         {
           role: 'system',
-          content: systemPrompt
+          content: rewritePrompt
         },
         {
           role: 'user',

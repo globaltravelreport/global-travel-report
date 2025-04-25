@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -54,7 +56,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https: data:; connect-src 'self' https://www.google-analytics.com /api/*; frame-ancestors 'none';"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https: data:; connect-src 'self' https://www.google-analytics.com https://*.sentry.io /api/*; frame-ancestors 'none';"
           },
           {
             key: 'Permissions-Policy',
@@ -66,23 +68,23 @@ const nextConfig = {
   },
   poweredByHeader: false,
   compress: true,
-  generateEtags: true,
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, './'),
-    };
-    return config;
-  },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
-  staticPageGenerationTimeout: 300,
-  generateBuildId: async () => {
-    return 'build-' + Date.now();
-  }
+  generateEtags: true
 };
 
-module.exports = nextConfig; 
+const sentryWebpackPluginOptions = {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: true,
+  widenClientFileUpload: true,
+  transpileClientSDK: true,
+  tunnelRoute: '/monitoring',
+  hideSourceMaps: true,
+  disableLogger: true,
+};
+
+// Make sure adding Sentry options is the last code to run before exporting
+module.exports = withSentryConfig(
+  nextConfig,
+  sentryWebpackPluginOptions
+); 

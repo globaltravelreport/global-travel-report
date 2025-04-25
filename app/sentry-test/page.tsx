@@ -1,15 +1,22 @@
 'use client'
 
+import * as Sentry from '@sentry/nextjs'
 import { logger } from '@/app/utils/logger'
+import { notFound } from 'next/navigation'
 
 export default function SentryTestPage() {
+  // Only allow access in development mode
+  if (process.env.NODE_ENV === 'production') {
+    notFound()
+  }
+
   const handleErrorClick = () => {
     try {
-      // @ts-expect-error - Intentionally calling undefined function
-      myUndefinedFunction()
+      throw new Error('Sentry test error')
     } catch (error) {
       logger.error('Sentry test error triggered', error)
-      throw error // Re-throw to trigger Sentry
+      Sentry.captureException(error)
+      throw error // Re-throw to trigger error boundary
     }
   }
 
@@ -18,8 +25,22 @@ export default function SentryTestPage() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white shadow-sm rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">
-            Trigger Sentry Error
+            Sentry Error Test Page
           </h1>
+
+          <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8">
+            <div className="flex">
+              <div className="ml-3">
+                <p className="text-sm text-yellow-700">
+                  ⚠️ This page is only available in development mode.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-gray-600 mb-8">
+            Click the button below to trigger a test error that will be captured by Sentry.
+          </p>
 
           <button
             onClick={handleErrorClick}
@@ -27,7 +48,7 @@ export default function SentryTestPage() {
                      hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 
                      focus:ring-offset-2 transition-colors duration-200"
           >
-            Click to Trigger Error
+            Trigger Test Error
           </button>
         </div>
       </div>
