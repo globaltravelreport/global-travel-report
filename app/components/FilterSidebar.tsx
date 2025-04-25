@@ -59,7 +59,7 @@ export default function FilterSidebar({
     router.push(`/stories?${params.toString()}`)
   }
 
-  const removeTag = (tag: string) => {
+  const removeTag = (_tag: string) => {
     const params = new URLSearchParams(searchParams.toString())
     params.delete('tag')
     router.push(`/stories?${params.toString()}`)
@@ -144,15 +144,15 @@ export default function FilterSidebar({
               {allTags.map(tag => (
                 <button
                   key={tag}
-                  onClick={() => updateFilters('tag', tag === selectedTags[0] ? null : tag)}
+                  onClick={() => tag && updateFilters('tag', tag === selectedTags[0] ? null : tag)}
                   className={`inline-flex items-center px-3 py-1 rounded-full text-sm ${
-                    selectedTags.includes(tag)
+                    tag && selectedTags.includes(tag)
                       ? 'bg-blue-100 text-blue-800'
                       : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                   }`}
                 >
                   {tag}
-                  {selectedTags.includes(tag) && (
+                  {tag && selectedTags.includes(tag) && (
                     <XMarkIcon
                       className="w-4 h-4 ml-1"
                       onClick={(e) => {

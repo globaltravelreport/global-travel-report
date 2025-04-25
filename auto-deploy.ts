@@ -1,9 +1,8 @@
 import { execSync } from 'child_process';
 import { format } from 'date-fns-tz';
-import { appendFileSync, existsSync, mkdirSync } from 'fs';
+import { appendFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
-const REPO_URL = 'https://github.com/globaltravelreport/global-travel-report';
 const PRODUCTION_URL = 'https://www.globaltravelreport.com';
 const MAX_RETRIES = 3;
 const TIMEZONE = 'Australia/Sydney';

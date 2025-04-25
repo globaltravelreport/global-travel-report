@@ -1,8 +1,8 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { StoryDraft } from '@/types/content';
 
 interface Story {
   title: string;
@@ -30,7 +30,7 @@ export default function LatestNews({ stories }: LatestNewsProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest News</h2>
         <div className="grid md:grid-cols-3 gap-8">
-          {stories.map((story, index) => (
+          {stories.map((story) => (
             <article key={story.publishedAt} className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative h-48">
                 {story.featuredImage.url ? (

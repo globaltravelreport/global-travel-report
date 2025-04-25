@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

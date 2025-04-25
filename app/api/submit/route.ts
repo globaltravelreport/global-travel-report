@@ -3,6 +3,7 @@ import { writeFile, mkdir, access } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import sharp from 'sharp'
+import { logger } from '@/app/utils/logger'
 
 interface ImageMetadata {
   name: string
@@ -276,27 +277,10 @@ export async function POST(request: Request) {
       message: 'Story submitted successfully!',
       previewUrl: `/stories/${slug}`
     })
-  } catch (error) {
-    console.error('Error submitting story:', error)
-    
-    // Handle specific error cases
-    if (error instanceof Error) {
-      if (error.message.includes('ENOENT')) {
-        return NextResponse.json(
-          { error: 'Failed to create directory for story storage' },
-          { status: 500 }
-        )
-      }
-      if (error.message.includes('EACCES')) {
-        return NextResponse.json(
-          { error: 'Permission denied while saving story' },
-          { status: 500 }
-        )
-      }
-    }
-
+  } catch (err) {
+    logger.error('Failed to submit content:', err)
     return NextResponse.json(
-      { error: 'Failed to submit story' },
+      { error: 'Failed to submit content' },
       { status: 500 }
     )
   }

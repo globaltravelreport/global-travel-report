@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 // In a real application, this would be a database
-let publishedStories: StoryDraft[] = [];
+const publishedStories: StoryDraft[] = [];
 
 export async function POST(request: NextRequest) {
   try {

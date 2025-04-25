@@ -1,47 +1,37 @@
 import { ReactNode } from 'react';
 import Hero from './Hero';
 import { heroImages } from '../config/images';
-import { Metadata } from 'next';
 
 interface PageLayoutProps {
   children: ReactNode;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   heroType?: keyof typeof heroImages;
-  ogImage?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  schemaType?: 'Article' | 'WebPage' | 'Organization';
-  schemaData?: Record<string, any>;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
-export default function PageLayout({ 
-  children, 
-  title, 
-  description, 
-  heroType = 'home',
-  ogImage,
-  ogTitle,
-  ogDescription,
-  schemaType = 'WebPage',
-  schemaData = {}
+export default function PageLayout({
+  children,
+  title,
+  description,
+  heroType = 'default',
+  imageUrl,
+  imageAlt,
 }: PageLayoutProps) {
-  const imageConfig = heroImages[heroType] || heroImages.home;
-  const siteTitle = 'Global Travel Report';
-  const fullTitle = `${title} | ${siteTitle}`;
-  const fullDescription = description || 'Your trusted source for travel news, reviews, tips and exclusive deals.';
-  const imageUrl = ogImage || imageConfig.url;
-
+  const heroImage = heroImages[heroType];
+  
   return (
-    <main className="bg-white min-h-screen">
-      {heroType !== 'none' && (
-        <Hero 
-          title={title} 
-          description={description} 
-          heroType={heroType}
-        />
-      )}
-      {children}
-    </main>
+    <div className="min-h-screen bg-gray-50">
+      <Hero
+        title={title}
+        description={description}
+        imageUrl={imageUrl || (heroImage?.url ?? '')}
+        imageAlt={imageAlt || (heroImage?.alt ?? '')}
+      />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {children}
+      </main>
+    </div>
   );
 } 

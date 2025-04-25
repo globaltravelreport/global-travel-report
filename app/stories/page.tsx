@@ -29,7 +29,7 @@ export default async function StoriesPage({ searchParams }: StoriesPageProps) {
     stories = stories.filter(story => story.country === country)
   }
   if (tag) {
-    stories = stories.filter(story => story.tags.includes(tag))
+    stories = stories.filter(story => Array.isArray(story.tags) && story.tags.includes(tag))
   }
   if (query) {
     const searchTerms = query.toLowerCase().split(' ')
@@ -39,7 +39,7 @@ export default async function StoriesPage({ searchParams }: StoriesPageProps) {
         story.metaDescription,
         story.body,
         story.author,
-        ...story.tags
+        ...(story.tags || [])
       ].join(' ').toLowerCase()
       return searchTerms.every(term => searchableText.includes(term))
     })
@@ -54,8 +54,6 @@ export default async function StoriesPage({ searchParams }: StoriesPageProps) {
       currentPage={page}
       totalPages={totalPages}
       basePath="/stories"
-      title="All Travel Stories"
-      showSearch={true}
     />
   )
 } 

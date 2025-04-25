@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import OpenAI from 'openai'
 import * as cheerio from 'cheerio'
 import { safeLogError } from '../../utils/safeLogger'
+import { logger } from '@/app/utils/logger'
 
 // === Config & Constants ===
 const OPENAI_MODEL = 'gpt-4'
@@ -214,7 +215,7 @@ export async function POST(request: NextRequest) {
     const result = await rewriteContent(articleContent)
     return NextResponse.json(result, { headers })
   } catch (error: unknown) {
-    safeLogError('POST /api/rewrite error', error)
+    logger.error('Failed to rewrite content:', error)
     const message = error instanceof Error ? error.message : 'An unexpected error occurred'
     return NextResponse.json({ error: message }, { status: 500, headers })
   }

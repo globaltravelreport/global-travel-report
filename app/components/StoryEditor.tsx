@@ -37,7 +37,6 @@ export default function StoryEditor({ initialData, onPublish }: StoryEditorProps
   }, [initialData]);
 
   const [isSearchingImage, setIsSearchingImage] = useState(false);
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 

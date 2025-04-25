@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { Story } from '../lib/stories'
-import { formatDate } from '../lib/utils'
 import StoryCard from './StoryCard'
 
 interface StoryListProps {

@@ -5,7 +5,7 @@ import { logger } from '@/app/utils/logger'
 export default function SentryTestPage() {
   const handleErrorClick = () => {
     try {
-      // @ts-ignore - Intentionally calling undefined function
+      // @ts-expect-error - Intentionally calling undefined function
       myUndefinedFunction()
     } catch (error) {
       logger.error('Sentry test error triggered', error)

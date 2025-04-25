@@ -27,63 +27,19 @@
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
-import { isWithinLast7Days, isValidDate } from './utils'
-
-export interface FrontMatter {
-  title: string
-  summary: string
-  keywords: string[]
-  slug: string
-  date: string
-  country: string
-  type: string
-  imageUrl?: string
-  imageAlt?: string
-  author?: string
-  featured?: boolean
-  editorsPick?: boolean
-  readTime?: string
-  published?: boolean
-  category?: string
-  metaDescription?: string
-  body?: string
-}
-
-export interface Story {
-  title: string
-  summary: string
-  content: string
-  slug: string
-  date: string
-  timestamp: number
-  lastModified: number
-  country: string
-  type: string
-  keywords: string[]
-  imageUrl?: string
-  imageAlt?: string
-  author?: string
-  source?: string
-  sourceUrl?: string
-  tags?: string[]
-  body?: string
-  published?: boolean
-  category?: string
-  featured?: boolean
-  editorsPick?: boolean
-  readTime?: number
-  metaDescription?: string
-}
+import { Story, StoryDraft } from '../types/story'
+import { logger } from '../utils/logger'
 
 const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles')
 
+export type { Story, StoryDraft }
+
 export async function getAllStories(): Promise<Story[]> {
-  const articlesDirectory = path.join(process.cwd(), 'content/articles')
-  const files = await fs.promises.readdir(articlesDirectory)
+  const files = await fs.promises.readdir(ARTICLES_DIRECTORY)
   const mdFiles = files.filter(file => file.endsWith('.md'))
 
   const stories = await Promise.all(mdFiles.map(async (filename) => {
-    const filePath = path.join(articlesDirectory, filename)
+    const filePath = path.join(ARTICLES_DIRECTORY, filename)
     const fileContents = await fs.promises.readFile(filePath, 'utf8')
     const stats = await fs.promises.stat(filePath)
     const { data, content } = matter(fileContents)
@@ -91,12 +47,12 @@ export async function getAllStories(): Promise<Story[]> {
     // Convert date string to timestamp
     const timestamp = new Date(data.date).getTime()
     if (isNaN(timestamp)) {
-      console.warn(`Invalid date in ${filename}: ${data.date}`)
+      logger.warn(`Invalid date in ${filename}: ${data.date}`)
     }
 
     // Ensure all required fields are present
     if (!data.title || !data.summary || !data.date || !data.country || !data.type || !data.keywords) {
-      console.warn(`Missing required fields in ${filename}`)
+      logger.warn(`Missing required fields in ${filename}`)
       return null
     }
 
@@ -123,7 +79,9 @@ export async function getAllStories(): Promise<Story[]> {
       featured: data.featured,
       editorsPick: data.editorsPick,
       readTime: data.readTime,
-      metaDescription: data.metaDescription
+      metaDescription: data.metaDescription,
+      isSponsored: data.isSponsored,
+      seo: data.seo
     }
 
     return story
@@ -193,28 +151,41 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
     const filePath = path.join(ARTICLES_DIRECTORY, `${slug}.md`)
     const fileContent = fs.readFileSync(filePath, 'utf8')
     const { data, content } = matter(fileContent)
-    const frontmatter = data as FrontMatter
-    
     const stats = fs.statSync(filePath)
-    const lastModified = stats.mtime.toISOString()
+    const timestamp = new Date(data.date).getTime()
+    const lastModified = stats.mtime.getTime()
 
-    if (!frontmatter.date || !isValidDate(frontmatter.date)) {
-      console.error(`Invalid or missing date in ${slug}.md`)
-      return null
-    }
-
-    if (!frontmatter.country || !frontmatter.type) {
-      console.error(`Missing required fields in ${slug}.md`)
-      return null
-    }
-
-    return {
-      ...frontmatter,
+    const story: Story = {
+      title: data.title,
+      summary: data.summary,
       content,
-      lastModified
-    } as Story
+      slug,
+      date: data.date,
+      timestamp,
+      lastModified,
+      country: data.country,
+      type: data.type,
+      keywords: data.keywords,
+      imageUrl: data.imageUrl,
+      imageAlt: data.imageAlt,
+      author: data.author,
+      source: data.source,
+      sourceUrl: data.sourceUrl,
+      tags: data.keywords,
+      body: data.body,
+      published: data.published,
+      category: data.category,
+      featured: data.featured,
+      editorsPick: data.editorsPick,
+      readTime: data.readTime ? Number(data.readTime) : undefined,
+      metaDescription: data.metaDescription,
+      isSponsored: false,
+      seo: data.seo
+    }
+
+    return story
   } catch (error) {
-    console.error(`Error reading story ${slug}:`, error)
+    logger.error(`Error reading story ${slug}:`, error)
     return null
   }
 }

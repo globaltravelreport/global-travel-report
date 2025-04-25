@@ -5,59 +5,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
-const CATEGORIES = [
-  'Flights',
-  'Ocean Cruises',
-  'River Cruises',
-  'Hotels',
-  'Tours',
-  'Car Hire',
-  'Insurance',
-  'Travel Tips'
-]
-
-const COUNTRIES = [
-  'Thailand',
-  'Japan',
-  'Australia',
-  'France',
-  'Italy',
-  'Vietnam',
-  'New Zealand',
-  'Greece',
-  'Egypt',
-  'Turkey',
-  'Canada',
-  'USA',
-  'Mexico',
-  'Indonesia',
-  'Bali',
-  'Spain',
-  'Portugal',
-  'Romania',
-  'Slovenia',
-  'Germany',
-  'Netherlands',
-  'UK',
-  'Ireland',
-  'Scotland',
-  'Croatia',
-  'Switzerland',
-  'Austria',
-  'Hungary',
-  'Czech',
-  'Dubai',
-  'Singapore',
-  'China',
-  'South Korea',
-  'Philippines',
-  'Malaysia'
-]
-
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
-  const [isCountriesOpen, setIsCountriesOpen] = useState(false)
   const pathname = usePathname()
 
   const menuItems = [
@@ -135,7 +84,6 @@ const Navigation = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-3 rounded-md hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-navy"
             aria-label="Toggle mobile menu"
-            aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
             <svg

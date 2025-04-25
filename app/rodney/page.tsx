@@ -13,12 +13,6 @@ interface ImageMetadata {
   height?: number
 }
 
-interface AutoTags {
-  category?: string
-  country?: string
-  timestamp?: string
-}
-
 interface FormData {
   title: string
   body: string

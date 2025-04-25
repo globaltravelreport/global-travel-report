@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Story pages
   const storyPages = await Promise.all(stories.map(async story => {
     const filePath = path.join(process.cwd(), 'content', 'articles', `${story.slug}.md`)
-    const modifiedDate = getFileModifiedDate(filePath) || new Date(story.date)
+    const modifiedDate = await getFileModifiedDate(filePath) || new Date(story.date)
 
     return {
       url: `${baseUrl}/stories/${story.slug}`,
@@ -44,18 +44,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.7,
       // Add image data if available
-      ...(story.imageUrl && {
-        images: [
-          {
-            url: story.imageUrl,
-            title: story.imageAlt || story.title,
-            ...(story.imagePhotographer && {
-              caption: `Photo by ${story.imagePhotographer.name} on Unsplash`,
-              license: 'https://unsplash.com/license',
-            }),
-          },
-        ],
-      }),
+      images: story.imageUrl ? [{
+        url: story.imageUrl,
+        title: story.imageAlt || story.title,
+        // Only include photographer info if available in the source field
+        ...(story.source?.includes('Unsplash') && {
+          caption: `Photo from Unsplash`,
+          license: 'https://unsplash.com/license',
+        }),
+      }] : [],
     }
   }))
 

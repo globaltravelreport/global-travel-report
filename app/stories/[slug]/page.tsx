@@ -1,13 +1,9 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
 import { formatDate, formatReadingTime, generateMetadata as generatePageMetadata } from '@/app/lib/utils'
-import { getStoryBySlug, getAllStories, Story } from '../../lib/stories'
+import { getStoryBySlug, getAllStories } from '../../lib/stories'
 import ShareButtons from '../../components/ShareButtons'
 import Reactions from '../../components/Reactions'
 import EmailSignup from '../../components/EmailSignup'
@@ -18,28 +14,6 @@ interface StoryPageProps {
   params: {
     slug: string
   }
-}
-
-interface StoryData {
-  title: string
-  summary: string
-  content: string
-  date: string
-  country: string
-  type: string
-  keywords: string[]
-  imageUrl?: string
-  imageAlt?: string
-  imageCredit?: string
-  imageLink?: string
-}
-
-// Helper function to find the markdown file by slug
-async function findMarkdownFileBySlug(slug: string): Promise<string | null> {
-  const articlesDir = path.join(process.cwd(), 'content', 'articles')
-  const files = fs.readdirSync(articlesDir)
-  const markdownFile = files.find(file => file.endsWith(`${slug}.md`))
-  return markdownFile ? path.join(articlesDir, markdownFile) : null
 }
 
 // Generate metadata for the page
@@ -54,47 +28,6 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
     path: `/stories/${story.slug}`,
     type: 'article'
   })
-}
-
-async function getRelatedStories(currentStory: Story) {
-  const allStories = await getAllStories()
-  
-  // Remove current story from the pool
-  const otherStories = allStories.filter(s => s.slug !== currentStory.slug)
-  
-  // Score each story based on metadata matches
-  const scoredStories = otherStories.map(story => {
-    let score = 0
-
-    // Priority 1: Shared keywords (3 points each)
-    if (currentStory.keywords && story.keywords) {
-      const sharedKeywords = currentStory.keywords.filter((k: string) => 
-        story.keywords?.includes(k)
-      )
-      score += sharedKeywords.length * 3
-    }
-
-    // Priority 2: Same type (2 points)
-    if (story.type === currentStory.type) {
-      score += 2
-    }
-
-    // Priority 3: Same country (1 point)
-    if (story.country === currentStory.country) {
-      score += 1
-    }
-
-    return { story, score }
-  })
-
-  // Sort by score (descending) and then by date
-  return scoredStories
-    .sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score
-      return new Date(b.story.date).getTime() - new Date(a.story.date).getTime()
-    })
-    .slice(0, 3) // Get top 3
-    .map(({ story }) => story)
 }
 
 // Main page component
@@ -179,19 +112,10 @@ export default async function StoryPage({ params }: StoryPageProps) {
         )}
 
         {/* Image Credit */}
-        {story.imagePhotographer && (
+        {story.source?.includes('Unsplash') && (
           <div className="mt-8 text-sm text-gray-500">
             <p>
-              Photo by{' '}
-              <a
-                href={`https://unsplash.com/@${story.imagePhotographer.username}?utm_source=global_travel_report&utm_medium=referral`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                {story.imagePhotographer.name}
-              </a>
-              {' '}on{' '}
+              Photo from{' '}
               <a
                 href="https://unsplash.com/?utm_source=global_travel_report&utm_medium=referral"
                 target="_blank"

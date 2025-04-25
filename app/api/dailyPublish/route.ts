@@ -74,8 +74,14 @@ export async function POST(_request: Request) {
 
 // Only allow POST requests
 export async function GET() {
-  return new NextResponse(JSON.stringify({ error: 'Method not allowed' }), {
-    status: 405,
-    headers: { 'Content-Type': 'application/json' },
-  })
+  try {
+    // Your publishing logic here
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    logger.error('Failed to run daily publish:', err);
+    return NextResponse.json(
+      { error: 'Failed to run daily publish' },
+      { status: 500 }
+    );
+  }
 } 

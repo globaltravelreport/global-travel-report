@@ -57,8 +57,8 @@ function NewsletterForm() {
       recaptchaLog.info('Requesting reCAPTCHA token')
       const token = await executeReCaptcha('newsletter_signup')
 
-      // Simulate API call
-      recaptchaLog.info('Submitting newsletter signup', { email })
+      // Simulate API call with token
+      recaptchaLog.info('Submitting newsletter signup', { email, token })
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       recaptchaLog.success('Newsletter signup successful', { email })
