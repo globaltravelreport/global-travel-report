@@ -109,7 +109,7 @@ async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<R
     let parsed: unknown
     try {
       parsed = JSON.parse(jsonStr)
-    } catch (e) {
+    } catch (_e) {
       // Try to clean the response and parse again
       const cleaned = jsonStr
         .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
@@ -119,8 +119,8 @@ async function rewriteContent(content: string, retries = MAX_RETRIES): Promise<R
       
       try {
         parsed = JSON.parse(cleaned)
-      } catch (e2) {
-        safeLogError('Failed to parse OpenAI response as JSON', e2, { raw, jsonStr, cleaned })
+      } catch (_e2) {
+        safeLogError('Failed to parse OpenAI response as JSON', _e2, { raw, jsonStr, cleaned })
         throw new Error('OpenAI response was not valid JSON')
       }
     }

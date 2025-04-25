@@ -1,6 +1,26 @@
 import axios from 'axios'
 import { logger } from './logger'
 
+interface UnsplashResponse {
+  results: Array<{
+    urls: {
+      regular: string;
+    };
+    alt_description: string;
+    user: {
+      name: string;
+      links: {
+        html: string;
+      };
+    };
+  }>;
+}
+
+interface UnsplashError {
+  errors?: string[];
+  message?: string;
+}
+
 /**
  * Get UTM parameters for Unsplash attribution links
  */
@@ -113,4 +133,12 @@ export async function fetchUnsplashImage(query: string, country: string): Promis
     logger.error('Error fetching Unsplash image:', error);
     return null;
   }
+}
+
+async function searchUnsplash(query: string): Promise<UnsplashResponse> {
+  // ... existing code ...
+}
+
+function handleUnsplashError(error: UnsplashError): never {
+  // ... existing code ...
 } 

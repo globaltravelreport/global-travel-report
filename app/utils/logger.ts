@@ -28,6 +28,7 @@ class Logger {
     if (this.isDevelopment) {
       const consoleMethod = level === 'error' ? console.error : 
                           level === 'warn' ? console.warn :
+                          // eslint-disable-next-line no-console
                           console.log;
       consoleMethod(`[${level.toUpperCase()}] ${message}`, data || '');
     }

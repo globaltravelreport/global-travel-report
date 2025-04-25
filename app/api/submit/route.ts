@@ -278,8 +278,8 @@ export async function POST(request: Request) {
       message: 'Story submitted successfully!',
       previewUrl: `/stories/${slug}`
     })
-  } catch (err) {
-    logger.error('Failed to submit content:', err)
+  } catch (_error) {
+    logger.error('Failed to submit content:', _error)
     return NextResponse.json(
       { error: 'Failed to submit content' },
       { status: 500 }

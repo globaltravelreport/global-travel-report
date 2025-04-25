@@ -28,7 +28,9 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
 
   // Create debounced version of the search function
   const debouncedSearchWithDelay = useCallback(
-    debounce((term: string) => debouncedSearch(term), 300),
+    (term: string) => {
+      debounce((searchTerm: string) => debouncedSearch(searchTerm), 300)(term)
+    },
     [debouncedSearch]
   )
 

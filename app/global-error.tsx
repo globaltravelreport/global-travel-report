@@ -9,6 +9,9 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  // Report error to Sentry
+  Sentry.captureException(error)
+
   return (
     <html>
       <body>
