@@ -1,4 +1,5 @@
-import { logger } from './logger';
+import axios from 'axios'
+import { logger } from './logger'
 
 /**
  * Get UTM parameters for Unsplash attribution links
@@ -30,18 +31,86 @@ export function formatUnsplashAttribution(photographer: { username: string; name
  */
 export async function trackUnsplashDownload(downloadLocation: string): Promise<void> {
   try {
-    const response = await fetch(`/api/unsplash/search?downloadLocation=${encodeURIComponent(downloadLocation)}`, {
-      method: 'POST',
+    await axios.get(downloadLocation, {
+      headers: {
+        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`
+      }
     });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to track download: ${response.status} ${response.statusText}`);
-    }
-    
-    logger.info('Successfully tracked Unsplash download');
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('Failed to track Unsplash download:', message);
-    throw error;
+    logger.error('Error tracking Unsplash download:', error);
+  }
+}
+
+export async function fetchUnsplashImage(query: string, country: string): Promise<{
+  url: string
+  alt: string
+  photographer: string
+  photographerUsername: string
+  link: string
+  downloadLocation: string
+} | null> {
+  try {
+    // Construct a more specific search query
+    const searchQuery = `${country} ${query} travel photo landscape destination`;
+    
+    const response = await axios.get(
+      `https://api.unsplash.com/search/photos`,
+      {
+        params: {
+          query: searchQuery,
+          orientation: 'landscape',
+          per_page: 30, // Get more results to filter through
+          content_filter: 'high'
+        },
+        headers: {
+          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`
+        }
+      }
+    );
+
+    if (response.data.results.length === 0) {
+      return null;
+    }
+
+    // Filter and sort results
+    const filteredResults = response.data.results
+      .filter((image: any) => {
+        // Ensure landscape orientation
+        const aspectRatio = image.width / image.height;
+        return aspectRatio >= 1.5;
+      })
+      .filter((image: any) => {
+        // Filter out generic nature shots unless they match the destination
+        const description = (image.description || '').toLowerCase();
+        const altDescription = (image.alt_description || '').toLowerCase();
+        const countryLower = country.toLowerCase();
+        
+        const isDestinationSpecific = 
+          description.includes(countryLower) ||
+          altDescription.includes(countryLower) ||
+          description.includes('travel') ||
+          altDescription.includes('travel');
+
+        return isDestinationSpecific;
+      });
+
+    if (filteredResults.length === 0) {
+      return null;
+    }
+
+    // Select the best match
+    const bestMatch = filteredResults[0];
+    
+    return {
+      url: bestMatch.urls.regular,
+      alt: bestMatch.alt_description || `Travel photo of ${country}`,
+      photographer: bestMatch.user.name,
+      photographerUsername: bestMatch.user.username,
+      link: bestMatch.links.html,
+      downloadLocation: bestMatch.links.download_location
+    };
+  } catch (error) {
+    logger.error('Error fetching Unsplash image:', error);
+    return null;
   }
 } 

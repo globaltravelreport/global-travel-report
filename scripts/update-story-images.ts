@@ -1,9 +1,8 @@
-import fs from 'fs/promises';
 import path from 'path';
+import { promises as fs } from 'fs';
 import matter from 'gray-matter';
 import { logger } from '../app/utils/logger';
-import { fetchUnsplashImage } from '../app/api/cron/dailyPublish/route';
-import { trackUnsplashDownload } from '../app/lib/unsplash';
+import { fetchUnsplashImage, trackUnsplashDownload } from '../app/lib/unsplash';
 
 const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles');
 

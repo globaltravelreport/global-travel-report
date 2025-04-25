@@ -39,10 +39,16 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     const selectedType = searchParams.type
 
     // Get filter options with error handling
-    const [countries, types] = await Promise.all([
+    const [countryNames, types] = await Promise.all([
       getUniqueCountries().catch(() => []),
       getUniqueTypes().catch(() => [])
     ])
+
+    // Transform country names into Country objects
+    const countries = countryNames.map(name => ({
+      name,
+      slug: name.toLowerCase().replace(/\s+/g, '-')
+    }))
 
     // Get filtered stories (recent only) with error handling
     const stories = await getRecentStories({
@@ -158,8 +164,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             totalPages={totalPages}
             basePath={basePath}
             showTags={true}
-            totalCount={stories.length}
-            isLoading={false}
           />
         </div>
 

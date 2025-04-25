@@ -1,5 +1,3 @@
-import { Country } from '../types/story'
-
 // Map of country names to their corresponding flag emojis
 const countryFlags: Record<string, string> = {
   'United States': '🇺🇸',

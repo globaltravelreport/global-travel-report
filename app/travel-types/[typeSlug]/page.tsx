@@ -45,8 +45,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           totalPages={1}
           basePath={`/travel-types/${params.typeSlug}`}
           showTags={true}
-          totalCount={stories.length}
-          isLoading={false}
         />
       </div>
     )

@@ -49,10 +49,16 @@ export default async function FilteredPage({ searchParams }: FilteredPageProps) 
 
   try {
     // Get filter options
-    const [countries, types] = await Promise.all([
+    const [countryNames, types] = await Promise.all([
       getUniqueCountries(),
       getUniqueTypes()
     ])
+
+    // Transform country names into Country objects
+    const countries = countryNames.map(name => ({
+      name,
+      slug: name.toLowerCase().replace(/\s+/g, '-')
+    }))
 
     // Get filtered stories (all stories, not just recent)
     const stories = await getStories({
@@ -104,7 +110,6 @@ export default async function FilteredPage({ searchParams }: FilteredPageProps) 
             totalPages={totalPages}
             basePath={basePath}
             showTags={true}
-            totalCount={stories.length}
           />
         </div>
       </div>

@@ -39,8 +39,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         totalPages={Math.ceil(stories.length / 10)}
         basePath={`/travel-categories/${params.category}`}
         showTags={true}
-        totalCount={stories.length}
-        isLoading={false}
       />
     </div>
   )
