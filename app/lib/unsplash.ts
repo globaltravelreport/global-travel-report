@@ -21,6 +21,27 @@ interface UnsplashError {
   message?: string;
 }
 
+interface UnsplashImageResult {
+  width: number;
+  height: number;
+  description: string;
+  alt_description: string;
+  urls: {
+    regular: string;
+  };
+  user: {
+    name: string;
+    username: string;
+    links: {
+      html: string;
+    };
+  };
+  links: {
+    html: string;
+    download_location: string;
+  };
+}
+
 /**
  * Get UTM parameters for Unsplash attribution links
  */
@@ -79,7 +100,7 @@ export async function fetchUnsplashImage(query: string, country: string): Promis
         params: {
           query: searchQuery,
           orientation: 'landscape',
-          per_page: 30, // Get more results to filter through
+          per_page: 30,
           content_filter: 'high'
         },
         headers: {
@@ -94,12 +115,12 @@ export async function fetchUnsplashImage(query: string, country: string): Promis
 
     // Filter and sort results
     const filteredResults = response.data.results
-      .filter((image: any) => {
+      .filter((image: UnsplashImageResult) => {
         // Ensure landscape orientation
         const aspectRatio = image.width / image.height;
         return aspectRatio >= 1.5;
       })
-      .filter((image: any) => {
+      .filter((image: UnsplashImageResult) => {
         // Filter out generic nature shots unless they match the destination
         const description = (image.description || '').toLowerCase();
         const altDescription = (image.alt_description || '').toLowerCase();

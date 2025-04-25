@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import debounce from 'lodash/debounce'
 
 interface SearchBoxProps {
@@ -13,6 +13,9 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
   const router = useRouter()
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(initialValue)
+
+  // Create a ref to store the debounced function
+  const debouncedFn = useRef<ReturnType<typeof debounce>>();
 
   // Debounced search function
   const debouncedSearch = useCallback((term: string) => {
@@ -27,18 +30,18 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
   }, [searchParams, router])
 
   // Create debounced version of the search function
-  const debouncedSearchWithDelay = useCallback(
-    (term: string) => {
-      debounce((searchTerm: string) => debouncedSearch(searchTerm), 300)(term)
-    },
-    [debouncedSearch]
-  )
+  useEffect(() => {
+    debouncedFn.current = debounce((term: string) => debouncedSearch(term), 300)
+    return () => {
+      debouncedFn.current?.cancel()
+    }
+  }, [debouncedSearch])
 
   // Update search when input changes
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value
     setSearchTerm(term)
-    debouncedSearchWithDelay(term)
+    debouncedFn.current?.(term)
   }
 
   // Handle Enter key
@@ -54,13 +57,6 @@ export default function SearchBox({ initialValue = '', placeholder = 'Search...'
       router.push(`/filtered?${params.toString()}`)
     }
   }
-
-  // Clean up debounce on unmount
-  useEffect(() => {
-    return () => {
-      debouncedSearchWithDelay.cancel()
-    }
-  }, [debouncedSearchWithDelay])
 
   return (
     <div className="relative">
