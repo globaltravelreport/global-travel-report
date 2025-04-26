@@ -99,4 +99,20 @@ The project is configured for Vercel deployment:
 - Newsletter integration
 - Advanced analytics
 - Story export functionality
-- Additional sort options 
+- Additional sort options
+
+## Project Status (2025)
+
+- ✅ No Sentry or error tracking code (fully removed)
+- ✅ Builds cleanly with Next.js 14, React 18, and TypeScript
+- ✅ GitHub repository connected for version control and collaboration
+- ✅ Automated CI build checks via GitHub Actions
+- ✅ Consistent dependency installs enforced with .npmrc
+
+## Continuous Integration (CI)
+
+A basic GitHub Actions workflow is included to automatically run build checks on every push to main and pull request. See `.github/workflows/ci.yml` for details.
+
+## Dependency Management
+
+A `.npmrc` file is included to enforce consistent installs across all environments 

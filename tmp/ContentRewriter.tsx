@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { RewrittenContent } from '@/types/content';
+// import { RewrittenContent } from '@/types/content';
 
 interface ContentRewriterProps {
-  onRewriteComplete: (content: RewrittenContent) => void;
+  onRewriteComplete: (content: any) => void;
 }
 
 export default function ContentRewriter({ onRewriteComplete }: ContentRewriterProps) {
@@ -54,7 +54,7 @@ export default function ContentRewriter({ onRewriteComplete }: ContentRewriterPr
         throw new Error('Failed to rewrite content');
       }
 
-      const rewrittenContent: RewrittenContent = await response.json();
+      const rewrittenContent: any = await response.json();
       onRewriteComplete(rewrittenContent);
       setOriginalContent('');
       setSourceUrl('');
