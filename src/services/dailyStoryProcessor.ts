@@ -7,6 +7,7 @@ export class DailyStoryProcessor {
   private storyRewriter: StoryRewriter;
   private processingQueue: Story[] = [];
   private isProcessing: boolean = false;
+  private processedStories: Story[] = [];
 
   private constructor() {
     this.storyRewriter = new StoryRewriter();
@@ -26,6 +27,7 @@ export class DailyStoryProcessor {
     }
 
     this.isProcessing = true;
+    this.processedStories = []; // Reset processed stories
 
     try {
       // Reset daily count at the start of processing
@@ -48,6 +50,10 @@ export class DailyStoryProcessor {
     }
   }
 
+  public async getProcessedStories(): Promise<Story[]> {
+    return this.processedStories;
+  }
+
   private async processCategoryStories(categoryType: 'cruise' | 'other', count: number): Promise<void> {
     const categories = storyRewriteConfig.categories[categoryType];
     
@@ -66,8 +72,9 @@ export class DailyStoryProcessor {
       // Rewrite the story
       const rewrittenStory = await this.storyRewriter.rewriteStory(originalContent, category);
       
-      // Add to processing queue
+      // Add to processing queue and processed stories
       this.processingQueue.push(rewrittenStory);
+      this.processedStories.push(rewrittenStory);
     }
   }
 

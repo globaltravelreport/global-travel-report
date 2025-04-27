@@ -2,11 +2,49 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+
+function handleTabKey(e: KeyboardEvent, firstElement: HTMLElement, lastElement: HTMLElement) {
+  if (e.key === 'Tab') {
+    if (e.shiftKey && document.activeElement === firstElement) {
+      e.preventDefault();
+      lastElement.focus();
+    } else if (!e.shiftKey && document.activeElement === lastElement) {
+      e.preventDefault();
+      firstElement.focus();
+    }
+  }
+}
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuExpanded = isMenuOpen ? "true" : "false";
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Trap focus inside mobile menu
+  useEffect(() => {
+    if (isMenuOpen && menuRef.current) {
+      const focusableElements = menuRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      menuRef.current.addEventListener('keydown', (e) => handleTabKey(e, firstElement, lastElement));
+      return () => menuRef.current?.removeEventListener('keydown', (e) => handleTabKey(e, firstElement, lastElement));
+    }
+  }, [isMenuOpen]);
 
   return (
     <header className="border-b" role="banner">
@@ -24,7 +62,7 @@ export function Header() {
           <button
             className="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-expanded={menuExpanded}
+            aria-expanded={isMenuOpen ? "true" : "false"}
             aria-controls="mobile-menu"
             aria-label="Toggle menu"
           >
@@ -64,11 +102,25 @@ export function Header() {
               Stories
             </Link>
             <Link 
-              href="/submit" 
+              href="/destinations" 
               className="hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-              aria-label="Submit your story"
+              aria-label="Explore destinations"
             >
-              Submit Story
+              Destinations
+            </Link>
+            <Link 
+              href="/about" 
+              className="hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+              aria-label="About us"
+            >
+              About
+            </Link>
+            <Link 
+              href="/contact" 
+              className="hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+              aria-label="Contact us"
+            >
+              Contact
             </Link>
             <Button asChild>
               <Link 
@@ -83,8 +135,9 @@ export function Header() {
 
         {/* Mobile menu */}
         <div
+          ref={menuRef}
           id="mobile-menu"
-          className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} mt-4 space-y-4`}
+          className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} mt-4 space-y-4 transition-all duration-300 ease-in-out`}
           role="navigation"
           aria-label="Mobile menu"
         >
@@ -97,11 +150,25 @@ export function Header() {
               Stories
             </Link>
             <Link 
-              href="/submit" 
+              href="/destinations" 
               className="block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-              aria-label="Submit your story"
+              aria-label="Explore destinations"
             >
-              Submit Story
+              Destinations
+            </Link>
+            <Link 
+              href="/about" 
+              className="block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+              aria-label="About us"
+            >
+              About
+            </Link>
+            <Link 
+              href="/contact" 
+              className="block hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+              aria-label="Contact us"
+            >
+              Contact
             </Link>
             <Button asChild className="w-full">
               <Link 
