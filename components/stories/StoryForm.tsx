@@ -3,98 +3,174 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
+import { ReCaptcha } from "@/components/ui/ReCaptcha";
 
-interface StoryFormProps {
-  onSubmit: (data: {
-    title: string;
-    content: string;
-    location: string;
-    date: string;
-  }) => void;
+export interface StoryFormData {
+  title: string;
+  content: string;
+  category: string;
+  country: string;
+  tags: string;
+}
+
+export interface StoryFormProps {
+  onSubmit?: (data: StoryFormData) => Promise<void>;
 }
 
 export function StoryForm({ onSubmit }: StoryFormProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<StoryFormData>({
     title: "",
     content: "",
-    location: "",
-    date: "",
+    category: "",
+    country: "",
+    tags: "",
   });
+  const [recaptchaToken, setRecaptchaToken] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
-  };
+    setStatus("loading");
+    setError("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (!recaptchaToken) {
+      setError("Please complete the reCAPTCHA verification");
+      setStatus("error");
+      return;
+    }
+
+    try {
+      if (onSubmit) {
+        await onSubmit(formData);
+      } else {
+        const response = await fetch("/api/stories", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, recaptchaToken }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit story");
+        }
+      }
+
+      setStatus("success");
+      setFormData({
+        title: "",
+        content: "",
+        category: "",
+        country: "",
+        tags: "",
+      });
+      setRecaptchaToken("");
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      setStatus("error");
+    }
   };
 
   return (
-    <Card className="p-6">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="title">Story Title</Label>
-          <Input
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            placeholder="Enter your story title"
-            required
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          Title
+        </label>
+        <Input
+          id="title"
+          type="text"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          required
+          className="w-full"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
-          <Input
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Where did this story take place?"
-            required
-          />
-        </div>
+      <div>
+        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+          Content
+        </label>
+        <textarea
+          id="content"
+          value={formData.content}
+          onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+          required
+          rows={10}
+          className="w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="date">Date</Label>
-          <Input
-            id="date"
-            name="date"
-            type="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <div>
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+          Category
+        </label>
+        <Input
+          id="category"
+          type="text"
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          required
+          className="w-full"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="content">Your Story</Label>
-          <Textarea
-            id="content"
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
-            placeholder="Share your travel story..."
-            className="min-h-[200px]"
-            required
-          />
-        </div>
+      <div>
+        <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+          Country
+        </label>
+        <Input
+          id="country"
+          type="text"
+          value={formData.country}
+          onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+          required
+          className="w-full"
+        />
+      </div>
 
-        <Button type="submit" className="w-full">
-          Share Your Story
-        </Button>
-      </form>
-    </Card>
+      <div>
+        <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
+          Tags (comma-separated)
+        </label>
+        <Input
+          id="tags"
+          type="text"
+          value={formData.tags}
+          onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+          required
+          className="w-full"
+        />
+      </div>
+
+      <ReCaptcha
+        onVerify={setRecaptchaToken}
+        onError={(error) => {
+          setError(error.message);
+          setStatus("error");
+        }}
+        className="mb-4"
+      />
+
+      {status === "error" && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
+
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={status === "loading"}
+        aria-label="Submit story"
+      >
+        {status === "loading" ? "Submitting..." : "Submit Story"}
+      </Button>
+
+      {status === "success" && (
+        <p className="text-sm text-green-600">
+          Thanks for your submission! Our team will review it shortly.
+        </p>
+      )}
+    </form>
   );
 } 

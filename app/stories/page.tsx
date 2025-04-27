@@ -1,5 +1,23 @@
-import { StoryCard } from "@/components/stories/StoryCard";
-import type { Story } from "@/app/types/story";
+import { StorySearch } from "@/components/stories/StorySearch";
+import type { Story } from "@/lib/stories";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Travel Stories - Global Travel Report",
+  description: "Explore amazing travel stories and experiences from around the world. Filter by country, category, and more.",
+  openGraph: {
+    title: "Travel Stories - Global Travel Report",
+    description: "Explore amazing travel stories and experiences from around the world. Filter by country, category, and more.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Global Travel Report",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Travel Stories - Global Travel Report",
+    description: "Explore amazing travel stories and experiences from around the world. Filter by country, category, and more.",
+  },
+};
 
 // This would typically come from an API or database
 const getStories = async (): Promise<Story[]> => {
@@ -12,10 +30,13 @@ const getStories = async (): Promise<Story[]> => {
       excerpt: "A journey through ancient Japanese architecture and culture...",
       content: "Full content here...",
       author: "Sarah Johnson",
-      date: "2024-03-15",
-      location: "Kyoto, Japan",
+      category: "Culture",
+      country: "Japan",
+      tags: ["temples", "culture", "history"],
+      featured: true,
+      editorsPick: true,
+      publishedAt: new Date("2024-03-15T00:00:00Z"),
       imageUrl: "/images/kyoto-temple.jpg",
-      publishedAt: "2024-03-15",
     },
     {
       id: "2",
@@ -24,29 +45,30 @@ const getStories = async (): Promise<Story[]> => {
       excerpt: "Witnessing the great migration in the Serengeti...",
       content: "Full content here...",
       author: "Michael Chen",
-      date: "2024-03-10",
-      location: "Serengeti, Tanzania",
+      category: "Adventure",
+      country: "Tanzania",
+      tags: ["wildlife", "safari", "nature"],
+      featured: true,
+      editorsPick: false,
+      publishedAt: new Date("2024-03-10T00:00:00Z"),
       imageUrl: "/images/serengeti-safari.jpg",
-      publishedAt: "2024-03-10",
     },
     {
       id: "3",
-      slug: "italian-cuisine",
+      slug: "culinary-tour-italy",
       title: "Culinary Tour of Italy",
       excerpt: "From pasta in Rome to pizza in Naples...",
       content: "Full content here...",
       author: "Emma Rodriguez",
-      date: "2024-03-05",
-      location: "Italy",
+      category: "Food",
+      country: "Italy",
+      tags: ["food", "culture", "culinary"],
+      featured: false,
+      editorsPick: true,
+      publishedAt: new Date("2024-03-05T00:00:00Z"),
       imageUrl: "/images/italy-food.jpg",
-      publishedAt: "2024-03-05",
     },
   ];
-};
-
-export const metadata = {
-  title: "Travel Stories - Global Travel Report",
-  description: "Discover amazing travel stories from around the world",
 };
 
 export default async function StoriesPage() {
@@ -61,11 +83,7 @@ export default async function StoriesPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {stories.map((story) => (
-          <StoryCard key={story.id} story={story} />
-        ))}
-      </div>
+      <StorySearch stories={stories} />
     </div>
   );
 } 

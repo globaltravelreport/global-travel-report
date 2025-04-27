@@ -1,7 +1,59 @@
 import { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// This would typically come from your database or API
+const getStories = async () => {
+  return [
+    {
+      slug: "exploring-kyoto",
+      lastModified: "2024-03-15",
+    },
+    {
+      slug: "safari-adventure",
+      lastModified: "2024-03-10",
+    },
+    {
+      slug: "italian-cuisine",
+      lastModified: "2024-03-05",
+    },
+  ];
+};
+
+const getCategories = () => {
+  return [
+    "adventure",
+    "culture",
+    "food",
+    "nature",
+    "urban",
+  ];
+};
+
+const getCountries = () => {
+  return [
+    "japan",
+    "tanzania",
+    "italy",
+    "france",
+    "thailand",
+  ];
+};
+
+const getTags = () => {
+  return [
+    "temples",
+    "wildlife",
+    "culinary",
+    "history",
+    "beaches",
+  ];
+};
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://globaltravelreport.com"; // Replace with your actual domain
+  const stories = await getStories();
+  const categories = getCategories();
+  const countries = getCountries();
+  const tags = getTags();
 
   // Static routes
   const routes = [
@@ -25,18 +77,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Add dynamic story routes
-  // In a real application, you would fetch this from your database
-  const storyRoutes = [
-    "exploring-kyoto",
-    "safari-adventure",
-    "italian-cuisine",
-  ].map((slug) => ({
-    url: `${baseUrl}/stories/${slug}`,
-    lastModified: new Date(),
+  // Story routes
+  const storyRoutes = stories.map((story) => ({
+    url: `${baseUrl}/stories/${story.slug}`,
+    lastModified: new Date(story.lastModified),
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
 
-  return [...routes, ...storyRoutes];
+  // Category routes
+  const categoryRoutes = categories.map((category) => ({
+    url: `${baseUrl}/categories/${category}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
+  }));
+
+  // Country routes
+  const countryRoutes = countries.map((country) => ({
+    url: `${baseUrl}/countries/${country}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
+  }));
+
+  // Tag routes
+  const tagRoutes = tags.map((tag) => ({
+    url: `${baseUrl}/tags/${tag}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.4,
+  }));
+
+  return [
+    ...routes,
+    ...storyRoutes,
+    ...categoryRoutes,
+    ...countryRoutes,
+    ...tagRoutes,
+  ];
 } 

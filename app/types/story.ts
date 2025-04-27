@@ -1,3 +1,8 @@
+export interface Photographer {
+  name: string;
+  url: string;
+}
+
 export interface Story {
   id: string;
   slug: string;
@@ -5,12 +10,12 @@ export interface Story {
   excerpt: string;
   content: string;
   author: string;
-  date: string;
-  location: string;
-  imageUrl: string;
-  publishedAt: string;
-  coverImage?: {
-    url: string;
-    alt?: string;
-  };
+  category: string;
+  country: string;
+  tags: string[];
+  featured: boolean;
+  editorsPick: boolean;
+  timestamp: string;
+  imageUrl?: string;
+  photographer?: Photographer;
 } 

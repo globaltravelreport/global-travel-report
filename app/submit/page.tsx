@@ -15,13 +15,7 @@ export default function SubmitPage() {
         </p>
       </div>
 
-      <StoryForm
-        onSubmit={async (data) => {
-          // This would typically send the data to an API
-          console.log("Form submitted:", data);
-          // Redirect to success page or show success message
-        }}
-      />
+      <StoryForm />
     </div>
   );
 } 

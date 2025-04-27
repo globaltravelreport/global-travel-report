@@ -1,56 +1,77 @@
-import { Metadata } from 'next'
-import { getAllStories } from '../lib/stories'
-import StoryCard from '../components/stories/StoryCard'
+import { StoryCard } from "@/components/stories/StoryCard";
 import { Button } from "@/components/ui/button";
+import { StorySearch } from "@/components/stories/StorySearch";
 import Link from "next/link";
+import type { Story } from "@/lib/stories";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Global Travel Report - Your Guide to World Travel',
-  description: 'Discover amazing destinations, travel tips, and cultural insights from around the world. Stay informed with the latest travel news and guides.',
+  title: "Global Travel Report - Travel Stories from Around the World",
+  description: "Discover amazing travel stories and share your own adventures with travelers worldwide.",
   openGraph: {
-    title: 'Global Travel Report - Your Guide to World Travel',
-    description: 'Discover amazing destinations, travel tips, and cultural insights from around the world.',
-    images: ['/images/og-image.jpg'],
-    type: 'website',
+    title: "Global Travel Report - Travel Stories from Around the World",
+    description: "Discover amazing travel stories and share your own adventures with travelers worldwide.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Global Travel Report",
   },
-}
+  twitter: {
+    card: "summary_large_image",
+    title: "Global Travel Report - Travel Stories from Around the World",
+    description: "Discover amazing travel stories and share your own adventures with travelers worldwide.",
+  },
+};
 
 // This would typically come from an API or database
-const featuredStories = [
+const featuredStories: Story[] = [
   {
     id: "1",
+    slug: "exploring-kyoto",
     title: "Exploring the Hidden Temples of Kyoto",
     excerpt: "A journey through ancient Japanese architecture and culture...",
+    content: "Full content here...",
     author: "Sarah Johnson",
-    date: "2024-03-15",
-    location: "Kyoto, Japan",
+    category: "Culture",
+    country: "Japan",
+    tags: ["temples", "culture", "history"],
+    featured: true,
+    editorsPick: true,
+    publishedAt: new Date("2024-03-15T00:00:00Z"),
     imageUrl: "/images/kyoto-temple.jpg",
   },
   {
     id: "2",
+    slug: "safari-adventure",
     title: "Safari Adventure in Tanzania",
     excerpt: "Witnessing the great migration in the Serengeti...",
+    content: "Full content here...",
     author: "Michael Chen",
-    date: "2024-03-10",
-    location: "Serengeti, Tanzania",
+    category: "Adventure",
+    country: "Tanzania",
+    tags: ["wildlife", "safari", "nature"],
+    featured: true,
+    editorsPick: false,
+    publishedAt: new Date("2024-03-10T00:00:00Z"),
     imageUrl: "/images/serengeti-safari.jpg",
   },
   {
     id: "3",
+    slug: "italian-cuisine",
     title: "Culinary Tour of Italy",
     excerpt: "From pasta in Rome to pizza in Naples...",
+    content: "Full content here...",
     author: "Emma Rodriguez",
-    date: "2024-03-05",
-    location: "Italy",
+    category: "Food",
+    country: "Italy",
+    tags: ["food", "culture", "culinary"],
+    featured: false,
+    editorsPick: true,
+    publishedAt: new Date("2024-03-05T00:00:00Z"),
     imageUrl: "/images/italy-food.jpg",
   },
 ];
 
-export default async function HomePage() {
-  const stories = await getAllStories()
-  const featuredStory = stories[0]
-  const otherStories = stories.slice(1)
-
+export default function Home() {
   return (
     <div className="space-y-12">
       <section className="text-center space-y-4">
@@ -70,6 +91,11 @@ export default async function HomePage() {
             <StoryCard key={story.id} story={story} />
           ))}
         </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Explore Stories</h2>
+        <StorySearch stories={featuredStories} />
       </section>
 
       <section className="text-center">
@@ -110,5 +136,5 @@ export default async function HomePage() {
         </div>
       </section>
     </div>
-  )
+  );
 } 
