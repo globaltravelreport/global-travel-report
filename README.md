@@ -1,13 +1,77 @@
 # Global Travel Report
 
-A modern travel blog platform built with Next.js, TypeScript, and Tailwind CSS.
+A modern web application for sharing and discovering travel stories from around the world. Built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 📝 Share your travel stories
+- 🌍 Discover stories from around the world
+- 🖼️ Image optimization with Next.js Image
+- 📱 Fully responsive design
+- ⚡ Fast page loads with Next.js App Router
+- 🎨 Beautiful UI with Tailwind CSS and shadcn/ui
+- 🔍 SEO optimized with metadata and sitemaps
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Create a `.env` file with required environment variables
-4. Run the development server: `npm run dev`
+### Prerequisites
+
+- Node.js 18.17 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/global-travel-report.git
+   cd global-travel-report
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Project Structure
+
+```
+├── app/                 # Next.js 14 app directory
+│   ├── api/            # API routes
+│   ├── stories/        # Story pages
+│   └── submit/         # Story submission page
+├── components/         # React components
+│   ├── layout/        # Layout components
+│   ├── stories/       # Story-related components
+│   └── ui/            # UI components
+├── public/            # Static files
+└── types/             # TypeScript type definitions
+```
+
+## Built With
+
+- [Next.js](https://nextjs.org/) - React framework
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Adding New Stories
 

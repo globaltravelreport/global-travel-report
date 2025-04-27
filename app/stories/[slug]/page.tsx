@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getStoryBySlug } from '../../../lib/stories'
 import { formatDate } from '../../../utils/date'
+import { Card } from "@/components/ui/card"
+import type { Story } from "@/app/types/story"
 
 interface StoryPageProps {
   params: {
@@ -10,114 +12,101 @@ interface StoryPageProps {
   }
 }
 
+// This would typically come from an API or database
+const getStory = async (slug: string): Promise<Story | null> => {
+  // Mock data for demonstration
+  const stories: Record<string, Story> = {
+    "exploring-kyoto": {
+      id: "1",
+      slug: "exploring-kyoto",
+      title: "Exploring the Hidden Temples of Kyoto",
+      excerpt: "A journey through ancient Japanese architecture and culture...",
+      content: `
+        Kyoto, the former capital of Japan, is home to thousands of temples and shrines, 
+        each with its own unique story and architectural beauty. During my recent visit, 
+        I had the privilege of exploring some of the lesser-known temples tucked away in 
+        quiet neighborhoods.
+
+        One particularly memorable discovery was a small temple hidden behind a bamboo grove. 
+        The morning light filtering through the leaves created an almost magical atmosphere, 
+        and the only sounds were the gentle rustling of leaves and distant temple bells.
+
+        The temple's caretaker, an elderly monk who had lived there for over four decades, 
+        shared fascinating stories about the temple's history and the daily rituals that 
+        keep these ancient traditions alive.
+      `,
+      author: "Sarah Johnson",
+      date: "2024-03-15",
+      location: "Kyoto, Japan",
+      imageUrl: "/images/kyoto-temple.jpg",
+      publishedAt: "2024-03-15",
+    },
+  }
+
+  return stories[slug] || null
+}
+
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
-  const story = await getStoryBySlug(params.slug)
+  const story = await getStory(params.slug)
   
   if (!story) {
     return {}
   }
 
   return {
-    title: story.seo?.title || story.title,
-    description: story.seo?.description || story.excerpt,
+    title: story.title,
+    description: story.excerpt,
     openGraph: {
-      title: story.seo?.title || story.title,
-      description: story.seo?.description || story.excerpt,
+      title: story.title,
+      description: story.excerpt,
       type: 'article',
       publishedTime: story.publishedAt,
-      modifiedTime: story.updatedAt,
-      authors: story.author ? [story.author.name] : undefined,
-      images: story.seo?.ogImage ? [story.seo.ogImage] : story.coverImage ? [story.coverImage.url] : [],
+      authors: [story.author],
     },
   }
 }
 
 export default async function StoryPage({ params }: StoryPageProps) {
-  const story = await getStoryBySlug(params.slug)
+  const story = await getStory(params.slug)
 
   if (!story) {
     notFound()
   }
 
   return (
-    <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <div className="py-12 sm:py-16">
-        {/* Header */}
-        <header>
-          {story.categories && story.categories.length > 0 && (
-            <div className="flex gap-2">
-              {story.categories.map(category => (
-                <span
-                  key={category}
-                  className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800"
-                >
-                  {category}
-                </span>
-              ))}
-            </div>
-          )}
-          <h1 className="mt-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
-            {story.title}
-          </h1>
-          <div className="mt-6 flex items-center">
-            {story.author?.avatar && (
-              <div className="relative h-10 w-10 flex-shrink-0">
-                <Image
-                  src={story.author.avatar}
-                  alt={story.author.name}
-                  className="rounded-full"
-                  fill
-                />
-              </div>
-            )}
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">
-                {story.author?.name}
-              </p>
-              <div className="flex space-x-1 text-sm text-gray-500">
-                <time dateTime={story.publishedAt}>{formatDate(story.publishedAt)}</time>
-                <span aria-hidden="true">&middot;</span>
-                <span>{story.readingTime} min read</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Cover Image */}
-        {story.coverImage && (
-          <div className="relative aspect-[16/9] mt-10 w-full overflow-hidden rounded-lg">
-            <Image
-              src={story.coverImage.url}
-              alt={story.coverImage.alt || story.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        )}
-
-        {/* Content */}
-        <div className="prose prose-lg mt-10 max-w-none prose-blue">
-          {story.content}
+    <article className="max-w-3xl mx-auto">
+      <div className="mb-8">
+        <div className="relative aspect-video w-full mb-6">
+          <Image
+            src={story.imageUrl}
+            alt={story.title}
+            fill
+            className="object-cover rounded-lg"
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+          />
         </div>
 
-        {/* Tags */}
-        {story.tags && story.tags.length > 0 && (
-          <div className="mt-10">
-            <h2 className="text-sm font-medium text-gray-500">Tags</h2>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {story.tags.map(tag => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+        <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
+        
+        <div className="flex items-center justify-between text-gray-600 mb-8">
+          <div>
+            <p className="font-medium">{story.author}</p>
+            <p>{story.location}</p>
           </div>
-        )}
+          <time dateTime={story.date}>{story.date}</time>
+        </div>
       </div>
+
+      <Card className="p-8">
+        <div className="prose prose-lg max-w-none">
+          {story.content.split("\n").map((paragraph, index) => (
+            <p key={index} className="mb-4">
+              {paragraph.trim()}
+            </p>
+          ))}
+        </div>
+      </Card>
     </article>
   )
 } 

@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { getAllStories } from '../lib/stories'
 import StoryCard from '../components/stories/StoryCard'
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: 'Global Travel Report - Your Guide to World Travel',
@@ -13,44 +15,67 @@ export const metadata: Metadata = {
   },
 }
 
+// This would typically come from an API or database
+const featuredStories = [
+  {
+    id: "1",
+    title: "Exploring the Hidden Temples of Kyoto",
+    excerpt: "A journey through ancient Japanese architecture and culture...",
+    author: "Sarah Johnson",
+    date: "2024-03-15",
+    location: "Kyoto, Japan",
+    imageUrl: "/images/kyoto-temple.jpg",
+  },
+  {
+    id: "2",
+    title: "Safari Adventure in Tanzania",
+    excerpt: "Witnessing the great migration in the Serengeti...",
+    author: "Michael Chen",
+    date: "2024-03-10",
+    location: "Serengeti, Tanzania",
+    imageUrl: "/images/serengeti-safari.jpg",
+  },
+  {
+    id: "3",
+    title: "Culinary Tour of Italy",
+    excerpt: "From pasta in Rome to pizza in Naples...",
+    author: "Emma Rodriguez",
+    date: "2024-03-05",
+    location: "Italy",
+    imageUrl: "/images/italy-food.jpg",
+  },
+];
+
 export default async function HomePage() {
   const stories = await getAllStories()
   const featuredStory = stories[0]
   const otherStories = stories.slice(1)
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
-      <section className="py-12 sm:py-16">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-            <span className="block">Explore the World with</span>
-            <span className="block text-blue-600">Global Travel Report</span>
-          </h1>
-          <p className="mx-auto mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
-            Your trusted source for travel inspiration, destination guides, and cultural insights from around the globe.
-          </p>
+    <div className="space-y-12">
+      <section className="text-center space-y-4">
+        <h1 className="text-4xl font-bold">Discover Amazing Travel Stories</h1>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          Share your adventures and explore stories from travelers around the world.
+        </p>
+        <Button asChild size="lg" className="mt-4">
+          <Link href="/submit">Share Your Story</Link>
+        </Button>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Featured Stories</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredStories.map((story) => (
+            <StoryCard key={story.id} story={story} />
+          ))}
         </div>
       </section>
 
-      {/* Featured Story */}
-      {featuredStory && (
-        <section className="mb-12">
-          <h2 className="sr-only">Featured Story</h2>
-          <div className="mx-auto max-w-3xl">
-            <StoryCard story={featuredStory} priority />
-          </div>
-        </section>
-      )}
-
-      {/* Latest Stories Grid */}
-      <section className="py-12">
-        <h2 className="mb-8 text-2xl font-bold text-gray-900">Latest Stories</h2>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {otherStories.map((story) => (
-            <StoryCard key={story.slug} story={story} />
-          ))}
-        </div>
+      <section className="text-center">
+        <Button asChild variant="outline">
+          <Link href="/stories">View All Stories</Link>
+        </Button>
       </section>
 
       {/* Newsletter Section */}
