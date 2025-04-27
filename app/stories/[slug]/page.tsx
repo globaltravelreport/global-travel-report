@@ -1,65 +1,123 @@
-import { notFound } from 'next/navigation'
+import { Metadata } from 'next'
 import Image from 'next/image'
-import { Card, CardContent } from '../../../components/ui/card'
-import type { Metadata } from 'next'
-import type { Story } from '../../../types'
+import { notFound } from 'next/navigation'
+import { getStoryBySlug } from '../../../lib/stories'
+import { formatDate } from '../../../utils/date'
 
-async function getStory(slug: string): Promise<Story | null> {
-  try {
-    const story = await import(`../../../data/stories/${slug}.json`)
-    return story.default
-  } catch (error) {
-    return null
+interface StoryPageProps {
+  params: {
+    slug: string
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const story = await getStory(params.slug)
-  if (!story) return { title: 'Story Not Found' }
+export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
+  const story = await getStoryBySlug(params.slug)
   
+  if (!story) {
+    return {}
+  }
+
   return {
-    title: story.metaTitle || story.title,
-    description: story.metaDescription || story.excerpt,
+    title: story.seo?.title || story.title,
+    description: story.seo?.description || story.excerpt,
     openGraph: {
-      title: story.metaTitle || story.title,
-      description: story.metaDescription || story.excerpt,
-      images: story.imageUrl ? [story.imageUrl] : [],
+      title: story.seo?.title || story.title,
+      description: story.seo?.description || story.excerpt,
+      type: 'article',
+      publishedTime: story.publishedAt,
+      modifiedTime: story.updatedAt,
+      authors: story.author ? [story.author.name] : undefined,
+      images: story.seo?.ogImage ? [story.seo.ogImage] : story.coverImage ? [story.coverImage.url] : [],
     },
   }
 }
 
-export default async function StoryPage({ params }: { params: { slug: string } }) {
-  const story = await getStory(params.slug)
+export default async function StoryPage({ params }: StoryPageProps) {
+  const story = await getStoryBySlug(params.slug)
 
   if (!story) {
     notFound()
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-6">
-          <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
-          <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
-            <span>{story.author}</span>
-            <span>{story.readTime} min read</span>
-          </div>
-          {story.imageUrl && (
-            <div className="relative w-full h-96 mb-6">
-              <Image
-                src={story.imageUrl}
-                alt={story.title}
-                fill
-                className="object-cover rounded-md"
-                priority
-              />
+    <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div className="py-12 sm:py-16">
+        {/* Header */}
+        <header>
+          {story.categories && story.categories.length > 0 && (
+            <div className="flex gap-2">
+              {story.categories.map(category => (
+                <span
+                  key={category}
+                  className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800"
+                >
+                  {category}
+                </span>
+              ))}
             </div>
           )}
-          <div className="prose max-w-none">
-            {story.body}
+          <h1 className="mt-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            {story.title}
+          </h1>
+          <div className="mt-6 flex items-center">
+            {story.author?.avatar && (
+              <div className="relative h-10 w-10 flex-shrink-0">
+                <Image
+                  src={story.author.avatar}
+                  alt={story.author.name}
+                  className="rounded-full"
+                  fill
+                />
+              </div>
+            )}
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-900">
+                {story.author?.name}
+              </p>
+              <div className="flex space-x-1 text-sm text-gray-500">
+                <time dateTime={story.publishedAt}>{formatDate(story.publishedAt)}</time>
+                <span aria-hidden="true">&middot;</span>
+                <span>{story.readingTime} min read</span>
+              </div>
+            </div>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </header>
+
+        {/* Cover Image */}
+        {story.coverImage && (
+          <div className="relative aspect-[16/9] mt-10 w-full overflow-hidden rounded-lg">
+            <Image
+              src={story.coverImage.url}
+              alt={story.coverImage.alt || story.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="prose prose-lg mt-10 max-w-none prose-blue">
+          {story.content}
+        </div>
+
+        {/* Tags */}
+        {story.tags && story.tags.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-sm font-medium text-gray-500">Tags</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {story.tags.map(tag => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </article>
   )
 } 
