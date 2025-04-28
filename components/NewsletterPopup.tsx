@@ -20,12 +20,14 @@ export const NewsletterPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const { toast } = useToast();
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -43,13 +45,27 @@ export const NewsletterPopup = () => {
   }, [hasShown]);
 
   const onSubmit = async (data: FormData) => {
+    if (!recaptchaValue) {
+      toast({
+        title: 'Error',
+        description: 'Please complete the reCAPTCHA verification',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken: recaptchaValue,
+        }),
       });
 
       if (!response.ok) {
@@ -62,13 +78,15 @@ export const NewsletterPopup = () => {
       });
 
       reset();
-      setIsVisible(false);
-    } catch (error) {
+      setRecaptchaValue(null);
+    } catch {
       toast({
         title: 'Error',
         description: 'Failed to subscribe. Please try again.',
         variant: 'destructive',
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

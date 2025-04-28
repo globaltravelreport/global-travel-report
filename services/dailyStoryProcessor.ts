@@ -23,9 +23,7 @@ export class DailyStoryProcessor {
   public async processDailyStories(): Promise<void> {
     try {
       // Placeholder for story processing logic
-      console.log('Processing daily stories...');
-      
-      // For now, just add a dummy story
+      // In a real application, this would fetch from a database or API
       this.processedStories = [{
         id: '1',
         title: 'Sample Story',
@@ -35,8 +33,8 @@ export class DailyStoryProcessor {
         publishedAt: new Date()
       }];
     } catch (error) {
-      console.error('Error processing daily stories:', error);
-      throw error;
+      // In a real application, this would log to a proper logging service
+      throw new Error('Error processing daily stories: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   }
 

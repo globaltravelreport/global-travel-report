@@ -1,36 +1,40 @@
 import { NextResponse } from "next/server";
+import { z } from 'zod';
 import { verifyRecaptcha } from '@/lib/recaptcha';
+
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+  recaptchaToken: z.string(),
+});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message, recaptchaToken } = body;
+    const validatedData = contactSchema.parse(body);
 
-    // Verify reCAPTCHA
-    const isValid = await verifyRecaptcha(recaptchaToken);
-    if (!isValid) {
+    const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptchaToken);
+    if (!isRecaptchaValid) {
       return NextResponse.json(
-        { error: "Invalid reCAPTCHA" },
+        { error: 'Invalid reCAPTCHA token' },
         { status: 400 }
       );
     }
 
-    // Here you would typically:
-    // 1. Send an email using a service like SendGrid or AWS SES
-    // 2. Store the message in a database
-    // 3. Forward to a CRM system
-
-    // For now, we'll just log it
-    console.log("Contact form submission:", { name, email, message });
-
-    return NextResponse.json(
-      { message: "Message sent successfully" },
-      { status: 200 }
-    );
+    // TODO: Implement email sending logic here
+    // For now, just return success
+    return NextResponse.json({ message: 'Message sent successfully' });
   } catch (error) {
-    console.error("Error processing contact form:", error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input data', details: error.errors },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
-      { error: "Failed to process request" },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

@@ -1,17 +1,23 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Story } from '@/lib/stories';
+import { Input } from './ui/input';
 
 interface SearchBarProps {
   stories: Story[];
   onSearch: (query: string) => void;
+  placeholder?: string;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ stories, onSearch }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({
+  stories,
+  onSearch,
+  placeholder = 'Search...',
+}) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<Story[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +50,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ stories, onSearch }) => {
     setSuggestions(filteredStories.slice(0, 5));
   }, [query, stories]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(query);
     setIsOpen(false);
@@ -57,29 +63,18 @@ export const SearchBar: React.FC<SearchBarProps> = ({ stories, onSearch }) => {
 
   return (
     <div className="relative" ref={searchRef}>
-      <form onSubmit={handleSearch} className="relative">
-        <input
+      <form onSubmit={handleSubmit} className="relative">
+        <Input
           type="text"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
             setIsOpen(true);
           }}
-          placeholder="Search stories..."
-          className="w-full px-4 py-2 rounded-full border border-[#C9A14A] bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C9A14A]"
-          aria-label="Search stories"
-          aria-expanded={isOpen}
-          aria-controls="search-suggestions"
-          role="combobox"
-          aria-autocomplete="list"
+          placeholder={placeholder}
+          className="w-full pl-10"
         />
-        <button
-          type="submit"
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#C9A14A] hover:text-[#b08d3f]"
-          aria-label="Submit search"
-        >
-          <Search className="w-5 h-5" />
-        </button>
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
       </form>
 
       <AnimatePresence>

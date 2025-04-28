@@ -1,32 +1,38 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { verifyRecaptcha } from '@/lib/recaptcha';
+
+const newsletterSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  recaptchaToken: z.string(),
+});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, recaptchaToken } = body;
+    const validatedData = newsletterSchema.parse(body);
 
-    // Verify reCAPTCHA
-    const isValid = await verifyRecaptcha(recaptchaToken);
-    if (!isValid) {
+    const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptchaToken);
+    if (!isRecaptchaValid) {
       return NextResponse.json(
-        { error: 'Invalid reCAPTCHA' },
+        { error: 'Invalid reCAPTCHA token' },
         { status: 400 }
       );
     }
 
-    // Here you would typically add the email to your newsletter list
-    // For now, we'll just log it
-    console.log('Newsletter signup:', { email });
+    // TODO: Implement newsletter subscription logic here
+    // For now, just return success
+    return NextResponse.json({ message: 'Subscribed successfully' });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input data', details: error.errors },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json(
-      { message: 'Successfully subscribed to newsletter' },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Error processing newsletter signup:', error);
-    return NextResponse.json(
-      { error: 'Failed to process request' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
