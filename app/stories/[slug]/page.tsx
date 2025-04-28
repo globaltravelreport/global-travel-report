@@ -1,10 +1,6 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Card } from "@/components/ui/card";
 import { RelatedStories } from "@/components/stories/RelatedStories";
-import { SocialShare } from "@/components/ui/SocialShare";
 import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
-import { formatDate } from "@/lib/stories";
 import type { Story } from "@/lib/stories";
 import type { Metadata } from "next";
 import { format } from 'date-fns';

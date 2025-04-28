@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { getStoriesByCategory, type Story } from '@/lib/stories';
+import { getStoriesByCategory, getStories, type Story } from '@/lib/stories';
 import type { Metadata } from 'next';
 
 interface CategoryPageProps {
@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const category = params.category.charAt(0).toUpperCase() + params.category.slice(1);
-  const stories = await getStoriesByCategory(category);
+  const allStories = await getStories();
+  const stories = getStoriesByCategory(allStories, category);
 
   if (stories.length === 0) {
     notFound();

@@ -19,6 +19,34 @@ export interface Story {
   archived?: boolean;
 }
 
+// Temporary mock data
+const mockStories: Story[] = [
+  {
+    id: '1',
+    slug: 'exploring-paris',
+    title: 'Exploring the Hidden Gems of Paris',
+    excerpt: 'Discover the lesser-known attractions of the City of Light.',
+    content: 'Full article content here...',
+    author: 'John Doe',
+    category: 'Travel',
+    country: 'France',
+    tags: ['Paris', 'Travel', 'Culture'],
+    featured: true,
+    editorsPick: true,
+    publishedAt: new Date(),
+    imageUrl: 'https://example.com/paris.jpg',
+    photographer: {
+      name: 'Jane Smith',
+      url: 'https://example.com/photographer'
+    }
+  }
+];
+
+export async function getStories(): Promise<Story[]> {
+  // In a real application, this would fetch from a database or API
+  return mockStories;
+}
+
 export function isStoryArchived(story: Story): boolean {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);

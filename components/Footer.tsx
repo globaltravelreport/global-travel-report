@@ -1,122 +1,69 @@
 import React from 'react';
-import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* About Section */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">About Us</h3>
-            <p className="text-sm">
-              Global Travel Report is your trusted source for travel stories, tips, and inspiration from around the world.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-sm hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-sm hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-sm hover:text-white transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm hover:text-white transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Categories</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/categories/hotels" className="text-sm hover:text-white transition-colors">
-                  Hotels
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/airlines" className="text-sm hover:text-white transition-colors">
-                  Airlines
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/cruises" className="text-sm hover:text-white transition-colors">
-                  Cruises
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories/destinations" className="text-sm hover:text-white transition-colors">
-                  Destinations
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social Media */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                <Facebook className="w-6 h-6" />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                <Instagram className="w-6 h-6" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                <Twitter className="w-6 h-6" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                <Youtube className="w-6 h-6" />
-              </a>
-            </div>
-          </div>
+    <footer className="bg-[#19273A] text-[#C9A14A] py-8">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+        <div className="mb-4 md:mb-0 text-center md:text-left">
+          <span className="font-bold text-lg">Global Travel Report</span>
+          <p className="text-sm text-[#C9A14A]/80">News, Reviews & Real Travel Talk</p>
         </div>
-
-        {/* Disclaimer */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <p className="text-sm text-center">
-            © {new Date().getFullYear()} Global Travel Report. All rights reserved.
-            <br />
-            Content is sourced from various travel publications and rewritten for clarity and style.
-            Images are provided by Unsplash and their respective photographers.
-          </p>
+        <div className="flex space-x-4">
+          <a
+            href="https://www.facebook.com/globaltravelreport"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="hover:text-white transition-colors"
+          >
+            <FaFacebook className="w-6 h-6" />
+          </a>
+          <a
+            href="https://x.com/GTravelReport"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X (Twitter)"
+            className="hover:text-white transition-colors"
+          >
+            <FaXTwitter className="w-6 h-6" />
+          </a>
+          <a
+            href="https://medium.com/@editorial_31000"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Medium"
+            className="hover:text-white transition-colors"
+          >
+            <FaMedium className="w-6 h-6" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/globaltravelreport/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-white transition-colors"
+          >
+            <FaLinkedin className="w-6 h-6" />
+          </a>
+          <a
+            href="https://www.youtube.com/@GlobalTravelReport"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            className="hover:text-white transition-colors"
+          >
+            <FaYoutube className="w-6 h-6" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@globaltravelreport"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="hover:text-white transition-colors"
+          >
+            <FaTiktok className="w-6 h-6" />
+          </a>
         </div>
       </div>
     </footer>

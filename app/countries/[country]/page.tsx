@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { getStoriesByCountry, type Story } from '@/lib/stories';
+import { getStoriesByCountry, getStories, type Story } from '@/lib/stories';
 import type { Metadata } from 'next';
 
 interface CountryPageProps {
@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   
   return {
     title: `${country} Travel Stories - Global Travel Report`,
-    description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best destinations, hotels, and experiences.`,
+    description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
     openGraph: {
       title: `${country} Travel Stories - Global Travel Report`,
-      description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best destinations, hotels, and experiences.`,
+      description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
       type: 'website',
       locale: 'en_US',
       siteName: 'Global Travel Report',
@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
 
 export default async function CountryPage({ params }: CountryPageProps) {
   const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
-  const stories = await getStoriesByCountry(country);
+  const allStories = await getStories();
+  const stories = getStoriesByCountry(allStories, country);
 
   if (stories.length === 0) {
     notFound();

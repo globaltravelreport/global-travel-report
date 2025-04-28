@@ -8,10 +8,16 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { BackToTop } from '@/components/ui/BackToTop'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { CookieConsent } from '@/components/ui/CookieConsent'
-import { NewsletterSignup } from '@/components/ui/NewsletterSignup'
-import { Navigation } from '@/components/Navigation'
+import { Toaster } from '../components/ui/toaster'
+import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
+})
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +40,7 @@ export const metadata: Metadata = {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Global Travel Report',
+        alt: 'Global Travel Report - Travel Stories & Inspiration',
       },
     ],
   },
@@ -43,6 +49,9 @@ export const metadata: Metadata = {
     title: 'Global Travel Report - Travel Stories & Inspiration',
     description: 'Discover travel stories, tips, and inspiration from around the world.',
     images: ['/images/og-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://globaltravelreport.com',
   },
   robots: {
     index: true,
@@ -55,17 +64,19 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
+  metadataBase: new URL('https://globaltravelreport.com'),
 }
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
@@ -73,14 +84,41 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
+      <head>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Global Travel Report',
+              url: 'https://globaltravelreport.com',
+              description: 'Discover travel stories, tips, and inspiration from around the world.',
+              publisher: {
+                '@type': 'Organization',
+                name: 'Global Travel Report',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://globaltravelreport.com/logo-gtr.png',
+                },
+              },
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://globaltravelreport.com/search?q={search_term_string}',
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <ErrorBoundary>
           <SkipToContent />
           <div className="flex flex-col min-h-screen">
             <Header />
-            <Navigation />
-            <main className="flex-grow">
+            <main id="main-content" className="flex-grow">
               {children}
             </main>
             <Footer />
@@ -88,6 +126,7 @@ export default function RootLayout({
           <BackToTop />
           <CookieConsent />
           <GoogleAnalytics />
+          <Toaster />
         </ErrorBoundary>
       </body>
     </html>

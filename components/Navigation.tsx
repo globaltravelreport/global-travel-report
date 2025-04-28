@@ -3,23 +3,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Search, ChevronDown, Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ChevronDown, Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 const countries = [
   'Australia', 'Japan', 'United States', 'United Kingdom', 'France',
   'Italy', 'Spain', 'Germany', 'Canada', 'New Zealand', 'Thailand',
   'Vietnam', 'Singapore', 'Malaysia', 'Indonesia', 'China', 'India',
-  'South Africa', 'Brazil', 'Mexico'
+  'South Africa', 'Brazil', 'Mexico', 'Maldives', 'Africa', 'Europe', 'Asia', 'Global'
 ].sort();
 
 const categories = [
   'Hotels', 'Airlines', 'Cruises', 'Destinations', 'Food & Dining',
   'Adventure', 'Culture', 'Shopping', 'Nightlife', 'Family Travel',
   'Luxury Travel', 'Budget Travel', 'Solo Travel', 'Honeymoon',
-  'Business Travel', 'Eco Tourism', 'Wellness & Spa'
+  'Business Travel', 'Eco Tourism', 'Wellness & Spa', 'Tours', 'Finance', 'Travel Tips'
 ].sort();
 
 export const Navigation = () => {
@@ -41,51 +39,55 @@ export const Navigation = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+    <nav className="sticky top-0 z-50 bg-[#19273A] shadow-md">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold text-primary">Global Travel Report</span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/logo-gtr.png"
+              alt="Global Travel Report Logo"
+              width={56}
+              height={56}
+              className="rounded-none"
+              priority
+            />
+            <span className="text-2xl font-extrabold text-[#C9A14A] tracking-wide">GLOBAL TRAVEL REPORT</span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className={cn(
-                "text-gray-700 hover:text-primary transition-colors",
-                isActive('/') && "text-primary font-medium"
-              )}
+              className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/') ? 'font-bold underline' : ''}`}
             >
               Home
             </Link>
 
             {/* Country Dropdown */}
             <div className="relative">
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1"
+              <button
+                className="flex items-center gap-1 text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                type="button"
               >
                 Countries
                 <ChevronDown className="w-4 h-4" />
-              </Button>
-
+              </button>
               {isCountryDropdownOpen && (
-                <div className="absolute top-full left-0 w-64 bg-white shadow-lg rounded-md mt-2 p-2">
-                  <Input
+                <div className="absolute top-full left-0 w-64 bg-white shadow-lg rounded-md mt-2 p-2 z-50">
+                  <input
                     type="text"
                     placeholder="Search countries..."
                     value={countrySearch}
                     onChange={(e) => setCountrySearch(e.target.value)}
-                    className="mb-2"
+                    className="mb-2 w-full px-2 py-1 border rounded"
                   />
                   <div className="max-h-60 overflow-y-auto">
                     {filteredCountries.map((country) => (
                       <Link
                         key={country}
-                        href={`/countries/${country.toLowerCase()}`}
+                        href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => setIsCountryDropdownOpen(false)}
                       >
@@ -99,29 +101,28 @@ export const Navigation = () => {
 
             {/* Category Dropdown */}
             <div className="relative">
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1"
+              <button
+                className="flex items-center gap-1 text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                type="button"
               >
                 Categories
                 <ChevronDown className="w-4 h-4" />
-              </Button>
-
+              </button>
               {isCategoryDropdownOpen && (
-                <div className="absolute top-full left-0 w-64 bg-white shadow-lg rounded-md mt-2 p-2">
-                  <Input
+                <div className="absolute top-full left-0 w-64 bg-white shadow-lg rounded-md mt-2 p-2 z-50">
+                  <input
                     type="text"
                     placeholder="Search categories..."
                     value={categorySearch}
                     onChange={(e) => setCategorySearch(e.target.value)}
-                    className="mb-2"
+                    className="mb-2 w-full px-2 py-1 border rounded"
                   />
                   <div className="max-h-60 overflow-y-auto">
                     {filteredCategories.map((category) => (
                       <Link
                         key={category}
-                        href={`/categories/${category.toLowerCase()}`}
+                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => setIsCategoryDropdownOpen(false)}
                       >
@@ -135,20 +136,14 @@ export const Navigation = () => {
 
             <Link
               href="/about"
-              className={cn(
-                "text-gray-700 hover:text-primary transition-colors",
-                isActive('/about') && "text-primary font-medium"
-              )}
+              className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/about') ? 'font-bold underline' : ''}`}
             >
               About
             </Link>
 
             <Link
               href="/contact"
-              className={cn(
-                "text-gray-700 hover:text-primary transition-colors",
-                isActive('/contact') && "text-primary font-medium"
-              )}
+              className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/contact') ? 'font-bold underline' : ''}`}
             >
               Contact
             </Link>
@@ -156,8 +151,10 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden"
+            className="md:hidden text-[#C9A14A]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            type="button"
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? (
               <X className="w-6 h-6" />
@@ -173,38 +170,34 @@ export const Navigation = () => {
             <div className="flex flex-col space-y-4">
               <Link
                 href="/"
-                className={cn(
-                  "text-gray-700 hover:text-primary transition-colors",
-                  isActive('/') && "text-primary font-medium"
-                )}
+                className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/') ? 'font-bold underline' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
 
               <div className="space-y-2">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between"
+                <button
+                  className="w-full flex items-center justify-between text-gray-700 hover:text-primary transition-colors"
                   onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                  type="button"
                 >
                   Countries
                   <ChevronDown className="w-4 h-4" />
-                </Button>
-
+                </button>
                 {isCountryDropdownOpen && (
                   <div className="pl-4 space-y-2">
-                    <Input
+                    <input
                       type="text"
                       placeholder="Search countries..."
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
-                      className="mb-2"
+                      className="mb-2 w-full px-2 py-1 border rounded"
                     />
                     {filteredCountries.map((country) => (
                       <Link
                         key={country}
-                        href={`/countries/${country.toLowerCase()}`}
+                        href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => {
                           setIsCountryDropdownOpen(false);
@@ -219,28 +212,27 @@ export const Navigation = () => {
               </div>
 
               <div className="space-y-2">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between"
+                <button
+                  className="w-full flex items-center justify-between text-gray-700 hover:text-primary transition-colors"
                   onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                  type="button"
                 >
                   Categories
                   <ChevronDown className="w-4 h-4" />
-                </Button>
-
+                </button>
                 {isCategoryDropdownOpen && (
                   <div className="pl-4 space-y-2">
-                    <Input
+                    <input
                       type="text"
                       placeholder="Search categories..."
                       value={categorySearch}
                       onChange={(e) => setCategorySearch(e.target.value)}
-                      className="mb-2"
+                      className="mb-2 w-full px-2 py-1 border rounded"
                     />
                     {filteredCategories.map((category) => (
                       <Link
                         key={category}
-                        href={`/categories/${category.toLowerCase()}`}
+                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => {
                           setIsCategoryDropdownOpen(false);
@@ -256,10 +248,7 @@ export const Navigation = () => {
 
               <Link
                 href="/about"
-                className={cn(
-                  "text-gray-700 hover:text-primary transition-colors",
-                  isActive('/about') && "text-primary font-medium"
-                )}
+                className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/about') ? 'font-bold underline' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
@@ -267,10 +256,7 @@ export const Navigation = () => {
 
               <Link
                 href="/contact"
-                className={cn(
-                  "text-gray-700 hover:text-primary transition-colors",
-                  isActive('/contact') && "text-primary font-medium"
-                )}
+                className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/contact') ? 'font-bold underline' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact

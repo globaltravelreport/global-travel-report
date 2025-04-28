@@ -3,7 +3,8 @@ import { verifyRecaptcha } from '@/lib/recaptcha';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message, recaptchaToken } = await request.json();
+    const body = await request.json();
+    const { name, email, message, recaptchaToken } = body;
 
     // Verify reCAPTCHA
     const isValid = await verifyRecaptcha(recaptchaToken);
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error processing contact form:", error);
     return NextResponse.json(
-      { error: "Failed to process message" },
+      { error: "Failed to process request" },
       { status: 500 }
     );
   }

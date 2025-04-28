@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { type Story } from '@/lib/stories'
+import Image from 'next/image'
 
 interface StoryCardProps {
   story: Story
@@ -12,6 +13,7 @@ interface StoryCardProps {
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
+  const [imgSrc, setImgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
   return (
     <Card 
       className={cn('transition-all hover:shadow-lg', 
@@ -22,6 +24,17 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
     >
       <Link href={`/stories/${story.slug}`} className="block">
         <CardHeader>
+          <div className="mb-4">
+            <Image
+              src={imgSrc}
+              alt={story.title}
+              width={600}
+              height={400}
+              className="rounded-md object-cover w-full h-48"
+              onError={() => setImgSrc('/images/placeholder.svg')}
+              priority={!!story.featured}
+            />
+          </div>
           <div className="flex flex-wrap gap-2 mb-2">
             {story.featured && (
               <Badge variant="default">Featured</Badge>

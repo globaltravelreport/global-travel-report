@@ -1,23 +1,7 @@
 import { MetadataRoute } from "next";
+import { getStories } from '@/lib/stories';
 
 // This would typically come from your database or API
-const getStories = async () => {
-  return [
-    {
-      slug: "exploring-kyoto",
-      lastModified: "2024-03-15",
-    },
-    {
-      slug: "safari-adventure",
-      lastModified: "2024-03-10",
-    },
-    {
-      slug: "italian-cuisine",
-      lastModified: "2024-03-05",
-    },
-  ];
-};
-
 const getCategories = () => {
   return [
     "adventure",
@@ -49,40 +33,35 @@ const getTags = () => {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://globaltravelreport.com"; // Replace with your actual domain
   const stories = await getStories();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
   const categories = getCategories();
   const countries = getCountries();
   const tags = getTags();
 
   // Static routes
   const routes = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/stories`,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/submit`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-  ];
+    '',
+    '/about',
+    '/contact',
+    '/stories',
+    '/categories/hotels',
+    '/categories/airlines',
+    '/categories/cruises',
+    '/categories/destinations',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: route === '' ? 1 : 0.8,
+  }));
 
-  // Story routes
+  // Dynamic routes for stories
   const storyRoutes = stories.map((story) => ({
     url: `${baseUrl}/stories/${story.slug}`,
-    lastModified: new Date(story.lastModified),
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
+    lastModified: story.publishedAt,
+    changeFrequency: 'weekly' as const,
+    priority: story.featured ? 0.9 : 0.7,
   }));
 
   // Category routes

@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { useToast } from './ui/use-toast';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const formSchema = z.object({
@@ -67,7 +67,7 @@ export const NewsletterSignup = () => {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to subscribe. Please try again.',
+        description: `Failed to subscribe: ${error instanceof Error ? error.message : 'Please try again.'}`,
         variant: 'destructive',
       });
     } finally {
@@ -76,10 +76,10 @@ export const NewsletterSignup = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="bg-gray-50 py-12" role="region" aria-label="Newsletter subscription">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl" id="newsletter-heading">
             Subscribe to Our Newsletter
           </h2>
           <p className="mt-4 text-lg text-gray-600">
@@ -87,7 +87,12 @@ export const NewsletterSignup = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 max-w-md mx-auto">
+        <form 
+          onSubmit={handleSubmit(onSubmit)} 
+          className="mt-8 max-w-md mx-auto"
+          aria-labelledby="newsletter-heading"
+          noValidate
+        >
           <div className="flex flex-col space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
@@ -100,9 +105,13 @@ export const NewsletterSignup = () => {
                 {...register('email')}
                 className="w-full"
                 disabled={isSubmitting}
+                aria-invalid={errors.email ? 'true' : 'false'}
+                aria-describedby={errors.email ? 'email-error' : undefined}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                <p className="mt-1 text-sm text-red-600" id="email-error" role="alert">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -110,6 +119,7 @@ export const NewsletterSignup = () => {
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
                 onChange={setRecaptchaValue}
+                aria-label="reCAPTCHA verification"
               />
             </div>
 
@@ -117,6 +127,7 @@ export const NewsletterSignup = () => {
               type="submit"
               className="w-full"
               disabled={isSubmitting || !recaptchaValue}
+              aria-busy={isSubmitting}
             >
               {isSubmitting ? 'Subscribing...' : 'Subscribe'}
             </Button>

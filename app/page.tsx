@@ -1,10 +1,10 @@
-import { getStories } from '@/lib/stories';
-import Hero from '@/components/home/Hero';
+import { getStories, getHomepageStories } from '@/lib/stories';
+import Hero from '@/components/Hero';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { StorySearch } from "@/components/stories/StorySearch";
+import { NewsletterSignup } from '../components/NewsletterSignup';
 import Link from "next/link";
-import type { Story } from "@/lib/stories";
 import type { Metadata } from "next";
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -26,15 +26,32 @@ export const metadata: Metadata = {
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
-  const stories = await getStories();
-  const featuredStories = stories.filter(story => story.featured);
-  const latestStories = stories
+  const allStories = await getStories();
+  const activeStories = getHomepageStories(allStories);
+  const featuredStories = activeStories.filter(story => story.featured);
+  const latestStories = activeStories
     .filter(story => !story.featured)
     .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, 8);
 
+  if (allStories.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 py-24 bg-gradient-to-br from-blue-50 to-blue-100">
+        <h1 className="text-5xl font-bold text-blue-700 mb-6 drop-shadow">Welcome to Global Travel Report</h1>
+        <p className="text-xl text-blue-900 mb-8 max-w-2xl">
+          Your destination for inspiring travel stories, tips, and guides from around the world. <br />
+          We're working hard to bring you amazing content. Stay tuned!
+        </p>
+        <span className="inline-block bg-blue-200 text-blue-800 px-6 py-2 rounded-full font-semibold text-lg mb-8 animate-pulse">
+          Coming Soon
+        </span>
+        <Link href="/about" className="text-blue-600 underline hover:text-blue-800 font-medium">Learn more about us</Link>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <>
       <Hero />
       
       {/* Featured Stories */}
@@ -42,11 +59,17 @@ export default async function Home() {
         <section className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Stories</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredStories.map((story) => (
-                <StoryCard key={story.id} story={story} featured />
+            <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-gray-200 rounded-lg h-96"></div>
               ))}
-            </div>
+            </div>}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featuredStories.map((story) => (
+                  <StoryCard key={story.id} story={story} />
+                ))}
+              </div>
+            </Suspense>
           </div>
         </section>
       )}
@@ -54,12 +77,29 @@ export default async function Home() {
       {/* Latest Stories */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest Stories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestStories.map((story) => (
-              <StoryCard key={story.id} story={story} />
-            ))}
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900">Latest Stories</h2>
+            <Link 
+              href="/stories" 
+              className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
+            >
+              View All Stories
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </Link>
           </div>
+          <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="animate-pulse bg-gray-200 rounded-lg h-80"></div>
+            ))}
+          </div>}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latestStories.map((story) => (
+                <StoryCard key={story.id} story={story} />
+              ))}
+            </div>
+          </Suspense>
         </div>
       </section>
 
@@ -68,13 +108,19 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">Explore by Category</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['Hotels', 'Airlines', 'Cruises', 'Destinations'].map((category) => (
+            {[
+              { name: 'Hotels', icon: '🏨' },
+              { name: 'Airlines', icon: '✈️' },
+              { name: 'Cruises', icon: '🚢' },
+              { name: 'Destinations', icon: '🌍' }
+            ].map((category) => (
               <a
-                key={category}
-                href={`/categories/${category.toLowerCase()}`}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow"
+                key={category.name}
+                href={`/categories/${category.name.toLowerCase()}`}
+                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow group"
               >
-                <h3 className="text-lg font-semibold text-gray-900">{category}</h3>
+                <span className="text-4xl mb-3 block group-hover:scale-110 transition-transform">{category.icon}</span>
+                <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
               </a>
             ))}
           </div>
@@ -82,33 +128,7 @@ export default async function Home() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-12 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Stay Updated with Travel News
-            </h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Subscribe to our newsletter for the latest travel stories and updates.
-            </p>
-            <form className="max-w-md mx-auto">
-              <div className="flex gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-white text-blue-600 rounded-md font-medium hover:bg-blue-50 transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
+      <NewsletterSignup />
+    </>
   );
 } 

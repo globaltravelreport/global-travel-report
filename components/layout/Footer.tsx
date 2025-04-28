@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { NewsletterSignup } from '@/components/ui/NewsletterSignup'
+import { NewsletterSignup } from '@/components/NewsletterSignup'
 
 export function Footer() {
   return (
@@ -41,12 +41,12 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-gray-900">
+                <Link href="/privacy-policy" className="text-gray-600 hover:text-gray-900">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-600 hover:text-gray-900">
+                <Link href="/terms-of-service" className="text-gray-600 hover:text-gray-900">
                   Terms of Service
                 </Link>
               </li>

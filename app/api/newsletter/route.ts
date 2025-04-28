@@ -3,7 +3,8 @@ import { verifyRecaptcha } from '@/lib/recaptcha';
 
 export async function POST(request: Request) {
   try {
-    const { email, recaptchaToken } = await request.json();
+    const body = await request.json();
+    const { email, recaptchaToken } = body;
 
     // Verify reCAPTCHA
     const isValid = await verifyRecaptcha(recaptchaToken);
@@ -14,22 +15,18 @@ export async function POST(request: Request) {
       );
     }
 
-    // Here you would typically:
-    // 1. Add the email to your newsletter service (e.g., Mailchimp, SendGrid)
-    // 2. Store the subscription in a database
-    // 3. Send a welcome email
-
+    // Here you would typically add the email to your newsletter list
     // For now, we'll just log it
-    console.log('Newsletter subscription:', { email });
+    console.log('Newsletter signup:', { email });
 
     return NextResponse.json(
-      { message: 'Subscribed successfully' },
+      { message: 'Successfully subscribed to newsletter' },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error processing newsletter subscription:', error);
+    console.error('Error processing newsletter signup:', error);
     return NextResponse.json(
-      { error: 'Failed to process subscription' },
+      { error: 'Failed to process request' },
       { status: 500 }
     );
   }
