@@ -1,40 +1,35 @@
 import { NextResponse } from "next/server";
+import { verifyRecaptcha } from '@/lib/recaptcha';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message, recaptchaToken } = await request.json();
+    const { name, email, message, recaptchaToken } = await request.json();
 
     // Verify reCAPTCHA
-    const recaptchaResponse = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-      {
-        method: "POST",
-      }
-    );
-
-    const recaptchaData = await recaptchaResponse.json();
-
-    if (!recaptchaData.success) {
+    const isValid = await verifyRecaptcha(recaptchaToken);
+    if (!isValid) {
       return NextResponse.json(
-        { error: "reCAPTCHA verification failed" },
+        { error: "Invalid reCAPTCHA" },
         { status: 400 }
       );
     }
 
-    // TODO: Implement actual email sending logic
-    // For now, just log the message
-    console.log("Contact form submission:", {
-      name,
-      email,
-      subject,
-      message,
-    });
+    // Here you would typically:
+    // 1. Send an email using a service like SendGrid or AWS SES
+    // 2. Store the message in a database
+    // 3. Forward to a CRM system
 
-    return NextResponse.json({ success: true });
+    // For now, we'll just log it
+    console.log("Contact form submission:", { name, email, message });
+
+    return NextResponse.json(
+      { message: "Message sent successfully" },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error processing contact form:", error);
     return NextResponse.json(
-      { error: "Failed to process contact form" },
+      { error: "Failed to process message" },
       { status: 500 }
     );
   }

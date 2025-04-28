@@ -1,25 +1,53 @@
 # Global Travel Report
 
-A modern web application for sharing and discovering travel stories from around the world. Built with Next.js 14, TypeScript, and Tailwind CSS.
+A modern travel website built with Next.js, featuring RSS story fetching, OpenAI integration, and Unsplash images.
 
 ## Features
 
-- 📝 Share your travel stories
-- 🌍 Discover stories from around the world
-- 🖼️ Image optimization with Next.js Image
-- 📱 Fully responsive design
-- ⚡ Fast page loads with Next.js App Router
-- 🎨 Beautiful UI with Tailwind CSS and shadcn/ui
-- 🔍 SEO optimized with metadata and sitemaps
+- Responsive design for mobile, tablet, and desktop
+- Country and category dropdowns with search functionality
+- RSS feed integration for travel stories
+- OpenAI integration for story rewriting
+- Unsplash integration for high-quality images
+- Contact form with reCAPTCHA protection
+- Newsletter signup
+- SEO optimization
+- Automatic story archiving
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+- Node.js 18+ and npm
+- Git
+- Vercel account
+- OpenAI API key
+- Unsplash API key
+- reCAPTCHA site and secret keys
 
-- Node.js 18.17 or later
-- npm or yarn
+## Environment Variables
 
-### Installation
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# API Keys
+OPENAI_API_KEY=your_openai_api_key_here
+UNSPLASH_ACCESS_KEY=your_unsplash_access_key_here
+
+# reCAPTCHA
+RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
+
+# Redis (for caching)
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url_here
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token_here
+
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=https://globaltravelreport.com
+
+# RSS Feeds
+RSS_FEED_URLS=https://www.lonelyplanet.com/blog/feed/,https://www.nationalgeographic.com/travel/feeds/travel-rss/,https://www.travelandleisure.com/rss/all.xml
+```
+
+## Installation
 
 1. Clone the repository:
    ```bash
@@ -30,153 +58,75 @@ A modern web application for sharing and discovering travel stories from around 
 2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. Run the development server:
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deployment
+
+### Automatic Deployment
+
+Use the provided deployment script:
+
+```bash
+./scripts/deploy.sh
+```
+
+This script will:
+1. Commit any uncommitted changes
+2. Push changes to GitHub
+3. Deploy to Vercel
+
+### Manual Deployment
+
+1. Push changes to GitHub:
+   ```bash
+   git add .
+   git commit -m "Your commit message"
+   git push origin main
+   ```
+
+2. Deploy to Vercel:
+   ```bash
+   vercel --prod
+   ```
 
 ## Project Structure
 
 ```
-├── app/                 # Next.js 14 app directory
-│   ├── api/            # API routes
-│   ├── stories/        # Story pages
-│   └── submit/         # Story submission page
-├── components/         # React components
-│   ├── layout/        # Layout components
-│   ├── stories/       # Story-related components
-│   └── ui/            # UI components
-├── public/            # Static files
-└── types/             # TypeScript type definitions
+global-travel-report/
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── countries/         # Country pages
+│   ├── categories/        # Category pages
+│   └── ...
+├── components/            # React components
+│   ├── ui/               # UI components
+│   └── ...
+├── lib/                  # Utility functions
+├── public/              # Static assets
+└── scripts/             # Deployment scripts
 ```
-
-## Built With
-
-- [Next.js](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [shadcn/ui](https://ui.shadcn.com/) - UI components
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Adding New Stories
+## Contact
 
-Stories are stored as JSON files in the `data/stories` directory. Each story should follow this structure:
+Rodney & Nuch - [contact@globaltravelreport.com](mailto:contact@globaltravelreport.com)
 
-```json
-{
-  "title": "Story Title",
-  "slug": "story-title",
-  "metaTitle": "SEO Title",
-  "metaDescription": "SEO Description",
-  "category": "Category",
-  "country": "Country",
-  "body": "Story content in Markdown format",
-  "featured": false,
-  "published": true,
-  "timestamp": "2024-03-20T12:00:00Z",
-  "imageName": "image.jpg",
-  "author": "Author Name",
-  "readTime": 5,
-  "tags": ["tag1", "tag2"],
-  "isSponsored": false,
-  "editorsPick": false
-}
-```
-
-## Configuration
-
-### Authors
-Add new authors in `data/authors.json`. Each author should have:
-- name
-- bio
-- social links
-- profile image
-
-### Countries & Categories
-Update `data/countries.json` and `data/categories.json` to add new options.
-
-### Tags
-Tags are managed in `data/tags.json`. Add new tags with:
-- name
-- description
-- related keywords
-
-### Feature Toggles
-Enable/disable features in `config/features.json`:
-- comments
-- social sharing
-- newsletter signup
-- related stories
-
-## SEO & Sitemap
-
-- Each story has meta title and description
-- Dynamic sitemap generated at `/sitemap.xml`
-- Robots.txt at `/robots.txt`
-- OpenGraph and Twitter card meta tags
-
-## reCAPTCHA Setup
-
-1. Get API keys from Google reCAPTCHA
-2. Add to `.env`:
-   ```
-   RECAPTCHA_SITE_KEY=your_site_key
-   RECAPTCHA_SECRET_KEY=your_secret_key
-   ```
-
-## Deployment
-
-The project is configured for Vercel deployment:
-
-1. Push to main branch
-2. Vercel will automatically deploy
-3. Environment variables are managed in Vercel dashboard
-
-## Version 1.0 Features
-
-- Story listing with pagination
-- Filtering by category, country, tags
-- Search functionality
-- Mobile-responsive design
-- SEO optimization
-- Basic analytics
-
-## Future Enhancements
-
-- User authentication
-- Comments system
-- Newsletter integration
-- Advanced analytics
-- Story export functionality
-- Additional sort options
-
-## Project Status (2025)
-
-- ✅ No Sentry or error tracking code (fully removed)
-- ✅ Builds cleanly with Next.js 14, React 18, and TypeScript
-- ✅ GitHub repository connected for version control and collaboration
-- ✅ Automated CI build checks via GitHub Actions
-- ✅ Consistent dependency installs enforced with .npmrc
-
-## Continuous Integration (CI)
-
-A basic GitHub Actions workflow is included to automatically run build checks on every push to main and pull request. See `.github/workflows/ci.yml` for details.
-
-## Dependency Management
-
-A `.npmrc` file is included to enforce consistent installs across all environments 
+Project Link: [https://github.com/yourusername/global-travel-report](https://github.com/yourusername/global-travel-report) 

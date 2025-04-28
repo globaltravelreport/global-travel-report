@@ -1,39 +1,59 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import { SkipToContent } from '@/components/ui/SkipToContent'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { BackToTop } from '@/components/ui/BackToTop'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { CookieConsent } from '@/components/ui/CookieConsent'
 import { NewsletterSignup } from '@/components/ui/NewsletterSignup'
+import { Navigation } from '@/components/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.globaltravelreport.com'),
   title: {
-    default: 'Global Travel Report',
+    default: 'Global Travel Report - Travel Stories & Inspiration',
     template: '%s | Global Travel Report',
   },
-  description: 'Discover amazing travel stories and share your own adventures with travelers worldwide.',
+  description: 'Discover travel stories, tips, and inspiration from around the world. Explore destinations, hotels, airlines, and more.',
+  keywords: ['travel', 'stories', 'destinations', 'hotels', 'airlines', 'cruises'],
+  authors: [{ name: 'Rodney & Nuch' }],
+  creator: 'Rodney & Nuch',
   openGraph: {
-    title: 'Global Travel Report',
-    description: 'Share and discover amazing travel stories from around the world',
     type: 'website',
     locale: 'en_US',
+    url: 'https://globaltravelreport.com',
     siteName: 'Global Travel Report',
+    title: 'Global Travel Report - Travel Stories & Inspiration',
+    description: 'Discover travel stories, tips, and inspiration from around the world.',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Global Travel Report',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Global Travel Report',
-    description: 'Share and discover amazing travel stories from around the world',
+    title: 'Global Travel Report - Travel Stories & Inspiration',
+    description: 'Discover travel stories, tips, and inspiration from around the world.',
+    images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   viewport: {
     width: 'device-width',
@@ -41,7 +61,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({
@@ -54,16 +77,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <ErrorBoundary>
           <SkipToContent />
-          <div className="min-h-screen flex flex-col">
+          <div className="flex flex-col min-h-screen">
             <Header />
-            <main id="main-content" className="flex-grow container mx-auto px-4 py-8">
+            <Navigation />
+            <main className="flex-grow">
               {children}
             </main>
-            <div className="bg-gray-50 py-12">
-              <div className="container mx-auto px-4">
-                <NewsletterSignup />
-              </div>
-            </div>
             <Footer />
           </div>
           <BackToTop />

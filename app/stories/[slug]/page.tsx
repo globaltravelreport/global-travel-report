@@ -7,50 +7,11 @@ import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
 import { formatDate } from "@/lib/stories";
 import type { Story } from "@/lib/stories";
 import type { Metadata } from "next";
+import { format } from 'date-fns';
+import { Badge } from '@/components/ui/badge';
 
 // This would typically come from an API or database
-const getStory = async (slug: string): Promise<Story | null> => {
-  // Mock data for demonstration
-  const stories: Record<string, Story> = {
-    "exploring-kyoto": {
-      id: "1",
-      slug: "exploring-kyoto",
-      title: "Exploring the Hidden Temples of Kyoto",
-      excerpt: "A journey through ancient Japanese architecture and culture...",
-      content: `
-        <p>Kyoto, the former imperial capital of Japan, is a city where ancient traditions seamlessly blend with modern life. During my recent visit, I had the privilege of exploring some of the city's most remarkable temples, each telling its own unique story of Japan's rich cultural heritage.</p>
-        
-        <h2>The Golden Pavilion (Kinkaku-ji)</h2>
-        <p>My journey began at the iconic Kinkaku-ji, also known as the Golden Pavilion. This Zen temple's top two floors are completely covered in gold leaf, creating a stunning reflection in the surrounding pond. The sight of the pavilion shimmering in the early morning light was truly breathtaking.</p>
-        
-        <h2>Fushimi Inari Shrine</h2>
-        <p>Next, I ventured to the famous Fushimi Inari Shrine, known for its thousands of vermillion torii gates winding up Mount Inari. The hike through the torii tunnel was a meditative experience, with each step revealing new perspectives of this architectural marvel.</p>
-        
-        <h2>Hidden Gems</h2>
-        <p>While the famous temples are undoubtedly impressive, some of my most memorable experiences came from discovering smaller, lesser-known temples tucked away in quiet neighborhoods. These hidden gems offered a more intimate glimpse into Kyoto's spiritual life.</p>
-        
-        <h2>Preserving Tradition</h2>
-        <p>What struck me most was how Kyoto has managed to preserve its cultural heritage while embracing modernity. The city serves as a living museum, where centuries-old traditions continue to thrive in the 21st century.</p>
-      `,
-      author: "Sarah Johnson",
-      category: "Culture",
-      country: "Japan",
-      tags: ["temples", "culture", "history"],
-      featured: true,
-      editorsPick: true,
-      publishedAt: new Date("2024-03-15T00:00:00Z"),
-      imageUrl: "/images/kyoto-temple.jpg",
-      photographer: {
-        name: "Hiroshi Tanaka",
-        url: "https://unsplash.com/@hiroshi"
-      }
-    },
-  };
-
-  return stories[slug] || null;
-};
-
-const getAllStories = async (): Promise<Story[]> => {
+const getStories = async (): Promise<Story[]> => {
   // Mock data for demonstration
   return [
     {
@@ -67,10 +28,6 @@ const getAllStories = async (): Promise<Story[]> => {
       editorsPick: true,
       publishedAt: new Date("2024-03-15T00:00:00Z"),
       imageUrl: "/images/kyoto-temple.jpg",
-      photographer: {
-        name: "John Doe",
-        url: "https://unsplash.com/@johndoe",
-      },
     },
     {
       id: "2",
@@ -86,10 +43,21 @@ const getAllStories = async (): Promise<Story[]> => {
       editorsPick: false,
       publishedAt: new Date("2024-03-10T00:00:00Z"),
       imageUrl: "/images/serengeti-safari.jpg",
-      photographer: {
-        name: "Jane Smith",
-        url: "https://unsplash.com/@janesmith",
-      },
+    },
+    {
+      id: "3",
+      slug: "culinary-tour-italy",
+      title: "Culinary Tour of Italy",
+      excerpt: "From pasta in Rome to pizza in Naples...",
+      content: "Full content here...",
+      author: "Emma Rodriguez",
+      category: "Food",
+      country: "Italy",
+      tags: ["food", "culture", "culinary"],
+      featured: false,
+      editorsPick: true,
+      publishedAt: new Date("2024-03-05T00:00:00Z"),
+      imageUrl: "/images/italy-food.jpg",
     },
   ];
 };
@@ -97,10 +65,17 @@ const getAllStories = async (): Promise<Story[]> => {
 export const revalidate = 3600; // Revalidate every hour
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const story = await getStory(params.slug);
-  if (!story) return {};
+  const stories = await getStories();
+  const story = stories.find(s => s.slug === params.slug);
+  
+  if (!story) {
+    return {
+      title: 'Story Not Found',
+      description: 'The requested story could not be found.',
+    };
+  }
 
-  const title = `${story.title} | ${story.country} | Global Travel Report`;
+  const title = `${story.title} - Global Travel Report`;
   const description = story.excerpt;
   const ogImage = story.imageUrl 
     ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=${encodeURIComponent(story.title)}&destination=${encodeURIComponent(story.country)}`
@@ -123,6 +98,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
           alt: story.title,
         },
       ] : [],
+      tags: story.tags,
     },
     twitter: {
       card: "summary_large_image",
@@ -137,61 +113,62 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function StoryPage({ params }: { params: { slug: string } }) {
-  const story = await getStory(params.slug);
-  const allStories = await getAllStories();
+  const stories = await getStories();
+  const story = stories.find(s => s.slug === params.slug);
 
   if (!story) {
     notFound();
   }
 
   return (
-    <article className="max-w-3xl mx-auto">
-      <div className="mb-8">
-        <div className="relative aspect-video w-full mb-6">
-          <Image
-            src={story.imageUrl || '/images/placeholder.svg'}
-            alt={story.title}
-            fill
-            className="object-cover rounded-lg"
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/images/placeholder.svg';
-            }}
-          />
+    <article className="max-w-4xl mx-auto px-4 py-8">
+      <header className="mb-8">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {story.featured && (
+            <Badge variant="default">Featured</Badge>
+          )}
+          {story.editorsPick && (
+            <Badge variant="secondary">Editor's Pick</Badge>
+          )}
+          <Badge variant="outline">{story.category}</Badge>
+          <Badge variant="outline">{story.country}</Badge>
         </div>
-
+        
         <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
         
-        <div className="flex items-center justify-between text-gray-600 mb-8">
-          <div>
-            <p className="font-medium">{story.author}</p>
-            <p>{story.country}</p>
-          </div>
-          <time dateTime={story.publishedAt.toISOString()}>
-            {formatDate(story.publishedAt)}
-          </time>
+        <div className="flex items-center text-muted-foreground mb-6">
+          <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
+          <span className="mx-2">•</span>
+          <span>By {story.author}</span>
         </div>
 
-        <SocialShare 
-          url={`${process.env.NEXT_PUBLIC_SITE_URL}/stories/${story.slug}`}
-          title={story.title}
-          className="mb-8"
-        />
+        {story.imageUrl && (
+          <div className="relative w-full h-[400px] mb-8">
+            <img
+              src={story.imageUrl}
+              alt={story.title}
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+        )}
+      </header>
+
+      <div className="prose prose-lg max-w-none">
+        <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
+        <div>{story.content}</div>
       </div>
 
-      <Card className="p-8 mb-12">
-        <div className="prose prose-lg max-w-none">
-          {story.content.split("\n").map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph.trim()}
-            </p>
+      <footer className="mt-8 pt-8 border-t">
+        <div className="flex flex-wrap gap-2">
+          {story.tags.map((tag) => (
+            <Badge key={tag} variant="outline">
+              {tag}
+            </Badge>
           ))}
         </div>
-      </Card>
+      </footer>
 
-      <RelatedStories currentStory={story} allStories={allStories} />
+      <RelatedStories currentStory={story} allStories={stories} />
 
       <div className="mt-12">
         <NewsletterSignup />

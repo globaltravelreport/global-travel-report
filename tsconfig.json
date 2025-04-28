@@ -23,7 +23,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/app/*": ["./app/*"]
     },
     "useUnknownInCatchVariables": false,
     "noImplicitAny": true,

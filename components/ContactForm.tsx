@@ -1,31 +1,48 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ReCaptcha } from "@/components/ui/ReCaptcha";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/components/ui/use-toast';
+import ReCAPTCHA from 'react-google-recaptcha';
 
-export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+const formSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+export const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
   });
-  const [recaptchaToken, setRecaptchaToken] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-    setError("");
-
-    if (!recaptchaToken) {
-      setError("Please complete the reCAPTCHA verification");
-      setStatus("error");
+  const onSubmit = async (data: FormData) => {
+    if (!recaptchaValue) {
+      toast({
+        title: 'Error',
+        description: 'Please complete the reCAPTCHA verification',
+        variant: 'destructive',
+      });
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('/api/contact', {
@@ -33,19 +50,31 @@ export function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, recaptchaToken }),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken: recaptchaValue,
+        }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to send message');
       }
 
-      setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setRecaptchaToken("");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-      setStatus("error");
+      toast({
+        title: 'Success',
+        description: 'Your message has been sent successfully',
+      });
+
+      reset();
+      setRecaptchaValue(null);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -57,98 +86,69 @@ export function ContactForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
           </label>
           <Input
             id="name"
-            type="text"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-            className="w-full"
-            aria-invalid={status === "error" ? "true" : "false"}
-            aria-describedby={status === "error" ? "form-error" : undefined}
+            {...register('name')}
+            className="mt-1"
+            disabled={isSubmitting}
           />
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
           </label>
           <Input
             id="email"
             type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            required
-            className="w-full"
-            aria-invalid={status === "error" ? "true" : "false"}
+            {...register('email')}
+            className="mt-1"
+            disabled={isSubmitting}
           />
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-            Subject
-          </label>
-          <Input
-            id="subject"
-            type="text"
-            value={formData.subject}
-            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-            required
-            className="w-full"
-            aria-invalid={status === "error" ? "true" : "false"}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700">
             Message
           </label>
-          <textarea
+          <Textarea
             id="message"
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            required
-            rows={6}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            aria-invalid={status === "error" ? "true" : "false"}
+            {...register('message')}
+            className="mt-1"
+            rows={4}
+            disabled={isSubmitting}
           />
+          {errors.message && (
+            <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+          )}
         </div>
 
-        <ReCaptcha
-          onVerify={setRecaptchaToken}
-          onError={(error) => {
-            setError(error.message);
-            setStatus("error");
-          }}
-          className="mb-4"
-        />
-
-        {status === "error" && (
-          <p id="form-error" className="text-sm text-red-600">
-            {error}
-          </p>
-        )}
+        <div className="flex justify-center">
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+            onChange={setRecaptchaValue}
+          />
+        </div>
 
         <Button
           type="submit"
           className="w-full"
-          disabled={status === "loading"}
-          aria-label="Send message"
+          disabled={isSubmitting || !recaptchaValue}
         >
-          {status === "loading" ? "Sending..." : "Send Message"}
+          {isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>
-
-        {status === "success" && (
-          <p className="text-sm text-green-600">
-            Thanks for your message! We'll get back to you soon.
-          </p>
-        )}
       </form>
     </div>
   );
-} 
+}; 
