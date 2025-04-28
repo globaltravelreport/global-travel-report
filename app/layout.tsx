@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-import { SkipToContent } from '@/components/ui/SkipToContent'
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
-import { BackToTop } from '@/components/ui/BackToTop'
-import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
-import { CookieConsent } from '@/components/ui/CookieConsent'
-import { Toaster } from '../components/ui/toaster'
+import Header from '@/src/components/layout/Header'
+import Footer from '@/src/components/layout/Footer'
+import { SkipToContent } from '@/src/components/ui/SkipToContent'
+import { ErrorBoundary } from '@/src/components/ui/ErrorBoundary'
+import { BackToTop } from '@/src/components/ui/BackToTop'
+import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics'
+import { CookieConsent } from '@/src/components/ui/CookieConsent'
 import Script from 'next/script'
 
 const inter = Inter({ 
@@ -126,7 +125,6 @@ export default function RootLayout({
           <BackToTop />
           <CookieConsent />
           <GoogleAnalytics />
-          <Toaster />
         </ErrorBoundary>
       </body>
     </html>

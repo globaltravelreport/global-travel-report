@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
-import { RelatedStories } from "@/components/stories/RelatedStories";
-import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
+import { RelatedStories } from "@/src/components/stories/RelatedStories";
+import { NewsletterSignup } from "@/src/components/ui/NewsletterSignup";
 import type { Story } from "@/lib/stories";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from "@/src/components/ui/badge";
 
 // This would typically come from an API or database
 const getStories = async (): Promise<Story[]> => {
