@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ReCaptcha } from '@/components/ui/ReCaptcha'
+import { ReCaptchaError as _ReCaptchaError } from 'react-google-recaptcha'
 
 interface StoryFormData {
   title: string

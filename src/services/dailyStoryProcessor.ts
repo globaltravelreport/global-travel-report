@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { StoryRewriter } from './storyRewrite';
 import { storyRewriteConfig } from '@/config/storyRewrite';
 import { Story } from '@/lib/stories';
