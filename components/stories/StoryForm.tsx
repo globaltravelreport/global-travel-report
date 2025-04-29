@@ -37,8 +37,7 @@ export const StoryForm: React.FC = () => {
     if (!recaptchaValue) {
       toast({
         title: 'Error',
-        description: 'Please complete the reCAPTCHA verification',
-        variant: 'destructive',
+        description: 'Please complete the reCAPTCHA verification'
       });
       return;
     }
@@ -72,7 +71,6 @@ export const StoryForm: React.FC = () => {
       toast({
         title: 'Error',
         description: 'Failed to submit story. Please try again.',
-        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);

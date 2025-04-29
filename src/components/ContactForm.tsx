@@ -3,29 +3,31 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ReCaptcha } from '@/components/ui/ReCaptcha'
+import { Textarea } from '@/components/ui/textarea'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useToast } from '@/components/ui/use-toast'
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [recaptchaToken, setRecaptchaToken] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null)
+  const { toast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus('loading')
-    setError('')
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const name = formData.get('name') as string
+    const email = formData.get('email') as string
+    const message = formData.get('message') as string
 
-    if (!recaptchaToken) {
-      setError('Please complete the reCAPTCHA verification')
-      setStatus('error')
+    if (!recaptchaValue) {
+      toast({
+        title: 'Error',
+        description: 'Please complete the reCAPTCHA verification'
+      })
       return
     }
+
+    setIsSubmitting(true)
 
     try {
       const response = await fetch('/api/contact', {
@@ -33,19 +35,33 @@ export function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, recaptchaToken }),
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          recaptchaToken: recaptchaValue,
+        }),
       })
 
       if (!response.ok) {
         throw new Error('Failed to send message')
       }
 
-      setStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      setRecaptchaToken('')
-    } catch (err) {
-      setError('Something went wrong. Please try again.')
-      setStatus('error')
+      toast({
+        title: 'Success',
+        description: 'Your message has been sent successfully!'
+      })
+      
+      // Reset form
+      event.currentTarget.reset()
+      setRecaptchaValue(null)
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.'
+      })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -58,96 +74,34 @@ export function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            Name
-          </label>
+        <div className="space-y-4">
           <Input
-            id="name"
             type="text"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            name="name"
+            placeholder="Your Name"
             required
-            className="w-full"
-            aria-invalid={status === 'error'}
-            aria-describedby={status === 'error' ? 'form-error' : undefined}
           />
-        </div>
-
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
           <Input
-            id="email"
             type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            name="email"
+            placeholder="Your Email"
             required
-            className="w-full"
-            aria-invalid={status === 'error'}
           />
-        </div>
-
-        <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-            Subject
-          </label>
-          <Input
-            id="subject"
-            type="text"
-            value={formData.subject}
-            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+          <Textarea
+            name="message"
+            placeholder="Your Message"
             required
-            className="w-full"
-            aria-invalid={status === 'error'}
           />
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+              onChange={setRecaptchaValue}
+            />
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message
-          </label>
-          <textarea
-            id="message"
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            required
-            rows={6}
-            className="w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            aria-invalid={status === 'error'}
-          />
-        </div>
-
-        <ReCaptcha
-          onVerify={setRecaptchaToken}
-          onError={(error) => {
-            setError(error.message)
-            setStatus('error')
-          }}
-          className="mb-4"
-        />
-
-        {status === 'error' && (
-          <p id="form-error" className="text-sm text-red-600">
-            {error}
-          </p>
-        )}
-
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={status === 'loading'}
-          aria-label="Send message"
-        >
-          {status === 'loading' ? 'Sending...' : 'Send Message'}
+        <Button type="submit" disabled={isSubmitting} className="w-full">
+          {isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>
-
-        {status === 'success' && (
-          <p className="text-sm text-green-600">
-            Thanks for your message! We'll get back to you soon.
-          </p>
-        )}
       </form>
     </div>
   )

@@ -1,40 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { useToast } from './ui/use-toast';
-import ReCAPTCHA from 'react-google-recaptcha';
-
-const formSchema = z.object({
-  email: z.string().email('Invalid email address'),
-});
-
-type FormData = z.infer<typeof formSchema>;
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useToast } from "@/components/ui/use-toast";
 
 export const NewsletterSignup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email') as string;
 
-  const onSubmit = async (data: FormData) => {
     if (!recaptchaValue) {
       toast({
         title: 'Error',
-        description: 'Please complete the reCAPTCHA verification',
-        variant: 'destructive',
+        description: 'Please complete the reCAPTCHA verification'
       });
       return;
     }
@@ -48,7 +33,7 @@ export const NewsletterSignup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...data,
+          email,
           recaptchaToken: recaptchaValue,
         }),
       });
@@ -59,16 +44,16 @@ export const NewsletterSignup = () => {
 
       toast({
         title: 'Success',
-        description: 'You have been subscribed to our newsletter',
+        description: 'Successfully subscribed to the newsletter!'
       });
-
-      reset();
+      
+      // Reset form
+      event.currentTarget.reset();
       setRecaptchaValue(null);
     } catch (error) {
       toast({
         title: 'Error',
-        description: `Failed to subscribe: ${error instanceof Error ? error.message : 'Please try again.'}`,
-        variant: 'destructive',
+        description: 'Failed to subscribe. Please try again.'
       });
     } finally {
       setIsSubmitting(false);
@@ -87,51 +72,22 @@ export const NewsletterSignup = () => {
           </p>
         </div>
 
-        <form 
-          onSubmit={handleSubmit(onSubmit)} 
-          className="mt-8 max-w-md mx-auto"
-          aria-labelledby="newsletter-heading"
-          noValidate
-        >
-          <div className="flex flex-col space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                {...register('email')}
-                className="w-full"
-                disabled={isSubmitting}
-                aria-invalid={errors.email ? 'true' : 'false'}
-                aria-describedby={errors.email ? 'email-error' : undefined}
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600" id="email-error" role="alert">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div className="flex justify-center">
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                onChange={setRecaptchaValue}
-                aria-label="reCAPTCHA verification"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isSubmitting || !recaptchaValue}
-              aria-busy={isSubmitting}
-            >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-            </Button>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+              onChange={setRecaptchaValue}
+            />
           </div>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+          </Button>
         </form>
       </div>
     </div>

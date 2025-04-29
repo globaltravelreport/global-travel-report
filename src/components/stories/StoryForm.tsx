@@ -13,6 +13,10 @@ interface StoryFormData {
   tags: string
 }
 
+interface ReCaptchaError {
+  message: string
+}
+
 export function StoryForm() {
   const [formData, setFormData] = useState<StoryFormData>({
     title: '',
@@ -77,7 +81,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error'}
+          aria-invalid={status === 'error' ? true : undefined}
         />
       </div>
 
@@ -92,7 +96,7 @@ export function StoryForm() {
           required
           rows={10}
           className="w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          aria-invalid={status === 'error'}
+          aria-invalid={status === 'error' ? true : undefined}
         />
       </div>
 
@@ -107,7 +111,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error'}
+          aria-invalid={status === 'error' ? true : undefined}
         />
       </div>
 
@@ -122,7 +126,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, country: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error'}
+          aria-invalid={status === 'error' ? true : undefined}
         />
       </div>
 
@@ -137,17 +141,18 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error'}
+          aria-invalid={status === 'error' ? true : undefined}
         />
       </div>
 
       <ReCaptcha
-        onVerify={setRecaptchaToken}
-        onError={(error) => {
-          setError(error.message)
-          setStatus('error')
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+        onChange={(token: string | null) => {
+          if (!token) {
+            setError('Please complete the reCAPTCHA verification');
+          }
+          setRecaptchaToken(token || '');
         }}
-        className="mb-4"
       />
 
       {status === 'error' && (

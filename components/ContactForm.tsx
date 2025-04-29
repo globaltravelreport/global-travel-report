@@ -52,8 +52,7 @@ export const ContactForm = () => {
     if (!recaptchaValue) {
       toast({
         title: 'Error',
-        description: 'Please complete the reCAPTCHA verification',
-        variant: 'destructive',
+        description: 'Please complete the reCAPTCHA verification'
       });
       return;
     }
@@ -92,7 +91,6 @@ export const ContactForm = () => {
       toast({
         title: 'Error',
         description: `Failed to send message: ${error instanceof Error ? error.message : 'Please try again.'}`,
-        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);

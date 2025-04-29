@@ -1,56 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Button } from "./button";
 import { Input } from "./input";
 import { ReCaptcha } from "./ReCaptcha";
+import { useToast } from "@/components/ui/use-toast";
 
 interface NewsletterSignupProps {
-  className?: string;
+  onClose?: () => void;
 }
 
-export function NewsletterSignup({ className = "" }: NewsletterSignupProps) {
-  const [email, setEmail] = useState("");
-  const [recaptchaToken, setRecaptchaToken] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [error, setError] = useState("");
+export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [error, setError] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
-    setError("");
+    setStatus('loading');
+    setError(null);
 
     if (!recaptchaToken) {
-      setError("Please complete the reCAPTCHA verification");
-      setStatus("error");
-      return;
-    }
-
-    // Basic email validation
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address");
-      setStatus("error");
+      toast({
+        title: 'Error',
+        description: 'Please complete the reCAPTCHA verification'
+      });
+      setStatus('error');
       return;
     }
 
     try {
-      // In a real app, this would be an API call
-      console.log("Subscribing email:", { email, recaptchaToken });
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setStatus("success");
-      setEmail("");
-      setRecaptchaToken("");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-      setStatus("error");
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, recaptchaToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to subscribe');
+      }
+
+      setStatus('success');
+      setEmail('');
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error('Newsletter signup error:', error);
+      setStatus('error');
+      toast({
+        title: 'Error',
+        description: 'Failed to subscribe. Please try again.'
+      });
     }
   };
 
   return (
-    <div className={`bg-blue-50 rounded-2xl p-8 ${className}`}>
+    <div className="bg-blue-50 rounded-2xl p-8">
       <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
       <p className="text-gray-600 mb-6">
         Get the latest travel stories and insights delivered to your inbox.

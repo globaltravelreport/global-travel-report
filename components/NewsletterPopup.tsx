@@ -48,8 +48,7 @@ export const NewsletterPopup = () => {
     if (!recaptchaValue) {
       toast({
         title: 'Error',
-        description: 'Please complete the reCAPTCHA verification',
-        variant: 'destructive',
+        description: 'Please complete the reCAPTCHA verification'
       });
       return;
     }
@@ -83,7 +82,6 @@ export const NewsletterPopup = () => {
       toast({
         title: 'Error',
         description: 'Failed to subscribe. Please try again.',
-        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
