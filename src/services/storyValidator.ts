@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Story } from '@/lib/stories';
 import { storyRewriteConfig } from '@/config/storyRewrite';
 import { OpenAI } from 'openai';

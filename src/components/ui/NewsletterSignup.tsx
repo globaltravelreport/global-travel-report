@@ -143,4 +143,6 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
       </form>
     </div>
   );
-} 
+}
+
+/* eslint-disable no-console */ 

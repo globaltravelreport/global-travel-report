@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { StoryCard } from "./StoryCard";
+import { StoryCard } from "@/src/components/stories/StoryCard";
 import type { Story } from "@/lib/stories";
 
 interface StorySearchProps {

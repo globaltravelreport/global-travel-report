@@ -28,6 +28,7 @@ export async function GET() {
       }))
     });
   } catch (error) {
+    /* eslint-disable no-console */
     console.error('Error processing daily stories:', error);
     return NextResponse.json(
       {

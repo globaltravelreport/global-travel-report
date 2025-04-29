@@ -16,6 +16,7 @@ export async function GET() {
 
     return NextResponse.json(stats);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error('Error fetching processing stats:', error);
     return NextResponse.json(
       { error: 'Failed to fetch processing stats' },

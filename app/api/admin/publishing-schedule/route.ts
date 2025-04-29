@@ -35,6 +35,7 @@ export async function GET() {
 
     return NextResponse.json(scheduledStories);
   } catch (error) {
+    /* eslint-disable no-console */
     console.error('Error fetching publishing schedule:', error);
     return NextResponse.json(
       { error: 'Failed to fetch publishing schedule' },

@@ -8,6 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
+/* eslint-disable no-console */
 export async function rewriteArticle(content: string, style: 'casual' | 'formal' | 'professional' = 'professional'): Promise<string> {
   try {
     const completion = await openai.chat.completions.create({

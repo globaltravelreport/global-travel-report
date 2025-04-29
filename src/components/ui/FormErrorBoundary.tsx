@@ -24,6 +24,7 @@ export class FormErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    /* eslint-disable no-console */
     console.error("Form error:", error, errorInfo);
   }
 

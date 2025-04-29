@@ -1,6 +1,6 @@
 import { getStories, getHomepageStories } from '@/lib/stories';
 import Hero from '@/components/Hero';
-import { StoryCard } from '@/components/stories/StoryCard';
+import { StoryCard } from '@/src/components/stories/StoryCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
 import Link from "next/link";
 import type { Metadata } from "next";

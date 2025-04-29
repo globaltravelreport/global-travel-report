@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
+/* eslint-disable no-console */
 export default function Error({
   error,
   reset,
