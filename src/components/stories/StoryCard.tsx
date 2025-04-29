@@ -1,21 +1,22 @@
 "use client";
 
-import React from 'react'
-import Link from 'next/link'
-import { format } from 'date-fns'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-import { type Story } from '@/lib/stories'
-import Image from 'next/image'
+import React from 'react';
+import Link from 'next/link';
+import { format } from 'date-fns';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
+import { type Story } from '@/lib/stories';
+import Image from 'next/image';
 
 interface StoryCardProps {
-  story: Story
-  className?: string
+  story: Story;
+  className?: string;
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
   const [imgSrc, setImgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
+  
   return (
     <Card 
       className={cn('transition-all hover:shadow-lg', 
@@ -70,5 +71,5 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
         </CardFooter>
       </Link>
     </Card>
-  )
-} 
+  );
+};

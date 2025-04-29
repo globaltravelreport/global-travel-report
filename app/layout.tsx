@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/src/components/ui/ErrorBoundary'
 import { BackToTop } from '@/src/components/ui/BackToTop'
 import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics'
 import { CookieConsent } from '@/src/components/ui/CookieConsent'
+import { Toaster } from '@/components/ui/toaster'
 import Script from 'next/script'
 
 const inter = Inter({ 
@@ -125,6 +126,7 @@ export default function RootLayout({
           <BackToTop />
           <CookieConsent />
           <GoogleAnalytics />
+          <Toaster />
         </ErrorBoundary>
       </body>
     </html>
