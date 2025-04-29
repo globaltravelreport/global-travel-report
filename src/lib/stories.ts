@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export interface Story {
   id: string;
   title: string;
@@ -18,13 +20,10 @@ export interface Story {
   editorsPick: boolean;
 }
 
-export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
-}
+export const formatDate = (date: Date | string): string => {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return format(d, 'MMMM dd, yyyy');
+};
 
 export async function getStories(): Promise<Story[]> {
   return [

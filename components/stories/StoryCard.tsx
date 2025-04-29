@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-import { type Story } from '@/lib/stories'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card'
+import { Badge } from '@/src/components/ui/badge'
+import { cn } from '@/src/lib/utils'
+import { type Story } from '@/src/lib/stories'
 import Image from 'next/image'
 
 interface StoryCardProps {
@@ -24,15 +26,13 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
     >
       <Link href={`/stories/${story.slug}`} className="block">
         <CardHeader>
-          <div className="mb-4">
+          <div className="relative h-48">
             <Image
               src={imgSrc}
               alt={story.title}
-              width={600}
-              height={400}
-              className="rounded-md object-cover w-full h-48"
+              fill
+              className="object-cover rounded-t-lg"
               onError={() => setImgSrc('/images/placeholder.svg')}
-              priority={!!story.featured}
             />
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
@@ -42,8 +42,12 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
             {story.editorsPick && (
               <Badge variant="secondary">Editor's Pick</Badge>
             )}
-            <Badge variant="outline">{story.category}</Badge>
-            <Badge variant="outline">{story.country}</Badge>
+            {story.category && (
+              <Badge variant="secondary">{story.category}</Badge>
+            )}
+            {story.country && (
+              <Badge variant="outline">{story.country}</Badge>
+            )}
           </div>
           <CardTitle className="text-2xl hover:text-primary transition-colors">
             {story.title}
@@ -53,7 +57,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{story.excerpt}</p>
+          <p className="text-gray-600 mb-4 line-clamp-2">{story.excerpt}</p>
         </CardContent>
         <CardFooter>
           <div className="flex flex-wrap gap-2">
