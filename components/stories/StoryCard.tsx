@@ -3,10 +3,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card'
-import { Badge } from '@/src/components/ui/badge'
-import { cn } from '@/src/lib/utils'
-import { type Story } from '@/src/lib/stories'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+import { type Story } from '@/lib/stories'
 import Image from 'next/image'
 
 interface StoryCardProps {
