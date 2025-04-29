@@ -7,6 +7,7 @@ interface CategoryPageProps {
   params: {
     category: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const category = params.category.charAt(0).toUpperCase() + params.category.slice(1);
   const allStories = await getStories();
   const stories = getStoriesByCategory(allStories, category);
