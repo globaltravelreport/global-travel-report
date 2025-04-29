@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ReCaptcha } from '@/components/ui/ReCaptcha'
-import { ReCaptchaError as _ReCaptchaError } from 'react-google-recaptcha'
 
 interface StoryFormData {
   title: string
@@ -12,10 +11,6 @@ interface StoryFormData {
   category: string
   country: string
   tags: string
-}
-
-interface ReCaptchaError {
-  message: string
 }
 
 export function StoryForm() {
@@ -82,7 +77,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error' ? true : undefined}
+          aria-invalid={status === 'error' ? 'true' : 'false'}
         />
       </div>
 
@@ -97,7 +92,7 @@ export function StoryForm() {
           required
           rows={10}
           className="w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          aria-invalid={status === 'error' ? true : undefined}
+          aria-invalid={status === 'error' ? 'true' : 'false'}
         />
       </div>
 
@@ -112,7 +107,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error' ? true : undefined}
+          aria-invalid={status === 'error' ? 'true' : 'false'}
         />
       </div>
 
@@ -127,7 +122,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, country: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error' ? true : undefined}
+          aria-invalid={status === 'error' ? 'true' : 'false'}
         />
       </div>
 
@@ -142,7 +137,7 @@ export function StoryForm() {
           onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
           required
           className="w-full"
-          aria-invalid={status === 'error' ? true : undefined}
+          aria-invalid={status === 'error' ? 'true' : 'false'}
         />
       </div>
 

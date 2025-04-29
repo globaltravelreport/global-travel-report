@@ -7,7 +7,7 @@ interface CategoryPageProps {
   params: {
     category: string;
   };
-  _searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -26,10 +26,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default async function CategoryPage({ params, _searchParams }: CategoryPageProps) {
+export default async function CategoryPage({ params, searchParams: _ }: CategoryPageProps) {
   const category = params.category.charAt(0).toUpperCase() + params.category.slice(1);
   const allStories = await getStories();
-  const stories = getStoriesByCategory(allStories, category);
+  const stories = await getStoriesByCategory(allStories, category);
 
   if (stories.length === 0) {
     notFound();

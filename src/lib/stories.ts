@@ -144,12 +144,21 @@ export async function getStories(): Promise<Story[]> {
   ];
 }
 
-export async function getStoriesByCategory(category: string): Promise<Story[]> {
-  const stories = await getStories();
+export function isStoryArchived(story: Story): boolean {
+  const publishDate = new Date(story.publishedAt);
+  const now = new Date();
+  const diffInDays = Math.floor((now.getTime() - publishDate.getTime()) / (1000 * 60 * 60 * 24));
+  return diffInDays > 30;
+}
+
+export async function getHomepageStories(stories: Story[]): Promise<Story[]> {
+  return stories.filter(story => story.featured || story.editorsPick).slice(0, 6);
+}
+
+export async function getStoriesByCategory(stories: Story[], category: string): Promise<Story[]> {
   return stories.filter(story => story.category.toLowerCase() === category.toLowerCase());
 }
 
-export async function getStoriesByCountry(country: string): Promise<Story[]> {
-  const stories = await getStories();
+export async function getStoriesByCountry(stories: Story[], country: string): Promise<Story[]> {
   return stories.filter(story => story.country.toLowerCase() === country.toLowerCase());
 } 

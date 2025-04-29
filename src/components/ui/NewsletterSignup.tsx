@@ -90,12 +90,14 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
         </div>
 
         <ReCaptcha
-          onVerify={setRecaptchaToken}
-          onError={(error) => {
-            setError(error.message);
-            setStatus("error");
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+          onChange={(token: string | null) => {
+            if (!token) {
+              setError('Please complete the reCAPTCHA verification');
+              setStatus("error");
+            }
+            setRecaptchaToken(token);
           }}
-          className="mb-4"
         />
 
         <Button

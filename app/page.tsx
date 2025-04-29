@@ -27,12 +27,11 @@ export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
   const allStories = await getStories();
-  const activeStories = getHomepageStories(allStories);
+  const activeStories = await getHomepageStories(allStories);
   const featuredStories = activeStories.filter(story => story.featured);
   const latestStories = activeStories
     .filter(story => !story.featured)
-    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
-    .slice(0, 8);
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
   if (allStories.length === 0) {
     return (

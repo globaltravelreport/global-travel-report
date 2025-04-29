@@ -3,13 +3,13 @@
 import ReCAPTCHA from 'react-google-recaptcha';
 import type { ReCAPTCHAProps } from 'react-google-recaptcha';
 
-type Props = Pick<ReCAPTCHAProps, 'onChange'>;
+type Props = Pick<ReCAPTCHAProps, 'onChange' | 'sitekey'>;
 
-export function ReCaptcha({ onChange }: Props) {
+export function ReCaptcha({ onChange, sitekey }: Props) {
   return (
     <div className="flex justify-center">
       <ReCAPTCHA
-        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+        sitekey={sitekey}
         onChange={onChange}
       />
     </div>

@@ -39,6 +39,17 @@ export interface StoryRewriteConfig {
     intervalMinutes: number;
     priorityCategories: string[];
   };
+  maxRetries: number;
+  retryDelay: number;
+  maxConcurrent: number;
+  defaultLanguage: string;
+  targetLength: {
+    min: number;
+    max: number;
+  };
+  preserveTags: boolean;
+  maintainTone: boolean;
+  keepKeywords: boolean;
 }
 
 export const storyRewriteConfig: StoryRewriteConfig = {
@@ -124,5 +135,16 @@ export const storyRewriteConfig: StoryRewriteConfig = {
   publishing: {
     intervalMinutes: 180, // 3 hours between posts
     priorityCategories: ['Cruise News', 'Cruise Reviews']
-  }
+  },
+  maxRetries: 3,
+  retryDelay: 1000,
+  maxConcurrent: 5,
+  defaultLanguage: 'en',
+  targetLength: {
+    min: 500,
+    max: 2000
+  },
+  preserveTags: true,
+  maintainTone: true,
+  keepKeywords: true
 }; 

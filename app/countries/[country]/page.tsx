@@ -7,6 +7,9 @@ interface CountryPageProps {
   params: {
     country: string;
   };
+  searchParams: {
+    // Add any necessary search params here
+  };
 }
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
@@ -25,10 +28,10 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   };
 }
 
-export default async function CountryPage({ params }: CountryPageProps) {
+export default async function CountryPage({ params, searchParams: _ }: CountryPageProps) {
   const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
   const allStories = await getStories();
-  const stories = getStoriesByCountry(allStories, country);
+  const stories = await getStoriesByCountry(allStories, country);
 
   if (stories.length === 0) {
     notFound();
