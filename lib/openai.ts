@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { Story } from './stories';
+import { Story } from '@/types/Story';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
