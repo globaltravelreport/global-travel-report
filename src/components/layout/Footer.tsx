@@ -162,6 +162,9 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
+            <div className="mt-4 text-center">
+              <p className="text-gray-400">Follow us on social media for the latest travel updates!</p>
+            </div>
           </div>
         </div>
 
