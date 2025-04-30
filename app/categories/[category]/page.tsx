@@ -2,26 +2,18 @@ import { type Metadata } from 'next';
 import { getStories } from '@/src/lib/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 
-// Define the props type for the category page
-type CategoryParams = {
-  category: string;
-};
-
-type CategoryPageProps = {
-  params: CategoryParams;
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateMetadata({
   params,
-}: CategoryPageProps): Promise<Metadata> {
+}: {
+  params: { category: string };
+}): Promise<Metadata> {
   return {
     title: `${params.category} Stories - Global Travel Report`,
     description: `Read travel stories about ${params.category} from around the world.`,
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: { params: { category: string } }) {
   const stories = await getStories();
   const categoryStories = stories.filter(
     (story) => story.category.toLowerCase() === params.category.toLowerCase()

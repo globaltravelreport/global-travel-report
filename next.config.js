@@ -26,9 +26,4 @@ const nextConfig = {
   },
 }
 
-// Only use the bundle analyzer in development
-const withBundleAnalyzer = process.env.NODE_ENV === 'development'
-  ? require('@next/bundle-analyzer')({ enabled: true })
-  : (config) => config;
-
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = nextConfig
