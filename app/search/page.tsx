@@ -1,7 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getStories } from '@/lib/stories';
-import { searchStories, StorySearchParams } from '@/lib/stories';
+import { getStories, searchStories, StorySearchParams } from 'lib/stories';
 import { SearchForm } from '@/src/components/search/SearchForm';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { Pagination } from '@/src/components/ui/Pagination';
