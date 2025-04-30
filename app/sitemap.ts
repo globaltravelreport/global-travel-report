@@ -48,10 +48,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic routes for stories with proper lastModified dates
   const storyRoutes = stories.map((story) => {
-    // Use the story's published date or updated date if available
-    const lastModified = story.updatedAt
-      ? new Date(story.updatedAt)
-      : new Date(story.publishedAt);
+    // Use the story's published date as the lastModified date
+    const lastModified = new Date(story.publishedAt);
 
     return {
       url: `${baseUrl}/stories/${story.slug}`,
