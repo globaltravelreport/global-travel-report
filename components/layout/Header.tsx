@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
 
 const countries = [
   'Australia', 'Japan', 'United States', 'United Kingdom', 'France',
