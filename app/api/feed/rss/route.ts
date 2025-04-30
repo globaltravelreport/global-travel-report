@@ -42,7 +42,7 @@ export async function GET() {
       <language>en</language>
       <lastBuildDate>${formatRssDate(new Date())}</lastBuildDate>
       <atom:link href="${baseUrl}/api/feed/rss" rel="self" type="application/rss+xml" />
-      ${stories.map((story: Story) => `
+      ${stories.map((story) => `
         <item>
           <title>${escapeXml(story.title)}</title>
           <link>${baseUrl}/stories/${story.slug}</link>
