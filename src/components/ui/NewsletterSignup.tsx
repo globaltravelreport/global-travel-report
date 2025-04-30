@@ -5,6 +5,7 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { ReCaptcha } from "./ReCaptcha";
 import { useToast } from "@/components/ui/use-toast";
+import { useCsrfToken } from "@/src/hooks/useCsrfToken";
 
 interface NewsletterSignupProps {
   onClose?: () => void;
@@ -16,6 +17,7 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
   const [error, setError] = useState<string | null>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const { toast } = useToast();
+  const { csrfToken } = useCsrfToken();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,8 +38,13 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || '',
         },
-        body: JSON.stringify({ email, recaptchaToken }),
+        body: JSON.stringify({
+          email,
+          recaptchaToken,
+          csrfToken: csrfToken,
+        }),
       });
 
       if (!response.ok) {
@@ -46,13 +53,17 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
 
       setStatus('success');
       setEmail('');
+      toast({
+        title: 'Success',
+        description: 'Successfully subscribed to the newsletter!'
+      });
       if (onClose) {
         onClose();
       }
     } catch (error) {
-      console.error('Newsletter signup error:', error);
       setStatus('error');
       toast({
+        variant: 'destructive',
         title: 'Error',
         description: 'Failed to subscribe. Please try again.'
       });
@@ -144,5 +155,3 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
     </div>
   );
 }
-
-/* eslint-disable no-console */ 

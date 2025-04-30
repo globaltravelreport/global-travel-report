@@ -1,16 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useToast } from '@/components/ui/use-toast'
+import { useCsrfToken } from '@/src/hooks/useCsrfToken'
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null)
   const { toast } = useToast()
+  const { csrfToken } = useCsrfToken()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -34,12 +36,14 @@ export function ContactForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || '',
         },
         body: JSON.stringify({
           name,
           email,
           message,
           recaptchaToken: recaptchaValue,
+          csrfToken: csrfToken,
         }),
       })
 
@@ -51,7 +55,7 @@ export function ContactForm() {
         title: 'Success',
         description: 'Your message has been sent successfully!'
       })
-      
+
       // Reset form
       event.currentTarget.reset()
       setRecaptchaValue(null)
@@ -105,4 +109,4 @@ export function ContactForm() {
       </form>
     </div>
   )
-} 
+}

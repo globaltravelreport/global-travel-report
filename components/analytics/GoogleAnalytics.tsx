@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import DOMPurify from "isomorphic-dompurify";
 
 declare global {
   interface Window {
@@ -36,14 +37,14 @@ export function GoogleAnalytics() {
         id="google-analytics"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: `
+          __html: DOMPurify.sanitize(`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}', {
               page_path: window.location.pathname,
             });
-          `,
+          `),
         }}
       />
       <noscript>
@@ -56,4 +57,4 @@ export function GoogleAnalytics() {
       </noscript>
     </>
   );
-} 
+}
