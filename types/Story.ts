@@ -18,6 +18,7 @@ export interface Story {
   imageUrl?: string;
   image?: string; // Alias for imageUrl for compatibility
   type?: string; // Type of story (can be used interchangeably with category)
+  date?: Date | string; // Alias for publishedAt for compatibility
 
   // Optional fields
   archived?: boolean;
