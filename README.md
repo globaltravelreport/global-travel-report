@@ -2,6 +2,10 @@
 
 A modern travel website built with Next.js, featuring RSS story fetching, OpenAI integration, and Unsplash images. The platform provides travel stories, guides, and insights from around the world with advanced search and filtering capabilities.
 
+## Website
+
+Visit the live site at [https://www.globaltravelreport.com/](https://www.globaltravelreport.com/)
+
 ![Global Travel Report Screenshot](public/images/screenshot.png)
 
 ## Features
