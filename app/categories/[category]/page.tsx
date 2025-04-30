@@ -2,10 +2,15 @@ import { type Metadata } from 'next';
 import { getStories } from '@/src/lib/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 
-interface CategoryPageProps {
-  params: { category: string };
+// Define the props type for the category page
+type CategoryParams = {
+  category: string;
+};
+
+type CategoryPageProps = {
+  params: CategoryParams;
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 
 export async function generateMetadata({
   params,

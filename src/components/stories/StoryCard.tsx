@@ -2,10 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card';
-import { Badge } from '@/src/components/ui/badge';
-import { cn } from '@/src/lib/utils';
 import { withErrorBoundary } from '@/src/components/ui/ErrorBoundary';
 import { formatDisplayDate } from '@/src/utils/date-utils';
 import { StoryCoverImage } from '@/src/components/ui/OptimizedImage';
@@ -31,12 +27,14 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   }, [story.publishedAt]);
 
   return (
-    <Card
-      className={cn('transition-all hover:shadow-lg',
-        story.featured && 'border-primary',
-        story.editorsPick && 'border-secondary',
-        className
-      )}
+    <div
+      className={`transition-all hover:shadow-lg border rounded-lg ${
+        story.featured ? 'border-primary' : ''
+      } ${
+        story.editorsPick ? 'border-secondary' : ''
+      } ${
+        className || ''
+      }`}
     >
       <Link href={getStoryUrl(story.slug)} className="block">
         <div className="relative w-full h-48">
@@ -49,61 +47,61 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             showAttribution={true}
           />
         </div>
-        <CardHeader>
+        <div className="p-4">
           <div className="flex flex-wrap gap-2 mb-2">
             {story.featured && (
-              <Badge variant="default">Featured</Badge>
+              <span className="inline-flex items-center rounded-md bg-primary px-2 py-1 text-xs font-medium text-white">Featured</span>
             )}
             {story.editorsPick && (
-              <Badge variant="secondary">Editor's Pick</Badge>
+              <span className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-white">Editor's Pick</span>
             )}
             {story.category && (
               <Link href={getCategoryUrl(story.category)}>
-                <Badge variant="outline">{story.category}</Badge>
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium">{story.category}</span>
               </Link>
             )}
             {story.country && (
               <Link href={getCountryUrl(story.country)}>
-                <Badge variant="outline">{story.country}</Badge>
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium">{story.country}</span>
               </Link>
             )}
           </div>
-          <CardTitle className="text-2xl hover:text-primary transition-colors">
+          <h3 className="text-2xl font-semibold leading-none tracking-tight hover:text-primary transition-colors">
             {story.title}
-          </CardTitle>
-          <CardDescription>
+          </h3>
+          <p className="text-sm text-gray-500 mt-1">
             {formattedDate} • By {story.author}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        <div className="px-4 pb-4">
           <p className="text-gray-600 mb-4 line-clamp-2">{story.excerpt}</p>
-        </CardContent>
-        <CardFooter>
+        </div>
+        <div className="px-4 pb-4">
           <div className="flex flex-wrap gap-2">
             {story.tags && story.tags.slice(0, 3).map((tag) => (
               <Link key={tag} href={getTagUrl(tag)}>
-                <Badge variant="outline" className="text-xs hover:bg-primary/10 transition-colors">
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium hover:bg-gray-100 transition-colors">
                   {tag}
-                </Badge>
+                </span>
               </Link>
             ))}
           </div>
-        </CardFooter>
+        </div>
       </Link>
-    </Card>
+    </div>
   );
 };
 
 // Fallback UI for when the StoryCard errors
 const StoryCardFallback = () => (
-  <Card className="transition-all border-gray-200">
+  <div className="transition-all border border-gray-200 rounded-lg">
     <div className="p-4">
       <div className="h-48 bg-gray-200 rounded-t-lg animate-pulse"></div>
       <div className="mt-4 h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
       <div className="mt-2 h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
       <div className="mt-4 h-16 bg-gray-200 rounded animate-pulse"></div>
     </div>
-  </Card>
+  </div>
 );
 
 // Export the StoryCard with error boundary
