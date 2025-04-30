@@ -23,7 +23,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
   for (const feedUrl of feeds) {
     try {
       const feed = await parser.parseURL(feedUrl);
-      
+
       for (const item of feed.items) {
         if (!item.title || !item.link) continue;
 
@@ -46,7 +46,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         stories.push(story);
       }
     } catch (error) {
-      console.error(`Error fetching feed ${feedUrl}:`, error);
+      // Skip failed feeds and continue with others
     }
   }
 
@@ -109,4 +109,4 @@ function determineCountry(title: string, content: string): string {
   }
 
   return 'Global';
-} 
+}

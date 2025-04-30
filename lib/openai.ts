@@ -38,7 +38,7 @@ Please maintain the same key information and facts, but rewrite it in a more eng
       excerpt: rewrittenContent.slice(0, 200) + '...',
     };
   } catch (error) {
-    console.error('Error rewriting story:', error);
+    // Return original story if rewriting fails
     return story;
   }
-} 
+}

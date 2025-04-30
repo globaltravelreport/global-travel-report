@@ -81,10 +81,10 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error generating sitemap:', error);
+    // Log error in production environments using proper logging
     return NextResponse.json(
       { error: 'Failed to generate sitemap' },
       { status: 500 }
     );
   }
-} 
+}

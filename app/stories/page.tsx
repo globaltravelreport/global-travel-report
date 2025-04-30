@@ -30,7 +30,7 @@ export default function StoriesPage() {
         const data = await getStories();
         setStories(data);
       } catch (error) {
-        console.error('Error fetching stories:', error);
+        // Error handled silently in UI by showing empty state
       } finally {
         setIsLoading(false);
       }
@@ -118,8 +118,8 @@ export default function StoriesPage() {
         {/* Latest/Archived Stories Section */}
         <section aria-labelledby="stories-heading">
           <h2 id="stories-heading" className="text-3xl font-bold text-gray-900 mb-8">
-            {showArchived 
-              ? `Archived ${selectedCategory === 'All' ? '' : selectedCategory} Stories` 
+            {showArchived
+              ? `Archived ${selectedCategory === 'All' ? '' : selectedCategory} Stories`
               : `${selectedCategory === 'All' ? 'Latest' : selectedCategory} Stories`}
           </h2>
           {latestStories.length > 0 ? (
@@ -137,4 +137,4 @@ export default function StoriesPage() {
       </div>
     </main>
   );
-} 
+}

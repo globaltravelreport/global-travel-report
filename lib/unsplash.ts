@@ -32,7 +32,7 @@ export async function fetchUnsplashImage(query: string): Promise<{
       },
     };
   } catch (error) {
-    console.error('Error fetching Unsplash image:', error);
+    // Return placeholder image if Unsplash fetch fails
     return {
       url: '/images/placeholder.jpg',
       photographer: {
@@ -52,4 +52,4 @@ export async function enhanceStoryWithImage(story: Story): Promise<Story> {
     imageUrl: url,
     photographer,
   };
-} 
+}

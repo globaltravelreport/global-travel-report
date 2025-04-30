@@ -10,7 +10,7 @@ export async function verifyRecaptcha(token: string): Promise<boolean> {
     const data = await response.json();
     return data.success;
   } catch (error) {
-    console.error('Error verifying reCAPTCHA:', error);
+    // Return false if verification fails
     return false;
   }
-} 
+}
