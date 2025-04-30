@@ -2,21 +2,21 @@ import { type Metadata } from 'next';
 import { getStories } from '@/src/lib/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 
-type Props = {
+interface CategoryPageProps {
   params: { category: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: CategoryPageProps): Promise<Metadata> {
   return {
     title: `${params.category} Stories - Global Travel Report`,
     description: `Read travel stories about ${params.category} from around the world.`,
   };
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const stories = await getStories();
   const categoryStories = stories.filter(
     (story) => story.category.toLowerCase() === params.category.toLowerCase()
@@ -41,4 +41,4 @@ export default async function CategoryPage({ params }: Props) {
       </div>
     </div>
   );
-} 
+}
