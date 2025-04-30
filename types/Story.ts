@@ -17,6 +17,7 @@ export interface Story {
   editorsPick: boolean;
   imageUrl?: string;
   image?: string; // Alias for imageUrl for compatibility
+  type?: string; // Type of story (can be used interchangeably with category)
 
   // Optional fields
   archived?: boolean;
