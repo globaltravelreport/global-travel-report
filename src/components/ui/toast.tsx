@@ -69,12 +69,14 @@ Toast.displayName = "Toast";
 const ToastTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <h2
     ref={ref}
     className={cn("text-sm font-semibold", className)}
     {...props}
-  />
+  >
+    {children}
+  </h2>
 ));
 ToastTitle.displayName = "ToastTitle";
 
