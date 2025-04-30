@@ -2,10 +2,15 @@ import { type Metadata } from 'next';
 import { getStories } from '@/src/lib/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 
+// Define the params type for Next.js 15
+type CategoryParams = {
+  category: string;
+};
+
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string };
+  params: CategoryParams;
 }): Promise<Metadata> {
   return {
     title: `${params.category} Stories - Global Travel Report`,
@@ -13,7 +18,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: CategoryParams }) {
   const stories = await getStories();
   const categoryStories = stories.filter(
     (story) => story.category.toLowerCase() === params.category.toLowerCase()

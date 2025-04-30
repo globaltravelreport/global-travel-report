@@ -8,6 +8,11 @@ import { Badge } from "@/src/components/ui/badge";
 import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
 import DOMPurify from 'isomorphic-dompurify';
 
+// Define the params type for Next.js 15
+type StoryParams = {
+  slug: string;
+};
+
 // This would typically come from an API or database
 const getStories = async (): Promise<Story[]> => {
   // Mock data for demonstration
@@ -74,7 +79,7 @@ const getStories = async (): Promise<Story[]> => {
 
 export const revalidate = 3600; // Revalidate every hour
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: StoryParams }): Promise<Metadata> {
   const stories = await getStories();
   const story = stories.find(s => s.slug === params.slug);
 
@@ -122,7 +127,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function StoryPage({ params }: { params: { slug: string } }) {
+export default async function StoryPage({ params }: { params: StoryParams }) {
   const stories = await getStories();
   const story = stories.find(s => s.slug === params.slug);
 

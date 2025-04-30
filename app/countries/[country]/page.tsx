@@ -3,18 +3,14 @@ import { StoryCard } from '@/components/stories/StoryCard';
 import { getStoriesByCountry, getStories, type Story } from '@/lib/stories';
 import type { Metadata } from 'next';
 
-interface CountryPageProps {
-  params: {
-    country: string;
-  };
-  searchParams: {
-    // Add any necessary search params here
-  };
-}
+// Define the params type for Next.js 15
+type CountryParams = {
+  country: string;
+};
 
-export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: CountryParams }): Promise<Metadata> {
   const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
-  
+
   return {
     title: `${country} Travel Stories - Global Travel Report`,
     description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
@@ -28,7 +24,7 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   };
 }
 
-export default async function CountryPage({ params, searchParams: _ }: CountryPageProps) {
+export default async function CountryPage({ params }: { params: CountryParams }) {
   const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
   const allStories = await getStories();
   const stories = await getStoriesByCountry(allStories, country);
@@ -40,7 +36,7 @@ export default async function CountryPage({ params, searchParams: _ }: CountryPa
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">Travel Stories from {country}</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {stories.map((story: Story) => (
           <StoryCard key={story.id} story={story} />
@@ -48,4 +44,4 @@ export default async function CountryPage({ params, searchParams: _ }: CountryPa
       </div>
     </div>
   );
-} 
+}
