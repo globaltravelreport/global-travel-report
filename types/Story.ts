@@ -28,7 +28,7 @@ export interface Story {
   // Nested objects
   photographer?: {
     name: string;
-    url: string;
+    url?: string;
   };
   coverImage?: {
     url: string;
