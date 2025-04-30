@@ -65,7 +65,7 @@ export const OPTIONS = createOptionsHandler();
  * Handle POST requests to the contact form API
  */
 export const POST = createApiHandler<ContactFormRequest>(
-  async (req: NextRequest, data: ContactFormRequest) => {
+  async (_req: NextRequest, data: ContactFormRequest) => {
     // Verify reCAPTCHA token
     const isRecaptchaValid = await verifyRecaptcha(data.recaptchaToken);
     if (!isRecaptchaValid) {
