@@ -15,7 +15,7 @@ export interface Story {
   tags: string[];
   featured: boolean;
   editorsPick: boolean;
-  imageUrl: string;
+  imageUrl?: string;
   image?: string; // Alias for imageUrl for compatibility
 
   // Optional fields
