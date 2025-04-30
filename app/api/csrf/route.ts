@@ -7,8 +7,7 @@ import { createCsrfToken } from '@/src/utils/csrf';
  * @returns Response with a new CSRF token
  */
 export async function GET(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  req: NextRequest
+  _req: NextRequest
 ) {
   // Generate a new CSRF token
   const token = createCsrfToken();
