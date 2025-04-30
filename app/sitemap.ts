@@ -13,18 +13,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const stories = await getStories();
 
   // Extract unique categories, countries, and tags from actual stories
-  const categories = [...new Set(stories
+  const categories = Array.from(new Set(stories
     .map(story => story.category)
     .filter(Boolean)
-  )];
+  ));
 
-  const countries = [...new Set(stories
+  const countries = Array.from(new Set(stories
     .map(story => story.country)
     .filter(Boolean)
-  )];
+  ));
 
   const allTags = stories.flatMap(story => story.tags || []);
-  const tags = [...new Set(allTags)];
+  const tags = Array.from(new Set(allTags));
 
   // Static routes
   const routes = [
@@ -86,10 +86,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Author routes - dynamically generated from actual stories
-  const authors = [...new Set(stories
+  const authors = Array.from(new Set(stories
     .map(story => story.author)
     .filter(Boolean)
-  )];
+  ));
 
   const authorRoutes = authors.map((author) => ({
     url: `${baseUrl}/authors/${author.toLowerCase().replace(/\s+/g, '-')}`,
