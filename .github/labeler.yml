@@ -1,0 +1,42 @@
+# Add 'frontend' label to any change to files in the app directory
+frontend:
+  - app/**/*
+  - components/**/*
+
+# Add 'backend' label to any change to bot files
+backend:
+  - bots/**/*
+  - scripts/**/*
+
+# Add 'test' label to any change to test files
+test:
+  - '**/*.test.ts'
+  - '**/*.test.tsx'
+  - '**/__tests__/**/*'
+
+# Add 'documentation' label to any change to markdown files
+documentation:
+  - '**/*.md'
+  - docs/**/*
+
+# Add 'dependencies' label to any change in package files
+dependencies:
+  - package.json
+  - package-lock.json
+  - yarn.lock
+
+# Add 'workflow' label to any change in GitHub workflow files
+workflow:
+  - .github/workflows/*
+
+# Add 'security' label to any change in security-related files
+security:
+  - .github/SECURITY.md
+  - '**/security/**/*'
+
+# Add 'configuration' label to any change in config files
+configuration:
+  - '*.config.js'
+  - '*.config.ts'
+  - .env.example
+  - .gitignore 
