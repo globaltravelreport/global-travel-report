@@ -1,7 +1,11 @@
-import { NextRequest } from "next/server";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import { verifyRecaptcha } from '@/src/utils/recaptcha';
-import { ContactFormRequest } from '@/src/api/types';
+import { ContactFormRequest,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ContactFormResponse
+} from '@/src/api/types';
 import { contactFormSchema } from '@/src/utils/validation';
 import { createApiResponse, createValidationErrorResponse } from '@/src/utils/api-response';
 import { logError } from '@/src/utils/error-handler';

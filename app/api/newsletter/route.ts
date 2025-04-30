@@ -1,4 +1,5 @@
-import { NextRequest } from 'next/server';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { verifyRecaptcha } from '@/src/utils/recaptcha';
 import { createApiHandler, createOptionsHandler } from '@/src/utils/api-handler';
