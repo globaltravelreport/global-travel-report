@@ -137,7 +137,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   };
 
   // Get unique authors from stories
-  const authors = [...new Set(stories.map(story => story.author))];
+  const authors = Array.from(new Set(stories.map(story => story.author)));
 
   // Check if there are any search parameters
   const hasSearchParams = Object.values(searchParams2).some(value =>
