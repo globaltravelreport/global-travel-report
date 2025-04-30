@@ -1,7 +1,5 @@
 import { MetadataRoute } from 'next';
 import { getStories } from '@/lib/stories';
-import { formatISODate } from '@/src/utils/date-utils';
-import config from '@/src/config';
 
 /**
  * Generate a dynamic sitemap based on actual content
