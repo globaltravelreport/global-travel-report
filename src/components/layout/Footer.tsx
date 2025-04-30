@@ -163,7 +163,7 @@ export default function Footer() {
               </a>
             </div>
             <div className="mt-4 text-center">
-              <p className="text-gray-400">Follow us on social media for the latest travel updates!</p>
+              <p className="text-gray-400">Follow us on social media for the latest travel updates and news!</p>
             </div>
           </div>
         </div>
