@@ -10,7 +10,7 @@ import { Story } from '@/types/Story';
 export interface ContactFormRequest {
   name: string;
   email: string;
-  subject: string;
+  subject?: string;
   message: string;
   recaptchaToken: string;
 }
