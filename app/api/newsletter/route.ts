@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { verifyRecaptcha } from '@/src/utils/recaptcha';
 import { createApiHandler, createOptionsHandler } from '@/src/utils/api-handler';

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { z } from 'zod';
 import { verifyRecaptcha } from '@/src/utils/recaptcha';
-import { ContactFormRequest, ContactFormResponse } from '@/src/api/types';
+import { ContactFormRequest } from '@/src/api/types';
 import { contactFormSchema } from '@/src/utils/validation';
 import { createApiResponse, createValidationErrorResponse } from '@/src/utils/api-response';
 import { logError } from '@/src/utils/error-handler';
