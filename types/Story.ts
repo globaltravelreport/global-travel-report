@@ -84,10 +84,7 @@ export interface Story {
     };
   }>;
 
-  // Getter for image that returns imageUrl for compatibility
-  get image(): string {
-    return this.imageUrl;
-  }
+  // We use image as an alias for imageUrl for compatibility
 }
 
 /**
