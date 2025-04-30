@@ -38,15 +38,16 @@ export default function AboutPage() {
     <main className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="relative h-[400px] mb-20 rounded-2xl overflow-hidden">
-          <Image
-            src="/images/about/sydney-skyline.jpg"
-            alt="Sydney Skyline"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#19273A]/80 to-transparent flex items-center">
+        <section className="relative h-[400px] mb-20 rounded-2xl overflow-hidden bg-gradient-to-r from-[#19273A] to-[#2A3F5F]">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute bottom-0 left-0 right-0 h-[150px]">
+              {/* City skyline silhouette */}
+              <svg viewBox="0 0 1200 200" preserveAspectRatio="none" className="h-full w-full">
+                <path fill="currentColor" d="M0,200 L0,160 L40,160 L40,150 L60,150 L60,140 L80,140 L80,130 L100,130 L100,150 L120,150 L120,140 L140,140 L140,130 L160,130 L160,120 L180,120 L180,140 L200,140 L200,120 L220,120 L220,100 L240,100 L240,120 L260,120 L260,110 L280,110 L280,130 L300,130 L300,110 L320,110 L320,90 L340,90 L340,100 L360,100 L360,80 L380,80 L380,90 L400,90 L400,70 L420,70 L420,90 L440,90 L440,60 L460,60 L460,80 L480,80 L480,70 L500,70 L500,60 L520,60 L520,70 L540,70 L540,60 L560,60 L560,50 L580,50 L580,70 L600,70 L600,60 L620,60 L620,80 L640,80 L640,90 L660,90 L660,80 L680,80 L680,90 L700,90 L700,100 L720,100 L720,90 L740,90 L740,110 L760,110 L760,100 L780,100 L780,120 L800,120 L800,100 L820,100 L820,110 L840,110 L840,100 L860,100 L860,120 L880,120 L880,130 L900,130 L900,120 L920,120 L920,140 L940,140 L940,130 L960,130 L960,150 L980,150 L980,140 L1000,140 L1000,150 L1020,150 L1020,140 L1040,140 L1040,160 L1060,160 L1060,150 L1080,150 L1080,160 L1100,160 L1100,150 L1120,150 L1120,160 L1140,160 L1140,170 L1160,170 L1160,160 L1180,160 L1180,170 L1200,170 L1200,200 Z"></path>
+              </svg>
+            </div>
+          </div>
+          <div className="absolute inset-0 flex items-center">
             <div className="max-w-2xl px-8 md:px-12">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 About Global Travel Report
@@ -76,13 +77,15 @@ export default function AboutPage() {
                   Founded in Sydney, Australia, our global perspective allows us to bring you unique insights from destinations around the world, with a special focus on the Asia-Pacific region.
                 </p>
               </div>
-              <div className="relative h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src="/images/about/mission.jpg"
-                  alt="Our mission in action"
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative h-80 md:h-96 rounded-lg overflow-hidden shadow-xl bg-[#2A3F5F]">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-[#C9A14A] text-center">
+                    <svg className="w-24 h-24 mx-auto mb-4 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.618 5.968l1.453-1.453 1.414 1.414-1.453 1.453a9 9 0 11-1.414-1.414zM12 20a7 7 0 100-14 7 7 0 000 14zM11 8h2v6h-2V8zM8 1h8v2H8V1z" />
+                    </svg>
+                    <span className="text-xl font-semibold">Our Mission</span>
+                  </div>
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#19273A]/60 to-transparent"></div>
               </div>
             </div>
@@ -100,13 +103,12 @@ export default function AboutPage() {
                 key={member.name}
                 className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
               >
-                <div className="relative h-80 overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <div className="relative h-80 overflow-hidden bg-[#19273A]">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[#C9A14A] text-5xl font-bold">
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#19273A] to-transparent opacity-70"></div>
                 </div>
                 <div className="p-8 relative -mt-24 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
@@ -173,13 +175,14 @@ export default function AboutPage() {
         <section className="mb-20">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-2">
-              <div className="relative h-96 md:h-auto">
-                <Image
-                  src="/images/about/sydney-office.jpg"
-                  alt="Our Sydney Office"
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative h-96 md:h-auto bg-[#2A3F5F] flex items-center justify-center">
+                <div className="text-[#C9A14A] text-center p-8">
+                  <svg className="w-24 h-24 mx-auto mb-4 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  <span className="text-xl font-semibold block mb-2">Sydney Headquarters</span>
+                  <span className="opacity-70">Sydney, Australia</span>
+                </div>
               </div>
               <div className="p-8 md:p-12 flex flex-col justify-center">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 inline-block relative after:content-[''] after:absolute after:w-24 after:h-1 after:bg-[#C9A14A] after:bottom-0 after:left-0 after:-mb-3 pb-3">
