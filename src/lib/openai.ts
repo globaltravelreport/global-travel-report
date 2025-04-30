@@ -8,6 +8,13 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
+export class OpenAIError extends Error {
+  constructor(message: string, public originalError?: unknown) {
+    super(message)
+    this.name = 'OpenAIError'
+  }
+}
+
 /* eslint-disable no-console */
 export async function rewriteArticle(content: string, style: 'casual' | 'formal' | 'professional' = 'professional'): Promise<string> {
   try {
@@ -29,8 +36,7 @@ export async function rewriteArticle(content: string, style: 'casual' | 'formal'
 
     return completion.choices[0]?.message?.content || content
   } catch (error) {
-    console.error('Error rewriting article:', error)
-    return content
+    throw new OpenAIError('Failed to rewrite article', error)
   }
 }
 
@@ -54,8 +60,7 @@ export async function generateArticleExcerpt(content: string, maxLength: number 
 
     return completion.choices[0]?.message?.content || content.slice(0, maxLength)
   } catch (error) {
-    console.error('Error generating excerpt:', error)
-    return content.slice(0, maxLength)
+    throw new OpenAIError('Failed to generate excerpt', error)
   }
 }
 
@@ -80,7 +85,6 @@ export async function suggestTags(content: string): Promise<string[]> {
     const tags = completion.choices[0]?.message?.content?.split(',').map(tag => tag.trim()) || []
     return tags.filter(tag => tag.length > 0)
   } catch (error) {
-    console.error('Error suggesting tags:', error)
-    return []
+    throw new OpenAIError('Failed to suggest tags', error)
   }
 } 

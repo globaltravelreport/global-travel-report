@@ -16,8 +16,9 @@ export function GoogleAnalytics() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (typeof window.gtag === "function") {
-      window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!, {
+    const analyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+    if (typeof window.gtag === "function" && analyticsId) {
+      window.gtag("config", analyticsId, {
         page_path: pathname + searchParams.toString(),
       });
     }
@@ -49,6 +50,7 @@ export function GoogleAnalytics() {
       />
       <noscript>
         <iframe
+          title="Google Analytics"
           src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
           height="0"
           width="0"

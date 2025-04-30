@@ -5,6 +5,8 @@ import type { Story } from "@/lib/stories";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
+import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
+import DOMPurify from 'isomorphic-dompurify';
 
 // This would typically come from an API or database
 const getStories = async (): Promise<Story[]> => {
@@ -24,6 +26,10 @@ const getStories = async (): Promise<Story[]> => {
       editorsPick: true,
       publishedAt: new Date("2024-03-15T00:00:00Z"),
       imageUrl: "/images/kyoto-temple.jpg",
+      photographer: {
+        name: "John Smith",
+        url: "https://unsplash.com/@johnsmith"
+      },
     },
     {
       id: "2",
@@ -39,6 +45,10 @@ const getStories = async (): Promise<Story[]> => {
       editorsPick: false,
       publishedAt: new Date("2024-03-10T00:00:00Z"),
       imageUrl: "/images/serengeti-safari.jpg",
+      photographer: {
+        name: "Jane Doe",
+        url: "https://unsplash.com/@janedoe"
+      },
     },
     {
       id: "3",
@@ -54,6 +64,10 @@ const getStories = async (): Promise<Story[]> => {
       editorsPick: true,
       publishedAt: new Date("2024-03-05T00:00:00Z"),
       imageUrl: "/images/italy-food.jpg",
+      photographer: {
+        name: "Marco Rossi",
+        url: "https://unsplash.com/@marcorossi"
+      },
     },
   ];
 };
@@ -63,7 +77,7 @@ export const revalidate = 3600; // Revalidate every hour
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const stories = await getStories();
   const story = stories.find(s => s.slug === params.slug);
-  
+
   if (!story) {
     return {
       title: 'Story Not Found',
@@ -73,7 +87,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   const title = `${story.title} - Global Travel Report`;
   const description = story.excerpt;
-  const ogImage = story.imageUrl 
+  const ogImage = story.imageUrl
     ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=${encodeURIComponent(story.title)}&destination=${encodeURIComponent(story.country)}`
     : undefined;
 
@@ -129,9 +143,9 @@ export default async function StoryPage({ params }: { params: { slug: string } }
           <Badge variant="outline">{story.category}</Badge>
           <Badge variant="outline">{story.country}</Badge>
         </div>
-        
+
         <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
-        
+
         <div className="flex items-center text-muted-foreground mb-6">
           <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
           <span className="mx-2">•</span>
@@ -140,10 +154,13 @@ export default async function StoryPage({ params }: { params: { slug: string } }
 
         {story.imageUrl && (
           <div className="relative w-full h-[400px] mb-8">
-            <img
+            <StoryCoverImage
               src={story.imageUrl}
               alt={story.title}
-              className="object-cover w-full h-full rounded-lg"
+              priority={true}
+              className="rounded-lg"
+              photographer={story.photographer}
+              showAttribution={true}
             />
           </div>
         )}
@@ -151,7 +168,7 @@ export default async function StoryPage({ params }: { params: { slug: string } }
 
       <div className="prose prose-lg max-w-none">
         <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
-        <div>{story.content}</div>
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(story.content) }} />
       </div>
 
       <footer className="mt-8 pt-8 border-t">
@@ -171,4 +188,4 @@ export default async function StoryPage({ params }: { params: { slug: string } }
       </div>
     </article>
   );
-} 
+}

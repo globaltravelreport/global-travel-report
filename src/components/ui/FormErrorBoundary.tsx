@@ -1,63 +1,45 @@
 "use client";
 
-import { Component, ErrorInfo, ReactNode } from "react";
-import { Button } from "./button";
+import React from 'react';
+import { Alert, AlertDescription, AlertTitle } from './alert';
 
 interface Props {
-  children: ReactNode;
-  onReset?: () => void;
+  children: React.ReactNode;
 }
 
 interface State {
   hasError: boolean;
-  error: Error | null;
+  error?: Error;
 }
 
-export class FormErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
-    error: null,
-  };
+export class FormErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-  public static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    /* eslint-disable no-console */
-    console.error("Form error:", error, errorInfo);
+  componentDidCatch(error: Error, _errorInfo: React.ErrorInfo) {
+    // Only throw errors in development
+    if (process.env.NODE_ENV !== 'production') {
+      throw error;
+    }
   }
 
-  public render() {
+  render() {
     if (this.state.hasError) {
       return (
-        <div className="p-4 border border-red-200 bg-red-50 rounded-lg">
-          <h3 className="text-lg font-semibold text-red-800 mb-2">
-            Something went wrong with the form
-          </h3>
-          <p className="text-red-600 mb-4">
-            We apologize for the inconvenience. Please try again or contact support if the problem persists.
-          </p>
-          <div className="flex gap-4">
-            <Button
-              onClick={() => {
-                this.setState({ hasError: false, error: null });
-                this.props.onReset?.();
-              }}
-              variant="outline"
-              aria-label="Try again"
-            >
-              Try Again
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => window.location.reload()}
-              aria-label="Refresh page"
-            >
-              Refresh Page
-            </Button>
-          </div>
-        </div>
+        <Alert variant="destructive">
+          <AlertTitle>Form Error</AlertTitle>
+          <AlertDescription>
+            {process.env.NODE_ENV !== 'production'
+              ? this.state.error?.message
+              : 'An error occurred while submitting the form. Please try again.'}
+          </AlertDescription>
+        </Alert>
       );
     }
 

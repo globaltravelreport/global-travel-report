@@ -10,21 +10,30 @@ import { OpenAI } from 'openai';
 const config = {
   reportPath: path.resolve('./data/seo-report.json'),
   reportTime: '0 7 * * *', // 0900 AEDT
+  lighthouse: {
+    url: process.env.SITE_URL || 'https://globaltravelreport.com',
+    localUrl: 'http://localhost:3000',
+    useLocalServer: process.env.USE_LOCAL_SERVER === 'true',
+    maxRetries: 3,
+    retryDelay: 5000, // 5 seconds
+    timeout: 60000, // 1 minute
+    additionalFlags: '--only-categories=performance,accessibility,best-practices,seo'
+  },
   email: {
-    to: 'editorial@globaltravelreport.com',
-    from: 'noreply@globaltravelreport.com',
+    to: process.env.EMAIL_TO || 'editorial@globaltravelreport.com',
+    from: process.env.EMAIL_FROM || 'noreply@globaltravelreport.com',
     smtp: {
       host: process.env.SMTP_HOST || 'smtp.your-email-provider.com',
       port: parseInt(process.env.SMTP_PORT) || 587,
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
-      secure: false
+      secure: process.env.SMTP_SECURE === 'true'
     }
   },
   openai: {
     apiKey: process.env.OPENAI_API_KEY,
-    fallbackModel: 'gpt-3.5-turbo',
-    primaryModel: 'gpt-4'
+    fallbackModel: process.env.OPENAI_FALLBACK_MODEL || 'gpt-3.5-turbo',
+    primaryModel: process.env.OPENAI_PRIMARY_MODEL || 'gpt-4'
   }
 };
 
@@ -36,15 +45,15 @@ const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
-    new winston.transports.File({ 
-      filename: 'logs/seo-bot-error.log', 
+    new winston.transports.File({
+      filename: 'logs/seo-bot-error.log',
       level: 'error',
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json()
       )
     }),
-    new winston.transports.File({ 
+    new winston.transports.File({
       filename: 'logs/seo-bot-combined.log',
       format: winston.format.combine(
         winston.format.timestamp(),
@@ -153,7 +162,7 @@ async function generateRecommendations() {
     return response.choices[0].message.content;
   } catch (error) {
     logger.warn('Primary OpenAI model failed, falling back to GPT-3.5', { error: error.message });
-    
+
     try {
       const response = await openai.chat.completions.create({
         model: config.openai.fallbackModel,
@@ -172,7 +181,7 @@ async function generateRecommendations() {
 
       return response.choices[0].message.content;
     } catch (fallbackError) {
-      logger.error('Both OpenAI models failed', { 
+      logger.error('Both OpenAI models failed', {
         primaryError: error.message,
         fallbackError: fallbackError.message
       });
@@ -260,7 +269,7 @@ function generateEmailHtml(report) {
         <h2>Performance Metrics</h2>
         ${Object.entries(report.summary).map(([key, value]) => `
           <div class="metric">
-            <strong>${key}:</strong> 
+            <strong>${key}:</strong>
             <span class="${value.status.level}">
               ${value.status.emoji} ${value.score}%
             </span>
@@ -294,38 +303,112 @@ cron.schedule(config.reportTime, async () => {
 });
 
 // === UTILITY FUNCTIONS ===
-async function runLighthouse() {
+/**
+ * Check if a local server is running
+ * @returns {Promise<boolean>} True if the server is running
+ */
+async function isLocalServerRunning() {
   return new Promise((resolve) => {
-    exec('npx lighthouse http://localhost:3000 --quiet --chrome-flags="--headless" --output=json --output-path=stdout', (err, stdout) => {
-      if (err) {
-        logger.error('Lighthouse failed', { error: err.message });
-        resolve({
-          performance: 0,
-          accessibility: 0,
-          seo: 0,
-          bestPractices: 0
-        });
-        return;
+    const testUrl = config.lighthouse.localUrl;
+    const curl = exec(`curl -s -o /dev/null -w "%{http_code}" ${testUrl}`,
+      { timeout: 5000 },
+      (error, stdout) => {
+        if (error) {
+          logger.warn(`Local server check failed: ${error.message}`);
+          resolve(false);
+          return;
+        }
+
+        const statusCode = parseInt(stdout.trim(), 10);
+        resolve(statusCode >= 200 && statusCode < 400);
       }
-      try {
-        const report = JSON.parse(stdout);
-        resolve({
-          performance: report.categories.performance.score * 100,
-          accessibility: report.categories.accessibility.score * 100,
-          seo: report.categories.seo.score * 100,
-          bestPractices: report.categories['best-practices'].score * 100
-        });
-      } catch (e) {
-        logger.error('Failed to parse Lighthouse results', { error: e.message });
-        resolve({
-          performance: 0,
-          accessibility: 0,
-          seo: 0,
-          bestPractices: 0
-        });
-      }
-    });
+    );
+
+    // Handle timeout
+    setTimeout(() => {
+      curl.kill();
+      logger.warn('Local server check timed out');
+      resolve(false);
+    }, 5000);
   });
+}
+
+/**
+ * Run Lighthouse with retries and configurable URL
+ * @returns {Promise<Object>} Lighthouse scores
+ */
+async function runLighthouse() {
+  // Determine which URL to use
+  let targetUrl = config.lighthouse.url;
+
+  if (config.lighthouse.useLocalServer) {
+    const isRunning = await isLocalServerRunning();
+    if (isRunning) {
+      targetUrl = config.lighthouse.localUrl;
+      logger.info(`Using local server for Lighthouse: ${targetUrl}`);
+    } else {
+      logger.warn(`Local server not running, using production URL: ${targetUrl}`);
+    }
+  }
+
+  // Set up retry logic
+  let retries = 0;
+  const maxRetries = config.lighthouse.maxRetries;
+
+  while (retries <= maxRetries) {
+    try {
+      logger.info(`Running Lighthouse on ${targetUrl} (attempt ${retries + 1}/${maxRetries + 1})`);
+
+      const result = await new Promise((resolve, reject) => {
+        const command = `npx lighthouse ${targetUrl} --quiet --chrome-flags="--headless" --output=json --output-path=stdout ${config.lighthouse.additionalFlags}`;
+
+        const lighthouseProcess = exec(command, { timeout: config.lighthouse.timeout }, (err, stdout) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          try {
+            const report = JSON.parse(stdout);
+            resolve({
+              performance: report.categories.performance.score * 100,
+              accessibility: report.categories.accessibility.score * 100,
+              seo: report.categories.seo.score * 100,
+              bestPractices: report.categories['best-practices'].score * 100
+            });
+          } catch (parseError) {
+            reject(new Error(`Failed to parse Lighthouse results: ${parseError.message}`));
+          }
+        });
+
+        // Handle timeout separately
+        setTimeout(() => {
+          lighthouseProcess.kill();
+          reject(new Error('Lighthouse process timed out'));
+        }, config.lighthouse.timeout);
+      });
+
+      logger.info('Lighthouse completed successfully', result);
+      return result;
+    } catch (error) {
+      logger.error(`Lighthouse attempt ${retries + 1} failed:`, { error: error.message });
+
+      if (retries >= maxRetries) {
+        logger.error(`All ${maxRetries + 1} Lighthouse attempts failed`);
+        return {
+          performance: 0,
+          accessibility: 0,
+          seo: 0,
+          bestPractices: 0
+        };
+      }
+
+      // Wait before retrying
+      logger.info(`Retrying in ${config.lighthouse.retryDelay / 1000} seconds...`);
+      await new Promise(resolve => setTimeout(resolve, config.lighthouse.retryDelay));
+      retries++;
+    }
+  }
 }
 
 // Export functions for use in other modules
@@ -335,4 +418,4 @@ export {
   analyzeSitePerformance,
   generateRecommendations,
   checkForIssues
-}; 
+};
