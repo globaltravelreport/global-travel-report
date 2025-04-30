@@ -69,7 +69,7 @@ export async function getAllStories(): Promise<Story[]> {
 export async function getUniqueCountries(): Promise<string[]> {
   const stories = await getAllStories();
   const countries = stories.map(story => story.country).filter(Boolean) as string[];
-  return [...new Set(countries)].sort();
+  return Array.from(new Set(countries)).sort();
 }
 
 /**
@@ -79,7 +79,7 @@ export async function getUniqueCountries(): Promise<string[]> {
 export async function getUniqueTypes(): Promise<string[]> {
   const stories = await getAllStories();
   const types = stories.map(story => story.type || story.category).filter(Boolean) as string[];
-  return [...new Set(types)].sort();
+  return Array.from(new Set(types)).sort();
 }
 
 /**
