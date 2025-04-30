@@ -20,6 +20,7 @@ export interface Story {
   type?: string; // Type of story (can be used interchangeably with category)
   date?: Date | string; // Alias for publishedAt for compatibility
   keywords?: string[]; // Alias for tags for compatibility
+  summary?: string; // Alias for excerpt for compatibility
 
   // Optional fields
   archived?: boolean;
