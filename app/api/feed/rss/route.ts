@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { getStories } from '@/app/lib/stories';
-import { Story } from '@/types/Story';
 
 /**
  * Escape XML special characters to prevent malformed XML
