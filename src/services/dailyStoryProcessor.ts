@@ -33,6 +33,7 @@ export class DailyStoryProcessor implements IStoryProcessor {
   private readonly maxDailyStories: number;
   private readonly minTimeBetweenStories: number; // 1 minute
   private lastProcessedTime: Date | null = null;
+  private static instance: DailyStoryProcessor | null = null;
 
   /**
    * Constructor with dependency injection
@@ -45,6 +46,43 @@ export class DailyStoryProcessor implements IStoryProcessor {
   ) {
     this.maxDailyStories = config.storyRewrite.dailyLimit;
     this.minTimeBetweenStories = 60 * 1000; // 1 minute
+  }
+
+  /**
+   * Get the singleton instance of DailyStoryProcessor
+   * @returns The singleton instance
+   */
+  public static getInstance(): DailyStoryProcessor {
+    if (!DailyStoryProcessor.instance) {
+      // Create a mock implementation for the edge runtime
+      const mockStoryRewriter: IStoryRewriter = {
+        rewrite: async (content: string | Story, options?: any) => {
+          // Simple mock implementation
+          if (typeof content === 'string') {
+            return {
+              id: `story-${Date.now()}`,
+              title: `Generated Story ${Date.now()}`,
+              slug: `generated-story-${Date.now()}`,
+              excerpt: 'This is a generated story excerpt.',
+              content: content,
+              author: 'AI Writer',
+              category: options?.category || 'General',
+              country: 'Global',
+              tags: ['generated', 'ai'],
+              publishedAt: new Date().toISOString(),
+              featured: false,
+              editorsPick: false,
+            } as Story;
+          } else {
+            return content;
+          }
+        }
+      };
+
+      DailyStoryProcessor.instance = new DailyStoryProcessor(mockStoryRewriter);
+    }
+
+    return DailyStoryProcessor.instance;
   }
 
   /**
