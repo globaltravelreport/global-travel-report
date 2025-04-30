@@ -106,6 +106,8 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
             if (!token) {
               setError('Please complete the reCAPTCHA verification');
               setStatus("error");
+            } else {
+              setError(null);
             }
             setRecaptchaToken(token);
           }}
