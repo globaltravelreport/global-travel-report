@@ -24,7 +24,7 @@ export const OPTIONS = createOptionsHandler();
  * Handle POST requests to the newsletter API
  */
 export const POST = createApiHandler<NewsletterRequest>(
-  async (req: NextRequest, data: NewsletterRequest) => {
+  async (_req: NextRequest, data: NewsletterRequest) => {
     // Verify reCAPTCHA token
     const isRecaptchaValid = await verifyRecaptcha(data.recaptchaToken);
     if (!isRecaptchaValid) {
