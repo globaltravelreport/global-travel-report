@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getStories, searchStories, StorySearchParams } from '@/lib/stories';
+import { getStories } from '@/lib/stories';
+import { searchStories, StorySearchParams } from '@/lib/stories';
 import { SearchForm } from '@/src/components/search/SearchForm';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { Pagination } from '@/src/components/ui/Pagination';
@@ -45,10 +46,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const editorsPick = searchParams.editors_pick === 'true' ? true : undefined;
   const page = parseInt(searchParams.page || '1', 10);
   const limit = parseInt(searchParams.limit || String(DEFAULT_PAGE_SIZE), 10);
-  
+
   // Get all stories
   const stories = await getStories();
-  
+
   // Create search params object
   const searchParams2: StorySearchParams = {
     query,
@@ -61,23 +62,23 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     featured,
     editorsPick,
   };
-  
+
   // Search stories with pagination
   const results = searchStories(stories, searchParams2, { page, limit });
-  
+
   // Get unique authors from stories
   const authors = [...new Set(stories.map(story => story.author))];
-  
+
   // Check if there are any search parameters
-  const hasSearchParams = Object.values(searchParams2).some(value => 
-    value !== undefined && value !== '' && 
+  const hasSearchParams = Object.values(searchParams2).some(value =>
+    value !== undefined && value !== '' &&
     !(Array.isArray(value) && value.length === 0)
   );
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Search Stories</h1>
-      
+
       {/* Search form */}
       <div className="mb-8">
         <SearchForm
@@ -88,7 +89,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           baseUrl="/search"
         />
       </div>
-      
+
       {/* Search results */}
       <div className="mb-8">
         {hasSearchParams ? (
@@ -97,7 +98,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               {results.meta.total} {results.meta.total === 1 ? 'result' : 'results'} found
               {query && ` for "${query}"`}
             </h2>
-            
+
             {results.data.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {results.data.map(story => (
@@ -117,7 +118,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
         )}
       </div>
-      
+
       {/* Pagination */}
       {results.meta.totalPages > 1 && (
         <Pagination
