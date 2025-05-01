@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server';
 import { DailyStoryProcessor } from '@/services/dailyStoryProcessor';
 
-export const runtime = 'edge';
+// Use Node.js runtime instead of Edge
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
     // Initialize the processor
     const processor = DailyStoryProcessor.getInstance();
-    
+
     // Process stories
     await processor.processDailyStories();
-    
+
     // Get the processed stories
     const stories = await processor.getProcessedStories();
-    
+
     return NextResponse.json({
       success: true,
       message: 'Daily stories processed successfully',
@@ -39,4 +40,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-} 
+}
