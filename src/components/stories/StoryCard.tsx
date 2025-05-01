@@ -29,59 +29,56 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
   return (
     <div
-      className={`transition-all hover:shadow-lg border rounded-lg ${
+      className={`transition-all duration-300 hover:shadow-xl border rounded-lg overflow-hidden group ${
         story.featured ? 'border-primary' : ''
       } ${
         story.editorsPick ? 'border-secondary' : ''
       } ${
         className || ''
-      }`}
+      } hover:translate-y-[-4px]`}
     >
       <Link href={getStoryUrl(story.slug)} className="block">
-        <div className="relative w-full h-48">
+        <div className="relative w-full h-52 overflow-hidden">
           <StoryCoverImage
             src={imgSrc}
             alt={story.title}
             priority={story.featured}
-            className="rounded-t-lg"
+            className="rounded-t-lg transition-transform duration-700 group-hover:scale-110"
             photographer={story.photographer}
             showAttribution={true}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <div className="p-4">
-          <div className="flex flex-wrap gap-2 mb-2">
+        <div className="p-5">
+          <div className="flex flex-wrap gap-2 mb-3">
             {story.featured && (
-              <span className="inline-flex items-center rounded-md bg-primary px-2 py-1 text-xs font-medium text-white">Featured</span>
+              <span className="inline-flex items-center rounded-md bg-primary px-2.5 py-1 text-xs font-medium text-white shadow-sm">Featured</span>
             )}
             {story.editorsPick && (
-              <span className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-white">Editor's Pick</span>
+              <span className="inline-flex items-center rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-white shadow-sm">Editor's Pick</span>
             )}
             {story.category && (
               <Link href={getCategoryUrl(story.category)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium">{story.category}</span>
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium group-hover:border-primary group-hover:text-primary transition-colors">{story.category}</span>
               </Link>
             )}
             {story.country && (
               <Link href={getCountryUrl(story.country)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium">{story.country}</span>
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium group-hover:border-primary group-hover:text-primary transition-colors">{story.country}</span>
               </Link>
             )}
           </div>
-          <h3 className="text-2xl font-semibold leading-none tracking-tight hover:text-primary transition-colors">
+          <h3 className="text-2xl font-semibold leading-tight tracking-tight group-hover:text-primary transition-colors mb-2">
             {story.title}
           </h3>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 mt-2 mb-3">
             {formattedDate} • By Global Travel Report Editorial Team
           </p>
-        </div>
-        <div className="px-4 pb-4">
-          <p className="text-gray-600 mb-4 line-clamp-2">{story.excerpt}</p>
-        </div>
-        <div className="px-4 pb-4">
-          <div className="flex flex-wrap gap-2">
+          <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed">{story.excerpt}</p>
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
             {story.tags && story.tags.slice(0, 3).map((tag) => (
               <Link key={tag} href={getTagUrl(tag)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2 py-1 text-xs font-medium hover:bg-gray-100 transition-colors">
+                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium hover:bg-gray-50 hover:text-primary hover:border-primary transition-all">
                   {tag}
                 </span>
               </Link>

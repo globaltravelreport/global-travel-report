@@ -3,7 +3,7 @@ import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } fro
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#19273A] to-[#0F1824] text-white">
+    <footer className="bg-gradient-to-b from-[#19273A] to-[#0F1824] text-white border-t-4 border-[#C9A14A]">
       {/* Newsletter Section */}
       <div className="border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -160,11 +160,11 @@ export default function Footer() {
                 href="https://www.facebook.com/globaltravelreport"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="Facebook"
               >
-                <FaFacebook className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">Facebook</span>
+                <FaFacebook className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">Facebook</span>
               </a>
 
               {/* Twitter/X */}
@@ -172,11 +172,11 @@ export default function Footer() {
                 href="https://x.com/GTravelReport"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="X (Twitter)"
               >
-                <FaXTwitter className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">Twitter</span>
+                <FaXTwitter className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">Twitter</span>
               </a>
 
               {/* Medium */}
@@ -184,11 +184,11 @@ export default function Footer() {
                 href="https://medium.com/@editorial_31000"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="Medium"
               >
-                <FaMedium className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">Medium</span>
+                <FaMedium className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">Medium</span>
               </a>
 
               {/* LinkedIn */}
@@ -196,11 +196,11 @@ export default function Footer() {
                 href="https://www.linkedin.com/company/globaltravelreport/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="LinkedIn"
               >
-                <FaLinkedin className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">LinkedIn</span>
+                <FaLinkedin className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">LinkedIn</span>
               </a>
 
               {/* YouTube */}
@@ -208,11 +208,11 @@ export default function Footer() {
                 href="https://www.youtube.com/@GlobalTravelReport"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="YouTube"
               >
-                <FaYoutube className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">YouTube</span>
+                <FaYoutube className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">YouTube</span>
               </a>
 
               {/* TikTok */}
@@ -220,38 +220,38 @@ export default function Footer() {
                 href="https://www.tiktok.com/@globaltravelreport"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
                 aria-label="TikTok"
               >
-                <FaTiktok className="h-6 w-6 text-[#C9A14A] group-hover:text-white transition-colors" />
-                <span className="mt-2 text-xs text-gray-400 group-hover:text-white transition-colors">TikTok</span>
+                <FaTiktok className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">TikTok</span>
               </a>
             </div>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 pt-8 border-t border-gray-800">
+        <div className="mt-16 pt-8 border-t border-gray-800 bg-[#0F1824]/50 rounded-t-lg shadow-inner">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm font-medium">
                 © {new Date().getFullYear()} Global Travel Report. All rights reserved.
               </p>
             </div>
-            <div className="flex space-x-6">
-              <Link href="/privacy" className="text-gray-400 hover:text-[#C9A14A] text-sm transition-colors">
+            <div className="flex space-x-8">
+              <Link href="/privacy" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-[#C9A14A] text-sm transition-colors">
+              <Link href="/terms" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
                 Terms of Service
               </Link>
-              <Link href="/sitemap" className="text-gray-400 hover:text-[#C9A14A] text-sm transition-colors">
+              <Link href="/sitemap" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
                 Sitemap
               </Link>
             </div>
           </div>
-          <div className="mt-4 text-center">
-            <p className="text-gray-500 text-xs">
+          <div className="mt-6 text-center">
+            <p className="text-gray-400 text-xs">
               Based in Sydney, Australia. Content is sourced from various travel news outlets and curated by our editorial team.
             </p>
           </div>

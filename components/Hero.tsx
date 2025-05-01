@@ -79,7 +79,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-bold text-center mb-6"
+          className="text-5xl md:text-7xl font-extrabold text-center mb-6 tracking-tight text-shadow-lg"
+          style={{ textShadow: '0 4px 8px rgba(0,0,0,0.3)' }}
         >
           Discover Your Next Adventure
         </motion.h1>
@@ -87,7 +88,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl text-center mb-8 max-w-2xl"
+          className="text-xl md:text-2xl text-center mb-10 max-w-2xl font-medium leading-relaxed"
+          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
         >
           Explore travel stories, tips, and inspiration from around the world
         </motion.p>
@@ -97,10 +99,12 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          className="relative"
         >
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#E6C677] to-[#C9A14A] rounded-full blur-sm opacity-70"></div>
           <Link
             href="/stories"
-            className="bg-[#C9A14A] hover:bg-[#b08d3f] text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 inline-block"
+            className="relative bg-gradient-to-r from-[#C9A14A] to-[#B08D3F] hover:from-[#D5B05C] hover:to-[#C9A14A] text-white font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 inline-block shadow-lg hover:shadow-xl"
             aria-label="Start exploring travel stories"
           >
             Start Exploring
