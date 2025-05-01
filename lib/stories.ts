@@ -52,7 +52,7 @@ export const getHomepageStories = memoize(
     keyGenerator: (args) => {
       const [stories, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         options
       });
     },
@@ -86,7 +86,7 @@ export const getArchivedStories = memoize(
     keyGenerator: (args) => {
       const [stories, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         options
       });
     },
@@ -124,7 +124,7 @@ export const getStoriesByCountry = memoizeMultiArg(
     keyGenerator: (args) => {
       const [stories, country, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         country,
         options
       });
@@ -163,7 +163,7 @@ export const getStoriesByCategory = memoizeMultiArg(
     keyGenerator: (args) => {
       const [stories, category, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         category,
         options
       });
@@ -201,7 +201,7 @@ export const getStoriesByTag = memoizeMultiArg(
     keyGenerator: (args) => {
       const [stories, tag, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         tag,
         options
       });
@@ -337,7 +337,7 @@ export const searchStories = memoizeMultiArg(
     keyGenerator: (args) => {
       const [stories, params, options] = args;
       return JSON.stringify({
-        storyIds: stories.map(s => s.id),
+        storyIds: stories.map((s: Story) => s.id),
         params,
         options
       });
