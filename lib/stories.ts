@@ -1,12 +1,11 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-import { memoize, memoizeMultiArg, MemoizeOptions } from '@/src/utils/memoization';
+import { memoize, memoizeMultiArg } from '@/src/utils/memoization';
 import { isArchived } from '@/src/utils/date-utils';
 import {
   paginate,
   PaginationOptions,
-  PaginationResult,
-  paginatedStoryFilter
+  PaginationResult
 } from '@/src/utils/pagination';
 
 /**
