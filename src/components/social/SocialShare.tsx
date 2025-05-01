@@ -77,8 +77,7 @@ export function SocialShare({
   url,
   title,
   description = '',
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  imageUrl = '', // Kept for API consistency
+  _imageUrl = '', // Kept for API consistency but prefixed with underscore to avoid unused var warning
   hashtags = [],
   className,
   showShareButton = true,

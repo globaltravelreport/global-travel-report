@@ -14,7 +14,8 @@ interface StoryCardProps {
 }
 
 const StoryCardComponent = ({ story, className }: StoryCardProps) => {
-  const [imgSrc, setImgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
+  // We only need imgSrc state, not the setter
+  const [imgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
 
   // Handle date formatting with our utility
   const formattedDate = React.useMemo(() => {
