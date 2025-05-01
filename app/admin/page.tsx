@@ -25,25 +25,25 @@ export default function AdminDashboard() {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Fetch all stories to calculate stats
         const response = await fetch('/api/stories');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch stories');
         }
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
           const stories = data.stories;
-          const cruiseStories = stories.filter((story: any) => 
+          const cruiseStories = stories.filter((story: any) =>
             story.category.toLowerCase().includes('cruise')
           );
-          const otherStories = stories.filter((story: any) => 
+          const otherStories = stories.filter((story: any) =>
             !story.category.toLowerCase().includes('cruise')
           );
-          
+
           // Find the most recently published story
           let lastPublished = null;
           if (stories.length > 0) {
@@ -52,10 +52,10 @@ export default function AdminDashboard() {
               const dateB = new Date(b.publishedAt);
               return dateB.getTime() - dateA.getTime();
             });
-            
+
             lastPublished = sortedStories[0].publishedAt;
           }
-          
+
           setStats({
             totalStories: stories.length,
             cruiseStories: cruiseStories.length,
@@ -71,13 +71,13 @@ export default function AdminDashboard() {
         setLoading(false);
       }
     };
-    
+
     fetchStats();
   }, []);
 
   const formatDate = (date: string | null) => {
     if (!date) return 'Never';
-    
+
     return new Date(date).toLocaleDateString('en-AU', {
       year: 'numeric',
       month: 'long',
@@ -91,16 +91,16 @@ export default function AdminDashboard() {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Call the cron endpoint to trigger content generation
       const response = await fetch('/api/cron/dailyStories');
-      
+
       if (!response.ok) {
         throw new Error('Failed to trigger content generation');
       }
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         alert('Content generation triggered successfully!');
         // Refresh stats after a short delay
@@ -120,14 +120,14 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
-      
+
       {/* Error message */}
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
           {error}
         </div>
       )}
-      
+
       {/* Loading state */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
@@ -141,25 +141,25 @@ export default function AdminDashboard() {
               <h2 className="text-lg font-semibold text-gray-700 mb-2">Total Stories</h2>
               <p className="text-3xl font-bold text-blue-600">{stats.totalStories}</p>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-2">Cruise Stories</h2>
               <p className="text-3xl font-bold text-blue-600">{stats.cruiseStories}</p>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-2">Other Stories</h2>
               <p className="text-3xl font-bold text-blue-600">{stats.otherStories}</p>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-2">Last Published</h2>
               <p className="text-xl font-medium text-blue-600">{formatDate(stats.lastPublished)}</p>
             </div>
           </div>
-          
+
           {/* Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">Content Generation</h2>
               <p className="text-gray-600 mb-4">
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
                 {loading ? 'Processing...' : 'Generate New Content'}
               </button>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">Manage Content</h2>
               <p className="text-gray-600 mb-4">
@@ -188,8 +188,22 @@ export default function AdminDashboard() {
                 Manage Stories
               </Link>
             </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">Analytics Dashboard</h2>
+              <p className="text-gray-600 mb-4">
+                View detailed analytics for your website. Track page views, visitors, traffic sources,
+                and more to understand your audience.
+              </p>
+              <Link
+                href="/admin/analytics"
+                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block"
+              >
+                View Analytics
+              </Link>
+            </div>
           </div>
-          
+
           {/* Quick links */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold text-gray-700 mb-4">Quick Links</h2>
