@@ -12,11 +12,25 @@ const parser = new Parser({
 });
 
 export async function fetchRSSFeeds(): Promise<Story[]> {
-  const feeds = [
+  // General travel feeds
+  const generalFeeds = [
     'https://www.lonelyplanet.com/blog/feed/',
     'https://www.nationalgeographic.com/travel/feeds/travel-rss/',
     'https://www.travelandleisure.com/rss/all.xml',
+    'https://www.afar.com/feed',
+    'https://www.cntraveler.com/feed/rss',
   ];
+
+  // Cruise-specific feeds
+  const cruiseFeeds = [
+    'https://www.cruisecritic.com/news/xml/',
+    'https://www.cruiseradio.net/feed/',
+    'https://www.cruisehive.com/feed',
+    'https://www.royalcaribbeanblog.com/taxonomy/term/1/feed',
+  ];
+
+  // Combine all feeds
+  const feeds = [...generalFeeds, ...cruiseFeeds];
 
   const stories: Story[] = [];
 

@@ -2,12 +2,12 @@
 // Define default story rewrite config
 const storyRewriteConfig = {
   categoryDistribution: {
-    cruise: 3,
-    other: 7
+    cruise: 2, // Updated to 2 cruise stories
+    other: 6   // Updated to 6 other stories
   },
   categories: {
     cruise: ['Cruise', 'Ocean Cruises', 'River Cruises', 'Luxury Cruises'],
-    other: ['Adventure', 'Luxury', 'Budget', 'Family', 'Solo', 'Culinary', 'Cultural']
+    other: ['Adventure', 'Luxury', 'Budget', 'Family', 'Solo', 'Culinary', 'Cultural', 'Destinations', 'Hotels', 'Airlines']
   },
   preserveTags: true,
   maintainTone: true,
@@ -59,8 +59,8 @@ export class DailyStoryProcessor implements IStoryProcessor {
     private readonly storyRewriter: IStoryRewriter,
     private readonly storyValidator?: IStoryValidator
   ) {
-    // Default values since config doesn't have storyRewrite property
-    this.maxDailyStories = 10; // Default daily limit
+    // Set the daily limit to match our requirements (2 cruise + 6 other = 8 total)
+    this.maxDailyStories = 8;
     this.minTimeBetweenStories = 60 * 1000; // 1 minute
   }
 
@@ -70,28 +70,14 @@ export class DailyStoryProcessor implements IStoryProcessor {
    */
   public static getInstance(): DailyStoryProcessor {
     if (!DailyStoryProcessor.instance) {
-      // Create a mock implementation for the edge runtime
-      const mockStoryRewriter: IStoryRewriter = {
-        rewrite: async (content: string, category: string, options?: any) => {
-          // Simple mock implementation
-          return {
-            id: `story-${Date.now()}`,
-            title: `Generated Story ${Date.now()}`,
-            slug: `generated-story-${Date.now()}`,
-            excerpt: 'This is a generated story excerpt.',
-            content: content,
-            author: 'AI Writer',
-            category: category || 'General',
-            country: 'Global',
-            tags: ['generated', 'ai'],
-            publishedAt: new Date().toISOString(),
-            featured: false,
-            editorsPick: false,
-          } as Story;
-        }
-      };
+      // Import dynamically to avoid circular dependencies
+      const { StoryRewriter } = require('./storyRewriter');
 
-      DailyStoryProcessor.instance = new DailyStoryProcessor(mockStoryRewriter);
+      // Get the StoryRewriter instance
+      const storyRewriter = StoryRewriter.getInstance();
+
+      // Create a new DailyStoryProcessor with the StoryRewriter
+      DailyStoryProcessor.instance = new DailyStoryProcessor(storyRewriter);
     }
 
     return DailyStoryProcessor.instance;
@@ -234,10 +220,39 @@ export class DailyStoryProcessor implements IStoryProcessor {
    * @private
    */
   private async getOriginalContent(category: string): Promise<string> {
-    // This would be replaced with actual content fetching logic
-    // For example, fetching from an API, database, or content provider
+    try {
+      // Import dynamically to avoid circular dependencies
+      const { StoryRewriter } = require('./storyRewriter');
+      const storyRewriter = StoryRewriter.getInstance();
 
-    // For now, return a placeholder with more realistic content
+      // Fetch stories by category
+      const stories = await storyRewriter.fetchStoriesByCategory(category, 5);
+
+      // If no stories found, return a placeholder
+      if (!stories || stories.length === 0) {
+        logger.warn(`No stories found for category: ${category}, using placeholder`);
+        return this.getPlaceholderContent(category);
+      }
+
+      // Select a random story
+      const randomIndex = Math.floor(Math.random() * stories.length);
+      const selectedStory = stories[randomIndex];
+
+      // Combine title and content
+      return `# ${selectedStory.title}\n\n${selectedStory.content}`;
+    } catch (error) {
+      logger.error(`Error fetching original content for category ${category}:`, error);
+      return this.getPlaceholderContent(category);
+    }
+  }
+
+  /**
+   * Get placeholder content for a category
+   * @param category - The category to get content for
+   * @returns Placeholder content
+   * @private
+   */
+  private getPlaceholderContent(category: string): string {
     return `
 # Travel Guide: Exploring ${category}
 
@@ -271,16 +286,31 @@ With the right approach to ${category.toLowerCase()}, your travel experiences wi
    * @private
    */
   private async scheduleStoryPublishing(story: Story, publishTime: Date): Promise<void> {
-    // This would be replaced with actual publishing logic
-    // For example, adding to a publishing queue, database, or CMS
+    try {
+      // Set the publishedAt time
+      const storyToPublish = {
+        ...story,
+        publishedAt: publishTime.toISOString()
+      };
 
-    // For now, just log the scheduling
-    logger.info(`Scheduling story "${story.title}" for publishing at ${publishTime.toISOString()}`);
+      // Log the scheduling
+      logger.info(`Scheduling story "${story.title}" for publishing at ${publishTime.toISOString()}`);
 
-    // You could implement actual scheduling logic here:
-    // - Add to a database with a publishedAt field
-    // - Schedule a job with a task queue
-    // - Set up a webhook or timer
+      // In a production environment, you would save this to a database
+      // For now, we'll just add it to the processed stories array
+      // In a real implementation, you would use a database like MongoDB or PostgreSQL
+
+      // Example of how you might save to a database:
+      // await db.collection('stories').insertOne(storyToPublish);
+
+      // For now, we'll just update our in-memory array
+      // This is just a placeholder - in production, use a real database
+      this.processedStories = this.processedStories.filter(s => s.id !== storyToPublish.id);
+      this.processedStories.push(storyToPublish);
+    } catch (error) {
+      logger.error(`Error scheduling story "${story.title}" for publishing:`, error);
+      throw new DailyStoryProcessorError('Failed to schedule story for publishing', error);
+    }
   }
 
   private canProcessMoreStories(): boolean {
