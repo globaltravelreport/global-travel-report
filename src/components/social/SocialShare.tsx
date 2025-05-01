@@ -77,8 +77,8 @@ export function SocialShare({
   url,
   title,
   description = '',
-  // imageUrl is not used in this component but kept for API consistency
-  imageUrl = '',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  imageUrl = '', // Kept for API consistency
   hashtags = [],
   className,
   showShareButton = true,
@@ -118,7 +118,7 @@ export function SocialShare({
         .then(() => {
         // Successfully shared
       })
-        .catch((error) => {
+        .catch((_error) => {
           // Error sharing
         });
     } else {
@@ -134,7 +134,7 @@ export function SocialShare({
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch(err => {
+      .catch(_err => {
         // Failed to copy URL
       });
   };
