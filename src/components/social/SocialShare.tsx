@@ -8,7 +8,6 @@ import {
   Mail,
   Link as LinkIcon,
   Share2,
-  X,
   Check
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
@@ -78,6 +77,7 @@ export function SocialShare({
   url,
   title,
   description = '',
+  // imageUrl is not used in this component but kept for API consistency
   imageUrl = '',
   hashtags = [],
   className,
@@ -115,8 +115,12 @@ export function SocialShare({
         text: description,
         url: shareUrl,
       })
-        .then(() => console.log('Shared successfully'))
-        .catch((error) => console.error('Error sharing:', error));
+        .then(() => {
+        // Successfully shared
+      })
+        .catch((error) => {
+          // Error sharing
+        });
     } else {
       // Fallback to popover
       setIsOpen(true);
@@ -130,7 +134,9 @@ export function SocialShare({
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch(err => console.error('Failed to copy URL:', err));
+      .catch(err => {
+        // Failed to copy URL
+      });
   };
 
   // Share platform component
