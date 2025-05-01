@@ -1,5 +1,5 @@
 import { DailyStoryProcessor } from '../src/services/dailyStoryProcessor';
-import { Story } from '../src/lib/stories';
+import { Story } from '../types/Story';
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
@@ -10,24 +10,24 @@ const execAsync = promisify(exec);
 async function generateDailyStories() {
   try {
     console.log('Starting daily story generation...');
-    
+
     // Initialize the processor
     const processor = DailyStoryProcessor.getInstance();
-    
+
     // Process stories
     await processor.processDailyStories();
-    
+
     // Get the processed stories
     const stories = await processor.getProcessedStories();
-    
+
     // Save stories to markdown files
     for (const story of stories) {
       await saveStoryToMarkdown(story);
     }
-    
+
     // Rebuild the site
     await rebuildSite();
-    
+
     console.log('Daily story generation completed successfully');
   } catch (error) {
     console.error('Error generating daily stories:', error);
@@ -37,12 +37,12 @@ async function generateDailyStories() {
 
 async function saveStoryToMarkdown(story: Story) {
   const contentDir = path.join(process.cwd(), 'content', 'articles');
-  
+
   // Ensure directory exists
   if (!fs.existsSync(contentDir)) {
     fs.mkdirSync(contentDir, { recursive: true });
   }
-  
+
   // Create frontmatter
   const frontmatter = `---
 title: "${story.title}"
@@ -53,17 +53,17 @@ excerpt: "${story.excerpt}"
 country: "${story.country}"
 category: "${story.category}"
 tags: ${JSON.stringify(story.tags)}
-timestamp: "${story.publishedAt.toISOString()}"
+timestamp: "${story.publishedAt instanceof Date ? story.publishedAt.toISOString() : new Date(story.publishedAt).toISOString()}"
 imageUrl: "${story.imageUrl || ''}"
 ---
 
 ${story.content}
 `;
-  
+
   // Save file
   const filePath = path.join(contentDir, `${story.slug}.md`);
   fs.writeFileSync(filePath, frontmatter);
-  
+
   console.log(`Saved story: ${story.title}`);
 }
 
@@ -79,4 +79,4 @@ async function rebuildSite() {
 }
 
 // Run the script
-generateDailyStories(); 
+generateDailyStories();
