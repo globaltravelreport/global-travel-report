@@ -65,7 +65,7 @@ export const ContactForm = () => {
       formData.append('email', data.email);
       formData.append('message', data.message);
       formData.append('recaptchaToken', recaptchaValue);
-      
+
       uploadedFiles.forEach((file) => {
         formData.append('files', file);
       });
@@ -241,7 +241,7 @@ export const ContactForm = () => {
 
             <div className="flex justify-center">
               <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'}
                 onChange={setRecaptchaValue}
                 aria-label="reCAPTCHA verification"
               />
@@ -260,4 +260,4 @@ export const ContactForm = () => {
       </AnimatePresence>
     </div>
   );
-}; 
+};

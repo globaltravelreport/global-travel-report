@@ -104,7 +104,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       description,
       type: "article",
       publishedTime: new Date(story.publishedAt).toISOString(),
-      authors: [story.author],
+      authors: ["Global Travel Report Editorial Team"],
       images: ogImage ? [
         {
           url: ogImage,
@@ -154,7 +154,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         <div className="flex items-center text-muted-foreground mb-6">
           <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
           <span className="mx-2">•</span>
-          <span>By {story.author}</span>
+          <span>By Global Travel Report Editorial Team</span>
         </div>
 
         {story.imageUrl && (

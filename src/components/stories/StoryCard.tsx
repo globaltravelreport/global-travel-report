@@ -71,7 +71,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             {story.title}
           </h3>
           <p className="text-sm text-gray-500 mt-1">
-            {formattedDate} • By {story.author}
+            {formattedDate} • By Global Travel Report Editorial Team
           </p>
         </div>
         <div className="px-4 pb-4">

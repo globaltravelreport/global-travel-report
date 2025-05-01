@@ -58,7 +58,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
             {story.title}
           </CardTitle>
           <CardDescription>
-            {format(new Date(story.publishedAt), 'MMMM dd, yyyy')} • By {story.author}
+            {format(new Date(story.publishedAt), 'MMMM dd, yyyy')} • By Global Travel Report Editorial Team
           </CardDescription>
         </CardHeader>
         <CardContent>
