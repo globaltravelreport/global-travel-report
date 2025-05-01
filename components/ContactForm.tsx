@@ -241,7 +241,7 @@ export const ContactForm = () => {
 
             <div className="flex justify-center">
               <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'}
+                sitekey="6LfQQGApAAAAALZkVb_3EQlZNKlO-e3-9FK1lz4G"
                 onChange={setRecaptchaValue}
                 aria-label="reCAPTCHA verification"
               />
