@@ -6,12 +6,12 @@ import { Search, X, Filter, Calendar } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { Input } from '@/src/components/ui/input';
 import { Label } from '@/src/components/ui/label';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from '@/src/components/ui/select';
 import {
   Popover,
@@ -25,7 +25,7 @@ import {
   AccordionTrigger,
 } from '@/src/components/ui/accordion';
 import { Calendar as CalendarComponent } from '@/src/components/ui/calendar';
-import { StorySearchParams } from '@/lib/stories';
+import { StorySearchParams } from '@/types/StorySearchParams';
 import { formatDisplayDate } from '@/src/utils/date-utils';
 import { cn } from '@/src/lib/utils';
 
@@ -34,32 +34,32 @@ interface SearchFormProps {
    * Available categories for filtering
    */
   categories?: string[];
-  
+
   /**
    * Available countries for filtering
    */
   countries?: string[];
-  
+
   /**
    * Available tags for filtering
    */
   tags?: string[];
-  
+
   /**
    * Available authors for filtering
    */
   authors?: string[];
-  
+
   /**
    * Base URL for search results
    */
   baseUrl?: string;
-  
+
   /**
    * CSS class for the search form
    */
   className?: string;
-  
+
   /**
    * Callback for search submission
    */
@@ -80,7 +80,7 @@ export function SearchForm({
 }: SearchFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   // Initialize search state from URL parameters
   const [searchState, setSearchState] = useState<StorySearchParams>({
     query: searchParams.get('q') || '',
@@ -93,14 +93,14 @@ export function SearchForm({
     featured: searchParams.get('featured') === 'true' ? true : undefined,
     editorsPick: searchParams.get('editors_pick') === 'true' ? true : undefined,
   });
-  
+
   // Track if advanced filters are open
   const [filtersOpen, setFiltersOpen] = useState(false);
-  
+
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (type === 'checkbox') {
       setSearchState(prev => ({
         ...prev,
@@ -113,7 +113,7 @@ export function SearchForm({
       }));
     }
   };
-  
+
   // Handle select change
   const handleSelectChange = (name: string, value: string) => {
     setSearchState(prev => ({
@@ -121,7 +121,7 @@ export function SearchForm({
       [name]: value,
     }));
   };
-  
+
   // Handle date change
   const handleDateChange = (name: 'fromDate' | 'toDate', date?: Date) => {
     setSearchState(prev => ({
@@ -129,26 +129,26 @@ export function SearchForm({
       [name]: date,
     }));
   };
-  
+
   // Clear all filters
   const clearFilters = () => {
     setSearchState({
       query: searchState.query,
     });
   };
-  
+
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Call the onSearch callback if provided
     if (onSearch) {
       onSearch(searchState);
     }
-    
+
     // Build URL with search parameters
     const url = new URL(baseUrl, window.location.origin);
-    
+
     // Add search parameters
     if (searchState.query) url.searchParams.set('q', searchState.query);
     if (searchState.category) url.searchParams.set('category', searchState.category);
@@ -159,11 +159,11 @@ export function SearchForm({
     if (searchState.toDate) url.searchParams.set('to', searchState.toDate.toISOString().split('T')[0]);
     if (searchState.featured) url.searchParams.set('featured', 'true');
     if (searchState.editorsPick) url.searchParams.set('editors_pick', 'true');
-    
+
     // Navigate to search results page
     router.push(url.pathname + url.search);
   };
-  
+
   // Check if any filters are active
   const hasActiveFilters = useCallback(() => {
     return (
@@ -177,10 +177,10 @@ export function SearchForm({
       searchState.editorsPick !== undefined
     );
   }, [searchState]);
-  
+
   return (
-    <form 
-      onSubmit={handleSubmit} 
+    <form
+      onSubmit={handleSubmit}
       className={cn('space-y-4', className)}
     >
       {/* Main search input */}
@@ -206,13 +206,13 @@ export function SearchForm({
             </button>
           )}
         </div>
-        
+
         <Button type="submit">Search</Button>
-        
+
         <Popover open={filtersOpen} onOpenChange={setFiltersOpen}>
           <PopoverTrigger asChild>
-            <Button 
-              type="button" 
+            <Button
+              type="button"
               variant={hasActiveFilters() ? "default" : "outline"}
               size="icon"
               aria-label="Filters"
@@ -225,17 +225,17 @@ export function SearchForm({
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Filters</h3>
                 {hasActiveFilters() && (
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
                     onClick={clearFilters}
                   >
                     Clear all
                   </Button>
                 )}
               </div>
-              
+
               <Accordion type="single" collapsible className="w-full">
                 {/* Category filter */}
                 {categories.length > 0 && (
@@ -261,7 +261,7 @@ export function SearchForm({
                     </AccordionContent>
                   </AccordionItem>
                 )}
-                
+
                 {/* Country filter */}
                 {countries.length > 0 && (
                   <AccordionItem value="country">
@@ -286,7 +286,7 @@ export function SearchForm({
                     </AccordionContent>
                   </AccordionItem>
                 )}
-                
+
                 {/* Tag filter */}
                 {tags.length > 0 && (
                   <AccordionItem value="tag">
@@ -311,7 +311,7 @@ export function SearchForm({
                     </AccordionContent>
                   </AccordionItem>
                 )}
-                
+
                 {/* Author filter */}
                 {authors.length > 0 && (
                   <AccordionItem value="author">
@@ -336,7 +336,7 @@ export function SearchForm({
                     </AccordionContent>
                   </AccordionItem>
                 )}
-                
+
                 {/* Date range filter */}
                 <AccordionItem value="date">
                   <AccordionTrigger>Date Range</AccordionTrigger>
@@ -369,7 +369,7 @@ export function SearchForm({
                           </PopoverContent>
                         </Popover>
                       </div>
-                      
+
                       <div className="space-y-1">
                         <Label htmlFor="toDate">To</Label>
                         <Popover>
@@ -400,7 +400,7 @@ export function SearchForm({
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-                
+
                 {/* Featured and Editor's Pick filters */}
                 <AccordionItem value="featured">
                   <AccordionTrigger>Story Type</AccordionTrigger>
@@ -417,7 +417,7 @@ export function SearchForm({
                         />
                         <Label htmlFor="featured">Featured stories</Label>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <input
                           type="checkbox"
@@ -433,10 +433,10 @@ export function SearchForm({
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-              
+
               <div className="flex justify-end">
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   onClick={() => setFiltersOpen(false)}
                 >
                   Apply Filters
@@ -446,7 +446,7 @@ export function SearchForm({
           </PopoverContent>
         </Popover>
       </div>
-      
+
       {/* Active filters display */}
       {hasActiveFilters() && (
         <div className="flex flex-wrap gap-2">
@@ -464,7 +464,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.country && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="mr-1 text-gray-500">Country:</span>
@@ -479,7 +479,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.tag && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="mr-1 text-gray-500">Tag:</span>
@@ -494,7 +494,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.author && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="mr-1 text-gray-500">Author:</span>
@@ -509,7 +509,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.fromDate && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="mr-1 text-gray-500">From:</span>
@@ -524,7 +524,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.toDate && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="mr-1 text-gray-500">To:</span>
@@ -539,7 +539,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.featured && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="font-medium">Featured</span>
@@ -553,7 +553,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           {searchState.editorsPick && (
             <div className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm">
               <span className="font-medium">Editor's Pick</span>
@@ -567,7 +567,7 @@ export function SearchForm({
               </button>
             </div>
           )}
-          
+
           <button
             type="button"
             onClick={clearFilters}
