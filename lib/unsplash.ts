@@ -1,5 +1,5 @@
 import { createApi } from 'unsplash-js';
-import { Story } from './stories';
+import { Story } from '@/types/Story';
 
 const unsplash = createApi({
   accessKey: process.env.UNSPLASH_ACCESS_KEY || '',
