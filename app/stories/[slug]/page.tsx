@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
 import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
 import DOMPurify from 'isomorphic-dompurify';
+import SchemaOrg from "@/components/SchemaOrg";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -137,6 +138,9 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
   return (
     <article className="max-w-4xl mx-auto px-4 py-8">
+      {/* Add structured data for SEO */}
+      <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL} />
+
       <header className="mb-8">
         <div className="flex flex-wrap gap-2 mb-4">
           {story.featured && (

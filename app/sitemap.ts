@@ -46,17 +46,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // Dynamic routes for stories with proper lastModified dates
+  // Dynamic routes for stories with proper lastModified dates and image sitemaps
   const storyRoutes = stories.map((story) => {
     // Use the story's published date as the lastModified date
     const lastModified = new Date(story.publishedAt);
 
-    return {
+    // Create the basic sitemap entry
+    const sitemapEntry: any = {
       url: `${baseUrl}/stories/${story.slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
       priority: story.featured ? 0.9 : 0.7,
     };
+
+    // Add image data if available
+    if (story.imageUrl) {
+      sitemapEntry.images = [
+        {
+          url: story.imageUrl.startsWith('http')
+            ? story.imageUrl
+            : `${baseUrl}${story.imageUrl}`,
+          title: story.title,
+          caption: story.excerpt.substring(0, 100),
+          geo_location: story.country || undefined,
+          license: 'https://creativecommons.org/licenses/by/4.0/'
+        }
+      ];
+    }
+
+    return sitemapEntry;
   });
 
   // Category routes - dynamically generated from actual stories
