@@ -3,13 +3,34 @@
 import * as React from "react";
 
 interface CalendarProps {
-  mode?: "single" | "range" | "multiple";
   selected?: Date | Date[] | undefined;
   onSelect?: (date: Date | undefined) => void;
   initialFocus?: boolean;
 }
 
-export function Calendar({ mode = "single", selected, onSelect, initialFocus }: CalendarProps) {
+export function Calendar({ selected, onSelect }: CalendarProps) {
+  // Get current month and year
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  // Determine if a date is selected
+  const isSelected = (day: number) => {
+    if (!selected) return false;
+
+    if (Array.isArray(selected)) {
+      return selected.some(date =>
+        date.getDate() === day &&
+        date.getMonth() === currentMonth &&
+        date.getFullYear() === currentYear
+      );
+    }
+
+    return selected.getDate() === day &&
+           selected.getMonth() === currentMonth &&
+           selected.getFullYear() === currentYear;
+  };
+
   return (
     <div className="p-3">
       <div className="space-y-4">
@@ -25,10 +46,11 @@ export function Calendar({ mode = "single", selected, onSelect, initialFocus }: 
             <button
               key={day}
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-normal ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              className={`inline-flex h-9 w-9 items-center justify-center rounded-md p-0 text-sm font-normal ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                isSelected(day) ? 'bg-primary text-primary-foreground' : ''
+              }`}
               onClick={() => {
-                const date = new Date();
-                date.setDate(day);
+                const date = new Date(currentYear, currentMonth, day);
                 onSelect?.(date);
               }}
             >

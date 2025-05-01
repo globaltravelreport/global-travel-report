@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Story } from '@/lib/stories';
+import type { Story } from '@/types/Story';
 import { Input } from './ui/input';
 
 interface SearchBarProps {
@@ -105,4 +105,4 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </AnimatePresence>
     </div>
   );
-}; 
+};

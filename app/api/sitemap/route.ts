@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getStories, Story } from '@/lib/stories';
+import { getAllStories } from '@/src/utils/stories';
+import { Story } from '@/types/Story';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const stories = await getStories();
+    const stories = await getAllStories();
     const baseUrl = 'https://globaltravelreport.com';
 
     // Generate sitemap XML
@@ -52,7 +53,7 @@ export async function GET() {
   ${stories.map((story: Story) => `
   <url>
     <loc>${baseUrl}/stories/${story.slug}</loc>
-    <lastmod>${story.publishedAt.toISOString()}</lastmod>
+    <lastmod>${new Date(story.publishedAt).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>`).join('')}

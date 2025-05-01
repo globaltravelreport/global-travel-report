@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getStories } from '@/lib/stories';
+import { getAllStories } from '@/src/utils/stories';
 
 /**
  * Generate a dynamic sitemap based on actual content
@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const currentDate = new Date();
 
   // Get all stories
-  const stories = await getStories();
+  const stories = await getAllStories();
 
   // Extract unique categories, countries, and tags from actual stories
   const categories = Array.from(new Set(stories

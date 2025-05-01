@@ -88,7 +88,7 @@ export const POST = createApiHandler<ContactFormRequest>(
     });
   },
   {
-    bodySchema: contactFormSchema,
+    bodySchema: contactFormSchema as z.ZodType<ContactFormRequest>,
     enableCors: true,
     maxRetries: 2,
     retryDelay: 1000,

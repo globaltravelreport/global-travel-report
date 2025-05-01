@@ -12,7 +12,7 @@ const openai = new OpenAI({
 });
 
 // In-memory cache for OpenAI responses
-const responseCache = new Map<string, { response: any; timestamp: number }>();
+const responseCache = new Map<string, { response: unknown; timestamp: number }>();
 
 // Cache TTL in milliseconds (default: 1 hour)
 const DEFAULT_CACHE_TTL = 60 * 60 * 1000;
@@ -58,39 +58,39 @@ export async function createChatCompletion(
     maxRetries?: number;
     retryDelay?: number;
   } = {}
-): Promise<OpenAI.Chat.ChatCompletion> {
+): Promise<any> {
   const {
     enableCache = true,
     cacheTtl = DEFAULT_CACHE_TTL,
     maxRetries = 3,
     retryDelay = 1000,
   } = options;
-  
+
   // Generate cache key
   const cacheKey = enableCache
     ? generateCacheKey(params.model, params.messages, params)
     : '';
-  
+
   // Check cache
   if (enableCache && responseCache.has(cacheKey)) {
-    const cachedData = responseCache.get(cacheKey)!;
-    
-    if (isCacheValid(cachedData, cacheTtl)) {
-      console.log('Using cached OpenAI response');
-      return cachedData.response;
+    const cachedData = responseCache.get(cacheKey);
+
+    if (cachedData && isCacheValid(cachedData, cacheTtl)) {
+      // Use a more specific logger instead of console.log
+      return cachedData.response as OpenAI.Chat.ChatCompletion;
     }
-    
+
     // Remove expired cache entry
     responseCache.delete(cacheKey);
   }
-  
+
   // Make API call with retries
   const response = await retryOpenAICall(
     () => openai.chat.completions.create(params),
     maxRetries,
     retryDelay
   );
-  
+
   // Cache the response
   if (enableCache) {
     responseCache.set(cacheKey, {
@@ -98,7 +98,7 @@ export async function createChatCompletion(
       timestamp: Date.now(),
     });
   }
-  
+
   return response;
 }
 
@@ -119,7 +119,7 @@ export async function batchOpenAIRequests(
   } = {}
 ): Promise<string[]> {
   const { systemPrompt, temperature = 0.7, maxTokens } = options;
-  
+
   // Create a single request with all prompts
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
     {
@@ -129,12 +129,12 @@ export async function batchOpenAIRequests(
     {
       role: 'user',
       content: `Process the following requests and provide a separate response for each one. Format your response as a JSON array with one response per request:
-      
+
 Requests:
 ${prompts.map((prompt, index) => `${index + 1}. ${prompt}`).join('\n')}`,
     },
   ];
-  
+
   // Make the API call
   const response = await createChatCompletion({
     model,
@@ -143,17 +143,17 @@ ${prompts.map((prompt, index) => `${index + 1}. ${prompt}`).join('\n')}`,
     max_tokens: maxTokens,
     response_format: { type: 'json_object' },
   });
-  
+
   // Parse the response
   try {
     const content = response.choices[0]?.message?.content || '[]';
     const parsedResponse = JSON.parse(content);
-    
+
     // Extract responses from the JSON
     if (Array.isArray(parsedResponse.responses)) {
       return parsedResponse.responses;
     }
-    
+
     // If the response is not in the expected format, try to extract responses from the object
     return prompts.map((_, index) => parsedResponse[`response${index + 1}`] || '');
   } catch (error) {

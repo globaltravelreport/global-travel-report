@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { StoryCard } from "@/src/components/stories/StoryCard";
-import type { Story } from "@/lib/stories";
+import type { Story } from "@/types/Story";
 
 interface StorySearchProps {
   stories: Story[];
@@ -21,17 +21,17 @@ export const StorySearch: React.FC<StorySearchProps> = ({ stories }) => {
   const [showRecent, setShowRecent] = useState(false);
   const [showEditorsPicks, setShowEditorsPicks] = useState(false);
 
-  const categories = useMemo(() => 
+  const categories = useMemo(() =>
     Array.from(new Set(stories.map(story => story.category))).sort(),
     [stories]
   );
 
-  const countries = useMemo(() => 
+  const countries = useMemo(() =>
     Array.from(new Set(stories.map(story => story.country))).sort(),
     [stories]
   );
 
-  const tags = useMemo(() => 
+  const tags = useMemo(() =>
     Array.from(new Set(stories.flatMap(story => story.tags))).sort(),
     [stories]
   );
@@ -42,14 +42,14 @@ export const StorySearch: React.FC<StorySearchProps> = ({ stories }) => {
         story.content.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = !selectedCategory || story.category === selectedCategory;
       const matchesCountry = !selectedCountry || story.country === selectedCountry;
-      const matchesTags = selectedTags.length === 0 || 
+      const matchesTags = selectedTags.length === 0 ||
         selectedTags.every(tag => story.tags.includes(tag));
       const matchesFeatured = !showFeatured || story.featured;
       const matchesEditorsPicks = !showEditorsPicks || story.editorsPick;
-      const matchesRecent = !showRecent || 
+      const matchesRecent = !showRecent ||
         new Date(story.publishedAt).getTime() > Date.now() - (7 * 24 * 60 * 60 * 1000);
 
-      return matchesSearch && matchesCategory && matchesCountry && 
+      return matchesSearch && matchesCategory && matchesCountry &&
         matchesTags && matchesFeatured && matchesEditorsPicks && matchesRecent;
     });
   }, [
@@ -64,7 +64,7 @@ export const StorySearch: React.FC<StorySearchProps> = ({ stories }) => {
   ]);
 
   const handleTagToggle = (tag: string) => {
-    setSelectedTags(prev => 
+    setSelectedTags(prev =>
       prev.includes(tag)
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
@@ -179,4 +179,4 @@ export const StorySearch: React.FC<StorySearchProps> = ({ stories }) => {
       </div>
     </div>
   );
-}; 
+};

@@ -56,19 +56,19 @@ function getRateLimitConfig(path: string): RateLimitConfig {
   if (path.includes('/api/auth')) {
     return defaultRateLimits.auth;
   }
-  
+
   if (path.includes('/api/contact')) {
     return defaultRateLimits.contact;
   }
-  
+
   if (path.includes('/api/newsletter')) {
     return defaultRateLimits.newsletter;
   }
-  
+
   if (path.includes('/api/openai') || path.includes('/api/story/rewrite')) {
     return defaultRateLimits.openai;
   }
-  
+
   return defaultRateLimits.default;
 }
 
@@ -82,7 +82,7 @@ function getRequestIdentifier(request: NextRequest, path: string): string {
   // Use IP address as the identifier
   // In a production environment, you might want to use a more sophisticated approach
   const ip = request.ip || 'unknown';
-  
+
   // Include the path to have separate rate limits for different endpoints
   return `${ip}:${path}`;
 }
@@ -98,19 +98,19 @@ export function applyRateLimit(request: NextRequest): NextResponse | undefined {
   if (!path.startsWith('/api/')) {
     return;
   }
-  
+
   // Get rate limit configuration for the path
   const config = getRateLimitConfig(path);
-  
+
   // Get a unique identifier for the request
   const identifier = getRequestIdentifier(request, path);
-  
+
   // Get current time
   const now = Date.now();
-  
+
   // Get or create rate limit entry
   let entry = rateLimitStore.get(identifier);
-  
+
   if (!entry || entry.resetTime <= now) {
     // Create new entry or reset expired entry
     entry = {
@@ -118,19 +118,19 @@ export function applyRateLimit(request: NextRequest): NextResponse | undefined {
       resetTime: now + config.windowMs,
     };
     rateLimitStore.set(identifier, entry);
-    
+
     // Add rate limit headers
     const response = NextResponse.next();
     response.headers.set('X-RateLimit-Limit', config.limit.toString());
     response.headers.set('X-RateLimit-Remaining', (config.limit - 1).toString());
     response.headers.set('X-RateLimit-Reset', entry.resetTime.toString());
-    
+
     return;
   }
-  
+
   // Increment request count
   entry.count++;
-  
+
   // Check if rate limit is exceeded
   if (entry.count > config.limit) {
     // Return 429 Too Many Requests
@@ -149,16 +149,16 @@ export function applyRateLimit(request: NextRequest): NextResponse | undefined {
         },
       }
     );
-    
+
     return response;
   }
-  
+
   // Add rate limit headers
   const response = NextResponse.next();
   response.headers.set('X-RateLimit-Limit', config.limit.toString());
   response.headers.set('X-RateLimit-Remaining', (config.limit - entry.count).toString());
   response.headers.set('X-RateLimit-Reset', entry.resetTime.toString());
-  
+
   return;
 }
 
@@ -168,10 +168,11 @@ export function applyRateLimit(request: NextRequest): NextResponse | undefined {
  */
 export function cleanupRateLimitStore(): void {
   const now = Date.now();
-  
-  for (const [identifier, entry] of rateLimitStore.entries()) {
+
+  // Convert entries to array first to avoid iterator issues
+  Array.from(rateLimitStore.entries()).forEach(([identifier, entry]) => {
     if (entry.resetTime <= now) {
       rateLimitStore.delete(identifier);
     }
-  }
+  });
 }

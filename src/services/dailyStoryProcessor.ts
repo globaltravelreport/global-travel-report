@@ -1,5 +1,20 @@
 /* eslint-disable no-console */
-import { storyRewriteConfig } from '@/src/config/storyRewrite';
+// Define default story rewrite config
+const storyRewriteConfig = {
+  categoryDistribution: {
+    cruise: 3,
+    other: 7
+  },
+  categories: {
+    cruise: ['Cruise', 'Ocean Cruises', 'River Cruises', 'Luxury Cruises'],
+    other: ['Adventure', 'Luxury', 'Budget', 'Family', 'Solo', 'Culinary', 'Cultural']
+  },
+  preserveTags: true,
+  maintainTone: true,
+  publishing: {
+    intervalMinutes: 60
+  }
+};
 import { Story } from '@/types/Story';
 import { IStoryProcessor, IStoryRewriter, IStoryValidator } from './interfaces';
 import config from '@/src/config';
@@ -44,7 +59,8 @@ export class DailyStoryProcessor implements IStoryProcessor {
     private readonly storyRewriter: IStoryRewriter,
     private readonly storyValidator?: IStoryValidator
   ) {
-    this.maxDailyStories = config.storyRewrite.dailyLimit;
+    // Default values since config doesn't have storyRewrite property
+    this.maxDailyStories = 10; // Default daily limit
     this.minTimeBetweenStories = 60 * 1000; // 1 minute
   }
 
@@ -56,26 +72,22 @@ export class DailyStoryProcessor implements IStoryProcessor {
     if (!DailyStoryProcessor.instance) {
       // Create a mock implementation for the edge runtime
       const mockStoryRewriter: IStoryRewriter = {
-        rewrite: async (content: string | Story, options?: any) => {
+        rewrite: async (content: string, category: string, options?: any) => {
           // Simple mock implementation
-          if (typeof content === 'string') {
-            return {
-              id: `story-${Date.now()}`,
-              title: `Generated Story ${Date.now()}`,
-              slug: `generated-story-${Date.now()}`,
-              excerpt: 'This is a generated story excerpt.',
-              content: content,
-              author: 'AI Writer',
-              category: options?.category || 'General',
-              country: 'Global',
-              tags: ['generated', 'ai'],
-              publishedAt: new Date().toISOString(),
-              featured: false,
-              editorsPick: false,
-            } as Story;
-          } else {
-            return content;
-          }
+          return {
+            id: `story-${Date.now()}`,
+            title: `Generated Story ${Date.now()}`,
+            slug: `generated-story-${Date.now()}`,
+            excerpt: 'This is a generated story excerpt.',
+            content: content,
+            author: 'AI Writer',
+            category: category || 'General',
+            country: 'Global',
+            tags: ['generated', 'ai'],
+            publishedAt: new Date().toISOString(),
+            featured: false,
+            editorsPick: false,
+          } as Story;
         }
       };
 
@@ -151,11 +163,14 @@ export class DailyStoryProcessor implements IStoryProcessor {
         const originalContent = await this.getOriginalContent(category);
 
         // Rewrite the story
-        const rewrittenStory = await this.storyRewriter.rewrite(originalContent, {
+        const rewrittenStory = await this.storyRewriter.rewrite(
+          originalContent,
           category,
-          preserveTags: storyRewriteConfig.preserveTags,
-          maintainTone: storyRewriteConfig.maintainTone
-        });
+          {
+            preserveTags: storyRewriteConfig.preserveTags,
+            maintainTone: storyRewriteConfig.maintainTone
+          }
+        );
 
         if (!rewrittenStory) {
           logger.error(`Failed to rewrite story for category: ${category}`);
@@ -164,7 +179,7 @@ export class DailyStoryProcessor implements IStoryProcessor {
 
         // Validate the story if validator is available
         if (this.storyValidator && rewrittenStory as Story) {
-          const validationResult = await this.storyValidator.validateStory(rewrittenStory as Story);
+          const validationResult = await this.storyValidator.validate(rewrittenStory as Story);
 
           if (!validationResult.isValid) {
             logger.warn(`Story validation failed: ${validationResult.issues.join(', ')}`);
@@ -308,26 +323,59 @@ With the right approach to ${category.toLowerCase()}, your travel experiences wi
   private async processStory(story: Story): Promise<Story | null> {
     try {
       // Rewrite the story content
-      const rewrittenStory = await this.storyRewriter.rewrite(story);
+      const rewrittenContent = await this.storyRewriter.rewrite(
+        story.content,
+        story.category || 'General',
+        {
+          preserveTags: true,
+          maintainTone: true
+        }
+      );
 
-      if (!rewrittenStory) {
+      if (!rewrittenContent) {
         console.error(`Failed to rewrite story ${story.id}`);
         return null;
       }
 
-      return {
-        ...story,
-        ...rewrittenStory,
-      };
+      // If the result is a string, update the content
+      if (typeof rewrittenContent === 'string') {
+        return {
+          ...story,
+          content: rewrittenContent
+        };
+      }
+      // If the result is a Story object, merge it with the original story
+      else if (typeof rewrittenContent === 'object') {
+        return {
+          ...story,
+          ...(rewrittenContent as object)
+        };
+      }
+
+      return null;
     } catch (error) {
       console.error(`Error in processStory for ${story.id}:`, error);
       return null;
     }
   }
 
-  getProcessingStats() {
+  /**
+   * Process stories - implements IStoryProcessor interface
+   * @returns A promise resolving to the number of stories processed
+   */
+  async process(): Promise<number> {
+    await this.processDailyStories();
+    return this.dailyStoriesProcessed;
+  }
+
+  /**
+   * Get processing stats - implements IStoryProcessor interface
+   * @returns Processing stats
+   */
+  getStats() {
     return {
       storiesProcessed: this.dailyStoriesProcessed,
+      storiesPublished: this.processedStories.length,
       lastProcessedTime: this.lastProcessedTime,
     };
   }

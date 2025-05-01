@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getStories, isStoryArchived } from '@/lib/stories';
+import { getAllStories, isStoryArchived } from '@/src/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
-import type { Story } from '@/lib/stories';
+import type { Story } from '@/types/Story';
 
 const categories = [
   'All',
@@ -27,7 +27,7 @@ export default function StoriesPage() {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const data = await getStories();
+        const data = await getAllStories();
         setStories(data);
       } catch (error) {
         // Error handled silently in UI by showing empty state
@@ -48,7 +48,11 @@ export default function StoriesPage() {
   const featuredStories = filteredStories.filter(story => story.featured);
   const latestStories = filteredStories
     .filter(story => !story.featured)
-    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+    .sort((a, b) => {
+      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
+      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    });
 
   if (isLoading) {
     return (

@@ -11,6 +11,26 @@ interface GlobalErrorHandlerState {
   error?: Error;
 }
 
+// Global error context
+export const GlobalErrorContext = React.createContext<{
+  setError: (error: Error) => void;
+  clearError: () => void;
+  showError: (error: Error) => void;
+}>({
+  setError: () => {},
+  clearError: () => {},
+  showError: () => {},
+});
+
+// Hook to use global error
+export const useGlobalError = () => {
+  const context = React.useContext(GlobalErrorContext);
+  if (!context) {
+    throw new Error('useGlobalError must be used within a GlobalErrorProvider');
+  }
+  return context;
+};
+
 export class GlobalErrorHandler extends React.Component<GlobalErrorHandlerProps, GlobalErrorHandlerState> {
   constructor(props: GlobalErrorHandlerProps) {
     super(props);

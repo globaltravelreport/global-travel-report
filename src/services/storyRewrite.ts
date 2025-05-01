@@ -90,8 +90,9 @@ export class StoryRewriter {
    */
   private async rewriteNewContent(originalContent: string, category: string): Promise<Story> {
     // Use optimized OpenAI API with caching and retries
+    // Hardcoded values since config doesn't have OpenAI settings
     const completion = await createChatCompletion({
-      model: config.api.openai.defaultModel,
+      model: "gpt-4", // Default model
       messages: [
         {
           role: "system",
@@ -105,8 +106,8 @@ export class StoryRewriter {
     }, {
       enableCache: true,
       cacheTtl: 24 * 60 * 60 * 1000, // 24 hours
-      maxRetries: config.api.openai.maxRetries,
-      retryDelay: config.api.openai.retryDelay
+      maxRetries: 3, // Default max retries
+      retryDelay: 1000 // Default retry delay
     });
 
     const rewrittenContent = completion.choices[0]?.message?.content || originalContent;

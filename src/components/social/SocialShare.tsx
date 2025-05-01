@@ -77,7 +77,7 @@ export function SocialShare({
   url,
   title,
   description = '',
-  _imageUrl = '', // Kept for API consistency but prefixed with underscore to avoid unused var warning
+  imageUrl = '', // Image URL for sharing
   hashtags = [],
   className,
   showShareButton = true,
@@ -85,11 +85,13 @@ export function SocialShare({
   iconSize = 20,
   platforms = ['facebook', 'twitter', 'linkedin', 'medium', 'email', 'copy'],
 }: SocialShareProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  // Not used in this simplified version
+  const [_isOpen, _setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Ensure URL is absolute
-  const shareUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`;
+  const shareUrl = url.startsWith('http') ? url :
+    typeof window !== 'undefined' ? `${window.location.origin}${url}` : url;
 
   // Prepare hashtags for Twitter
   const hashtagsString = hashtags.map(tag => tag.startsWith('#') ? tag.substring(1) : tag).join(',');
@@ -108,11 +110,12 @@ export function SocialShare({
   // Handle share button click
   const handleShare = () => {
     // Use Web Share API if available
-    if (navigator.share) {
+    if (typeof navigator !== 'undefined' && 'share' in navigator) {
       navigator.share({
         title,
         text: description,
         url: shareUrl,
+        ...(imageUrl ? { image: imageUrl } : {})
       })
         .then(() => {
         // Successfully shared
@@ -121,21 +124,22 @@ export function SocialShare({
           // Error sharing
         });
     } else {
-      // Fallback to popover
-      setIsOpen(true);
+      // Fallback to popover - no-op in this simplified version
     }
   };
 
   // Handle copy to clipboard
   const handleCopy = () => {
-    navigator.clipboard.writeText(shareUrl)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      })
-      .catch(_err => {
-        // Failed to copy URL
-      });
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(shareUrl)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(_err => {
+          // Failed to copy URL
+        });
+    }
   };
 
   // Share platform component
@@ -169,7 +173,7 @@ export function SocialShare({
   );
 
   // If only showing the share button
-  if (showShareButton && navigator.share) {
+  if (showShareButton && typeof navigator !== 'undefined' && 'share' in navigator) {
     return (
       <Button
         variant="ghost"
@@ -186,12 +190,12 @@ export function SocialShare({
 
   // Show popover with share options
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+    <Popover>
+      <PopoverTrigger>
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => setIsOpen(true)}
+          onClick={() => {}}
           className={cn("flex items-center gap-2", className)}
           aria-label="Share"
         >
@@ -199,7 +203,7 @@ export function SocialShare({
           {showLabels && <span>Share</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-2" align="end">
+      <PopoverContent className="w-auto p-2">
         <div className="flex flex-col gap-1">
           <div className="text-sm font-medium mb-2">Share this page</div>
           <div className="flex gap-2">

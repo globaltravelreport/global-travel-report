@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { Story } from '@/lib/stories';
+import type { Story } from '@/types/Story';
 
 interface StoryCardProps {
   story: Story;
@@ -16,10 +16,10 @@ interface StoryCardProps {
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
   const [imgSrc, setImgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
-  
+
   return (
-    <Card 
-      className={cn('transition-all hover:shadow-lg', 
+    <Card
+      className={cn('transition-all hover:shadow-lg',
         story.featured && 'border-primary',
         story.editorsPick && 'border-secondary',
         className
@@ -76,4 +76,4 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story, className }) => {
       </Link>
     </Card>
   );
-}; 
+};

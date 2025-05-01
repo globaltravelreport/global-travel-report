@@ -1,10 +1,55 @@
 /**
+ * Memoization utilities for performance optimization
+ *
+ * This file contains utility functions for memoizing function results to improve performance
+ * by caching the results of expensive function calls.
+ *
+ * Usage examples:
+ *
+ * 1. Memoize a function with a single argument:
+ *    ```typescript
+ *    const expensiveCalculation = (n: number) => {
+ *      // Expensive calculation
+ *      return n * n;
+ *    };
+ *
+ *    const memoizedCalculation = memoize(expensiveCalculation);
+ *    memoizedCalculation(5); // Calculates and caches
+ *    memoizedCalculation(5); // Returns cached result
+ *    ```
+ *
+ * 2. Memoize a function with multiple arguments:
+ *    ```typescript
+ *    const expensiveOperation = (a: number, b: number) => {
+ *      // Expensive operation
+ *      return a + b;
+ *    };
+ *
+ *    const memoizedOperation = memoizeMultiArg(expensiveOperation);
+ *    memoizedOperation(5, 10); // Calculates and caches
+ *    memoizedOperation(5, 10); // Returns cached result
+ *    ```
+ *
+ * 3. Memoize with expiration:
+ *    ```typescript
+ *    const fetchData = (url: string) => {
+ *      // Fetch data from API
+ *      return fetch(url).then(res => res.json());
+ *    };
+ *
+ *    const memoizedFetch = memoizeWithExpiration(fetchData, 60000); // 1 minute TTL
+ *    memoizedFetch('https://api.example.com/data'); // Fetches and caches
+ *    memoizedFetch('https://api.example.com/data'); // Returns cached result if within TTL
+ *    ```
+ */
+
+/**
  * Options for memoization
  */
 export interface MemoizeOptions {
   maxCacheSize?: number;
-  keyGenerator?: (arg: any) => string;
-  shouldCache?: (result: any) => boolean;
+  keyGenerator?: (arg: unknown) => string;
+  shouldCache?: (result: unknown) => boolean;
 }
 
 /**
@@ -32,7 +77,12 @@ export function memoize<T, R>(
     if (cache.has(key)) {
       // Update access timestamp for LRU eviction
       keyTimestamps.set(key, Date.now());
-      return cache.get(key)!;
+      const cachedResult = cache.get(key);
+      if (cachedResult !== undefined) {
+        return cachedResult;
+      }
+      // This should never happen since we checked cache.has(key)
+      return fn(arg);
     }
 
     const result = fn(arg);
@@ -44,12 +94,13 @@ export function memoize<T, R>(
         let oldestKey = '';
         let oldestTime = Infinity;
 
-        for (const [k, time] of keyTimestamps.entries()) {
+        // Convert entries to array first to avoid iterator issues
+        Array.from(keyTimestamps.entries()).forEach(([k, time]) => {
           if (time < oldestTime) {
             oldestTime = time;
             oldestKey = k;
           }
-        }
+        });
 
         if (oldestKey) {
           cache.delete(oldestKey);
@@ -71,8 +122,8 @@ export function memoize<T, R>(
  */
 export interface MemoizeMultiArgOptions {
   maxCacheSize?: number;
-  keyGenerator?: (args: any[]) => string;
-  shouldCache?: (result: any) => boolean;
+  keyGenerator?: (args: unknown[]) => string;
+  shouldCache?: (result: unknown) => boolean;
 }
 
 /**
@@ -100,7 +151,12 @@ export function memoizeMultiArg<T extends any[], R>(
     if (cache.has(key)) {
       // Update access timestamp for LRU eviction
       keyTimestamps.set(key, Date.now());
-      return cache.get(key)!;
+      const cachedResult = cache.get(key);
+      if (cachedResult !== undefined) {
+        return cachedResult;
+      }
+      // This should never happen since we checked cache.has(key)
+      return fn(...args);
     }
 
     const result = fn(...args);
@@ -112,12 +168,13 @@ export function memoizeMultiArg<T extends any[], R>(
         let oldestKey = '';
         let oldestTime = Infinity;
 
-        for (const [k, time] of keyTimestamps.entries()) {
+        // Convert entries to array first to avoid iterator issues
+        Array.from(keyTimestamps.entries()).forEach(([k, time]) => {
           if (time < oldestTime) {
             oldestTime = time;
             oldestKey = k;
           }
-        }
+        });
 
         if (oldestKey) {
           cache.delete(oldestKey);
@@ -140,7 +197,7 @@ export function memoizeMultiArg<T extends any[], R>(
  * @param ttl - Time to live in milliseconds
  * @returns A memoized version of the function with time-based expiration
  */
-export function memoizeWithExpiration<T, R>(fn: (arg: T) => R, ttl: number): (arg: T) => R {
+export function memoizeWithExpiration<T, R>(fn: (arg: T) => R, ttl = 60000): (arg: T) => R {
   const cache = new Map<string, { value: R; timestamp: number }>();
 
   return (arg: T) => {
@@ -148,9 +205,11 @@ export function memoizeWithExpiration<T, R>(fn: (arg: T) => R, ttl: number): (ar
     const now = Date.now();
 
     if (cache.has(key)) {
-      const entry = cache.get(key)!;
-      if (now - entry.timestamp < ttl) {
-        return entry.value;
+      const entry = cache.get(key);
+      if (entry !== undefined) {
+        if (now - entry.timestamp < ttl) {
+          return entry.value;
+        }
       }
     }
 

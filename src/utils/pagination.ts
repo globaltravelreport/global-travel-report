@@ -1,5 +1,29 @@
 /**
  * Pagination utilities for handling large datasets
+ *
+ * This file contains utility functions for paginating data in the Global Travel Report.
+ *
+ * Usage examples:
+ *
+ * 1. Paginate an array of items:
+ *    ```typescript
+ *    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+ *    const result = paginate(items, { page: 1, limit: 5 });
+ *    // result.data = [1, 2, 3, 4, 5]
+ *    // result.pagination = { page: 1, limit: 5, total: 10, totalPages: 2, ... }
+ *    ```
+ *
+ * 2. Generate pagination links:
+ *    ```typescript
+ *    const links = generatePaginationLinks('/stories', result.pagination);
+ *    // links = { first: '/stories?page=1', prev: null, current: '/stories?page=1', ... }
+ *    ```
+ *
+ * 3. Filter and paginate stories:
+ *    ```typescript
+ *    const result = paginatedStoryFilter(stories, story => story.featured, { page: 1, limit: 10 });
+ *    // Returns paginated featured stories
+ *    ```
  */
 
 import { Story } from '@/types/Story';
@@ -18,7 +42,7 @@ export interface PaginationOptions {
  */
 export interface PaginationResult<T> {
   data: T[];
-  meta: {
+  pagination: {
     page: number;
     limit: number;
     total: number;
@@ -40,16 +64,16 @@ export function paginate<T>(
 ): PaginationResult<T> {
   const { page = 1, limit = 10 } = options;
   const total = options.total || items.length;
-  
+
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  
+
   const totalPages = Math.ceil(total / limit);
   const paginatedItems = items.slice(startIndex, endIndex);
-  
+
   return {
     data: paginatedItems,
-    meta: {
+    pagination: {
       page,
       limit,
       total,
@@ -68,13 +92,13 @@ export function paginate<T>(
  */
 export function generatePaginationLinks(
   baseUrl: string,
-  meta: PaginationResult<any>['meta']
+  pagination: PaginationResult<unknown>['pagination']
 ): Record<string, string | null> {
-  const { page, totalPages } = meta;
-  
+  const { page, totalPages } = pagination;
+
   // Ensure the base URL doesn't have trailing slash
   const url = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-  
+
   return {
     first: `${url}?page=1`,
     prev: page > 1 ? `${url}?page=${page - 1}` : null,
@@ -98,7 +122,7 @@ export function paginatedStoryFilter(
 ): PaginationResult<Story> {
   // Apply filter
   const filteredStories = stories.filter(filterFn);
-  
+
   // Apply pagination
   return paginate(filteredStories, options);
 }
@@ -115,14 +139,14 @@ export function createLazyStoryFilter(
 ): (options: PaginationOptions) => Promise<PaginationResult<Story>> {
   // Cache for filtered stories
   let cachedFilteredStories: Story[] | null = null;
-  
+
   return async (options: PaginationOptions): Promise<PaginationResult<Story>> => {
     // If we don't have cached filtered stories, get and filter them
     if (!cachedFilteredStories) {
       const stories = await getStories();
       cachedFilteredStories = stories.filter(filterFn);
     }
-    
+
     // Apply pagination to the filtered stories
     return paginate(cachedFilteredStories, options);
   };

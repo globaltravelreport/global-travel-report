@@ -1,5 +1,39 @@
 /**
  * Unified date utility functions for consistent date handling
+ *
+ * This file contains utility functions for working with dates in the Global Travel Report.
+ *
+ * Usage examples:
+ *
+ * 1. Format a date for display:
+ *    ```typescript
+ *    const formatted = formatDisplayDate(new Date()); // e.g., 'March 24, 2024'
+ *    ```
+ *
+ * 2. Format a date with time:
+ *    ```typescript
+ *    const formatted = formatDisplayDateTime(new Date()); // e.g., 'March 24, 2024, 10:30 AM'
+ *    ```
+ *
+ * 3. Format a date for ISO string:
+ *    ```typescript
+ *    const iso = formatISODate(new Date()); // e.g., '2024-03-24'
+ *    ```
+ *
+ * 4. Check if a date is in the past:
+ *    ```typescript
+ *    const isPast = isPastDate(new Date('2020-01-01')); // true
+ *    ```
+ *
+ * 5. Get a date from N days ago:
+ *    ```typescript
+ *    const lastWeek = getDaysAgo(7); // Date object from 7 days ago
+ *    ```
+ *
+ * 6. Check if a story is archived:
+ *    ```typescript
+ *    const isOld = isArchived(new Date('2020-01-01'), 30); // true if more than 30 days old
+ *    ```
  */
 
 /**
@@ -10,7 +44,7 @@
  */
 export function formatDisplayDate(date: Date | string, locale: string = 'en-US'): string {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
@@ -26,7 +60,7 @@ export function formatDisplayDate(date: Date | string, locale: string = 'en-US')
  */
 export function formatDisplayDateTime(date: Date | string, locale: string = 'en-US'): string {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
@@ -43,7 +77,7 @@ export function formatDisplayDateTime(date: Date | string, locale: string = 'en-
  */
 export function formatISODate(date: Date | string): string {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   return dateObj.toISOString().split('T')[0];
 }
 
@@ -54,7 +88,7 @@ export function formatISODate(date: Date | string): string {
  */
 export function formatRSSDate(date: Date | string): string {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   return dateObj.toUTCString();
 }
 
@@ -65,7 +99,7 @@ export function formatRSSDate(date: Date | string): string {
  */
 export function formatDatabaseDate(date: Date | string): string {
   const dateObj = date instanceof Date ? date : new Date(date);
-  
+
   return dateObj.toISOString();
 }
 
@@ -77,7 +111,7 @@ export function formatDatabaseDate(date: Date | string): string {
 export function isPastDate(date: Date | string): boolean {
   const dateObj = date instanceof Date ? date : new Date(date);
   const now = new Date();
-  
+
   return dateObj < now;
 }
 
@@ -89,7 +123,7 @@ export function isPastDate(date: Date | string): boolean {
 export function isFutureDate(date: Date | string): boolean {
   const dateObj = date instanceof Date ? date : new Date(date);
   const now = new Date();
-  
+
   return dateObj > now;
 }
 
@@ -124,10 +158,10 @@ export function getDaysFromNow(days: number): Date {
 export function daysBetween(date1: Date | string, date2: Date | string = new Date()): number {
   const dateObj1 = date1 instanceof Date ? date1 : new Date(date1);
   const dateObj2 = date2 instanceof Date ? date2 : new Date(date2);
-  
+
   const diffTime = Math.abs(dateObj2.getTime() - dateObj1.getTime());
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
+
   return diffDays;
 }
 
@@ -140,6 +174,6 @@ export function daysBetween(date1: Date | string, date2: Date | string = new Dat
 export function isArchived(publishDate: Date | string, archiveDays: number = 7): boolean {
   const dateObj = publishDate instanceof Date ? publishDate : new Date(publishDate);
   const archiveDate = getDaysAgo(archiveDays);
-  
+
   return dateObj < archiveDate;
 }

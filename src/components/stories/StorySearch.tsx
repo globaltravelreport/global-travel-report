@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { StoryCard } from './StoryCard'
-import type { Story } from '@/lib/stories'
+import type { Story } from '@/types/Story'
 
 interface StorySearchProps {
   stories: Story[]
@@ -126,4 +126,4 @@ export function StorySearch({ stories }: StorySearchProps) {
       </div>
     </div>
   )
-} 
+}

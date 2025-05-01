@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getStories, searchStories } from '@/app/lib/stories';
+import { getAllStories, searchStories } from '@/src/utils/stories';
 import { SearchForm } from '@/src/components/search/SearchForm';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { Pagination } from '@/src/components/ui/Pagination';
@@ -29,18 +29,8 @@ interface SearchPageProps {
   };
 }
 
-// Define search params interface
-interface StorySearchParams {
-  query?: string;
-  category?: string;
-  country?: string;
-  tag?: string;
-  author?: string;
-  fromDate?: Date | string;
-  toDate?: Date | string;
-  featured?: boolean;
-  editorsPick?: boolean;
-}
+// Import the StorySearchParams interface
+import { StorySearchParams } from '@/types/StorySearchParams';
 
 // Default page size
 const DEFAULT_PAGE_SIZE = 12;
@@ -60,7 +50,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const limit = parseInt(searchParams.limit || String(DEFAULT_PAGE_SIZE), 10);
 
   // Get all stories
-  const stories = await getStories();
+  const stories = await getAllStories();
 
   // Create search params object
   const searchParams2: StorySearchParams = {
@@ -76,63 +66,17 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   };
 
   // Search stories with pagination
-  const filteredStories = await searchStories(query);
+  const searchResult = searchStories(stories, searchParams2, { page, limit });
+  const filteredStories = searchResult.data;
 
-  // Apply additional filters manually
+  // Use the search result directly
   const results = {
-    data: filteredStories.filter(story => {
-      // Filter by category if specified
-      if (category && story.category !== category) {
-        return false;
-      }
-
-      // Filter by country if specified
-      if (country && story.country !== country) {
-        return false;
-      }
-
-      // Filter by tag if specified
-      if (tag && !story.tags.includes(tag)) {
-        return false;
-      }
-
-      // Filter by author if specified
-      if (author && story.author !== author) {
-        return false;
-      }
-
-      // Filter by date range if specified
-      if (fromDate) {
-        const storyDate = new Date(story.publishedAt);
-        if (storyDate < fromDate) {
-          return false;
-        }
-      }
-
-      if (toDate) {
-        const storyDate = new Date(story.publishedAt);
-        if (storyDate > toDate) {
-          return false;
-        }
-      }
-
-      // Filter by featured if specified
-      if (featured !== undefined && story.featured !== featured) {
-        return false;
-      }
-
-      // Filter by editor's pick if specified
-      if (editorsPick !== undefined && story.editorsPick !== editorsPick) {
-        return false;
-      }
-
-      return true;
-    }).slice((page - 1) * limit, page * limit),
+    data: filteredStories,
     meta: {
-      page,
-      limit,
-      total: filteredStories.length,
-      totalPages: Math.ceil(filteredStories.length / limit)
+      page: searchResult.pagination.page,
+      limit: searchResult.pagination.limit,
+      total: searchResult.pagination.total,
+      totalPages: searchResult.pagination.totalPages
     }
   };
 

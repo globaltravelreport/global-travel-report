@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { getStoriesByCountry, getStories, type Story } from '@/lib/stories';
+import { getStoriesByCountry, getAllStories } from '@/src/utils/stories';
+import { Story } from '@/types/Story';
 import type { Metadata } from 'next';
 
 // Define the params type for Next.js 15
@@ -26,8 +27,9 @@ export async function generateMetadata({ params }: { params: CountryParams }): P
 
 export default async function CountryPage({ params }: { params: CountryParams }) {
   const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
-  const allStories = await getStories();
-  const stories = await getStoriesByCountry(allStories, country);
+  const allStories = await getAllStories();
+  const storiesResult = getStoriesByCountry(allStories, country);
+  const stories = storiesResult.data;
 
   if (stories.length === 0) {
     notFound();

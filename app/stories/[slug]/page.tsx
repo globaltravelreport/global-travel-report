@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { RelatedStories } from "@/src/components/stories/RelatedStories";
 import { NewsletterSignup } from "@/src/components/ui/NewsletterSignup";
-import type { Story } from "@/lib/stories";
+import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       title,
       description,
       type: "article",
-      publishedTime: story.publishedAt.toISOString(),
+      publishedTime: new Date(story.publishedAt).toISOString(),
       authors: [story.author],
       images: ogImage ? [
         {

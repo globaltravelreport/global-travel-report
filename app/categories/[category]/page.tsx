@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { getStories } from '@/src/lib/stories';
+import { getAllStories, getStoriesByCategory } from '@/src/utils/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 
 // Define the params type for Next.js 15
@@ -19,10 +19,9 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: { params: CategoryParams }) {
-  const stories = await getStories();
-  const categoryStories = stories.filter(
-    (story) => story.category.toLowerCase() === params.category.toLowerCase()
-  );
+  const stories = await getAllStories();
+  const categoryStoriesResult = getStoriesByCategory(stories, params.category);
+  const categoryStories = categoryStoriesResult.data;
 
   if (categoryStories.length === 0) {
     return (

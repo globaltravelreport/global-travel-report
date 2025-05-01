@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getStories } from '@/app/lib/stories';
+import { getAllStories } from '@/src/utils/stories';
 
 /**
  * Escape XML special characters to prevent malformed XML
@@ -29,7 +29,7 @@ function formatRssDate(date: Date | string): string {
  * Generate RSS feed for the site
  */
 export async function GET() {
-  const stories = await getStories();
+  const stories = await getAllStories();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>

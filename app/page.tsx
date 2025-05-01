@@ -1,4 +1,4 @@
-import { getStories, getHomepageStories } from '@/lib/stories';
+import { getAllStories, getHomepageStories } from '@/src/utils/stories';
 import Hero from '@/components/Hero';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
@@ -26,12 +26,17 @@ export const metadata: Metadata = {
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
-  const allStories = await getStories();
-  const activeStories = await getHomepageStories(allStories);
+  const allStories = await getAllStories();
+  const homepageStoriesResult = getHomepageStories(allStories);
+  const activeStories = homepageStoriesResult.data;
   const featuredStories = activeStories.filter(story => story.featured);
   const latestStories = activeStories
     .filter(story => !story.featured)
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    .sort((a, b) => {
+      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
+      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    });
 
   if (allStories.length === 0) {
     return (
@@ -52,7 +57,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      
+
       {/* Featured Stories */}
       {featuredStories.length > 0 && (
         <section className="py-12 bg-gray-50">
@@ -78,8 +83,8 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Latest Stories</h2>
-            <Link 
-              href="/stories" 
+            <Link
+              href="/stories"
               className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
             >
               View All Stories
@@ -130,4 +135,4 @@ export default async function Home() {
       <NewsletterSignup />
     </>
   );
-} 
+}

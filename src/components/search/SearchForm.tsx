@@ -88,14 +88,14 @@ export function SearchForm({
     country: searchParams.get('country') || '',
     tag: searchParams.get('tag') || '',
     author: searchParams.get('author') || '',
-    fromDate: searchParams.get('from') ? new Date(searchParams.get('from')!) : undefined,
-    toDate: searchParams.get('to') ? new Date(searchParams.get('to')!) : undefined,
+    fromDate: searchParams.get('from') ? new Date(searchParams.get('from') || '') : undefined,
+    toDate: searchParams.get('to') ? new Date(searchParams.get('to') || '') : undefined,
     featured: searchParams.get('featured') === 'true' ? true : undefined,
     editorsPick: searchParams.get('editors_pick') === 'true' ? true : undefined,
   });
 
-  // Track if advanced filters are open
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  // Track if advanced filters are open - not used in this simplified version
+  const [_filtersOpen, _setFiltersOpen] = useState(false);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,13 +114,7 @@ export function SearchForm({
     }
   };
 
-  // Handle select change
-  const handleSelectChange = (name: string, value: string) => {
-    setSearchState(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // Handle select change - removed for simplicity
 
   // Handle date change
   const handleDateChange = (name: 'fromDate' | 'toDate', date?: Date) => {
@@ -209,8 +203,8 @@ export function SearchForm({
 
         <Button type="submit">Search</Button>
 
-        <Popover open={filtersOpen} onOpenChange={setFiltersOpen}>
-          <PopoverTrigger asChild>
+        <Popover>
+          <PopoverTrigger>
             <Button
               type="button"
               variant={hasActiveFilters() ? "default" : "outline"}
@@ -220,7 +214,7 @@ export function SearchForm({
               <Filter className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-80 p-4" align="end">
+          <PopoverContent className="w-80 p-4">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Filters</h3>
@@ -236,23 +230,20 @@ export function SearchForm({
                 )}
               </div>
 
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion className="w-full">
                 {/* Category filter */}
                 {categories.length > 0 && (
-                  <AccordionItem value="category">
+                  <AccordionItem>
                     <AccordionTrigger>Category</AccordionTrigger>
                     <AccordionContent>
-                      <Select
-                        value={searchState.category || ''}
-                        onValueChange={(value) => handleSelectChange('category', value)}
-                      >
+                      <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">All categories</SelectItem>
+                          <SelectItem>All categories</SelectItem>
                           {categories.map((category) => (
-                            <SelectItem key={category} value={category}>
+                            <SelectItem key={category}>
                               {category}
                             </SelectItem>
                           ))}
@@ -264,20 +255,17 @@ export function SearchForm({
 
                 {/* Country filter */}
                 {countries.length > 0 && (
-                  <AccordionItem value="country">
+                  <AccordionItem>
                     <AccordionTrigger>Country</AccordionTrigger>
                     <AccordionContent>
-                      <Select
-                        value={searchState.country || ''}
-                        onValueChange={(value) => handleSelectChange('country', value)}
-                      >
+                      <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="Select country" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">All countries</SelectItem>
+                          <SelectItem>All countries</SelectItem>
                           {countries.map((country) => (
-                            <SelectItem key={country} value={country}>
+                            <SelectItem key={country}>
                               {country}
                             </SelectItem>
                           ))}
@@ -289,20 +277,17 @@ export function SearchForm({
 
                 {/* Tag filter */}
                 {tags.length > 0 && (
-                  <AccordionItem value="tag">
+                  <AccordionItem>
                     <AccordionTrigger>Tag</AccordionTrigger>
                     <AccordionContent>
-                      <Select
-                        value={searchState.tag || ''}
-                        onValueChange={(value) => handleSelectChange('tag', value)}
-                      >
+                      <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="Select tag" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">All tags</SelectItem>
+                          <SelectItem>All tags</SelectItem>
                           {tags.map((tag) => (
-                            <SelectItem key={tag} value={tag}>
+                            <SelectItem key={tag}>
                               {tag}
                             </SelectItem>
                           ))}
@@ -314,20 +299,17 @@ export function SearchForm({
 
                 {/* Author filter */}
                 {authors.length > 0 && (
-                  <AccordionItem value="author">
+                  <AccordionItem>
                     <AccordionTrigger>Author</AccordionTrigger>
                     <AccordionContent>
-                      <Select
-                        value={searchState.author || ''}
-                        onValueChange={(value) => handleSelectChange('author', value)}
-                      >
+                      <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="Select author" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">All authors</SelectItem>
+                          <SelectItem>All authors</SelectItem>
                           {authors.map((author) => (
-                            <SelectItem key={author} value={author}>
+                            <SelectItem key={author}>
                               {author}
                             </SelectItem>
                           ))}
@@ -338,14 +320,14 @@ export function SearchForm({
                 )}
 
                 {/* Date range filter */}
-                <AccordionItem value="date">
+                <AccordionItem>
                   <AccordionTrigger>Date Range</AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-2">
                       <div className="space-y-1">
                         <Label htmlFor="fromDate">From</Label>
                         <Popover>
-                          <PopoverTrigger asChild>
+                          <PopoverTrigger>
                             <Button
                               id="fromDate"
                               variant="outline"
@@ -361,7 +343,6 @@ export function SearchForm({
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0">
                             <CalendarComponent
-                              mode="single"
                               selected={searchState.fromDate}
                               onSelect={(date) => handleDateChange('fromDate', date)}
                               initialFocus
@@ -373,7 +354,7 @@ export function SearchForm({
                       <div className="space-y-1">
                         <Label htmlFor="toDate">To</Label>
                         <Popover>
-                          <PopoverTrigger asChild>
+                          <PopoverTrigger>
                             <Button
                               id="toDate"
                               variant="outline"
@@ -389,7 +370,6 @@ export function SearchForm({
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0">
                             <CalendarComponent
-                              mode="single"
                               selected={searchState.toDate}
                               onSelect={(date) => handleDateChange('toDate', date)}
                               initialFocus
@@ -402,7 +382,7 @@ export function SearchForm({
                 </AccordionItem>
 
                 {/* Featured and Editor's Pick filters */}
-                <AccordionItem value="featured">
+                <AccordionItem>
                   <AccordionTrigger>Story Type</AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-2">
@@ -437,7 +417,7 @@ export function SearchForm({
               <div className="flex justify-end">
                 <Button
                   type="submit"
-                  onClick={() => setFiltersOpen(false)}
+                  onClick={() => {}}
                 >
                   Apply Filters
                 </Button>

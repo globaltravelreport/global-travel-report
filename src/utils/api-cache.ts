@@ -21,12 +21,12 @@ const DEFAULT_CACHE_TTL = 5 * 60 * 1000;
 export function generateCacheKey(request: NextRequest): string {
   const url = request.nextUrl.toString();
   const method = request.method;
-  
+
   // For GET requests, use the URL as the cache key
   if (method === 'GET') {
     return `${method}:${url}`;
   }
-  
+
   // For other methods, include the request body in the cache key
   // This is a simplified approach and may not work for all cases
   return `${method}:${url}:${JSON.stringify(request.body)}`;
@@ -49,18 +49,18 @@ function isCacheValid(cachedData: { timestamp: number }, ttl: number): boolean {
  * @param ttl - The TTL in milliseconds
  * @returns The cached response or undefined if not found or expired
  */
-export function getCachedResponse(cacheKey: string, ttl: number = DEFAULT_CACHE_TTL): any | undefined {
+export function getCachedResponse(cacheKey: string, ttl: number = DEFAULT_CACHE_TTL): unknown | undefined {
   if (responseCache.has(cacheKey)) {
-    const cachedData = responseCache.get(cacheKey)!;
-    
-    if (isCacheValid(cachedData, ttl)) {
+    const cachedData = responseCache.get(cacheKey);
+
+    if (cachedData && isCacheValid(cachedData, ttl)) {
       return cachedData.response;
     }
-    
+
     // Remove expired cache entry
     responseCache.delete(cacheKey);
   }
-  
+
   return undefined;
 }
 
@@ -69,7 +69,7 @@ export function getCachedResponse(cacheKey: string, ttl: number = DEFAULT_CACHE_
  * @param cacheKey - The cache key
  * @param response - The response to cache
  */
-export function cacheResponse(cacheKey: string, response: any): void {
+export function cacheResponse(cacheKey: string, response: unknown): void {
   responseCache.set(cacheKey, {
     response,
     timestamp: Date.now(),
@@ -97,12 +97,13 @@ export function getResponseCacheSize(): number {
  */
 export function cleanupResponseCache(ttl: number = DEFAULT_CACHE_TTL): void {
   const now = Date.now();
-  
-  for (const [key, data] of responseCache.entries()) {
+
+  // Convert entries to array first to avoid iterator issues
+  Array.from(responseCache.entries()).forEach(([key, data]) => {
     if (now - data.timestamp >= ttl) {
       responseCache.delete(key);
     }
-  }
+  });
 }
 
 /**
@@ -116,36 +117,42 @@ export function cacheMiddleware(request: NextRequest, ttl: number = DEFAULT_CACH
   if (request.method !== 'GET') {
     return undefined;
   }
-  
+
   // Only cache API routes
   const path = request.nextUrl.pathname;
   if (!path.startsWith('/api/')) {
     return undefined;
   }
-  
+
   // Skip caching for certain endpoints
   const skipCachePaths = ['/api/auth', '/api/contact', '/api/newsletter'];
   if (skipCachePaths.some(skipPath => path.startsWith(skipPath))) {
     return undefined;
   }
-  
+
   // Generate cache key
   const cacheKey = generateCacheKey(request);
-  
+
   // Check cache
   const cachedResponse = getCachedResponse(cacheKey, ttl);
-  if (cachedResponse) {
-    // Clone the cached response
-    const response = NextResponse.json(cachedResponse.data, {
-      status: cachedResponse.status,
-      headers: cachedResponse.headers,
+  if (cachedResponse && typeof cachedResponse === 'object' && cachedResponse !== null) {
+    // Clone the cached response - use type assertion since we know the structure
+    const typedResponse = cachedResponse as {
+      data: any;
+      status: number;
+      headers: Record<string, string>
+    };
+
+    const response = NextResponse.json(typedResponse.data, {
+      status: typedResponse.status,
+      headers: typedResponse.headers,
     });
-    
+
     // Add cache headers
     response.headers.set('X-Cache', 'HIT');
-    
+
     return response;
   }
-  
+
   return undefined;
 }

@@ -3,12 +3,10 @@
 import * as React from "react";
 
 interface SelectProps {
-  value: string;
-  onValueChange: (value: string) => void;
   children: React.ReactNode;
 }
 
-export function Select({ value, onValueChange, children }: SelectProps) {
+export function Select({ children }: SelectProps) {
   return (
     <div className="relative">
       {children}
@@ -52,11 +50,10 @@ export function SelectContent({ children }: SelectContentProps) {
 }
 
 interface SelectItemProps {
-  value: string;
   children: React.ReactNode;
 }
 
-export function SelectItem({ value, children }: SelectItemProps) {
+export function SelectItem({ children }: SelectItemProps) {
   return (
     <div
       className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"

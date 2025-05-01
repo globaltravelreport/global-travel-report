@@ -1,5 +1,5 @@
 import { StoryCard } from './StoryCard'
-import type { Story } from '@/lib/stories'
+import type { Story } from '@/types/Story'
 
 interface RelatedStoriesProps {
   currentStory: Story
@@ -9,7 +9,7 @@ interface RelatedStoriesProps {
 export function RelatedStories({ currentStory, allStories }: RelatedStoriesProps) {
   // Find related stories based on country, category, and tags
   const relatedStories = allStories
-    .filter(story => 
+    .filter(story =>
       story.id !== currentStory.id && (
         story.country === currentStory.country ||
         story.category === currentStory.category ||
@@ -20,8 +20,8 @@ export function RelatedStories({ currentStory, allStories }: RelatedStoriesProps
 
   // If we don't have enough related stories, add recent stories as fallback
   const recentStories = allStories
-    .filter(story => 
-      story.id !== currentStory.id && 
+    .filter(story =>
+      story.id !== currentStory.id &&
       !relatedStories.some(related => related.id === story.id)
     )
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
@@ -45,4 +45,4 @@ export function RelatedStories({ currentStory, allStories }: RelatedStoriesProps
       </div>
     </section>
   )
-} 
+}

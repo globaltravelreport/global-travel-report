@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getStories, Story } from '@/lib/stories';
+import { getAllStories } from '@/src/utils/stories';
+import { Story } from '@/types/Story';
 
 export default function Hero() {
   const [featuredStory, setFeaturedStory] = useState<Story | null>(null);
 
   useEffect(() => {
     const loadFeaturedStory = async () => {
-      const stories = await getStories();
+      const stories = await getAllStories();
       const featured = stories.find(story => story.featured);
       setFeaturedStory(featured || stories[0]);
     };
@@ -40,6 +41,28 @@ export default function Hero() {
           priority
         />
         <div className="absolute inset-0 bg-black bg-opacity-50" />
+        {featuredStory.photographer && (
+          <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+            Photo by{" "}
+            <a
+              href={featuredStory.photographer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-200"
+            >
+              {featuredStory.photographer.name}
+            </a>
+            {" "}on{" "}
+            <a
+              href="https://unsplash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-200"
+            >
+              Unsplash
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -71,4 +94,4 @@ export default function Hero() {
       </div>
     </div>
   );
-} 
+}

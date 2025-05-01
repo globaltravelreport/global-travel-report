@@ -1,5 +1,18 @@
 import * as React from 'react';
-import { ToastActionElement, type ToastProps } from '@/components/ui/toast';
+import { ToastAction } from '@/components/ui/toast';
+
+// Define the ToastProps type
+export interface ToastProps {
+  id: string;
+  variant?: 'default' | 'destructive';
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  action?: React.ReactElement;
+  open?: boolean;
+}
+
+// Define the ToastActionElement type
+export type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -178,4 +191,4 @@ export function useToast() {
     toast,
     dismiss: (toastId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
   };
-} 
+}

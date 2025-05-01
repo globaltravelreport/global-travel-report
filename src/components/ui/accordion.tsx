@@ -3,22 +3,24 @@
 import * as React from "react";
 
 interface AccordionProps {
-  type?: "single" | "multiple";
-  collapsible?: boolean;
   className?: string;
   children: React.ReactNode;
 }
 
-export function Accordion({ type = "single", collapsible = false, className, children }: AccordionProps) {
+export function Accordion({
+  className,
+  children
+}: AccordionProps) {
   return <div className={`space-y-1 ${className}`}>{children}</div>;
 }
 
 interface AccordionItemProps {
-  value: string;
   children: React.ReactNode;
 }
 
-export function AccordionItem({ value, children }: AccordionItemProps) {
+export function AccordionItem({
+  children
+}: AccordionItemProps) {
   return <div className="border-b">{children}</div>;
 }
 

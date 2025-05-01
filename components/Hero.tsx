@@ -24,7 +24,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-[60vh] w-full overflow-hidden">
       {/* Background Image with Parallax */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0"
         style={{ y }}
       >
@@ -38,6 +38,23 @@ const Hero = () => {
           quality={90}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 dark:from-black/80 dark:via-black/60 dark:to-black/80" />
+        <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+          Photo by <a
+            href="https://unsplash.com/@jeremybishop"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-200"
+          >
+            Jeremy Bishop
+          </a> on <a
+            href="https://unsplash.com/photos/8xznAGy4HcY"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-200"
+          >
+            Unsplash
+          </a>
+        </div>
       </motion.div>
 
       {/* Theme Toggle */}
@@ -54,11 +71,11 @@ const Hero = () => {
       </button>
 
       {/* Content */}
-      <motion.div 
+      <motion.div
         className="relative h-full flex flex-col items-center justify-center text-white px-4"
         style={{ opacity }}
       >
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -66,7 +83,7 @@ const Hero = () => {
         >
           Discover Your Next Adventure
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -95,4 +112,4 @@ const Hero = () => {
 };
 
 // Export as a dynamic component with no SSR
-export default dynamic(() => Promise.resolve(Hero), { ssr: false }); 
+export default dynamic(() => Promise.resolve(Hero), { ssr: false });
