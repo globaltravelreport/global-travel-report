@@ -22,7 +22,7 @@ const Hero = () => {
   if (!mounted) return null;
 
   return (
-    <section className="relative min-h-[60vh] w-full overflow-hidden">
+    <section className="relative min-h-[55vh] w-full overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0"
@@ -37,7 +37,7 @@ const Hero = () => {
           sizes="100vw"
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 dark:from-black/80 dark:via-black/60 dark:to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 dark:from-black/80 dark:via-black/60 dark:to-black/80" />
         <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
           Photo by <a
             href="https://unsplash.com/@jeremybishop"
@@ -72,15 +72,15 @@ const Hero = () => {
 
       {/* Content */}
       <motion.div
-        className="relative h-full flex flex-col items-center justify-center text-white px-4"
+        className="relative h-full flex flex-col items-center justify-center text-white px-4 pt-8"
         style={{ opacity }}
       >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl md:text-7xl font-extrabold text-center mb-6 tracking-tight text-shadow-lg"
-          style={{ textShadow: '0 4px 8px rgba(0,0,0,0.3)' }}
+          className="text-5xl md:text-7xl font-black text-center mb-6 tracking-tight"
+          style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)' }}
         >
           Discover Your Next Adventure
         </motion.h1>
@@ -88,8 +88,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl text-center mb-10 max-w-2xl font-medium leading-relaxed"
-          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
+          className="text-xl md:text-2xl text-center mb-10 max-w-2xl font-semibold leading-relaxed"
+          style={{ textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)' }}
         >
           Explore travel stories, tips, and inspiration from around the world
         </motion.p>

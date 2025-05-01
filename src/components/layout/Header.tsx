@@ -31,8 +31,8 @@ export default function Header() {
         ? "bg-white/95 backdrop-blur shadow-md supports-[backdrop-filter]:bg-white/80 dark:bg-gray-900/95 dark:supports-[backdrop-filter]:bg-gray-900/80"
         : "bg-transparent"
     )}>
-      {/* Top bar with contact info */}
-      <div className="hidden lg:block bg-[#19273A] text-white py-1">
+      {/* Top bar with contact info - Updated with gradient background */}
+      <div className="hidden lg:block bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white py-0.5">
         <div className="container flex justify-between items-center text-xs">
           <div className="flex items-center space-x-4">
             <span className="flex items-center">
@@ -74,7 +74,7 @@ export default function Header() {
       {/* Main navigation */}
       <div className={cn(
         "container transition-all duration-300",
-        isScrolled ? "py-3" : "py-5"
+        isScrolled ? "py-2" : "py-3"
       )}>
         <div className="flex items-center justify-between">
           {/* Logo */}
