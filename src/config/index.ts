@@ -10,14 +10,14 @@ const config = {
 
   // Contact form settings
   contact: {
-    email: process.env.CONTACT_EMAIL || 'info@globaltravelreport.com',
-    recipients: process.env.CONTACT_RECIPIENTS?.split(',') || ['info@globaltravelreport.com'],
+    email: process.env.CONTACT_EMAIL || 'editorial@globaltravelreport.com',
+    recipients: process.env.CONTACT_RECIPIENTS?.split(',') || ['editorial@globaltravelreport.com'],
   },
 
   // Email settings
   email: {
     from: process.env.EMAIL_FROM || 'noreply@globaltravelreport.com',
-    contact: process.env.CONTACT_EMAIL || 'info@globaltravelreport.com',
+    contact: process.env.CONTACT_EMAIL || 'editorial@globaltravelreport.com',
     smtp: {
       host: process.env.SMTP_HOST || 'smtp.example.com',
       port: parseInt(process.env.SMTP_PORT || '587', 10),

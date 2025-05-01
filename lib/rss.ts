@@ -1,5 +1,5 @@
 import Parser from 'rss-parser';
-import { Story } from './stories';
+import { Story } from '@/types/Story';
 
 const parser = new Parser({
   customFields: {

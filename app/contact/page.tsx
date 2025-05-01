@@ -35,7 +35,7 @@ export default function ContactPage() {
           <div>
             <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
             <p className="text-gray-600">
-              We'd love to hear from you! Whether you have a story to share, a question to ask, or feedback to provide, 
+              We'd love to hear from you! Whether you have a story to share, a question to ask, or feedback to provide,
               our team is here to help.
             </p>
           </div>
@@ -49,7 +49,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="text-gray-600">contact@globaltravelreport.com</p>
+                <p className="text-gray-600">editorial@globaltravelreport.com</p>
               </div>
             </div>
 
@@ -62,7 +62,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-semibold">Location</h3>
-                <p className="text-gray-600">Bangkok, Thailand</p>
+                <p className="text-gray-600">Sydney, Australia</p>
               </div>
             </div>
           </div>
@@ -96,4 +96,4 @@ export default function ContactPage() {
       </div>
     </div>
   );
-} 
+}
