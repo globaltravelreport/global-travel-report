@@ -81,12 +81,39 @@ export const isStoryArchived = memoize((story: Story, days: number = 30): boolea
  * @returns A promise resolving to an array of stories
  */
 export async function getAllStories(): Promise<Story[]> {
-  // In a real application, this would fetch from a database or API
-  return mockStories.sort((a, b) => {
-    const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-    const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-    return dateB.getTime() - dateA.getTime();
-  });
+  try {
+    // Import the database service
+    const { StoryDatabase } = require('@/src/services/storyDatabase');
+    const db = StoryDatabase.getInstance();
+
+    // Get all stories from the database
+    const stories = await db.getAllStories();
+
+    // If no stories found in the database, fall back to mock stories
+    if (!stories || stories.length === 0) {
+      return mockStories.sort((a, b) => {
+        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
+        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
+        return dateB.getTime() - dateA.getTime();
+      });
+    }
+
+    // Sort by date (newest first)
+    return stories.sort((a, b) => {
+      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
+      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    });
+  } catch (error) {
+    console.error('Error fetching stories from database:', error);
+
+    // Fall back to mock stories if database access fails
+    return mockStories.sort((a, b) => {
+      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
+      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }
 }
 
 /**
@@ -434,9 +461,30 @@ export async function getUniqueCategories(): Promise<string[]> {
  */
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
+    // Import the database service
+    const { StoryDatabase } = require('@/src/services/storyDatabase');
+    const db = StoryDatabase.getInstance();
+
+    // Try to get the story directly from the database
+    const story = await db.getStoryBySlug(slug);
+
+    // If found in the database, return it
+    if (story) {
+      return story;
+    }
+
+    // If not found in the database, fall back to the old method
     const stories = await getAllStories();
     return stories.find(story => story.slug === slug) || null;
   } catch (error) {
-    return null;
+    console.error(`Error fetching story with slug "${slug}":`, error);
+
+    // Fall back to the old method if database access fails
+    try {
+      const stories = await getAllStories();
+      return stories.find(story => story.slug === slug) || null;
+    } catch {
+      return null;
+    }
   }
 }

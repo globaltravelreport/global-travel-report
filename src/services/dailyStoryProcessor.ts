@@ -296,17 +296,18 @@ With the right approach to ${category.toLowerCase()}, your travel experiences wi
       // Log the scheduling
       logger.info(`Scheduling story "${story.title}" for publishing at ${publishTime.toISOString()}`);
 
-      // In a production environment, you would save this to a database
-      // For now, we'll just add it to the processed stories array
-      // In a real implementation, you would use a database like MongoDB or PostgreSQL
+      // Import the database service
+      const { StoryDatabase } = require('./storyDatabase');
+      const db = StoryDatabase.getInstance();
 
-      // Example of how you might save to a database:
-      // await db.collection('stories').insertOne(storyToPublish);
+      // Save the story to the database
+      await db.addStory(storyToPublish);
 
-      // For now, we'll just update our in-memory array
-      // This is just a placeholder - in production, use a real database
+      // Also update our in-memory array for API responses
       this.processedStories = this.processedStories.filter(s => s.id !== storyToPublish.id);
       this.processedStories.push(storyToPublish);
+
+      logger.info(`Story "${story.title}" saved to database and scheduled for publishing`);
     } catch (error) {
       logger.error(`Error scheduling story "${story.title}" for publishing:`, error);
       throw new DailyStoryProcessorError('Failed to schedule story for publishing', error);
