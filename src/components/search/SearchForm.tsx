@@ -214,7 +214,7 @@ export function SearchForm({
             <Button
               type="button"
               variant={hasActiveFilters() ? "default" : "outline"}
-              size="icon"
+              size="sm"
               aria-label="Filters"
             >
               <Filter className="h-4 w-4" />
