@@ -46,7 +46,7 @@ export const NewsletterSignup = () => {
         title: 'Success',
         description: 'Successfully subscribed to the newsletter!'
       });
-      
+
       // Reset form
       event.currentTarget.reset();
       setRecaptchaValue(null);
@@ -81,7 +81,7 @@ export const NewsletterSignup = () => {
           />
           <div className="flex justify-center">
             <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
               onChange={setRecaptchaValue}
             />
           </div>
@@ -92,4 +92,4 @@ export const NewsletterSignup = () => {
       </div>
     </div>
   );
-}; 
+};
