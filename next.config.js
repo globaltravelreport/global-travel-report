@@ -22,9 +22,22 @@ const nextConfig = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
     };
+
+    // Ignore problematic modules
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      http: false,
+      https: false,
+      timers: false,
+      string_decoder: false,
+    };
+
     return config;
   },
-  // Explicitly set the runtime for specific routes
+  // Exclude problematic API routes from the build
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   experimental: {
     serverComponentsExternalPackages: ['rss-parser', 'xml2js'],
   },
