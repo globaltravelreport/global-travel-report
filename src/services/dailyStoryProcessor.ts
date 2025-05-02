@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+// This service runs on the server side only with Node.js runtime
 // Define default story rewrite config
 const storyRewriteConfig = {
   categoryDistribution: {
