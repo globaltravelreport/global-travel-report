@@ -1,53 +1,15 @@
-/* eslint-disable no-console */
-// This service runs on the server side only with Node.js runtime
-// Define default story rewrite config
-const storyRewriteConfig = {
-  categoryDistribution: {
-    cruise: 2, // Updated to 2 cruise stories
-    other: 6   // Updated to 6 other stories
-  },
-  categories: {
-    cruise: ['Cruise', 'Ocean Cruises', 'River Cruises', 'Luxury Cruises'],
-    other: ['Adventure', 'Luxury', 'Budget', 'Family', 'Solo', 'Culinary', 'Cultural', 'Destinations', 'Hotels', 'Airlines']
-  },
-  preserveTags: true,
-  maintainTone: true,
-  publishing: {
-    intervalMinutes: 60
-  }
-};
 import { Story } from '@/types/Story';
 import { IStoryProcessor, IStoryRewriter, IStoryValidator } from './interfaces';
-import config from '@/src/config';
-
-// Simple logger for now - could be replaced with a proper logging system
-const logger = {
-  info: (message: string, ...args: any[]) => console.log(`[INFO] ${message}`, ...args),
-  warn: (message: string, ...args: any[]) => console.warn(`[WARN] ${message}`, ...args),
-  error: (message: string, ...args: any[]) => console.error(`[ERROR] ${message}`, ...args)
-};
+import { StoryRewriter } from './storyRewriter';
+import { fetchRSSFeeds } from '@/lib/rss';
 
 /**
- * Custom error class for story processing errors
- */
-export class DailyStoryProcessorError extends Error {
-  constructor(message: string, public originalError?: unknown) {
-    super(message);
-    this.name = 'DailyStoryProcessorError';
-  }
-}
-
-/**
- * Service for processing daily stories
- * Uses dependency injection for better testability
+ * Simple mock implementation of the DailyStoryProcessor
+ * This avoids using Node.js-specific modules that aren't available in Edge Runtime
  */
 export class DailyStoryProcessor implements IStoryProcessor {
-  private processingQueue: Story[] = [];
-  private isProcessing: boolean = false;
   private processedStories: Story[] = [];
   private dailyStoriesProcessed: number = 0;
-  private readonly maxDailyStories: number;
-  private readonly minTimeBetweenStories: number; // 1 minute
   private lastProcessedTime: Date | null = null;
   private static instance: DailyStoryProcessor | null = null;
 
@@ -59,11 +21,7 @@ export class DailyStoryProcessor implements IStoryProcessor {
   constructor(
     private readonly storyRewriter: IStoryRewriter,
     private readonly storyValidator?: IStoryValidator
-  ) {
-    // Set the daily limit to match our requirements (2 cruise + 6 other = 8 total)
-    this.maxDailyStories = 8;
-    this.minTimeBetweenStories = 60 * 1000; // 1 minute
-  }
+  ) {}
 
   /**
    * Get the singleton instance of DailyStoryProcessor
@@ -71,324 +29,32 @@ export class DailyStoryProcessor implements IStoryProcessor {
    */
   public static getInstance(): DailyStoryProcessor {
     if (!DailyStoryProcessor.instance) {
-      // Import dynamically to avoid circular dependencies
-      const { StoryRewriter } = require('./storyRewriter');
-
-      // Get the StoryRewriter instance
       const storyRewriter = StoryRewriter.getInstance();
-
-      // Create a new DailyStoryProcessor with the StoryRewriter
       DailyStoryProcessor.instance = new DailyStoryProcessor(storyRewriter);
     }
-
     return DailyStoryProcessor.instance;
   }
 
   /**
-   * Factory method to create a new DailyStoryProcessor
-   * @param storyRewriter - The story rewriter service
-   * @param storyValidator - The story validator service (optional)
-   * @returns A new DailyStoryProcessor instance
+   * Process daily stories (mock implementation)
+   * @returns A promise that resolves when processing is complete
    */
-  public static create(
-    storyRewriter: IStoryRewriter,
-    storyValidator?: IStoryValidator
-  ): DailyStoryProcessor {
-    return new DailyStoryProcessor(storyRewriter, storyValidator);
-  }
-
   public async processDailyStories(): Promise<void> {
-    if (this.isProcessing) {
-      throw new DailyStoryProcessorError('Story processing already in progress');
-    }
-
-    try {
-      this.isProcessing = true;
-      this.processedStories = []; // Reset processed stories
-      this.resetDailyCount();
-
-      // Process cruise stories first (priority)
-      await this.processCategoryStories('cruise', storyRewriteConfig.categoryDistribution.cruise);
-
-      // Process other categories
-      await this.processCategoryStories('other', storyRewriteConfig.categoryDistribution.other);
-
-      // Schedule the stories for publishing
-      await this.scheduleStoriesForPublishing();
-
-    } catch (error) {
-      throw new DailyStoryProcessorError('Error processing daily stories', error);
-    } finally {
-      this.isProcessing = false;
-    }
+    // Get mock stories
+    const stories = await fetchRSSFeeds();
+    
+    // Store as processed stories
+    this.processedStories = stories;
+    this.dailyStoriesProcessed = stories.length;
+    this.lastProcessedTime = new Date();
   }
 
+  /**
+   * Get processed stories
+   * @returns A promise resolving to the processed stories
+   */
   public async getProcessedStories(): Promise<Story[]> {
     return this.processedStories;
-  }
-
-  /**
-   * Process stories for a specific category type
-   * @param categoryType - The category type ('cruise' or 'other')
-   * @param count - The number of stories to process
-   * @returns Promise that resolves when processing is complete
-   * @private
-   */
-  private async processCategoryStories(categoryType: 'cruise' | 'other', count: number): Promise<void> {
-    const categories = storyRewriteConfig.categories[categoryType];
-
-    for (let i = 0; i < count; i++) {
-      if (!this.canProcessMoreStories()) {
-        throw new DailyStoryProcessorError('Daily story limit reached');
-      }
-
-      try {
-        // Select a random category from the appropriate list
-        const category = categories[Math.floor(Math.random() * categories.length)];
-
-        // Get original content (this would be replaced with actual content fetching)
-        const originalContent = await this.getOriginalContent(category);
-
-        // Rewrite the story
-        const rewrittenStory = await this.storyRewriter.rewrite(
-          originalContent,
-          category,
-          {
-            preserveTags: storyRewriteConfig.preserveTags,
-            maintainTone: storyRewriteConfig.maintainTone
-          }
-        );
-
-        if (!rewrittenStory) {
-          logger.error(`Failed to rewrite story for category: ${category}`);
-          continue;
-        }
-
-        // Validate the story if validator is available
-        if (this.storyValidator && rewrittenStory as Story) {
-          const validationResult = await this.storyValidator.validate(rewrittenStory as Story);
-
-          if (!validationResult.isValid) {
-            logger.warn(`Story validation failed: ${validationResult.issues.join(', ')}`);
-            // You could implement retry logic here or skip the story
-          }
-        }
-
-        // Add to processing queue and processed stories
-        this.processingQueue.push(rewrittenStory as Story);
-        this.processedStories.push(rewrittenStory as Story);
-
-        // Track processing stats
-        this.dailyStoriesProcessed++;
-        this.lastProcessedTime = new Date();
-      } catch (error) {
-        logger.error(`Error processing story for category ${categoryType}:`, error);
-        // Continue with the next story instead of failing the entire batch
-      }
-    }
-  }
-
-  /**
-   * Schedule stories for publishing at intervals
-   * @returns Promise that resolves when scheduling is complete
-   * @private
-   */
-  private async scheduleStoriesForPublishing(): Promise<void> {
-    const interval = storyRewriteConfig.publishing.intervalMinutes * 60 * 1000; // Convert to milliseconds
-    const totalStories = this.processingQueue.length;
-
-    logger.info(`Scheduling ${totalStories} stories for publishing at ${interval / 60000} minute intervals`);
-
-    for (let i = 0; i < totalStories; i++) {
-      try {
-        const story = this.processingQueue[i];
-        const publishTime = new Date(Date.now() + (i * interval));
-
-        // Schedule the story for publishing
-        await this.scheduleStoryPublishing(story, publishTime);
-
-        logger.info(`Scheduled story "${story.title}" for publishing at ${publishTime.toISOString()}`);
-      } catch (error) {
-        logger.error(`Error scheduling story at index ${i}:`, error);
-      }
-    }
-  }
-
-  /**
-   * Get original content for a category
-   * @param category - The category to get content for
-   * @returns Promise resolving to the original content
-   * @private
-   */
-  private async getOriginalContent(category: string): Promise<string> {
-    try {
-      // Import dynamically to avoid circular dependencies
-      const { StoryRewriter } = require('./storyRewriter');
-      const storyRewriter = StoryRewriter.getInstance();
-
-      // Fetch stories by category
-      const stories = await storyRewriter.fetchStoriesByCategory(category, 5);
-
-      // If no stories found, return a placeholder
-      if (!stories || stories.length === 0) {
-        logger.warn(`No stories found for category: ${category}, using placeholder`);
-        return this.getPlaceholderContent(category);
-      }
-
-      // Select a random story
-      const randomIndex = Math.floor(Math.random() * stories.length);
-      const selectedStory = stories[randomIndex];
-
-      // Combine title and content
-      return `# ${selectedStory.title}\n\n${selectedStory.content}`;
-    } catch (error) {
-      logger.error(`Error fetching original content for category ${category}:`, error);
-      return this.getPlaceholderContent(category);
-    }
-  }
-
-  /**
-   * Get placeholder content for a category
-   * @param category - The category to get content for
-   * @returns Placeholder content
-   * @private
-   */
-  private getPlaceholderContent(category: string): string {
-    return `
-# Travel Guide: Exploring ${category}
-
-Discover the best ${category.toLowerCase()} experiences around the world. From hidden gems to popular destinations, this guide covers everything you need to know about ${category.toLowerCase()}.
-
-## Why ${category} Matters
-
-${category} is an essential part of the travel experience. Whether you're a seasoned traveler or planning your first trip, understanding ${category.toLowerCase()} options can enhance your journey.
-
-## Top ${category} Picks for 2025
-
-1. First amazing option
-2. Second incredible choice
-3. Third outstanding selection
-
-## Planning Tips
-
-When considering ${category.toLowerCase()}, always research in advance and book early for the best experiences.
-
-## Conclusion
-
-With the right approach to ${category.toLowerCase()}, your travel experiences will be unforgettable.
-`;
-  }
-
-  /**
-   * Schedule a story for publishing
-   * @param story - The story to publish
-   * @param publishTime - The time to publish the story
-   * @returns Promise that resolves when scheduling is complete
-   * @private
-   */
-  private async scheduleStoryPublishing(story: Story, publishTime: Date): Promise<void> {
-    try {
-      // Set the publishedAt time
-      const storyToPublish = {
-        ...story,
-        publishedAt: publishTime.toISOString()
-      };
-
-      // Log the scheduling
-      logger.info(`Scheduling story "${story.title}" for publishing at ${publishTime.toISOString()}`);
-
-      // Import the database service
-      const { StoryDatabase } = require('./storyDatabase');
-      const db = StoryDatabase.getInstance();
-
-      // Save the story to the database
-      await db.addStory(storyToPublish);
-
-      // Also update our in-memory array for API responses
-      this.processedStories = this.processedStories.filter(s => s.id !== storyToPublish.id);
-      this.processedStories.push(storyToPublish);
-
-      logger.info(`Story "${story.title}" saved to database and scheduled for publishing`);
-    } catch (error) {
-      logger.error(`Error scheduling story "${story.title}" for publishing:`, error);
-      throw new DailyStoryProcessorError('Failed to schedule story for publishing', error);
-    }
-  }
-
-  private canProcessMoreStories(): boolean {
-    if (this.dailyStoriesProcessed >= this.maxDailyStories) {
-      return false;
-    }
-
-    if (!this.lastProcessedTime) {
-      return true;
-    }
-
-    const timeSinceLastProcess = Date.now() - this.lastProcessedTime.getTime();
-    return timeSinceLastProcess >= this.minTimeBetweenStories;
-  }
-
-  public resetDailyCount(): void {
-    this.dailyStoriesProcessed = 0;
-    this.lastProcessedTime = null;
-  }
-
-  async processStories(stories: Story[]): Promise<Story[]> {
-    const processedStories: Story[] = [];
-
-    for (const story of stories) {
-      try {
-        const processedStory = await this.processStory(story);
-        if (processedStory) {
-          processedStories.push(processedStory);
-          this.dailyStoriesProcessed++;
-          this.lastProcessedTime = new Date();
-        }
-      } catch (error) {
-        console.error(`Error processing story ${story.id}:`, error);
-      }
-    }
-
-    return processedStories;
-  }
-
-  private async processStory(story: Story): Promise<Story | null> {
-    try {
-      // Rewrite the story content
-      const rewrittenContent = await this.storyRewriter.rewrite(
-        story.content,
-        story.category || 'General',
-        {
-          preserveTags: true,
-          maintainTone: true
-        }
-      );
-
-      if (!rewrittenContent) {
-        console.error(`Failed to rewrite story ${story.id}`);
-        return null;
-      }
-
-      // If the result is a string, update the content
-      if (typeof rewrittenContent === 'string') {
-        return {
-          ...story,
-          content: rewrittenContent
-        };
-      }
-      // If the result is a Story object, merge it with the original story
-      else if (typeof rewrittenContent === 'object') {
-        return {
-          ...story,
-          ...(rewrittenContent as object)
-        };
-      }
-
-      return null;
-    } catch (error) {
-      console.error(`Error in processStory for ${story.id}:`, error);
-      return null;
-    }
   }
 
   /**
