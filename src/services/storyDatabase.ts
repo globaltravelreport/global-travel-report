@@ -2,7 +2,7 @@ import { Story } from '@/types/Story';
 
 /**
  * Simple in-memory database for stories
- * In a production environment, this would be replaced with a real database like MongoDB or PostgreSQL
+ * This avoids using Node.js-specific modules that aren't available in Edge Runtime
  */
 export class StoryDatabase {
   private static instance: StoryDatabase | null = null;
@@ -54,35 +54,6 @@ export class StoryDatabase {
   }
 
   /**
-   * Get stories by category
-   * @param category - The category to filter by
-   * @returns Stories in the specified category
-   */
-  public async getStoriesByCategory(category: string): Promise<Story[]> {
-    await this.initialize();
-    return this.stories.filter(story =>
-      story.category.toLowerCase() === category.toLowerCase()
-    );
-  }
-
-  /**
-   * Get stories by date range
-   * @param startDate - The start date
-   * @param endDate - The end date
-   * @returns Stories in the specified date range
-   */
-  public async getStoriesByDateRange(startDate: Date, endDate: Date): Promise<Story[]> {
-    await this.initialize();
-    return this.stories.filter(story => {
-      const publishedAt = story.publishedAt instanceof Date
-        ? story.publishedAt
-        : new Date(story.publishedAt);
-
-      return publishedAt >= startDate && publishedAt <= endDate;
-    });
-  }
-
-  /**
    * Get a story by ID
    * @param id - The ID of the story to get
    * @returns The story with the specified ID, or null if not found
@@ -90,16 +61,6 @@ export class StoryDatabase {
   public async getStoryById(id: string): Promise<Story | null> {
     await this.initialize();
     return this.stories.find(story => story.id === id) || null;
-  }
-
-  /**
-   * Get a story by slug
-   * @param slug - The slug of the story to get
-   * @returns The story with the specified slug, or null if not found
-   */
-  public async getStoryBySlug(slug: string): Promise<Story | null> {
-    await this.initialize();
-    return this.stories.find(story => story.slug === slug) || null;
   }
 
   /**
@@ -122,49 +83,5 @@ export class StoryDatabase {
     }
 
     return story;
-  }
-
-  /**
-   * Update a story in the database
-   * @param id - The ID of the story to update
-   * @param story - The updated story
-   * @returns The updated story, or null if not found
-   */
-  public async updateStory(id: string, story: Partial<Story>): Promise<Story | null> {
-    await this.initialize();
-
-    const index = this.stories.findIndex(s => s.id === id);
-
-    if (index === -1) {
-      return null;
-    }
-
-    // Update the story
-    this.stories[index] = {
-      ...this.stories[index],
-      ...story
-    };
-
-    return this.stories[index];
-  }
-
-  /**
-   * Delete a story from the database
-   * @param id - The ID of the story to delete
-   * @returns True if the story was deleted, false if not found
-   */
-  public async deleteStory(id: string): Promise<boolean> {
-    await this.initialize();
-
-    const index = this.stories.findIndex(s => s.id === id);
-
-    if (index === -1) {
-      return false;
-    }
-
-    // Remove the story
-    this.stories.splice(index, 1);
-
-    return true;
   }
 }

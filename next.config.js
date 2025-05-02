@@ -32,15 +32,29 @@ const nextConfig = {
       https: false,
       timers: false,
       string_decoder: false,
+      crypto: false,
+      stream: false,
+      os: false,
+      zlib: false,
+    };
+
+    // Ignore specific modules that cause issues
+    config.module = {
+      ...config.module,
+      exprContextCritical: false,
+      rules: [
+        ...config.module.rules,
+        {
+          test: /node_modules[\\\/](rss-parser|xml2js|sax)/,
+          use: 'null-loader',
+        },
+      ],
     };
 
     return config;
   },
   // Exclude problematic API routes from the build
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  experimental: {
-    serverComponentsExternalPackages: ['rss-parser', 'xml2js'],
-  },
 }
 
 module.exports = nextConfig
