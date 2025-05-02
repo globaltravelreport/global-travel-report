@@ -48,12 +48,6 @@ export const OPTIONS = createOptionsHandler();
  */
 export const POST = createApiHandler<ContactFormRequest>(
   async (_req: NextRequest, data: ContactFormRequest) => {
-    // Verify reCAPTCHA token
-    const isRecaptchaValid = await verifyRecaptcha(data.recaptchaToken);
-    if (!isRecaptchaValid) {
-      return createValidationErrorResponse('Invalid reCAPTCHA token. Please try again.');
-    }
-
     // Send the email
     const emailSent = await sendEmail(data);
 

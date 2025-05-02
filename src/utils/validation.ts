@@ -21,7 +21,7 @@ export const contactFormSchema = z.object({
   message: z.string()
     .min(10, 'Message must be at least 10 characters')
     .max(5000, 'Message must be less than 5000 characters'),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().optional(),
 });
 
 /**
@@ -34,7 +34,7 @@ export const newsletterSchema = z.object({
   name: z.string()
     .max(100, 'Name must be less than 100 characters')
     .optional(),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().optional(),
 });
 
 /**
@@ -63,7 +63,7 @@ export const storySubmissionSchema = z.object({
     .min(1, 'At least one tag is required')
     .max(10, 'Maximum 10 tags allowed'),
   imageUrl: z.string().url('Invalid image URL').optional(),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().optional(),
 });
 
 /**
@@ -80,7 +80,7 @@ export const commentSchema = z.object({
     .min(5, 'Comment must be at least 5 characters')
     .max(1000, 'Comment must be less than 1000 characters'),
   storyId: z.string(),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().optional(),
 });
 
 /**

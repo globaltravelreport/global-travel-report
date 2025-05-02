@@ -1,6 +1,4 @@
 import { ContactForm } from "@/components/ContactForm";
-import { ReCaptchaDebug } from "@/components/ReCaptchaDebug";
-import { ReCaptchaTest } from "@/components/ReCaptchaTest";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
@@ -100,8 +98,6 @@ export default function ContactPage() {
 
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <ReCaptchaDebug />
-          <ReCaptchaTest />
           <ContactForm />
         </div>
       </div>

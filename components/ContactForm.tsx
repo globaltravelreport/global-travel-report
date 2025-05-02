@@ -9,7 +9,6 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Check, X } from 'lucide-react';
 
@@ -24,7 +23,6 @@ type FormData = z.infer<typeof formSchema>;
 
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -49,14 +47,6 @@ export const ContactForm = () => {
   };
 
   const onSubmit = async (data: FormData) => {
-    if (!recaptchaValue) {
-      toast({
-        title: 'Error',
-        description: 'Please complete the reCAPTCHA verification'
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
@@ -64,7 +54,6 @@ export const ContactForm = () => {
       formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('message', data.message);
-      formData.append('recaptchaToken', recaptchaValue);
 
       uploadedFiles.forEach((file) => {
         formData.append('files', file);
@@ -82,7 +71,6 @@ export const ContactForm = () => {
       setIsSuccess(true);
       reset();
       setUploadedFiles([]);
-      setRecaptchaValue(null);
 
       setTimeout(() => {
         setIsSuccess(false);
@@ -239,18 +227,10 @@ export const ContactForm = () => {
               </div>
             )}
 
-            <div className="flex justify-center">
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                onChange={setRecaptchaValue}
-                aria-label="reCAPTCHA verification"
-              />
-            </div>
-
             <Button
               type="submit"
               className="w-full"
-              disabled={isSubmitting || !recaptchaValue}
+              disabled={isSubmitting}
               aria-busy={isSubmitting}
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
