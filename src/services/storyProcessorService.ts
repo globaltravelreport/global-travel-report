@@ -1,6 +1,6 @@
 /**
  * Story Processor Service
- * 
+ *
  * This service orchestrates the entire story processing workflow:
  * 1. Fetching stories from RSS feeds
  * 2. Rewriting them using OpenAI
@@ -40,7 +40,7 @@ export class StoryProcessorService {
   private stats: ProcessingStats;
   private isProcessing: boolean;
   private lastProcessingTime: string | null;
-  
+
   private constructor() {
     this.rssFeedService = RSSFeedService.getInstance();
     this.openaiService = OpenAIService.getInstance();
@@ -119,7 +119,7 @@ export class StoryProcessorService {
       // Step 1: Fetch stories from RSS feeds
       console.log(`Fetching ${count} stories (including ${cruiseCount} cruise stories) from RSS feeds...`);
       let stories: Story[] = [];
-      
+
       try {
         stories = await this.rssFeedService.fetchStories();
       } catch (error) {
@@ -129,15 +129,18 @@ export class StoryProcessorService {
       }
 
       // Step 2: Process each story
-      for (let i = 0; i < Math.min(count, stories.length); i++) {
-        const story = stories[i];
-        console.log(`Processing story ${i + 1}/${Math.min(count, stories.length)}: ${story.title}`);
-        
+      const storiesToProcess = stories.slice(0, Math.min(count, stories.length));
+      const processedStoriesArray = [];
+
+      for (let i = 0; i < storiesToProcess.length; i++) {
+        const story = storiesToProcess[i];
+        console.log(`Processing story ${i + 1}/${storiesToProcess.length}: ${story.title}`);
+
         try {
           // Step 2a: Rewrite the story using OpenAI
           console.log('Rewriting story...');
           let rewrittenStory = story;
-          
+
           if (this.openaiService.canMakeRequest()) {
             try {
               rewrittenStory = await this.openaiService.rewriteStory(story);
@@ -154,11 +157,11 @@ export class StoryProcessorService {
           } else {
             console.warn('OpenAI API request limit reached, skipping rewriting');
           }
-          
+
           // Step 2b: Enhance the story with an image from Unsplash
           console.log('Enhancing story with image...');
           let enhancedStory = rewrittenStory;
-          
+
           if (this.unsplashService.canMakeRequest()) {
             try {
               enhancedStory = await this.unsplashService.enhanceStoryWithImage(rewrittenStory);
@@ -175,7 +178,7 @@ export class StoryProcessorService {
           } else {
             console.warn('Unsplash API request limit reached, skipping image enhancement');
           }
-          
+
           // Step 2c: Generate SEO metadata
           console.log('Generating SEO metadata...');
           if (this.openaiService.canMakeRequest()) {
@@ -195,46 +198,54 @@ export class StoryProcessorService {
           } else {
             console.warn('OpenAI API request limit reached, skipping SEO metadata generation');
           }
-          
-          // Step 2d: Save the story to the database
-          console.log('Saving story to database...');
-          try {
-            // Ensure the story has a valid slug
-            if (!enhancedStory.slug) {
-              enhancedStory.slug = generateSlug(enhancedStory.title);
-            }
-            
-            // Add processing metadata
-            enhancedStory = {
-              ...enhancedStory,
-              processedAt: new Date().toISOString(),
-              published: true
-            };
-            
-            await this.storyDatabase.addStory(enhancedStory);
-            this.stats.successfullySaved++;
-            console.log('Story saved to database successfully');
-            
-            // Add to processed stories
-            processedStories.push(enhancedStory);
-          } catch (error) {
-            console.error('Error saving story to database:', error);
-            this.stats.errors.saving++;
+
+          // Ensure the story has a valid slug and ID
+          if (!enhancedStory.slug) {
+            enhancedStory.slug = generateSlug(enhancedStory.title);
           }
-          
+
+          if (!enhancedStory.id) {
+            enhancedStory.id = `story-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+          }
+
+          // Add processing metadata
+          enhancedStory = {
+            ...enhancedStory,
+            processedAt: new Date().toISOString(),
+            published: true
+          };
+
+          // Add to processed stories array
+          processedStoriesArray.push(enhancedStory);
           this.stats.totalProcessed++;
         } catch (error) {
           console.error(`Error processing story ${story.title}:`, error);
           // Continue with the next story
         }
-        
+
         // Add a delay between processing stories to avoid rate limits
-        if (i < Math.min(count, stories.length) - 1) {
+        if (i < storiesToProcess.length - 1) {
           console.log('Waiting before processing next story...');
           await new Promise(resolve => setTimeout(resolve, 2000));
         }
       }
-      
+
+      // Step 3: Save all processed stories to the database at once
+      if (processedStoriesArray.length > 0) {
+        try {
+          console.log(`Saving ${processedStoriesArray.length} stories to database...`);
+          await this.storyDatabase.addStories(processedStoriesArray);
+          this.stats.successfullySaved = processedStoriesArray.length;
+          console.log('All stories saved to database successfully');
+
+          // Add to processed stories result
+          processedStories.push(...processedStoriesArray);
+        } catch (error) {
+          console.error('Error saving stories to database:', error);
+          this.stats.errors.saving++;
+        }
+      }
+
       console.log('Story processing completed successfully');
       return processedStories;
     } catch (error) {
