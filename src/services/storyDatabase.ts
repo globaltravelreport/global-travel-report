@@ -64,6 +64,40 @@ export class StoryDatabase {
   }
 
   /**
+   * Get a story by slug
+   * @param slug - The slug of the story to get
+   * @returns The story with the specified slug, or null if not found
+   */
+  public async getStoryBySlug(slug: string): Promise<Story | null> {
+    await this.initialize();
+    return this.stories.find(story => story.slug === slug) || null;
+  }
+
+  /**
+   * Get stories by category
+   * @param category - The category to filter by
+   * @returns An array of stories in the specified category
+   */
+  public async getStoriesByCategory(category: string): Promise<Story[]> {
+    await this.initialize();
+    return this.stories.filter(story =>
+      story.category && story.category.toLowerCase() === category.toLowerCase()
+    );
+  }
+
+  /**
+   * Get stories by country
+   * @param country - The country to filter by
+   * @returns An array of stories for the specified country
+   */
+  public async getStoriesByCountry(country: string): Promise<Story[]> {
+    await this.initialize();
+    return this.stories.filter(story =>
+      story.country && story.country.toLowerCase() === country.toLowerCase()
+    );
+  }
+
+  /**
    * Add a story to the database
    * @param story - The story to add
    * @returns The added story
