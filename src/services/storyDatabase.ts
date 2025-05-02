@@ -1,4 +1,5 @@
 import { Story } from '@/types/Story';
+import { mockStories } from '@/src/mocks/stories';
 
 /**
  * Simple in-memory database for stories
@@ -34,10 +35,19 @@ export class StoryDatabase {
     }
 
     try {
-      // In a real implementation, we would load data from a database here
-      // For now, we'll just use an in-memory array
-      this.stories = [];
+      // Use mock stories for initialization to ensure we always have some content
+      // This is compatible with Edge Runtime and doesn't require Node.js-specific modules
+      this.stories = [...mockStories];
+
+      // Add a timestamp to each story to make them appear recent
+      const now = new Date();
+      this.stories = this.stories.map((story, index) => ({
+        ...story,
+        publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
+      }));
+
       this.initialized = true;
+      console.log(`Initialized story database with ${this.stories.length} stories`);
     } catch (error) {
       console.error('Error initializing story database:', error);
       throw new Error('Failed to initialize story database');
