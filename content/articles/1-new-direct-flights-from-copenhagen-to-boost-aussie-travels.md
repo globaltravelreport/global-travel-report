@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Explore Copenhagen with New Direct Flights Perfect for Australian Travellers

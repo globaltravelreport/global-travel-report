@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers

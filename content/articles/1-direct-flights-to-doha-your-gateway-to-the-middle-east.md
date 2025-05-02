@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from Manila to Doha offered by Philippine Airlines in a codeshare partnership with Qatar Airways. This strategic collaboration promises a seamless journey to the heart of Qatar, a nation that blends traditional charm with futuristic allure.

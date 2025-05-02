@@ -13,8 +13,11 @@ metaTitle: "Wildlife Adventures Outearn Illegal Trade Globally"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Wildlife tourism is not just a thrilling adventure for Australians looking to explore the wonders of the natural world; it's also a booming industry that significantly outpaces the earnings of the illegal wildlife trade. According to the World Travel & Tourism Council (WTTC), this ethical and sustainable form of tourism generates five times more revenue annually on a global scale.

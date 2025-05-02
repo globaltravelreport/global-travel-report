@@ -13,8 +13,11 @@ metaTitle: "'Iraklio Port: A New Hub for Cruise Tourism in Greece'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
-photographer: ""
+photographer:
+  name: "Erwan Hesry"
+  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
 ---
+
 
 
 Iraklio, the capital of Crete, is steering towards becoming a significant hub for cruise tourism in the Mediterranean. With its strategic location and rich cultural heritage, Iraklio Port is poised to offer an unparalleled gateway to the wonders of Greek civilization and the breathtaking landscapes of Crete. The local authorities and tourism stakeholders are actively enhancing port facilities and services to accommodate the growing interest from cruise lines and passengers alike.

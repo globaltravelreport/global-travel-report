@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Australia to Scotland cruises, Scotland travel guide, Australian travelers, AUD price comparisons, visa requirements Australia, travel tips Scotland

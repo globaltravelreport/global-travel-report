@@ -13,8 +13,11 @@ metaTitle: "'Asia''s Latest Museums: A Must-See for Aussie Explorers'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinations not only offer a deep dive into rich histories and contemporary art but are also easily accessible from major Australian cities, making them perfect additions to your travel bucket list.

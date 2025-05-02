@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closure of Pakistan's airspace to Indian airlines might have you wondering how your travel plans could be affected. Here's everything you need to know, from altered flight routes to the best times to visit.

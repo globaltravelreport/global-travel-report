@@ -20,7 +20,8 @@
     "trigger-stories": "node scripts/triggerDailyStories.js",
     "trigger-stories:prod": "node scripts/triggerDailyStories.js --production",
     "fix-story-dates": "ts-node scripts/fixStoryDates.ts",
-    "fix-image-urls": "ts-node scripts/fixImageUrls.ts"
+    "fix-image-urls": "ts-node scripts/fixImageUrls.ts",
+    "fix-photographer": "ts-node scripts/fixPhotographerAttribution.ts"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",

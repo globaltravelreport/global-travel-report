@@ -13,8 +13,11 @@ metaTitle: "'1. Direct Manila-Doha Flights: Your Gateway to Adventure'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 7. **Direct Flights from Manila to Doha: A New Adventure Awaits Australian Travelers**

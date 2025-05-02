@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Thailand is rolling out the red carpet for Australian travelers with new subsidized flight offers, aiming to rejuvenate its appeal amongst international visitors, particularly those from Down Under. Here’s what you need to know about making the most of these deals and planning your Thai getaway.

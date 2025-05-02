@@ -13,8 +13,11 @@ metaTitle: "'Explore Heraklion: Your Next Cruise Destination from Australia'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 Heraklion, the bustling port city on Crete, Greece, is setting its sights on becoming a top cruise destination for Australian travelers. With its rich history, stunning landscapes, and vibrant culture, it's easy to see why. But getting there from Down Under, understanding costs, and navigating the best travel times are crucial for planning your journey.

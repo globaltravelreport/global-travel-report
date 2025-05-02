@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 ### Discover Hidden Gems: 5 Must-See Places for Aussies in 2025

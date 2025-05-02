@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on a Manila Adventure: A Guide for Australian Travelers

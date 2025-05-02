@@ -13,8 +13,11 @@ metaTitle: "'1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holiday. Here's a guide to five underrated travel destinations that promise adventure, culture, and unforgettable memories for Aussie travelers in 2025.

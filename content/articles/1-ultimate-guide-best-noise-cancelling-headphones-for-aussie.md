@@ -13,8 +13,11 @@ metaTitle: "'1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Trav
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any seasoned traveller. Whether you're jetting off from Sydney, Melbourne, or Perth, these gadgets promise to transform your travel experience, making those long-haul flights to Europe, Asia, or the Americas more enjoyable.

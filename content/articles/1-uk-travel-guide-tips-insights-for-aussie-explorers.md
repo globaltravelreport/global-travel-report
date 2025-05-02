@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 Rewritten article

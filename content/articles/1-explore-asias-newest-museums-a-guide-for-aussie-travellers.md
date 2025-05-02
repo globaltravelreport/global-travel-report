@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust. Today, I'm thrilled to share two of Asia's newest museums that are making waves on the international scene, tailored specifically for Australian travellers. Whether you're a culture vulture or just looking to add some educational flair to your next holiday, these destinations offer a unique glimpse into Asia's rich artistic heritage. 

@@ -13,8 +13,11 @@ metaTitle: "'1. Explore Iraklio: A Cruise Gem for Australian Adventurers'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Greece beckons Australian travelers with its crystal-clear waters, fascinating history, and delectable cuisine. At the heart of this allure is Iraklio, a gateway to the ancient wonders and mesmerizing beaches of Crete. For Australians planning their next European getaway, Iraklio stands out as a prime destination, particularly for those interested in embarking on a memorable cruise journey.

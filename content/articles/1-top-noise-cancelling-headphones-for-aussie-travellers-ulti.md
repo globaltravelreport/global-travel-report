@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 ### The Ultimate Guide to Choosing Noise-Cancelling Headphones for Australian Travellers

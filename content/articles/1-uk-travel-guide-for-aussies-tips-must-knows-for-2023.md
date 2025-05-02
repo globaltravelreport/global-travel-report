@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on a UK adventure from Australia may seem daunting, but with the right information, it can be a breeze and an experience of a lifetime. Whether you're drawn by the historical allure of London, the Scottish Highlands, or the cultural vibes of Manchester and Liverpool, there's something in the UK for every Australian traveler.

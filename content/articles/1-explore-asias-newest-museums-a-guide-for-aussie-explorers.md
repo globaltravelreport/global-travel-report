@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened their doors, promising enriching experiences that are worth the journey. Whether you're planning a solo adventure, a family holiday, or a cultural deep dive, here's everything Australian travelers need to know about these exciting destinations.

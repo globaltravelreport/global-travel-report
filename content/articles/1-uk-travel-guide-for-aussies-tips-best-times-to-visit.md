@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 The UK is calling all Australian adventurers to explore its historic cities, stunning countryside, and vibrant cultural scene. But before you pack your bags, let's dive into everything you need to know for a hassle-free and memorable journey from Down Under to the land of Shakespeare, the Beatles, and afternoon tea.

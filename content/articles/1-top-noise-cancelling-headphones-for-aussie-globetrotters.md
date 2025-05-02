@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 As Australian wanderlusts gear up for their next international escape, knowing the best noise-cancelling headphones to bring along can transform the journey from good to great. Whether you're jetting off from Sydney, Melbourne, Brisbane, or Perth, long-haul flights across oceans and continents can be a breeze with the right gear. 

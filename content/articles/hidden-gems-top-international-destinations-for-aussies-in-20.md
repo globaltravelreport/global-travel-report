@@ -13,8 +13,11 @@ metaTitle: "'Hidden Gems: Top International Destinations for Aussies in 2025'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those underrated gems that offer unique experiences without the crowds. From the vibrant streets of Accra, Ghana, to the tranquil beauty of Georgia's mountains, there's a world waiting to be explored that meshes well with the adventurous Aussie spirit. 

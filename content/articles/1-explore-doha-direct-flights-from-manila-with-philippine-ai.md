@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Philippine Airlines, direct flights to Doha, Australian travelers, Manila-Doha route, visa requirements for Australians, AUD price comparison, best travel seasons

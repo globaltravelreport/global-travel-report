@@ -12,8 +12,11 @@ imageCredit: "Jezael Melgoza on Unsplash"
 imageLink: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Jezael Melgoza on Unsplash"
+  url: "https://unsplash.com"
 ---
+
 
 
 Japan, with its unique blend of time-honored customs and cutting-edge innovation, has become an irresistible magnet for Australians seeking adventures off the beaten track. From the dazzling neon skyline of Tokyo to the tranquil, temple-dotted landscape of Kyoto, Australian globe-trotters are flocking to Japan in unprecedented numbers.

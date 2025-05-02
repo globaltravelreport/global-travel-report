@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit museums in Asia that have recently opened their doors to the public. These destinations are not only about admiring art but also understanding diverse cultures and histories. Here's everything you need to know, from getting there to making the most out of your visit.

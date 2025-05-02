@@ -13,8 +13,11 @@ metaTitle: "'1. Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explore
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream Cruises introduces the magnificent *Star Voyager*, a beacon of luxury and adventure for Australian travelers.

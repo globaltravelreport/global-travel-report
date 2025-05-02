@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - Skift"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The fusion of futuristic architecture and ancient traditions makes Dubai a unique destination, offering something for every type of explorer. Here's what you need to know to make the most out of your Arabian adventure.

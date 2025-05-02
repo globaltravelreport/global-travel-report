@@ -13,8 +13,11 @@ metaTitle: "'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines' direct flights from Manila to Doha, now in codeshare partnership with Qatar Airways. This collaboration offers a streamlined journey to the heart of the Middle East, connecting major Australian cities like Sydney, Melbourne, and Brisbane to Doha, via Manila, with ease and efficiency.

@@ -13,8 +13,11 @@ metaTitle: "Top Noise-Cancelling Headphones for Travelers"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Erwan Hesry"
+  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
 ---
+
 
 
 When planning your next getaway, don't overlook one of the most essential travel accessories—a good pair of noise-cancelling headphones. With the ability to block out the drone of airplane engines, chatty passengers, and the hustle and bustle of airports, they're a must-have for any traveler seeking a bit of peace and quiet on their journey. 

@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "Drake Content expands tourism and travel portfolio - AdNews"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Rewritten article

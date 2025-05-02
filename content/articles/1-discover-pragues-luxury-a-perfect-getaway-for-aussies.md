@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "Golden moments await at Prague's newest luxury hotel - Travel Weekly Asia"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing for Australian travelers with the opening of Prague's newest luxury hotel. As a travel journalist and SEO expert, I've gathered all the essential info to make your Czech vacation as splendid and hassle-free as possible.

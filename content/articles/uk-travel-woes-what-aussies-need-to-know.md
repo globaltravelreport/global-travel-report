@@ -13,8 +13,11 @@ metaTitle: "'UK Travel Woes: What Aussies Need to Know'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 In a startling move that has raised eyebrows across continents, allegations have surfaced accusing the government of hampering the UK's tourism industry, potentially affecting travelers from far and wide, including those hailing from Australia. For Aussies looking to explore the historical and cultural wonders of the UK, this situation begs a closer examination of how flight connections, costs, and other travel essentials might be influenced.

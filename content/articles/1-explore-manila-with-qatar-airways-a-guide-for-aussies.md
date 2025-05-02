@@ -13,8 +13,11 @@ metaTitle: "'1. Explore Manila with Qatar Airways: A Guide for Aussies'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Flying to Manila from Australia has never been easier, thanks to the codeshare agreement between Qatar Airways and Philippine Airlines. This partnership means more convenient flight schedules and potentially better deals for Aussies looking to explore the Pearl of the Orient. 

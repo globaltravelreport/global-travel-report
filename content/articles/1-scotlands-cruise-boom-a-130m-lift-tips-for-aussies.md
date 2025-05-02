@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian travelers, this opens up an enticing avenue to explore the historic beauty and natural landscapes that Scotland is renowned for. Here's everything you need to know to make this trip a seamless adventure.

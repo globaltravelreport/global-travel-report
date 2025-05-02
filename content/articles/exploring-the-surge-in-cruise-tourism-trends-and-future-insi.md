@@ -13,8 +13,11 @@ metaTitle: "'Exploring the Surge in Cruise Tourism: Trends and Future Insights'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "'Cruise Tourism Market Witness Booming Growth: Future Demand, - openPR.com'"
-photographer: ""
+photographer:
+  name: "Erwan Hesry"
+  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
 ---
+
 
 
 The cruise tourism industry is experiencing a significant boom, reflecting an increasing interest among travelers in exploring the world from the decks of a cruise ship. This growth is not just a testament to the industry's resilience but also to its ability to adapt and innovate, offering more personalized and immersive experiences to passengers.

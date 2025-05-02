@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 As Australian wanderlust continues to grow, seeking out lesser-trodden paths has become the new trend. For those looking to escape the usual tourist traps in 2025, here are five underrated destinations that promise adventure, culture, and a touch of the unique, all tailored for the Aussie explorer.

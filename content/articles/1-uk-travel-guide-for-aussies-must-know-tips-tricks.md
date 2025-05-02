@@ -13,8 +13,11 @@ metaTitle: "'1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 Rewritten article

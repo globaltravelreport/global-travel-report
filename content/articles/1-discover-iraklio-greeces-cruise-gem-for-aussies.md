@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio

@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Kalen Emsley"
+  url: "'https://unsplash.com/photos/body-of-water-surrounding-with-trees-_LuLiJc1cdo'"
 ---
+
 
 
 Thailand travel for Australians, flight deals to Thailand, Australian to Thailand visa, travel tips for Australians, best time to visit Thailand

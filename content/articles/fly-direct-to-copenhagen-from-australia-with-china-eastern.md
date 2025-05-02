@@ -13,8 +13,11 @@ metaTitle: "Fly Direct to Copenhagen from Australia with China Eastern"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition is not just about expanding their network but opening up a seamless pathway for Australians looking to explore the enchanting city of Copenhagen. 

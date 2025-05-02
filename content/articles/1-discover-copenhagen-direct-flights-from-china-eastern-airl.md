@@ -13,8 +13,11 @@ metaTitle: "|-"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
-photographer: ""
+photographer:
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 Flying to Copenhagen Just Got Easier for Aussies!

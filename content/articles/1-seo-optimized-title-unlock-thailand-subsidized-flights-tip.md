@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "John Price"
+  url: "https://unsplash.com"
 ---
+
 
 
 Rewritten article

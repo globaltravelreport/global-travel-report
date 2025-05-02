@@ -13,8 +13,11 @@ metaTitle: "'UK Tourism Concerns: Industry Claims Government Impact'"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
-photographer: ""
+photographer:
+  name: "Erwan Hesry"
+  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
 ---
+
 
 
 The travel industry has voiced significant concerns over the government's handling of policies affecting UK tourism, suggesting a detrimental impact on the sector's economic growth. Industry representatives argue that recent government actions, or lack thereof, are sabotaging the UK's appeal as a top travel destination. This criticism comes at a time when the tourism sector is striving to recover from the setbacks caused by global events, aiming to attract international visitors and stimulate economic activity.

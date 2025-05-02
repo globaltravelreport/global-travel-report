@@ -15,8 +15,11 @@ keywords: ""
 originalTitle: ">-"
 published: "true"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian travelers to Qatar, AUD flight deals, best time to visit Qatar, Australian visa requirements, travel tips for Australians, currency in Qatar, accommodation in Doha

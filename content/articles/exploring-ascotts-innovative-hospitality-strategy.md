@@ -13,8 +13,11 @@ metaTitle: "Exploring Ascott's Innovative Hospitality Strategy"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "What to expect from Ascott’s multi-typology strategy - Travel Weekly Asia"
-photographer: ""
+photographer:
+  name: "Erwan Hesry"
+  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
 ---
+
 
 
 Ascott, a leading international lodging owner-operator, is pioneering a multi-typology strategy to meet the evolving demands of travelers. This approach involves offering a diverse range of accommodation types within its portfolio, including serviced apartments, hotels, co-living spaces, and rental housing. The strategy is designed to cater to various traveler needs, whether for short business trips, long stays, or leisure travel.

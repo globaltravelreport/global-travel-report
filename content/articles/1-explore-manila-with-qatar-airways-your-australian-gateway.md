@@ -14,8 +14,11 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 categories: "[]"
-photographer: ""
+photographer:
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 ### Discover Manila: A Guide for Australian Travelers Flying with Qatar Airways
