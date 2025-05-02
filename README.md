@@ -6,6 +6,7 @@ A modern travel website built with Next.js, featuring RSS story fetching, OpenAI
 - Fixed deployment issues for Vercel
 - Improved header design with blue gradient background
 - Removed theme toggle for consistent appearance
+- Force new deployment with latest code
 
 ## Website
 
