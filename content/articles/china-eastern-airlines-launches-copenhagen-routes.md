@@ -1,33 +1,21 @@
 ---
-title: China Eastern Airlines Launches Copenhagen Routes
-summary: >-
-  Australian travelers can now enjoy more direct access to Copenhagen, thanks to
-  China Eastern Airlines' new flight routes. This development simplifies travel
-  plans to Denmark, offering a seamless gateway to explore its captivating
-  capital.
-date: '2025-04-25T09:23:21.860Z'
-country: Denmark
-type: Travel Tips
-imageUrl: >-
-  https://images.unsplash.com/photo-1479888230021-c24f136d849f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwyNXx8RGVubWFyayUyMFRyYXZlbCUyMFRpcHMlMjB0cmF2ZWwlMjBwaG90byUyMGxhbmRzY2FwZSUyMGRlc3RpbmF0aW9ufGVufDF8MHx8fDE3NDU1NzMwMDF8MA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: stack of assorted-color suit case lot
-imageCredit: Erwan Hesry
-imageLink: 'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'
-slug: china-eastern-airlines-launches-copenhagen-routes
-metaTitle: China Eastern Airlines Launches Copenhagen Routes
-metaDescription: >-
-  Explore Copenhagen with China Eastern Airlines' new flight routes. This
-  service expansion offers travelers more options to discover Denmark's capital.
-keywords:
-  - China Eastern Airlines
-  - Copenhagen flights
-  - new flight routes
-  - Denmark travel
-  - Australian travelers to Copenhagen
-  - direct flights to Denmark
-  - Copenhagen travel guide
-originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
+title: "China Eastern Airlines Launches Copenhagen Routes"
+summary: ">-"
+date: "2025-05-02T10:45:46.441Z"
+country: "Denmark"
+type: "Travel Tips"
+imageUrl: ">-"
+imageAlt: "stack of assorted-color suit case lot"
+imageCredit: "Erwan Hesry"
+imageLink: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
+slug: "china-eastern-airlines-launches-copenhagen-routes"
+metaTitle: "China Eastern Airlines Launches Copenhagen Routes"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
+photographer: ""
 ---
+
 China Eastern Airlines has announced the introduction of new flight routes connecting major cities to Copenhagen, marking a significant expansion in their service offerings. This development is poised to benefit travelers by providing additional options for reaching Denmark's enchanting capital.
 
 The new routes will facilitate smoother travel experiences for individuals looking to explore Copenhagen's rich history, vibrant culture, and stunning architecture. Known for its picturesque cobblestone streets, colorful buildings, and innovative culinary scene, Copenhagen offers a plethora of attractions that cater to a wide range of interests.

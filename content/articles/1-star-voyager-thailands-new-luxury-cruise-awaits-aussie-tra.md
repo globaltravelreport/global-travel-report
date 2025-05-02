@@ -1,43 +1,23 @@
 ---
-title: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
-summary: >-
-  9. 
-
-  The Star Voyager introduces a new era of luxury cruising for Australians
-  heading to Thailand, offering an effortless and opulent way to explore. With
-  direct flights from Australia to Thailand, visa exemptions for Australian
-  passport holders, and the best travel times aligning with the Australian
-  winter, it's the perfect season for an adventure. Embrace the cultural
-  vibrancy, navigate with ease, and enjoy Thailand's treasures comfortably and
-  stylishly aboard the Star Voyager.
-date: '2025-04-25T04:04:30.471Z'
-country: Thailand
-type: Luxury
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBUaGFpbGFuZCUyMDEzLiUyMEx1eHVyeSUyMHRyYXZlbCUyMGxhbmRzY2FwZXxlbnwwfDB8fHwxNzQ1NTUzODcwfDA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra
-metaTitle: '1. Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
-metaDescription: >-
-  3. Discover Thailand in style aboard the Star Voyager. Learn how this luxury
-  cruise transforms Thailand into a top destination from Australia.
-keywords:
-  - AUD to THB
-  - Australian travel to Thailand
-  - Star Voyager
-  - Thai visas for Australians
-  - Thailand cruises
-  - Thailand travel tips
-  - luxury travel
-originalTitle: >-
-  TAT and StarDream Cruises Unveil Star Voyager, Positioning Thailand as a
-  Premier Cruise Hub - Thailand Business News
-published: true
-categories: []
+title: "'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'"
+summary: ">-"
+date: "2025-05-02T10:45:46.424Z"
+country: "Thailand"
+type: "Luxury"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra"
+metaTitle: "'1. Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Thailand Beckons Aussie Explorers with the Launch of Star Voyager
 
 Gone are the days of complicated travel plans for Aussies looking to explore the vibrant culture, stunning beaches, and bustling markets of Thailand. With the introduction of Star Voyager by StarDream Cruises, in collaboration with the Tourism Authority of Thailand (TAT), Aussies now have a luxurious and hassle-free way to discover the Land of Smiles.

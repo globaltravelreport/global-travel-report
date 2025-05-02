@@ -1,39 +1,23 @@
 ---
-title: 'Explore Asia''s Newest Museums: A Guide for Aussies'
-summary: >-
-  5. Brief summary:
-
-
-  For Australian adventurers keen on cultural exploration, Asia's latest museum
-  additions offer a unique opportunity to delve into the continent's rich
-  heritage and contemporary art scene. With convenient flight connections,
-  affordable travel costs, and visa-friendly policies for many countries, these
-  destinations are both accessible and inviting. Remember to consider the local
-  customs and practical travel tips to make your journey smooth and enjoyable.
-date: '2025-04-25T02:05:26.755Z'
-country: Asia (Various)
-type: Airline
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHw2LiUyMFByaW1hcnklMjBkZXN0aW5hdGlvbiUyMGNvdW50cnklM0ElMjBBc2lhJTIwJTI4VmFyaW91cyUyOSUyMDcuJTIwVHlwZSUyMG9mJTIwdHJhdmVsJTNBJTIwQ3VsdHVyZSUyMHRyYXZlbCUyMGxhbmRzY2FwZXxlbnwwfDB8fHwxNzQ1NTQ2NzI2fDA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-explore-asias-newest-museums-a-guide-for-aussies
-metaTitle: '1. Explore Asia''s Newest Museums: A Guide for Aussies'
-metaDescription: >-
-  2. Discover the latest cultural hotspots in Asia with our guide on new museums
-  perfect for Australian travelers looking for unique experiences.
-keywords:
-  - Asia museums
-  - Aussie tourists
-  - 'Keywords: Australian travelers'
-  - cultural destinations Asia
-  - travel guide
-originalTitle: 'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'
-published: true
-categories: []
+title: "'Explore Asia''s Newest Museums: A Guide for Aussies'"
+summary: ">-"
+date: "2025-05-02T10:45:46.418Z"
+country: "Asia (Various)"
+type: "Airline"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-explore-asias-newest-museums-a-guide-for-aussies"
+metaTitle: "'1. Explore Asia''s Newest Museums: A Guide for Aussies'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Rewritten article:
 
 ### Unveiling Asia's Cultural Jewels: Museums Aussies Must Visit

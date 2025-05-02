@@ -1,34 +1,21 @@
 ---
-title: 'Hidden Gems: Top International Destinations for Aussies in'
-summary: >-
-  Exploring underrated destinations in 2025 offers Australian travelers the
-  chance to experience unique cultures, enjoy cost-effective adventures, and
-  navigate easy visa processes. From the vibrant streets of Accra to the serene
-  landscapes of Georgia, these gems promise unforgettable journeys.
-date: '2025-04-25T05:53:36.384Z'
-country: 'Ghana, Georgia'
-type: 'Culture, Adventure'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxHaGFuYSUyQyUyMEdlb3JnaWElMjBDdWx0dXJlJTJDJTIwQWR2ZW50dXJlJTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1NjA0MTZ8MA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: hidden-gems-top-international-destinations-for-aussies-in-20
-metaTitle: 'Hidden Gems: Top International Destinations for Aussies in 2025'
-metaDescription: >-
-  Discover 2025's most underrated travel spots perfect for Australian explorers.
-  Get tips on flights, spending, and the best times to visit.
-keywords:
-  - AUD price comparisons
-  - Australian travelers
-  - cultural tips
-  - flight routes
-  - international destinations
-  - travel information
-  - visa requirements
-originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+title: "'Hidden Gems: Top International Destinations for Aussies in'"
+summary: ">-"
+date: "2025-05-02T10:45:46.446Z"
+country: "'Ghana, Georgia'"
+type: "'Culture, Adventure'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "hidden-gems-top-international-destinations-for-aussies-in-20"
+metaTitle: "'Hidden Gems: Top International Destinations for Aussies in 2025'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
+photographer: ""
 ---
+
 Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those underrated gems that offer unique experiences without the crowds. From the vibrant streets of Accra, Ghana, to the tranquil beauty of Georgia's mountains, there's a world waiting to be explored that meshes well with the adventurous Aussie spirit. 
 
 Starting with flights, Aussies have a plethora of options. Direct flights might still be a dream for some destinations, but major hubs like Dubai, Singapore, and Johannesburg are serving as convenient gateways, with prices for return tickets starting from around 1,500 AUD during off-peak seasons. Speaking of which, timing your visit can make a world of difference. Generally, aiming for shoulder seasons—think autumn and spring in the Australian calendar—can not only net you better deals but also more comfortable weather.

@@ -18,7 +18,8 @@
     "prepare": "husky install",
     "setup-cron": "node scripts/setupVercelCron.js",
     "trigger-stories": "node scripts/triggerDailyStories.js",
-    "trigger-stories:prod": "node scripts/triggerDailyStories.js --production"
+    "trigger-stories:prod": "node scripts/triggerDailyStories.js --production",
+    "fix-story-dates": "ts-node scripts/fixStoryDates.ts"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",
@@ -84,6 +85,7 @@
     "rimraf": "^5.0.5",
     "tailwindcss": "3.4.1",
     "ts-jest": "29.3.2",
+    "ts-node": "10.9.2",
     "typescript": "5.4.5"
   }
 }

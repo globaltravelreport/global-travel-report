@@ -1,42 +1,23 @@
 ---
-title: 'Asia''s Newest Museums: A Must-Visit for Aussies'
-summary: >-
-  9. 
-
-
-  For Australian travelers looking to explore the vibrant cultural scenes of
-  Asia, the two new museums offer an intriguing addition to the travel
-  itinerary. With direct and connecting flights readily available, and
-  considering the Australian autumn and spring as the best times to visit, these
-  destinations are both accessible and appealing. Remember to check visa
-  requirements and embrace local customs for a smooth and enriching travel
-  experience.
-date: '2025-04-25T02:27:43.355Z'
-country: Asia
-type: Culture
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBBc2lhJTIwMTMuJTIwQ3VsdHVyZSUyMHRyYXZlbCUyMGxhbmRzY2FwZXxlbnwwfDB8fHwxNzQ1NTAwMzYyfDA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-asias-newest-museums-a-must-visit-for-aussies
-metaTitle: '1. Asia''s Newest Museums: A Must-Visit for Aussies'
-metaDescription: >-
-  3. Discover the latest cultural gems in Asia with our guide on the best new
-  museums for Australian travelers – where art meets adventure.
-keywords:
-  - AUD price guide
-  - Asia museums
-  - Australian flight routes
-  - Australian travelers
-  - cultural travel
-  - travel tips for Australians
-  - visa requirements for Australians
-originalTitle: 'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'
-published: true
-categories: []
+title: "'Asia''s Newest Museums: A Must-Visit for Aussies'"
+summary: ">-"
+date: "2025-05-02T10:45:46.409Z"
+country: "Asia"
+type: "Culture"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-asias-newest-museums-a-must-visit-for-aussies"
+metaTitle: "'1. Asia''s Newest Museums: A Must-Visit for Aussies'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant cultural scene are two museums that are quickly becoming must-visit destinations. Here's everything you need to know about these new cultural gems, from flight routes and prices to the best times to visit.
 
 Navigating from Australia to Asia's Newest Museums

@@ -1,38 +1,22 @@
 ---
-title: Top 5 Hidden Gems for Aussie Globetrotters in
-summary: >-
-  9. 
-
-  For Australian travelers looking to break free from the tourist trail in 2025,
-  these five destinations offer a blend of adventure, culture, and value. From
-  the ancient vineyards of Georgia to the serene shores of Uruguay, each
-  location is accessible with a bit of planning and offers experiences far from
-  the ordinary, often at a fraction of the cost expected elsewhere.
-date: '2025-04-25T05:07:01.553Z'
-country: 'Georgia, Namibia, Slovenia, Taiwan, Uruguay'
-type: 'Adventure, Culture, Budget'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBHZW9yZ2lhJTJDJTIwTmFtaWJpYSUyQyUyMFNsb3ZlbmlhJTJDJTIwVGFpd2FuJTJDJTIwVXJ1Z3VheSUyMDEzLiUyMEFkdmVudHVyZSUyQyUyMEN1bHR1cmUlMkMlMjBCdWRnZXQlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU1NzYyMXww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-top-5-hidden-gems-for-aussie-globetrotters-in-2025
-metaTitle: 1. Top 5 Hidden Gems for Aussie Globetrotters in 2025
-metaDescription: >-
-  3. Discover 2025's underrated destinations perfect for Australians: best
-  routes, costs in AUD, travel tips, and more. Explore the world differently!
-keywords:
-  - AUD pricing
-  - Australian travelers
-  - cultural differences
-  - flight routes from Australia
-  - travel tips
-  - underrated destinations
-  - visa requirements
-originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
-categories: []
+title: "Top 5 Hidden Gems for Aussie Globetrotters in"
+summary: ">-"
+date: "2025-05-02T10:45:46.425Z"
+country: "'Georgia, Namibia, Slovenia, Taiwan, Uruguay'"
+type: "'Adventure, Culture, Budget'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-top-5-hidden-gems-for-aussie-globetrotters-in-2025"
+metaTitle: "1. Top 5 Hidden Gems for Aussie Globetrotters in 2025"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
+categories: "[]"
+photographer: ""
 ---
+
 Exploring the Roads Less Travelled: A 2025 Guide for Australian Adventurers
 
 As Australian wanderlust continues to ignite, the quest for unique and underrated destinations grows stronger. In 2025, there are a handful of hidden gems across the globe that beckon Aussie travellers with their allure, affordability, and accessibility. Here’s what you need to know to embark on an adventure that's as seamless as it is sensational.

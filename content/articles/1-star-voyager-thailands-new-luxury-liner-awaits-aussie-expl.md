@@ -1,41 +1,21 @@
 ---
-title: 'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'
-summary: >-
-  9. 
-
-  The *Star Voyager* introduces an enticing opportunity for Australian travelers
-  to explore Thailand in luxury and comfort. With direct flights from Australia,
-  favorable exchange rates, and no visa hassles for short stays, it's an
-  accessible and attractive destination. Timing your visit during the Australian
-  winter offers a perfect escape to warmth and cultural richness.
-date: '2025-04-25T05:32:52.497Z'
-country: Thailand
-type: 'Luxury, Culture'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBUaGFpbGFuZCUyMDEzLiUyMEx1eHVyeSUyQyUyMEN1bHR1cmUlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU1OTE3Mnww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl
-metaTitle: '1. Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'
-metaDescription: >-
-  3. Discover the Star Voyager, Thailand's latest luxury cruise, offering
-  Aussies an unparalleled holiday experience. Dive into vibrant cultures and
-  pristine beaches.
-keywords:
-  - AUD travel budget
-  - Australian travelers
-  - Star Voyager
-  - Thailand travel
-  - Thailand visa
-  - best time to visit Thailand
-  - cultural travel tips
-  - luxury cruises
-originalTitle: >-
-  TAT and StarDream Cruises Unveil Star Voyager, Positioning Thailand as a
-  Premier Cruise Hub - Thailand Business News
+title: "'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'"
+summary: ">-"
+date: "2025-05-02T10:45:46.424Z"
+country: "Thailand"
+type: "'Luxury, Culture'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl"
+metaTitle: "'1. Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+photographer: ""
 ---
+
 Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream Cruises introduces the magnificent *Star Voyager*, a beacon of luxury and adventure for Australian travelers.
 
 Direct Flights & Connections: Australians can easily reach Thailand with direct flights from major cities like Sydney, Melbourne, and Brisbane. Competitive flight prices, often found around AUD 600-900 return, make Thailand an accessible paradise.

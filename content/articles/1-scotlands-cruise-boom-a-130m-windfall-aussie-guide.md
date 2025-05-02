@@ -1,41 +1,23 @@
 ---
-title: 'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'
-summary: >-
-  9. For Australian travelers, Scotland's booming cruise sector not only offers
-  an enriching cultural and scenic experience but also a straightforward and
-  enjoyable journey. With no visa required for short stays, favorable currency
-  exchange rates, and a wealth of travel options, Aussies can easily explore the
-  stunning landscapes and historic cities of Scotland, making it an ideal
-  destination for those seeking adventure or relaxation.
-date: '2025-04-24T13:13:18.076Z'
-country: Scotland
-type: 'Luxury, Culture'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBTY290bGFuZCUyMDEzLiUyMEx1eHVyeSUyQyUyMEN1bHR1cmUlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTUwMDM5OHww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-scotlands-cruise-boom-a-130m-windfall-aussie-guide
-metaTitle: '1. Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'
-metaDescription: >-
-  3. Discover how Scotland's cruise industry boosts its economy by £130M & what
-  this means for Australian travelers, from visa info to travel tips.
-keywords:
-  - AUD price comparison
-  - Australian travelers
-  - Australian visa requirements
-  - Scotland travel guide
-  - Scottish cruise
-  - best time to visit Scotland
-  - flight routes Australia to Scotland
-  - travel tips for Australians
-originalTitle: >-
-  Cruise tourism brings estimated £130m boost to Scotland’s economy - Seatrade
-  Cruise News
-published: true
-categories: []
+title: "'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'"
+summary: ">-"
+date: "2025-05-02T10:45:46.423Z"
+country: "Scotland"
+type: "'Luxury, Culture'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-scotlands-cruise-boom-a-130m-windfall-aussie-guide"
+metaTitle: "'1. Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers
 
 Scotland's picturesque landscapes and rich cultural tapestry have long captivated the hearts of travelers worldwide. Now, with the cruise sector injecting an estimated £130 million (approximately AUD 237 million) into the local economy, there's never been a better time for Australians to explore this enchanting destination. Here's everything Aussie travelers need to know about embarking on a Scottish cruise adventure.

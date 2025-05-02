@@ -27,6 +27,9 @@ imageCredit: Aniq Danial on Unsplash
 imageLink: 'https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'
 published: true
 categories: []
+photographer:
+  name: Unsplash Photographer
+  url: 'https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'
 ---
 
 In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as the most preferred travel destination for Australians in 2025. A blend of rich culture, breathtaking beaches, and the promise of affordable luxury has won the hearts of Australian globetrotters.

@@ -11,6 +11,38 @@ import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * Safely convert a date string to an ISO string
+ * @param dateStr - The date string to convert
+ * @returns A valid ISO date string
+ */
+function safeToISOString(dateStr: string | Date | undefined): string {
+  if (!dateStr) {
+    return new Date().toISOString();
+  }
+
+  try {
+    // If it's already a Date object
+    if (dateStr instanceof Date) {
+      return dateStr.toISOString();
+    }
+
+    // Try to parse the date string
+    const date = new Date(dateStr);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      console.warn(`Invalid date: ${dateStr}, using current date instead`);
+      return new Date().toISOString();
+    }
+
+    return date.toISOString();
+  } catch (error) {
+    console.warn(`Error converting date: ${dateStr}, using current date instead`, error);
+    return new Date().toISOString();
+  }
+}
+
 // In-memory storage for stories
 const storiesData = [...mockStories];
 
@@ -125,43 +157,43 @@ const mockDb: Db = {
 export async function getAllStories(): Promise<Story[]> {
   try {
     const articlesDir = getArticlesDir();
-    
+
     // If we can't access the file system, return the in-memory stories
     if (!articlesDir || typeof fs.promises === 'undefined') {
       return storiesData;
     }
-    
+
     // Check if the articles directory exists
     if (!fs.existsSync(articlesDir)) {
       return storiesData;
     }
-    
+
     // Get all markdown files in the articles directory
     const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.md'));
-    
+
     if (files.length === 0) {
       return storiesData;
     }
-    
+
     // Load stories from files
     const stories: Story[] = [];
-    
+
     for (const file of files) {
       try {
         const filePath = path.join(articlesDir, file);
         const content = fs.readFileSync(filePath, 'utf8');
-        
+
         // Parse the frontmatter
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-        
+
         if (frontmatterMatch) {
           const frontmatter = frontmatterMatch[1];
           const storyContent = frontmatterMatch[2];
-          
+
           // Parse the frontmatter into key-value pairs
           const frontmatterLines = frontmatter.split('\n');
           const storyData: Record<string, any> = {};
-          
+
           for (const line of frontmatterLines) {
             const match = line.match(/^(\w+):\s*(.*)$/);
             if (match) {
@@ -169,7 +201,7 @@ export async function getAllStories(): Promise<Story[]> {
               storyData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
             }
           }
-          
+
           // Create a story object
           const story: Story = {
             id: file.replace('.md', ''),
@@ -178,7 +210,7 @@ export async function getAllStories(): Promise<Story[]> {
             content: storyContent.trim(),
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
-            publishedAt: storyData.date ? new Date(storyData.date).toISOString() : new Date().toISOString(),
+            publishedAt: safeToISOString(storyData.date),
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
             imageUrl: storyData.imageUrl || '',
@@ -186,14 +218,14 @@ export async function getAllStories(): Promise<Story[]> {
             editorsPick: false,
             tags: storyData.tags ? storyData.tags.split(',').map((tag: string) => tag.trim()) : []
           };
-          
+
           stories.push(story);
         }
       } catch (error) {
         console.error(`Error reading story file ${file}:`, error);
       }
     }
-    
+
     return stories.length > 0 ? stories : storiesData;
   } catch (error) {
     console.error('Error getting stories:', error);
@@ -219,7 +251,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 export async function saveStory(story: Story): Promise<void> {
   try {
     const articlesDir = getArticlesDir();
-    
+
     // If we can't access the file system, just update the in-memory story
     if (!articlesDir || typeof fs.promises === 'undefined') {
       const index = storiesData.findIndex(s => s.id === story.id);
@@ -230,17 +262,17 @@ export async function saveStory(story: Story): Promise<void> {
       }
       return;
     }
-    
+
     // Create the articles directory if it doesn't exist
     if (!fs.existsSync(articlesDir)) {
       fs.mkdirSync(articlesDir, { recursive: true });
     }
-    
+
     // Create the frontmatter
     const frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
-date: "${story.publishedAt || new Date().toISOString()}"
+date: "${safeToISOString(story.publishedAt)}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${story.imageUrl || ''}"
@@ -249,11 +281,11 @@ tags: "${story.tags ? story.tags.join(', ') : ''}"
 ---
 
 ${story.content || ''}`;
-    
+
     // Save the story to a file
     const filePath = path.join(articlesDir, `${story.slug}.md`);
     fs.writeFileSync(filePath, frontmatter);
-    
+
     // Update the in-memory story
     const index = storiesData.findIndex(s => s.id === story.id);
     if (index !== -1) {
@@ -274,7 +306,7 @@ ${story.content || ''}`;
 export async function deleteStory(slug: string): Promise<void> {
   try {
     const articlesDir = getArticlesDir();
-    
+
     // If we can't access the file system, just update the in-memory story
     if (!articlesDir || typeof fs.promises === 'undefined') {
       const index = storiesData.findIndex(s => s.slug === slug);
@@ -283,13 +315,13 @@ export async function deleteStory(slug: string): Promise<void> {
       }
       return;
     }
-    
+
     // Delete the story file
     const filePath = path.join(articlesDir, `${slug}.md`);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
-    
+
     // Update the in-memory story
     const index = storiesData.findIndex(s => s.slug === slug);
     if (index !== -1) {

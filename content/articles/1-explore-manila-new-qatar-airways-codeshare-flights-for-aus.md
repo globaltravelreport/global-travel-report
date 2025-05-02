@@ -1,42 +1,23 @@
 ---
-title: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
-summary: >-
-  9. 
-
-  Australian travelers have a new reason to choose Manila as their next holiday
-  destination with Qatar Airways' codeshare flights, offering easier and more
-  affordable access. Ideal travel times align with Australian seasons, visa-free
-  entry simplifies the journey, and practical tips ensure a smooth experience in
-  the Philippines.
-date: '2025-04-25T03:53:15.486Z'
-country: Philippines
-type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBQaGlsaXBwaW5lcyUyMDEzLiUyMEN1bHR1cmUlMkMlMjBBZHZlbnR1cmUlMkMlMjBCdWRnZXQlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU0NjQxOXww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-explore-manila-new-qatar-airways-codeshare-flights-for-aus
-metaTitle: '1. Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
-metaDescription: >-
-  3. Get the best deals on Manila flights from major Australian cities with
-  Qatar Airways' new codeshare. Discover travel tips, best times to visit, and
-  more.
-keywords:
-  - AUD price comparisons
-  - Australian travelers
-  - Manila flights
-  - Qatar Airways codeshare
-  - best times to visit
-  - travel tips
-  - visa requirements
-originalTitle: >-
-  Qatar Airways Codeshare with Philippine Airlines for Manila Flights - Aviation
-  A2Z
-published: true
-categories: []
+title: "'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'"
+summary: ">-"
+date: "2025-05-02T10:45:46.419Z"
+country: "Philippines"
+type: "Experience"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-explore-manila-new-qatar-airways-codeshare-flights-for-aus"
+metaTitle: "'1. Explore Manila: New Qatar Airways Codeshare Flights for Aussies'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 # Explore Manila with Ease: Qatar Airways' New Codeshare Flights from Australia
 
 For Aussie adventurers looking to soak up the vibrant culture and stunning landscapes of the Philippines, there's exciting news! Qatar Airways has teamed up with Philippine Airlines, offering seamless connections to Manila from major Australian cities. This partnership means more flight options, competitive prices in AUD, and smoother journeys to this Southeast Asian gem.

@@ -1,40 +1,21 @@
 ---
-title: 'Pakistan Airspace Closure Affects Aussie Travellers: Know More'
-summary: >-
-  9. 
-
-  Australian travellers heading to India will now face longer routes and
-  potentially higher costs due to Pakistan's airspace closure. Planning ahead,
-  considering alternative travel seasons, and understanding visa requirements
-  can mitigate some inconveniences. Embracing cultural differences and preparing
-  for a diverse travel experience will enrich your journey to this vibrant part
-  of the world.
-date: '2025-04-25T05:32:07.256Z'
-country: India
-type: 'Culture, Adventure, Budget'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBQcmltYXJ5JTIwZGVzdGluYXRpb24lMjBjb3VudHJ5JTBBSW5kaWElMjAxMy4lMjBUeXBlJTIwb2YlMjB0cmF2ZWwlMEFDdWx0dXJlJTJDJTIwQWR2ZW50dXJlJTJDJTIwQnVkZ2V0JTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1NTkxMjd8MA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-pakistan-airspace-closure-affects-aussie-travellers-know-m
-metaTitle: '1. Pakistan Airspace Closure Affects Aussie Travellers: Know More'
-metaDescription: >-
-  3. Discover how the recent airspace closure in Pakistan impacts flight routes
-  from Australia, including costs, visa info, and travel tips.
-keywords:
-  - AUD price comparisons
-  - Australian travellers
-  - Pakistan airspace closure
-  - cultural differences
-  - flight routes
-  - travel tips
-  - visa requirements
-originalTitle: >-
-  Pakistan closes airspace for Indian airlines, flights face longer routes -
-  Travel Trade Journal
+title: "'Pakistan Airspace Closure Affects Aussie Travellers: Know More'"
+summary: ">-"
+date: "2025-05-02T10:45:46.422Z"
+country: "India"
+type: "'Culture, Adventure, Budget'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-pakistan-airspace-closure-affects-aussie-travellers-know-m"
+metaTitle: "'1. Pakistan Airspace Closure Affects Aussie Travellers: Know More'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+photographer: ""
 ---
+
 Australian Travellers Face Longer Routes to India Amid Pakistan Airspace Closure
 
 For Australians planning a journey to India or its surrounding regions, recent developments require a closer look at your travel plans. Pakistan's decision to close its airspace to Indian airlines has sparked a significant reroute for flights, potentially affecting travel times and costs for Australians heading in that direction.

@@ -1,39 +1,21 @@
 ---
-title: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
-summary: >-
-  9. Australian travelers can now enjoy direct and competitively priced flights
-  to Copenhagen with China Eastern Airlines, ideally visiting during the Danish
-  summer for the best experience. Remember to apply for a visa in advance and
-  embrace local customs like biking for an authentic Copenhagen adventure.
-
-  10.
-date: '2025-04-25T05:30:05.402Z'
-country: Denmark
-type: 'Culture, Food & Wine'
-imageUrl: >-
-  https://images.unsplash.com/photo-1473093295043-cdd812d0e601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBEZW5tYXJrJTBBMTIuJTIwMTMuJTIwQ3VsdHVyZSUyQyUyMEZvb2QlMjAlMjYlMjBXaW5lJTIwdHJhdmVsJTIwbGFuZHNjYXBlfGVufDB8MHx8fDE3NDU1NTkwMDV8MA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: >-
-  https://unsplash.com/photos/pesto-pasta-with-sliced-tomatoes-served-on-white-ceramic-plate-12eHC6FxPyg
-slug: 1-discover-copenhagen-direct-flights-from-china-eastern-airl
-metaTitle: |-
-  1. Discover Copenhagen: Direct Flights from China Eastern Airlines
-  2.
-metaDescription: >-
-  3. Unlock the best deals on flights to Copenhagen with China Eastern Airlines.
-  Explore the city's charm from Australia without breaking the bank.
-
-  4.
-keywords:
-  - AUD flight deals
-  - Australian travelers
-  - Australian visa
-  - China Eastern Airlines
-  - Copenhagen flights
-  - travel tips for Australians
-originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
+title: "'Discover Copenhagen: Direct Flights from China Eastern Airlines'"
+summary: ">-"
+date: "2025-05-02T10:45:46.412Z"
+country: "Denmark"
+type: "'Culture, Food & Wine'"
+imageUrl: ">-"
+imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
+imageCredit: "Eaters Collective"
+imageLink: ">-"
+slug: "1-discover-copenhagen-direct-flights-from-china-eastern-airl"
+metaTitle: "|-"
+metaDescription: ">-"
+keywords: ""
+originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
+photographer: ""
 ---
+
 Flying to Copenhagen Just Got Easier for Aussies!
 
 Great news for Australian wanderlusts looking to explore the enchanting city of Copenhagen! China Eastern Airlines is rolling out new flight paths that make the journey smoother and more affordable than ever. Whether you're jetting off from Sydney, Melbourne, or another major Aussie city, getting to Denmark's storied capital is now just a flight away.

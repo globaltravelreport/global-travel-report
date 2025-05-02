@@ -1,44 +1,23 @@
 ---
-title: 'Direct Flights to Doha: Your Gateway to the Middle East'
-summary: >-
-  9. 
-
-  Australian travelers can now enjoy hassle-free journeys to Doha with
-  Philippine Airlines and Qatar Airways' direct flights from Manila. Ideal
-  travel times align with Australian spring and autumn, offering pleasant
-  weather for exploration. With easy visa processes and insightful travel tips,
-  Aussies are set for an unforgettable Middle Eastern adventure.
-date: '2025-04-25T03:55:13.890Z'
-country: Qatar
-type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBRYXRhciUyMDEzLiUyMEFkdmVudHVyZSUyQyUyMEx1eHVyeSUyMHRyYXZlbCUyMGxhbmRzY2FwZXxlbnwwfDB8fHwxNzQ1NTUzMzEzfDA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-direct-flights-to-doha-your-gateway-to-the-middle-east
-metaTitle: '1. Direct Flights to Doha: Your Gateway to the Middle East'
-metaDescription: >-
-  3. Discover seamless Manila to Doha flights with Philippine Airlines and Qatar
-  Airways. Perfect for Aussies seeking adventure or luxury in the Middle East.
-keywords:
-  - AUD price comparisons
-  - Australian passport visa requirements
-  - Australian travelers
-  - Manila to Doha flights
-  - Philippine Airlines
-  - Qatar Airways
-  - accommodation in Doha
-  - currency in Doha
-  - local transport in Doha
-  - travel tips for Australians
-originalTitle: >-
-  Philippine Airlines’ nonstop flights from Manila to Doha in codeshare with
-  Qatar Airways - travelweekly.com.au
-published: true
-categories: []
+title: "'Direct Flights to Doha: Your Gateway to the Middle East'"
+summary: ">-"
+date: "2025-05-02T10:45:46.410Z"
+country: "Qatar"
+type: "Experience"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-direct-flights-to-doha-your-gateway-to-the-middle-east"
+metaTitle: "'1. Direct Flights to Doha: Your Gateway to the Middle East'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from Manila to Doha offered by Philippine Airlines in a codeshare partnership with Qatar Airways. This strategic collaboration promises a seamless journey to the heart of Qatar, a nation that blends traditional charm with futuristic allure.
 
 Flight Routes and Connections from Major Australian Cities

@@ -1,40 +1,23 @@
 ---
-title: Thailand's New Flight Deals Spark Interest for Aussie Tourists
-summary: >-
-  9. For Australian travelers, Thailand's new subsidized flights offer an
-  affordable gateway to explore its rich culture, stunning landscapes, and
-  vibrant cities. With visa exemptions, favorable exchange rates, and a wide
-  range of accommodation options, planning a Thai vacation has never been
-  easier.
-date: '2025-04-25T04:04:50.918Z'
-country: Thailand
-type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBUaGFpbGFuZCUyMDEzLiUyMEJ1ZGdldCUyQyUyMEN1bHR1cmUlMkMlMjBBZHZlbnR1cmUlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU1Mzg5MHww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-thailands-new-flight-deals-spark-interest-for-aussie-touri
-metaTitle: 1. Thailand's New Flight Deals Spark Interest for Aussie Tourists
-metaDescription: >-
-  3. Discover the latest on Thailand's subsidized flights designed to attract
-  Australian travelers. Uncover the best travel times, tips, and deals in AUD.
-keywords:
-  - AUD prices
-  - Australian tourists
-  - Thailand travel
-  - cultural differences
-  - flight deals
-  - travel tips
-  - visa requirements
-originalTitle: >-
-  Thailand Proposes New Subsidized Flights to Revive Chinese Tourism as it Falls
-  Out of Top 5 Preferred Destinations for Chinese Travelers - Travel And Tour
-  World
-published: true
-categories: []
+title: "Thailand's New Flight Deals Spark Interest for Aussie Tourists"
+summary: ">-"
+date: "2025-05-02T10:45:46.425Z"
+country: "Thailand"
+type: "Experience"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-thailands-new-flight-deals-spark-interest-for-aussie-touri"
+metaTitle: "1. Thailand's New Flight Deals Spark Interest for Aussie Tourists"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 Thailand is rolling out the red carpet for Australian travelers with new subsidized flight offers, aiming to rejuvenate its appeal amongst international visitors, particularly those from Down Under. Here’s what you need to know about making the most of these deals and planning your Thai getaway.
 
 ### Flight Connections from Major Australian Cities to Thailand

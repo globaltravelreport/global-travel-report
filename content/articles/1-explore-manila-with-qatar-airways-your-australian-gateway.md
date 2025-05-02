@@ -1,43 +1,22 @@
 ---
-title: 'Explore Manila with Qatar Airways: Your Australian Gateway'
-summary: >-
-  9. 
-
-  Australian travelers can now enjoy easier access to Manila with Qatar Airways,
-  offering direct flights from major cities at competitive prices. The best
-  visit times align with the Australian winter, providing a perfect tropical
-  escape. Plus, the visa-free entry for short stays makes Manila an attractive
-  destination for Aussies looking to explore new cultures without the hassle.
-date: '2025-04-25T05:07:43.581Z'
-country: Philippines
-type: 'Culture, Adventure, Budget'
-imageUrl: >-
-  https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHwxMS4lMjBQaGlsaXBwaW5lcyUyMDEzLiUyMEN1bHR1cmUlMkMlMjBBZHZlbnR1cmUlMkMlMjBCdWRnZXQlMjB0cmF2ZWwlMjBsYW5kc2NhcGV8ZW58MHwwfHx8MTc0NTU0NjQxOXww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: >-
-  https://unsplash.com/photos/aerial-photography-of-flowers-at-daytime-TRhGEGdw-YY
-slug: 1-explore-manila-with-qatar-airways-your-australian-gateway
-metaTitle: '1. Explore Manila with Qatar Airways: Your Australian Gateway'
-metaDescription: >-
-  3. Discover the beauty of Manila through seamless flights from major
-  Australian cities with Qatar Airways. Perfect prices and travel tips tailored
-  for Aussies.
-keywords:
-  - AUD pricing
-  - Australian travelers
-  - Manila flights
-  - Qatar Airways
-  - best times to visit
-  - cultural differences
-  - practical travel information
-  - travel tips
-  - visa requirements Australia
-originalTitle: >-
-  Qatar Airways Codeshare with Philippine Airlines for Manila Flights - Aviation
-  A2Z
-categories: []
+title: "'Explore Manila with Qatar Airways: Your Australian Gateway'"
+summary: ">-"
+date: "2025-05-02T10:45:46.420Z"
+country: "Philippines"
+type: "'Culture, Adventure, Budget'"
+imageUrl: ">-"
+imageAlt: "aerial photography of flowers at daytime"
+imageCredit: "Joel Holland"
+imageLink: ">-"
+slug: "1-explore-manila-with-qatar-airways-your-australian-gateway"
+metaTitle: "'1. Explore Manila with Qatar Airways: Your Australian Gateway'"
+metaDescription: ">-"
+keywords: ""
+originalTitle: ">-"
+categories: "[]"
+photographer: ""
 ---
+
 ### Discover Manila: A Guide for Australian Travelers Flying with Qatar Airways
 
 Flying from Australia to the bustling city of Manila has just become smoother, thanks to the codeshare agreement between Qatar Airways and Philippine Airlines. This partnership means more convenient flight schedules and better connectivity for travelers looking to explore the diverse culture, stunning landscapes, and rich history of the Philippines.
