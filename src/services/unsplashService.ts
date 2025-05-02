@@ -118,18 +118,23 @@ export class UnsplashService {
         this.hourlyRequestCount++;
 
         // Transform the response into our UnsplashImage format
-        return data.results.map((result: any) => ({
-          url: result.urls.regular,
-          smallUrl: result.urls.small,
-          thumbUrl: result.urls.thumb,
-          alt: result.alt_description || result.description || query,
-          photographer: {
-            name: result.user.name,
-            username: result.user.username,
-            profileUrl: result.user.links.html
-          },
-          downloadLocation: result.links.download_location
-        }));
+        return data.results.map((result: any) => {
+          // Get the photographer name, ensuring it's not empty
+          const photographerName = result.user.name || result.user.username || 'Unsplash Photographer';
+
+          return {
+            url: result.urls.regular,
+            smallUrl: result.urls.small,
+            thumbUrl: result.urls.thumb,
+            alt: result.alt_description || result.description || query,
+            photographer: {
+              name: photographerName,
+              username: result.user.username,
+              profileUrl: result.user.links.html
+            },
+            downloadLocation: result.links.download_location
+          };
+        });
       } catch (error) {
         lastError = error instanceof Error ? error : new Error(String(error));
 
@@ -250,13 +255,16 @@ export class UnsplashService {
       // Trigger a download (required by Unsplash API terms)
       await this.triggerDownload(result.links.download_location);
 
+      // Get the photographer name, ensuring it's not empty
+      const photographerName = result.user.name || result.user.username || 'Unsplash Photographer';
+
       return {
         url: result.urls.regular,
         smallUrl: result.urls.small,
         thumbUrl: result.urls.thumb,
         alt: result.alt_description || result.description || query,
         photographer: {
-          name: result.user.name,
+          name: photographerName,
           username: result.user.username,
           profileUrl: result.user.links.html,
           // Add url property for compatibility with UI components

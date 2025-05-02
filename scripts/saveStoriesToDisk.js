@@ -1,9 +1,9 @@
 /**
  * Save Stories to Disk
- * 
+ *
  * This script fetches stories from the API and saves them as Markdown files.
  * It's useful for persisting stories that have been generated but not saved to disk.
- * 
+ *
  * Usage:
  * 1. Run this script: `node scripts/saveStoriesToDisk.js`
  */
@@ -55,6 +55,9 @@ date: "${date}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${story.imageUrl || ''}"
+${story.photographer ? `photographer:
+  name: "${story.photographer.name || 'Unsplash Photographer'}"
+  url: "${story.photographer.url || 'https://unsplash.com'}"` : ''}
 ---
 
 ${story.content || ''}`;
@@ -62,7 +65,7 @@ ${story.content || ''}`;
     // Write the file
     await fs.writeFile(filepath, frontmatter, 'utf8');
     console.log(`✅ Saved story: ${filename}`);
-    
+
     return {
       filename,
       slug,
@@ -78,26 +81,26 @@ ${story.content || ''}`;
 async function fetchStories() {
   try {
     console.log('Fetching stories from API...');
-    
+
     // Get the secret key from environment variables
     const secretKey = process.env.CRON_SECRET_KEY;
-    
+
     // Prepare headers
     const headers = {};
     if (secretKey) {
       headers['x-api-key'] = secretKey;
     }
-    
+
     // Make the request
     const response = await fetch('https://www.globaltravelreport.com/api/stories', { headers });
-    
+
     // Parse the response
     const data = await response.json();
-    
+
     if (!data.success) {
       throw new Error(data.message || 'Failed to fetch stories');
     }
-    
+
     return data.stories || [];
   } catch (error) {
     console.error('Error fetching stories:', error.message);
@@ -109,26 +112,26 @@ async function fetchStories() {
 async function saveStoriesToDisk() {
   try {
     console.log('Starting to save stories to disk...');
-    
+
     // Fetch stories from the API
     const stories = await fetchStories();
-    
+
     if (stories.length === 0) {
       console.log('No stories found to save.');
       return;
     }
-    
+
     console.log(`Found ${stories.length} stories to save.`);
-    
+
     // Ensure articles directory exists
     const articlesDir = await ensureArticlesDirectory();
-    
+
     // Save each story to disk
     const savedStories = [];
     for (const [index, story] of stories.entries()) {
       console.log(`\n📄 Processing story ${index + 1}/${stories.length}:`);
       console.log('📌 Title:', story.title);
-      
+
       try {
         const saved = await saveStoryToMarkdown(story, articlesDir);
         savedStories.push(saved);
@@ -137,10 +140,10 @@ async function saveStoriesToDisk() {
         continue;
       }
     }
-    
+
     console.log('\n✨ Finished saving stories');
     console.log(`📊 Total stories saved: ${savedStories.length}`);
-    
+
     return savedStories;
   } catch (error) {
     console.error('❌ Error in main process:', error.message);
