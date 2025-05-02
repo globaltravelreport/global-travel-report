@@ -240,6 +240,19 @@ export class StoryProcessorService {
 
           // Add to processed stories result
           processedStories.push(...processedStoriesArray);
+
+          // Step 4: Revalidate the pages to show the new stories
+          try {
+            console.log('Revalidating pages...');
+            // Revalidate homepage
+            await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/api/revalidate?path=/`);
+            // Revalidate stories page
+            await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/api/revalidate?path=/stories`);
+            console.log('Pages revalidated successfully');
+          } catch (revalidateError) {
+            console.error('Error revalidating pages:', revalidateError);
+            // Non-critical error, continue
+          }
         } catch (error) {
           console.error('Error saving stories to database:', error);
           this.stats.errors.saving++;

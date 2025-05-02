@@ -1,6 +1,6 @@
 /**
  * Simple script to generate stories automatically
- * 
+ *
  * This script triggers the daily story generation process
  * and can be run manually or scheduled with a cron job.
  */
@@ -17,39 +17,38 @@ const SECRET_KEY = process.env.CRON_SECRET_KEY || '';
 async function generateStories() {
   try {
     console.log('Starting story generation process...');
-    
+
     // Parse command line arguments
     const args = process.argv.slice(2);
     const count = getArgValue(args, '--count', DEFAULT_COUNT);
     const cruiseCount = getArgValue(args, '--cruise-count', DEFAULT_CRUISE_COUNT);
     const production = args.includes('--production');
-    
+
     console.log(`Configuration: count=${count}, cruiseCount=${cruiseCount}, production=${production}`);
-    
+
     // Build the URL
     let url = `${BASE_URL}/api/cron/dailyStories?count=${count}&cruiseCount=${cruiseCount}`;
-    
+
     // Add headers
-    const headers = {};
-    if (SECRET_KEY) {
-      headers['x-cron-secret'] = SECRET_KEY;
-    }
-    
+    const headers = {
+      'x-api-key': SECRET_KEY || 'default-secret-key'
+    };
+
     console.log(`Making request to: ${url}`);
-    
+
     // Make the request
     const response = await fetch(url, { headers });
     const data = await response.json();
-    
+
     console.log('Response:');
     console.log(JSON.stringify(data, null, 2));
-    
+
     if (data.success) {
       console.log('Story generation completed successfully!');
-      
+
       // Trigger revalidation to update the website
       await revalidatePages();
-      
+
       return true;
     } else {
       console.error('Story generation failed:', data.message);
@@ -64,13 +63,13 @@ async function generateStories() {
 async function revalidatePages() {
   try {
     console.log('Revalidating pages...');
-    
+
     // Revalidate homepage
     await fetch(`${BASE_URL}/api/revalidate?path=/`);
-    
+
     // Revalidate stories page
     await fetch(`${BASE_URL}/api/revalidate?path=/stories`);
-    
+
     console.log('Pages revalidated successfully!');
   } catch (error) {
     console.error('Error revalidating pages:', error);

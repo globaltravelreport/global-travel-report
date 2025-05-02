@@ -1,6 +1,6 @@
 /**
  * Unsplash Service
- * 
+ *
  * This service handles interactions with the Unsplash API for fetching images
  * in a way that's compatible with Vercel's Edge Runtime.
  */
@@ -28,7 +28,7 @@ export class UnsplashService {
   private requestsPerHour: number;
   private hourlyRequestCount: number;
   private lastResetHour: number;
-  
+
   private constructor() {
     this.accessKey = process.env.UNSPLASH_ACCESS_KEY || '';
     this.maxRetries = 3;
@@ -132,7 +132,7 @@ export class UnsplashService {
         }));
       } catch (error) {
         lastError = error instanceof Error ? error : new Error(String(error));
-        
+
         // Check if we should retry
         if (attempt < this.maxRetries - 1) {
           // Exponential backoff
@@ -167,7 +167,7 @@ export class UnsplashService {
     try {
       // Build a search query based on the story
       let query = `${story.country} ${story.category}`;
-      
+
       // Add more specific terms for better results
       if (story.category === 'Cruises') {
         query += ' cruise ship ocean';
@@ -182,30 +182,36 @@ export class UnsplashService {
       } else {
         query += ' travel tourism';
       }
-      
+
       // Search for images
       const images = await this.searchImages(query);
-      
+
       if (images.length === 0) {
         throw new Error('No images found');
       }
-      
+
       const image = images[0];
-      
+
       // Trigger a download (required by Unsplash API terms)
       await this.triggerDownload(image.downloadLocation);
-      
+
       // Return the enhanced story
       return {
         ...story,
         imageUrl: image.url,
         imageAlt: image.alt,
+        // Add photographer information in the format expected by the UI components
+        photographer: {
+          name: image.photographer.name,
+          url: image.photographer.profileUrl
+        },
+        // Keep these for backward compatibility
         imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
         imageCreditUrl: image.photographer.profileUrl
       };
     } catch (error) {
       console.error('Error enhancing story with image:', error);
-      
+
       // Return the original story if image enhancement fails
       return story;
     }
@@ -252,7 +258,9 @@ export class UnsplashService {
         photographer: {
           name: result.user.name,
           username: result.user.username,
-          profileUrl: result.user.links.html
+          profileUrl: result.user.links.html,
+          // Add url property for compatibility with UI components
+          url: result.user.links.html
         },
         downloadLocation: result.links.download_location
       };
