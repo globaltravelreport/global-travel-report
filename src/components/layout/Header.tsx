@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
 import { cn } from '@/src/lib/utils';
+// Theme toggle has been removed
 
 export default function Header() {
   const pathname = usePathname();

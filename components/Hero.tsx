@@ -5,21 +5,11 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { Sun, Moon } from 'lucide-react';
 
 const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <section className="relative min-h-[55vh] w-full overflow-hidden">
@@ -37,7 +27,7 @@ const Hero = () => {
           sizes="100vw"
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 dark:from-black/80 dark:via-black/60 dark:to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
         <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
           Photo by <a
             href="https://unsplash.com/@jeremybishop"
@@ -56,19 +46,6 @@ const Hero = () => {
           </a>
         </div>
       </motion.div>
-
-      {/* Theme Toggle */}
-      <button
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        className="absolute top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
-        aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      >
-        {theme === 'dark' ? (
-          <Sun className="w-6 h-6 text-yellow-400" />
-        ) : (
-          <Moon className="w-6 h-6 text-gray-800" />
-        )}
-      </button>
 
       {/* Content */}
       <motion.div
