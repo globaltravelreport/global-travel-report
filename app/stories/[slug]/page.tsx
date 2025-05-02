@@ -9,81 +9,18 @@ import DOMPurify from 'isomorphic-dompurify';
 import SchemaOrg from "@/components/SchemaOrg";
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
+import { getAllStories, getStoryBySlug } from "@/src/utils/stories";
 
 // Define the params type for Next.js 15
 type StoryParams = {
   slug: string;
 };
 
-// This would typically come from an API or database
-const getStories = async (): Promise<Story[]> => {
-  // Mock data for demonstration
-  return [
-    {
-      id: "1",
-      slug: "exploring-kyoto",
-      title: "Exploring the Hidden Temples of Kyoto",
-      excerpt: "A journey through ancient Japanese architecture and culture...",
-      content: "Full content here...",
-      author: "Sarah Johnson",
-      category: "Culture",
-      country: "Japan",
-      tags: ["temples", "culture", "history"],
-      featured: true,
-      editorsPick: true,
-      publishedAt: new Date("2024-03-15T00:00:00Z"),
-      imageUrl: "/images/kyoto-temple.jpg",
-      photographer: {
-        name: "John Smith",
-        url: "https://unsplash.com/@johnsmith"
-      },
-    },
-    {
-      id: "2",
-      slug: "safari-adventure",
-      title: "Safari Adventure in Tanzania",
-      excerpt: "Witnessing the great migration in the Serengeti...",
-      content: "Full content here...",
-      author: "Michael Chen",
-      category: "Adventure",
-      country: "Tanzania",
-      tags: ["wildlife", "safari", "nature"],
-      featured: true,
-      editorsPick: false,
-      publishedAt: new Date("2024-03-10T00:00:00Z"),
-      imageUrl: "/images/serengeti-safari.jpg",
-      photographer: {
-        name: "Jane Doe",
-        url: "https://unsplash.com/@janedoe"
-      },
-    },
-    {
-      id: "3",
-      slug: "culinary-tour-italy",
-      title: "Culinary Tour of Italy",
-      excerpt: "From pasta in Rome to pizza in Naples...",
-      content: "Full content here...",
-      author: "Emma Rodriguez",
-      category: "Food",
-      country: "Italy",
-      tags: ["food", "culture", "culinary"],
-      featured: false,
-      editorsPick: true,
-      publishedAt: new Date("2024-03-05T00:00:00Z"),
-      imageUrl: "/images/italy-food.jpg",
-      photographer: {
-        name: "Marco Rossi",
-        url: "https://unsplash.com/@marcorossi"
-      },
-    },
-  ];
-};
-
+// Set revalidation time to ensure content is fresh
 export const revalidate = 3600; // Revalidate every hour
 
 export async function generateMetadata({ params }: { params: StoryParams }): Promise<Metadata> {
-  const stories = await getStories();
-  const story = stories.find(s => s.slug === params.slug);
+  const story = await getStoryBySlug(params.slug);
 
   if (!story) {
     return {
@@ -130,8 +67,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
 }
 
 export default async function StoryPage({ params }: { params: StoryParams }) {
-  const stories = await getStories();
-  const story = stories.find(s => s.slug === params.slug);
+  const story = await getStoryBySlug(params.slug);
 
   if (!story) {
     notFound();

@@ -1,6 +1,9 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-import { getStoriesCollection } from '@/src/utils/mongodb';
+import { canUseMongoDB } from '@/src/utils/mongodb';
+
+// Use dynamic import for MongoDB to ensure compatibility with Edge Runtime
+let getStoriesCollection: () => Promise<any>;
 
 /**
  * StoryDatabase using MongoDB Atlas for persistent storage
@@ -14,9 +17,17 @@ export class StoryDatabase {
 
   private constructor() {
     // Check if MongoDB is available
-    this.useMongoDB = typeof process !== 'undefined' &&
-                      typeof process.env !== 'undefined' &&
-                      !!process.env.MONGODB_URI;
+    this.useMongoDB = canUseMongoDB();
+
+    // If MongoDB is available, dynamically import the getStoriesCollection function
+    if (this.useMongoDB) {
+      import('@/src/utils/mongodb').then(module => {
+        getStoriesCollection = module.getStoriesCollection;
+      }).catch(error => {
+        console.error('Error importing MongoDB module:', error);
+        this.useMongoDB = false;
+      });
+    }
 
     console.log(`StoryDatabase initialized with MongoDB: ${this.useMongoDB ? 'enabled' : 'disabled'}`);
   }
@@ -45,10 +56,16 @@ export class StoryDatabase {
       if (this.useMongoDB) {
         // Try to load stories from MongoDB
         try {
+          // Ensure getStoriesCollection is available
+          if (!getStoriesCollection) {
+            const module = await import('@/src/utils/mongodb');
+            getStoriesCollection = module.getStoriesCollection;
+          }
+
           const storiesCollection = await getStoriesCollection();
           const mongoStories = await storiesCollection.find({}).toArray();
 
-          if (mongoStories && mongoStories.length > 0) {
+          if (mongoStories && Array.isArray(mongoStories) && mongoStories.length > 0) {
             this.stories = mongoStories;
             console.log(`Loaded ${this.stories.length} stories from MongoDB`);
           } else {
@@ -71,6 +88,9 @@ export class StoryDatabase {
           // Fall back to mock stories if MongoDB access fails
           this.stories = [...mockStories];
           console.log(`Falling back to ${this.stories.length} mock stories due to MongoDB error`);
+
+          // Disable MongoDB for this session if there was an error
+          this.useMongoDB = false;
         }
       } else {
         // Use mock stories if MongoDB is not available
@@ -168,6 +188,12 @@ export class StoryDatabase {
     // If MongoDB is available, save the story
     if (this.useMongoDB) {
       try {
+        // Ensure getStoriesCollection is available
+        if (!getStoriesCollection) {
+          const module = await import('@/src/utils/mongodb');
+          getStoriesCollection = module.getStoriesCollection;
+        }
+
         const storiesCollection = await getStoriesCollection();
 
         if (existingIndex !== -1) {
@@ -184,6 +210,8 @@ export class StoryDatabase {
         }
       } catch (error) {
         console.error('Error saving story to MongoDB:', error);
+        // Disable MongoDB for this session if there was an error
+        this.useMongoDB = false;
       }
     }
 
@@ -220,6 +248,12 @@ export class StoryDatabase {
     // If MongoDB is available, save the stories
     if (this.useMongoDB && (newStories.length > 0 || updateOperations.length > 0)) {
       try {
+        // Ensure getStoriesCollection is available
+        if (!getStoriesCollection) {
+          const module = await import('@/src/utils/mongodb');
+          getStoriesCollection = module.getStoriesCollection;
+        }
+
         const storiesCollection = await getStoriesCollection();
 
         // Insert new stories in bulk if any
@@ -241,6 +275,8 @@ export class StoryDatabase {
         }
       } catch (error) {
         console.error('Error saving stories to MongoDB:', error);
+        // Disable MongoDB for this session if there was an error
+        this.useMongoDB = false;
       }
     }
 
@@ -266,11 +302,19 @@ export class StoryDatabase {
     // If MongoDB is available, delete the story
     if (this.useMongoDB) {
       try {
+        // Ensure getStoriesCollection is available
+        if (!getStoriesCollection) {
+          const module = await import('@/src/utils/mongodb');
+          getStoriesCollection = module.getStoriesCollection;
+        }
+
         const storiesCollection = await getStoriesCollection();
         await storiesCollection.deleteOne({ id });
         console.log(`Deleted story with ID ${id} from MongoDB`);
       } catch (error) {
         console.error('Error deleting story from MongoDB:', error);
+        // Disable MongoDB for this session if there was an error
+        this.useMongoDB = false;
       }
     }
 
@@ -294,6 +338,12 @@ export class StoryDatabase {
     // If MongoDB is available and we want to use MongoDB's search capabilities
     if (this.useMongoDB) {
       try {
+        // Ensure getStoriesCollection is available
+        if (!getStoriesCollection) {
+          const module = await import('@/src/utils/mongodb');
+          getStoriesCollection = module.getStoriesCollection;
+        }
+
         const storiesCollection = await getStoriesCollection();
 
         // Use MongoDB text search if a text index is set up
@@ -311,6 +361,8 @@ export class StoryDatabase {
         return results;
       } catch (error) {
         console.error('Error searching stories in MongoDB:', error);
+        // Disable MongoDB for this session if there was an error
+        this.useMongoDB = false;
         // Fall back to in-memory search
       }
     }
