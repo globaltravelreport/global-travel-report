@@ -38,6 +38,7 @@ import { StorySearchParams } from '@/types/StorySearchParams';
 import { mockStories } from '@/src/mocks/stories';
 import { memoize, memoizeMultiArg } from '@/src/utils/memoization';
 import { isArchived } from '@/src/utils/date-utils';
+import { StoryDatabase } from '@/src/services/storyDatabase';
 import {
   paginate,
   PaginationOptions,
@@ -82,8 +83,7 @@ export const isStoryArchived = memoize((story: Story, days: number = 30): boolea
  */
 export async function getAllStories(): Promise<Story[]> {
   try {
-    // Import the database service
-    const { StoryDatabase } = require('@/src/services/storyDatabase');
+    // Get the database instance
     const db = StoryDatabase.getInstance();
 
     // Get all stories from the database
@@ -461,8 +461,7 @@ export async function getUniqueCategories(): Promise<string[]> {
  */
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
-    // Import the database service
-    const { StoryDatabase } = require('@/src/services/storyDatabase');
+    // Get the database instance
     const db = StoryDatabase.getInstance();
 
     // Try to get the story directly from the database

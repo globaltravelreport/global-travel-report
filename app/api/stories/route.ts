@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { StoryDatabase } from '@/src/services/storyDatabase';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   try {
-    // Import the database service
-    const { StoryDatabase } = require('@/src/services/storyDatabase');
+    // Get the database instance
     const db = StoryDatabase.getInstance();
-    
+
     // Get query parameters
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
@@ -15,9 +16,9 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id');
     const limit = parseInt(searchParams.get('limit') || '10', 10);
     const page = parseInt(searchParams.get('page') || '1', 10);
-    
+
     let stories = [];
-    
+
     // Get stories based on query parameters
     if (slug) {
       // Get a specific story by slug
@@ -34,19 +35,19 @@ export async function GET(request: NextRequest) {
       // Get all stories
       stories = await db.getAllStories();
     }
-    
+
     // Sort stories by publishedAt (newest first)
     stories.sort((a, b) => {
       const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
       const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
       return dateB.getTime() - dateA.getTime();
     });
-    
+
     // Apply pagination
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const paginatedStories = stories.slice(startIndex, endIndex);
-    
+
     // Return the stories
     return NextResponse.json({
       success: true,

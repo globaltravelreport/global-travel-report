@@ -29,7 +29,7 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
     setSelectedRange(value);
 
     let startDate: string;
-    let endDate: string = 'today';
+    const endDate: string = 'today';
 
     switch (value) {
       case '7days':

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { StoryDatabase } from '@/src/services/storyDatabase';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export async function GET(
   request: NextRequest,
@@ -8,7 +10,7 @@ export async function GET(
 ) {
   try {
     const slug = params.slug;
-    
+
     if (!slug) {
       return NextResponse.json(
         {
@@ -18,14 +20,13 @@ export async function GET(
         { status: 400 }
       );
     }
-    
-    // Import the database service
-    const { StoryDatabase } = require('@/src/services/storyDatabase');
+
+    // Get the database instance
     const db = StoryDatabase.getInstance();
-    
+
     // Get the story by slug
     const story = await db.getStoryBySlug(slug);
-    
+
     if (!story) {
       return NextResponse.json(
         {
@@ -35,7 +36,7 @@ export async function GET(
         { status: 404 }
       );
     }
-    
+
     // Return the story
     return NextResponse.json({
       success: true,
