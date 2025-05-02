@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.423Z"
 country: "Scotland"
 type: "Airline"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian travelers, this opens up an enticing avenue to explore the historic beauty and natural landscapes that Scotland is renowned for. Here's everything you need to know to make this trip a seamless adventure.
 

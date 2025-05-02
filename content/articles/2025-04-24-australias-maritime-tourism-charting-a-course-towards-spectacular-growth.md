@@ -1,35 +1,20 @@
 ---
-title: 'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
-summary: >-
-  With new partnerships, expanded routes, and a focus on sustainable practices,
-  Australia's cruise industry is poised for remarkable growth. South Australia,
-  with its unique blend of attractions, is emerging as a leading cruise
-  destination.
-keywords:
-  - Australia
-  - CLIA partnership
-  - South Australia
-  - cruise industry
-  - economic benefits
-  - growth
-  - infrastructure upgrades
-  - maritime tourism
-  - sustainability
-slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
-date: 2025-04-24T00:00:00.000Z
-country: Australia
-type: Airline
-imageUrl: >-
-  https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxBdXN0cmFsaWF8ZW58MHwwfHx8MTc0NTQ3OTY5M3ww&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: 'Sydney Opera House, Australia'
-imageCredit: Photoholgic on Unsplash
-imageLink: 'https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'
-published: true
-categories: []
-photographer:
-  name: Unsplash Photographer
-  url: 'https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'
+title: "'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'"
+summary: ">-"
+keywords: ""
+slug: "australias-maritime-tourism-charting-a-course-towards-spectacular-growth"
+date: "2025-04-24T00:00:00.000Z"
+country: "Australia"
+type: "Airline"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageAlt: "'Sydney Opera House, Australia'"
+imageCredit: "Photoholgic on Unsplash"
+imageLink: "'https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 
 Australia's cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vibrant future for maritime tourism. Both domestic and international cruise bookings have witnessed a significant uptick, as per industry top brass.
 

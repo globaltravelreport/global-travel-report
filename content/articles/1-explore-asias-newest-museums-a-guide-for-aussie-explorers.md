@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.415Z"
 country: "Asia"
 type: "Culture"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened their doors, promising enriching experiences that are worth the journey. Whether you're planning a solo adventure, a family holiday, or a cultural deep dive, here's everything Australian travelers need to know about these exciting destinations.
 

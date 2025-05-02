@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.440Z"
 country: "'Japan, Singapore'"
 type: "'Culture, Art'"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -15,6 +15,7 @@ keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
 photographer: ""
 ---
+
 
 As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinations not only offer a deep dive into rich histories and contemporary art but are also easily accessible from major Australian cities, making them perfect additions to your travel bucket list.
 

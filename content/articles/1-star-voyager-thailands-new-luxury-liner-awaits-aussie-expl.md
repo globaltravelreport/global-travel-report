@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.424Z"
 country: "Thailand"
 type: "'Luxury, Culture'"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -15,6 +15,7 @@ keywords: ""
 originalTitle: ">-"
 photographer: ""
 ---
+
 
 Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream Cruises introduces the magnificent *Star Voyager*, a beacon of luxury and adventure for Australian travelers.
 

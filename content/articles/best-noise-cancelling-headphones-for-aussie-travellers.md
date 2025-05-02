@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.441Z"
 country: "Multiple destinations"
 type: "Travel Essentials"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -15,6 +15,7 @@ keywords: ""
 originalTitle: ">-"
 photographer: ""
 ---
+
 
 When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you're escaping the Aussie winter for Europe's summer charm or chasing the northern lights during our summer break, having the best noise-cancelling headphones can transform your travel experience.
 

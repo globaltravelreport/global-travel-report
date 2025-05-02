@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.430Z"
 country: "Various"
 type: "Airline"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 When planning an international trip from Down Under, the right travel accessories can make all the difference, especially during those long-haul flights from major Australian cities to far-flung destinations. One essential gadget you shouldn't overlook is many travellers' secret weapon: noise-cancelling headphones. They're not just about blocking out the drone of the plane engine, but also about enveloping you in your own private oasis, whether that's catching up on the latest TV series, diving into a new music playlist, or escaping the world with an audiobook.
 

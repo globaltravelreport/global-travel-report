@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.415Z"
 country: "'Japan, South Korea'"
 type: "'Culture, Adventure'"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -16,6 +16,7 @@ originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - 
 categories: "[]"
 photographer: ""
 ---
+
 
 As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust. Today, I'm thrilled to share two of Asia's newest museums that are making waves on the international scene, tailored specifically for Australian travellers. Whether you're a culture vulture or just looking to add some educational flair to your next holiday, these destinations offer a unique glimpse into Asia's rich artistic heritage. 
 

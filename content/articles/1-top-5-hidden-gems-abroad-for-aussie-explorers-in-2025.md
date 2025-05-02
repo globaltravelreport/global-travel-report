@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.425Z"
 country: "'Georgia, Namibia, Slovenia, Uruguay, Mongolia'"
 type: "Experience"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 As Australian wanderlust continues to grow, the quest for unique and less crowded destinations becomes paramount. In 2025, five underrated travel spots beckon Aussie explorers seeking new adventures beyond the typical tourist trails. From the enchanting landscapes of Eastern Europe to the vibrant cultures of Africa, these destinations offer a rich tapestry of experiences, all while being wallet-friendly and accessible from major Australian cities.
 

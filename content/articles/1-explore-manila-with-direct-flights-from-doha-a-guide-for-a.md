@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.419Z"
 country: "Philippines"
 type: "Experience"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 Australia's wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop flights from Manila to Doha, creating a seamless connection for Australians looking to explore the vibrant city of Manila. This development is a game-changer for Aussie adventurers and culture seekers aiming to dive into the heart of the Philippines without the hassle of multiple layovers.
 

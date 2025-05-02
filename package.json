@@ -19,7 +19,8 @@
     "setup-cron": "node scripts/setupVercelCron.js",
     "trigger-stories": "node scripts/triggerDailyStories.js",
     "trigger-stories:prod": "node scripts/triggerDailyStories.js --production",
-    "fix-story-dates": "ts-node scripts/fixStoryDates.ts"
+    "fix-story-dates": "ts-node scripts/fixStoryDates.ts",
+    "fix-image-urls": "ts-node scripts/fixImageUrls.ts"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",

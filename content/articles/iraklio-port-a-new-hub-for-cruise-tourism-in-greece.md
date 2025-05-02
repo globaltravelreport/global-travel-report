@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.446Z"
 country: "Greece"
 type: "Cruise"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "stack of assorted-color suit case lot"
 imageCredit: "Erwan Hesry"
 imageLink: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
@@ -15,6 +15,7 @@ keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
 photographer: ""
 ---
+
 
 Iraklio, the capital of Crete, is steering towards becoming a significant hub for cruise tourism in the Mediterranean. With its strategic location and rich cultural heritage, Iraklio Port is poised to offer an unparalleled gateway to the wonders of Greek civilization and the breathtaking landscapes of Crete. The local authorities and tourism stakeholders are actively enhancing port facilities and services to accommodate the growing interest from cruise lines and passengers alike.
 

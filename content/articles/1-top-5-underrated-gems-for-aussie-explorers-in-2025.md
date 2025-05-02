@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.429Z"
 country: "'Chile, Estonia, Malaysia, Slovenia, Senegal'"
 type: "Experience"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
 imageCredit: "Eaters Collective"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 As Australian wanderlust continues to grow, seeking out lesser-trodden paths has become the new trend. For those looking to escape the usual tourist traps in 2025, here are five underrated destinations that promise adventure, culture, and a touch of the unique, all tailored for the Aussie explorer.
 

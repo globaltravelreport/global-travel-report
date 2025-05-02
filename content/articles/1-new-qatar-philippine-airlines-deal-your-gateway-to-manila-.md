@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.422Z"
 country: "Philippines"
 type: "Experience"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -17,6 +17,7 @@ published: "true"
 categories: "[]"
 photographer: ""
 ---
+
 
 Exploring Manila just got easier and more affordable for Aussies, thanks to a new codeshare agreement between Qatar Airways and Philippine Airlines. This partnership means smoother connections and more flight options from major Australian cities like Sydney, Melbourne, and Brisbane to the vibrant city of Manila, making it an enticing option for your next overseas adventure.
 

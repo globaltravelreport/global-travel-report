@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.446Z"
 country: "'Ghana, Georgia'"
 type: "'Culture, Adventure'"
-imageUrl: ">-"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: ">-"
@@ -15,6 +15,7 @@ keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
 photographer: ""
 ---
+
 
 Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those underrated gems that offer unique experiences without the crowds. From the vibrant streets of Accra, Ghana, to the tranquil beauty of Georgia's mountains, there's a world waiting to be explored that meshes well with the adventurous Aussie spirit. 
 

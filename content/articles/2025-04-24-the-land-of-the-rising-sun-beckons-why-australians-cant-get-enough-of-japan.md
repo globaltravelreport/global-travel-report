@@ -1,40 +1,20 @@
 ---
-title: 'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan'
-summary: >-
-  Japan has emerged as a top travel destination for Australians in the
-  post-pandemic era. The country's blend of traditional and contemporary allure
-  has seen tourism numbers soar.
-keywords:
-  - Australian Travelers
-  - Cherry blossom season
-  - Cuisine
-  - Culture
-  - English-language services
-  - Fall foliage
-  - Japan
-  - Kyoto
-  - Tokyo
-  - Tourist attractions
-  - Travel
-  - Urban and rural exploration
-  - Winter skiing
-slug: the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan
-date: 2025-04-24T00:00:00.000Z
-country: Australia
-type: Airline
-imageUrl: >-
-  https://images.unsplash.com/photo-1542051841857-5f90071e7989?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxKYXBhbnxlbnwwfDB8fHwxNzQ1NDc5NzE0fDA&ixlib=rb-4.0.3&q=80&w=1080
-imageAlt: people gathered outside buildings and vehicles
-imageCredit: Jezael Melgoza on Unsplash
-imageLink: >-
-  https://unsplash.com/photos/people-gathered-outside-buildings-and-vehicles-alY6_OpdwRQ
-published: true
-categories: []
-photographer:
-  name: Unsplash Photographer
-  url: >-
-    https://unsplash.com/photos/people-gathered-outside-buildings-and-vehicles-alY6_OpdwRQ
+title: "'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan'"
+summary: ">-"
+keywords: ""
+slug: "the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan"
+date: "2025-04-24T00:00:00.000Z"
+country: "Australia"
+type: "Airline"
+imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageAlt: "people gathered outside buildings and vehicles"
+imageCredit: "Jezael Melgoza on Unsplash"
+imageLink: ">-"
+published: "true"
+categories: "[]"
+photographer: ""
 ---
+
 
 Japan, with its unique blend of time-honored customs and cutting-edge innovation, has become an irresistible magnet for Australians seeking adventures off the beaten track. From the dazzling neon skyline of Tokyo to the tranquil, temple-dotted landscape of Kyoto, Australian globe-trotters are flocking to Japan in unprecedented numbers.
 
