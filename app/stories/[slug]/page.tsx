@@ -20,7 +20,14 @@ type StoryParams = {
 export const revalidate = 3600; // Revalidate every hour
 
 export async function generateMetadata({ params }: { params: StoryParams }): Promise<Metadata> {
-  const story = await getStoryBySlug(params.slug);
+  // Try to get the story by slug
+  let story = await getStoryBySlug(params.slug);
+
+  // If not found, try to get from mock stories as a fallback
+  if (!story) {
+    const { mockStories } = await import('@/src/mocks/stories');
+    story = mockStories.find(s => s.slug === params.slug) || null;
+  }
 
   if (!story) {
     return {
@@ -67,7 +74,14 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
 }
 
 export default async function StoryPage({ params }: { params: StoryParams }) {
-  const story = await getStoryBySlug(params.slug);
+  // Try to get the story by slug
+  let story = await getStoryBySlug(params.slug);
+
+  // If not found, try to get from mock stories as a fallback
+  if (!story) {
+    const { mockStories } = await import('@/src/mocks/stories');
+    story = mockStories.find(s => s.slug === params.slug) || null;
+  }
 
   if (!story) {
     notFound();
@@ -105,7 +119,10 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               alt={story.title}
               priority={true}
               className="rounded-lg"
-              photographer={story.photographer}
+              photographer={story.photographer || {
+                name: story.imageCredit ? story.imageCredit.replace('Photo by ', '').replace(' on Unsplash', '') : 'Photographer',
+                url: story.imageCreditUrl || 'https://unsplash.com'
+              }}
               showAttribution={true}
             />
           </div>

@@ -35,21 +35,31 @@ export function StoryCoverImage({
         className={`object-cover ${className}`}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
-      
-      {showAttribution && photographer && (
-        <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs p-1 rounded-tl">
-          Photo: {photographer.url ? (
-            <a 
-              href={photographer.url} 
-              target="_blank" 
+
+      {showAttribution && photographer && photographer.name && (
+        <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl">
+          Photo by{" "}
+          {photographer.url ? (
+            <a
+              href={photographer.url}
+              target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-gray-200"
+              className="font-bold underline hover:text-gray-200"
             >
               {photographer.name}
             </a>
           ) : (
-            photographer.name
+            <span className="font-bold">{photographer.name}</span>
           )}
+          {" "}on{" "}
+          <a
+            href="https://unsplash.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold underline hover:text-gray-200"
+          >
+            Unsplash
+          </a>
         </div>
       )}
     </div>
