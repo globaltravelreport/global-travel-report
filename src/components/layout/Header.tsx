@@ -1,13 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
-
-import { ThemeToggle } from '@/src/components/ui/theme-toggle';
 import { cn } from '@/src/lib/utils';
 
 export default function Header() {
@@ -25,14 +23,9 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled
-        ? "bg-white/95 backdrop-blur shadow-md supports-[backdrop-filter]:bg-white/80 dark:bg-gray-900/95 dark:supports-[backdrop-filter]:bg-gray-900/80"
-        : "bg-transparent"
-    )}>
-      {/* Top bar with contact info - Updated with gradient background */}
-      <div className="hidden lg:block bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white py-0.5">
+    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-md">
+      {/* Top bar with contact info */}
+      <div className="hidden lg:block py-0.5">
         <div className="container flex justify-between items-center text-xs">
           <div className="flex items-center space-x-4">
             <span className="flex items-center">
@@ -79,10 +72,10 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#19273A] flex items-center justify-center">
-              <span className="text-[#C9A14A] font-bold text-lg">GTR</span>
+            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-white flex items-center justify-center">
+              <span className="text-[#19273A] font-bold text-lg">GTR</span>
             </div>
-            <span className="hidden font-bold text-xl sm:inline-block bg-gradient-to-r from-[#19273A] to-[#2A3F5F] bg-clip-text text-transparent dark:from-[#C9A14A] dark:to-[#E5C675]">
+            <span className="hidden font-bold text-xl sm:inline-block text-[#C9A14A]">
               Global Travel Report
             </span>
           </Link>
@@ -94,8 +87,8 @@ export default function Header() {
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
                 pathname === '/'
-                  ? 'text-[#19273A] dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
               )}
             >
               Home
@@ -105,8 +98,8 @@ export default function Header() {
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
                 pathname === '/stories' || pathname.startsWith('/stories/')
-                  ? 'text-[#19273A] dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
               )}
             >
               Stories
@@ -116,8 +109,8 @@ export default function Header() {
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
                 pathname === '/destinations' || pathname.startsWith('/destinations/')
-                  ? 'text-[#19273A] dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
               )}
             >
               Destinations
@@ -127,8 +120,8 @@ export default function Header() {
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
                 pathname === '/about'
-                  ? 'text-[#19273A] dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
               )}
             >
               About
@@ -138,8 +131,8 @@ export default function Header() {
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
                 pathname === '/contact'
-                  ? 'text-[#19273A] dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
               )}
             >
               Contact
@@ -149,18 +142,17 @@ export default function Header() {
           {/* Search and Mobile Menu */}
           <div className="flex items-center space-x-4">
             <Link href="/search">
-              <Button variant="ghost" size="sm" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+              <Button variant="ghost" size="sm" className="rounded-full text-white hover:bg-[#19273A]/50">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <span className="sr-only">Search</span>
               </Button>
             </Link>
-            <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
-              className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 md:hidden"
+              className="rounded-full text-white hover:bg-[#19273A]/50 md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <span className="sr-only">Toggle menu</span>
@@ -176,7 +168,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+        <div className="md:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
           <div className="container py-4">
             <nav className="flex flex-col space-y-4">
               <Link
@@ -184,8 +176,8 @@ export default function Header() {
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
                   pathname === '/'
-                    ? 'bg-gray-100 dark:bg-gray-800 text-[#19273A] dark:text-white font-semibold'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -196,8 +188,8 @@ export default function Header() {
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
                   pathname === '/stories' || pathname.startsWith('/stories/')
-                    ? 'bg-gray-100 dark:bg-gray-800 text-[#19273A] dark:text-white font-semibold'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -208,8 +200,8 @@ export default function Header() {
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
                   pathname === '/destinations' || pathname.startsWith('/destinations/')
-                    ? 'bg-gray-100 dark:bg-gray-800 text-[#19273A] dark:text-white font-semibold'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -220,8 +212,8 @@ export default function Header() {
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
                   pathname === '/about'
-                    ? 'bg-gray-100 dark:bg-gray-800 text-[#19273A] dark:text-white font-semibold'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -232,8 +224,8 @@ export default function Header() {
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
                   pathname === '/contact'
-                    ? 'bg-gray-100 dark:bg-gray-800 text-[#19273A] dark:text-white font-semibold'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -241,8 +233,8 @@ export default function Header() {
               </Link>
 
               {/* Mobile contact info */}
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
-                <div className="flex flex-col space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <div className="mt-4 pt-4 border-t border-[#19273A]/30">
+                <div className="flex flex-col space-y-2 text-sm text-white">
                   <span className="flex items-center">
                     <svg className="w-4 h-4 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -258,22 +250,22 @@ export default function Header() {
                 </div>
 
                 <div className="flex items-center space-x-4 mt-4">
-                  <a href="https://www.facebook.com/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="Facebook">
+                  <a href="https://www.facebook.com/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Facebook">
                     <FaFacebook className="w-5 h-5" />
                   </a>
-                  <a href="https://x.com/GTravelReport" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="Twitter (X)">
+                  <a href="https://x.com/GTravelReport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Twitter (X)">
                     <FaXTwitter className="w-5 h-5" />
                   </a>
-                  <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="Medium">
+                  <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Medium">
                     <FaMedium className="w-5 h-5" />
                   </a>
-                  <a href="https://www.linkedin.com/company/globaltravelreport/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="LinkedIn">
+                  <a href="https://www.linkedin.com/company/globaltravelreport/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="LinkedIn">
                     <FaLinkedin className="w-5 h-5" />
                   </a>
-                  <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="YouTube">
+                  <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="YouTube">
                     <FaYoutube className="w-5 h-5" />
                   </a>
-                  <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
+                  <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
                     <FaTiktok className="w-5 h-5" />
                   </a>
                 </div>
