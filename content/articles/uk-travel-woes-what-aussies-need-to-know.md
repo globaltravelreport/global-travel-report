@@ -14,9 +14,10 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 photographer:
-  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  name: "Joel Holland"
   url: "https://unsplash.com"
 ---
+
 
 
 

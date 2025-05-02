@@ -14,9 +14,10 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "Shanghai Cruise Culture and Tourism Festival 2025 sets sail - China Daily"
 photographer:
-  name: "Erwan Hesry"
-  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

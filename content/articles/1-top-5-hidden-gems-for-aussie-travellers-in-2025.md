@@ -16,9 +16,10 @@ originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - T
 published: "true"
 categories: "[]"
 photographer:
-  name: "Eaters Collective"
+  name: "Joel Holland"
   url: "https://unsplash.com"
 ---
+
 
 
 

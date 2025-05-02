@@ -14,9 +14,10 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
 photographer:
-  name: "Erwan Hesry"
-  url: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

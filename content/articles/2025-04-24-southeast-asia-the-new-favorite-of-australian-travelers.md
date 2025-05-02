@@ -13,9 +13,10 @@ imageLink: "'https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWg
 published: "true"
 categories: "[]"
 photographer:
-  name: "Aniq Danial on Unsplash"
-  url: "'https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 
