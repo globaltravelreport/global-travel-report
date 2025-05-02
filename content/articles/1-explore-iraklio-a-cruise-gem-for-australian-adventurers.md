@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.419Z"
 country: "Greece"
 type: "'Culture, Adventure, Cruise'"
-imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: "https://unsplash.com"
@@ -14,8 +14,8 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: "Priscilla Du Preez"
+  url: "https://unsplash.com/@priscilladupreez"
 ---
 
 

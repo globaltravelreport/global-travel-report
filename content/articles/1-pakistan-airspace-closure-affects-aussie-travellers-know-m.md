@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.422Z"
 country: "India"
 type: "'Culture, Adventure, Budget'"
-imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1528543606781-2f6e6857f318?q=80&w=2001&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: "https://unsplash.com"
@@ -14,8 +14,8 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 photographer:
-  name: "Sime Basioli"
-  url: "https://unsplash.com/@simebasioli"
+  name: "Simon Migaj"
+  url: "https://unsplash.com/@simonmigaj"
 ---
 
 

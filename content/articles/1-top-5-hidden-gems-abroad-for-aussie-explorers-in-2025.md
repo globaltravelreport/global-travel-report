@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.425Z"
 country: "'Georgia, Namibia, Slovenia, Uruguay, Mongolia'"
 type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: "https://unsplash.com"
@@ -16,8 +16,8 @@ originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - T
 published: "true"
 categories: "[]"
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: "Tom Grimbert"
+  url: "https://unsplash.com/@tomgrimbert"
 ---
 
 

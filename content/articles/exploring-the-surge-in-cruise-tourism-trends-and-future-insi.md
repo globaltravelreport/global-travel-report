@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.445Z"
 country: "Global"
 type: "Travel Trends"
-imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "stack of assorted-color suit case lot"
 imageCredit: "Erwan Hesry"
 imageLink: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
@@ -14,8 +14,8 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "'Cruise Tourism Market Witness Booming Growth: Future Demand, - openPR.com'"
 photographer:
-  name: "Sime Basioli"
-  url: "https://unsplash.com/@simebasioli"
+  name: "Aron Visuals"
+  url: "https://unsplash.com/@aronvisuals"
 ---
 
 

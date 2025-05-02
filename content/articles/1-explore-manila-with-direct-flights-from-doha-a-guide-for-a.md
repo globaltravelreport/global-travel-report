@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.419Z"
 country: "Philippines"
 type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: "https://unsplash.com"
@@ -16,8 +16,8 @@ originalTitle: ">-"
 published: "true"
 categories: "[]"
 photographer:
-  name: "Sime Basioli"
-  url: "https://unsplash.com/@simebasioli"
+  name: "Dino Reichmuth"
+  url: "https://unsplash.com/@dinoreichmuth"
 ---
 
 

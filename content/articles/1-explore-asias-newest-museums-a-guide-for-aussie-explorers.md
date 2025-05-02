@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.415Z"
 country: "Asia"
 type: "Culture"
-imageUrl: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
 imageLink: "https://unsplash.com"
@@ -16,8 +16,8 @@ originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - 
 published: "true"
 categories: "[]"
 photographer:
-  name: "Duy Pham"
-  url: "https://unsplash.com/@miinyuii"
+  name: "Benjamin Hung"
+  url: "https://unsplash.com/@benjaminhung"
 ---
 
 

@@ -25,7 +25,8 @@
     "fix-image-links": "node scripts/fixImageLinks.js",
     "fix-photographer-names": "node scripts/fixPhotographerNames.js",
     "fix-image-consistency": "node scripts/fixImageConsistency.js",
-    "assign-unique-images": "node scripts/assignUniqueImages.js"
+    "assign-unique-images": "node scripts/assignUniqueImages.js",
+    "update-all-images": "node scripts/updateAllImages.js"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",

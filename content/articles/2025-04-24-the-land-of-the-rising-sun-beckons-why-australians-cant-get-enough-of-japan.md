@@ -6,15 +6,15 @@ slug: "the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-jap
 date: "2025-04-24T00:00:00.000Z"
 country: "Australia"
 type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "people gathered outside buildings and vehicles"
 imageCredit: "Jezael Melgoza on Unsplash"
 imageLink: "https://unsplash.com"
 published: "true"
 categories: "[]"
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: "Suhyeon Choi"
+  url: "https://unsplash.com/@choisyeon"
 ---
 
 
