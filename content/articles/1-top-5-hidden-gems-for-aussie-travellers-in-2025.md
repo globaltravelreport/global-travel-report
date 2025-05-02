@@ -4,7 +4,7 @@ summary: ">-"
 date: "2025-05-02T10:45:46.425Z"
 country: "'Montenegro, Ghana, Uruguay, Georgia, Taiwan'"
 type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
 imageCredit: "Eaters Collective"
 imageLink: "https://unsplash.com"
@@ -16,9 +16,10 @@ originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - T
 published: "true"
 categories: "[]"
 photographer:
-  name: "Joel Holland"
-  url: "https://unsplash.com"
+  name: "Dino Reichmuth"
+  url: "https://unsplash.com/@dinoreichmuth"
 ---
+
 
 
 
