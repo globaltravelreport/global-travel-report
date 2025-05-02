@@ -1,35 +1,26 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-import { canUseMongoDB } from '@/src/utils/mongodb';
-
-// Use dynamic import for MongoDB to ensure compatibility with Edge Runtime
-let getStoriesCollection: () => Promise<any>;
+import fs from 'fs';
+import path from 'path';
 
 /**
- * StoryDatabase using MongoDB Atlas for persistent storage
- * This provides robust, scalable storage for stories
+ * StoryDatabase using simple file-based storage
+ * This provides a straightforward way to store and retrieve stories
  */
 export class StoryDatabase {
   private static instance: StoryDatabase | null = null;
   private stories: Story[] = [];
   private initialized: boolean = false;
-  private useMongoDB: boolean = false;
+  private storiesDir: string = '';
 
   private constructor() {
-    // Check if MongoDB is available
-    this.useMongoDB = canUseMongoDB();
-
-    // If MongoDB is available, dynamically import the getStoriesCollection function
-    if (this.useMongoDB) {
-      import('@/src/utils/mongodb').then(module => {
-        getStoriesCollection = module.getStoriesCollection;
-      }).catch(error => {
-        console.error('Error importing MongoDB module:', error);
-        this.useMongoDB = false;
-      });
+    // Set up the stories directory path
+    // This will be used for server-side operations only
+    if (typeof process !== 'undefined' && process.cwd) {
+      this.storiesDir = path.join(process.cwd(), 'content', 'stories');
     }
 
-    console.log(`StoryDatabase initialized with MongoDB: ${this.useMongoDB ? 'enabled' : 'disabled'}`);
+    console.log(`StoryDatabase initialized with simple file storage`);
   }
 
   /**
@@ -53,47 +44,46 @@ export class StoryDatabase {
     }
 
     try {
-      if (this.useMongoDB) {
-        // Try to load stories from MongoDB
+      // First, try to load stories from the file system (if we're in a Node.js environment)
+      let loadedFromFiles = false;
+
+      if (this.storiesDir && typeof fs.promises !== 'undefined') {
         try {
-          // Ensure getStoriesCollection is available
-          if (!getStoriesCollection) {
-            const module = await import('@/src/utils/mongodb');
-            getStoriesCollection = module.getStoriesCollection;
+          // Create the stories directory if it doesn't exist
+          if (!fs.existsSync(this.storiesDir)) {
+            fs.mkdirSync(this.storiesDir, { recursive: true });
           }
 
-          const storiesCollection = await getStoriesCollection();
-          const mongoStories = await storiesCollection.find({}).toArray();
+          // Check if we have any story files
+          const files = fs.readdirSync(this.storiesDir).filter(file => file.endsWith('.json'));
 
-          if (mongoStories && Array.isArray(mongoStories) && mongoStories.length > 0) {
-            this.stories = mongoStories;
-            console.log(`Loaded ${this.stories.length} stories from MongoDB`);
-          } else {
-            // If no stories in MongoDB, use mock stories
-            this.stories = [...mockStories];
+          if (files.length > 0) {
+            // Load stories from files
+            const fileStories: Story[] = [];
 
-            // Add a timestamp to each story to make them appear recent
-            const now = new Date();
-            this.stories = this.stories.map((story, index) => ({
-              ...story,
-              publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
-            }));
+            for (const file of files) {
+              try {
+                const content = fs.readFileSync(path.join(this.storiesDir, file), 'utf8');
+                const story = JSON.parse(content);
+                fileStories.push(story);
+              } catch (err) {
+                console.error(`Error reading story file ${file}:`, err);
+              }
+            }
 
-            // Save mock stories to MongoDB
-            await storiesCollection.insertMany(this.stories);
-            console.log(`Initialized MongoDB with ${this.stories.length} mock stories`);
+            if (fileStories.length > 0) {
+              this.stories = fileStories;
+              loadedFromFiles = true;
+              console.log(`Loaded ${this.stories.length} stories from files`);
+            }
           }
-        } catch (mongoError) {
-          console.error('Error accessing MongoDB:', mongoError);
-          // Fall back to mock stories if MongoDB access fails
-          this.stories = [...mockStories];
-          console.log(`Falling back to ${this.stories.length} mock stories due to MongoDB error`);
-
-          // Disable MongoDB for this session if there was an error
-          this.useMongoDB = false;
+        } catch (fsError) {
+          console.error('Error accessing file system:', fsError);
         }
-      } else {
-        // Use mock stories if MongoDB is not available
+      }
+
+      // If we couldn't load from files, use mock stories
+      if (!loadedFromFiles) {
         this.stories = [...mockStories];
 
         // Add a timestamp to each story to make them appear recent
@@ -103,7 +93,20 @@ export class StoryDatabase {
           publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
         }));
 
-        console.log(`Using ${this.stories.length} mock stories (MongoDB not available)`);
+        console.log(`Using ${this.stories.length} mock stories`);
+
+        // Try to save mock stories to files for future use
+        if (this.storiesDir && typeof fs.promises !== 'undefined') {
+          try {
+            for (const story of this.stories) {
+              const filePath = path.join(this.storiesDir, `${story.slug}.json`);
+              fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
+            }
+            console.log(`Saved ${this.stories.length} mock stories to files`);
+          } catch (fsError) {
+            console.error('Error saving mock stories to files:', fsError);
+          }
+        }
       }
 
       this.initialized = true;
@@ -185,33 +188,20 @@ export class StoryDatabase {
       this.stories.push(story);
     }
 
-    // If MongoDB is available, save the story
-    if (this.useMongoDB) {
+    // Try to save the story to a file
+    if (this.storiesDir && typeof fs.promises !== 'undefined') {
       try {
-        // Ensure getStoriesCollection is available
-        if (!getStoriesCollection) {
-          const module = await import('@/src/utils/mongodb');
-          getStoriesCollection = module.getStoriesCollection;
+        // Create the stories directory if it doesn't exist
+        if (!fs.existsSync(this.storiesDir)) {
+          fs.mkdirSync(this.storiesDir, { recursive: true });
         }
 
-        const storiesCollection = await getStoriesCollection();
-
-        if (existingIndex !== -1) {
-          // Update the existing story in MongoDB
-          await storiesCollection.updateOne(
-            { id: story.id },
-            { $set: story }
-          );
-          console.log(`Updated story "${story.title}" in MongoDB`);
-        } else {
-          // Insert the new story in MongoDB
-          await storiesCollection.insertOne(story);
-          console.log(`Inserted story "${story.title}" into MongoDB`);
-        }
+        // Save the story to a file
+        const filePath = path.join(this.storiesDir, `${story.slug}.json`);
+        fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
+        console.log(`Saved story "${story.title}" to file: ${filePath}`);
       } catch (error) {
-        console.error('Error saving story to MongoDB:', error);
-        // Disable MongoDB for this session if there was an error
-        this.useMongoDB = false;
+        console.error('Error saving story to file:', error);
       }
     }
 
@@ -226,9 +216,9 @@ export class StoryDatabase {
   public async addStories(stories: Story[]): Promise<Story[]> {
     await this.initialize();
 
-    // Process stories for in-memory storage and MongoDB operations
+    // Process stories for in-memory storage
     const newStories: Story[] = [];
-    const updateOperations: { id: string, story: Story }[] = [];
+    const updatedStories: Story[] = [];
 
     // Categorize stories as new or updates
     for (const story of stories) {
@@ -237,7 +227,7 @@ export class StoryDatabase {
       if (existingIndex !== -1) {
         // Update existing story in memory
         this.stories[existingIndex] = story;
-        updateOperations.push({ id: story.id, story });
+        updatedStories.push(story);
       } else {
         // Add new story to memory
         this.stories.push(story);
@@ -245,38 +235,23 @@ export class StoryDatabase {
       }
     }
 
-    // If MongoDB is available, save the stories
-    if (this.useMongoDB && (newStories.length > 0 || updateOperations.length > 0)) {
+    // Try to save the stories to files
+    if (this.storiesDir && typeof fs.promises !== 'undefined') {
       try {
-        // Ensure getStoriesCollection is available
-        if (!getStoriesCollection) {
-          const module = await import('@/src/utils/mongodb');
-          getStoriesCollection = module.getStoriesCollection;
+        // Create the stories directory if it doesn't exist
+        if (!fs.existsSync(this.storiesDir)) {
+          fs.mkdirSync(this.storiesDir, { recursive: true });
         }
 
-        const storiesCollection = await getStoriesCollection();
-
-        // Insert new stories in bulk if any
-        if (newStories.length > 0) {
-          await storiesCollection.insertMany(newStories);
-          console.log(`Inserted ${newStories.length} new stories into MongoDB`);
+        // Save all stories to files
+        for (const story of [...newStories, ...updatedStories]) {
+          const filePath = path.join(this.storiesDir, `${story.slug}.json`);
+          fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
         }
 
-        // Update existing stories one by one
-        for (const op of updateOperations) {
-          await storiesCollection.updateOne(
-            { id: op.id },
-            { $set: op.story }
-          );
-        }
-
-        if (updateOperations.length > 0) {
-          console.log(`Updated ${updateOperations.length} existing stories in MongoDB`);
-        }
+        console.log(`Saved ${newStories.length} new and ${updatedStories.length} updated stories to files`);
       } catch (error) {
-        console.error('Error saving stories to MongoDB:', error);
-        // Disable MongoDB for this session if there was an error
-        this.useMongoDB = false;
+        console.error('Error saving stories to files:', error);
       }
     }
 
@@ -296,25 +271,22 @@ export class StoryDatabase {
       return false;
     }
 
+    // Get the story slug before deleting it
+    const storySlug = this.stories[index].slug;
+
     // Delete the story from the in-memory array
     this.stories.splice(index, 1);
 
-    // If MongoDB is available, delete the story
-    if (this.useMongoDB) {
+    // Try to delete the story file
+    if (this.storiesDir && typeof fs.promises !== 'undefined' && storySlug) {
       try {
-        // Ensure getStoriesCollection is available
-        if (!getStoriesCollection) {
-          const module = await import('@/src/utils/mongodb');
-          getStoriesCollection = module.getStoriesCollection;
+        const filePath = path.join(this.storiesDir, `${storySlug}.json`);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+          console.log(`Deleted story file: ${filePath}`);
         }
-
-        const storiesCollection = await getStoriesCollection();
-        await storiesCollection.deleteOne({ id });
-        console.log(`Deleted story with ID ${id} from MongoDB`);
       } catch (error) {
-        console.error('Error deleting story from MongoDB:', error);
-        // Disable MongoDB for this session if there was an error
-        this.useMongoDB = false;
+        console.error('Error deleting story file:', error);
       }
     }
 
@@ -335,45 +307,14 @@ export class StoryDatabase {
 
     const lowerQuery = query.toLowerCase();
 
-    // If MongoDB is available and we want to use MongoDB's search capabilities
-    if (this.useMongoDB) {
-      try {
-        // Ensure getStoriesCollection is available
-        if (!getStoriesCollection) {
-          const module = await import('@/src/utils/mongodb');
-          getStoriesCollection = module.getStoriesCollection;
-        }
-
-        const storiesCollection = await getStoriesCollection();
-
-        // Use MongoDB text search if a text index is set up
-        // Otherwise, fall back to a simple query
-        const results = await storiesCollection.find({
-          $or: [
-            { title: { $regex: lowerQuery, $options: 'i' } },
-            { content: { $regex: lowerQuery, $options: 'i' } },
-            { excerpt: { $regex: lowerQuery, $options: 'i' } },
-            { category: { $regex: lowerQuery, $options: 'i' } },
-            { country: { $regex: lowerQuery, $options: 'i' } }
-          ]
-        }).toArray();
-
-        return results;
-      } catch (error) {
-        console.error('Error searching stories in MongoDB:', error);
-        // Disable MongoDB for this session if there was an error
-        this.useMongoDB = false;
-        // Fall back to in-memory search
-      }
-    }
-
-    // In-memory search
+    // Simple in-memory search
     return this.stories.filter(story =>
       (story.title && story.title.toLowerCase().includes(lowerQuery)) ||
       (story.content && story.content.toLowerCase().includes(lowerQuery)) ||
       (story.excerpt && story.excerpt.toLowerCase().includes(lowerQuery)) ||
       (story.category && story.category.toLowerCase().includes(lowerQuery)) ||
-      (story.country && story.country.toLowerCase().includes(lowerQuery))
+      (story.country && story.country.toLowerCase().includes(lowerQuery)) ||
+      (story.tags && story.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
     );
   }
 }

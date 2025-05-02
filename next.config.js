@@ -69,6 +69,8 @@ const nextConfig = {
   },
   // Exclude problematic API routes from the build
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  // Output directory for the build
+  output: 'standalone',
 }
 
 module.exports = nextConfig
