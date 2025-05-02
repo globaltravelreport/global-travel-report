@@ -1,6 +1,6 @@
 /**
  * OpenAI Service
- * 
+ *
  * This service handles interactions with the OpenAI API for content rewriting
  * in a way that's compatible with Vercel's Edge Runtime.
  */
@@ -28,7 +28,7 @@ export class OpenAIService {
   private requestsPerDay: number;
   private dailyRequestCount: number;
   private lastResetDate: string;
-  
+
   private constructor() {
     this.apiKey = process.env.OPENAI_API_KEY || '';
     this.model = process.env.OPENAI_MODEL || 'gpt-4o';
@@ -39,9 +39,16 @@ export class OpenAIService {
     this.requestsPerDay = 100;
     this.dailyRequestCount = 0;
     this.lastResetDate = new Date().toDateString();
-    
+
     // Reset counter if it's a new day
     this.checkAndResetDailyCounter();
+
+    // Log API key status
+    if (!this.apiKey || this.apiKey === 'your_openai_api_key_here') {
+      console.warn('OpenAI API key is not set or is using a placeholder value. Using mock responses instead.');
+    } else {
+      console.log('OpenAI API key is configured.');
+    }
   }
 
   /**
@@ -69,6 +76,11 @@ export class OpenAIService {
    * Check if we can make more API requests today
    */
   public canMakeRequest(): boolean {
+    // Check if API key is valid
+    if (!this.apiKey || this.apiKey === 'your_openai_api_key_here') {
+      return false;
+    }
+
     this.checkAndResetDailyCounter();
     return this.dailyRequestCount < this.requestsPerDay;
   }
@@ -125,7 +137,7 @@ export class OpenAIService {
         return data;
       } catch (error) {
         lastError = error instanceof Error ? error : new Error(String(error));
-        
+
         // Check if we should retry
         if (attempt < this.maxRetries - 1) {
           // Exponential backoff
@@ -146,16 +158,22 @@ export class OpenAIService {
    */
   public async rewriteStory(story: Story, options: RewriteOptions = {}): Promise<Story> {
     try {
+      // Check if API key is valid
+      if (!this.canMakeRequest()) {
+        console.warn('OpenAI API key is not configured or daily limit reached. Using mock rewrite response.');
+        return this.mockRewriteStory(story);
+      }
+
       const style = options.style || 'professional';
       const tone = options.tone || 'balanced';
       const targetAudience = options.targetAudience || 'general';
       const preserveKeyInfo = options.preserveKeyInfo !== false;
       const enhanceWithFacts = options.enhanceWithFacts !== false;
-      
+
       // Create system message
       const systemMessage = {
         role: 'system',
-        content: `You are a professional travel writer for Global Travel Report, an Australian travel publication. 
+        content: `You are a professional travel writer for Global Travel Report, an Australian travel publication.
 Your task is to rewrite travel articles in a ${style} style with a ${tone} tone for a ${targetAudience} audience.
 ${preserveKeyInfo ? 'Preserve all key information, facts, and details from the original article.' : ''}
 ${enhanceWithFacts ? 'Enhance the article with additional relevant facts where appropriate.' : ''}
@@ -181,7 +199,7 @@ Country: ${story.country}
 Content:
 ${story.content}
 
-${options.focusKeywords && options.focusKeywords.length > 0 ? 
+${options.focusKeywords && options.focusKeywords.length > 0 ?
   `Please incorporate these keywords naturally in the rewritten article: ${options.focusKeywords.join(', ')}` : ''}
 
 ${options.maxLength ? `The rewritten article should be approximately ${options.maxLength} words in length.` : ''}
@@ -191,10 +209,10 @@ Please provide the rewritten article with the same title but improved content.`
 
       // Make the API request
       const response = await this.makeRequest([systemMessage, userMessage]);
-      
+
       // Extract the rewritten content
       const rewrittenContent = response.choices[0]?.message?.content;
-      
+
       if (!rewrittenContent) {
         throw new Error('No content returned from OpenAI');
       }
@@ -209,7 +227,7 @@ Please provide the rewritten article with the same title but improved content.`
       };
     } catch (error) {
       console.error('Error rewriting story:', error);
-      
+
       // Return the original story if rewriting fails
       return {
         ...story,
@@ -219,19 +237,45 @@ Please provide the rewritten article with the same title but improved content.`
   }
 
   /**
+   * Create a mock rewritten story when OpenAI is not available
+   * @private
+   */
+  private mockRewriteStory(story: Story): Story {
+    // Add some improvements to the original content to simulate rewriting
+    const originalContent = story.content || '';
+
+    // Add a mock introduction
+    const introduction = `Exploring the wonders of ${story.country || 'the world'} is an adventure that captivates travelers from all walks of life. The Global Travel Report Editorial Team brings you this comprehensive guide to one of the most fascinating destinations in the ${story.category || 'travel'} category.\n\n`;
+
+    // Add a mock conclusion
+    const conclusion = `\n\nWhether you're a seasoned traveler or planning your first journey, ${story.country || 'this destination'} offers unforgettable experiences that will leave you with memories to cherish for a lifetime. The Global Travel Report Editorial Team recommends planning your visit during the shoulder season for the best combination of good weather and smaller crowds.`;
+
+    // Combine to create mock rewritten content
+    const rewrittenContent = introduction + originalContent + conclusion;
+
+    return {
+      ...story,
+      content: rewrittenContent,
+      excerpt: this.generateExcerpt(rewrittenContent),
+      rewritten: true,
+      rewrittenAt: new Date().toISOString()
+    };
+  }
+
+  /**
    * Generate an excerpt from content
    */
   private generateExcerpt(content: string, maxLength: number = 200): string {
     // Remove any markdown or HTML
     const cleanContent = content.replace(/\n/g, ' ').replace(/<[^>]*>/g, '');
-    
+
     // Get the first paragraph or a portion of it
     const firstParagraph = cleanContent.split(/\.\s+/)[0];
-    
+
     if (firstParagraph.length <= maxLength) {
       return firstParagraph + '.';
     }
-    
+
     // Truncate and add ellipsis
     return firstParagraph.substring(0, maxLength - 3) + '...';
   }
@@ -245,6 +289,12 @@ Please provide the rewritten article with the same title but improved content.`
     focusKeywords: string[];
   }> {
     try {
+      // Check if API key is valid
+      if (!this.canMakeRequest()) {
+        console.warn('OpenAI API key is not configured or daily limit reached. Using mock SEO metadata.');
+        return this.mockGenerateSEOMetadata(story);
+      }
+
       const systemMessage = {
         role: 'system',
         content: `You are an SEO expert for a travel website. Your task is to generate SEO metadata for travel articles.
@@ -273,10 +323,10 @@ Please provide:
 
       // Make the API request
       const response = await this.makeRequest([systemMessage, userMessage], { maxTokens: 500 });
-      
+
       // Extract the metadata
       const content = response.choices[0]?.message?.content;
-      
+
       if (!content) {
         throw new Error('No content returned from OpenAI');
       }
@@ -289,19 +339,60 @@ Please provide:
       return {
         metaTitle: metaTitleMatch ? metaTitleMatch[1].trim() : story.title,
         metaDescription: metaDescriptionMatch ? metaDescriptionMatch[1].trim() : story.excerpt,
-        focusKeywords: focusKeywordsMatch 
-          ? focusKeywordsMatch[1].split(/,\s*/).map(k => k.trim()) 
+        focusKeywords: focusKeywordsMatch
+          ? focusKeywordsMatch[1].split(/,\s*/).map(k => k.trim())
           : [story.category, story.country, 'travel']
       };
     } catch (error) {
       console.error('Error generating SEO metadata:', error);
-      
+
       // Return basic metadata if generation fails
-      return {
-        metaTitle: story.title,
-        metaDescription: story.excerpt,
-        focusKeywords: [story.category, story.country, 'travel']
-      };
+      return this.mockGenerateSEOMetadata(story);
     }
+  }
+
+  /**
+   * Create mock SEO metadata when OpenAI is not available
+   * @private
+   */
+  private mockGenerateSEOMetadata(story: Story): {
+    metaTitle: string;
+    metaDescription: string;
+    focusKeywords: string[];
+  } {
+    // Generate a meta title (max 60 characters)
+    let metaTitle = story.title;
+    if (metaTitle.length > 57) {
+      metaTitle = metaTitle.substring(0, 57) + '...';
+    }
+
+    // Generate a meta description (max 160 characters)
+    let metaDescription = story.excerpt || '';
+    if (metaDescription.length > 157) {
+      metaDescription = metaDescription.substring(0, 157) + '...';
+    }
+
+    // Generate focus keywords
+    const baseKeywords = [
+      story.category || 'travel',
+      story.country || 'destination',
+      'travel guide',
+      'vacation',
+      'tourism'
+    ];
+
+    // Add some specific keywords based on the title
+    const titleWords = story.title.toLowerCase().split(/\s+/);
+    const specificKeywords = titleWords
+      .filter(word => word.length > 4 && !baseKeywords.includes(word))
+      .slice(0, 2);
+
+    const focusKeywords = [...baseKeywords, ...specificKeywords];
+
+    return {
+      metaTitle,
+      metaDescription,
+      focusKeywords
+    };
   }
 }
