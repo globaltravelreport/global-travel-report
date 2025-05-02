@@ -1,129 +1,109 @@
 /**
- * MongoDB Connection Utility
+ * MongoDB Stub Utility
  *
- * This utility provides a connection to MongoDB Atlas.
- * It uses a singleton pattern to ensure only one connection is created.
- *
- * IMPORTANT: This file is dynamically imported only in server-side contexts
- * to ensure compatibility with Edge Runtime.
+ * This is a stub implementation that doesn't actually use MongoDB.
+ * It's designed to be compatible with code that expects MongoDB functions
+ * but doesn't actually require the MongoDB package.
  */
 
-// Import MongoDB types but use dynamic imports for the actual client
-// to ensure compatibility with Edge Runtime
-import type { MongoClient, Db, Collection } from 'mongodb';
 import { Story } from '@/types/Story';
+import { mockStories } from '@/src/mocks/stories';
 
-// Connection URL from environment variables
-const MONGODB_URI = process.env.MONGODB_URI || '';
-const MONGODB_DB = process.env.MONGODB_DB || 'global-travel-report';
+// Mock collection type to match MongoDB's Collection interface
+export interface Collection<T> {
+  find: (query?: any) => { toArray: () => Promise<T[]> };
+  findOne: (query: any) => Promise<T | null>;
+  insertOne: (doc: T) => Promise<any>;
+  insertMany: (docs: T[]) => Promise<any>;
+  updateOne: (filter: any, update: any, options?: any) => Promise<any>;
+  deleteOne: (filter: any) => Promise<any>;
+  countDocuments: () => Promise<number>;
+}
 
-// MongoDB client instance - will be initialized on demand
-let client: any = null;
-let db: any = null;
-let isConnecting = false;
-let connectionPromise: Promise<any> | null = null;
+// Mock DB type
+export interface Db {
+  collection: <T>(name: string) => Collection<T>;
+}
+
+// Mock stories collection
+const storiesCollection: Collection<Story> = {
+  find: (query?: any) => ({
+    toArray: async () => {
+      console.log('Mock MongoDB: find() called with query:', query);
+      return [...mockStories];
+    }
+  }),
+  findOne: async (query: any) => {
+    console.log('Mock MongoDB: findOne() called with query:', query);
+    if (query.id) {
+      return mockStories.find(s => s.id === query.id) || null;
+    }
+    if (query.slug) {
+      return mockStories.find(s => s.slug === query.slug) || null;
+    }
+    return null;
+  },
+  insertOne: async (doc: Story) => {
+    console.log('Mock MongoDB: insertOne() called with doc:', doc.title);
+    return { acknowledged: true, insertedId: doc.id };
+  },
+  insertMany: async (docs: Story[]) => {
+    console.log(`Mock MongoDB: insertMany() called with ${docs.length} docs`);
+    return { acknowledged: true, insertedCount: docs.length };
+  },
+  updateOne: async (filter: any, update: any) => {
+    console.log('Mock MongoDB: updateOne() called with filter:', filter);
+    return { acknowledged: true, modifiedCount: 1 };
+  },
+  deleteOne: async (filter: any) => {
+    console.log('Mock MongoDB: deleteOne() called with filter:', filter);
+    return { acknowledged: true, deletedCount: 1 };
+  },
+  countDocuments: async () => {
+    return mockStories.length;
+  }
+};
+
+// Mock DB instance
+const mockDb: Db = {
+  collection: <T>(name: string): Collection<T> => {
+    console.log(`Mock MongoDB: Getting collection: ${name}`);
+    if (name === 'stories') {
+      return storiesCollection as unknown as Collection<T>;
+    }
+    throw new Error(`Collection ${name} not implemented in mock`);
+  }
+};
 
 /**
  * Check if we're in a Node.js environment where MongoDB can be used
- * This helps ensure compatibility with Edge Runtime
+ * This stub always returns false to prevent actual MongoDB usage
  */
 export function canUseMongoDB(): boolean {
-  return (
-    typeof process !== 'undefined' &&
-    typeof process.env !== 'undefined' &&
-    !!process.env.MONGODB_URI &&
-    typeof globalThis.require === 'function'
-  );
+  return false;
 }
 
 /**
- * Connect to MongoDB
- * @returns A promise that resolves to the MongoDB database instance
+ * Connect to MongoDB (stub implementation)
+ * @returns A promise that resolves to the mock database instance
  */
-export async function connectToMongoDB(): Promise<any> {
-  // If we're already connected, return the existing database instance
-  if (db) {
-    return db;
-  }
-
-  // If we're in the process of connecting, return the existing promise
-  if (isConnecting && connectionPromise) {
-    return connectionPromise;
-  }
-
-  // Check if MongoDB can be used in this environment
-  if (!canUseMongoDB()) {
-    throw new Error('MongoDB cannot be used in this environment (likely Edge Runtime)');
-  }
-
-  // Check if MongoDB URI is configured
-  if (!MONGODB_URI) {
-    throw new Error('MONGODB_URI is not defined in environment variables');
-  }
-
-  // Set connecting flag and create a new connection promise
-  isConnecting = true;
-  connectionPromise = new Promise(async (resolve, reject) => {
-    try {
-      console.log('Connecting to MongoDB...');
-
-      // Dynamically import MongoDB to ensure compatibility with Edge Runtime
-      const { MongoClient } = await import('mongodb');
-
-      // Create a new MongoDB client
-      client = new MongoClient(MONGODB_URI);
-
-      // Connect to the MongoDB server
-      await client.connect();
-      console.log('Connected to MongoDB server');
-
-      // Get the database
-      db = client.db(MONGODB_DB);
-      console.log(`Connected to database: ${MONGODB_DB}`);
-
-      // Reset connecting flag
-      isConnecting = false;
-
-      // Resolve with the database instance
-      resolve(db);
-    } catch (error) {
-      // Reset connecting flag and connection promise
-      isConnecting = false;
-      connectionPromise = null;
-
-      // Log and reject with the error
-      console.error('Error connecting to MongoDB:', error);
-      reject(error);
-    }
-  });
-
-  return connectionPromise;
+export async function connectToMongoDB(): Promise<Db> {
+  console.log('Mock MongoDB: connectToMongoDB() called');
+  return mockDb;
 }
 
 /**
- * Get the stories collection
- * @returns A promise that resolves to the stories collection
+ * Get the stories collection (stub implementation)
+ * @returns A promise that resolves to the mock stories collection
  */
 export async function getStoriesCollection(): Promise<Collection<Story>> {
-  try {
-    const db = await connectToMongoDB();
-    return db.collection<Story>('stories');
-  } catch (error) {
-    console.error('Error getting stories collection:', error);
-    throw error;
-  }
+  console.log('Mock MongoDB: getStoriesCollection() called');
+  return storiesCollection;
 }
 
 /**
- * Close the MongoDB connection
- * This should be called when the application is shutting down
+ * Close the MongoDB connection (stub implementation)
  */
 export async function closeMongoDB(): Promise<void> {
-  if (client) {
-    await client.close();
-    client = null;
-    db = null;
-    connectionPromise = null;
-    console.log('MongoDB connection closed');
-  }
+  console.log('Mock MongoDB: closeMongoDB() called');
 }
