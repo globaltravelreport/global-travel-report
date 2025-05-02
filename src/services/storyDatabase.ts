@@ -2,6 +2,7 @@ import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
+import { getAllStories, saveStory } from '@/src/utils/fileStorage';
 
 /**
  * StoryDatabase using simple file-based storage
@@ -44,46 +45,11 @@ export class StoryDatabase {
     }
 
     try {
-      // First, try to load stories from the file system (if we're in a Node.js environment)
-      let loadedFromFiles = false;
+      // Load stories from the file storage system
+      this.stories = await getAllStories();
 
-      if (this.storiesDir && typeof fs.promises !== 'undefined') {
-        try {
-          // Create the stories directory if it doesn't exist
-          if (!fs.existsSync(this.storiesDir)) {
-            fs.mkdirSync(this.storiesDir, { recursive: true });
-          }
-
-          // Check if we have any story files
-          const files = fs.readdirSync(this.storiesDir).filter(file => file.endsWith('.json'));
-
-          if (files.length > 0) {
-            // Load stories from files
-            const fileStories: Story[] = [];
-
-            for (const file of files) {
-              try {
-                const content = fs.readFileSync(path.join(this.storiesDir, file), 'utf8');
-                const story = JSON.parse(content);
-                fileStories.push(story);
-              } catch (err) {
-                console.error(`Error reading story file ${file}:`, err);
-              }
-            }
-
-            if (fileStories.length > 0) {
-              this.stories = fileStories;
-              loadedFromFiles = true;
-              console.log(`Loaded ${this.stories.length} stories from files`);
-            }
-          }
-        } catch (fsError) {
-          console.error('Error accessing file system:', fsError);
-        }
-      }
-
-      // If we couldn't load from files, use mock stories
-      if (!loadedFromFiles) {
+      if (this.stories.length === 0) {
+        // If no stories were found, use mock stories
         this.stories = [...mockStories];
 
         // Add a timestamp to each story to make them appear recent
@@ -95,20 +61,13 @@ export class StoryDatabase {
 
         console.log(`Using ${this.stories.length} mock stories`);
 
-        // Try to save mock stories to files for future use
-        if (this.storiesDir && typeof fs.promises !== 'undefined') {
-          try {
-            for (const story of this.stories) {
-              const filePath = path.join(this.storiesDir, `${story.slug}.json`);
-              fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
-            }
-            console.log(`Saved ${this.stories.length} mock stories to files`);
-          } catch (fsError) {
-            console.error('Error saving mock stories to files:', fsError);
-          }
+        // Save mock stories to the file storage system
+        for (const story of this.stories) {
+          await saveStory(story);
         }
       }
 
+      console.log(`Loaded ${this.stories.length} stories`);
       this.initialized = true;
     } catch (error) {
       console.error('Error initializing story database:', error);
@@ -188,22 +147,9 @@ export class StoryDatabase {
       this.stories.push(story);
     }
 
-    // Try to save the story to a file
-    if (this.storiesDir && typeof fs.promises !== 'undefined') {
-      try {
-        // Create the stories directory if it doesn't exist
-        if (!fs.existsSync(this.storiesDir)) {
-          fs.mkdirSync(this.storiesDir, { recursive: true });
-        }
-
-        // Save the story to a file
-        const filePath = path.join(this.storiesDir, `${story.slug}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
-        console.log(`Saved story "${story.title}" to file: ${filePath}`);
-      } catch (error) {
-        console.error('Error saving story to file:', error);
-      }
-    }
+    // Save the story to the file storage system
+    await saveStory(story);
+    console.log(`Saved story "${story.title}" to file storage`);
 
     return story;
   }
@@ -235,25 +181,12 @@ export class StoryDatabase {
       }
     }
 
-    // Try to save the stories to files
-    if (this.storiesDir && typeof fs.promises !== 'undefined') {
-      try {
-        // Create the stories directory if it doesn't exist
-        if (!fs.existsSync(this.storiesDir)) {
-          fs.mkdirSync(this.storiesDir, { recursive: true });
-        }
-
-        // Save all stories to files
-        for (const story of [...newStories, ...updatedStories]) {
-          const filePath = path.join(this.storiesDir, `${story.slug}.json`);
-          fs.writeFileSync(filePath, JSON.stringify(story, null, 2));
-        }
-
-        console.log(`Saved ${newStories.length} new and ${updatedStories.length} updated stories to files`);
-      } catch (error) {
-        console.error('Error saving stories to files:', error);
-      }
+    // Save all stories to the file storage system
+    for (const story of [...newStories, ...updatedStories]) {
+      await saveStory(story);
     }
+
+    console.log(`Saved ${newStories.length} new and ${updatedStories.length} updated stories to file storage`);
 
     return stories;
   }
@@ -277,14 +210,13 @@ export class StoryDatabase {
     // Delete the story from the in-memory array
     this.stories.splice(index, 1);
 
-    // Try to delete the story file
-    if (this.storiesDir && typeof fs.promises !== 'undefined' && storySlug) {
+    // Delete the story from the file storage system
+    if (storySlug) {
       try {
-        const filePath = path.join(this.storiesDir, `${storySlug}.json`);
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-          console.log(`Deleted story file: ${filePath}`);
-        }
+        // Import the deleteStory function dynamically to avoid circular dependencies
+        const { deleteStory } = await import('@/src/utils/fileStorage');
+        await deleteStory(storySlug);
+        console.log(`Deleted story file: ${storySlug}`);
       } catch (error) {
         console.error('Error deleting story file:', error);
       }
