@@ -7,16 +7,17 @@ type: "'Adventure, Ethical, Wildlife'"
 imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "aerial photography of flowers at daytime"
 imageCredit: "Joel Holland"
-imageLink: ">-"
+imageLink: "https://unsplash.com"
 slug: "wildlife-adventures-outearn-illegal-trade-globally"
 metaTitle: "Wildlife Adventures Outearn Illegal Trade Globally"
 metaDescription: ">-"
 keywords: ""
 originalTitle: ">-"
 photographer:
-  name: "Joel Holland"
-  url: "https://unsplash.com"
+  name: "undefined"
+  url: "undefined"
 ---
+
 
 
 

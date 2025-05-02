@@ -7,16 +7,17 @@ type: "'Culture, Food & Wine'"
 imageUrl: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
 imageCredit: "Eaters Collective"
-imageLink: ">-"
+imageLink: "https://unsplash.com"
 slug: "fly-direct-to-copenhagen-from-australia-with-china-eastern"
 metaTitle: "Fly Direct to Copenhagen from Australia with China Eastern"
 metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
 photographer:
-  name: "Eaters Collective"
-  url: "https://unsplash.com"
+  name: "undefined"
+  url: "undefined"
 ---
+
 
 
 
