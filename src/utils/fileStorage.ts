@@ -193,13 +193,44 @@ export async function getAllStories(): Promise<Story[]> {
           // Parse the frontmatter into key-value pairs
           const frontmatterLines = frontmatter.split('\n');
           const storyData: Record<string, any> = {};
+          let inPhotographerBlock = false;
+          let photographerData: { name?: string; url?: string } = {};
 
           for (const line of frontmatterLines) {
-            const match = line.match(/^(\w+):\s*(.*)$/);
-            if (match) {
-              const [, key, value] = match;
-              storyData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+            // Check if we're entering the photographer block
+            if (line.trim() === 'photographer:') {
+              inPhotographerBlock = true;
+              continue;
             }
+
+            // If we're in the photographer block, parse the photographer data
+            if (inPhotographerBlock) {
+              // Check if the line is indented (part of the photographer block)
+              if (line.startsWith('  ')) {
+                const match = line.match(/^\s+(\w+):\s*(.*)$/);
+                if (match) {
+                  const [, key, value] = match;
+                  photographerData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+                }
+              } else {
+                // We've exited the photographer block
+                inPhotographerBlock = false;
+              }
+            }
+
+            // Parse regular key-value pairs
+            if (!inPhotographerBlock) {
+              const match = line.match(/^(\w+):\s*(.*)$/);
+              if (match) {
+                const [, key, value] = match;
+                storyData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+              }
+            }
+          }
+
+          // Add the photographer data to storyData
+          if (Object.keys(photographerData).length > 0) {
+            storyData.photographer = photographerData;
           }
 
           // Create a story object
@@ -218,6 +249,17 @@ export async function getAllStories(): Promise<Story[]> {
             editorsPick: false,
             tags: storyData.tags ? storyData.tags.split(',').map((tag: string) => tag.trim()) : []
           };
+
+          // Add photographer information if available
+          if (storyData.photographer) {
+            story.photographer = storyData.photographer;
+          } else if (storyData.imageCredit || storyData.imageLink) {
+            // Fallback to imageCredit and imageLink if photographer is not available
+            story.photographer = {
+              name: storyData.imageCredit || 'Unsplash Photographer',
+              url: storyData.imageLink || 'https://unsplash.com'
+            };
+          }
 
           stories.push(story);
         }
@@ -269,7 +311,7 @@ export async function saveStory(story: Story): Promise<void> {
     }
 
     // Create the frontmatter
-    const frontmatter = `---
+    let frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
 date: "${safeToISOString(story.publishedAt)}"
@@ -277,7 +319,18 @@ country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${story.imageUrl || ''}"
 featured: ${story.featured ? 'true' : 'false'}
-tags: "${story.tags ? story.tags.join(', ') : ''}"
+tags: "${story.tags ? story.tags.join(', ') : ''}"`;
+
+    // Add photographer information if available
+    if (story.photographer) {
+      frontmatter += `
+photographer:
+  name: "${story.photographer.name || 'Unsplash Photographer'}"
+  url: "${story.photographer.url || 'https://unsplash.com'}"`;
+    }
+
+    // Close the frontmatter and add the content
+    frontmatter += `
 ---
 
 ${story.content || ''}`;

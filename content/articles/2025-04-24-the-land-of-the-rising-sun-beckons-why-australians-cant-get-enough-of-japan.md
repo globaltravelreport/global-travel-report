@@ -13,9 +13,10 @@ imageLink: "https://unsplash.com"
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Jezael Melgoza on Unsplash"
+  url: "https://unsplash.com"
 ---
+
 
 
 

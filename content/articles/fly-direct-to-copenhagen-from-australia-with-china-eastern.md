@@ -14,9 +14,10 @@ metaDescription: ">-"
 keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 

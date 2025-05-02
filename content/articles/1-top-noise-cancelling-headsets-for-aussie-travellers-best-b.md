@@ -16,9 +16,10 @@ originalTitle: ">-"
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

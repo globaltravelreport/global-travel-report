@@ -16,9 +16,10 @@ originalTitle: "Golden moments await at Prague's newest luxury hotel - Travel We
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

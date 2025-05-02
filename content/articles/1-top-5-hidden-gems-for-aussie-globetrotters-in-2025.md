@@ -15,9 +15,10 @@ keywords: ""
 originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

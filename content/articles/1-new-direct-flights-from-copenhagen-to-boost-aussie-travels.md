@@ -15,9 +15,10 @@ keywords: ""
 originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

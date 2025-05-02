@@ -16,9 +16,10 @@ originalTitle: ">-"
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 

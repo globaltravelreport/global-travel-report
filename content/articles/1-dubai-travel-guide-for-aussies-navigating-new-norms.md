@@ -16,9 +16,10 @@ originalTitle: "Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - 
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "\U0001F9D4‍♂️ Michal Kmeť"
+  url: "https://unsplash.com"
 ---
+
 
 
 

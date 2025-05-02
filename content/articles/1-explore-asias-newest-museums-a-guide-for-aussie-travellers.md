@@ -15,9 +15,10 @@ keywords: ""
 originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Joel Holland"
+  url: "https://unsplash.com"
 ---
+
 
 
 

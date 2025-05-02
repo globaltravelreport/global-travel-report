@@ -22,7 +22,8 @@
     "fix-story-dates": "ts-node scripts/fixStoryDates.ts",
     "fix-image-urls": "ts-node scripts/fixImageUrls.ts",
     "fix-photographer": "ts-node scripts/fixPhotographerAttribution.ts",
-    "fix-image-links": "node scripts/fixImageLinks.js"
+    "fix-image-links": "node scripts/fixImageLinks.js",
+    "fix-photographer-names": "node scripts/fixPhotographerNames.js"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",

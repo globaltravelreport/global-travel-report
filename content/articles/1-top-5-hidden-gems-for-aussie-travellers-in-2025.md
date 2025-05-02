@@ -16,9 +16,10 @@ originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - T
 published: "true"
 categories: "[]"
 photographer:
-  name: "undefined"
-  url: "undefined"
+  name: "Eaters Collective"
+  url: "https://unsplash.com"
 ---
+
 
 
 
