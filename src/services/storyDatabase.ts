@@ -1,26 +1,24 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-import { kv } from '@vercel/kv';
+import { getStoriesCollection } from '@/src/utils/mongodb';
 
 /**
- * StoryDatabase using Vercel KV for persistent storage
- * This is compatible with Edge Runtime and provides persistent storage
+ * StoryDatabase using MongoDB Atlas for persistent storage
+ * This provides robust, scalable storage for stories
  */
 export class StoryDatabase {
   private static instance: StoryDatabase | null = null;
   private stories: Story[] = [];
   private initialized: boolean = false;
-  private useKv: boolean = false;
+  private useMongoDB: boolean = false;
 
   private constructor() {
-    // Check if Vercel KV is available
-    this.useKv = typeof kv !== 'undefined' &&
-                 typeof process !== 'undefined' &&
-                 typeof process.env !== 'undefined' &&
-                 !!process.env.KV_REST_API_URL &&
-                 !!process.env.KV_REST_API_TOKEN;
+    // Check if MongoDB is available
+    this.useMongoDB = typeof process !== 'undefined' &&
+                      typeof process.env !== 'undefined' &&
+                      !!process.env.MONGODB_URI;
 
-    console.log(`StoryDatabase initialized with KV: ${this.useKv ? 'enabled' : 'disabled'}`);
+    console.log(`StoryDatabase initialized with MongoDB: ${this.useMongoDB ? 'enabled' : 'disabled'}`);
   }
 
   /**
@@ -44,15 +42,17 @@ export class StoryDatabase {
     }
 
     try {
-      if (this.useKv) {
-        // Try to load stories from Vercel KV
+      if (this.useMongoDB) {
+        // Try to load stories from MongoDB
         try {
-          const kvStories = await kv.get<Story[]>('stories');
-          if (kvStories && Array.isArray(kvStories) && kvStories.length > 0) {
-            this.stories = kvStories;
-            console.log(`Loaded ${this.stories.length} stories from Vercel KV`);
+          const storiesCollection = await getStoriesCollection();
+          const mongoStories = await storiesCollection.find({}).toArray();
+
+          if (mongoStories && mongoStories.length > 0) {
+            this.stories = mongoStories;
+            console.log(`Loaded ${this.stories.length} stories from MongoDB`);
           } else {
-            // If no stories in KV, use mock stories
+            // If no stories in MongoDB, use mock stories
             this.stories = [...mockStories];
 
             // Add a timestamp to each story to make them appear recent
@@ -62,18 +62,18 @@ export class StoryDatabase {
               publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
             }));
 
-            // Save mock stories to KV
-            await kv.set('stories', this.stories);
-            console.log(`Initialized Vercel KV with ${this.stories.length} mock stories`);
+            // Save mock stories to MongoDB
+            await storiesCollection.insertMany(this.stories);
+            console.log(`Initialized MongoDB with ${this.stories.length} mock stories`);
           }
-        } catch (kvError) {
-          console.error('Error accessing Vercel KV:', kvError);
-          // Fall back to mock stories if KV access fails
+        } catch (mongoError) {
+          console.error('Error accessing MongoDB:', mongoError);
+          // Fall back to mock stories if MongoDB access fails
           this.stories = [...mockStories];
-          console.log(`Falling back to ${this.stories.length} mock stories due to KV error`);
+          console.log(`Falling back to ${this.stories.length} mock stories due to MongoDB error`);
         }
       } else {
-        // Use mock stories if KV is not available
+        // Use mock stories if MongoDB is not available
         this.stories = [...mockStories];
 
         // Add a timestamp to each story to make them appear recent
@@ -83,7 +83,7 @@ export class StoryDatabase {
           publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
         }));
 
-        console.log(`Using ${this.stories.length} mock stories (KV not available)`);
+        console.log(`Using ${this.stories.length} mock stories (MongoDB not available)`);
       }
 
       this.initialized = true;
@@ -158,20 +158,32 @@ export class StoryDatabase {
     const existingIndex = this.stories.findIndex(s => s.id === story.id);
 
     if (existingIndex !== -1) {
-      // Update the existing story
+      // Update the existing story in memory
       this.stories[existingIndex] = story;
     } else {
-      // Add the new story
+      // Add the new story to memory
       this.stories.push(story);
     }
 
-    // If Vercel KV is available, save the updated stories array
-    if (this.useKv) {
+    // If MongoDB is available, save the story
+    if (this.useMongoDB) {
       try {
-        await kv.set('stories', this.stories);
-        console.log(`Saved ${this.stories.length} stories to Vercel KV after adding/updating "${story.title}"`);
+        const storiesCollection = await getStoriesCollection();
+
+        if (existingIndex !== -1) {
+          // Update the existing story in MongoDB
+          await storiesCollection.updateOne(
+            { id: story.id },
+            { $set: story }
+          );
+          console.log(`Updated story "${story.title}" in MongoDB`);
+        } else {
+          // Insert the new story in MongoDB
+          await storiesCollection.insertOne(story);
+          console.log(`Inserted story "${story.title}" into MongoDB`);
+        }
       } catch (error) {
-        console.error('Error saving stories to Vercel KV:', error);
+        console.error('Error saving story to MongoDB:', error);
       }
     }
 
@@ -186,23 +198,49 @@ export class StoryDatabase {
   public async addStories(stories: Story[]): Promise<Story[]> {
     await this.initialize();
 
-    // Add or update each story
+    // Process stories for in-memory storage and MongoDB operations
+    const newStories: Story[] = [];
+    const updateOperations: { id: string, story: Story }[] = [];
+
+    // Categorize stories as new or updates
     for (const story of stories) {
       const existingIndex = this.stories.findIndex(s => s.id === story.id);
+
       if (existingIndex !== -1) {
+        // Update existing story in memory
         this.stories[existingIndex] = story;
+        updateOperations.push({ id: story.id, story });
       } else {
+        // Add new story to memory
         this.stories.push(story);
+        newStories.push(story);
       }
     }
 
-    // If Vercel KV is available, save the updated stories array
-    if (this.useKv) {
+    // If MongoDB is available, save the stories
+    if (this.useMongoDB && (newStories.length > 0 || updateOperations.length > 0)) {
       try {
-        await kv.set('stories', this.stories);
-        console.log(`Saved ${this.stories.length} stories to Vercel KV after adding ${stories.length} stories`);
+        const storiesCollection = await getStoriesCollection();
+
+        // Insert new stories in bulk if any
+        if (newStories.length > 0) {
+          await storiesCollection.insertMany(newStories);
+          console.log(`Inserted ${newStories.length} new stories into MongoDB`);
+        }
+
+        // Update existing stories one by one
+        for (const op of updateOperations) {
+          await storiesCollection.updateOne(
+            { id: op.id },
+            { $set: op.story }
+          );
+        }
+
+        if (updateOperations.length > 0) {
+          console.log(`Updated ${updateOperations.length} existing stories in MongoDB`);
+        }
       } catch (error) {
-        console.error('Error saving stories to Vercel KV:', error);
+        console.error('Error saving stories to MongoDB:', error);
       }
     }
 
@@ -225,16 +263,65 @@ export class StoryDatabase {
     // Delete the story from the in-memory array
     this.stories.splice(index, 1);
 
-    // If Vercel KV is available, save the updated stories array
-    if (this.useKv) {
+    // If MongoDB is available, delete the story
+    if (this.useMongoDB) {
       try {
-        await kv.set('stories', this.stories);
-        console.log(`Saved ${this.stories.length} stories to Vercel KV after deleting a story`);
+        const storiesCollection = await getStoriesCollection();
+        await storiesCollection.deleteOne({ id });
+        console.log(`Deleted story with ID ${id} from MongoDB`);
       } catch (error) {
-        console.error('Error saving stories to Vercel KV:', error);
+        console.error('Error deleting story from MongoDB:', error);
       }
     }
 
     return true;
+  }
+
+  /**
+   * Search for stories
+   * @param query - The search query
+   * @returns An array of stories matching the query
+   */
+  public async searchStories(query: string): Promise<Story[]> {
+    await this.initialize();
+
+    if (!query) {
+      return this.stories;
+    }
+
+    const lowerQuery = query.toLowerCase();
+
+    // If MongoDB is available and we want to use MongoDB's search capabilities
+    if (this.useMongoDB) {
+      try {
+        const storiesCollection = await getStoriesCollection();
+
+        // Use MongoDB text search if a text index is set up
+        // Otherwise, fall back to a simple query
+        const results = await storiesCollection.find({
+          $or: [
+            { title: { $regex: lowerQuery, $options: 'i' } },
+            { content: { $regex: lowerQuery, $options: 'i' } },
+            { excerpt: { $regex: lowerQuery, $options: 'i' } },
+            { category: { $regex: lowerQuery, $options: 'i' } },
+            { country: { $regex: lowerQuery, $options: 'i' } }
+          ]
+        }).toArray();
+
+        return results;
+      } catch (error) {
+        console.error('Error searching stories in MongoDB:', error);
+        // Fall back to in-memory search
+      }
+    }
+
+    // In-memory search
+    return this.stories.filter(story =>
+      (story.title && story.title.toLowerCase().includes(lowerQuery)) ||
+      (story.content && story.content.toLowerCase().includes(lowerQuery)) ||
+      (story.excerpt && story.excerpt.toLowerCase().includes(lowerQuery)) ||
+      (story.category && story.category.toLowerCase().includes(lowerQuery)) ||
+      (story.country && story.country.toLowerCase().includes(lowerQuery))
+    );
   }
 }
