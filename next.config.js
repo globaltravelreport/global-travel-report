@@ -24,6 +24,10 @@ const nextConfig = {
     };
     return config;
   },
+  // Explicitly set the runtime for specific routes
+  experimental: {
+    serverComponentsExternalPackages: ['rss-parser', 'xml2js'],
+  },
 }
 
 module.exports = nextConfig
