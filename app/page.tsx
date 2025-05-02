@@ -5,6 +5,7 @@ import { NewsletterSignup } from '../components/NewsletterSignup';
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from 'react';
+import { PopularStories } from '@/components/recommendations/PopularStories';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -119,8 +120,25 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Popular Stories Section */}
       <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Suspense fallback={<div className="animate-pulse space-y-4">
+            <div className="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-gray-200 rounded-lg h-80"></div>
+              ))}
+            </div>
+          </div>}>
+            <PopularStories limit={6} title="Popular This Week" />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* Categories Section */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4 relative inline-block">

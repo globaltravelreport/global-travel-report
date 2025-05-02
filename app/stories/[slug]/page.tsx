@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { RelatedStories } from "@/src/components/stories/RelatedStories";
 import { NewsletterSignup } from "@/src/components/ui/NewsletterSignup";
 import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
@@ -8,6 +7,8 @@ import { Badge } from "@/src/components/ui/badge";
 import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
 import DOMPurify from 'isomorphic-dompurify';
 import SchemaOrg from "@/components/SchemaOrg";
+import { RelatedStories } from "@/components/recommendations/RelatedStories";
+import { CategoryStories } from "@/components/recommendations/CategoryStories";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -190,7 +191,11 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         </div>
       </footer>
 
-      <RelatedStories currentStory={story} allStories={stories} />
+      {/* Related stories based on content similarity */}
+      <RelatedStories currentStory={story} limit={4} />
+
+      {/* More stories from the same category */}
+      <CategoryStories category={story.category} excludeStoryId={story.id} limit={4} />
 
       <div className="mt-12">
         <NewsletterSignup />
