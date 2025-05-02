@@ -24,7 +24,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-md">
+    /* Updated header with blue gradient background and gold border */
+    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-b-2 border-[#C9A14A]">
       {/* Top bar with contact info */}
       <div className="hidden lg:block py-0.5">
         <div className="container flex justify-between items-center text-xs">
