@@ -196,6 +196,12 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             containerClassName="relative"
             quality={85}
           />
+          {/* Debug info */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="absolute top-0 left-0 bg-black/70 text-white text-xs p-2 z-10">
+              Image URL: {imgSrc}
+            </div>
+          )}
           {photographer && (
             <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl z-10">
               Photo by{" "}

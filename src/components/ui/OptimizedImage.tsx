@@ -94,6 +94,9 @@ export function OptimizedImage({
       return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
     }
 
+    // Log the image URL for debugging
+    console.log('Image URL:', src);
+
     // Optimize Unsplash URLs for better performance
     if (isUnsplashImage) {
       try {
@@ -183,6 +186,9 @@ export function StoryCoverImage({
 }: StoryCoverImageProps) {
   // Validate the image URL
   const [validatedSrc, setValidatedSrc] = useState(() => {
+    // Log the image URL for debugging
+    console.log('StoryCoverImage URL:', src);
+
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
       // Return a default image based on the alt text
       if (alt.toLowerCase().includes('cruise')) {
