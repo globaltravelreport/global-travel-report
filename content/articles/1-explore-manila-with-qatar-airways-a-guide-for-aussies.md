@@ -1,5 +1,5 @@
 ---
-title: '''Explore Manila with Qatar Airways: A Guide for Aussies'''
+title: 'Explore Manila with Qatar Airways: A Guide for Aussies'
 summary: >-
 
   Flying to Manila from Australia has never been easier, thanks to the codeshare

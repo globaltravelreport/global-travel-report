@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide: Tips & Tricks for Aussies Abroad'''
+title: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 summary: >-
   UK travel guide, Australian travelers, flight deals from Australia to UK, UK
   visa requirements, travel tips for Australians, AUD to GBP exchange, UK c...

@@ -1,5 +1,5 @@
 ---
-title: '''Explore Iraklio: A Cruise Gem for Australian Adventurers'''
+title: 'Explore Iraklio: A Cruise Gem for Australian Adventurers'
 summary: >-
 
   Greece beckons Australian travelers with its crystal-clear waters, fascinating

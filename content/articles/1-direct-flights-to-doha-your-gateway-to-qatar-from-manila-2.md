@@ -1,5 +1,5 @@
 ---
-title: '''Direct Flights to Doha: Your Gateway to Qatar from Manila'''
+title: 'Direct Flights to Doha: Your Gateway to Qatar from Manila'
 summary: >-
 
   Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian

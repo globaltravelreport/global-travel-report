@@ -1,5 +1,5 @@
 ---
-title: '''Exploring Asia''''s Newest Museums: A Guide for Aussies'''
+title: 'Exploring Asia''''s Newest Museums: A Guide for Aussies'
 summary: >-
   **As an Australian travel journalist with a knack for uncovering cultural
   treasures, I'm thrilled to guide you through the unveiling of two

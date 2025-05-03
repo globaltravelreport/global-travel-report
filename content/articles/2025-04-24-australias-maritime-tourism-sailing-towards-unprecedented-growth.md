@@ -1,5 +1,5 @@
 ---
-title: '''Australia''''s Maritime Tourism: Sailing Towards Unprecedented Growth'''
+title: 'Australia''''s Maritime Tourism: Sailing Towards Unprecedented Growth'
 summary: >-
 
   Australia's cruise industry is navigating towards an exciting future,

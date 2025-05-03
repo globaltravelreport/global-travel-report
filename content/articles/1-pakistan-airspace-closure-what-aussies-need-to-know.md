@@ -1,5 +1,5 @@
 ---
-title: '''Pakistan Airspace Closure: What Aussies Need to Know'''
+title: 'Pakistan Airspace Closure: What Aussies Need to Know'
 summary: >-
   As an Australian looking to explore the vibrant cultures, breathtaking
   landscapes, and historical marvels of the Indian subcontinent, the recent

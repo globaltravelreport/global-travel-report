@@ -1,5 +1,5 @@
 ---
-title: '''Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
+title: 'Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'
 summary: >-
 
   As an Australian travel journalist and SEO expert, I'm always on the lookout

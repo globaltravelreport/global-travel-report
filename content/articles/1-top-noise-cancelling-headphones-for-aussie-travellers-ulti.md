@@ -1,5 +1,5 @@
 ---
-title: '''Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'''
+title: 'Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'
 summary: >-
 
   ### The Ultimate Guide to Choosing Noise-Cancelling Headphones for Australian

@@ -1,5 +1,5 @@
 ---
-title: '''Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
+title: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
 summary: >-
   Embarking on international adventures from Australia just got more serene with
   the latest deals on noise-cancelling headphones, a must-have for any se...

@@ -1,5 +1,5 @@
 ---
-title: '''Hidden Gems: Top International Destinations for Aussies in'''
+title: 'Hidden Gems: Top International Destinations for Aussies in'
 summary: >-
 
   Gone are the days when Australian travelers stuck to the well-trodden paths of

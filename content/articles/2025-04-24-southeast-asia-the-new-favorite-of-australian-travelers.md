@@ -1,5 +1,5 @@
 ---
-title: '''Southeast Asia: The New Favorite of Australian Travelers'''
+title: 'Southeast Asia: The New Favorite of Australian Travelers'
 summary: >-
 
   In the travel sphere, Australia's compass is pointing firmly towards Southeast

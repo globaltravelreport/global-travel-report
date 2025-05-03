@@ -1,5 +1,5 @@
 ---
-title: '''Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
+title: 'Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'
 summary: >-
 
   Embarking on a journey to position Thailand as a premier cruise hub, the

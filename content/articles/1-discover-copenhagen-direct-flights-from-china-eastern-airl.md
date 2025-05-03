@@ -1,5 +1,5 @@
 ---
-title: '''Discover Copenhagen: Direct Flights from China Eastern Airlines'''
+title: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
 summary: Flying to Copenhagen Just Got Easier for Aussies!...
 date: '2025-04-30T22:29:45.815Z'
 country: Denmark

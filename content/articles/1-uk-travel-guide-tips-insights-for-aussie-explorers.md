@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide: Tips & Insights for Aussie Explorers'''
+title: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
 summary: |-
 
   Rewritten article...

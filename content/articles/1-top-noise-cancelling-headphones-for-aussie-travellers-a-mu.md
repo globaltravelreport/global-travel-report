@@ -1,5 +1,5 @@
 ---
-title: '''Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'''
+title: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
 summary: >-
   As Australian wanderlusts begin to plot their next international escapade,
   there's one travel accessory that's becoming a non-negotiable: noise-cancel...

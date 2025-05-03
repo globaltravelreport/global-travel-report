@@ -1,5 +1,5 @@
 ---
-title: '''Explore Heraklion: Your Next Cruise Destination from Australia'''
+title: 'Explore Heraklion: Your Next Cruise Destination from Australia'
 summary: >-
   Heraklion, the bustling port city on Crete, Greece, is setting its sights on
   becoming a top cruise destination for Australian travelers. With its rich...

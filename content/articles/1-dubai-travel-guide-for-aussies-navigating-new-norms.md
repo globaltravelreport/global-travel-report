@@ -1,5 +1,5 @@
 ---
-title: '''Dubai Travel Guide for Aussies: Navigating New Norms'''
+title: 'Dubai Travel Guide for Aussies: Navigating New Norms'
 summary: >-
 
   Embarking on a journey from the Land Down Under to the dazzling cityscapes of

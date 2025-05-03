@@ -1,5 +1,5 @@
 ---
-title: '''Direct Flights to Doha: Your Gateway to the Middle East'''
+title: 'Direct Flights to Doha: Your Gateway to the Middle East'
 summary: >-
 
   Embarking on an adventure or seeking luxury in the Middle East has never been

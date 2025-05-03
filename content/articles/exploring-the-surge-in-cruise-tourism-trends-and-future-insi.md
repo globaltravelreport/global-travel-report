@@ -1,5 +1,5 @@
 ---
-title: '''Exploring the Surge in Cruise Tourism: Trends and Future Insights'''
+title: 'Exploring the Surge in Cruise Tourism: Trends and Future Insights'
 summary: >-
   The cruise tourism industry is experiencing a significant boom, reflecting an
   increasing interest among travelers in exploring the world from the deck...

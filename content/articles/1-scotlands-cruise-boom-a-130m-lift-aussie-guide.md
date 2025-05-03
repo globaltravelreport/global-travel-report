@@ -1,5 +1,5 @@
 ---
-title: '''Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'''
+title: 'Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'
 summary: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
 date: '2025-04-20T17:58:45.842Z'
 country: Scotland

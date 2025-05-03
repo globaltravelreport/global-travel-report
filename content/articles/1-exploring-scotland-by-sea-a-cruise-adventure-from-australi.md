@@ -1,5 +1,5 @@
 ---
-title: '''Exploring Scotland by Sea: A Cruise Adventure from Australia'''
+title: 'Exploring Scotland by Sea: A Cruise Adventure from Australia'
 summary: >-
   Australia to Scotland cruises, Scotland travel guide, Australian travelers,
   AUD price comparisons, visa requirements Australia, travel tips Scotland

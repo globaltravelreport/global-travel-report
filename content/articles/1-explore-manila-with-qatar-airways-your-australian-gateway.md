@@ -1,5 +1,5 @@
 ---
-title: '''Explore Manila with Qatar Airways: Your Australian Gateway'''
+title: 'Explore Manila with Qatar Airways: Your Australian Gateway'
 summary: >-
 
   ### Discover Manila: A Guide for Australian Travelers Flying with Qatar

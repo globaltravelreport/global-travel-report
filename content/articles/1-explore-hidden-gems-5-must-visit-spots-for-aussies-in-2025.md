@@ -1,5 +1,5 @@
 ---
-title: '''Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'''
+title: 'Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'
 summary: >-
 
   As Australian wanderlust continues to grow, the quest for unique and

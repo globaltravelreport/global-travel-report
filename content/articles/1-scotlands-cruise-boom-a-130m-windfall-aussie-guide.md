@@ -1,5 +1,5 @@
 ---
-title: '''Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'''
+title: 'Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'
 summary: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
 date: '2025-04-29T15:05:45.845Z'
 country: Scotland

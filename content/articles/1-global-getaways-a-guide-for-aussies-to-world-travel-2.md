@@ -1,5 +1,5 @@
 ---
-title: '''Global Getaways: A Guide for Aussies to World Travel'''
+title: 'Global Getaways: A Guide for Aussies to World Travel'
 summary: |-
   Rewritten article
   ...

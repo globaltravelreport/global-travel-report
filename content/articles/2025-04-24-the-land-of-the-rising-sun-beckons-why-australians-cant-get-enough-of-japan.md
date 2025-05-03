@@ -1,7 +1,5 @@
 ---
-title: >-
-  'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of
-  Japan'
+title: 'The Land of the Rising Sun Beckons: Why Australians Can''''t Get Enough of Japan'
 summary: >-
 
   Japan, with its unique blend of time-honored customs and cutting-edge

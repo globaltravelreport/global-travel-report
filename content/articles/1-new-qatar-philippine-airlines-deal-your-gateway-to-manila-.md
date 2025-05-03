@@ -1,5 +1,5 @@
 ---
-title: '''New Qatar-Philippine Airlines Deal: Your Gateway to Manila'''
+title: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
 summary: >-
 
   Exploring Manila just got easier and more affordable for Aussies, thanks to a

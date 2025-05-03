@@ -1,5 +1,5 @@
 ---
-title: '''Explore Manila with Direct Flights from Doha: A Guide for Aussies'''
+title: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies'
 summary: >-
 
   Australia's wanderlust community is buzzing with excitement as Philippine

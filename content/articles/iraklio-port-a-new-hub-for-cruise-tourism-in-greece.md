@@ -1,5 +1,5 @@
 ---
-title: '''Iraklio Port: A New Hub for Cruise Tourism in Greece'''
+title: 'Iraklio Port: A New Hub for Cruise Tourism in Greece'
 summary: >-
 
   Iraklio, the capital of Crete, is steering towards becoming a significant hub

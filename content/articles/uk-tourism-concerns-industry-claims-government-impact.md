@@ -1,5 +1,5 @@
 ---
-title: '''UK Tourism Concerns: Industry Claims Government Impact'''
+title: 'UK Tourism Concerns: Industry Claims Government Impact'
 summary: United Kingdom
 date: '2025-05-02T20:38:45.913Z'
 country: Travel Industry Insights

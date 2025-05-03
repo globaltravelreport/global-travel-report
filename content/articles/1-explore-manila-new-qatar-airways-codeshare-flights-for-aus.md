@@ -1,5 +1,5 @@
 ---
-title: '''Explore Manila: New Qatar Airways Codeshare Flights for Aussies'''
+title: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
 summary: >-
 
   # Explore Manila with Ease: Qatar Airways' New Codeshare Flights from

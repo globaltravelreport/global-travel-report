@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Woes: What Aussies Need to Know'''
+title: 'UK Travel Woes: What Aussies Need to Know'
 summary: >-
   In a startling move that has raised eyebrows across continents, allegations
   have surfaced accusing the government of hampering the UK's tourism indust...

@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide for Aussies: Tips & Must-Knows for'''
+title: 'UK Travel Guide for Aussies: Tips & Must-Knows for'
 summary: >-
 
   Embarking on a UK adventure from Australia may seem daunting, but with the

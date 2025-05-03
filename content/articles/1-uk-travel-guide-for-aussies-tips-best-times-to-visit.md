@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide for Aussies: Tips & Best Times to Visit'''
+title: 'UK Travel Guide for Aussies: Tips & Best Times to Visit'
 summary: >-
 
   The UK is calling all Australian adventurers to explore its historic cities,

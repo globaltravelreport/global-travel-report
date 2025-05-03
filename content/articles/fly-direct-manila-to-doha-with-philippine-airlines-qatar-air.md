@@ -1,5 +1,5 @@
 ---
-title: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
+title: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
 summary: >-
 
   Australian adventurers seeking new horizons have reason to rejoice with

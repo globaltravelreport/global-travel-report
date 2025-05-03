@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
+title: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
 summary: '### Your Ultimate Guide to Exploring the UK from Australia...'
 date: '2025-04-08T19:08:45.885Z'
 country: United Kingdom

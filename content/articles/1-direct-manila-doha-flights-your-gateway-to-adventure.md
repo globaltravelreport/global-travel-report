@@ -1,5 +1,5 @@
 ---
-title: '''1. Direct Manila-Doha Flights: Your Gateway to Adventure'''
+title: '1. Direct Manila-Doha Flights: Your Gateway to Adventure'
 summary: >-
 
   7. **Direct Flights from Manila to Doha: A New Adventure Awaits Australian

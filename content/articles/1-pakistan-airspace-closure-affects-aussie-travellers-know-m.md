@@ -1,5 +1,5 @@
 ---
-title: '''Pakistan Airspace Closure Affects Aussie Travellers: Know More'''
+title: 'Pakistan Airspace Closure Affects Aussie Travellers: Know More'
 summary: >-
 
   Australian Travellers Face Longer Routes to India Amid Pakistan Airspace

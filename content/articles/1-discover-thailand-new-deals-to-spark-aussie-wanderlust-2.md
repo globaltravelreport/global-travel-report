@@ -1,5 +1,5 @@
 ---
-title: '''Discover Thailand: New Deals to Spark Aussie Wanderlust'''
+title: 'Discover Thailand: New Deals to Spark Aussie Wanderlust'
 summary: >-
 
   Thailand travel for Australians, flight deals to Thailand, Australian to

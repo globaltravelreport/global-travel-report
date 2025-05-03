@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
+title: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks'
 summary: Rewritten article...
 date: '2025-04-24T15:47:45.862Z'
 country: United Kingdom

@@ -1,5 +1,5 @@
 ---
-title: '''UK Travel Guide: Tips for Aussies Planning Their British Escape'''
+title: 'UK Travel Guide: Tips for Aussies Planning Their British Escape'
 summary: 'A Guide for Australians Travelling to the UK: Everything You Need to Know...'
 date: '2025-04-12T02:25:45.893Z'
 country: United Kingdom

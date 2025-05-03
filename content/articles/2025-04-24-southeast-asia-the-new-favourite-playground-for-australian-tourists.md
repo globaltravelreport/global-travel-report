@@ -1,5 +1,5 @@
 ---
-title: '''Southeast Asia: The New Favourite Playground for Australian Tourists'''
+title: 'Southeast Asia: The New Favourite Playground for Australian Tourists'
 summary: >-
 
   Southeast Asia, with its rich cultural tapestry, sun-kissed beaches, and
