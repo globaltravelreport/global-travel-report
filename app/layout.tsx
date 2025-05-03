@@ -139,6 +139,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google AdSense */}
+        <Script
+          id="google-adsense"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005772594728149"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
         {/* RSS Feed Links */}
         <link
           rel="alternate"

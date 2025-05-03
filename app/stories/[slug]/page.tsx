@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { NewsletterSignup } from "@/src/components/ui/NewsletterSignup";
+import { AdSenseInArticle, AdSenseLeaderboard } from '@/src/components/ads/AdSense';
 import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
@@ -190,7 +191,27 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
       <div className="prose prose-lg max-w-none">
         <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
-        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(story.content) }} />
+
+        {/* First paragraph of content */}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(
+              story.content.split('</p>')[0] + '</p>'
+            )
+          }}
+        />
+
+        {/* AdSense In-Article Ad */}
+        <AdSenseInArticle />
+
+        {/* Rest of the content */}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(
+              story.content.split('</p>').slice(1).join('</p>')
+            )
+          }}
+        />
       </div>
 
       <footer className="mt-8 pt-8 border-t">
@@ -213,6 +234,11 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           />
         </div>
       </footer>
+
+      {/* AdSense Leaderboard */}
+      <div className="my-8">
+        <AdSenseLeaderboard />
+      </div>
 
       {/* Related stories based on content similarity */}
       <RelatedStories currentStory={story} limit={4} />

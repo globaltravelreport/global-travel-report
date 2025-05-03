@@ -2,6 +2,7 @@ import { getAllStories, getHomepageStories } from '@/src/utils/stories';
 import Hero from '@/components/Hero';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
+import { AdSenseLeaderboard, AdSenseInFeed } from '@/src/components/ads/AdSense';
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from 'react';
@@ -125,8 +126,15 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* AdSense Leaderboard */}
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSenseLeaderboard />
+        </div>
+      </section>
+
       {/* Popular Stories Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense fallback={<div className="animate-pulse space-y-4">
             <div className="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
@@ -180,8 +188,15 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* AdSense In-Feed Ad */}
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSenseInFeed />
+        </div>
+      </section>
+
       {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <NewsletterSignup
             title="Stay Updated with Global Travel Report"
