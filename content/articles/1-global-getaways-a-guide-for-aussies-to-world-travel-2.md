@@ -6,7 +6,7 @@ summary: |-
 date: '2025-05-02T21:25:45.830Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: Drake Content expands tourism and travel portfolio - AdNews
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Sylvain Mauroux
+  url: 'https://unsplash.com/@sylvainmauroux'
 ---
 
 

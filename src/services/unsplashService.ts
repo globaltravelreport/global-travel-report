@@ -166,17 +166,32 @@ export class UnsplashService {
   }
 
   /**
-   * Enhance a story with an image from Unsplash using the image tracker
+   * Enhance a story with an image from Unsplash using the enhanced image tracker
    */
   public async enhanceStoryWithImage(story: Story): Promise<Story> {
     try {
-      // Import the image tracker dynamically to avoid server/client mismatch
-      const { getImageForStory } = await import('@/src/utils/imageTracker');
+      // Import the enhanced image tracker dynamically to avoid server/client mismatch
+      const { getBestImageForStory } = await import('@/src/utils/enhancedImageTracker');
 
-      // Get a unique image and photographer for this story
-      const { imageUrl, photographer } = getImageForStory(
+      // Extract keywords from the story
+      const keywords = [];
+      if (story.tags && Array.isArray(story.tags)) {
+        keywords.push(...story.tags);
+      }
+      if (story.keywords && Array.isArray(story.keywords)) {
+        keywords.push(...story.keywords);
+      }
+      if (story.country) {
+        keywords.push(story.country);
+      }
+
+      // Get the best matching image for this story
+      const { imageUrl, photographer } = getBestImageForStory(
         story.slug || `story-${Date.now()}`,
-        story.category || 'Travel'
+        story.category || 'Travel',
+        story.title || '',
+        story.content || '',
+        keywords
       );
 
       // Return the enhanced story
@@ -193,56 +208,82 @@ export class UnsplashService {
     } catch (error) {
       console.error('Error enhancing story with image:', error);
 
-      // If the image tracker fails, fall back to the old method
+      // If the enhanced image tracker fails, try the original image tracker
       try {
-        // Build a search query based on the story
-        let query = `${story.country} ${story.category}`;
+        // Import the original image tracker dynamically
+        const { getImageForStory } = await import('@/src/utils/imageTracker');
 
-        // Add more specific terms for better results
-        if (story.category === 'Cruises') {
-          query += ' cruise ship ocean';
-        } else if (story.category === 'Food & Drink') {
-          query += ' food cuisine restaurant';
-        } else if (story.category === 'Adventure Travel') {
-          query += ' adventure landscape nature';
-        } else if (story.category === 'Luxury Travel') {
-          query += ' luxury hotel resort';
-        } else if (story.category === 'Family Travel') {
-          query += ' family vacation';
-        } else {
-          query += ' travel tourism';
-        }
-
-        // Search for images
-        const images = await this.searchImages(query);
-
-        if (images.length === 0) {
-          throw new Error('No images found');
-        }
-
-        const image = images[0];
-
-        // Trigger a download (required by Unsplash API terms)
-        await this.triggerDownload(image.downloadLocation);
+        // Get a unique image and photographer for this story
+        const { imageUrl, photographer } = getImageForStory(
+          story.slug || `story-${Date.now()}`,
+          story.category || 'Travel'
+        );
 
         // Return the enhanced story
         return {
           ...story,
-          imageUrl: image.url,
-          imageAlt: image.alt,
+          imageUrl: imageUrl,
+          imageAlt: `${story.category} - ${story.title}`,
           // Add photographer information in the format expected by the UI components
-          photographer: {
-            name: image.photographer.name,
-            url: image.photographer.profileUrl
-          },
+          photographer: photographer,
           // Keep these for backward compatibility
-          imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
-          imageCreditUrl: image.photographer.profileUrl
+          imageCredit: `Photo by ${photographer.name} on Unsplash`,
+          imageCreditUrl: photographer.url
         };
-      } catch (fallbackError) {
-        console.error('Fallback image enhancement also failed:', fallbackError);
-        // Return the original story if both methods fail
-        return story;
+      } catch (trackerError) {
+        console.error('Original image tracker also failed:', trackerError);
+
+        // If both trackers fail, fall back to the API method
+        try {
+          // Build a search query based on the story
+          let query = `${story.country} ${story.category}`;
+
+          // Add more specific terms for better results
+          if (story.category === 'Cruises') {
+            query += ' cruise ship ocean';
+          } else if (story.category === 'Food & Drink') {
+            query += ' food cuisine restaurant';
+          } else if (story.category === 'Adventure Travel') {
+            query += ' adventure landscape nature';
+          } else if (story.category === 'Luxury Travel') {
+            query += ' luxury hotel resort';
+          } else if (story.category === 'Family Travel') {
+            query += ' family vacation';
+          } else {
+            query += ' travel tourism';
+          }
+
+          // Search for images
+          const images = await this.searchImages(query);
+
+          if (images.length === 0) {
+            throw new Error('No images found');
+          }
+
+          const image = images[0];
+
+          // Trigger a download (required by Unsplash API terms)
+          await this.triggerDownload(image.downloadLocation);
+
+          // Return the enhanced story
+          return {
+            ...story,
+            imageUrl: image.url,
+            imageAlt: image.alt,
+            // Add photographer information in the format expected by the UI components
+            photographer: {
+              name: image.photographer.name,
+              url: image.photographer.profileUrl
+            },
+            // Keep these for backward compatibility
+            imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
+            imageCreditUrl: image.photographer.profileUrl
+          };
+        } catch (fallbackError) {
+          console.error('All image enhancement methods failed:', fallbackError);
+          // Return the original story if all methods fail
+          return story;
+        }
       }
     }
   }

@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-06T05:50:45.855Z'
 country: International (General)
 type: Travel Essentials
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Davide Cantelli
+  url: 'https://unsplash.com/@cant89'
 ---
 
 

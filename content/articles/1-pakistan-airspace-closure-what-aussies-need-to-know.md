@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-23T13:18:45.841Z'
 country: India
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Emile Guillemot
+  url: 'https://unsplash.com/@emilegt'
 ---
 
 

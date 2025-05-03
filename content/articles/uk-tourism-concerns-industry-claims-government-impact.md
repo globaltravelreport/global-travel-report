@@ -4,7 +4,7 @@ summary: United Kingdom
 date: '2025-05-02T20:38:45.913Z'
 country: Travel Industry Insights
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -14,8 +14,8 @@ metaDescription: United Kingdom
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Emile Guillemot
+  url: 'https://unsplash.com/@emilegt'
 ---
 
 

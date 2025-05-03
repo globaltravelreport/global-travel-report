@@ -4,7 +4,7 @@ summary: The Ultimate UK Travel Guide for Australian Adventurers...
 date: '2025-04-18T20:10:45.857Z'
 country: United Kingdom
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Asoggetti
+  url: 'https://unsplash.com/@asoggetti'
 ---
 
 

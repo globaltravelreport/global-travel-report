@@ -6,7 +6,7 @@ summary: >-
 date: '2025-05-02T22:57:45.905Z'
 country: China
 type: Cultural Festivals
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -18,8 +18,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: Shanghai Cruise Culture and Tourism Festival 2025 sets sail - China Daily
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Thomas Tucker
+  url: 'https://unsplash.com/@tents_and_tread'
 ---
 
 

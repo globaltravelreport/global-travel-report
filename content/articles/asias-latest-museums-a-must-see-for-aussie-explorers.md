@@ -8,7 +8,7 @@ summary: >-
 date: '2025-04-16T16:11:45.903Z'
 country: '''Japan, Singapore'''
 type: '''Culture, Art'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Braden Jarvis
+  url: 'https://unsplash.com/@jarvisphoto'
 ---
 
 

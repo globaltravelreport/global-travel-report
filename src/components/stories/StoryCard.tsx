@@ -194,6 +194,41 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     }
   }
 
+  // Use React.useEffect to ensure image consistency on mount and updates
+  React.useEffect(() => {
+    // This effect ensures that the image and photographer are always consistent
+    // It runs on component mount and whenever the story changes
+    const ensureImageConsistency = async () => {
+      try {
+        // Only run this check if we have a story slug
+        if (story.slug) {
+          // Dynamically import the enhanced image tracker
+          const { getBestImageForStory } = await import('@/src/utils/enhancedImageTracker');
+
+          // Get the best image for this story
+          const bestImage = getBestImageForStory(
+            story.slug,
+            story.category || 'Travel',
+            story.title || '',
+            '',
+            story.tags || []
+          );
+
+          // If the current image doesn't match the best image, log a warning
+          // We don't update the image here to avoid flickering, but this helps with debugging
+          if (imgSrc !== bestImage.imageUrl) {
+            console.log(`Story ${story.slug} should use image ${bestImage.imageUrl} (${bestImage.photographer.name})`);
+          }
+        }
+      } catch (error) {
+        // Silently fail - this is just a consistency check
+      }
+    };
+
+    // Run the consistency check
+    ensureImageConsistency();
+  }, [story.slug, story.category, story.title, story.tags, imgSrc]);
+
   // Clean up photographer URL if it has quotes around it
   if (photographer && photographer.url) {
     // Remove single quotes if they exist

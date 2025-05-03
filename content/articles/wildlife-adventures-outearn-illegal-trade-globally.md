@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-20T07:17:45.914Z'
 country: Global
 type: '''Adventure, Ethical, Wildlife'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Davide Cantelli
+  url: 'https://unsplash.com/@cant89'
 ---
 
 

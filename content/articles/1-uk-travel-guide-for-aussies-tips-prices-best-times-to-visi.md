@@ -4,7 +4,7 @@ summary: '### Your Ultimate Guide to Exploring the UK from Australia...'
 date: '2025-04-08T19:08:45.885Z'
 country: United Kingdom
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -15,8 +15,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Sime Basioli
+  url: 'https://unsplash.com/@basecore'
 ---
 
 
