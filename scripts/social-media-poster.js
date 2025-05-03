@@ -19,10 +19,51 @@ const path = require('path');
 const matter = require('gray-matter');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
-const { TwitterApi } = require('twitter-api-v2');
-const { LinkedInApi } = require('linkedin-api-client');
-const { FacebookApi } = require('facebook-api-client');
-const { MediumApi } = require('medium-api-client');
+// Mock implementations for social media APIs
+// These will be replaced with actual implementations when the real packages are available
+const TwitterApi = function(config) {
+  return {
+    v2: {
+      tweet: async (text) => {
+        console.log(`[MOCK] Posting to Twitter: ${text}`);
+        return { data: { id: 'mock-tweet-id-' + Date.now() } };
+      }
+    }
+  };
+};
+
+const LinkedInApi = function(config) {
+  return {
+    posts: {
+      create: async (post) => {
+        console.log(`[MOCK] Posting to LinkedIn: ${post.text}`);
+        return { id: 'mock-linkedin-post-id-' + Date.now() };
+      }
+    }
+  };
+};
+
+const FacebookApi = function(token) {
+  return {
+    posts: {
+      create: async (pageId, post) => {
+        console.log(`[MOCK] Posting to Facebook page ${pageId}: ${post.message}`);
+        return { id: 'mock-facebook-post-id-' + Date.now() };
+      }
+    }
+  };
+};
+
+const MediumApi = function(config) {
+  return {
+    posts: {
+      create: async (post) => {
+        console.log(`[MOCK] Posting to Medium: ${post.title}`);
+        return { id: 'mock-medium-post-id-' + Date.now() };
+      }
+    }
+  };
+};
 
 // Configuration
 const CONTENT_DIR = path.join(process.cwd(), 'content/articles');
