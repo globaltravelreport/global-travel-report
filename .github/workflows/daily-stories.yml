@@ -93,6 +93,35 @@ jobs:
 
           echo "===== Daily Story Generator Finished at $(date) =====" >> logs/daily-story-generator.log
 
+      - name: Post to social media
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          MEDIUM_ACCESS_TOKEN: ${{ secrets.MEDIUM_ACCESS_TOKEN }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          echo "===== Posting to social media =====" >> logs/daily-story-generator.log
+
+          # Create logs directory for social media poster
+          mkdir -p logs
+
+          # Run the social media poster script
+          node scripts/social-media-poster.js >> logs/daily-story-generator.log 2>&1
+
+          # Check if the social media posting was successful
+          if [ $? -eq 0 ]; then
+            echo "✅ Social media posting completed successfully" >> logs/daily-story-generator.log
+          else
+            echo "⚠️ Social media posting completed with some issues" >> logs/daily-story-generator.log
+          fi
+
       - name: Upload logs as artifacts
         uses: actions/upload-artifact@v3
         with:

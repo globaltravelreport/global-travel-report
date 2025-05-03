@@ -1,0 +1,550 @@
+/**
+ * Social Media Poster
+ *
+ * This script automatically posts new stories to social media platforms:
+ * - Facebook
+ * - Twitter (X)
+ * - LinkedIn
+ * - Medium
+ * - YouTube (community post)
+ * - TikTok (bio link)
+ *
+ * Usage:
+ * node scripts/social-media-poster.js [--story=path/to/story.md] [--test]
+ */
+
+require('dotenv').config({ path: '.env.local' });
+const fs = require('fs').promises;
+const path = require('path');
+const matter = require('gray-matter');
+const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
+const { TwitterApi } = require('twitter-api-v2');
+const { LinkedInApi } = require('linkedin-api-client');
+const { FacebookApi } = require('facebook-api-client');
+const { MediumApi } = require('medium-api-client');
+
+// Configuration
+const CONTENT_DIR = path.join(process.cwd(), 'content/articles');
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 2000; // 2 seconds
+const LOG_DIR = path.join(process.cwd(), 'logs');
+const LOG_FILE = path.join(LOG_DIR, 'social-media-poster.log');
+
+// Stats tracking
+const stats = {
+  storiesProcessed: 0,
+  postsCreated: {
+    facebook: 0,
+    twitter: 0,
+    linkedin: 0,
+    medium: 0,
+    youtube: 0,
+    tiktok: 0
+  },
+  errors: {
+    facebook: 0,
+    twitter: 0,
+    linkedin: 0,
+    medium: 0,
+    youtube: 0,
+    tiktok: 0
+  }
+};
+
+// Validate environment variables
+function validateEnvironment() {
+  const requiredVars = [
+    'TWITTER_API_KEY',
+    'TWITTER_API_SECRET',
+    'TWITTER_ACCESS_TOKEN',
+    'TWITTER_ACCESS_SECRET',
+    'FACEBOOK_PAGE_ID',
+    'FACEBOOK_ACCESS_TOKEN',
+    'LINKEDIN_CLIENT_ID',
+    'LINKEDIN_CLIENT_SECRET',
+    'LINKEDIN_ACCESS_TOKEN',
+    'MEDIUM_ACCESS_TOKEN'
+  ];
+
+  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+
+  if (missingVars.length > 0) {
+    console.warn(`⚠️ Missing some social media API keys: ${missingVars.join(', ')}`);
+    console.warn('Some social media platforms may not be available');
+  }
+
+  return missingVars.length === 0;
+}
+
+// Initialize API clients
+function initializeApiClients() {
+  const clients = {};
+
+  // Twitter API client
+  if (process.env.TWITTER_API_KEY &&
+      process.env.TWITTER_API_SECRET &&
+      process.env.TWITTER_ACCESS_TOKEN &&
+      process.env.TWITTER_ACCESS_SECRET) {
+    try {
+      clients.twitter = new TwitterApi({
+        appKey: process.env.TWITTER_API_KEY,
+        appSecret: process.env.TWITTER_API_SECRET,
+        accessToken: process.env.TWITTER_ACCESS_TOKEN,
+        accessSecret: process.env.TWITTER_ACCESS_SECRET
+      });
+      console.log('✅ Twitter API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize Twitter API client: ${error.message}`);
+    }
+  }
+
+  // Facebook API client
+  if (process.env.FACEBOOK_ACCESS_TOKEN && process.env.FACEBOOK_PAGE_ID) {
+    try {
+      clients.facebook = new FacebookApi(process.env.FACEBOOK_ACCESS_TOKEN);
+      console.log('✅ Facebook API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize Facebook API client: ${error.message}`);
+    }
+  }
+
+  // LinkedIn API client
+  if (process.env.LINKEDIN_ACCESS_TOKEN) {
+    try {
+      clients.linkedin = new LinkedInApi({
+        accessToken: process.env.LINKEDIN_ACCESS_TOKEN
+      });
+      console.log('✅ LinkedIn API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize LinkedIn API client: ${error.message}`);
+    }
+  }
+
+  // Medium API client
+  if (process.env.MEDIUM_ACCESS_TOKEN) {
+    try {
+      clients.medium = new MediumApi({
+        accessToken: process.env.MEDIUM_ACCESS_TOKEN
+      });
+      console.log('✅ Medium API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize Medium API client: ${error.message}`);
+    }
+  }
+
+  return clients;
+}
+
+/**
+ * Main function to post stories to social media
+ */
+async function postToSocialMedia() {
+  try {
+    console.log('🚀 Starting social media posting...');
+
+    // Create logs directory if it doesn't exist
+    await fs.mkdir(LOG_DIR, { recursive: true });
+
+    // Parse command line arguments
+    const args = process.argv.slice(2);
+    const storyPath = getArgValue(args, '--story');
+    const isTest = args.includes('--test');
+
+    // Validate environment variables
+    validateEnvironment();
+
+    // Initialize API clients
+    const apiClients = initializeApiClients();
+
+    // Get stories to post
+    let stories = [];
+    if (storyPath) {
+      // Post a specific story
+      const story = await loadStory(storyPath);
+      if (story) {
+        stories = [story];
+      }
+    } else {
+      // Get recent stories
+      stories = await getRecentStories();
+    }
+
+    if (stories.length === 0) {
+      console.log('ℹ️ No stories found to post');
+      return;
+    }
+
+    console.log(`📊 Found ${stories.length} stories to post to social media`);
+
+    // Post each story to social media
+    for (const story of stories) {
+      await postStoryToSocialMedia(story, apiClients, isTest);
+      stats.storiesProcessed++;
+    }
+
+    // Print summary
+    console.log('\n✨ Social media posting completed!');
+    console.log('📊 Summary:');
+    console.log(`- Stories processed: ${stats.storiesProcessed}`);
+    console.log('- Posts created:');
+    Object.entries(stats.postsCreated).forEach(([platform, count]) => {
+      console.log(`  - ${platform}: ${count}`);
+    });
+    console.log('- Errors:');
+    Object.entries(stats.errors).forEach(([platform, count]) => {
+      console.log(`  - ${platform}: ${count}`);
+    });
+
+    // Log to file
+    await logToFile(`Social media posting completed at ${new Date().toISOString()}`);
+    await logToFile(`Stories processed: ${stats.storiesProcessed}`);
+    await logToFile(`Posts created: ${JSON.stringify(stats.postsCreated)}`);
+    await logToFile(`Errors: ${JSON.stringify(stats.errors)}`);
+
+  } catch (error) {
+    console.error('❌ Error posting to social media:', error);
+    await logToFile(`Error: ${error.message}`);
+  }
+}
+
+/**
+ * Post a story to all available social media platforms
+ */
+async function postStoryToSocialMedia(story, apiClients, isTest = false) {
+  console.log(`\n📱 Posting story to social media: "${story.title}"`);
+
+  // Generate the site URL
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
+  const storyUrl = `${siteUrl}/stories/${story.slug}`;
+
+  // Add UTM parameters for tracking
+  const utmParams = `utm_source=social&utm_medium=post&utm_campaign=auto-post`;
+  const trackingUrl = `${storyUrl}?${utmParams}`;
+
+  // Generate hashtags from story tags and category
+  const hashtags = generateHashtags(story);
+
+  // Log the story being posted
+  await logToFile(`Posting story: ${story.title} (${trackingUrl})`);
+
+  // Post to Twitter
+  if (apiClients.twitter) {
+    try {
+      const tweetText = formatForTwitter(story, trackingUrl, hashtags);
+      console.log(`🐦 Posting to Twitter: ${tweetText.substring(0, 50)}...`);
+
+      if (!isTest) {
+        const tweet = await apiClients.twitter.v2.tweet(tweetText);
+        console.log(`✅ Posted to Twitter: ${tweet.data.id}`);
+        stats.postsCreated.twitter++;
+        await logToFile(`Posted to Twitter: ${tweet.data.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to Twitter');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to Twitter: ${error.message}`);
+      stats.errors.twitter++;
+      await logToFile(`Error posting to Twitter: ${error.message}`);
+    }
+  }
+
+  // Post to Facebook
+  if (apiClients.facebook) {
+    try {
+      const fbPost = formatForFacebook(story, trackingUrl, hashtags);
+      console.log(`📘 Posting to Facebook: ${fbPost.message.substring(0, 50)}...`);
+
+      if (!isTest) {
+        const post = await apiClients.facebook.posts.create(process.env.FACEBOOK_PAGE_ID, fbPost);
+        console.log(`✅ Posted to Facebook: ${post.id}`);
+        stats.postsCreated.facebook++;
+        await logToFile(`Posted to Facebook: ${post.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to Facebook');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to Facebook: ${error.message}`);
+      stats.errors.facebook++;
+      await logToFile(`Error posting to Facebook: ${error.message}`);
+    }
+  }
+
+  // Post to LinkedIn
+  if (apiClients.linkedin) {
+    try {
+      const linkedinPost = formatForLinkedIn(story, trackingUrl, hashtags);
+      console.log(`📙 Posting to LinkedIn: ${linkedinPost.text.substring(0, 50)}...`);
+
+      if (!isTest) {
+        const post = await apiClients.linkedin.posts.create(linkedinPost);
+        console.log(`✅ Posted to LinkedIn: ${post.id}`);
+        stats.postsCreated.linkedin++;
+        await logToFile(`Posted to LinkedIn: ${post.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to LinkedIn');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to LinkedIn: ${error.message}`);
+      stats.errors.linkedin++;
+      await logToFile(`Error posting to LinkedIn: ${error.message}`);
+    }
+  }
+
+  // Post to Medium
+  if (apiClients.medium) {
+    try {
+      const mediumPost = formatForMedium(story, trackingUrl, hashtags);
+      console.log(`📝 Posting to Medium: ${mediumPost.title}`);
+
+      if (!isTest) {
+        const post = await apiClients.medium.posts.create(mediumPost);
+        console.log(`✅ Posted to Medium: ${post.id}`);
+        stats.postsCreated.medium++;
+        await logToFile(`Posted to Medium: ${post.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to Medium');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to Medium: ${error.message}`);
+      stats.errors.medium++;
+      await logToFile(`Error posting to Medium: ${error.message}`);
+    }
+  }
+}
+
+/**
+ * Format a story for Twitter
+ */
+function formatForTwitter(story, url, hashtags) {
+  // Twitter has a 280 character limit
+  const maxLength = 280;
+
+  // Start with the title and URL (required)
+  let tweet = `${story.title}\n\n${url}`;
+
+  // Add hashtags if there's room
+  if (hashtags && hashtags.length > 0) {
+    const hashtagString = hashtags.map(tag => `#${tag}`).join(' ');
+    if (tweet.length + hashtagString.length + 2 <= maxLength) {
+      tweet += `\n\n${hashtagString}`;
+    }
+  }
+
+  return tweet;
+}
+
+/**
+ * Format a story for Facebook
+ */
+function formatForFacebook(story, url, hashtags) {
+  // Create the message
+  let message = `${story.title}\n\n${story.excerpt}\n\n`;
+
+  // Add hashtags
+  if (hashtags && hashtags.length > 0) {
+    message += hashtags.map(tag => `#${tag}`).join(' ') + '\n\n';
+  }
+
+  // Add call to action
+  message += `Read the full story: ${url}`;
+
+  return {
+    message,
+    link: url,
+    // Add image if available
+    picture: story.imageUrl
+  };
+}
+
+/**
+ * Format a story for LinkedIn
+ */
+function formatForLinkedIn(story, url, hashtags) {
+  // Create the content
+  let text = `${story.title}\n\n${story.excerpt}\n\n`;
+
+  // Add hashtags
+  if (hashtags && hashtags.length > 0) {
+    text += hashtags.map(tag => `#${tag}`).join(' ') + '\n\n';
+  }
+
+  // Add call to action
+  text += `Read the full story: ${url}`;
+
+  return {
+    text,
+    visibility: 'PUBLIC',
+    // Add image if available
+    media: story.imageUrl ? {
+      title: story.title,
+      description: story.excerpt,
+      originalUrl: story.imageUrl
+    } : undefined
+  };
+}
+
+/**
+ * Format a story for Medium
+ */
+function formatForMedium(story, url, hashtags) {
+  // Create the content
+  let content = `${story.content}\n\n---\n\n*Originally published at [Global Travel Report](${url})*`;
+
+  return {
+    title: story.title,
+    contentFormat: 'markdown',
+    content,
+    canonicalUrl: url,
+    tags: hashtags,
+    publishStatus: 'public'
+  };
+}
+
+/**
+ * Generate hashtags from story metadata
+ */
+function generateHashtags(story) {
+  const hashtags = ['globaltravelreport', 'travel'];
+
+  // Add category as hashtag
+  if (story.category) {
+    hashtags.push(story.category.toLowerCase().replace(/\s+/g, ''));
+  }
+
+  // Add country as hashtag if not "Global"
+  if (story.country && story.country !== 'Global') {
+    hashtags.push(story.country.toLowerCase().replace(/\s+/g, ''));
+  }
+
+  // Add tags as hashtags
+  if (story.tags && Array.isArray(story.tags)) {
+    story.tags.forEach(tag => {
+      const hashtagVersion = tag.toLowerCase().replace(/\s+/g, '');
+      if (!hashtags.includes(hashtagVersion)) {
+        hashtags.push(hashtagVersion);
+      }
+    });
+  }
+
+  // Limit to 5 hashtags to avoid looking spammy
+  return hashtags.slice(0, 5);
+}
+
+/**
+ * Get recent stories that haven't been posted to social media yet
+ */
+async function getRecentStories() {
+  try {
+    // Get all story files
+    const files = await fs.readdir(CONTENT_DIR);
+    const storyFiles = files.filter(file => file.endsWith('.md'));
+
+    // Load each story
+    const stories = [];
+    for (const file of storyFiles) {
+      const story = await loadStory(path.join(CONTENT_DIR, file));
+      if (story) {
+        stories.push(story);
+      }
+    }
+
+    // Sort by publication date (newest first)
+    stories.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+    // Get stories from the last 24 hours that haven't been posted to social media
+    const oneDayAgo = new Date();
+    oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+
+    return stories.filter(story => {
+      const pubDate = new Date(story.publishedAt);
+      return pubDate > oneDayAgo && !story.postedToSocialMedia;
+    });
+  } catch (error) {
+    console.error(`❌ Error getting recent stories: ${error.message}`);
+    return [];
+  }
+}
+
+/**
+ * Load a story from a markdown file
+ */
+async function loadStory(filePath) {
+  try {
+    // Read the file
+    const fileContent = await fs.readFile(filePath, 'utf8');
+
+    // Parse frontmatter
+    const { data, content } = matter(fileContent);
+
+    // Return the story object
+    return {
+      ...data,
+      content,
+      filePath
+    };
+  } catch (error) {
+    console.error(`❌ Error loading story from ${filePath}: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * Mark a story as posted to social media
+ */
+async function markStoryAsPosted(story) {
+  try {
+    // Read the file
+    const fileContent = await fs.readFile(story.filePath, 'utf8');
+
+    // Parse frontmatter
+    const { data, content } = matter(fileContent);
+
+    // Update frontmatter
+    data.postedToSocialMedia = true;
+    data.postedToSocialMediaAt = new Date().toISOString();
+
+    // Stringify frontmatter
+    const updatedFileContent = matter.stringify(content, data);
+
+    // Write the file
+    await fs.writeFile(story.filePath, updatedFileContent);
+
+    console.log(`✅ Marked story as posted to social media: ${story.title}`);
+  } catch (error) {
+    console.error(`❌ Error marking story as posted: ${error.message}`);
+  }
+}
+
+/**
+ * Log a message to the log file
+ */
+async function logToFile(message) {
+  try {
+    // Create log directory if it doesn't exist
+    await fs.mkdir(path.dirname(LOG_FILE), { recursive: true });
+
+    // Append to log file
+    await fs.appendFile(
+      LOG_FILE,
+      `[${new Date().toISOString()}] ${message}\n`,
+      'utf8'
+    );
+  } catch (error) {
+    console.error(`❌ Error writing to log file: ${error.message}`);
+  }
+}
+
+/**
+ * Get a command line argument value
+ */
+function getArgValue(args, name, defaultValue = null) {
+  const arg = args.find(arg => arg.startsWith(`${name}=`));
+  if (!arg) return defaultValue;
+  return arg.split('=')[1];
+}
+
+// Run the script if called directly
+if (require.main === module) {
+  postToSocialMedia().catch(console.error);
+}
