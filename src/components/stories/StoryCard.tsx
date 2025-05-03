@@ -16,81 +16,99 @@ interface StoryCardProps {
 }
 
 const StoryCardComponent = ({ story, className }: StoryCardProps) => {
-  // Generate a unique image based on story category, title, and ID if no image is provided
-  const getUniqueImage = React.useCallback(() => {
+  // Generate a unique image and photographer based on story properties
+  const getUniqueImageAndPhotographer = React.useCallback(() => {
     // Always use our deterministic image selection algorithm
     // This ensures each story gets a unique image regardless of what's in the database
 
     // Expanded category-specific default images with more options
     const defaultImages = {
       'Travel': [
-        'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-        'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
-        'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
-        'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-        'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
-        'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
-        'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+        { url: 'https://images.unsplash.com/photo-1488085061387-422e29b40080', photographer: 'Jakob Owens', profileUrl: 'https://unsplash.com/@jakobowens1' },
+        { url: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', photographer: 'Asoggetti', profileUrl: 'https://unsplash.com/@asoggetti' },
+        { url: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b', photographer: 'Jaromir Kavan', profileUrl: 'https://unsplash.com/@jerrykavan' },
+        { url: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', photographer: 'Dino Reichmuth', profileUrl: 'https://unsplash.com/@dinoreichmuth' },
+        { url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470', photographer: 'Sylvain Mauroux', profileUrl: 'https://unsplash.com/@sylvainmauroux' },
+        { url: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0', photographer: 'Sime Basioli', profileUrl: 'https://unsplash.com/@basecore' },
+        { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800', photographer: 'Braden Jarvis', profileUrl: 'https://unsplash.com/@jarvisphoto' },
+        { url: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2', photographer: 'Simon Migaj', profileUrl: 'https://unsplash.com/@simonmigaj' },
+        { url: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a', photographer: 'Arto Marttinen', profileUrl: 'https://unsplash.com/@wandervisions' },
+        { url: 'https://images.unsplash.com/photo-1528127269322-539801943592', photographer: 'Emile Guillemot', profileUrl: 'https://unsplash.com/@emilegt' },
+        { url: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff', photographer: 'Thomas Tucker', profileUrl: 'https://unsplash.com/@tents_and_tread' },
+        { url: 'https://images.unsplash.com/photo-1528164344705-47542687000d', photographer: 'Davide Cantelli', profileUrl: 'https://unsplash.com/@cant89' }
       ],
       'Cruise': [
-        'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-        'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
-        'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
-        'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a',
-        'https://images.unsplash.com/photo-1548574169-47bca74f9515',
-        'https://images.unsplash.com/photo-1580541631950-7282082b03fe',
-        'https://images.unsplash.com/photo-1566375638485-8c4d8780ae10',
-        'https://images.unsplash.com/photo-1505118380757-91f5f5632de0',
-        'https://images.unsplash.com/photo-1559599746-8823b38544c6'
+        { url: 'https://images.unsplash.com/photo-1548574505-5e239809ee19', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b', photographer: 'Josiah Farrow', profileUrl: 'https://unsplash.com/@josiahfarrow' },
+        { url: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110', photographer: 'Vidar Nordli-Mathisen', profileUrl: 'https://unsplash.com/@vidarnm' },
+        { url: 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a', photographer: 'Vidar Nordli-Mathisen', profileUrl: 'https://unsplash.com/@vidarnm' },
+        { url: 'https://images.unsplash.com/photo-1548574169-47bca74f9515', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1566375638485-8c4d8780ae10', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0', photographer: 'Vidar Nordli-Mathisen', profileUrl: 'https://unsplash.com/@vidarnm' },
+        { url: 'https://images.unsplash.com/photo-1559599746-8823b38544c6', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1559599746-8823b38544c6', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1580394693539-9b20a140c7e3', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' },
+        { url: 'https://images.unsplash.com/photo-1580541631950-7282082b03fe', photographer: 'Alonso Reyes', profileUrl: 'https://unsplash.com/@alonsoreyes' }
       ],
       'Culture': [
-        'https://images.unsplash.com/photo-1493707553966-283afac8c358',
-        'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
-        'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
-        'https://images.unsplash.com/photo-1551913902-c92207136625',
-        'https://images.unsplash.com/photo-1552084117-56a987666449',
-        'https://images.unsplash.com/photo-1551966775-a4ddc8df052b',
-        'https://images.unsplash.com/photo-1518998053901-5348d3961a04',
-        'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0',
-        'https://images.unsplash.com/photo-1581872151274-8ede2e3f7d12'
+        { url: 'https://images.unsplash.com/photo-1493707553966-283afac8c358', photographer: 'Anthony Tran', profileUrl: 'https://unsplash.com/@anthonytran' },
+        { url: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5', photographer: 'Jingda Chen', profileUrl: 'https://unsplash.com/@jingda' },
+        { url: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be', photographer: 'Esteban Castle', profileUrl: 'https://unsplash.com/@estebancastle' },
+        { url: 'https://images.unsplash.com/photo-1551913902-c92207136625', photographer: 'Raimond Klavins', profileUrl: 'https://unsplash.com/@raimondklavins' },
+        { url: 'https://images.unsplash.com/photo-1552084117-56a987666449', photographer: 'Heidi Kaden', profileUrl: 'https://unsplash.com/@heidikaden' },
+        { url: 'https://images.unsplash.com/photo-1551966775-a4ddc8df052b', photographer: 'Raimond Klavins', profileUrl: 'https://unsplash.com/@raimondklavins' },
+        { url: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04', photographer: 'Jezael Melgoza', profileUrl: 'https://unsplash.com/@jezar' },
+        { url: 'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0', photographer: 'Shifaaz Shamoon', profileUrl: 'https://unsplash.com/@sotti' },
+        { url: 'https://images.unsplash.com/photo-1581872151274-8ede2e3f7d12', photographer: 'Shifaaz Shamoon', profileUrl: 'https://unsplash.com/@sotti' },
+        { url: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3', photographer: 'Jezael Melgoza', profileUrl: 'https://unsplash.com/@jezar' },
+        { url: 'https://images.unsplash.com/photo-1533105079780-92b9be482077', photographer: 'Dario Bronnimann', profileUrl: 'https://unsplash.com/@darby' },
+        { url: 'https://images.unsplash.com/photo-1516834474-48c0abc2a902', photographer: 'Jezael Melgoza', profileUrl: 'https://unsplash.com/@jezar' }
       ],
       'Food & Wine': [
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-        'https://images.unsplash.com/photo-1543352634-99a5d50ae78e',
-        'https://images.unsplash.com/photo-1533777324565-a040eb52facd',
-        'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
-        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0',
-        'https://images.unsplash.com/photo-1481931098730-318b6f776db0',
-        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
-        'https://images.unsplash.com/photo-1515778767554-195d641642a7',
-        'https://images.unsplash.com/photo-1482275548304-a58859dc31b7'
+        { url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1543352634-99a5d50ae78e', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1533777324565-a040eb52facd', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3', photographer: 'Kelsey Knight', profileUrl: 'https://unsplash.com/@kelseyannvere' },
+        { url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1481931098730-318b6f776db0', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1515778767554-195d641642a7', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1482275548304-a58859dc31b7', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' },
+        { url: 'https://images.unsplash.com/photo-1495147466023-ac5c588e2e94', photographer: 'Brooke Lark', profileUrl: 'https://unsplash.com/@brookelark' }
       ],
       'Adventure': [
-        'https://images.unsplash.com/photo-1551632811-561732d1e306',
-        'https://images.unsplash.com/photo-1527631746610-bca00a040d60',
-        'https://images.unsplash.com/photo-1516939884455-1445c8652f83',
-        'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd',
-        'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4',
-        'https://images.unsplash.com/photo-1533130061792-64b345e4a833',
-        'https://images.unsplash.com/photo-1496080174650-637e3f22fa03',
-        'https://images.unsplash.com/photo-1501555088652-021faa106b9b',
-        'https://images.unsplash.com/photo-1473773508845-188df298d2d1',
-        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0',
-        'https://images.unsplash.com/photo-1455156218388-5e61b526818b'
+        { url: 'https://images.unsplash.com/photo-1551632811-561732d1e306', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1516939884455-1445c8652f83', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1496080174650-637e3f22fa03', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1455156218388-5e61b526818b', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1542359649-31e03cd4d909', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1484910292437-025e5d13ce87', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' },
+        { url: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828', photographer: 'Flo Maderebner', profileUrl: 'https://unsplash.com/@flomaderebner' }
       ],
       'General': [
-        'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-        'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
-        'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
-        'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-        'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
-        'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
-        'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+        { url: 'https://images.unsplash.com/photo-1488085061387-422e29b40080', photographer: 'Jakob Owens', profileUrl: 'https://unsplash.com/@jakobowens1' },
+        { url: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', photographer: 'Asoggetti', profileUrl: 'https://unsplash.com/@asoggetti' },
+        { url: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b', photographer: 'Jaromir Kavan', profileUrl: 'https://unsplash.com/@jerrykavan' },
+        { url: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', photographer: 'Dino Reichmuth', profileUrl: 'https://unsplash.com/@dinoreichmuth' },
+        { url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470', photographer: 'Sylvain Mauroux', profileUrl: 'https://unsplash.com/@sylvainmauroux' },
+        { url: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0', photographer: 'Sime Basioli', profileUrl: 'https://unsplash.com/@basecore' },
+        { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800', photographer: 'Braden Jarvis', profileUrl: 'https://unsplash.com/@jarvisphoto' },
+        { url: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2', photographer: 'Simon Migaj', profileUrl: 'https://unsplash.com/@simonmigaj' },
+        { url: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a', photographer: 'Arto Marttinen', profileUrl: 'https://unsplash.com/@wandervisions' },
+        { url: 'https://images.unsplash.com/photo-1528127269322-539801943592', photographer: 'Emile Guillemot', profileUrl: 'https://unsplash.com/@emilegt' },
+        { url: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff', photographer: 'Thomas Tucker', profileUrl: 'https://unsplash.com/@tents_and_tread' },
+        { url: 'https://images.unsplash.com/photo-1528164344705-47542687000d', photographer: 'Davide Cantelli', profileUrl: 'https://unsplash.com/@cant89' }
       ]
     };
 
@@ -108,12 +126,21 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
     // Use the hash to select an image from the array
     const index = Math.abs(uniqueHash) % imageArray.length;
+    const selectedImage = imageArray[index];
 
-    return imageArray[index];
+    return {
+      imageUrl: selectedImage.url,
+      photographer: {
+        name: selectedImage.photographer,
+        url: selectedImage.profileUrl
+      }
+    };
   }, [story.category, story.title, story.id, story.slug]);
 
-  // Set the image source
-  const [imgSrc] = React.useState(getUniqueImage());
+  // Set the image source and photographer
+  const [imageData] = React.useState(getUniqueImageAndPhotographer());
+  const imgSrc = story.imageUrl || imageData.imageUrl;
+  const photographer = story.photographer || imageData.photographer;
 
   // Handle date formatting with our utility
   const formattedDate = React.useMemo(() => {
@@ -151,20 +178,20 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             containerClassName="relative"
             quality={85}
           />
-          {story.photographer && (
+          {photographer && (
             <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl z-10">
               Photo by{" "}
-              {story.photographer.url ? (
+              {photographer.url ? (
                 <a
-                  href={story.photographer.url}
+                  href={photographer.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold underline hover:text-gray-200"
                 >
-                  {story.photographer.name}
+                  {photographer.name}
                 </a>
               ) : (
-                <span className="font-bold">{story.photographer.name}</span>
+                <span className="font-bold">{photographer.name}</span>
               )}
               {" "}on{" "}
               <a
