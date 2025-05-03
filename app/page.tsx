@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { Suspense } from 'react';
 import { PopularStories } from '@/components/recommendations/PopularStories';
 import { getFeaturedCategories } from '@/src/config/categories';
+import WebsiteSchema from '@/components/WebsiteSchema';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -58,6 +59,9 @@ export default async function Home() {
 
   return (
     <>
+      {/* Add structured data for SEO */}
+      <WebsiteSchema />
+
       <Hero />
 
       {/* Featured Stories */}
