@@ -332,7 +332,9 @@ async function generateDailyStories() {
         feedTitle: "Global Travel Report",
         feedUrl: "https://www.globaltravelreport.com",
         guid: uuidv4(),
-        rewritten: false
+        rewritten: false,
+        // Set the publication date to today
+        pubDate: new Date().toISOString()
       };
 
       await saveStoriesToMarkdown([emergencyStory]);
@@ -546,7 +548,9 @@ Also, provide the following metadata in JSON format at the end:
         content,
         slug,
         ...metadata,
-        rewritten: true
+        rewritten: true,
+        // Preserve the original publication date
+        pubDate: story.pubDate
       };
     } catch (error) {
       retries++;
@@ -564,7 +568,9 @@ Also, provide the following metadata in JSON format at the end:
           country: 'Global',
           excerpt: story.content.substring(0, 150) + '...',
           keywords: ['travel'],
-          rewritten: false
+          rewritten: false,
+          // Preserve the original publication date
+          pubDate: story.pubDate
         };
       }
     }
@@ -575,7 +581,9 @@ Also, provide the following metadata in JSON format at the end:
   return {
     ...story,
     slug: createSlug(story.title),
-    rewritten: false
+    rewritten: false,
+    // Preserve the original publication date
+    pubDate: story.pubDate
   };
 }
 
@@ -828,10 +836,13 @@ async function saveStoriesToMarkdown(stories) {
         throw new Error('Could not create valid slug');
       }
 
+      // Use the original publication date if available, otherwise use current date
+      const pubDate = story.pubDate ? new Date(story.pubDate) : new Date();
+
       // Create frontmatter with defaults for missing fields
       const frontmatter = {
         title: story.title,
-        date: new Date().toISOString(),
+        date: pubDate.toISOString(),
         slug: slug,
         category: story.category || 'Travel',
         country: story.country || 'Global',
