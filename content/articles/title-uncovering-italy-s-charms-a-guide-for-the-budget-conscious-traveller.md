@@ -9,7 +9,6 @@ excerpt: >-
   travellers plan an affordable journey through the captivating regions of
   Italy.
 imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
-photographer:
   name: Story Capturer
   url: 'https://unsplash.com/@storycapturer'
 keywords:
@@ -19,7 +18,11 @@ keywords:
   - Affordable travel
   - Travel planning
 author: Global Travel Report Editorial Team
+photographer:
+  name: "Jaromir Kavan"
+  url: "https://unsplash.com/@jerrykavan"
 ---
+
 Title: Uncovering Italy's Charms: A Guide for the Budget-Conscious Traveller
 
 As a traveller, who wouldn't dream of a Mediterranean escape, an exhilarating road trip through undulating vineyards, or an immersive art-fuelled exploration of medieval cities? Italy, with its vast array of culinary, scenic, architectural, historical, and cultural attractions, is a dream destination that never fails to enchant its visitors.

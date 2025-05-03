@@ -16,9 +16,10 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Jakob Owens"
+  url: "https://unsplash.com/@jakobowens1"
 ---
+
 
 
 

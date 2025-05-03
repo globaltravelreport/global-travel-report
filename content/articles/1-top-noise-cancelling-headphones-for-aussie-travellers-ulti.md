@@ -1,8 +1,6 @@
 ---
 title: '''Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'''
 summary: >-
-  ### The Ultimate Guide to Choosing Noise-Cancelling Headphones for Australian
-  Travellers...
 date: '2025-04-06T05:50:45.855Z'
 country: International (General)
 type: Travel Essentials
@@ -13,15 +11,14 @@ imageLink: 'https://unsplash.com'
 slug: 1-top-noise-cancelling-headphones-for-aussie-travellers-ulti
 metaTitle: '''1. Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'''
 metaDescription: >-
-  ### The Ultimate Guide to Choosing Noise-Cancelling Headphones for Australian
-  Travellers...
 keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Asoggetti"
+  url: "https://unsplash.com/@asoggetti"
 ---
+
 
 
 

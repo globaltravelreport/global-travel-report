@@ -2,7 +2,6 @@
 title: '''UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
 summary: |-
 
-  ### Your Ultimate Guide to Exploring the UK from Australia...
 date: '2025-04-08T19:08:45.885Z'
 country: United Kingdom
 type: '''Culture, Food & Wine, Adventure'''
@@ -14,14 +13,14 @@ slug: 1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi
 metaTitle: '''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
 metaDescription: |-
 
-  ### Your Ultimate Guide to Exploring the UK from Australia...
 keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Esteban Castle"
+  url: "https://unsplash.com/@estebancastle"
 ---
+
 
 
 

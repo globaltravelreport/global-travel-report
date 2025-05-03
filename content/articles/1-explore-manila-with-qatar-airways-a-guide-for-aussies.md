@@ -1,8 +1,6 @@
 ---
 title: '''Explore Manila with Qatar Airways: A Guide for Aussies'''
 summary: >-
-  Flying to Manila from Australia has never been easier, thanks to the codeshare
-  agreement between Qatar Airways and Philippine Airlines. This partnersh...
 date: '2025-04-29T14:18:45.827Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
@@ -13,14 +11,13 @@ imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-with-qatar-airways-a-guide-for-aussies
 metaTitle: '''1. Explore Manila with Qatar Airways: A Guide for Aussies'''
 metaDescription: >-
-  Flying to Manila from Australia has never been easier, thanks to the codeshare
-  agreement between Qatar Airways and Philippine Airlines. This partnersh...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Story Capturer
-  url: 'https://unsplash.com/@storycapturer'
+  name: "Raimond Klavins"
+  url: "https://unsplash.com/@raimondklavins"
 ---
+
 
 
 

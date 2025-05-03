@@ -1,9 +1,6 @@
 ---
 title: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
 summary: >-
-  As Australian wanderlust continues to grow, two new museums in Asia are
-  sparking interest among cultural enthusiasts and art lovers. These
-  destination...
 date: '2025-04-16T16:11:45.903Z'
 country: '''Japan, Singapore'''
 type: '''Culture, Art'''
@@ -14,15 +11,13 @@ imageLink: 'https://unsplash.com'
 slug: asias-latest-museums-a-must-see-for-aussie-explorers
 metaTitle: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
 metaDescription: >-
-  As Australian wanderlust continues to grow, two new museums in Asia are
-  sparking interest among cultural enthusiasts and art lovers. These
-  destination...
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: "Esteban Castle"
+  url: "https://unsplash.com/@estebancastle"
 ---
+
 
 
 

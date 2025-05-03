@@ -16,9 +16,10 @@ originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Tr
 published: 'true'
 categories: '[]'
 photographer:
-  name: Story Capturer
-  url: 'https://unsplash.com/@storycapturer'
+  name: "Simon Migaj"
+  url: "https://unsplash.com/@simonmigaj"
 ---
+
 
 
 

@@ -2,7 +2,6 @@
 title: '''UK Travel Guide for Aussies: Best Deals & Tips'''
 summary: |-
 
-  The Ultimate UK Travel Guide for Australian Adventurers...
 date: '2025-04-18T20:10:45.857Z'
 country: United Kingdom
 type: Experience
@@ -14,15 +13,15 @@ slug: 1-uk-travel-guide-for-aussies-best-deals-tips-2023
 metaTitle: '''1. UK Travel Guide for Aussies: Best Deals & Tips 2023'''
 metaDescription: |-
 
-  The Ultimate UK Travel Guide for Australian Adventurers...
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Story Capturer
-  url: 'https://unsplash.com/@storycapturer'
+  name: "Dino Reichmuth"
+  url: "https://unsplash.com/@dinoreichmuth"
 ---
+
 
 
 

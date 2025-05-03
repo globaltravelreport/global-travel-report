@@ -2,8 +2,6 @@
 title: '''UK Travel Woes: What Aussies Need to Know'''
 summary: >-
 
-  In a startling move that has raised eyebrows across continents, allegations
-  have surfaced accusing the government of hampering the UK's tourism indus...
 date: '2025-04-05T11:02:45.913Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
@@ -15,14 +13,13 @@ slug: uk-travel-woes-what-aussies-need-to-know
 metaTitle: '''UK Travel Woes: What Aussies Need to Know'''
 metaDescription: >-
 
-  In a startling move that has raised eyebrows across continents, allegations
-  have surfaced accusing the government of hampering the UK's tourism indus...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Anthony Tran"
+  url: "https://unsplash.com/@anthonytran"
 ---
+
 
 
 

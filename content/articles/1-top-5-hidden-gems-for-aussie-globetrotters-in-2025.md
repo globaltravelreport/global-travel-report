@@ -15,9 +15,10 @@ keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 categories: '[]'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: "Esteban Castle"
+  url: "https://unsplash.com/@estebancastle"
 ---
+
 
 
 

@@ -16,9 +16,10 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Simon Migaj"
+  url: "https://unsplash.com/@simonmigaj"
 ---
+
 
 
 

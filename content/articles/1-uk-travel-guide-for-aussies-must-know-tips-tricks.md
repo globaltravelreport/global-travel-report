@@ -2,7 +2,6 @@
 title: '''UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
 summary: |-
 
-  Rewritten article...
 date: '2025-04-24T15:47:45.862Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
@@ -14,13 +13,13 @@ slug: 1-uk-travel-guide-for-aussies-must-know-tips-tricks
 metaTitle: '''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
 metaDescription: |-
 
-  Rewritten article...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Story Capturer
-  url: 'https://unsplash.com/@storycapturer'
+  name: "Esteban Castle"
+  url: "https://unsplash.com/@estebancastle"
 ---
+
 
 
 

@@ -16,9 +16,10 @@ originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Tr
 published: 'true'
 categories: '[]'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: "Jakob Owens"
+  url: "https://unsplash.com/@jakobowens1"
 ---
+
 
 
 

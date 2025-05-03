@@ -1,9 +1,6 @@
 ---
 title: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
 summary: >-
-  Australian adventurers seeking new horizons have reason to rejoice with
-  Philippine Airlines' direct flights from Manila to Doha, now in codeshare
-  part...
 date: '2025-04-14T17:27:45.907Z'
 country: Qatar
 type: '''Culture, Adventure'''
@@ -14,15 +11,13 @@ imageLink: 'https://unsplash.com'
 slug: fly-direct-manila-to-doha-with-philippine-airlines-qatar-air
 metaTitle: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
 metaDescription: >-
-  Australian adventurers seeking new horizons have reason to rejoice with
-  Philippine Airlines' direct flights from Manila to Doha, now in codeshare
-  part...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: "Raimond Klavins"
+  url: "https://unsplash.com/@raimondklavins"
 ---
+
 
 
 
