@@ -1,23 +1,29 @@
 ---
 title: Top 5 Underrated Gems for Aussie Explorers in
-summary: '>-'
+summary: >-
+
+  As Australian wanderlust continues to grow, seeking out lesser-trodden paths
+  has become the new trend. For those looking to escape the usual tourist ...
 date: '2025-04-26T21:02:45.853Z'
 country: '''Chile, Estonia, Malaysia, Slovenia, Senegal'''
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-top-5-underrated-gems-for-aussie-explorers-in-2025
 metaTitle: 1. Top 5 Underrated Gems for Aussie Explorers in 2025
-metaDescription: '>-'
+metaDescription: >-
+
+  As Australian wanderlust continues to grow, seeking out lesser-trodden paths
+  has become the new trend. For those looking to escape the usual tourist ...
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

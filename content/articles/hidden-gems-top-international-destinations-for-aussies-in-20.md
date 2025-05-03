@@ -1,16 +1,20 @@
 ---
 title: '''Hidden Gems: Top International Destinations for Aussies in'''
-summary: '>-'
+summary: >-
+  Gone are the days when Australian travelers stuck to the well-trodden paths of
+  Europe and Southeast Asia. In 2025, it's all about discovering those un...
 date: '2025-04-07T17:10:45.908Z'
 country: '''Ghana, Georgia'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: hidden-gems-top-international-destinations-for-aussies-in-20
 metaTitle: '''Hidden Gems: Top International Destinations for Aussies in 2025'''
-metaDescription: '>-'
+metaDescription: >-
+  Gone are the days when Australian travelers stuck to the well-trodden paths of
+  Europe and Southeast Asia. In 2025, it's all about discovering those un...
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:

@@ -8,7 +8,7 @@ country: Australia
 type: Cruise
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a'
+imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
 imageLink: 'https://unsplash.com'
 photographer:
   name: Sea Voyager

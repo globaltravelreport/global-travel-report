@@ -1,22 +1,22 @@
 ---
 title: Top 5 Hidden Gems for Aussie Globetrotters in
-summary: '>-'
+summary: 'Exploring the Roads Less Travelled: A 2025 Guide for Australian Adventurers...'
 date: '2025-04-10T10:39:45.850Z'
 country: '''Georgia, Namibia, Slovenia, Taiwan, Uruguay'''
 type: '''Adventure, Culture, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-top-5-hidden-gems-for-aussie-globetrotters-in-2025
 metaTitle: 1. Top 5 Hidden Gems for Aussie Globetrotters in 2025
-metaDescription: '>-'
+metaDescription: 'Exploring the Roads Less Travelled: A 2025 Guide for Australian Adventurers...'
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 categories: '[]'
 photographer:
-  name: Story Capturer
-  url: 'https://unsplash.com/@storycapturer'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

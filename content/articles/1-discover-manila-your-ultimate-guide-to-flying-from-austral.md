@@ -1,16 +1,20 @@
 ---
 title: '>-'
-summary: '>-'
+summary: |-
+
+  Embarking on a Manila Adventure: A Guide for Australian Travelers...
 date: '2025-04-23T02:53:45.817Z'
 country: Philippines
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
+imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-manila-your-ultimate-guide-to-flying-from-austral
 metaTitle: '>-'
-metaDescription: '>-'
+metaDescription: |-
+
+  Embarking on a Manila Adventure: A Guide for Australian Travelers...
 keywords: ''
 originalTitle: '>-'
 published: 'true'

@@ -1,16 +1,20 @@
 ---
 title: New Direct Flights from Copenhagen to Boost Aussie Travels
-summary: '>-'
+summary: >-
+  Explore Copenhagen with New Direct Flights Perfect for Australian
+  Travellers...
 date: '2025-04-09T03:41:45.837Z'
 country: Denmark
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-new-direct-flights-from-copenhagen-to-boost-aussie-travels
 metaTitle: 1. New Direct Flights from Copenhagen to Boost Aussie Travels
-metaDescription: '>-'
+metaDescription: >-
+  Explore Copenhagen with New Direct Flights Perfect for Australian
+  Travellers...
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 categories: '[]'

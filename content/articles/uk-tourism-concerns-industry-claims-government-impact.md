@@ -4,19 +4,19 @@ summary: United Kingdom
 date: '2025-05-02T20:38:45.913Z'
 country: Travel Industry Insights
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: >-
   'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'
 slug: uk-tourism-concerns-industry-claims-government-impact
 metaTitle: '''UK Tourism Concerns: Industry Claims Government Impact'''
-metaDescription: '>-'
+metaDescription: United Kingdom
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

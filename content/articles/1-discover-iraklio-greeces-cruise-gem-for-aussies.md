@@ -1,6 +1,8 @@
 ---
 title: '''Discover Iraklio: Greece''''s Cruise Gem for Aussies'''
-summary: '>-'
+summary: |-
+
+  Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...
 date: '2025-04-13T01:02:45.817Z'
 country: Greece
 type: '''Culture, Food & Wine, Adventure'''
@@ -10,7 +12,9 @@ imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-iraklio-greeces-cruise-gem-for-aussies
 metaTitle: '''1. Discover Iraklio: Greece''''s Cruise Gem for Aussies'''
-metaDescription: '>-'
+metaDescription: |-
+
+  Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 categories: '[]'

@@ -1,6 +1,8 @@
 ---
 title: '''UK Travel Guide for Aussies: Best Deals & Tips'''
-summary: '>-'
+summary: |-
+
+  The Ultimate UK Travel Guide for Australian Adventurers...
 date: '2025-04-18T20:10:45.857Z'
 country: United Kingdom
 type: Experience
@@ -10,7 +12,9 @@ imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-best-deals-tips-2023
 metaTitle: '''1. UK Travel Guide for Aussies: Best Deals & Tips 2023'''
-metaDescription: '>-'
+metaDescription: |-
+
+  The Ultimate UK Travel Guide for Australian Adventurers...
 keywords: ''
 originalTitle: '>-'
 published: 'true'

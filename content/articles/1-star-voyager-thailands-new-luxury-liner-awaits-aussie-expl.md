@@ -1,21 +1,27 @@
 ---
 title: '''Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
-summary: '>-'
+summary: >-
+  Embarking on a journey to position Thailand as a premier cruise hub, the
+  collaboration between the Tourism Authority of Thailand (TAT) and StarDream
+  C...
 date: '2025-04-12T17:07:45.847Z'
 country: Thailand
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl
 metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
-metaDescription: '>-'
+metaDescription: >-
+  Embarking on a journey to position Thailand as a premier cruise hub, the
+  collaboration between the Tourism Authority of Thailand (TAT) and StarDream
+  C...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Editorial Photographer
-  url: 'https://unsplash.com/@editorialphoto'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

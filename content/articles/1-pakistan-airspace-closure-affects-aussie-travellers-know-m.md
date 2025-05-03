@@ -1,21 +1,25 @@
 ---
 title: '''Pakistan Airspace Closure Affects Aussie Travellers: Know More'''
-summary: '>-'
+summary: >-
+  Australian Travellers Face Longer Routes to India Amid Pakistan Airspace
+  Closure...
 date: '2025-04-19T06:01:45.838Z'
 country: India
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-pakistan-airspace-closure-affects-aussie-travellers-know-m
 metaTitle: '''1. Pakistan Airspace Closure Affects Aussie Travellers: Know More'''
-metaDescription: '>-'
+metaDescription: >-
+  Australian Travellers Face Longer Routes to India Amid Pakistan Airspace
+  Closure...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

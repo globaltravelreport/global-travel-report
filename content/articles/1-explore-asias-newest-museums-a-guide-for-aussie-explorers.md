@@ -1,6 +1,9 @@
 ---
 title: '''Explore Asia''''s Newest Museums: A Guide for Aussie Explorers'''
-summary: '>-'
+summary: >-
+  Asia's cultural landscape is ever-evolving, and for Australians keen on
+  soaking up new artistic and historical insights, two new museums have opened
+  t...
 date: '2025-04-21T23:02:45.821Z'
 country: Asia
 type: Culture
@@ -10,14 +13,17 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-explorers
 metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Explorers'''
-metaDescription: '>-'
+metaDescription: >-
+  Asia's cultural landscape is ever-evolving, and for Australians keen on
+  soaking up new artistic and historical insights, two new museums have opened
+  t...
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Heritage Photographer
-  url: 'https://unsplash.com/@heritagephoto'
+  name: Tradition Capturer
+  url: 'https://unsplash.com/@traditioncapturer'
 ---
 
 

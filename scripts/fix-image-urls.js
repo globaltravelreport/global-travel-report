@@ -201,15 +201,28 @@ async function fixImageUrls() {
         // Parse the frontmatter
         const { data, content } = matter(fileContent);
 
+        // Fix the >- YAML syntax in summary and metaDescription
+        if (data.summary === '>-' || data.summary === '') {
+          // Generate a summary based on the first paragraph of content
+          const firstParagraph = content.split('\n\n').find(p => p.trim() !== '');
+          data.summary = firstParagraph ? firstParagraph.substring(0, 150) + '...' : '';
+        }
+
+        if (data.metaDescription === '>-' || data.metaDescription === '') {
+          // Use the summary as meta description
+          data.metaDescription = data.summary;
+        }
+
         // Always update the image URL to ensure uniqueness
         // Get the category or use 'Article' as default
         const category = data.type || 'Article';
 
-        // Get a unique image URL based on the title and category
-        data.imageUrl = getUniqueImageUrl(data.title || file, category);
+        // Get a unique image URL based on the title, slug, and category
+        // Adding the file name to ensure uniqueness
+        data.imageUrl = getUniqueImageUrl(data.title + '-' + file, category);
 
         // Get a unique photographer based on the title and category
-        const photographer = getUniquePhotographer(data.title || file, category);
+        const photographer = getUniquePhotographer(data.title + '-' + file, category);
 
         // Update the photographer information
         if (!data.photographer) {

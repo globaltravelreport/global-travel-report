@@ -1,23 +1,23 @@
 ---
 title: '''Jetstar''''s Mega Sale: $50 Flights for Aussies to Global Hotspots'''
-summary: '>-'
+summary: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 date: '2025-04-27T04:41:45.831Z'
 country: Multiple countries
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo
 metaTitle: '''1. Jetstar''''s Mega Sale: $50 Flights for Aussies to Global Hotspots'''
-metaDescription: '>-'
+metaDescription: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: Editorial Photographer
+  url: 'https://unsplash.com/@editorialphoto'
 ---
 
 

@@ -1,16 +1,20 @@
 ---
 title: '''UK Travel Guide: Tips for Aussies Planning Their British Escape'''
-summary: '>-'
+summary: |-
+
+  A Guide for Australians Travelling to the UK: Everything You Need to Know...
 date: '2025-04-12T02:25:45.893Z'
 country: United Kingdom
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-tips-for-aussies-planning-their-british-es
 metaTitle: '''1. UK Travel Guide: Tips for Aussies Planning Their British Escape'''
-metaDescription: '>-'
+metaDescription: |-
+
+  A Guide for Australians Travelling to the UK: Everything You Need to Know...
 keywords: ''
 originalTitle: '>-'
 published: 'true'

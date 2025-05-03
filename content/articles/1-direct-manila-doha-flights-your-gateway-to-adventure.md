@@ -1,16 +1,20 @@
 ---
 title: '''1. Direct Manila-Doha Flights: Your Gateway to Adventure'''
-summary: '>-'
+summary: >-
+  7. **Direct Flights from Manila to Doha: A New Adventure Awaits Australian
+  Travelers**...
 date: '2025-04-30T08:01:45.812Z'
 country: '''11. Primary destination country: Qatar'''
 type: '''13. Type of travel: Adventure, Culture, Luxury'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-direct-manila-doha-flights-your-gateway-to-adventure
 metaTitle: '''1. Direct Manila-Doha Flights: Your Gateway to Adventure'''
-metaDescription: '>-'
+metaDescription: >-
+  7. **Direct Flights from Manila to Doha: A New Adventure Awaits Australian
+  Travelers**...
 keywords: ''
 originalTitle: '>-'
 photographer:

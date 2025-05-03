@@ -1,16 +1,20 @@
 ---
 title: Best Noise-Cancelling Headphones for Aussie Travellers
-summary: '>-'
+summary: >-
+  When it comes to jet-setting from Down Under to the far reaches of our planet,
+  the journey can be just as important as the destination. Whether you're...
 date: '2025-04-10T05:54:45.904Z'
 country: Multiple destinations
 type: Travel Essentials
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: best-noise-cancelling-headphones-for-aussie-travellers
 metaTitle: Best Noise-Cancelling Headphones for Aussie Travellers
-metaDescription: '>-'
+metaDescription: >-
+  When it comes to jet-setting from Down Under to the far reaches of our planet,
+  the journey can be just as important as the destination. Whether you're...
 keywords: ''
 originalTitle: '>-'
 photographer:

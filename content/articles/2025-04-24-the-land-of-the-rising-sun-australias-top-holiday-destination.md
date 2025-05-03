@@ -1,6 +1,9 @@
 ---
 title: '''The Land of the Rising Sun: Australia''''s Top Holiday Destination'''
-summary: '>-'
+summary: >-
+
+  From the electric buzz of Tokyo's neon-doused streets to the tranquil harmony
+  of Kyoto's temples, Australian visitors are flocking to Japan in unprec...
 keywords: ''
 slug: the-land-of-the-rising-sun-australias-top-holiday-destination
 date: '2025-04-28T07:35:45.902Z'
@@ -8,11 +11,11 @@ country: Australia
 type: Airline
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b'
+imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
 imageLink: 'https://unsplash.com'
 photographer:
-  name: Aviation Photographer
-  url: 'https://unsplash.com/@aviationphoto'
+  name: Sky Capturer
+  url: 'https://unsplash.com/@skycapturer'
 ---
 
 

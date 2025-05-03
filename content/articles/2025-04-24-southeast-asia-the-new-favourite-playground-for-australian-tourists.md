@@ -1,6 +1,10 @@
 ---
 title: '''Southeast Asia: The New Favourite Playground for Australian Tourists'''
-summary: '>-'
+summary: >-
+
+  Southeast Asia, with its rich cultural tapestry, sun-kissed beaches, and
+  wallet-friendly luxury, has emerged as the top travel hotspot for
+  Australian...
 keywords: ''
 slug: southeast-asia-the-new-favourite-playground-for-australian-tourists
 date: '2025-04-17T06:54:45.902Z'
@@ -8,7 +12,7 @@ country: Australia
 type: Airline
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
+imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
 imageLink: 'https://unsplash.com'
 photographer:
   name: Aviation Photographer

@@ -1,21 +1,25 @@
 ---
 title: '''UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
-summary: '>-'
+summary: |-
+
+  Rewritten article...
 date: '2025-04-24T15:47:45.862Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-must-know-tips-tricks
 metaTitle: '''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
-metaDescription: '>-'
+metaDescription: |-
+
+  Rewritten article...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Narrative Lens
-  url: 'https://unsplash.com/@narrativelens'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

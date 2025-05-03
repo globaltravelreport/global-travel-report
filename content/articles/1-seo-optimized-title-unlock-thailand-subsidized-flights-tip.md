@@ -1,6 +1,9 @@
 ---
 title: '|-'
-summary: '>-'
+summary: |-
+
+  Rewritten article
+  ...
 date: '2025-04-18T06:18:45.846Z'
 country: '>-'
 type: Destination

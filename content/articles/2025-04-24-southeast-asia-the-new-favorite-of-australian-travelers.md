@@ -1,20 +1,23 @@
 ---
 title: '''Southeast Asia: The New Favorite of Australian Travelers'''
-summary: '>-'
+summary: >-
+
+  In the travel sphere, Australia's compass is pointing firmly towards Southeast
+  Asia. According to recent data, the region has claimed the crown as th...
 keywords: ''
 slug: southeast-asia-the-new-favorite-of-australian-travelers
 date: '2025-04-17T07:41:45.901Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b'
+imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
 imageAlt: city buildings during daytime
 imageCredit: Aniq Danial on Unsplash
 imageLink: '''https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Flight Enthusiast
-  url: 'https://unsplash.com/@flightenthusiast'
+  name: Sky Capturer
+  url: 'https://unsplash.com/@skycapturer'
 ---
 
 

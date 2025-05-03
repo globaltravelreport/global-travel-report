@@ -10,7 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202
 metaTitle: 1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
-metaDescription: '>-'
+metaDescription: ''''''
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'

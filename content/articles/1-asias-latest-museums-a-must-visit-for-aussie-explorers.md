@@ -1,6 +1,6 @@
 ---
 title: '''Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
-summary: '>-'
+summary: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
 date: '2025-04-27T00:46:45.803Z'
 country: Multiple countries in Asia
 type: Culture
@@ -10,7 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-asias-latest-museums-a-must-visit-for-aussie-explorers
 metaTitle: '''1. Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
-metaDescription: '>-'
+metaDescription: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'

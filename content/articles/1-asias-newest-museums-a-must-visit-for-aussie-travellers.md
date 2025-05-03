@@ -1,16 +1,16 @@
 ---
 title: '''Asia''''s Newest Museums: A Must-Visit for Aussie Travellers'''
-summary: '>-'
+summary: Rewritten article...
 date: '2025-04-24T12:28:45.809Z'
 country: '|-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
+imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-asias-newest-museums-a-must-visit-for-aussie-travellers
 metaTitle: '''1. **Asia''''s Newest Museums: A Must-Visit for Aussie Travellers**'''
-metaDescription: '>-'
+metaDescription: Rewritten article...
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'

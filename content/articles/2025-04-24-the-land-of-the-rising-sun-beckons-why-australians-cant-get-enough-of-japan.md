@@ -2,21 +2,25 @@
 title: >-
   'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of
   Japan'
-summary: '>-'
+summary: >-
+
+  Japan, with its unique blend of time-honored customs and cutting-edge
+  innovation, has become an irresistible magnet for Australians seeking
+  adventure...
 keywords: ''
 slug: the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan
 date: '2025-04-18T13:46:45.903Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
 imageAlt: people gathered outside buildings and vehicles
 imageCredit: Jezael Melgoza on Unsplash
 imageLink: 'https://unsplash.com'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Flight Enthusiast
-  url: 'https://unsplash.com/@flightenthusiast'
+  name: Aviation Photographer
+  url: 'https://unsplash.com/@aviationphoto'
 ---
 
 

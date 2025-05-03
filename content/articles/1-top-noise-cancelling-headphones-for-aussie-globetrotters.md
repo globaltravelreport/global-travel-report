@@ -1,23 +1,29 @@
 ---
 title: Top Noise-Cancelling Headphones for Aussie Globetrotters
-summary: '>-'
+summary: >-
+
+  As Australian wanderlusts gear up for their next international escape, knowing
+  the best noise-cancelling headphones to bring along can transform the ...
 date: '2025-04-13T18:40:45.854Z'
 country: '>-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b'
+imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-top-noise-cancelling-headphones-for-aussie-globetrotters
 metaTitle: 1. Top Noise-Cancelling Headphones for Aussie Globetrotters
-metaDescription: '>-'
+metaDescription: >-
+
+  As Australian wanderlusts gear up for their next international escape, knowing
+  the best noise-cancelling headphones to bring along can transform the ...
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Flight Enthusiast
-  url: 'https://unsplash.com/@flightenthusiast'
+  name: Sky Capturer
+  url: 'https://unsplash.com/@skycapturer'
 ---
 
 

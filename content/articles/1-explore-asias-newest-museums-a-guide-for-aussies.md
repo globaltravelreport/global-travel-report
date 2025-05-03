@@ -1,23 +1,23 @@
 ---
 title: '''Explore Asia''''s Newest Museums: A Guide for Aussies'''
-summary: '>-'
+summary: 'Rewritten article:...'
 date: '2025-04-08T14:28:45.823Z'
 country: Asia (Various)
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b'
+imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussies
 metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussies'''
-metaDescription: '>-'
+metaDescription: 'Rewritten article:...'
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Flight Enthusiast
-  url: 'https://unsplash.com/@flightenthusiast'
+  name: Sky Capturer
+  url: 'https://unsplash.com/@skycapturer'
 ---
 
 
