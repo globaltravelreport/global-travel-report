@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X, Search } from 'lucide-react';
 import Image from 'next/image';
 import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { EnhancedSearchBar } from '@/src/components/search/EnhancedSearchBar';
+import { Story } from '@/types/Story';
 
 const countries = [
   'Australia', 'Japan', 'United States', 'United Kingdom', 'France',
@@ -27,7 +29,26 @@ export function Header() {
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState('');
   const [categorySearch, setCategorySearch] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [stories, setStories] = useState<Story[]>([]);
   const pathname = usePathname();
+
+  // Fetch stories for search suggestions
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const response = await fetch('/api/stories');
+        if (response.ok) {
+          const data = await response.json();
+          setStories(data.stories || []);
+        }
+      } catch (error) {
+        console.error('Error fetching stories for search:', error);
+      }
+    };
+
+    fetchStories();
+  }, []);
 
   const filteredCountries = countries.filter(country =>
     country.toLowerCase().includes(countrySearch.toLowerCase())
@@ -57,7 +78,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
               className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/') ? 'font-bold underline' : ''}`}
@@ -148,6 +169,15 @@ export function Header() {
             >
               Contact
             </Link>
+
+            {/* Search Button */}
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="text-[#C9A14A] hover:text-white transition-colors p-2 rounded-full hover:bg-[#1a2b3f]"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
 
             {/* Social Media Icons */}
             <div className="flex items-center space-x-3">
@@ -312,6 +342,18 @@ export function Header() {
                 Contact
               </Link>
 
+              {/* Search Button - Mobile */}
+              <button
+                className="flex items-center text-[#C9A14A] hover:text-white transition-colors"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsSearchOpen(true);
+                }}
+              >
+                <Search className="w-5 h-5 mr-2" />
+                Search
+              </button>
+
               {/* Social Media Icons - Mobile */}
               <div className="flex items-center space-x-4 pt-4">
                 <a
@@ -364,6 +406,51 @@ export function Header() {
           </div>
         )}
       </div>
+
+      {/* Search Modal */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center pt-20 px-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl">
+            <div className="p-4">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-gray-800">Search Global Travel Report</h2>
+                <button
+                  onClick={() => setIsSearchOpen(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                  aria-label="Close search"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <EnhancedSearchBar
+                stories={stories}
+                placeholder="Search for destinations, travel tips, and more..."
+                onSearch={(query) => {
+                  window.location.href = `/search?q=${encodeURIComponent(query)}`;
+                  setIsSearchOpen(false);
+                }}
+              />
+
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <h3 className="text-sm font-medium text-gray-500 mb-2">Popular Categories</h3>
+                <div className="flex flex-wrap gap-2">
+                  {categories.slice(0, 8).map((category) => (
+                    <Link
+                      key={category}
+                      href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-700"
+                      onClick={() => setIsSearchOpen(false)}
+                    >
+                      {category}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
