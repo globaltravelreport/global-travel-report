@@ -32,4 +32,4 @@ To keep your budget in check, consider flying into secondary airports served by 
 
 In conclusion, travelling through Italy on a budget is entirely possible with careful planning and smart choices. Implement these practical tips, and you'll be well on your way to creating unforgettable Italian memories without emptying your wallet.
 
-Metadata in JSON:
+
