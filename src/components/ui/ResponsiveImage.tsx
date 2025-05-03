@@ -56,14 +56,53 @@ export function ResponsiveImage({
   const [imageSrc, setImageSrc] = useState(() => {
     // Check if src is a valid URL
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
-      // Return a default image based on the alt text
-      if (alt.toLowerCase().includes('cruise')) {
-        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
-      } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
-      } else {
-        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      // Generate a more unique fallback based on the alt text
+      const altText = alt.toLowerCase();
+
+      // Category-specific default images with multiple options
+      const defaultImages = {
+        'cruise': [
+          'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+          'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+          'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
+        ],
+        'food': [
+          'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+          'https://images.unsplash.com/photo-1543352634-99a5d50ae78e',
+          'https://images.unsplash.com/photo-1533777324565-a040eb52facd'
+        ],
+        'wine': [
+          'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
+          'https://images.unsplash.com/photo-1566452348683-79a64b069598',
+          'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb'
+        ],
+        'travel': [
+          'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+          'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+          'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+        ],
+        'adventure': [
+          'https://images.unsplash.com/photo-1551632811-561732d1e306',
+          'https://images.unsplash.com/photo-1527631746610-bca00a040d60',
+          'https://images.unsplash.com/photo-1516939884455-1445c8652f83'
+        ]
+      };
+
+      // Find matching category
+      let category = 'travel'; // Default
+      for (const key of Object.keys(defaultImages)) {
+        if (altText.includes(key)) {
+          category = key;
+          break;
+        }
       }
+
+      // Use the alt text to deterministically select an image from the array
+      const altHash = alt.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const imageArray = defaultImages[category];
+      const index = altHash % imageArray.length;
+
+      return imageArray[index];
     }
     return src;
   });
@@ -97,16 +136,54 @@ export function ResponsiveImage({
       // We're already using a fallback, so just report the error
       if (onError) onError();
     } else {
-      // Try a different fallback image based on the alt text
-      let fallbackSrc = 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      // Generate a unique fallback based on the alt text
+      const altText = alt.toLowerCase();
 
-      if (alt.toLowerCase().includes('cruise')) {
-        fallbackSrc = 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
-      } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-        fallbackSrc = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+      // Category-specific default images with multiple options
+      const defaultImages = {
+        'cruise': [
+          'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+          'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+          'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
+        ],
+        'food': [
+          'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+          'https://images.unsplash.com/photo-1543352634-99a5d50ae78e',
+          'https://images.unsplash.com/photo-1533777324565-a040eb52facd'
+        ],
+        'wine': [
+          'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
+          'https://images.unsplash.com/photo-1566452348683-79a64b069598',
+          'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb'
+        ],
+        'travel': [
+          'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+          'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+          'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+        ],
+        'adventure': [
+          'https://images.unsplash.com/photo-1551632811-561732d1e306',
+          'https://images.unsplash.com/photo-1527631746610-bca00a040d60',
+          'https://images.unsplash.com/photo-1516939884455-1445c8652f83'
+        ]
+      };
+
+      // Find matching category
+      let category = 'travel'; // Default
+      for (const key of Object.keys(defaultImages)) {
+        if (altText.includes(key)) {
+          category = key;
+          break;
+        }
       }
 
-      setImageSrc(fallbackSrc);
+      // Use the alt text to deterministically select an image from the array
+      // But use a different hash function than the initial one to get a different image
+      const altHash = alt.split('').reduce((acc, char, i) => acc + char.charCodeAt(0) * (i + 1), 0);
+      const imageArray = defaultImages[category];
+      const index = altHash % imageArray.length;
+
+      setImageSrc(imageArray[index]);
     }
   };
 

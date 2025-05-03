@@ -16,8 +16,54 @@ interface StoryCardProps {
 }
 
 const StoryCardComponent = ({ story, className }: StoryCardProps) => {
-  // We only need imgSrc state, not the setter
-  const [imgSrc] = React.useState(story.imageUrl || '/images/placeholder.svg');
+  // Generate a unique image based on story category and title if no image is provided
+  const getUniqueImage = React.useCallback(() => {
+    if (story.imageUrl && story.imageUrl.startsWith('http')) {
+      return story.imageUrl;
+    }
+
+    // Category-specific default images
+    const defaultImages = {
+      'Travel': [
+        'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+        'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+      ],
+      'Cruise': [
+        'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+        'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+        'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
+      ],
+      'Culture': [
+        'https://images.unsplash.com/photo-1493707553966-283afac8c358',
+        'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
+        'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+      ],
+      'Food & Wine': [
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+        'https://images.unsplash.com/photo-1543352634-99a5d50ae78e',
+        'https://images.unsplash.com/photo-1533777324565-a040eb52facd'
+      ],
+      'Adventure': [
+        'https://images.unsplash.com/photo-1551632811-561732d1e306',
+        'https://images.unsplash.com/photo-1527631746610-bca00a040d60',
+        'https://images.unsplash.com/photo-1516939884455-1445c8652f83'
+      ]
+    };
+
+    // Get the category or use 'Travel' as default
+    const category = story.category.split(',')[0].trim();
+    const imageArray = defaultImages[category] || defaultImages['Travel'];
+
+    // Use the story title to deterministically select an image from the array
+    const titleHash = story.title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const index = titleHash % imageArray.length;
+
+    return imageArray[index];
+  }, [story.imageUrl, story.category, story.title]);
+
+  // Set the image source
+  const [imgSrc] = React.useState(getUniqueImage());
 
   // Handle date formatting with our utility
   const formattedDate = React.useMemo(() => {

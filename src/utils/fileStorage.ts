@@ -256,27 +256,85 @@ export async function getAllStories(): Promise<Story[]> {
             };
           }
 
-          // If we still don't have a valid image URL, use a default based on category
+          // If we still don't have a valid image URL, use a default based on category and story title
           if (!story.imageUrl) {
+            // Category-specific default images with multiple options for variety
             const defaultImages = {
-              'Travel': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-              'Cruise': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-              'Destination': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-              'Adventure': 'https://images.unsplash.com/photo-1551632811-561732d1e306',
-              'Culture': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
-              'Food & Wine': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836'
+              'Travel': [
+                'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+                'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+                'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
+                'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+              ],
+              'Cruise': [
+                'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+                'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+                'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
+                'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a'
+              ],
+              'Destination': [
+                'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+                'https://images.unsplash.com/photo-1467269204594-9661b134dd2b',
+                'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9',
+                'https://images.unsplash.com/photo-1530841377377-3ff06c0ca713'
+              ],
+              'Adventure': [
+                'https://images.unsplash.com/photo-1551632811-561732d1e306',
+                'https://images.unsplash.com/photo-1527631746610-bca00a040d60',
+                'https://images.unsplash.com/photo-1516939884455-1445c8652f83',
+                'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd'
+              ],
+              'Culture': [
+                'https://images.unsplash.com/photo-1493707553966-283afac8c358',
+                'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
+                'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
+                'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+              ],
+              'Food & Wine': [
+                'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+                'https://images.unsplash.com/photo-1543352634-99a5d50ae78e',
+                'https://images.unsplash.com/photo-1533777324565-a040eb52facd',
+                'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3'
+              ],
+              'Airline': [
+                'https://images.unsplash.com/photo-1436491865332-7a61a109cc05',
+                'https://images.unsplash.com/photo-1569154941061-e231b4725ef1',
+                'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b',
+                'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
+              ],
+              'Hotel': [
+                'https://images.unsplash.com/photo-1566073771259-6a8506099945',
+                'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa',
+                'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4',
+                'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb'
+              ]
             };
 
             // Find a matching category or use Travel as default
             const category = story.category.split(',')[0].trim();
-            story.imageUrl = defaultImages[category] || defaultImages['Travel'];
+            const imageArray = defaultImages[category] || defaultImages['Travel'];
+
+            // Use the story title to deterministically select an image from the array
+            const titleHash = story.title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            const index = titleHash % imageArray.length;
+
+            story.imageUrl = imageArray[index];
 
             // Add default photographer if none exists
             if (!story.photographer) {
-              story.photographer = {
-                name: 'Unsplash Photographer',
-                url: 'https://unsplash.com'
+              // Different photographers for different categories
+              const photographers = {
+                'Travel': { name: 'Travel Photographer', url: 'https://unsplash.com/@travelphoto' },
+                'Cruise': { name: 'Ocean Explorer', url: 'https://unsplash.com/@oceanexplorer' },
+                'Destination': { name: 'Destination Guide', url: 'https://unsplash.com/@destguide' },
+                'Adventure': { name: 'Adventure Seeker', url: 'https://unsplash.com/@adventureseeker' },
+                'Culture': { name: 'Culture Enthusiast', url: 'https://unsplash.com/@cultureenthusiast' },
+                'Food & Wine': { name: 'Food Photographer', url: 'https://unsplash.com/@foodphoto' },
+                'Airline': { name: 'Aviation Photographer', url: 'https://unsplash.com/@aviationphoto' },
+                'Hotel': { name: 'Hotel Photographer', url: 'https://unsplash.com/@hotelphoto' }
               };
+
+              story.photographer = photographers[category] || { name: 'Unsplash Photographer', url: 'https://unsplash.com' };
             }
           }
 
