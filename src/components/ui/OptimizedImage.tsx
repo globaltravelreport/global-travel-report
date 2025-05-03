@@ -97,22 +97,10 @@ export function OptimizedImage({
     // Log the image URL for debugging
     console.log('Image URL:', src);
 
-    // Optimize Unsplash URLs for better performance
-    if (isUnsplashImage) {
-      try {
-        const url = new URL(src);
-        // Add auto format and quality parameters
-        url.searchParams.set('auto', 'format');
-        url.searchParams.set('q', quality.toString());
-        return url.toString();
-      } catch (e) {
-        console.error('Error parsing Unsplash URL:', e);
-        return src;
-      }
-    }
-
+    // IMPORTANT: Always use the exact URL provided
+    // This ensures we respect the image URLs from the story files
     return src;
-  }, [src, isUnsplashImage, quality]);
+  }, [src]);
 
   return (
     <div
@@ -189,6 +177,8 @@ export function StoryCoverImage({
     // Log the image URL for debugging
     console.log('StoryCoverImage URL:', src);
 
+    // IMPORTANT: Always use the exact URL provided if it's valid
+    // This ensures we respect the image URLs from the story files
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
       // Return a default image based on the alt text
       if (alt.toLowerCase().includes('cruise')) {
@@ -199,27 +189,24 @@ export function StoryCoverImage({
         return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
       }
     }
+
+    // Always use the exact URL provided
     return src;
   });
 
   // Handle image error
   const handleImageError = () => {
-    // If the image fails to load, try a fallback
+    // If the image fails to load, use a simple fallback
     if (src !== validatedSrc) {
       // We're already using a fallback, don't change again
       return;
     }
 
-    // Try a different fallback image based on the alt text
-    let fallbackSrc = 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+    // Use a reliable fallback image
+    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080');
 
-    if (alt.toLowerCase().includes('cruise')) {
-      fallbackSrc = 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
-    } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-      fallbackSrc = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
-    }
-
-    setValidatedSrc(fallbackSrc);
+    // Log the error for debugging
+    console.error(`Image failed to load: ${src}`);
   };
 
   // Determine the platform URL and name
