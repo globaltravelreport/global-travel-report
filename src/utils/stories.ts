@@ -70,10 +70,10 @@ export function isWithinLast7Days(date: Date | string): boolean {
 /**
  * Check if a story is archived (older than specified days)
  * @param story - The story to check
- * @param days - Number of days to consider for archiving (default: 30)
+ * @param days - Number of days to consider for archiving (default: 7)
  * @returns Boolean indicating if the story is archived
  */
-export const isStoryArchived = memoize((story: Story, days: number = 30): boolean => {
+export const isStoryArchived = memoize((story: Story, days: number = 7): boolean => {
   return isArchived(story.publishedAt, days);
 });
 
@@ -241,7 +241,32 @@ export const getStoriesByCategory = memoizeMultiArg(
   ): PaginationResult<Story> => {
     // First filter and sort the stories
     const filteredStories = Array.isArray(stories) ? stories
-      .filter(story => story.category.toLowerCase() === category.toLowerCase())
+      .filter(story => {
+        // Check both category and type fields (some stories use type instead of category)
+        const storyCategory = story.category || '';
+        const storyType = story.type || '';
+
+        // Normalize category names for comparison
+        const normalizedCategory = category.toLowerCase();
+        const normalizedStoryCategory = storyCategory.toLowerCase();
+        const normalizedStoryType = storyType.toLowerCase();
+
+        // Special case for "Cruise" category
+        if (normalizedCategory === 'cruise' || normalizedCategory === 'cruises') {
+          return normalizedStoryCategory === 'cruise' ||
+                 normalizedStoryCategory === 'cruises' ||
+                 normalizedStoryType === 'cruise' ||
+                 normalizedStoryType === 'cruises' ||
+                 normalizedStoryCategory.includes('cruise') ||
+                 normalizedStoryType.includes('cruise');
+        }
+
+        // General case for other categories
+        return normalizedStoryCategory === normalizedCategory ||
+               normalizedStoryType === normalizedCategory ||
+               normalizedStoryCategory.includes(normalizedCategory) ||
+               normalizedStoryType.includes(normalizedCategory);
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
         const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
@@ -337,9 +362,32 @@ export const searchStories = memoizeMultiArg(
     // Category filter
     if (params.category) {
       const category = params.category;
-      filteredStories = filteredStories.filter(story =>
-        story.category.toLowerCase() === category.toLowerCase()
-      );
+      filteredStories = filteredStories.filter(story => {
+        // Check both category and type fields (some stories use type instead of category)
+        const storyCategory = story.category || '';
+        const storyType = story.type || '';
+
+        // Normalize category names for comparison
+        const normalizedCategory = category.toLowerCase();
+        const normalizedStoryCategory = storyCategory.toLowerCase();
+        const normalizedStoryType = storyType.toLowerCase();
+
+        // Special case for "Cruise" category
+        if (normalizedCategory === 'cruise' || normalizedCategory === 'cruises') {
+          return normalizedStoryCategory === 'cruise' ||
+                 normalizedStoryCategory === 'cruises' ||
+                 normalizedStoryType === 'cruise' ||
+                 normalizedStoryType === 'cruises' ||
+                 normalizedStoryCategory.includes('cruise') ||
+                 normalizedStoryType.includes('cruise');
+        }
+
+        // General case for other categories
+        return normalizedStoryCategory === normalizedCategory ||
+               normalizedStoryType === normalizedCategory ||
+               normalizedStoryCategory.includes(normalizedCategory) ||
+               normalizedStoryType.includes(normalizedCategory);
+      });
     }
 
     // Country filter
