@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { StoryProcessorService } from '@/src/services/storyProcessorService';
+import { NewStoryProcessorService } from '@/src/services/newStoryProcessorService';
 
-// Use Edge runtime for compatibility with Vercel
-export const runtime = 'edge';
+// This needs to run in Node.js environment, not Edge
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get the story processor service
-    const storyProcessor = StoryProcessorService.getInstance();
+    const storyProcessor = NewStoryProcessorService.getInstance();
 
     // Check if processing is already running
     if (storyProcessor.isCurrentlyProcessing()) {
