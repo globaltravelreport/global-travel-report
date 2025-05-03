@@ -1,9 +1,8 @@
 ---
 title: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
-summary: >-
-
+summary: "
   # Explore Manila with Ease: Qatar Airways' New Codeshare Flights from
-  Australia...
+  Australia..."
 date: '2025-04-15T17:24:45.826Z'
 country: Philippines
 type: Experience
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-new-qatar-airways-codeshare-flights-for-aus
 metaTitle: '''1. Explore Manila: New Qatar Airways Codeshare Flights for Aussies'''
-metaDescription: >-
-
+metaDescription: "
   # Explore Manila with Ease: Qatar Airways' New Codeshare Flights from
-  Australia...
+  Australia..."
 keywords: ''
 originalTitle: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
 published: 'true'

@@ -1,8 +1,7 @@
 ---
 title: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
-summary: |-
-
-  Rewritten article...
+summary: "
+  Rewritten article..."
 date: '2025-04-21T06:00:45.895Z'
 country: United Kingdom
 type: Airline
@@ -12,9 +11,8 @@ imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-tips-insights-for-aussie-explorers
 metaTitle: '''1. UK Travel Guide: Tips & Insights for Aussie Explorers'''
-metaDescription: |-
-
-  Rewritten article...
+metaDescription: "
+  Rewritten article..."
 keywords: ''
 originalTitle: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
 published: 'true'

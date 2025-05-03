@@ -1,8 +1,6 @@
 ---
 title: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
-summary: |-
-
-  Embarking on a Manila Adventure: A Guide for Australian Travelers...
+summary: 'Embarking on a Manila Adventure: A Guide for Australian Travelers...'
 date: '2025-04-23T02:53:45.817Z'
 country: Philippines
 type: Airline
@@ -12,9 +10,7 @@ imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-manila-your-ultimate-guide-to-flying-from-austral
 metaTitle: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
-metaDescription: |-
-
-  Embarking on a Manila Adventure: A Guide for Australian Travelers...
+metaDescription: 'Embarking on a Manila Adventure: A Guide for Australian Travelers...'
 keywords: ''
 originalTitle: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 published: 'true'

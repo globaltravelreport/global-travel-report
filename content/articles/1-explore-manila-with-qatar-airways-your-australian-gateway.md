@@ -1,9 +1,8 @@
 ---
 title: 'Explore Manila with Qatar Airways: Your Australian Gateway'
-summary: >-
-
+summary: "
   ### Discover Manila: A Guide for Australian Travelers Flying with Qatar
-  Airways...
+  Airways..."
 date: '2025-04-21T08:23:45.828Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-with-qatar-airways-your-australian-gateway
 metaTitle: '''1. Explore Manila with Qatar Airways: Your Australian Gateway'''
-metaDescription: >-
-
+metaDescription: "
   ### Discover Manila: A Guide for Australian Travelers Flying with Qatar
-  Airways...
+  Airways..."
 keywords: ''
 originalTitle: 'Explore Manila with Qatar Airways: Your Australian Gateway'
 categories: '[]'

@@ -1,8 +1,7 @@
 ---
 title: 'UK Travel Woes: What Aussies Need to Know'
-summary: >-
-  In a startling move that has raised eyebrows across continents, allegations
-  have surfaced accusing the government of hampering the UK's tourism indust...
+summary: "  In a startling move that has raised eyebrows across continents, allegations
+  have surfaced accusing the government of hampering the UK's tourism indust..."
 date: '2025-04-05T11:02:45.913Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
@@ -12,9 +11,8 @@ imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: uk-travel-woes-what-aussies-need-to-know
 metaTitle: '''UK Travel Woes: What Aussies Need to Know'''
-metaDescription: >-
-  In a startling move that has raised eyebrows across continents, allegations
-  have surfaced accusing the government of hampering the UK's tourism indust...
+metaDescription: "  In a startling move that has raised eyebrows across continents, allegations
+  have surfaced accusing the government of hampering the UK's tourism indust..."
 keywords: ''
 originalTitle: 'UK Travel Woes: What Aussies Need to Know'
 photographer:

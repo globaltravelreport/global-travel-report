@@ -1,9 +1,8 @@
 ---
 title: Exploring Ascott's Innovative Hospitality Strategy
-summary: >-
-  Ascott, a leading international lodging owner-operator, is pioneering a
+summary: "  Ascott, a leading international lodging owner-operator, is pioneering a
   multi-typology strategy to meet the evolving demands of travelers. This
-  approa...
+  approa..."
 date: '2025-04-22T19:39:45.906Z'
 country: Global
 type: Accommodation Review
@@ -13,10 +12,9 @@ imageCredit: Erwan Hesry
 imageLink: ''
 slug: exploring-ascotts-innovative-hospitality-strategy
 metaTitle: Exploring Ascott's Innovative Hospitality Strategy
-metaDescription: >-
-  Ascott, a leading international lodging owner-operator, is pioneering a
+metaDescription: "  Ascott, a leading international lodging owner-operator, is pioneering a
   multi-typology strategy to meet the evolving demands of travelers. This
-  approa...
+  approa..."
 keywords: ''
 originalTitle: What to expect from Ascott’s multi-typology strategy - Travel Weekly Asia
 photographer:

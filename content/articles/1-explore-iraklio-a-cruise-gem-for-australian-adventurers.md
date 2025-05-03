@@ -1,9 +1,8 @@
 ---
 title: 'Explore Iraklio: A Cruise Gem for Australian Adventurers'
-summary: >-
-
+summary: "
   Greece beckons Australian travelers with its crystal-clear waters, fascinating
-  history, and delectable cuisine. At the heart of this allure is Irakli...
+  history, and delectable cuisine. At the heart of this allure is Irakli..."
 date: '2025-04-14T17:47:45.825Z'
 country: Greece
 type: '''Culture, Adventure, Cruise'''
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-iraklio-a-cruise-gem-for-australian-adventurers
 metaTitle: '''1. Explore Iraklio: A Cruise Gem for Australian Adventurers'''
-metaDescription: >-
-
+metaDescription: "
   Greece beckons Australian travelers with its crystal-clear waters, fascinating
-  history, and delectable cuisine. At the heart of this allure is Irakli...
+  history, and delectable cuisine. At the heart of this allure is Irakli..."
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:

@@ -1,10 +1,9 @@
 ---
 title: 'Australia''s Maritime Tourism: Sailing Towards Unprecedented Growth'
-summary: >-
-
+summary: "
   Australia's cruise industry is navigating towards an exciting future,
   witnessing a tremendous growth that is largely unmatched. With new
-  partnerships...
+  partnerships..."
 keywords: ''
 slug: australias-maritime-tourism-sailing-towards-unprecedented-growth
 date: '2025-04-07T19:18:45.900Z'

@@ -1,9 +1,8 @@
 ---
 title: 'Dubai Travel Guide for Aussies: Navigating New Norms'
-summary: >-
-
+summary: "
   Embarking on a journey from the Land Down Under to the dazzling cityscapes of
-  Dubai can be an exhilarating experience for Australian travelers. The f...
+  Dubai can be an exhilarating experience for Australian travelers. The f..."
 date: '2025-04-17T04:49:45.820Z'
 country: United Arab Emirates
 type: Airline
@@ -13,10 +12,9 @@ imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-dubai-travel-guide-for-aussies-navigating-new-norms
 metaTitle: '''1. Dubai Travel Guide for Aussies: Navigating New Norms'''
-metaDescription: >-
-
+metaDescription: "
   Embarking on a journey from the Land Down Under to the dazzling cityscapes of
-  Dubai can be an exhilarating experience for Australian travelers. The f...
+  Dubai can be an exhilarating experience for Australian travelers. The f..."
 keywords: ''
 originalTitle: Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - Skift
 published: 'true'

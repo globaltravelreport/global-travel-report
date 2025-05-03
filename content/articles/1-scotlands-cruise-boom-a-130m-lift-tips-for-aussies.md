@@ -1,8 +1,7 @@
 ---
 title: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
-summary: >-
-  Scotland has recently emerged as a crowd-puller in the cruise tourism sector,
-  offering a substantial £130m injection into its economy. For Australian ...
+summary: "  Scotland has recently emerged as a crowd-puller in the cruise tourism sector,
+  offering a substantial £130m injection into its economy. For Australian ..."
 date: '2025-04-09T14:06:45.843Z'
 country: Scotland
 type: Airline
@@ -12,9 +11,8 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies
 metaTitle: '''1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'''
-metaDescription: >-
-  Scotland has recently emerged as a crowd-puller in the cruise tourism sector,
-  offering a substantial £130m injection into its economy. For Australian ...
+metaDescription: "  Scotland has recently emerged as a crowd-puller in the cruise tourism sector,
+  offering a substantial £130m injection into its economy. For Australian ..."
 keywords: ''
 originalTitle: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
 published: 'true'

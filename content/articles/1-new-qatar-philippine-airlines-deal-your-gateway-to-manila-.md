@@ -1,9 +1,8 @@
 ---
 title: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
-summary: >-
-
+summary: "
   Exploring Manila just got easier and more affordable for Aussies, thanks to a
-  new codeshare agreement between Qatar Airways and Philippine Airlines. ...
+  new codeshare agreement between Qatar Airways and Philippine Airlines. ..."
 date: '2025-04-24T08:24:45.838Z'
 country: Philippines
 type: Experience
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-new-qatar-philippine-airlines-deal-your-gateway-to-manila
 metaTitle: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
-metaDescription: >-
-
+metaDescription: "
   Exploring Manila just got easier and more affordable for Aussies, thanks to a
-  new codeshare agreement between Qatar Airways and Philippine Airlines. ...
+  new codeshare agreement between Qatar Airways and Philippine Airlines. ..."
 keywords: ''
 originalTitle: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
 published: 'true'

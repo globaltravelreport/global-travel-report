@@ -1,8 +1,7 @@
 ---
 title: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
-summary: >-
-  Embarking on international adventures from Australia just got more serene with
-  the latest deals on noise-cancelling headphones, a must-have for any se...
+summary: "  Embarking on international adventures from Australia just got more serene with
+  the latest deals on noise-cancelling headphones, a must-have for any se..."
 date: '2025-05-02T02:28:45.899Z'
 country: Multiple Countries
 type: '''Budget, Family, Culture, Food & Wine'''
@@ -12,9 +11,8 @@ imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-ultimate-guide-best-noise-cancelling-headphones-for-aussie
 metaTitle: '''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
-metaDescription: >-
-  Embarking on international adventures from Australia just got more serene with
-  the latest deals on noise-cancelling headphones, a must-have for any se...
+metaDescription: "  Embarking on international adventures from Australia just got more serene with
+  the latest deals on noise-cancelling headphones, a must-have for any se..."
 keywords: ''
 originalTitle: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
 photographer:

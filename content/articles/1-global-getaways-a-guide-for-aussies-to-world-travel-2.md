@@ -1,8 +1,7 @@
 ---
 title: 'Global Getaways: A Guide for Aussies to World Travel'
-summary: |-
-  Rewritten article
-  ...
+summary: "  Rewritten article
+  ..."
 date: '2025-05-02T21:25:45.830Z'
 country: '>-'
 type: Destination
@@ -12,9 +11,8 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-global-getaways-a-guide-for-aussies-to-world-travel-2
 metaTitle: 'Global Getaways: A Guide for Aussies to World Travel'
-metaDescription: |-
-  Rewritten article
-  ...
+metaDescription: "  Rewritten article
+  ..."
 keywords: ''
 originalTitle: Drake Content expands tourism and travel portfolio - AdNews
 published: 'true'

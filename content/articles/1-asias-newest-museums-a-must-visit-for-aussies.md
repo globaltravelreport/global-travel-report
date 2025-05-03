@@ -1,9 +1,8 @@
 ---
 title: 'Asia''s Newest Museums: A Must-Visit for Aussies'
-summary: >-
-  Asia is always evolving, offering fresh and exciting experiences for the
+summary: "  Asia is always evolving, offering fresh and exciting experiences for the
   intrepid Australian traveler. Among the latest additions to its vibrant
-  cultu...
+  cultu..."
 date: '2025-04-14T17:02:45.810Z'
 country: Asia
 type: Culture
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-asias-newest-museums-a-must-visit-for-aussies
 metaTitle: '''1. Asia''''s Newest Museums: A Must-Visit for Aussies'''
-metaDescription: >-
-  Asia is always evolving, offering fresh and exciting experiences for the
+metaDescription: "  Asia is always evolving, offering fresh and exciting experiences for the
   intrepid Australian traveler. Among the latest additions to its vibrant
-  cultu...
+  cultu..."
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'

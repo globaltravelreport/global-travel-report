@@ -196,7 +196,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-              story.content.split('</p>')[0] + '</p>'
+              story.content.replace(/^\s*\|-\s*\n/m, '').split('</p>')[0] + '</p>'
             )
           }}
         />
@@ -208,7 +208,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-              story.content.split('</p>').slice(1).join('</p>')
+              story.content.replace(/^\s*\|-\s*\n/m, '').split('</p>').slice(1).join('</p>')
             )
           }}
         />

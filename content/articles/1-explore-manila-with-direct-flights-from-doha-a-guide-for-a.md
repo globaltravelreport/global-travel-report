@@ -1,9 +1,8 @@
 ---
 title: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies'
-summary: >-
-
+summary: "
   Australia's wanderlust community is buzzing with excitement as Philippine
-  Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...
+  Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f..."
 date: '2025-04-11T20:32:45.827Z'
 country: Philippines
 type: Experience
@@ -13,10 +12,9 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-with-direct-flights-from-doha-a-guide-for-a
 metaTitle: '''1. Explore Manila with Direct Flights from Doha: A Guide for Aussies'''
-metaDescription: >-
-
+metaDescription: "
   Australia's wanderlust community is buzzing with excitement as Philippine
-  Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...
+  Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f..."
 keywords: ''
 originalTitle: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies'
 published: 'true'
