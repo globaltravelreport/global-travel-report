@@ -215,10 +215,23 @@ export async function getAllStories(): Promise<Story[]> {
             storyData.photographer = photographerData;
           }
 
+          // Clean up the imageUrl if it exists
+          let cleanImageUrl = '';
+          if (storyData.imageUrl) {
+            // Remove any >- YAML markers and trim whitespace
+            cleanImageUrl = storyData.imageUrl.replace('>-', '').trim();
+
+            // Ensure the URL is properly formatted
+            if (!cleanImageUrl.startsWith('http')) {
+              console.warn(`Invalid image URL in ${file}: ${cleanImageUrl}`);
+              cleanImageUrl = ''; // Reset invalid URLs
+            }
+          }
+
           // Create a story object
           const story: Story = {
             id: file.replace('.md', ''),
-            slug: file.replace('.md', ''),
+            slug: storyData.slug || file.replace('.md', ''),
             title: storyData.title || 'Untitled',
             content: storyContent.trim(),
             excerpt: storyData.summary || '',
@@ -226,7 +239,7 @@ export async function getAllStories(): Promise<Story[]> {
             publishedAt: safeToISOString(storyData.date),
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
-            imageUrl: storyData.imageUrl || '',
+            imageUrl: cleanImageUrl,
             featured: storyData.featured === 'true',
             editorsPick: false,
             tags: storyData.tags ? storyData.tags.split(',').map((tag: string) => tag.trim()) : []
@@ -241,6 +254,30 @@ export async function getAllStories(): Promise<Story[]> {
               name: storyData.imageCredit || 'Unsplash Photographer',
               url: storyData.imageLink || 'https://unsplash.com'
             };
+          }
+
+          // If we still don't have a valid image URL, use a default based on category
+          if (!story.imageUrl) {
+            const defaultImages = {
+              'Travel': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+              'Cruise': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+              'Destination': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+              'Adventure': 'https://images.unsplash.com/photo-1551632811-561732d1e306',
+              'Culture': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
+              'Food & Wine': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836'
+            };
+
+            // Find a matching category or use Travel as default
+            const category = story.category.split(',')[0].trim();
+            story.imageUrl = defaultImages[category] || defaultImages['Travel'];
+
+            // Add default photographer if none exists
+            if (!story.photographer) {
+              story.photographer = {
+                name: 'Unsplash Photographer',
+                url: 'https://unsplash.com'
+              };
+            }
           }
 
           stories.push(story);
@@ -292,6 +329,11 @@ export async function saveStory(story: Story): Promise<void> {
       fs.mkdirSync(articlesDir, { recursive: true });
     }
 
+    // Ensure the image URL is valid
+    const imageUrl = story.imageUrl && story.imageUrl.startsWith('http')
+      ? story.imageUrl
+      : '';
+
     // Create the frontmatter
     let frontmatter = `---
 title: "${story.title}"
@@ -299,7 +341,7 @@ summary: "${story.excerpt || ''}"
 date: "${safeToISOString(story.publishedAt)}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
-imageUrl: "${story.imageUrl || ''}"
+imageUrl: "${imageUrl}"
 featured: ${story.featured ? 'true' : 'false'}
 tags: "${story.tags ? story.tags.join(', ') : ''}"`;
 

@@ -52,6 +52,22 @@ export function ResponsiveImage({
   objectFit = 'cover',
   objectPosition = 'center',
 }: ResponsiveImageProps) {
+  // Ensure we have a valid image URL or use a fallback
+  const [imageSrc, setImageSrc] = useState(() => {
+    // Check if src is a valid URL
+    if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
+      // Return a default image based on the alt text
+      if (alt.toLowerCase().includes('cruise')) {
+        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
+      } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+      } else {
+        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      }
+    }
+    return src;
+  });
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -75,19 +91,35 @@ export function ResponsiveImage({
 
   const handleError = () => {
     setHasError(true);
-    if (onError) onError();
+
+    // If the image fails to load, try a fallback
+    if (src !== imageSrc) {
+      // We're already using a fallback, so just report the error
+      if (onError) onError();
+    } else {
+      // Try a different fallback image based on the alt text
+      let fallbackSrc = 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+
+      if (alt.toLowerCase().includes('cruise')) {
+        fallbackSrc = 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
+      } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
+        fallbackSrc = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+      }
+
+      setImageSrc(fallbackSrc);
+    }
   };
 
   const imageComponent = (
-    <div 
+    <div
       className={cn(
-        "relative overflow-hidden w-full", 
+        "relative overflow-hidden w-full",
         containerClassName
       )}
       style={{ aspectRatio }}
     >
       <OptimizedImage
-        src={src}
+        src={imageSrc}
         alt={alt}
         fill
         priority={priority}
@@ -118,8 +150,8 @@ export function ResponsiveImage({
       threshold={lazyLoadThreshold}
       rootMargin={lazyLoadRootMargin}
       placeholder={
-        <div 
-          className="animate-pulse bg-gray-200 w-full rounded" 
+        <div
+          className="animate-pulse bg-gray-200 w-full rounded"
           style={{ aspectRatio }}
         />
       }

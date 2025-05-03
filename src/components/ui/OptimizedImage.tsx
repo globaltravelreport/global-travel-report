@@ -82,17 +82,30 @@ export function OptimizedImage({
   // Determine if the image is from Unsplash or another source
   const isUnsplashImage = typeof src === 'string' && src.includes('unsplash.com');
 
-  // Optimize Unsplash URLs for better performance
+  // Validate and optimize image URLs
   const optimizedSrc = React.useMemo(() => {
-    if (!isUnsplashImage || typeof src !== 'string') return src;
+    // If src is not a string or empty, return a default image
+    if (!src || typeof src !== 'string') {
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+    }
 
-    // If it's already using the Unsplash API format, optimize the parameters
-    if (src.includes('unsplash.com/photos')) {
-      const url = new URL(src);
-      // Add auto format and quality parameters
-      url.searchParams.set('auto', 'format');
-      url.searchParams.set('q', quality.toString());
-      return url.toString();
+    // If src doesn't start with http, it's invalid
+    if (!src.startsWith('http')) {
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+    }
+
+    // Optimize Unsplash URLs for better performance
+    if (isUnsplashImage) {
+      try {
+        const url = new URL(src);
+        // Add auto format and quality parameters
+        url.searchParams.set('auto', 'format');
+        url.searchParams.set('q', quality.toString());
+        return url.toString();
+      } catch (e) {
+        console.error('Error parsing Unsplash URL:', e);
+        return src;
+      }
     }
 
     return src;
@@ -168,6 +181,41 @@ export function StoryCoverImage({
   showAttribution = false,
   quality = 80,
 }: StoryCoverImageProps) {
+  // Validate the image URL
+  const [validatedSrc, setValidatedSrc] = useState(() => {
+    if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
+      // Return a default image based on the alt text
+      if (alt.toLowerCase().includes('cruise')) {
+        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
+      } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+      } else {
+        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      }
+    }
+    return src;
+  });
+
+  // Handle image error
+  const handleImageError = () => {
+    // If the image fails to load, try a fallback
+    if (src !== validatedSrc) {
+      // We're already using a fallback, don't change again
+      return;
+    }
+
+    // Try a different fallback image based on the alt text
+    let fallbackSrc = 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+
+    if (alt.toLowerCase().includes('cruise')) {
+      fallbackSrc = 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
+    } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
+      fallbackSrc = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+    }
+
+    setValidatedSrc(fallbackSrc);
+  };
+
   // Determine the platform URL and name
   const platformUrl = photographer?.platform === 'Pexels'
     ? 'https://www.pexels.com'
@@ -178,7 +226,7 @@ export function StoryCoverImage({
   return (
     <div className="relative w-full h-full">
       <OptimizedImage
-        src={src}
+        src={validatedSrc}
         alt={alt}
         fill
         priority={priority}
@@ -187,6 +235,7 @@ export function StoryCoverImage({
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         quality={quality}
         loading={priority ? 'eager' : 'lazy'}
+        onError={handleImageError}
       />
 
       {showAttribution && photographer && photographer.name && (
