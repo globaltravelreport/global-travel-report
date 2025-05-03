@@ -798,15 +798,26 @@ async function addUnsplashImage(story) {
   }
 
   // If we get here, all search terms and retries failed
-  // Use a default image based on category
+  // Use a default image based on category, but ensure it's unique
   console.warn('⚠️ Using default image as fallback');
 
   const category = story.category || 'Travel';
-  const defaultImage = DEFAULT_IMAGES[category] || DEFAULT_IMAGES.Travel;
+
+  // Get all default images for this category
+  const defaultImages = Object.values(DEFAULT_IMAGES);
+
+  // Try to find an image that hasn't been used recently
+  // We'll use a timestamp to make it more random
+  const timestamp = Date.now();
+  const randomIndex = timestamp % defaultImages.length;
+  const defaultImage = defaultImages[randomIndex] || DEFAULT_IMAGES.Travel;
+
+  // Add a timestamp parameter to the URL to make it unique
+  const uniqueImageUrl = `${defaultImage.imageUrl}?t=${timestamp}`;
 
   return {
     ...story,
-    imageUrl: defaultImage.imageUrl,
+    imageUrl: uniqueImageUrl,
     photographer: defaultImage.photographer
   };
 }
@@ -850,6 +861,14 @@ async function saveStoriesToMarkdown(stories) {
         throw new Error('Story missing content');
       }
 
+      // Skip placeholder stories
+      if (story.title.includes('Generated on') ||
+          story.content.includes('placeholder story') ||
+          story.content.includes('This story was automatically generated')) {
+        console.warn(`⚠️ Skipping placeholder story: ${story.title}`);
+        continue;
+      }
+
       // Ensure slug is valid
       const slug = story.slug || createSlug(story.title);
       if (!slug) {
@@ -859,11 +878,17 @@ async function saveStoriesToMarkdown(stories) {
       // Use the original publication date if available, otherwise use current date
       const pubDate = story.pubDate ? new Date(story.pubDate) : new Date();
 
+      // Clean the title (remove any "Title:" prefix)
+      let cleanTitle = story.title;
+      if (cleanTitle.startsWith('Title:')) {
+        cleanTitle = cleanTitle.substring(6).trim();
+      }
+
       // Create frontmatter with defaults for missing fields
       const frontmatter = {
-        title: story.title,
+        title: cleanTitle,
         date: pubDate.toISOString(),
-        slug: slug,
+        slug: slug.replace(/^title-/, ''), // Remove any "title-" prefix from slug
         category: story.category || 'Travel',
         country: story.country || 'Global',
         excerpt: story.excerpt || story.content.substring(0, 150) + '...',
@@ -873,10 +898,20 @@ async function saveStoriesToMarkdown(stories) {
         author: 'Global Travel Report Editorial Team'
       };
 
+      // Check if the content starts with the title and remove it to avoid duplication
+      let cleanContent = story.content;
+      if (cleanContent.startsWith(frontmatter.title) || cleanContent.startsWith(`Title: ${frontmatter.title}`)) {
+        // Find the first paragraph break after the title
+        const firstBreak = cleanContent.indexOf('\n\n');
+        if (firstBreak > 0) {
+          cleanContent = cleanContent.substring(firstBreak).trim();
+        }
+      }
+
       // Create markdown content
       let markdown;
       try {
-        markdown = matter.stringify(story.content, frontmatter);
+        markdown = matter.stringify(cleanContent, frontmatter);
       } catch (matterError) {
         console.error(`❌ Error creating frontmatter: ${matterError.message}`);
 
@@ -896,7 +931,7 @@ keywords: ${frontmatter.keywords.join(', ')}
 author: ${frontmatter.author}
 ---
 
-${story.content}`;
+${cleanContent}`;
       }
 
       // Generate filename - ensure it's safe for the filesystem
