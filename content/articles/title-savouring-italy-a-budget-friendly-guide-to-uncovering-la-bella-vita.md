@@ -8,11 +8,10 @@ excerpt: >-
   This article provides an insider's guide on how to traverse the diverse
   regions of Italy on a budget, without compromising on the rich cultural and
   historical experiences.
-imageUrl: >-
-  https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxJdGFseXxlbnwwfDB8fHwxNzQ2MjM4MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 photographer:
-  name: Dan Novac
-  url: 'https://unsplash.com/@dnovac'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 keywords:
   - Italy
   - Budget Travel

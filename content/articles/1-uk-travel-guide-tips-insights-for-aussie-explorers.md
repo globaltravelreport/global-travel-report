@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-21T06:00:45.895Z'
 country: United Kingdom
 type: Airline
-imageUrl: >-
-  https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Suhyeon Choi
-  url: 'https://unsplash.com/@choisyeon'
+  name: Aviation Photographer
+  url: 'https://unsplash.com/@aviationphoto'
 ---
 
 

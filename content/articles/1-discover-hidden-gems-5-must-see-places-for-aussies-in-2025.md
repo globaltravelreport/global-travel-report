@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-21T16:50:45.815Z'
 country: '''Georgia, Madagascar, Oman, Uruguay, Bhutan'''
 type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Tr
 published: 'true'
 categories: '[]'
 photographer:
-  name: Tom Grimbert
-  url: 'https://unsplash.com/@tomgrimbert'
+  name: Editorial Photographer
+  url: 'https://unsplash.com/@editorialphoto'
 ---
 
 

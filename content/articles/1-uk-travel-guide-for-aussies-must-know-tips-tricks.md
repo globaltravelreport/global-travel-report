@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-24T15:47:45.862Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
-imageUrl: >-
-  https://images.unsplash.com/photo-1533130061792-64b345e4a833?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,8 +14,8 @@ metaDescription: '>-'
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Philipp Kammerer
-  url: 'https://unsplash.com/@philippkammerer'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

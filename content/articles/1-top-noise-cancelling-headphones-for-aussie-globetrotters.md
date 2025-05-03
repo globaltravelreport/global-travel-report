@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-13T18:40:45.854Z'
 country: '>-'
 type: Airline
-imageUrl: >-
-  https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Suhyeon Choi
-  url: 'https://unsplash.com/@choisyeon'
+  name: Flight Enthusiast
+  url: 'https://unsplash.com/@flightenthusiast'
 ---
 
 

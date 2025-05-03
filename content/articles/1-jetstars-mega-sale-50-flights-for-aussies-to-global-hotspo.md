@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-27T04:41:45.831Z'
 country: Multiple countries
 type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@simebasioli'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

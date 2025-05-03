@@ -8,11 +8,10 @@ excerpt: >-
   This article offers practical tips and insider advice to help budget-conscious
   travellers plan an affordable journey through the captivating regions of
   Italy.
-imageUrl: >-
-  https://images.unsplash.com/photo-1677187538268-b04f02072ecf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwyfHxCdWRnZXQlMjB0cmF2ZWx8ZW58MHwwfHx8MTc0NjIzODgyOXww&ixlib=rb-4.0.3&q=80&w=1080
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 photographer:
-  name: Allison Sheffieck
-  url: 'https://unsplash.com/@allisonsheffieck'
+  name: Editorial Photographer
+  url: 'https://unsplash.com/@editorialphoto'
 keywords:
   - Budget travel
   - Italy

@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-09T18:21:45.912Z'
 country: Global
 type: Travel Tips
-imageUrl: >-
-  https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: >-
@@ -16,8 +15,8 @@ metaDescription: '>-'
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Aron Visuals
-  url: 'https://unsplash.com/@aronvisuals'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

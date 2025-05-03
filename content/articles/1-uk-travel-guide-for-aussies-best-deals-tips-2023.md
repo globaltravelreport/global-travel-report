@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-18T20:10:45.857Z'
 country: United Kingdom
 type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Aron Visuals
-  url: 'https://unsplash.com/@aronvisuals'
+  name: Story Capturer
+  url: 'https://unsplash.com/@storycapturer'
 ---
 
 

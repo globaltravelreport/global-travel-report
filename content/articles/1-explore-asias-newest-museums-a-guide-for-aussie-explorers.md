@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-21T23:02:45.821Z'
 country: Asia
 type: Culture
-imageUrl: >-
-  https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Benjamin Hung
-  url: 'https://unsplash.com/@benjaminhung'
+  name: Heritage Photographer
+  url: 'https://unsplash.com/@heritagephoto'
 ---
 
 

@@ -8,12 +8,11 @@ country: Australia
 type: Cruise
 published: 'true'
 categories: '[]'
-imageUrl: >-
-  https://images.unsplash.com/photo-1548574505-5e239809ee19?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a'
 imageLink: 'https://unsplash.com'
 photographer:
-  name: Alonso Reyes
-  url: 'https://unsplash.com/@alonsoreyes'
+  name: Sea Voyager
+  url: 'https://unsplash.com/@seavoyager'
 ---
 
 

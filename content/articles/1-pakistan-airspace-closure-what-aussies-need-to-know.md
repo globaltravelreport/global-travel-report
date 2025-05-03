@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-23T13:18:45.841Z'
 country: India
 type: Culture
-imageUrl: >-
-  https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +15,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Clem Onojeghuo
-  url: 'https://unsplash.com/@clemono'
+  name: Culture Enthusiast
+  url: 'https://unsplash.com/@cultureenthusiast'
 ---
 
 

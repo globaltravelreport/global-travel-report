@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-04T22:35:45.829Z'
 country: Asia
 type: Culture
-imageUrl: >-
-  https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Erol Ahmed
-  url: 'https://unsplash.com/@erol'
+  name: Culture Enthusiast
+  url: 'https://unsplash.com/@cultureenthusiast'
 ---
 
 

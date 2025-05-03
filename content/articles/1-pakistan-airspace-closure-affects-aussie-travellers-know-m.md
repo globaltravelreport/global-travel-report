@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-19T06:01:45.838Z'
 country: India
 type: '''Culture, Adventure, Budget'''
-imageUrl: >-
-  https://images.unsplash.com/photo-1528543606781-2f6e6857f318?q=80&w=2001&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,8 +14,8 @@ metaDescription: '>-'
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-05-02T21:25:45.830Z'
 country: '>-'
 type: Destination
-imageUrl: >-
-  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: Drake Content expands tourism and travel portfolio - AdNews
 published: 'true'
 categories: '[]'
 photographer:
-  name: Tom Grimbert
-  url: 'https://unsplash.com/@tomgrimbert'
+  name: Place Seeker
+  url: 'https://unsplash.com/@placeseeker'
 ---
 
 

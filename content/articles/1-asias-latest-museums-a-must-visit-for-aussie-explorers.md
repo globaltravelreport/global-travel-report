@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-27T00:46:45.803Z'
 country: Multiple countries in Asia
 type: Culture
-imageUrl: >-
-  https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Duy Pham
-  url: 'https://unsplash.com/@miinyuii'
+  name: Heritage Photographer
+  url: 'https://unsplash.com/@heritagephoto'
 ---
 
 

@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-30T08:01:45.812Z'
 country: '''11. Primary destination country: Qatar'''
 type: '''13. Type of travel: Adventure, Culture, Luxury'''
-imageUrl: >-
-  https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,8 +14,8 @@ metaDescription: '>-'
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Heidi Kaden
-  url: 'https://unsplash.com/@heidikaden'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

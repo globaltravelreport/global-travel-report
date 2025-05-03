@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-20T23:27:45.848Z'
 country: Thailand
 type: Experience
-imageUrl: >-
-  https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -17,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Aron Visuals
-  url: 'https://unsplash.com/@aronvisuals'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 ---
 
 

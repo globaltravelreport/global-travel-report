@@ -4,8 +4,7 @@ summary: '>-'
 date: '2025-04-12T17:07:45.847Z'
 country: Thailand
 type: '''Luxury, Culture'''
-imageUrl: >-
-  https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,8 +14,8 @@ metaDescription: '>-'
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Editorial Photographer
+  url: 'https://unsplash.com/@editorialphoto'
 ---
 
 

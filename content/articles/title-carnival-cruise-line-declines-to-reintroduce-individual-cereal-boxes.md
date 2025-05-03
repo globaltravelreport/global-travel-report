@@ -8,11 +8,10 @@ excerpt: >-
   A request by a Carnival Cruise Line passenger for the return of individual
   boxed cereals has been declined, citing practicality and local laws at ports
   of call as reasons.
-imageUrl: >-
-  https://images.unsplash.com/photo-1731028036992-d2fc286f13e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxDYXJuaXZhbCUyMENydWlzZSUyMExpbmV8ZW58MHwwfHx8MTc0NjIzODMzNnww&ixlib=rb-4.0.3&q=80&w=1080
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 photographer:
-  name: Eben Kassaye
-  url: 'https://unsplash.com/@ebengech'
+  name: Narrative Lens
+  url: 'https://unsplash.com/@narrativelens'
 keywords:
   - Carnival Cruise Line
   - cereal boxes
