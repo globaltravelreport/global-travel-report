@@ -1,8 +1,6 @@
 ---
-title: >-
-  Cruise Conundrum: Cayman Islands Says No to Cruise Infrastructure
-  Expansion
-date: '2025-05-03T12:00:00.000Z'
+title: 'Cruise Conundrum: Cayman Islands Says No to Cruise Infrastructure Expansion'
+date: '2025-04-04T13:48:55.933Z'
 slug: cruise-conundrum-cayman-islands-says-no-to-cruise-infrastructure-expansion
 category: Cruise
 country: Cayman Islands
@@ -37,5 +35,3 @@ In the wake of the vote, a spokesperson for CPR Cayman stated, "Cayman has VOTED
 
 Conclusion
 In summary, while cruising continues to grow in popularity, the residents of the Cayman Islands have made it clear that they prefer a more sustainable and thoughtful approach to tourism. As the debate over expanding cruise infrastructure continues globally, the Cayman Islands' decision will likely influence future discussions in other popular cruise destinations.
-
-Metadata:

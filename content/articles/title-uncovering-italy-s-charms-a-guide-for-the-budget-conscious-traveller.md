@@ -1,7 +1,7 @@
 ---
 title: 'Uncovering Italy''s Charms: A Guide for the Budget-Conscious Traveller'
-date: '2025-04-15T04:43:45.912Z'
-slug: title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller
+date: '2025-04-12T13:48:55.968Z'
+slug: uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller
 category: Budget Travel
 country: Italy
 excerpt: >-

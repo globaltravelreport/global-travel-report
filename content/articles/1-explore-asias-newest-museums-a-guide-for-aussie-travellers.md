@@ -1,9 +1,7 @@
 ---
 title: 'Explore Asia''s Newest Museums: A Guide for Aussie Travellers'
-summary: "
-  As an Australian travel journalist and SEO expert, I'm always on the lookout
-  for fresh and exciting destinations that resonate with Aussie wanderlust..."
-date: '2025-04-05T17:46:45.822Z'
+summary: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
+date: '2025-05-02T13:48:55.777Z'
 country: '''Japan, South Korea'''
 type: '''Culture, Adventure'''
 imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
@@ -12,9 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-travellers
 metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
-metaDescription: "
-  As an Australian travel journalist and SEO expert, I'm always on the lookout
-  for fresh and exciting destinations that resonate with Aussie wanderlust..."
+metaDescription: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 categories: '[]'

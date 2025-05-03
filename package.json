@@ -29,6 +29,7 @@
     "update-all-images": "node scripts/updateAllImages.js",
     "generate-stories": "node scripts/dailyStoryGenerator.js",
     "setup-story-cron": "node scripts/setupDailyStoryCron.js",
+    "fix-all-story-issues": "node scripts/fix-all-story-issues.js",
     "post-to-social": "node scripts/social-media-poster.js",
     "post-to-social:test": "node scripts/social-media-poster.js --test"
   },

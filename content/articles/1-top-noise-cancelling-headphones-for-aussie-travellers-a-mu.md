@@ -1,8 +1,7 @@
 ---
 title: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
-summary: "  As Australian wanderlusts begin to plot their next international escapade,
-  there's one travel accessory that's becoming a non-negotiable: noise-cancel..."
-date: '2025-04-24T18:08:45.854Z'
+summary: '  As Australian wanderlusts begin to plot their next international escapade, there''s one travel accessory that''s becoming a non-negotiable: noise-cancel...'
+date: '2025-04-04T13:48:55.827Z'
 country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
@@ -11,8 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu
 metaTitle: '''1. Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'''
-metaDescription: "  As Australian wanderlusts begin to plot their next international escapade,
-  there's one travel accessory that's becoming a non-negotiable: noise-cancel..."
+metaDescription: '  As Australian wanderlusts begin to plot their next international escapade, there''s one travel accessory that''s becoming a non-negotiable: noise-cancel...'
 keywords: ''
 originalTitle: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
 published: 'true'

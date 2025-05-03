@@ -1,9 +1,7 @@
 ---
 title: 'Pakistan Airspace Closure: What Aussies Need to Know'
-summary: "  As an Australian looking to explore the vibrant cultures, breathtaking
-  landscapes, and historical marvels of the Indian subcontinent, the recent
-  closu..."
-date: '2025-04-23T13:18:45.841Z'
+summary: '  As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closu...'
+date: '2025-05-02T13:48:55.791Z'
 country: India
 type: Culture
 imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
@@ -12,9 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-pakistan-airspace-closure-what-aussies-need-to-know
 metaTitle: '''1. Pakistan Airspace Closure: What Aussies Need to Know'''
-metaDescription: "  As an Australian looking to explore the vibrant cultures, breathtaking
-  landscapes, and historical marvels of the Indian subcontinent, the recent
-  closu..."
+metaDescription: '  As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closu...'
 keywords: ''
 originalTitle: 'Pakistan Airspace Closure: What Aussies Need to Know'
 categories: '[]'

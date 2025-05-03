@@ -1,7 +1,7 @@
 ---
-title: 'Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes'
-date: '2025-04-12T20:36:45.910Z'
-slug: title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes
+title: Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes
+date: '2025-04-14T13:48:55.929Z'
+slug: carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes
 category: Cruise
 country: International
 excerpt: >-

@@ -1,10 +1,7 @@
 ---
-title: >-
-  Title: "A Surge in Seafaring: The Latest Headlines from the World of Luxury
-  Cruising"
-date: '2025-05-03T12:18:34.093Z'
-slug: >-
-  title-a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising
+title: 'A Surge in Seafaring: The Latest Headlines from the World of Luxury Cruising'
+date: '2025-04-07T13:48:55.925Z'
+slug: a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising
 category: Cruise
 country: Canada
 excerpt: >-
@@ -23,8 +20,6 @@ keywords:
   - Travel News
 author: Global Travel Report Editorial Team
 ---
-Title: "A Surge in Seafaring: The Latest Headlines from the World of Luxury Cruising"
-
 Delve into the most recent developments across the global cruise industry as we navigate through this week's news round-up. From the bustling Port of Vancouver to the luxurious fleets of Norwegian Cruise Line, Holland America Line, Royal Caribbean, and Carnival Cruise Line, we've got all your seafaring updates covered. 
 
 To remain afloat amidst the ocean of cruise news, we recommend subscribing to Cruise Hive’s Daily Update. This will ensure all significant stories sail directly into your inbox, keeping you well-informed of all the industry's currents.

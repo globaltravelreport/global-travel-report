@@ -1,9 +1,7 @@
 ---
 title: Top 5 Hidden Gems Abroad for Aussie Explorers in
-summary: "
-  As Australian wanderlust continues to grow, the quest for unique and less
-  crowded destinations becomes paramount. In 2025, five underrated travel spo..."
-date: '2025-04-15T03:29:45.849Z'
+summary: ' As Australian wanderlust continues to grow, the quest for unique and less crowded destinations becomes paramount. In 2025, five underrated travel spo...'
+date: '2025-05-03T13:48:55.817Z'
 country: '''Georgia, Namibia, Slovenia, Uruguay, Mongolia'''
 type: Experience
 imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
@@ -12,9 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-top-5-hidden-gems-abroad-for-aussie-explorers-in-2025
 metaTitle: 1. Top 5 Hidden Gems Abroad for Aussie Explorers in 2025
-metaDescription: "
-  As Australian wanderlust continues to grow, the quest for unique and less
-  crowded destinations becomes paramount. In 2025, five underrated travel spo..."
+metaDescription: ' As Australian wanderlust continues to grow, the quest for unique and less crowded destinations becomes paramount. In 2025, five underrated travel spo...'
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'

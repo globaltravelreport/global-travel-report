@@ -1,11 +1,9 @@
 ---
 title: 'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
-summary: "
-  Australia's cruise industry is riding a wave of extraordinary growth, marked
-  by innovative partnerships and an expansion of routes that promise a vib..."
+summary: ' Australia''s cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vib...'
 keywords: ''
 slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
-date: '2025-04-24T01:31:45.900Z'
+date: '2025-04-14T13:48:55.900Z'
 country: Australia
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'

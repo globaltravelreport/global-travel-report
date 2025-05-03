@@ -1,11 +1,9 @@
 ---
 title: 'Southeast Asia: The New Favorite of Australian Travelers'
-summary: "
-  In the travel sphere, Australia's compass is pointing firmly towards Southeast
-  Asia. According to recent data, the region has claimed the crown as th..."
+summary: ' In the travel sphere, Australia''s compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as th...'
 keywords: ''
 slug: southeast-asia-the-new-favorite-of-australian-travelers
-date: '2025-04-17T07:41:45.901Z'
+date: '2025-04-18T13:48:55.902Z'
 country: Australia
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'

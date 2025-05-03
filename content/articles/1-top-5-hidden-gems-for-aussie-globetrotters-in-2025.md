@@ -1,7 +1,7 @@
 ---
 title: Top 5 Hidden Gems for Aussie Globetrotters in
 summary: 'Exploring the Roads Less Travelled: A 2025 Guide for Australian Adventurers...'
-date: '2025-04-10T10:39:45.850Z'
+date: '2025-04-16T13:48:55.820Z'
 country: '''Georgia, Namibia, Slovenia, Taiwan, Uruguay'''
 type: '''Adventure, Culture, Budget'''
 imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'

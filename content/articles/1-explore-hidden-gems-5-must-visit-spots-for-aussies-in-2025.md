@@ -1,10 +1,7 @@
 ---
 title: 'Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'
-summary: "
-  As Australian wanderlust continues to grow, the quest for unique and
-  less-traveled destinations becomes a paramount part of planning your next
-  holida..."
-date: '2025-04-21T09:24:45.824Z'
+summary: ' As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holida...'
+date: '2025-04-12T13:48:55.780Z'
 country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
 type: '''Adventure, Culture, Wildlife'''
 imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
@@ -13,10 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025
 metaTitle: '''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'''
-metaDescription: "
-  As Australian wanderlust continues to grow, the quest for unique and
-  less-traveled destinations becomes a paramount part of planning your next
-  holida..."
+metaDescription: ' As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holida...'
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:

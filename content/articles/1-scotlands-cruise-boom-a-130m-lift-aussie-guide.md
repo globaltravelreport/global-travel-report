@@ -1,7 +1,7 @@
 ---
 title: 'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'
 summary: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
-date: '2025-04-20T17:58:45.842Z'
+date: '2025-04-28T13:48:55.791Z'
 country: Scotland
 type: Experience
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'

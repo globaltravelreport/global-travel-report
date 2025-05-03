@@ -1,7 +1,7 @@
 ---
 title: Top 5 Hidden Gems for Aussie Travellers in
 summary: '### Top 5 Hidden Gems for Aussie Travellers in 2025...'
-date: '2025-04-25T08:41:45.852Z'
+date: '2025-04-25T13:48:55.823Z'
 country: '''Montenegro, Ghana, Uruguay, Georgia, Taiwan'''
 type: Experience
 imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'

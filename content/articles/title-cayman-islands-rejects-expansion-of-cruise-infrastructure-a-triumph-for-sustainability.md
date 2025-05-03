@@ -1,10 +1,10 @@
 ---
 title: >-
-  Title: "Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph
-  for Sustainability"
-date: '2025-05-03T12:18:34.088Z'
+  Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph for
+  Sustainability
+date: '2025-04-22T13:48:55.932Z'
 slug: >-
-  title-cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability
+  cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability
 category: Cruise
 country: Cayman Islands
 excerpt: >-
@@ -24,8 +24,6 @@ keywords:
   - Cruise Infrastructure
 author: Global Travel Report Editorial Team
 ---
-Title: "Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph for Sustainability"
-
 In a significant and possibly unexpected decision, the people of the Cayman Islands have voiced their collective opinion against the proposed expansion of cruise infrastructure.
 
 The Association for Advancement of Cruise Tourism (ACT) in Grand Cayman had made fervent attempts to get a cruise infrastructure expansion project on the ballot for 2025. However, the proposal was ultimately rejected. The ballot, held on April 30th, 2025, resulted in 64% of voters, equating to approximately 11,973 individuals, casting a 'no' vote to the question, "Should the Cayman Islands develop cruise berthing infrastructure?" A mere 5,417 voted 'yes'.

@@ -1,11 +1,9 @@
 ---
 title: 'The Land of the Rising Sun: Australia''s Top Holiday Destination'
-summary: "
-  From the electric buzz of Tokyo's neon-doused streets to the tranquil harmony
-  of Kyoto's temples, Australian visitors are flocking to Japan in unprec..."
+summary: ' From the electric buzz of Tokyo''s neon-doused streets to the tranquil harmony of Kyoto''s temples, Australian visitors are flocking to Japan in unprec...'
 keywords: ''
 slug: the-land-of-the-rising-sun-australias-top-holiday-destination
-date: '2025-04-28T07:35:45.902Z'
+date: '2025-04-08T13:48:55.904Z'
 country: Australia
 type: Airline
 published: 'true'

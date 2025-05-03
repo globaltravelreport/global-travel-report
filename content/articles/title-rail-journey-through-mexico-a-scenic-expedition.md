@@ -1,7 +1,7 @@
 ---
-title: 'Title: Rail Journey Through Mexico: A Scenic Expedition'
-date: '2025-05-03T12:18:34.095Z'
-slug: title-rail-journey-through-mexico-a-scenic-expedition
+title: 'Rail Journey Through Mexico: A Scenic Expedition'
+date: '2025-04-11T13:48:55.958Z'
+slug: rail-journey-through-mexico-a-scenic-expedition
 category: Adventure
 country: Mexico
 excerpt: >-
@@ -20,8 +20,6 @@ keywords:
   - Scenic routes
 author: Global Travel Report Editorial Team
 ---
-Title: Rail Journey Through Mexico: A Scenic Expedition
-
 Content:
 
 Mexico, a country teeming with vibrant culture and picturesque landscapes, offers experiences that go beyond the usual explorations of its historic sites and spectacular beaches. One such experience that remains relatively untouched by most travellers is the journey through its expanding passenger rail network. If you've visited Mexico before, you might have missed out on this unique opportunity to see the country from a different perspective.
@@ -35,5 +33,3 @@ El Chepe, which has been servicing the route from Chihuahua to Los Mochis since 
 The recently launched Tren Maya, on the other hand, takes you on a journey through the verdant jungles of the Yucatán Peninsula. From Cancún to Palenque, this train promises breathtaking views and access to lesser-known destinations.
 
 In conclusion, Mexico's expanding rail network offers travellers a unique opportunity to explore the country's diverse landscapes and immerse themselves in its rich culture. With new routes being planned, the allure of train travel in Mexico is only set to increase in the coming years.
-
-Metadata:

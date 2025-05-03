@@ -1,8 +1,7 @@
 ---
 title: 'Explore Heraklion: Your Next Cruise Destination from Australia'
-summary: "  Heraklion, the bustling port city on Crete, Greece, is setting its sights on
-  becoming a top cruise destination for Australian travelers. With its rich..."
-date: '2025-04-07T14:21:45.905Z'
+summary: '  Heraklion, the bustling port city on Crete, Greece, is setting its sights on becoming a top cruise destination for Australian travelers. With its rich...'
+date: '2025-04-19T13:48:55.913Z'
 country: Greece
 type: '''Culture, Food & Wine'''
 imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
@@ -11,8 +10,7 @@ imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: explore-heraklion-your-next-cruise-destination-from-australi
 metaTitle: '''Explore Heraklion: Your Next Cruise Destination from Australia'''
-metaDescription: "  Heraklion, the bustling port city on Crete, Greece, is setting its sights on
-  becoming a top cruise destination for Australian travelers. With its rich..."
+metaDescription: '  Heraklion, the bustling port city on Crete, Greece, is setting its sights on becoming a top cruise destination for Australian travelers. With its rich...'
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:

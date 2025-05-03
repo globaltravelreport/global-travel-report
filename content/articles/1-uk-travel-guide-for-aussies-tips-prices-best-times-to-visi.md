@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
 summary: '### Your Ultimate Guide to Exploring the UK from Australia...'
-date: '2025-04-08T19:08:45.885Z'
+date: '2025-04-27T13:48:55.833Z'
 country: United Kingdom
 type: '''Culture, Food & Wine, Adventure'''
 imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'

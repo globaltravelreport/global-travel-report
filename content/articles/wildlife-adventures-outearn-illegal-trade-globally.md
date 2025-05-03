@@ -1,9 +1,7 @@
 ---
 title: Wildlife Adventures Outearn Illegal Trade Globally
-summary: "
-  Wildlife tourism is not just a thrilling adventure for Australians looking to
-  explore the wonders of the natural world; it's also a booming industry ..."
-date: '2025-04-20T07:17:45.914Z'
+summary: ' Wildlife tourism is not just a thrilling adventure for Australians looking to explore the wonders of the natural world; it''s also a booming industry ...'
+date: '2025-04-13T13:48:55.975Z'
 country: Global
 type: '''Adventure, Ethical, Wildlife'''
 imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
@@ -12,9 +10,7 @@ imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: wildlife-adventures-outearn-illegal-trade-globally
 metaTitle: Wildlife Adventures Outearn Illegal Trade Globally
-metaDescription: "
-  Wildlife tourism is not just a thrilling adventure for Australians looking to
-  explore the wonders of the natural world; it's also a booming industry ..."
+metaDescription: ' Wildlife tourism is not just a thrilling adventure for Australians looking to explore the wonders of the natural world; it''s also a booming industry ...'
 keywords: ''
 originalTitle: Wildlife Adventures Outearn Illegal Trade Globally
 photographer:

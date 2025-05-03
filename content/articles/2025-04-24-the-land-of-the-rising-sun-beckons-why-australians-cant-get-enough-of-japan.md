@@ -1,12 +1,9 @@
 ---
 title: 'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan'
-summary: "
-  Japan, with its unique blend of time-honored customs and cutting-edge
-  innovation, has become an irresistible magnet for Australians seeking
-  adventure..."
+summary: ' Japan, with its unique blend of time-honored customs and cutting-edge innovation, has become an irresistible magnet for Australians seeking adventure...'
 keywords: ''
 slug: the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan
-date: '2025-04-18T13:46:45.903Z'
+date: '2025-04-21T13:48:55.907Z'
 country: Australia
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'

@@ -1,10 +1,8 @@
 ---
 title: Rewritten article
-summary: "
-  Rewritten article
-  ..."
-date: '2025-04-18T06:18:45.846Z'
-country: '>-'
+summary: ' Rewritten article ...'
+date: '2025-05-01T13:48:55.795Z'
+country: Global
 type: Destination
 imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: shallow focus photography of trees filled of snow
@@ -22,10 +20,3 @@ photographer:
   url: 'https://unsplash.com/@asoggetti'
 ---
 
-
-
-
-
-
-
-Rewritten article
