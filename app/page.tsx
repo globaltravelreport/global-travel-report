@@ -7,8 +7,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from 'react';
 import { PopularStories } from '@/components/recommendations/PopularStories';
-import { getFeaturedCategories } from '@/src/config/categories';
+import { getFeaturedCategories, CATEGORIES } from '@/src/config/categories';
 import WebsiteSchema from '@/components/WebsiteSchema';
+import { CategorySection } from '@/src/components/home/CategorySection';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -154,6 +155,31 @@ export default async function Home() {
           </div>}>
             <PopularStories limit={6} title="Popular This Week" />
           </Suspense>
+        </div>
+      </section>
+
+      {/* Themed Content Sections */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 relative inline-block">
+              <span className="relative z-10">Explore by Theme</span>
+              <span className="absolute bottom-0 left-0 w-full h-3 bg-[#C9A14A]/20 -z-10 transform -rotate-1"></span>
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Discover travel stories organized by your favorite themes</p>
+          </div>
+
+          {/* Display themed content sections */}
+          <div className="space-y-8">
+            {CATEGORIES.filter(cat => cat.featured).map(category => (
+              <CategorySection
+                key={category.slug}
+                category={category}
+                stories={allStories}
+                limit={3}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
