@@ -1,12 +1,12 @@
 /**
  * Daily Story Generator
- * 
+ *
  * This script automatically:
  * 1. Fetches 8 stories (including 2 cruise-related) from RSS feeds
  * 2. Rewrites them using OpenAI
  * 3. Adds Unsplash images with proper attribution
  * 4. Saves them as markdown files in the content directory
- * 
+ *
  * Usage:
  * node scripts/dailyStoryGenerator.js [--count=8] [--cruise-count=2]
  */
@@ -15,7 +15,7 @@ require('dotenv').config({ path: '.env.local' });
 const fs = require('fs').promises;
 const path = require('path');
 const Parser = require('rss-parser');
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const matter = require('gray-matter');
@@ -36,10 +36,9 @@ const parser = new Parser({
 });
 
 // Initialize OpenAI
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 // RSS Feed URLs
 const TRAVEL_FEEDS = [
@@ -82,44 +81,44 @@ const stats = {
 async function generateDailyStories() {
   try {
     console.log('🚀 Starting daily story generation...');
-    
+
     // Parse command line arguments
     const args = process.argv.slice(2);
     const storyCount = getArgValue(args, '--count', DEFAULT_STORY_COUNT);
     const cruiseCount = getArgValue(args, '--cruise-count', DEFAULT_CRUISE_COUNT);
     const regularCount = storyCount - cruiseCount;
-    
+
     console.log(`📊 Configuration: Total stories=${storyCount}, Cruise stories=${cruiseCount}, Regular stories=${regularCount}`);
-    
+
     // Step 1: Fetch stories from RSS feeds
     console.log('\n📡 Fetching stories from RSS feeds...');
     const travelStories = await fetchStoriesFromFeeds(TRAVEL_FEEDS, regularCount);
     const cruiseStories = await fetchStoriesFromFeeds(CRUISE_FEEDS, cruiseCount);
-    
+
     // Combine stories
     const allStories = [...cruiseStories, ...travelStories];
     stats.storiesFetched = allStories.length;
-    
+
     console.log(`✅ Fetched ${allStories.length} stories (${cruiseStories.length} cruise, ${travelStories.length} travel)`);
-    
+
     // Step 2: Process each story
     console.log('\n🔄 Processing stories...');
     const processedStories = [];
-    
+
     for (let i = 0; i < allStories.length; i++) {
       const story = allStories[i];
       console.log(`\n📝 Processing story ${i + 1}/${allStories.length}: "${story.title}"`);
-      
+
       try {
         // Step 2a: Rewrite the story using OpenAI
         console.log('🤖 Rewriting with OpenAI...');
         const rewrittenStory = await rewriteStoryWithOpenAI(story);
         stats.storiesRewritten++;
-        
+
         // Step 2b: Add an image from Unsplash
         console.log('🖼️ Adding Unsplash image...');
         const storyWithImage = await addUnsplashImage(rewrittenStory);
-        
+
         // Add to processed stories
         processedStories.push(storyWithImage);
       } catch (error) {
@@ -127,11 +126,11 @@ async function generateDailyStories() {
         continue;
       }
     }
-    
+
     // Step 3: Save stories to markdown files
     console.log('\n💾 Saving stories to markdown files...');
     await saveStoriesToMarkdown(processedStories);
-    
+
     // Print summary
     console.log('\n✨ Daily story generation completed successfully!');
     console.log('📊 Summary:');
@@ -139,7 +138,7 @@ async function generateDailyStories() {
     console.log(`- Stories rewritten: ${stats.storiesRewritten}`);
     console.log(`- Stories saved: ${stats.storiesSaved}`);
     console.log(`- Errors: ${Object.values(stats.errors).reduce((a, b) => a + b, 0)}`);
-    
+
     return processedStories;
   } catch (error) {
     console.error('❌ Error generating daily stories:', error);
@@ -155,22 +154,22 @@ async function generateDailyStories() {
  */
 async function fetchStoriesFromFeeds(feedUrls, count) {
   const allItems = [];
-  
+
   // Try each feed until we have enough stories
   for (const feedUrl of feedUrls) {
     if (allItems.length >= count) break;
-    
+
     try {
       console.log(`📡 Fetching from: ${feedUrl}`);
       const feed = await parser.parseURL(feedUrl);
-      
+
       // Add items from this feed
       for (const item of feed.items) {
         if (allItems.length >= count) break;
-        
+
         // Extract content from various possible fields
         let content = item.contentEncoded || item.content || item.description || '';
-        
+
         // Create a story object
         allItems.push({
           title: item.title,
@@ -188,7 +187,7 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
       continue;
     }
   }
-  
+
   return allItems.slice(0, count);
 }
 
@@ -200,7 +199,7 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
 async function rewriteStoryWithOpenAI(story) {
   try {
     // Create a prompt for OpenAI
-    const prompt = `Rewrite the following travel article in the style of a professional Australian travel journalist. 
+    const prompt = `Rewrite the following travel article in the style of a professional Australian travel journalist.
 Use Australian English (no slang). Make it engaging, informative, and detailed, as if written for a national travel magazine.
 Keep the same key information and facts, but improve the writing style.
 
@@ -220,7 +219,7 @@ Also, provide the following metadata in JSON format at the end:
 - keywords: 3-5 relevant keywords`;
 
     // Call OpenAI API
-    const completion = await openai.createChatCompletion({
+    const completion = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
         {
@@ -236,14 +235,14 @@ Also, provide the following metadata in JSON format at the end:
       max_tokens: 2000,
     });
 
-    const response = completion.data.choices[0]?.message?.content || '';
-    
+    const response = completion.choices[0]?.message?.content || '';
+
     // Parse the response
     const { title, content, metadata } = parseOpenAIResponse(response, story);
-    
+
     // Create a slug from the title
     const slug = createSlug(title);
-    
+
     // Return the rewritten story
     return {
       ...story,
@@ -257,7 +256,7 @@ Also, provide the following metadata in JSON format at the end:
   } catch (error) {
     console.error('❌ Error rewriting with OpenAI:', error.message);
     stats.errors.rewriting++;
-    
+
     // Return original story if rewriting fails
     return {
       ...story,
@@ -274,17 +273,17 @@ function parseOpenAIResponse(response, originalStory) {
   try {
     // Split the response into lines
     const lines = response.split('\n');
-    
+
     // Extract the title (first non-empty line)
     const title = lines.find(line => line.trim().length > 0) || originalStory.title;
-    
+
     // Find JSON metadata block
     const jsonStartIndex = response.indexOf('{');
     const jsonEndIndex = response.lastIndexOf('}');
-    
+
     let metadata = {};
     let content = response;
-    
+
     if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
       // Extract and parse JSON
       const jsonStr = response.substring(jsonStartIndex, jsonEndIndex + 1);
@@ -296,18 +295,18 @@ function parseOpenAIResponse(response, originalStory) {
         console.warn('⚠️ Could not parse metadata JSON, using default values');
       }
     }
-    
+
     // Set default metadata if not provided
     metadata.category = metadata.category || 'Travel';
     metadata.country = metadata.country || 'Global';
     metadata.excerpt = metadata.excerpt || content.substring(0, 150) + '...';
     metadata.keywords = metadata.keywords || ['travel'];
-    
+
     return { title, content, metadata };
   } catch (error) {
     console.warn('⚠️ Error parsing OpenAI response:', error.message);
-    return { 
-      title: originalStory.title, 
+    return {
+      title: originalStory.title,
       content: response,
       metadata: { category: 'Travel', country: 'Global', excerpt: response.substring(0, 150) + '...', keywords: ['travel'] }
     };
@@ -323,9 +322,9 @@ async function addUnsplashImage(story) {
   try {
     // Build search query based on story content
     const searchQuery = story.keywords?.[0] || story.country || story.category || 'travel';
-    
+
     console.log(`🔍 Searching Unsplash for: ${searchQuery}`);
-    
+
     // Call Unsplash API
     const response = await axios.get('https://api.unsplash.com/search/photos', {
       params: {
@@ -337,10 +336,10 @@ async function addUnsplashImage(story) {
         'Authorization': `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`
       }
     });
-    
+
     if (response.data.results && response.data.results.length > 0) {
       const photo = response.data.results[0];
-      
+
       return {
         ...story,
         imageUrl: photo.urls.regular,
@@ -350,7 +349,7 @@ async function addUnsplashImage(story) {
         }
       };
     }
-    
+
     console.warn(`⚠️ No Unsplash images found for: ${searchQuery}`);
     return story;
   } catch (error) {
@@ -367,7 +366,7 @@ async function addUnsplashImage(story) {
 async function saveStoriesToMarkdown(stories) {
   // Ensure content directory exists
   await fs.mkdir(CONTENT_DIR, { recursive: true });
-  
+
   for (const story of stories) {
     try {
       // Create frontmatter
@@ -383,17 +382,17 @@ async function saveStoriesToMarkdown(stories) {
         keywords: story.keywords || [],
         author: 'Global Travel Report Editorial Team'
       };
-      
+
       // Create markdown content
       const markdown = matter.stringify(story.content, frontmatter);
-      
+
       // Generate filename
       const filename = `${story.slug}.md`;
       const filepath = path.join(CONTENT_DIR, filename);
-      
+
       // Write to file
       await fs.writeFile(filepath, markdown);
-      
+
       console.log(`✅ Saved story: ${filename}`);
       stats.storiesSaved++;
     } catch (error) {
@@ -425,7 +424,7 @@ function createSlug(title) {
 function getArgValue(args, name, defaultValue) {
   const arg = args.find(arg => arg.startsWith(`${name}=`));
   if (!arg) return defaultValue;
-  
+
   const value = arg.split('=')[1];
   return isNaN(value) ? value : parseInt(value, 10);
 }
