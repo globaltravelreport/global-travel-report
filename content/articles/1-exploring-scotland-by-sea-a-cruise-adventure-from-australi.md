@@ -13,7 +13,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-exploring-scotland-by-sea-a-cruise-adventure-from-australi
-metaTitle: '|-'
+metaTitle: 'Exploring Scotland by Sea: A Cruise Adventure from Australia'
 metaDescription: >-
   Australia to Scotland cruises, Scotland travel guide, Australian travelers,
   AUD price comparisons, visa requirements Australia, travel tips Scotland

@@ -1,5 +1,5 @@
 ---
-title: '|-'
+title: Rewritten article
 summary: |-
 
   Rewritten article
@@ -13,9 +13,9 @@ imageCredit: John Price
 imageLink: 'https://unsplash.com'
 slug: 1-seo-optimized-title-unlock-thailand-subsidized-flights-tip
 metaTitle: '|-'
-metaDescription: '|-'
+metaDescription: ''
 keywords: ''
-originalTitle: '|-'
+originalTitle: Rewritten article
 published: 'true'
 categories: '[]'
 photographer:

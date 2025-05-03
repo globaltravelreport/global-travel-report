@@ -12,7 +12,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-exploring-asias-newest-museums-a-guide-for-aussies-2
-metaTitle: '|-'
+metaTitle: 'Exploring Asia''s Newest Museums: A Guide for Aussies'
 metaDescription: >-
   **As an Australian travel journalist with a knack for uncovering cultural
   treasures, I'm thrilled to guide you through the unveiling of two

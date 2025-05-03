@@ -12,7 +12,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-new-qatar-philippine-airlines-deal-your-gateway-to-manila
-metaTitle: '|-'
+metaTitle: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
 metaDescription: >-
 
   Exploring Manila just got easier and more affordable for Aussies, thanks to a

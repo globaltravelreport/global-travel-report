@@ -11,7 +11,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-tips-tricks-for-aussies-abroad-2
-metaTitle: '|-'
+metaTitle: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 metaDescription: >-
   UK travel guide, Australian travelers, flight deals from Australia to UK, UK
   visa requirements, travel tips for Australians, AUD to GBP exchange, UK c...

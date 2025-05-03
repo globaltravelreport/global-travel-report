@@ -14,7 +14,7 @@ imageAlt: body of water surrounding with trees
 imageCredit: Kalen Emsley
 imageLink: '''https://unsplash.com/photos/body-of-water-surrounding-with-trees-_LuLiJc1cdo'''
 slug: 1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2
-metaTitle: '|-'
+metaTitle: 'Discover Thailand: New Deals to Spark Aussie Wanderlust'
 metaDescription: >-
 
   Thailand travel for Australians, flight deals to Thailand, Australian to

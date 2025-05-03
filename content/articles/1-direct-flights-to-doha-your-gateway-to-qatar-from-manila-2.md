@@ -12,7 +12,7 @@ imageAlt: rock formation on wide field grass under cloudy blue sky during daytim
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2
-metaTitle: '|-'
+metaTitle: 'Direct Flights to Doha: Your Gateway to Qatar from Manila'
 metaDescription: >-
 
   Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian

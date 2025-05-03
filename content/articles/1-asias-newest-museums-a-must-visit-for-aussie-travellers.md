@@ -2,7 +2,7 @@
 title: 'Asia''s Newest Museums: A Must-Visit for Aussie Travellers'
 summary: Rewritten article...
 date: '2025-04-24T12:28:45.809Z'
-country: '|-'
+country: Global
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime

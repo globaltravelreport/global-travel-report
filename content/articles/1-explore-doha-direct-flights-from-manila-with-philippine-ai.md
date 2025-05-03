@@ -11,7 +11,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-doha-direct-flights-from-manila-with-philippine-ai
-metaTitle: '|-'
+metaTitle: 'Explore Doha: Direct Flights from Manila with Philippine Airlines'
 metaDescription: >-
   Philippine Airlines, direct flights to Doha, Australian travelers, Manila-Doha
   route, visa requirements for Australians, AUD price comparison, best tr...

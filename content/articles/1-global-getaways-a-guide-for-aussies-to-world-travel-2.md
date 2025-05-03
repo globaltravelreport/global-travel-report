@@ -11,7 +11,7 @@ imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-global-getaways-a-guide-for-aussies-to-world-travel-2
-metaTitle: '|-'
+metaTitle: 'Global Getaways: A Guide for Aussies to World Travel'
 metaDescription: |-
   Rewritten article
   ...
