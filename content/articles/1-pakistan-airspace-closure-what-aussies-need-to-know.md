@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-23T13:18:45.841Z'
 country: India
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1551966775-a4ddc8df052b'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Raimond Klavins
-  url: 'https://unsplash.com/@raimondklavins'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

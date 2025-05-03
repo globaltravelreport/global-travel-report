@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-14T17:02:45.810Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1533105079780-92b9be482077'
+imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Dario Bronnimann
-  url: 'https://unsplash.com/@darby'
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

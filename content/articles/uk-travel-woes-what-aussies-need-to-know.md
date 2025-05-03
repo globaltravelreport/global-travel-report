@@ -1,21 +1,25 @@
 ---
 title: '''UK Travel Woes: What Aussies Need to Know'''
-summary: ''
+summary: >-
+  In a startling move that has raised eyebrows across continents, allegations
+  have surfaced accusing the government of hampering the UK's tourism indust...
 date: '2025-04-05T11:02:45.913Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
-imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
+imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: uk-travel-woes-what-aussies-need-to-know
 metaTitle: '''UK Travel Woes: What Aussies Need to Know'''
-metaDescription: ''
+metaDescription: >-
+  In a startling move that has raised eyebrows across continents, allegations
+  have surfaced accusing the government of hampering the UK's tourism indust...
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jezael Melgoza
-  url: 'https://unsplash.com/@jezar'
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

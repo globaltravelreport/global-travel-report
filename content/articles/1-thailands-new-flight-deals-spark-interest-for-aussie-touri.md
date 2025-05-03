@@ -1,23 +1,31 @@
 ---
 title: Thailand's New Flight Deals Spark Interest for Aussie Tourists
-summary: ''
+summary: >-
+
+  Thailand is rolling out the red carpet for Australian travelers with new
+  subsidized flight offers, aiming to rejuvenate its appeal amongst
+  internatio...
 date: '2025-04-20T23:27:45.848Z'
 country: Thailand
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-thailands-new-flight-deals-spark-interest-for-aussie-touri
 metaTitle: 1. Thailand's New Flight Deals Spark Interest for Aussie Tourists
-metaDescription: ''
+metaDescription: >-
+
+  Thailand is rolling out the red carpet for Australian travelers with new
+  subsidized flight offers, aiming to rejuvenate its appeal amongst
+  internatio...
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Davide Cantelli
-  url: 'https://unsplash.com/@cant89'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

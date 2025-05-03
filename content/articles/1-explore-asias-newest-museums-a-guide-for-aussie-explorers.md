@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-21T23:02:45.821Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1581872151274-8ede2e3f7d12'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Shifaaz Shamoon
-  url: 'https://unsplash.com/@sotti'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

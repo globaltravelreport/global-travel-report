@@ -7,7 +7,7 @@ summary: |-
 date: '2025-04-18T06:18:45.846Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: shallow focus photography of trees filled of snow
 imageCredit: John Price
 imageLink: 'https://unsplash.com'
@@ -19,8 +19,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Davide Cantelli
-  url: 'https://unsplash.com/@cant89'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

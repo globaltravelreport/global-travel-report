@@ -4,7 +4,7 @@ summary: United Kingdom
 date: '2025-05-02T20:38:45.913Z'
 country: Travel Industry Insights
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -14,8 +14,8 @@ metaDescription: United Kingdom
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Asoggetti
-  url: 'https://unsplash.com/@asoggetti'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

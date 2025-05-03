@@ -6,7 +6,7 @@ summary: |-
 date: '2025-04-23T02:53:45.817Z'
 country: Philippines
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

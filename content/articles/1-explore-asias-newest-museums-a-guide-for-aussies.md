@@ -4,7 +4,7 @@ summary: 'Rewritten article:...'
 date: '2025-04-08T14:28:45.823Z'
 country: Asia (Various)
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Arto Marttinen
-  url: 'https://unsplash.com/@wandervisions'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

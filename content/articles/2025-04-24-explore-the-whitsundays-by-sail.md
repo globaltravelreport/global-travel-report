@@ -8,11 +8,11 @@ country: Australia
 type: Cruise
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1548574169-47bca74f9515'
+imageUrl: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
 imageLink: 'https://unsplash.com'
 photographer:
-  name: Alonso Reyes
-  url: 'https://unsplash.com/@alonsoreyes'
+  name: Vidar Nordli-Mathisen
+  url: 'https://unsplash.com/@vidarnm'
 ---
 
 

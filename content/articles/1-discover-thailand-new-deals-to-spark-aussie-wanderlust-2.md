@@ -9,7 +9,7 @@ summary: >-
 date: '2025-04-10T10:29:45.819Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: body of water surrounding with trees
 imageCredit: Kalen Emsley
 imageLink: '''https://unsplash.com/photos/body-of-water-surrounding-with-trees-_LuLiJc1cdo'''
@@ -26,8 +26,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

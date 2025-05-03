@@ -4,7 +4,7 @@ summary: Rewritten article...
 date: '2025-04-24T12:28:45.809Z'
 country: '|-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

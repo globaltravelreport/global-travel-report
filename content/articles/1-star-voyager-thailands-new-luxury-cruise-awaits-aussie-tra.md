@@ -4,7 +4,7 @@ summary: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
 date: '2025-04-30T08:48:45.846Z'
 country: Thailand
 type: Luxury
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

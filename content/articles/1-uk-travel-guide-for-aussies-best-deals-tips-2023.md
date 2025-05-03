@@ -1,23 +1,23 @@
 ---
 title: '''UK Travel Guide for Aussies: Best Deals & Tips'''
-summary: ''
+summary: The Ultimate UK Travel Guide for Australian Adventurers...
 date: '2025-04-18T20:10:45.857Z'
 country: United Kingdom
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-best-deals-tips-2023
 metaTitle: '''1. UK Travel Guide for Aussies: Best Deals & Tips 2023'''
-metaDescription: ''
+metaDescription: The Ultimate UK Travel Guide for Australian Adventurers...
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

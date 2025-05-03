@@ -139,10 +139,19 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
   // Set the image source and photographer
   const [imageData] = React.useState(getUniqueImageAndPhotographer());
+
+  // Always use the image URL from the story file if it exists
   const imgSrc = story.imageUrl || imageData.imageUrl;
 
+  // Always use the photographer information from the story file if it exists
+  let photographer = story.photographer;
+
+  // If the story doesn't have photographer information, use the one from our database
+  if (!photographer || !photographer.name) {
+    photographer = imageData.photographer;
+  }
+
   // Clean up photographer URL if it has quotes around it
-  let photographer = story.photographer || imageData.photographer;
   if (photographer && photographer.url) {
     // Remove single quotes if they exist
     photographer = {

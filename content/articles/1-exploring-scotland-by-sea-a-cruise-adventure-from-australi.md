@@ -8,7 +8,7 @@ summary: >-
 date: '2025-04-30T23:02:45.829Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -24,8 +24,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+  name: Jaromir Kavan
+  url: 'https://unsplash.com/@jerrykavan'
 ---
 
 

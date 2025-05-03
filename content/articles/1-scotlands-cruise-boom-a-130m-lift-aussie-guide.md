@@ -4,7 +4,7 @@ summary: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
 date: '2025-04-20T17:58:45.842Z'
 country: Scotland
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

@@ -1,16 +1,16 @@
 ---
 title: '''Discover Copenhagen: Direct Flights from China Eastern Airlines'''
-summary: ''
+summary: Flying to Copenhagen Just Got Easier for Aussies!...
 date: '2025-04-30T22:29:45.815Z'
 country: Denmark
 type: '''Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-copenhagen-direct-flights-from-china-eastern-airl
 metaTitle: '|-'
-metaDescription: ''
+metaDescription: Flying to Copenhagen Just Got Easier for Aussies!...
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
