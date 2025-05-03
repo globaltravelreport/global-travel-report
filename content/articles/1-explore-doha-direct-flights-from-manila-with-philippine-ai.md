@@ -16,7 +16,7 @@ metaDescription: >-
   Philippine Airlines, direct flights to Doha, Australian travelers, Manila-Doha
   route, visa requirements for Australians, AUD price comparison, best tr...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Explore Doha: Direct Flights from Manila with Philippine Airlines'
 published: 'true'
 categories: '[]'
 photographer:

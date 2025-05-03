@@ -16,7 +16,7 @@ metaDescription: |-
 
   Rewritten article...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
 published: 'true'
 categories: '[]'
 photographer:

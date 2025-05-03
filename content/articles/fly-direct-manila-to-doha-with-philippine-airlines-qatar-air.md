@@ -20,7 +20,7 @@ metaDescription: >-
   Philippine Airlines' direct flights from Manila to Doha, now in codeshare
   par...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
 photographer:
   name: Asoggetti
   url: 'https://unsplash.com/@asoggetti'

@@ -18,7 +18,7 @@ metaDescription: >-
   When it comes to jet-setting from Down Under to the far reaches of our planet,
   the journey can be just as important as the destination. Whether you'r...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Best Noise-Cancelling Headphones for Aussie Travellers
 photographer:
   name: Simon Migaj
   url: 'https://unsplash.com/@simonmigaj'

@@ -12,7 +12,7 @@ slug: 1-uk-travel-guide-tips-for-aussies-planning-their-british-es
 metaTitle: '''1. UK Travel Guide: Tips for Aussies Planning Their British Escape'''
 metaDescription: 'A Guide for Australians Travelling to the UK: Everything You Need to Know...'
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide: Tips for Aussies Planning Their British Escape'
 published: 'true'
 categories: '[]'
 photographer:

@@ -18,7 +18,7 @@ metaDescription: >-
   ### Discover Manila: A Guide for Australian Travelers Flying with Qatar
   Airways...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Explore Manila with Qatar Airways: Your Australian Gateway'
 categories: '[]'
 photographer:
   name: Jakob Owens

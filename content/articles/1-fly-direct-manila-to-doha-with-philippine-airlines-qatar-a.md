@@ -12,7 +12,7 @@ slug: 1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a
 metaTitle: '''1. Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
 metaDescription: '### Direct Flights from Manila to Doha: A New Gateway for Aussie Explorers...'
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
 published: 'true'
 categories: '[]'
 photographer:

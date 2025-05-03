@@ -18,7 +18,7 @@ metaDescription: >-
   landscapes, and historical marvels of the Indian subcontinent, the recent
   closu...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Pakistan Airspace Closure: What Aussies Need to Know'
 categories: '[]'
 photographer:
   name: Emile Guillemot

@@ -18,7 +18,7 @@ metaDescription: >-
   ### The Ultimate Guide to Choosing Noise-Cancelling Headphones for Australian
   Travellers...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'
 categories: '[]'
 photographer:
   name: Davide Cantelli

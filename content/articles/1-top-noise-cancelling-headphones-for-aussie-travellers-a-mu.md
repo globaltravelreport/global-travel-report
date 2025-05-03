@@ -16,7 +16,7 @@ metaDescription: >-
   As Australian wanderlusts begin to plot their next international escapade,
   there's one travel accessory that's becoming a non-negotiable: noise-cancel...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
 published: 'true'
 categories: '[]'
 photographer:

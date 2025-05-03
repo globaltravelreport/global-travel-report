@@ -12,7 +12,7 @@ slug: 1-uk-travel-guide-for-aussies-must-know-tips-tricks
 metaTitle: '''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
 metaDescription: Rewritten article...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks'
 photographer:
   name: Jaromir Kavan
   url: 'https://unsplash.com/@jerrykavan'

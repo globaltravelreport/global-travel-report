@@ -16,7 +16,7 @@ metaDescription: >-
   UK travel guide, Australian travelers, flight deals from Australia to UK, UK
   visa requirements, travel tips for Australians, AUD to GBP exchange, UK c...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 published: 'true'
 categories: '[]'
 photographer:

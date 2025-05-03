@@ -20,7 +20,7 @@ metaDescription: >-
   subsidized flight offers, aiming to rejuvenate its appeal amongst
   internatio...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Thailand's New Flight Deals Spark Interest for Aussie Tourists
 published: 'true'
 categories: '[]'
 photographer:

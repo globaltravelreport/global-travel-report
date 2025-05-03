@@ -22,7 +22,7 @@ metaDescription: >-
 
   ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Discover Thailand: New Deals to Spark Aussie Wanderlust'
 published: 'true'
 categories: '[]'
 photographer:

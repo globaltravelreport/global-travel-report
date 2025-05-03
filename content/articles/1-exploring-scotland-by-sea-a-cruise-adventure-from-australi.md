@@ -20,7 +20,7 @@ metaDescription: >-
 
   ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Exploring Scotland by Sea: A Cruise Adventure from Australia'
 published: 'true'
 categories: '[]'
 photographer:

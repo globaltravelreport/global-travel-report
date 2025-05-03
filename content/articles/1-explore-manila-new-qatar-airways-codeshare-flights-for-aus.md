@@ -18,7 +18,7 @@ metaDescription: >-
   # Explore Manila with Ease: Qatar Airways' New Codeshare Flights from
   Australia...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
 published: 'true'
 categories: '[]'
 photographer:

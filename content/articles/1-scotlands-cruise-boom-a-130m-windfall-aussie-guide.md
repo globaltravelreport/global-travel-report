@@ -12,7 +12,7 @@ slug: 1-scotlands-cruise-boom-a-130m-windfall-aussie-guide
 metaTitle: '''1. Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'''
 metaDescription: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'
 published: 'true'
 categories: '[]'
 photographer:

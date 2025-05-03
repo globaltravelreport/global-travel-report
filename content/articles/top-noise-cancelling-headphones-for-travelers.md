@@ -18,7 +18,7 @@ metaDescription: >-
   travel accessories—a good pair of noise-cancelling headphones. With the
   abil...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Top Noise-Cancelling Headphones for Travelers
 photographer:
   name: Arto Marttinen
   url: 'https://unsplash.com/@wandervisions'

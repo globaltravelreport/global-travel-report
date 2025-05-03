@@ -12,7 +12,7 @@ slug: 1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra
 metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Cruise Awaits Aussie Travellers'''
 metaDescription: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
 published: 'true'
 categories: '[]'
 photographer:

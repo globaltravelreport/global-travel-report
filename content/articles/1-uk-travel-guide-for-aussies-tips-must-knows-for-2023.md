@@ -18,7 +18,7 @@ metaDescription: >-
   Embarking on a UK adventure from Australia may seem daunting, but with the
   right information, it can be a breeze and an experience of a lifetime. Whe...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide for Aussies: Tips & Must-Knows for'
 published: 'true'
 categories: '[]'
 photographer:

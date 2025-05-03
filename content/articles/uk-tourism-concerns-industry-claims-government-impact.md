@@ -12,7 +12,7 @@ slug: uk-tourism-concerns-industry-claims-government-impact
 metaTitle: '''UK Tourism Concerns: Industry Claims Government Impact'''
 metaDescription: United Kingdom
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Tourism Concerns: Industry Claims Government Impact'
 photographer:
   name: Emile Guillemot
   url: 'https://unsplash.com/@emilegt'

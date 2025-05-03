@@ -18,7 +18,7 @@ metaDescription: >-
   As Australian wanderlusts gear up for their next international escape, knowing
   the best noise-cancelling headphones to bring along can transform the ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Top Noise-Cancelling Headphones for Aussie Globetrotters
 published: 'true'
 categories: '[]'
 photographer:

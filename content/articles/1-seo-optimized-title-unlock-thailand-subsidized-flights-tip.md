@@ -15,7 +15,7 @@ slug: 1-seo-optimized-title-unlock-thailand-subsidized-flights-tip
 metaTitle: '|-'
 metaDescription: '|-'
 keywords: ''
-originalTitle: '>-'
+originalTitle: '|-'
 published: 'true'
 categories: '[]'
 photographer:

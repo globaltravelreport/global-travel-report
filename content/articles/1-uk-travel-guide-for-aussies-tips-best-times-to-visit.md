@@ -18,7 +18,7 @@ metaDescription: >-
   The UK is calling all Australian adventurers to explore its historic cities,
   stunning countryside, and vibrant cultural scene. But before you pack yo...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide for Aussies: Tips & Best Times to Visit'
 published: 'true'
 categories: '[]'
 photographer:

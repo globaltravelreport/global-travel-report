@@ -18,7 +18,7 @@ metaDescription: >-
   7. **Direct Flights from Manila to Doha: A New Adventure Awaits Australian
   Travelers**...
 keywords: ''
-originalTitle: '>-'
+originalTitle: '1. Direct Manila-Doha Flights: Your Gateway to Adventure'
 photographer:
   name: Braden Jarvis
   url: 'https://unsplash.com/@jarvisphoto'

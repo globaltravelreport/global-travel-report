@@ -18,7 +18,7 @@ metaDescription: >-
   Wildlife tourism is not just a thrilling adventure for Australians looking to
   explore the wonders of the natural world; it's also a booming industry ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Wildlife Adventures Outearn Illegal Trade Globally
 photographer:
   name: Davide Cantelli
   url: 'https://unsplash.com/@cant89'

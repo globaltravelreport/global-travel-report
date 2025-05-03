@@ -18,7 +18,7 @@ metaDescription: >-
   Exploring Manila just got easier and more affordable for Aussies, thanks to a
   new codeshare agreement between Qatar Airways and Philippine Airlines. ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
 published: 'true'
 categories: '[]'
 photographer:

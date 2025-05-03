@@ -16,7 +16,7 @@ metaDescription: >-
   Embarking on international adventures from Australia just got more serene with
   the latest deals on noise-cancelling headphones, a must-have for any se...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
 photographer:
   name: Emile Guillemot
   url: 'https://unsplash.com/@emilegt'

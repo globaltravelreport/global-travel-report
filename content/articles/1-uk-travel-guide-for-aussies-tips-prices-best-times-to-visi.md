@@ -12,7 +12,7 @@ slug: 1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi
 metaTitle: '''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
 metaDescription: '### Your Ultimate Guide to Exploring the UK from Australia...'
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
 categories: '[]'
 photographer:
   name: Sime Basioli

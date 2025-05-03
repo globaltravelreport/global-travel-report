@@ -18,7 +18,7 @@ metaDescription: >-
   accessories can make all the difference, especially during those long-haul
   fligh...
 keywords: ''
-originalTitle: '>-'
+originalTitle: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
 published: 'true'
 categories: '[]'
 photographer:

@@ -1,5 +1,5 @@
 ---
-title: ''
+title: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 summary: |-
 
   Embarking on a Manila Adventure: A Guide for Australian Travelers...
@@ -11,12 +11,12 @@ imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-manila-your-ultimate-guide-to-flying-from-austral
-metaTitle: '>-'
+metaTitle: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 metaDescription: |-
 
   Embarking on a Manila Adventure: A Guide for Australian Travelers...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 published: 'true'
 categories: '[]'
 photographer:

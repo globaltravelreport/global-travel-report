@@ -16,7 +16,7 @@ metaDescription: >-
   Scotland has recently emerged as a crowd-puller in the cruise tourism sector,
   offering a substantial £130m injection into its economy. For Australian ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
 published: 'true'
 categories: '[]'
 photographer:

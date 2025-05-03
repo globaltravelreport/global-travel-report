@@ -16,7 +16,7 @@ metaDescription: >-
   In a startling move that has raised eyebrows across continents, allegations
   have surfaced accusing the government of hampering the UK's tourism indust...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'UK Travel Woes: What Aussies Need to Know'
 photographer:
   name: Thomas Tucker
   url: 'https://unsplash.com/@tents_and_tread'

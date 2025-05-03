@@ -18,7 +18,7 @@ metaDescription: >-
   Australian Travellers Face Longer Routes to India Amid Pakistan Airspace
   Closure...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Pakistan Airspace Closure Affects Aussie Travellers: Know More'
 photographer:
   name: Arto Marttinen
   url: 'https://unsplash.com/@wandervisions'

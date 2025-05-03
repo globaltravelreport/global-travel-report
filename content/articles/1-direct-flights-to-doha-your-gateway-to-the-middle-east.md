@@ -18,7 +18,7 @@ metaDescription: >-
   Embarking on an adventure or seeking luxury in the Middle East has never been
   easier for Aussie globetrotters, thanks to the new direct flights from ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Direct Flights to Doha: Your Gateway to the Middle East'
 published: 'true'
 categories: '[]'
 photographer:

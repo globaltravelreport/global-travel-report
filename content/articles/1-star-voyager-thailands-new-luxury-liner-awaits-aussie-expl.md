@@ -20,7 +20,7 @@ metaDescription: >-
   collaboration between the Tourism Authority of Thailand (TAT) and StarDream
   ...
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'
 photographer:
   name: Dino Reichmuth
   url: 'https://unsplash.com/@dinoreichmuth'

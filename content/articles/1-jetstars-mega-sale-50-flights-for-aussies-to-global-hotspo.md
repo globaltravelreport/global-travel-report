@@ -12,7 +12,7 @@ slug: 1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo
 metaTitle: '''1. Jetstar''''s Mega Sale: $50 Flights for Aussies to Global Hotspots'''
 metaDescription: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 keywords: ''
-originalTitle: '>-'
+originalTitle: 'Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots'
 published: 'true'
 categories: '[]'
 photographer:
