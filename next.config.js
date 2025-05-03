@@ -30,6 +30,10 @@ const nextConfig = {
         hostname: 'plus.unsplash.com',
       },
     ],
+    // Disable caching for images
+    minimumCacheTTL: 0,
+    // Force dynamic image optimization
+    unoptimized: false,
   },
   webpack: (config) => {
     config.resolve.alias = {
