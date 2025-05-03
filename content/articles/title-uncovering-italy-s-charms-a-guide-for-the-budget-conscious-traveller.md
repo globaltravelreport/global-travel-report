@@ -8,7 +8,7 @@ excerpt: >-
   This article offers practical tips and insider advice to help budget-conscious
   travellers plan an affordable journey through the captivating regions of
   Italy.
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 keywords:
   - Budget travel
   - Italy
@@ -17,8 +17,8 @@ keywords:
   - Travel planning
 author: Global Travel Report Editorial Team
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Thomas Tucker
+  url: 'https://unsplash.com/@tents_and_tread'
 ---
 
 Title: Uncovering Italy's Charms: A Guide for the Budget-Conscious Traveller

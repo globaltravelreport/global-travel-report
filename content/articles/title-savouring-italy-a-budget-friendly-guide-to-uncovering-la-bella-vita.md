@@ -8,7 +8,7 @@ excerpt: >-
   This article provides an insider's guide on how to traverse the diverse
   regions of Italy on a budget, without compromising on the rich cultural and
   historical experiences.
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 keywords:
   - Italy
   - Budget Travel
@@ -17,8 +17,8 @@ keywords:
   - Italian Cuisine
 author: Global Travel Report Editorial Team
 photographer:
-  name: "Jaromir Kavan"
-  url: "https://unsplash.com/@jerrykavan"
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 Title: Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita

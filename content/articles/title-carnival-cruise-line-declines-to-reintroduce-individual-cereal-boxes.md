@@ -8,7 +8,7 @@ excerpt: >-
   A request by a Carnival Cruise Line passenger for the return of individual
   boxed cereals has been declined, citing practicality and local laws at ports
   of call as reasons.
-imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
+imageUrl: 'https://images.unsplash.com/photo-1559599746-8823b38544c6'
 keywords:
   - Carnival Cruise Line
   - cereal boxes
@@ -17,8 +17,8 @@ keywords:
   - cruise ship dining
 author: Global Travel Report Editorial Team
 photographer:
-  name: "Josiah Farrow"
-  url: "https://unsplash.com/@josiahfarrow"
+  name: Alonso Reyes
+  url: 'https://unsplash.com/@alonsoreyes'
 ---
 
 Title: "Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes"
