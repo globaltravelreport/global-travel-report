@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { OptimizedImage } from '@/src/components/ui/OptimizedImage';
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -18,17 +18,19 @@ const Hero = () => {
         className="absolute inset-0"
         style={{ y }}
       >
-        <Image
-          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+        <OptimizedImage
+          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90"
           alt="Beautiful travel destination with mountains and lake"
           fill
           className="object-cover"
-          priority
+          priority={true}
           sizes="100vw"
           quality={90}
+          objectFit="cover"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
-        <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+        <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded z-10">
           Photo by <a
             href="https://unsplash.com/@jeremybishop"
             target="_blank"

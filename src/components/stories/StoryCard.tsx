@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { withErrorBoundary } from '@/src/components/ui/ErrorBoundary';
 import { formatDisplayDate } from '@/src/utils/date-utils';
 import { StoryCoverImage } from '@/src/components/ui/OptimizedImage';
+import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
+import { cn } from '@/src/utils/cn';
 import type { Story } from '@/types/Story';
 
 interface StoryCardProps {
@@ -29,24 +31,56 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
   return (
     <div
-      className={`transition-all duration-300 hover:shadow-xl border rounded-lg overflow-hidden group ${
-        story.featured ? 'border-primary' : ''
-      } ${
-        story.editorsPick ? 'border-secondary' : ''
-      } ${
-        className || ''
-      } hover:translate-y-[-4px]`}
+      className={cn(
+        "transition-all duration-300 hover:shadow-xl border rounded-lg overflow-hidden group hover:translate-y-[-4px]",
+        story.featured && "border-primary",
+        story.editorsPick && "border-secondary",
+        className
+      )}
     >
       <Link href={getStoryUrl(story.slug)} className="block">
-        <div className="relative w-full h-52 overflow-hidden">
-          <StoryCoverImage
+        <div className="relative w-full overflow-hidden">
+          <ResponsiveImage
             src={imgSrc}
             alt={story.title}
             priority={story.featured}
             className="rounded-t-lg transition-transform duration-700 group-hover:scale-110"
-            photographer={story.photographer}
-            showAttribution={true}
+            aspectRatio="16/9"
+            sizes={{
+              sm: '100vw',
+              md: '50vw',
+              lg: '33vw'
+            }}
+            lazyLoad={!story.featured}
+            containerClassName="relative"
+            quality={85}
           />
+          {story.photographer && (
+            <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl z-10">
+              Photo by{" "}
+              {story.photographer.url ? (
+                <a
+                  href={story.photographer.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold underline hover:text-gray-200"
+                >
+                  {story.photographer.name}
+                </a>
+              ) : (
+                <span className="font-bold">{story.photographer.name}</span>
+              )}
+              {" "}on{" "}
+              <a
+                href="https://unsplash.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold underline hover:text-gray-200"
+              >
+                Unsplash
+              </a>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         <div className="p-5">
@@ -92,12 +126,24 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
 // Fallback UI for when the StoryCard errors
 const StoryCardFallback = () => (
-  <div className="transition-all border border-gray-200 rounded-lg">
-    <div className="p-4">
-      <div className="h-48 bg-gray-200 rounded-t-lg animate-pulse"></div>
-      <div className="mt-4 h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-      <div className="mt-2 h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
-      <div className="mt-4 h-16 bg-gray-200 rounded animate-pulse"></div>
+  <div className={cn(
+    "transition-all border border-gray-200 rounded-lg overflow-hidden"
+  )}>
+    <div className="w-full" style={{ aspectRatio: '16/9' }}>
+      <div className="w-full h-full bg-gray-200 rounded-t-lg animate-pulse"></div>
+    </div>
+    <div className="p-5">
+      <div className="flex gap-2 mb-3">
+        <div className="h-6 bg-gray-200 rounded w-20 animate-pulse"></div>
+        <div className="h-6 bg-gray-200 rounded w-24 animate-pulse"></div>
+      </div>
+      <div className="h-7 bg-gray-200 rounded w-3/4 animate-pulse mb-2"></div>
+      <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse mb-3"></div>
+      <div className="h-16 bg-gray-200 rounded animate-pulse mb-4"></div>
+      <div className="pt-2 border-t border-gray-100 flex gap-2">
+        <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
+        <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
+      </div>
     </div>
   </div>
 );

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
 import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
+import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import SchemaOrg from "@/components/SchemaOrg";
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
@@ -13,6 +14,7 @@ import { getAllStories, getStoryBySlug } from "@/src/utils/stories";
 import { ShareButtons } from "@/src/components/ui/ShareButtons";
 import { FloatingShareButton } from "@/src/components/ui/FloatingShareButton";
 import { Toaster } from 'sonner';
+import { generateStoryMeta } from "@/src/utils/meta";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -39,10 +41,12 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     };
   }
 
-  const title = `${story.title} - Global Travel Report`;
-  const description = story.excerpt;
+  // Generate optimized meta title and description
+  const { title, description } = generateStoryMeta(story);
+
+  // Generate Open Graph image URL
   const ogImage = story.imageUrl
-    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=${encodeURIComponent(story.title)}&destination=${encodeURIComponent(story.country)}`
+    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=${encodeURIComponent(story.title.replace(/^Title:\s*/i, ''))}&destination=${encodeURIComponent(story.country)}`
     : undefined;
 
   return {
@@ -136,18 +140,50 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         </div>
 
         {story.imageUrl && (
-          <div className="relative w-full h-[400px] mb-8">
-            <StoryCoverImage
+          <div className="relative w-full mb-8">
+            <ResponsiveImage
               src={story.imageUrl}
               alt={story.title}
               priority={true}
               className="rounded-lg"
-              photographer={story.photographer || {
-                name: story.imageCredit ? story.imageCredit.replace('Photo by ', '').replace(' on Unsplash', '') : 'Photographer',
-                url: story.imageCreditUrl || 'https://unsplash.com'
+              aspectRatio="21/9"
+              sizes={{
+                sm: '100vw',
+                md: '100vw',
+                lg: '1200px'
               }}
-              showAttribution={true}
+              quality={90}
+              objectFit="cover"
+              lazyLoad={false}
             />
+            {(story.photographer || story.imageCredit) && (
+              <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs p-2 rounded-md z-10">
+                Photo by{" "}
+                {story.photographer?.url || story.imageCreditUrl ? (
+                  <a
+                    href={story.photographer?.url || story.imageCreditUrl || 'https://unsplash.com'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold underline hover:text-gray-200"
+                  >
+                    {story.photographer?.name || (story.imageCredit ? story.imageCredit.replace('Photo by ', '').replace(' on Unsplash', '') : 'Photographer')}
+                  </a>
+                ) : (
+                  <span className="font-bold">
+                    {story.photographer?.name || (story.imageCredit ? story.imageCredit.replace('Photo by ', '').replace(' on Unsplash', '') : 'Photographer')}
+                  </span>
+                )}
+                {" "}on{" "}
+                <a
+                  href="https://unsplash.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold underline hover:text-gray-200"
+                >
+                  Unsplash
+                </a>
+              </div>
+            )}
           </div>
         )}
       </header>
