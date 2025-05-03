@@ -223,7 +223,8 @@ export async function getAllStories(): Promise<Story[]> {
 
             // Ensure the URL is properly formatted
             if (!cleanImageUrl.startsWith('http')) {
-              console.warn(`Invalid image URL in ${file}: ${cleanImageUrl}`);
+              // Don't log warnings for invalid URLs, just reset them
+              // console.warn(`Invalid image URL in ${file}: ${cleanImageUrl}`);
               cleanImageUrl = ''; // Reset invalid URLs
             }
             // Valid URL, no need to log anything

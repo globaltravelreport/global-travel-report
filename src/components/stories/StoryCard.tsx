@@ -18,9 +18,8 @@ interface StoryCardProps {
 const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   // Generate a unique image based on story category, title, and ID if no image is provided
   const getUniqueImage = React.useCallback(() => {
-    if (story.imageUrl && story.imageUrl.startsWith('http')) {
-      return story.imageUrl;
-    }
+    // Always use our deterministic image selection algorithm
+    // This ensures each story gets a unique image regardless of what's in the database
 
     // Expanded category-specific default images with more options
     const defaultImages = {
@@ -30,7 +29,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
         'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
         'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-        'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+        'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
+        'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
+        'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
       ],
       'Cruise': [
         'https://images.unsplash.com/photo-1548574505-5e239809ee19',
@@ -38,15 +40,21 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
         'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a',
         'https://images.unsplash.com/photo-1548574169-47bca74f9515',
-        'https://images.unsplash.com/photo-1580541631950-7282082b03fe'
+        'https://images.unsplash.com/photo-1580541631950-7282082b03fe',
+        'https://images.unsplash.com/photo-1566375638485-8c4d8780ae10',
+        'https://images.unsplash.com/photo-1505118380757-91f5f5632de0',
+        'https://images.unsplash.com/photo-1559599746-8823b38544c6'
       ],
       'Culture': [
         'https://images.unsplash.com/photo-1493707553966-283afac8c358',
         'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
         'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
-        'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
         'https://images.unsplash.com/photo-1551913902-c92207136625',
-        'https://images.unsplash.com/photo-1552084117-56a987666449'
+        'https://images.unsplash.com/photo-1552084117-56a987666449',
+        'https://images.unsplash.com/photo-1551966775-a4ddc8df052b',
+        'https://images.unsplash.com/photo-1518998053901-5348d3961a04',
+        'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0',
+        'https://images.unsplash.com/photo-1581872151274-8ede2e3f7d12'
       ],
       'Food & Wine': [
         'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
@@ -54,7 +62,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         'https://images.unsplash.com/photo-1533777324565-a040eb52facd',
         'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
         'https://images.unsplash.com/photo-1414235077428-338989a2e8c0',
-        'https://images.unsplash.com/photo-1481931098730-318b6f776db0'
+        'https://images.unsplash.com/photo-1481931098730-318b6f776db0',
+        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
+        'https://images.unsplash.com/photo-1515778767554-195d641642a7',
+        'https://images.unsplash.com/photo-1482275548304-a58859dc31b7'
       ],
       'Adventure': [
         'https://images.unsplash.com/photo-1551632811-561732d1e306',
@@ -65,7 +76,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         'https://images.unsplash.com/photo-1533130061792-64b345e4a833',
         'https://images.unsplash.com/photo-1496080174650-637e3f22fa03',
         'https://images.unsplash.com/photo-1501555088652-021faa106b9b',
-        'https://images.unsplash.com/photo-1473773508845-188df298d2d1'
+        'https://images.unsplash.com/photo-1473773508845-188df298d2d1',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+        'https://images.unsplash.com/photo-1439853949127-fa647821eba0',
+        'https://images.unsplash.com/photo-1455156218388-5e61b526818b'
       ],
       'General': [
         'https://images.unsplash.com/photo-1488085061387-422e29b40080',
@@ -73,7 +87,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
         'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
         'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-        'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+        'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
+        'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
+        'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
       ]
     };
 
@@ -83,7 +100,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
     // Create a more unique hash using story ID, slug, and title
     // This ensures that even stories with similar titles get different images
-    const uniqueString = `${story.id}-${story.slug}-${story.title}`;
+    const uniqueString = `${story.id || ''}-${story.slug || ''}-${story.title || ''}`;
     const uniqueHash = uniqueString.split('').reduce((acc, char, index) => {
       // Use character position to create more variation
       return acc + (char.charCodeAt(0) * (index + 1));
@@ -93,7 +110,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     const index = Math.abs(uniqueHash) % imageArray.length;
 
     return imageArray[index];
-  }, [story.imageUrl, story.category, story.title, story.id, story.slug]);
+  }, [story.category, story.title, story.id, story.slug]);
 
   // Set the image source
   const [imgSrc] = React.useState(getUniqueImage());
