@@ -52,6 +52,13 @@ export const metadata: Metadata = {
       'en-US': '/',
       'en-AU': '/au',
     },
+    types: {
+      'application/rss+xml': [
+        { url: '/api/feed/rss', title: 'Global Travel Report - All Stories' },
+        { url: '/api/feed/rss?category=cruises', title: 'Global Travel Report - Cruise Stories' },
+        { url: '/api/feed/rss?category=destinations', title: 'Global Travel Report - Destination Stories' },
+      ],
+    },
   },
   openGraph: {
     type: 'website',
@@ -132,6 +139,26 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* RSS Feed Links */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Global Travel Report - All Stories"
+          href="/api/feed/rss"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Global Travel Report - Cruise Stories"
+          href="/api/feed/rss?category=cruises"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Global Travel Report - Destination Stories"
+          href="/api/feed/rss?category=destinations"
+        />
+
         <Script
           id="json-ld"
           type="application/ld+json"

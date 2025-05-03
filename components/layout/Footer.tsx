@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { NewsletterSignup } from '@/components/NewsletterSignup'
+import { RssIcon } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -33,6 +34,12 @@ export function Footer() {
               <li>
                 <Link href="/contact" className="text-gray-600 hover:text-gray-900">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/feeds" className="text-gray-600 hover:text-gray-900 flex items-center gap-1">
+                  <RssIcon size={16} />
+                  <span>RSS Feeds</span>
                 </Link>
               </li>
             </ul>
