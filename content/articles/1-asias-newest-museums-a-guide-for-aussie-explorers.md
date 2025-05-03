@@ -4,7 +4,7 @@ summary: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
 date: '2025-04-21T08:48:45.807Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Heritage Photographer
-  url: 'https://unsplash.com/@heritagephoto'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

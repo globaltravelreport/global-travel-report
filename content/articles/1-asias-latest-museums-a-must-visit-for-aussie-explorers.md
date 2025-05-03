@@ -4,7 +4,7 @@ summary: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travele
 date: '2025-04-27T00:46:45.803Z'
 country: Multiple countries in Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+imageUrl: 'https://images.unsplash.com/photo-1516834474-48c0abc2a902'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Heritage Photographer
-  url: 'https://unsplash.com/@heritagephoto'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

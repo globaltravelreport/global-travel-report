@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-03T18:17:45.871Z'
 country: United Kingdom
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
+imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Heritage Photographer
-  url: 'https://unsplash.com/@heritagephoto'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

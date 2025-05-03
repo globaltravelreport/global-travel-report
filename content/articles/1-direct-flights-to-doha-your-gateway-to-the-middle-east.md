@@ -1,23 +1,23 @@
 ---
 title: '''Direct Flights to Doha: Your Gateway to the Middle East'''
-summary: >-
+summary: ''
 date: '2025-04-14T13:14:45.811Z'
 country: Qatar
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-direct-flights-to-doha-your-gateway-to-the-middle-east
 metaTitle: '''1. Direct Flights to Doha: Your Gateway to the Middle East'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Asoggetti
+  url: 'https://unsplash.com/@asoggetti'
 ---
 
 

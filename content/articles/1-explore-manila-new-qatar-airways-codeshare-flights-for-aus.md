@@ -1,23 +1,23 @@
 ---
 title: '''Explore Manila: New Qatar Airways Codeshare Flights for Aussies'''
-summary: >-
+summary: ''
 date: '2025-04-15T17:24:45.826Z'
 country: Philippines
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-new-qatar-airways-codeshare-flights-for-aus
 metaTitle: '''1. Explore Manila: New Qatar Airways Codeshare Flights for Aussies'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

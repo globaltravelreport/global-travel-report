@@ -1,22 +1,22 @@
 ---
 title: '''Explore Manila with Qatar Airways: Your Australian Gateway'''
-summary: >-
+summary: ''
 date: '2025-04-21T08:23:45.828Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-manila-with-qatar-airways-your-australian-gateway
 metaTitle: '''1. Explore Manila with Qatar Airways: Your Australian Gateway'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: "Jingda Chen"
-  url: "https://unsplash.com/@jingda"
+  name: Esteban Castle
+  url: 'https://unsplash.com/@estebancastle'
 ---
 
 

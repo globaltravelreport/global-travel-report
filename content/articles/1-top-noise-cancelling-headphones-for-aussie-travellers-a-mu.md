@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-24T18:08:45.854Z'
 country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Aviation Photographer
-  url: 'https://unsplash.com/@aviationphoto'
+  name: Braden Jarvis
+  url: 'https://unsplash.com/@jarvisphoto'
 ---
 
 

@@ -9,15 +9,15 @@ slug: southeast-asia-the-new-favorite-of-australian-travelers
 date: '2025-04-17T07:41:45.901Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
 imageAlt: city buildings during daytime
 imageCredit: Aniq Danial on Unsplash
 imageLink: '''https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sky Capturer
-  url: 'https://unsplash.com/@skycapturer'
+  name: Arto Marttinen
+  url: 'https://unsplash.com/@wandervisions'
 ---
 
 

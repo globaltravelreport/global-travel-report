@@ -1,25 +1,23 @@
 ---
 title: Top 5 Hidden Gems for Aussie Travellers in
-summary: |-
-
+summary: ''
 date: '2025-04-25T08:41:45.852Z'
 country: '''Montenegro, Ghana, Uruguay, Georgia, Taiwan'''
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-top-5-hidden-gems-for-aussie-travellers-in-2025
 metaTitle: 1. Top 5 Hidden Gems for Aussie Travellers in 2025
-metaDescription: |-
-
+metaDescription: ''
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

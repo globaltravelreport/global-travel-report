@@ -1,21 +1,21 @@
 ---
 title: '''Pakistan Airspace Closure Affects Aussie Travellers: Know More'''
-summary: >-
+summary: ''
 date: '2025-04-19T06:01:45.838Z'
 country: India
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-pakistan-airspace-closure-affects-aussie-travellers-know-m
 metaTitle: '''1. Pakistan Airspace Closure Affects Aussie Travellers: Know More'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Raimond Klavins"
-  url: "https://unsplash.com/@raimondklavins"
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

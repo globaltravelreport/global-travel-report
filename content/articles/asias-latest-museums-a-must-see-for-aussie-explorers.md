@@ -1,21 +1,21 @@
 ---
 title: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
-summary: >-
+summary: ''
 date: '2025-04-16T16:11:45.903Z'
 country: '''Japan, Singapore'''
 type: '''Culture, Art'''
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1552084117-56a987666449'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: asias-latest-museums-a-must-see-for-aussie-explorers
 metaTitle: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 photographer:
-  name: "Esteban Castle"
-  url: "https://unsplash.com/@estebancastle"
+  name: Heidi Kaden
+  url: 'https://unsplash.com/@heidikaden'
 ---
 
 

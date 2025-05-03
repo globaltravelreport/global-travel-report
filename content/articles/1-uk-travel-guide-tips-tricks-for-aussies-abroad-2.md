@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-14T20:43:45.897Z'
 country: '>-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sky Capturer
-  url: 'https://unsplash.com/@skycapturer'
+  name: Jaromir Kavan
+  url: 'https://unsplash.com/@jerrykavan'
 ---
 
 

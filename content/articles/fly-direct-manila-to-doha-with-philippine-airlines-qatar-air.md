@@ -1,21 +1,21 @@
 ---
 title: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
-summary: >-
+summary: ''
 date: '2025-04-14T17:27:45.907Z'
 country: Qatar
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: fly-direct-manila-to-doha-with-philippine-airlines-qatar-air
 metaTitle: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Raimond Klavins"
-  url: "https://unsplash.com/@raimondklavins"
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

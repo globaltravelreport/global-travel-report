@@ -1,21 +1,21 @@
 ---
 title: Best Noise-Cancelling Headphones for Aussie Travellers
-summary: >-
+summary: ''
 date: '2025-04-10T05:54:45.904Z'
 country: Multiple destinations
 type: Travel Essentials
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: best-noise-cancelling-headphones-for-aussie-travellers
 metaTitle: Best Noise-Cancelling Headphones for Aussie Travellers
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Asoggetti
+  url: 'https://unsplash.com/@asoggetti'
 ---
 
 

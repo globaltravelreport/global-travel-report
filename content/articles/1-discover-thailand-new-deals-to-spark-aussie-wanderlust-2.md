@@ -9,7 +9,7 @@ summary: >-
 date: '2025-04-10T10:29:45.819Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: body of water surrounding with trees
 imageCredit: Kalen Emsley
 imageLink: '''https://unsplash.com/photos/body-of-water-surrounding-with-trees-_LuLiJc1cdo'''
@@ -26,8 +26,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Place Seeker
-  url: 'https://unsplash.com/@placeseeker'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

@@ -1,23 +1,21 @@
 ---
 title: Explore the Shanghai Cruise Culture & Tourism Festival
-summary: >-
-
+summary: ''
 date: '2025-05-02T22:57:45.905Z'
 country: China
 type: Cultural Festivals
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
-imageLink: >-
+imageLink: ''
 slug: explore-the-shanghai-cruise-culture-tourism-festival
 metaTitle: Explore the Shanghai Cruise Culture & Tourism Festival
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: Shanghai Cruise Culture and Tourism Festival 2025 sets sail - China Daily
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

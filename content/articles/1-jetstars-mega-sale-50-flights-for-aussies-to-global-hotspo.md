@@ -4,7 +4,7 @@ summary: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotter
 date: '2025-04-27T04:41:45.831Z'
 country: Multiple countries
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Simon Migaj"
-  url: "https://unsplash.com/@simonmigaj"
+  name: Emile Guillemot
+  url: 'https://unsplash.com/@emilegt'
 ---
 
 

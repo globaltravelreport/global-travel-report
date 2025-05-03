@@ -4,7 +4,7 @@ summary: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explo
 date: '2025-04-29T15:05:45.845Z'
 country: Scotland
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Esteban Castle"
-  url: "https://unsplash.com/@estebancastle"
+  name: Esteban Castle
+  url: 'https://unsplash.com/@estebancastle'
 ---
 
 

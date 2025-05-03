@@ -4,7 +4,7 @@ summary: '### Direct Flights from Manila to Doha: A New Gateway for Aussie Explo
 date: '2025-04-25T22:09:45.830Z'
 country: Qatar
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Davide Cantelli
+  url: 'https://unsplash.com/@cant89'
 ---
 
 

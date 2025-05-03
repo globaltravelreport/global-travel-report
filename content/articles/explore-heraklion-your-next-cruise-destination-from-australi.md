@@ -1,23 +1,21 @@
 ---
 title: '''Explore Heraklion: Your Next Cruise Destination from Australia'''
-summary: >-
-
+summary: ''
 date: '2025-04-07T14:21:45.905Z'
 country: Greece
 type: '''Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: explore-heraklion-your-next-cruise-destination-from-australi
 metaTitle: '''Explore Heraklion: Your Next Cruise Destination from Australia'''
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: "Jingda Chen"
-  url: "https://unsplash.com/@jingda"
+  name: Shifaaz Shamoon
+  url: 'https://unsplash.com/@sotti'
 ---
 
 

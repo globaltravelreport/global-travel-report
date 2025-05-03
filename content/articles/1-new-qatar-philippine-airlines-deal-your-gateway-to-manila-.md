@@ -1,23 +1,23 @@
 ---
 title: '''New Qatar-Philippine Airlines Deal: Your Gateway to Manila'''
-summary: >-
+summary: ''
 date: '2025-04-24T08:24:45.838Z'
 country: Philippines
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-new-qatar-philippine-airlines-deal-your-gateway-to-manila
 metaTitle: '|-'
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Simon Migaj"
-  url: "https://unsplash.com/@simonmigaj"
+  name: Thomas Tucker
+  url: 'https://unsplash.com/@tents_and_tread'
 ---
 
 

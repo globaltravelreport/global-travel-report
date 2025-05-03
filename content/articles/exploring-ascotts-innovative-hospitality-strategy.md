@@ -1,23 +1,21 @@
 ---
 title: Exploring Ascott's Innovative Hospitality Strategy
-summary: >-
-
+summary: ''
 date: '2025-04-22T19:39:45.906Z'
 country: Global
 type: Accommodation Review
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
-imageLink: >-
+imageLink: ''
 slug: exploring-ascotts-innovative-hospitality-strategy
 metaTitle: Exploring Ascott's Innovative Hospitality Strategy
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: What to expect from Ascott’s multi-typology strategy - Travel Weekly Asia
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Arto Marttinen
+  url: 'https://unsplash.com/@wandervisions'
 ---
 
 

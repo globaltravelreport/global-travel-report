@@ -1,22 +1,22 @@
 ---
 title: '''Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
-summary: >-
+summary: ''
 date: '2025-04-05T17:46:45.822Z'
 country: '''Japan, South Korea'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1493707553966-283afac8c358'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-travellers
 metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 categories: '[]'
 photographer:
-  name: "Raimond Klavins"
-  url: "https://unsplash.com/@raimondklavins"
+  name: Anthony Tran
+  url: 'https://unsplash.com/@anthonytran'
 ---
 
 

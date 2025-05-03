@@ -1,24 +1,22 @@
 ---
 title: '''UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
-summary: |-
-
+summary: ''
 date: '2025-04-08T19:08:45.885Z'
 country: United Kingdom
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi
 metaTitle: '''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
-metaDescription: |-
-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: "Esteban Castle"
-  url: "https://unsplash.com/@estebancastle"
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

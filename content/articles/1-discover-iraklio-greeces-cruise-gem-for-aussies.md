@@ -1,24 +1,22 @@
 ---
 title: '''Discover Iraklio: Greece''''s Cruise Gem for Aussies'''
-summary: |-
-
+summary: ''
 date: '2025-04-13T01:02:45.817Z'
 country: Greece
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1552084117-56a987666449'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-discover-iraklio-greeces-cruise-gem-for-aussies
 metaTitle: '''1. Discover Iraklio: Greece''''s Cruise Gem for Aussies'''
-metaDescription: |-
-
+metaDescription: ''
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 categories: '[]'
 photographer:
-  name: "Jingda Chen"
-  url: "https://unsplash.com/@jingda"
+  name: Heidi Kaden
+  url: 'https://unsplash.com/@heidikaden'
 ---
 
 

@@ -1,23 +1,21 @@
 ---
 title: China Eastern Airlines Launches Copenhagen Routes
-summary: >-
-
+summary: ''
 date: '2025-04-21T13:49:45.904Z'
 country: Denmark
 type: Travel Tips
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
-imageLink: >-
+imageLink: ''
 slug: china-eastern-airlines-launches-copenhagen-routes
 metaTitle: China Eastern Airlines Launches Copenhagen Routes
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
-  name: "Sylvain Mauroux"
-  url: "https://unsplash.com/@sylvainmauroux"
+  name: Davide Cantelli
+  url: 'https://unsplash.com/@cant89'
 ---
 
 

@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-09T14:06:45.843Z'
 country: Scotland
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sky Capturer
-  url: 'https://unsplash.com/@skycapturer'
+  name: Thomas Tucker
+  url: 'https://unsplash.com/@tents_and_tread'
 ---
 
 

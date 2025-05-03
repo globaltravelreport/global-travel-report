@@ -1,21 +1,21 @@
 ---
 title: '''Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
-summary: >-
+summary: ''
 date: '2025-04-12T17:07:45.847Z'
 country: Thailand
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1533105079780-92b9be482077'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl
 metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Anthony Tran"
-  url: "https://unsplash.com/@anthonytran"
+  name: Dario Bronnimann
+  url: 'https://unsplash.com/@darby'
 ---
 
 

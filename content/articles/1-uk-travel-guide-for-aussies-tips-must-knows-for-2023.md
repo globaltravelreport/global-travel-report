@@ -7,7 +7,7 @@ summary: >-
 date: '2025-05-02T07:32:45.872Z'
 country: United Kingdom
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
+imageUrl: 'https://images.unsplash.com/photo-1581872151274-8ede2e3f7d12'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Tradition Capturer
-  url: 'https://unsplash.com/@traditioncapturer'
+  name: Shifaaz Shamoon
+  url: 'https://unsplash.com/@sotti'
 ---
 
 

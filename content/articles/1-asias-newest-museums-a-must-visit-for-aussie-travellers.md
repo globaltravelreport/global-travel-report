@@ -4,7 +4,7 @@ summary: Rewritten article...
 date: '2025-04-24T12:28:45.809Z'
 country: '|-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Sky Capturer
-  url: 'https://unsplash.com/@skycapturer'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

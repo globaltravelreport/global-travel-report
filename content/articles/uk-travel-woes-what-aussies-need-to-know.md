@@ -1,23 +1,21 @@
 ---
 title: '''UK Travel Woes: What Aussies Need to Know'''
-summary: >-
-
+summary: ''
 date: '2025-04-05T11:02:45.913Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
 slug: uk-travel-woes-what-aussies-need-to-know
 metaTitle: '''UK Travel Woes: What Aussies Need to Know'''
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Anthony Tran"
-  url: "https://unsplash.com/@anthonytran"
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

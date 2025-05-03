@@ -1,23 +1,23 @@
 ---
 title: '''Discover Prague''''s Luxury: A Perfect Getaway for Aussies'''
-summary: >-
+summary: ''
 date: '2025-04-26T12:30:45.818Z'
 country: Czech Republic
 type: Luxury
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-discover-pragues-luxury-a-perfect-getaway-for-aussies
 metaTitle: '''1. Discover Prague''''s Luxury: A Perfect Getaway for Aussies'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: Golden moments await at Prague's newest luxury hotel - Travel Weekly Asia
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

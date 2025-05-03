@@ -1,21 +1,21 @@
 ---
 title: '''Explore Iraklio: A Cruise Gem for Australian Adventurers'''
-summary: >-
+summary: ''
 date: '2025-04-14T17:47:45.825Z'
 country: Greece
 type: '''Culture, Adventure, Cruise'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-iraklio-a-cruise-gem-for-australian-adventurers
 metaTitle: '''1. Explore Iraklio: A Cruise Gem for Australian Adventurers'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: "Alonso Reyes"
-  url: "https://unsplash.com/@alonsoreyes"
+  name: Vidar Nordli-Mathisen
+  url: 'https://unsplash.com/@vidarnm'
 ---
 
 

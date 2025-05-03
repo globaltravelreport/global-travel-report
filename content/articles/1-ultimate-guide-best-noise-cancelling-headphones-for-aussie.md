@@ -1,23 +1,21 @@
 ---
 title: '''Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
-summary: >-
-
+summary: ''
 date: '2025-05-02T02:28:45.899Z'
 country: Multiple Countries
 type: '''Budget, Family, Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
 slug: 1-ultimate-guide-best-noise-cancelling-headphones-for-aussie
 metaTitle: '''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Anthony Tran"
-  url: "https://unsplash.com/@anthonytran"
+  name: Esteban Castle
+  url: 'https://unsplash.com/@estebancastle'
 ---
 
 

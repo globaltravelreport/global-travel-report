@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-20T10:06:45.823Z'
 country: '>-'
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Destination Guide
-  url: 'https://unsplash.com/@destguide'
+  name: Thomas Tucker
+  url: 'https://unsplash.com/@tents_and_tread'
 ---
 
 

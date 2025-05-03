@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-25T19:29:45.909Z'
 country: Greece
 type: Cruise
-imageUrl: 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a'
+imageUrl: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: >-
@@ -21,8 +21,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: Ocean Explorer
-  url: 'https://unsplash.com/@oceanexplorer'
+  name: Vidar Nordli-Mathisen
+  url: 'https://unsplash.com/@vidarnm'
 ---
 
 

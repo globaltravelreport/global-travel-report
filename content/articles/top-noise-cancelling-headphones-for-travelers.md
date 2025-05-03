@@ -1,23 +1,21 @@
 ---
 title: Top Noise-Cancelling Headphones for Travelers
-summary: >-
-
+summary: ''
 date: '2025-04-09T18:21:45.912Z'
 country: Global
 type: Travel Tips
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
-imageLink: >-
+imageLink: ''
 slug: top-noise-cancelling-headphones-for-travelers
 metaTitle: Top Noise-Cancelling Headphones for Travelers
-metaDescription: >-
-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: "Sylvain Mauroux"
-  url: "https://unsplash.com/@sylvainmauroux"
+  name: Asoggetti
+  url: 'https://unsplash.com/@asoggetti'
 ---
 
 

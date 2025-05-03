@@ -4,7 +4,7 @@ summary: ''''''
 date: '2025-04-04T04:23:45.814Z'
 country: Unknown
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -16,8 +16,8 @@ originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Tr
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Sime Basioli
+  url: 'https://unsplash.com/@basecore'
 ---
 
 

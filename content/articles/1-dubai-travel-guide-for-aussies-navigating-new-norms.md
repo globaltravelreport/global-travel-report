@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-17T04:49:45.820Z'
 country: United Arab Emirates
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - S
 published: 'true'
 categories: '[]'
 photographer:
-  name: Aviation Photographer
-  url: 'https://unsplash.com/@aviationphoto'
+  name: Emile Guillemot
+  url: 'https://unsplash.com/@emilegt'
 ---
 
 

@@ -1,21 +1,21 @@
 ---
 title: '''Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'''
-summary: >-
+summary: ''
 date: '2025-04-21T09:24:45.824Z'
 country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
 type: '''Adventure, Culture, Wildlife'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025
 metaTitle: '''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'''
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:
-  name: "Anthony Tran"
-  url: "https://unsplash.com/@anthonytran"
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

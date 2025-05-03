@@ -1,23 +1,23 @@
 ---
 title: Thailand's New Flight Deals Spark Interest for Aussie Tourists
-summary: >-
+summary: ''
 date: '2025-04-20T23:27:45.848Z'
 country: Thailand
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
 slug: 1-thailands-new-flight-deals-spark-interest-for-aussie-touri
 metaTitle: 1. Thailand's New Flight Deals Spark Interest for Aussie Tourists
-metaDescription: >-
+metaDescription: ''
 keywords: ''
 originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: "Simon Migaj"
-  url: "https://unsplash.com/@simonmigaj"
+  name: Davide Cantelli
+  url: 'https://unsplash.com/@cant89'
 ---
 
 
