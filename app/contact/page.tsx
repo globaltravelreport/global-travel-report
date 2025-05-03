@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/ContactForm";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "Contact Us - Global Travel Report",
@@ -39,6 +40,15 @@ export default function ContactPage() {
               We'd love to hear from you! Whether you have a story to share, a question to ask, or feedback to provide,
               our team is here to help.
             </p>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <NewsletterSignup
+              variant="inline"
+              title="Subscribe to Updates"
+              description="Get our latest travel stories and news delivered to your inbox."
+            />
           </div>
 
           <div className="space-y-4">

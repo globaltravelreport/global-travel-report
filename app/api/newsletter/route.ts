@@ -7,6 +7,7 @@ import { logError } from '@/src/utils/error-handler';
 // Newsletter subscription request schema
 const newsletterSchema = z.object({
   email: z.string().email('Invalid email address'),
+  frequency: z.enum(['daily', 'weekly', 'monthly']).default('weekly'),
   csrfToken: z.string().optional(),
 });
 
@@ -23,12 +24,25 @@ export const OPTIONS = createOptionsHandler();
  */
 export const POST = createApiHandler<NewsletterRequest>(
   async (_req: NextRequest, data: NewsletterRequest) => {
-    // TODO: Implement newsletter subscription logic here
-    // For now, just return success
+    // Extract data from the request
+    const { email, frequency } = data;
 
-    // Return success response
+    // Log the subscription (in a real implementation, this would save to a database)
+    console.log(`New newsletter subscription: ${email} (${frequency})`);
+
+    // TODO: Implement full newsletter subscription logic here
+    // This would typically involve:
+    // 1. Saving to a database
+    // 2. Adding to an email marketing platform (e.g., Mailchimp, SendGrid)
+    // 3. Sending a confirmation email
+
+    // Return success response with the frequency
     return createApiResponse({
-      message: 'Subscribed successfully! Thank you for joining our newsletter.'
+      message: `Subscribed successfully to the ${frequency} newsletter! Thank you for joining.`,
+      data: {
+        email,
+        frequency
+      }
     });
   },
   {

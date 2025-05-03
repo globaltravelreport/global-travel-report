@@ -129,7 +129,11 @@ export function Footer() {
                 </svg>
               </a>
             </div>
-            <NewsletterSignup />
+            <NewsletterSignup
+              variant="minimal"
+              title="Subscribe to our newsletter"
+              description="Get travel updates in your inbox"
+            />
           </div>
         </div>
         <div className="mt-8 pt-8 border-t text-center text-gray-600">

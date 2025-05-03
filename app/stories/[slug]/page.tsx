@@ -221,7 +221,10 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       <CategoryStories category={story.category} excludeStoryId={story.id} limit={4} />
 
       <div className="mt-12">
-        <NewsletterSignup />
+        <NewsletterSignup
+          title="Get More Travel Stories Like This"
+          description="Subscribe to our newsletter and receive the latest travel stories, tips, and inspiration directly to your inbox."
+        />
       </div>
     </article>
     </>
