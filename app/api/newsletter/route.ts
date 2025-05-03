@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
-import { verifyRecaptcha } from '@/src/utils/recaptcha';
 import { createApiHandler, createOptionsHandler } from '@/src/utils/api-handler';
 import { createApiResponse, createValidationErrorResponse } from '@/src/utils/api-response';
 import { logError } from '@/src/utils/error-handler';
@@ -8,7 +7,6 @@ import { logError } from '@/src/utils/error-handler';
 // Newsletter subscription request schema
 const newsletterSchema = z.object({
   email: z.string().email('Invalid email address'),
-  recaptchaToken: z.string(),
   csrfToken: z.string().optional(),
 });
 
@@ -25,12 +23,6 @@ export const OPTIONS = createOptionsHandler();
  */
 export const POST = createApiHandler<NewsletterRequest>(
   async (_req: NextRequest, data: NewsletterRequest) => {
-    // Verify reCAPTCHA token
-    const isRecaptchaValid = await verifyRecaptcha(data.recaptchaToken);
-    if (!isRecaptchaValid) {
-      return createValidationErrorResponse('Invalid reCAPTCHA token. Please try again.');
-    }
-
     // TODO: Implement newsletter subscription logic here
     // For now, just return success
 

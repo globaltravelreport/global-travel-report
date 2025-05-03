@@ -3,26 +3,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import ReCAPTCHA from "react-google-recaptcha";
 import { useToast } from "@/components/ui/use-toast";
 
 export const NewsletterSignup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
-
-    if (!recaptchaValue) {
-      toast({
-        title: 'Error',
-        description: 'Please complete the reCAPTCHA verification'
-      });
-      return;
-    }
 
     setIsSubmitting(true);
 
@@ -34,7 +24,6 @@ export const NewsletterSignup = () => {
         },
         body: JSON.stringify({
           email,
-          recaptchaToken: recaptchaValue,
         }),
       });
 
@@ -49,7 +38,6 @@ export const NewsletterSignup = () => {
 
       // Reset form
       event.currentTarget.reset();
-      setRecaptchaValue(null);
     } catch (error) {
       toast({
         title: 'Error',
@@ -79,12 +67,7 @@ export const NewsletterSignup = () => {
             placeholder="Enter your email"
             required
           />
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-              onChange={setRecaptchaValue}
-            />
-          </div>
+
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </Button>
