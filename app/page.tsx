@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from 'react';
 import { PopularStories } from '@/components/recommendations/PopularStories';
+import { getFeaturedCategories } from '@/src/config/categories';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -148,23 +149,29 @@ export default async function Home() {
             <p className="text-gray-600 max-w-2xl mx-auto">Discover travel stories organized by your favorite categories</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { name: 'Hotels', icon: '🏨', description: 'Luxury stays & reviews' },
-              { name: 'Airlines', icon: '✈️', description: 'Flight experiences & news' },
-              { name: 'Cruises', icon: '🚢', description: 'Ocean & river adventures' },
-              { name: 'Destinations', icon: '🌍', description: 'Places to explore' }
-            ].map((category) => (
-              <a
-                key={category.name}
-                href={`/categories/${category.name.toLowerCase()}`}
+            {getFeaturedCategories().slice(0, 8).map((category) => (
+              <Link
+                key={category.slug}
+                href={`/categories/${category.slug}`}
                 className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition-all duration-300 group hover:translate-y-[-4px] border border-gray-100 overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C9A14A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="text-5xl mb-4 block group-hover:scale-110 transition-transform duration-500">{category.icon}</span>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{category.name}</h3>
-                <p className="text-sm text-gray-500">{category.description}</p>
-              </a>
+                <p className="text-sm text-gray-500 line-clamp-2">{category.description}</p>
+              </Link>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/stories"
+              className="inline-flex items-center gap-2 bg-white hover:bg-[#C9A14A]/10 text-[#C9A14A] font-medium py-2.5 px-5 rounded-lg border border-[#C9A14A] transition-all duration-300 hover:shadow-md"
+            >
+              View All Categories
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

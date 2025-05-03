@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import { CATEGORIES, getFeaturedCategories, getSubcategories, Category } from '@/src/config/categories';
 
 const countries = [
   'Australia', 'Japan', 'United States', 'United Kingdom', 'France',
@@ -13,27 +14,26 @@ const countries = [
   'South Africa', 'Brazil', 'Mexico', 'Maldives', 'Africa', 'Europe', 'Asia', 'Global'
 ].sort();
 
-const categories = [
-  'Hotels', 'Airlines', 'Cruises', 'Destinations', 'Food & Dining',
-  'Adventure', 'Culture', 'Shopping', 'Nightlife', 'Family Travel',
-  'Luxury Travel', 'Budget Travel', 'Solo Travel', 'Honeymoon',
-  'Business Travel', 'Eco Tourism', 'Wellness & Spa', 'Tours', 'Finance', 'Travel Tips'
-].sort();
-
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState('');
   const [categorySearch, setCategorySearch] = useState('');
+  const [displayCategories, setDisplayCategories] = useState<Category[]>([]);
   const pathname = usePathname();
+
+  // Initialize with featured categories
+  useEffect(() => {
+    setDisplayCategories(getFeaturedCategories());
+  }, []);
 
   const filteredCountries = countries.filter(country =>
     country.toLowerCase().includes(countrySearch.toLowerCase())
   );
 
-  const filteredCategories = categories.filter(category =>
-    category.toLowerCase().includes(categorySearch.toLowerCase())
+  const filteredCategories = displayCategories.filter(category =>
+    category.name.toLowerCase().includes(categorySearch.toLowerCase())
   );
 
   const isActive = (path: string) => pathname === path;
@@ -121,12 +121,13 @@ export const Navigation = () => {
                   <div className="max-h-60 overflow-y-auto">
                     {filteredCategories.map((category) => (
                       <Link
-                        key={category}
-                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                        key={category.slug}
+                        href={`/categories/${category.slug}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => setIsCategoryDropdownOpen(false)}
                       >
-                        {category}
+                        <span className="mr-2">{category.icon}</span>
+                        {category.name}
                       </Link>
                     ))}
                   </div>
@@ -231,15 +232,16 @@ export const Navigation = () => {
                     />
                     {filteredCategories.map((category) => (
                       <Link
-                        key={category}
-                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                        key={category.slug}
+                        href={`/categories/${category.slug}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
                         onClick={() => {
                           setIsCategoryDropdownOpen(false);
                           setIsMenuOpen(false);
                         }}
                       >
-                        {category}
+                        <span className="mr-2">{category.icon}</span>
+                        {category.name}
                       </Link>
                     ))}
                   </div>
@@ -267,4 +269,4 @@ export const Navigation = () => {
       </div>
     </nav>
   );
-}; 
+};
