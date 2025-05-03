@@ -136,8 +136,9 @@ export function ResponsiveImage({
     const imageArray = defaultImages[category];
     const index = Math.abs(uniqueHash) % imageArray.length;
 
-    // If we have a valid src, use it, otherwise use our deterministic fallback
-    if (src && typeof src === 'string' && src.startsWith('http')) {
+    // Always use the provided src if it exists and is a string
+    // This ensures we respect the image URLs from the story files
+    if (src && typeof src === 'string') {
       return src;
     }
 
