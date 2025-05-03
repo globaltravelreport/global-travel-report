@@ -65,6 +65,13 @@ export default async function Home() {
 
       <Hero />
 
+      {/* AdSense Leaderboard - Top of Page */}
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSenseLeaderboard />
+        </div>
+      </section>
+
       {/* Featured Stories */}
       {featuredStories.length > 0 && (
         <section className="py-16 bg-gradient-to-b from-gray-50 to-white">

@@ -23,7 +23,7 @@ interface AdSenseProps {
 
 /**
  * AdSense component for displaying Google AdSense ads
- * 
+ *
  * @param props Component props
  * @returns AdSense component
  */
@@ -37,7 +37,7 @@ export function AdSense({
   fullWidth = false,
 }: AdSenseProps) {
   const adRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     try {
       // Check if adsbygoogle is defined
@@ -62,12 +62,15 @@ export function AdSense({
   const getAdAttributes = () => {
     const baseAttributes = {
       className: cn(
-        'block text-center overflow-hidden bg-gray-50',
+        'block text-center overflow-hidden bg-gray-100 border border-dashed border-gray-300',
         formatClasses[format],
         fullWidth ? 'w-full' : '',
         className
       ),
-      style: style,
+      style: {
+        ...style,
+        position: 'relative',
+      },
       'data-ad-client': 'ca-pub-4005772594728149',
       'data-ad-slot': slot,
     };
@@ -100,13 +103,18 @@ export function AdSense({
   };
 
   return (
-    <div ref={adRef} {...getAdAttributes()} />
+    <div ref={adRef} {...getAdAttributes()}>
+      {/* Add a label to make ad placements more visible during development */}
+      <div className="text-xs text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        Advertisement Space
+      </div>
+    </div>
   );
 }
 
 /**
  * AdSenseInArticle component for displaying in-article ads
- * 
+ *
  * @param props Component props
  * @returns AdSense component with in-article layout
  */
@@ -115,7 +123,10 @@ export function AdSenseInArticle({
   slot = '3940256099',
 }: Omit<AdSenseProps, 'layout' | 'format'>) {
   return (
-    <div className={cn('my-8', className)}>
+    <div className={cn('my-8 relative', className)}>
+      <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">
+        Advertisement
+      </div>
       <AdSense
         slot={slot}
         layout="in-article"
@@ -127,7 +138,7 @@ export function AdSenseInArticle({
 
 /**
  * AdSenseInFeed component for displaying in-feed ads
- * 
+ *
  * @param props Component props
  * @returns AdSense component with in-feed layout
  */
@@ -148,7 +159,7 @@ export function AdSenseInFeed({
 
 /**
  * AdSenseSidebar component for displaying sidebar ads
- * 
+ *
  * @param props Component props
  * @returns AdSense component for sidebar
  */
@@ -170,7 +181,7 @@ export function AdSenseSidebar({
 
 /**
  * AdSenseLeaderboard component for displaying leaderboard ads
- * 
+ *
  * @param props Component props
  * @returns AdSense component for leaderboard
  */
@@ -179,7 +190,10 @@ export function AdSenseLeaderboard({
   slot = '6487384954',
 }: Omit<AdSenseProps, 'format'>) {
   return (
-    <div className={cn('my-6 mx-auto max-w-[728px]', className)}>
+    <div className={cn('my-6 mx-auto max-w-[728px] relative', className)}>
+      <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">
+        Advertisement
+      </div>
       <AdSense
         slot={slot}
         format="horizontal"
