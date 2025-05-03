@@ -16,6 +16,8 @@ import { ShareButtons } from "@/src/components/ui/ShareButtons";
 import { FloatingShareButton } from "@/src/components/ui/FloatingShareButton";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/src/utils/meta";
+import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
+import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -101,12 +103,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       {/* Toast notifications for copy to clipboard */}
       <Toaster position="top-right" />
 
-      {/* Floating share button for mobile */}
-      <FloatingShareButton
-        url={`/stories/${story.slug}`}
-        title={story.title}
-        description={story.excerpt}
-      />
+      {/* We'll use the enhanced StoryShareSection component instead of FloatingShareButton */}
 
       {/* Add structured data for SEO */}
       <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL} />
@@ -132,12 +129,20 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             <span>By Global Travel Report Editorial Team</span>
           </div>
 
-          {/* Share buttons */}
-          <ShareButtons
-            url={`/stories/${story.slug}`}
-            title={story.title}
-            description={story.excerpt}
-          />
+          {/* Enhanced share buttons */}
+          <div className="hidden sm:block">
+            <EnhancedSocialShare
+              url={`/stories/${story.slug}`}
+              title={story.title}
+              description={story.excerpt}
+              imageUrl={story.imageUrl}
+              showShareButton={true}
+              showLabels={false}
+              iconSize={20}
+              platforms={['facebook', 'twitter', 'linkedin', 'whatsapp']}
+              trackShares={true}
+            />
+          </div>
         </div>
 
         {story.imageUrl && (
@@ -223,16 +228,14 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           ))}
         </div>
 
-        {/* Share section at the bottom */}
-        <div className="flex flex-col items-center justify-center py-6 border-t border-b mb-8">
-          <h3 className="text-lg font-medium mb-4">Share this story</h3>
-          <ShareButtons
-            url={`/stories/${story.slug}`}
-            title={story.title}
-            description={story.excerpt}
-            iconSize={40}
-          />
-        </div>
+        {/* Enhanced share section at the bottom */}
+        <StoryShareSection
+          story={story}
+          className="mb-8"
+          showRssFeed={true}
+          showCopyLink={true}
+          showFloatingButton={true}
+        />
       </footer>
 
       {/* AdSense Leaderboard */}
