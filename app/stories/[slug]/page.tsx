@@ -10,6 +10,9 @@ import SchemaOrg from "@/components/SchemaOrg";
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
 import { getAllStories, getStoryBySlug } from "@/src/utils/stories";
+import { ShareButtons } from "@/src/components/ui/ShareButtons";
+import { FloatingShareButton } from "@/src/components/ui/FloatingShareButton";
+import { Toaster } from 'sonner';
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -88,7 +91,18 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
   }
 
   return (
+    <>
     <article className="max-w-4xl mx-auto px-4 py-8">
+      {/* Toast notifications for copy to clipboard */}
+      <Toaster position="top-right" />
+
+      {/* Floating share button for mobile */}
+      <FloatingShareButton
+        url={`/stories/${story.slug}`}
+        title={story.title}
+        description={story.excerpt}
+      />
+
       {/* Add structured data for SEO */}
       <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL} />
 
@@ -106,10 +120,19 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
         <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
 
-        <div className="flex items-center text-muted-foreground mb-6">
-          <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
-          <span className="mx-2">•</span>
-          <span>By Global Travel Report Editorial Team</span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-muted-foreground mb-6">
+          <div className="mb-4 sm:mb-0">
+            <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
+            <span className="mx-2">•</span>
+            <span>By Global Travel Report Editorial Team</span>
+          </div>
+
+          {/* Share buttons */}
+          <ShareButtons
+            url={`/stories/${story.slug}`}
+            title={story.title}
+            description={story.excerpt}
+          />
         </div>
 
         {story.imageUrl && (
@@ -135,12 +158,23 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       </div>
 
       <footer className="mt-8 pt-8 border-t">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-6">
           {story.tags.map((tag) => (
             <Badge key={tag} variant="outline">
               {tag}
             </Badge>
           ))}
+        </div>
+
+        {/* Share section at the bottom */}
+        <div className="flex flex-col items-center justify-center py-6 border-t border-b mb-8">
+          <h3 className="text-lg font-medium mb-4">Share this story</h3>
+          <ShareButtons
+            url={`/stories/${story.slug}`}
+            title={story.title}
+            description={story.excerpt}
+            iconSize={40}
+          />
         </div>
       </footer>
 
@@ -154,5 +188,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
         <NewsletterSignup />
       </div>
     </article>
+    </>
   );
 }
