@@ -1,23 +1,24 @@
 ---
-title: "'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'"
-summary: ">-"
-date: "2025-05-02T10:45:46.423Z"
-country: "Scotland"
-type: "'Luxury, Culture'"
-imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-scotlands-cruise-boom-a-130m-windfall-aussie-guide"
-metaTitle: "'1. Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '''Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'''
+summary: '>-'
+date: '2025-04-29T15:05:45.845Z'
+country: Scotland
+type: '''Luxury, Culture'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-scotlands-cruise-boom-a-130m-windfall-aussie-guide
+metaTitle: '''1. Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Tom Grimbert"
-  url: "https://unsplash.com/@tomgrimbert"
+  name: Tom Grimbert
+  url: 'https://unsplash.com/@tomgrimbert'
 ---
 
 

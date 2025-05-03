@@ -1,21 +1,22 @@
 ---
-title: "'Discover Copenhagen: Direct Flights from China Eastern Airlines'"
-summary: ">-"
-date: "2025-05-02T10:45:46.412Z"
-country: "Denmark"
-type: "'Culture, Food & Wine'"
-imageUrl: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-discover-copenhagen-direct-flights-from-china-eastern-airl"
-metaTitle: "|-"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
+title: '''Discover Copenhagen: Direct Flights from China Eastern Airlines'''
+summary: '>-'
+date: '2025-04-30T22:29:45.815Z'
+country: Denmark
+type: '''Culture, Food & Wine'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-discover-copenhagen-direct-flights-from-china-eastern-airl
+metaTitle: '|-'
+metaDescription: '>-'
+keywords: ''
+originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
-  name: "Aron Visuals"
-  url: "https://unsplash.com/@aronvisuals"
+  name: Aron Visuals
+  url: 'https://unsplash.com/@aronvisuals'
 ---
 
 

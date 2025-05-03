@@ -1,23 +1,24 @@
 ---
-title: "'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'"
-summary: ">-"
-date: "2025-05-02T10:45:46.429Z"
-country: "'Multiple countries (e.g., USA, Japan, Italy, France)'"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu"
-metaTitle: "'1. Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '''Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'''
+summary: '>-'
+date: '2025-04-24T18:08:45.854Z'
+country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu
+metaTitle: '''1. Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Ross Parmly"
-  url: "https://unsplash.com/@rparmly"
+  name: Ross Parmly
+  url: 'https://unsplash.com/@rparmly'
 ---
 
 

@@ -1,23 +1,24 @@
 ---
-title: "Top 5 Underrated Gems for Aussie Explorers in"
-summary: ">-"
-date: "2025-05-02T10:45:46.429Z"
-country: "'Chile, Estonia, Malaysia, Slovenia, Senegal'"
-type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-top-5-underrated-gems-for-aussie-explorers-in-2025"
-metaTitle: "1. Top 5 Underrated Gems for Aussie Explorers in 2025"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-published: "true"
-categories: "[]"
+title: Top 5 Underrated Gems for Aussie Explorers in
+summary: '>-'
+date: '2025-04-26T21:02:45.853Z'
+country: '''Chile, Estonia, Malaysia, Slovenia, Senegal'''
+type: Experience
+imageUrl: >-
+  https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-top-5-underrated-gems-for-aussie-explorers-in-2025
+metaTitle: 1. Top 5 Underrated Gems for Aussie Explorers in 2025
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

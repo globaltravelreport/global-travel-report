@@ -1,23 +1,24 @@
 ---
-title: "'Discover Hidden Gems: 5 Must-See Places for Aussies in'"
-summary: ">-"
-date: "2025-05-02T10:45:46.412Z"
-country: "'Georgia, Madagascar, Oman, Uruguay, Bhutan'"
-type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025"
-metaTitle: "'1. Discover Hidden Gems: 5 Must-See Places for Aussies in 2025'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-published: "true"
-categories: "[]"
+title: '''Discover Hidden Gems: 5 Must-See Places for Aussies in'''
+summary: '>-'
+date: '2025-04-21T16:50:45.815Z'
+country: '''Georgia, Madagascar, Oman, Uruguay, Bhutan'''
+type: Experience
+imageUrl: >-
+  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025
+metaTitle: '''1. Discover Hidden Gems: 5 Must-See Places for Aussies in 2025'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Tom Grimbert"
-  url: "https://unsplash.com/@tomgrimbert"
+  name: Tom Grimbert
+  url: 'https://unsplash.com/@tomgrimbert'
 ---
 
 

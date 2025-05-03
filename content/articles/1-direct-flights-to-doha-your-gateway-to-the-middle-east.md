@@ -1,23 +1,24 @@
 ---
-title: "'Direct Flights to Doha: Your Gateway to the Middle East'"
-summary: ">-"
-date: "2025-05-02T10:45:46.410Z"
-country: "Qatar"
-type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-direct-flights-to-doha-your-gateway-to-the-middle-east"
-metaTitle: "'1. Direct Flights to Doha: Your Gateway to the Middle East'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '''Direct Flights to Doha: Your Gateway to the Middle East'''
+summary: '>-'
+date: '2025-04-14T13:14:45.811Z'
+country: Qatar
+type: Experience
+imageUrl: >-
+  https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-direct-flights-to-doha-your-gateway-to-the-middle-east
+metaTitle: '''1. Direct Flights to Doha: Your Gateway to the Middle East'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

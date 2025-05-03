@@ -1,21 +1,23 @@
 ---
-title: "China Eastern Airlines Launches Copenhagen Routes"
-summary: ">-"
-date: "2025-05-02T10:45:46.441Z"
-country: "Denmark"
-type: "Travel Tips"
-imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "stack of assorted-color suit case lot"
-imageCredit: "Erwan Hesry"
-imageLink: "'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'"
-slug: "china-eastern-airlines-launches-copenhagen-routes"
-metaTitle: "China Eastern Airlines Launches Copenhagen Routes"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "China Eastern Airlines to add Copenhagen flights - Business Traveller"
+title: China Eastern Airlines Launches Copenhagen Routes
+summary: '>-'
+date: '2025-04-21T13:49:45.904Z'
+country: Denmark
+type: Travel Tips
+imageUrl: >-
+  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: stack of assorted-color suit case lot
+imageCredit: Erwan Hesry
+imageLink: >-
+  'https://unsplash.com/photos/stack-of-assorted-color-suit-case-lot-Q34YB7yjAxA'
+slug: china-eastern-airlines-launches-copenhagen-routes
+metaTitle: China Eastern Airlines Launches Copenhagen Routes
+metaDescription: '>-'
+keywords: ''
+originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
-  name: "Tom Grimbert"
-  url: "https://unsplash.com/@tomgrimbert"
+  name: Tom Grimbert
+  url: 'https://unsplash.com/@tomgrimbert'
 ---
 
 

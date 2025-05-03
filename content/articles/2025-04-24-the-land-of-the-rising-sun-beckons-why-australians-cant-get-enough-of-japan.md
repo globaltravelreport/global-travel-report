@@ -1,20 +1,23 @@
 ---
-title: "'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan'"
-summary: ">-"
-keywords: ""
-slug: "the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan"
-date: "2025-04-24T00:00:00.000Z"
-country: "Australia"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "people gathered outside buildings and vehicles"
-imageCredit: "Jezael Melgoza on Unsplash"
-imageLink: "https://unsplash.com"
-published: "true"
-categories: "[]"
+title: >-
+  'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of
+  Japan'
+summary: '>-'
+keywords: ''
+slug: the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan
+date: '2025-04-18T13:46:45.903Z'
+country: Australia
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: people gathered outside buildings and vehicles
+imageCredit: Jezael Melgoza on Unsplash
+imageLink: 'https://unsplash.com'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Suhyeon Choi"
-  url: "https://unsplash.com/@choisyeon"
+  name: Suhyeon Choi
+  url: 'https://unsplash.com/@choisyeon'
 ---
 
 

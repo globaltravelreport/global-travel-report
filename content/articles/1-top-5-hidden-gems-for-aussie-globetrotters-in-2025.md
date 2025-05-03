@@ -1,22 +1,23 @@
 ---
-title: "Top 5 Hidden Gems for Aussie Globetrotters in"
-summary: ">-"
-date: "2025-05-02T10:45:46.425Z"
-country: "'Georgia, Namibia, Slovenia, Taiwan, Uruguay'"
-type: "'Adventure, Culture, Budget'"
-imageUrl: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-top-5-hidden-gems-for-aussie-globetrotters-in-2025"
-metaTitle: "1. Top 5 Hidden Gems for Aussie Globetrotters in 2025"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-categories: "[]"
+title: Top 5 Hidden Gems for Aussie Globetrotters in
+summary: '>-'
+date: '2025-04-10T10:39:45.850Z'
+country: '''Georgia, Namibia, Slovenia, Taiwan, Uruguay'''
+type: '''Adventure, Culture, Budget'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-top-5-hidden-gems-for-aussie-globetrotters-in-2025
+metaTitle: 1. Top 5 Hidden Gems for Aussie Globetrotters in 2025
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+categories: '[]'
 photographer:
-  name: "Heidi Kaden"
-  url: "https://unsplash.com/@heidikaden"
+  name: Heidi Kaden
+  url: 'https://unsplash.com/@heidikaden'
 ---
 
 

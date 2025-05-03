@@ -1,23 +1,24 @@
 ---
-title: "Top 5 Hidden Gems for Aussie Travellers in"
-summary: ">-"
-date: "2025-05-02T10:45:46.425Z"
-country: "'Montenegro, Ghana, Uruguay, Georgia, Taiwan'"
-type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-top-5-hidden-gems-for-aussie-travellers-in-2025"
-metaTitle: "1. Top 5 Hidden Gems for Aussie Travellers in 2025"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-published: "true"
-categories: "[]"
+title: Top 5 Hidden Gems for Aussie Travellers in
+summary: '>-'
+date: '2025-04-25T08:41:45.852Z'
+country: '''Montenegro, Ghana, Uruguay, Georgia, Taiwan'''
+type: Experience
+imageUrl: >-
+  https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-top-5-hidden-gems-for-aussie-travellers-in-2025
+metaTitle: 1. Top 5 Hidden Gems for Aussie Travellers in 2025
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Sime Basioli"
-  url: "https://unsplash.com/@simebasioli"
+  name: Sime Basioli
+  url: 'https://unsplash.com/@simebasioli'
 ---
 
 

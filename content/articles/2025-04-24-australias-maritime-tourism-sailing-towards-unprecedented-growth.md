@@ -1,18 +1,19 @@
 ---
-title: "'Australia''s Maritime Tourism: Sailing Towards Unprecedented Growth'"
-summary: ">-"
-keywords: ""
-slug: "australias-maritime-tourism-sailing-towards-unprecedented-growth"
-date: "2025-04-24T00:00:00.000Z"
-country: "Australia"
-type: "Airline"
-published: "true"
-categories: "[]"
-imageUrl: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageLink: "https://unsplash.com"
+title: '''Australia''''s Maritime Tourism: Sailing Towards Unprecedented Growth'''
+summary: '>-'
+keywords: ''
+slug: australias-maritime-tourism-sailing-towards-unprecedented-growth
+date: '2025-04-07T19:18:45.900Z'
+country: Australia
+type: Airline
+published: 'true'
+categories: '[]'
+imageUrl: >-
+  https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageLink: 'https://unsplash.com'
 photographer:
-  name: "Ross Parmly"
-  url: "https://unsplash.com/@rparmly"
+  name: Ross Parmly
+  url: 'https://unsplash.com/@rparmly'
 ---
 
 

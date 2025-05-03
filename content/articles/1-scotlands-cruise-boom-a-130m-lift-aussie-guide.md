@@ -1,23 +1,24 @@
 ---
-title: "'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'"
-summary: ">-"
-date: "2025-05-02T10:45:46.423Z"
-country: "Scotland"
-type: "Experience"
-imageUrl: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-scotlands-cruise-boom-a-130m-lift-aussie-guide"
-metaTitle: "'1. Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '''Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'''
+summary: '>-'
+date: '2025-04-20T17:58:45.842Z'
+country: Scotland
+type: Experience
+imageUrl: >-
+  https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-scotlands-cruise-boom-a-130m-lift-aussie-guide
+metaTitle: '''1. Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Aron Visuals"
-  url: "https://unsplash.com/@aronvisuals"
+  name: Aron Visuals
+  url: 'https://unsplash.com/@aronvisuals'
 ---
 
 

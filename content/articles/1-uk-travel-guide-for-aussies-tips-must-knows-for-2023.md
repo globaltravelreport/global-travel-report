@@ -1,23 +1,24 @@
 ---
-title: "'UK Travel Guide for Aussies: Tips & Must-Knows for'"
-summary: ">-"
-date: "2025-05-02T10:45:46.431Z"
-country: "United Kingdom"
-type: "Culture"
-imageUrl: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "rock formation on wide field grass under cloudy blue sky during daytime"
+title: '''UK Travel Guide for Aussies: Tips & Must-Knows for'''
+summary: '>-'
+date: '2025-05-02T07:32:45.872Z'
+country: United Kingdom
+type: Culture
+imageUrl: >-
+  https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
-imageLink: "https://unsplash.com"
-slug: "1-uk-travel-guide-for-aussies-tips-must-knows-for-2023"
-metaTitle: "'1. UK Travel Guide for Aussies: Tips & Must-Knows for 2023'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+imageLink: 'https://unsplash.com'
+slug: 1-uk-travel-guide-for-aussies-tips-must-knows-for-2023
+metaTitle: '''1. UK Travel Guide for Aussies: Tips & Must-Knows for 2023'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Duy Pham"
-  url: "https://unsplash.com/@miinyuii"
+  name: Duy Pham
+  url: 'https://unsplash.com/@miinyuii'
 ---
 
 

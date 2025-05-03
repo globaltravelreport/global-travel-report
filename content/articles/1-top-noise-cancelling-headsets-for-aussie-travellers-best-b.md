@@ -1,23 +1,24 @@
 ---
-title: "Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys"
-summary: ">-"
-date: "2025-05-02T10:45:46.430Z"
-country: "Various"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1540339832862-474599807836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-top-noise-cancelling-headsets-for-aussie-travellers-best-b"
-metaTitle: "1. Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys 2023"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
+summary: '>-'
+date: '2025-04-24T18:39:45.856Z'
+country: Various
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1540339832862-474599807836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-top-noise-cancelling-headsets-for-aussie-travellers-best-b
+metaTitle: 1. Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys 2023
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Ashim D'Silva"
-  url: "https://unsplash.com/@randomlies"
+  name: Ashim D'Silva
+  url: 'https://unsplash.com/@randomlies'
 ---
 
 

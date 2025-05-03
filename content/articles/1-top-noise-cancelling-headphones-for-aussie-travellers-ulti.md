@@ -1,22 +1,23 @@
 ---
-title: "'Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'"
-summary: ">-"
-date: "2025-05-02T10:45:46.430Z"
-country: "International (General)"
-type: "Travel Essentials"
-imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-top-noise-cancelling-headphones-for-aussie-travellers-ulti"
-metaTitle: "'1. Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-categories: "[]"
+title: '''Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'''
+summary: '>-'
+date: '2025-04-06T05:50:45.855Z'
+country: International (General)
+type: Travel Essentials
+imageUrl: >-
+  https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-top-noise-cancelling-headphones-for-aussie-travellers-ulti
+metaTitle: '''1. Top Noise-Cancelling Headphones for Aussie Travellers: Ultimate Guide'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+categories: '[]'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

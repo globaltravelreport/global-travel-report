@@ -1,23 +1,24 @@
 ---
-title: ">-"
-summary: ">-"
-date: "2025-05-02T10:45:46.413Z"
-country: "Philippines"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-discover-manila-your-ultimate-guide-to-flying-from-austral"
-metaTitle: ">-"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '>-'
+summary: '>-'
+date: '2025-04-23T02:53:45.817Z'
+country: Philippines
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-discover-manila-your-ultimate-guide-to-flying-from-austral
+metaTitle: '>-'
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Ross Parmly"
-  url: "https://unsplash.com/@rparmly"
+  name: Ross Parmly
+  url: 'https://unsplash.com/@rparmly'
 ---
 
 

@@ -1,23 +1,24 @@
 ---
-title: "'Asia''s Newest Museums: A Guide for Aussie Explorers'"
-summary: ">-"
-date: "2025-05-02T10:45:46.406Z"
-country: "Asia"
-type: "Culture"
-imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-asias-newest-museums-a-guide-for-aussie-explorers"
-metaTitle: "'1. Asia''s Newest Museums: A Guide for Aussie Explorers'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
-published: "true"
-categories: "[]"
+title: '''Asia''''s Newest Museums: A Guide for Aussie Explorers'''
+summary: '>-'
+date: '2025-04-21T08:48:45.807Z'
+country: Asia
+type: Culture
+imageUrl: >-
+  https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-asias-newest-museums-a-guide-for-aussie-explorers
+metaTitle: '''1. Asia''''s Newest Museums: A Guide for Aussie Explorers'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Erol Ahmed"
-  url: "https://unsplash.com/@erol"
+  name: Erol Ahmed
+  url: 'https://unsplash.com/@erol'
 ---
 
 

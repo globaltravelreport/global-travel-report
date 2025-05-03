@@ -1,23 +1,24 @@
 ---
-title: "'Asia''s Latest Museums: A Must-Visit for Aussie Explorers'"
-summary: ">-"
-date: "2025-05-02T10:45:46.403Z"
-country: "Multiple countries in Asia"
-type: "Culture"
-imageUrl: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-asias-latest-museums-a-must-visit-for-aussie-explorers"
-metaTitle: "'1. Asia''s Latest Museums: A Must-Visit for Aussie Explorers'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
-published: "true"
-categories: "[]"
+title: '''Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
+summary: '>-'
+date: '2025-04-27T00:46:45.803Z'
+country: Multiple countries in Asia
+type: Culture
+imageUrl: >-
+  https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-asias-latest-museums-a-must-visit-for-aussie-explorers
+metaTitle: '''1. Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Duy Pham"
-  url: "https://unsplash.com/@miinyuii"
+  name: Duy Pham
+  url: 'https://unsplash.com/@miinyuii'
 ---
 
 

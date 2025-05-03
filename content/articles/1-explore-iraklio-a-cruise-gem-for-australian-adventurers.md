@@ -1,21 +1,22 @@
 ---
-title: "'Explore Iraklio: A Cruise Gem for Australian Adventurers'"
-summary: ">-"
-date: "2025-05-02T10:45:46.419Z"
-country: "Greece"
-type: "'Culture, Adventure, Cruise'"
-imageUrl: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-explore-iraklio-a-cruise-gem-for-australian-adventurers"
-metaTitle: "'1. Explore Iraklio: A Cruise Gem for Australian Adventurers'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "Iraklio port focuses on cruise tourism - eKathimerini.com"
+title: '''Explore Iraklio: A Cruise Gem for Australian Adventurers'''
+summary: '>-'
+date: '2025-04-14T17:47:45.825Z'
+country: Greece
+type: '''Culture, Adventure, Cruise'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-explore-iraklio-a-cruise-gem-for-australian-adventurers
+metaTitle: '''1. Explore Iraklio: A Cruise Gem for Australian Adventurers'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: "Priscilla Du Preez"
-  url: "https://unsplash.com/@priscilladupreez"
+  name: Priscilla Du Preez
+  url: 'https://unsplash.com/@priscilladupreez'
 ---
 
 

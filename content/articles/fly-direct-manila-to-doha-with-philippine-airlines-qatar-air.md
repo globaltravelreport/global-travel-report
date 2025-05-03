@@ -1,21 +1,22 @@
 ---
-title: "'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'"
-summary: ">-"
-date: "2025-05-02T10:45:46.445Z"
-country: "Qatar"
-type: "'Culture, Adventure'"
-imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "fly-direct-manila-to-doha-with-philippine-airlines-qatar-air"
-metaTitle: "'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
+title: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
+summary: '>-'
+date: '2025-04-14T17:27:45.907Z'
+country: Qatar
+type: '''Culture, Adventure'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: fly-direct-manila-to-doha-with-philippine-airlines-qatar-air
+metaTitle: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
 photographer:
-  name: "Tom Grimbert"
-  url: "https://unsplash.com/@tomgrimbert"
+  name: Tom Grimbert
+  url: 'https://unsplash.com/@tomgrimbert'
 ---
 
 

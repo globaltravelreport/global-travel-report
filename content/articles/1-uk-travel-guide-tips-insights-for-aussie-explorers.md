@@ -1,23 +1,24 @@
 ---
-title: "'UK Travel Guide: Tips & Insights for Aussie Explorers'"
-summary: ">-"
-date: "2025-05-02T10:45:46.433Z"
-country: "United Kingdom"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "rock formation on wide field grass under cloudy blue sky during daytime"
+title: '''UK Travel Guide: Tips & Insights for Aussie Explorers'''
+summary: '>-'
+date: '2025-04-21T06:00:45.895Z'
+country: United Kingdom
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
-imageLink: "https://unsplash.com"
-slug: "1-uk-travel-guide-tips-insights-for-aussie-explorers"
-metaTitle: "'1. UK Travel Guide: Tips & Insights for Aussie Explorers'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+imageLink: 'https://unsplash.com'
+slug: 1-uk-travel-guide-tips-insights-for-aussie-explorers
+metaTitle: '''1. UK Travel Guide: Tips & Insights for Aussie Explorers'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Suhyeon Choi"
-  url: "https://unsplash.com/@choisyeon"
+  name: Suhyeon Choi
+  url: 'https://unsplash.com/@choisyeon'
 ---
 
 

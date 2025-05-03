@@ -1,22 +1,23 @@
 ---
-title: "'Explore Manila with Qatar Airways: Your Australian Gateway'"
-summary: ">-"
-date: "2025-05-02T10:45:46.420Z"
-country: "Philippines"
-type: "'Culture, Adventure, Budget'"
-imageUrl: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-explore-manila-with-qatar-airways-your-australian-gateway"
-metaTitle: "'1. Explore Manila with Qatar Airways: Your Australian Gateway'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-categories: "[]"
+title: '''Explore Manila with Qatar Airways: Your Australian Gateway'''
+summary: '>-'
+date: '2025-04-21T08:23:45.828Z'
+country: Philippines
+type: '''Culture, Adventure, Budget'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-explore-manila-with-qatar-airways-your-australian-gateway
+metaTitle: '''1. Explore Manila with Qatar Airways: Your Australian Gateway'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+categories: '[]'
 photographer:
-  name: "Fancycrave"
-  url: "https://unsplash.com/@fancycrave"
+  name: Fancycrave
+  url: 'https://unsplash.com/@fancycrave'
 ---
 
 

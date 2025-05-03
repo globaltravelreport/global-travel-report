@@ -1,6 +1,6 @@
 ---
 title: 'Title: Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita'
-date: '2025-05-03T02:12:45.763Z'
+date: '2025-04-19T01:02:45.911Z'
 slug: title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita
 category: Budget Travel
 country: Italy

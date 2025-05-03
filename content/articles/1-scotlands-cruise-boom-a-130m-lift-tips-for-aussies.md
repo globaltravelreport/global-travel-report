@@ -1,23 +1,24 @@
 ---
-title: "'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'"
-summary: ">-"
-date: "2025-05-02T10:45:46.423Z"
-country: "Scotland"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1521727857535-28d2047619b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies"
-metaTitle: "'1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-published: "true"
-categories: "[]"
+title: '''Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'''
+summary: '>-'
+date: '2025-04-09T14:06:45.843Z'
+country: Scotland
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1521727857535-28d2047619b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies
+metaTitle: '''1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Ashim D'Silva"
-  url: "https://unsplash.com/@randomlies"
+  name: Ashim D'Silva
+  url: 'https://unsplash.com/@randomlies'
 ---
 
 

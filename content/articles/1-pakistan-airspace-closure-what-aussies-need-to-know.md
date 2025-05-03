@@ -1,22 +1,23 @@
 ---
-title: "'Pakistan Airspace Closure: What Aussies Need to Know'"
-summary: ">-"
-date: "2025-05-02T10:45:46.423Z"
-country: "India"
-type: "Culture"
-imageUrl: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-pakistan-airspace-closure-what-aussies-need-to-know"
-metaTitle: "'1. Pakistan Airspace Closure: What Aussies Need to Know'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-categories: "[]"
+title: '''Pakistan Airspace Closure: What Aussies Need to Know'''
+summary: '>-'
+date: '2025-04-23T13:18:45.841Z'
+country: India
+type: Culture
+imageUrl: >-
+  https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-pakistan-airspace-closure-what-aussies-need-to-know
+metaTitle: '''1. Pakistan Airspace Closure: What Aussies Need to Know'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+categories: '[]'
 photographer:
-  name: "Clem Onojeghuo"
-  url: "https://unsplash.com/@clemono"
+  name: Clem Onojeghuo
+  url: 'https://unsplash.com/@clemono'
 ---
 
 

@@ -1,21 +1,22 @@
 ---
-title: "'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'"
-summary: ">-"
-date: "2025-05-02T10:45:46.434Z"
-country: "Multiple Countries"
-type: "'Budget, Family, Culture, Food & Wine'"
-imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-ultimate-guide-best-noise-cancelling-headphones-for-aussie"
-metaTitle: "'1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
+title: '''Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
+summary: '>-'
+date: '2025-05-02T02:28:45.899Z'
+country: Multiple Countries
+type: '''Budget, Family, Culture, Food & Wine'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-ultimate-guide-best-noise-cancelling-headphones-for-aussie
+metaTitle: '''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
 photographer:
-  name: "Erol Ahmed"
-  url: "https://unsplash.com/@erol"
+  name: Erol Ahmed
+  url: 'https://unsplash.com/@erol'
 ---
 
 

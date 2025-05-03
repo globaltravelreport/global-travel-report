@@ -1,21 +1,22 @@
 ---
-title: "'Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'"
-summary: ">-"
-date: "2025-05-02T10:45:46.418Z"
-country: "'Georgia, Madagascar, Oman, Belize, Mongolia'"
-type: "'Adventure, Culture, Wildlife'"
-imageUrl: "https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025"
-metaTitle: "'1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
+title: '''Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'''
+summary: '>-'
+date: '2025-04-21T09:24:45.824Z'
+country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
+type: '''Adventure, Culture, Wildlife'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025
+metaTitle: '''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:
-  name: "Duy Pham"
-  url: "https://unsplash.com/@miinyuii"
+  name: Duy Pham
+  url: 'https://unsplash.com/@miinyuii'
 ---
 
 

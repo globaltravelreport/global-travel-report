@@ -1,21 +1,22 @@
 ---
-title: "'Hidden Gems: Top International Destinations for Aussies in'"
-summary: ">-"
-date: "2025-05-02T10:45:46.446Z"
-country: "'Ghana, Georgia'"
-type: "'Culture, Adventure'"
-imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "hidden-gems-top-international-destinations-for-aussies-in-20"
-metaTitle: "'Hidden Gems: Top International Destinations for Aussies in 2025'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
+title: '''Hidden Gems: Top International Destinations for Aussies in'''
+summary: '>-'
+date: '2025-04-07T17:10:45.908Z'
+country: '''Ghana, Georgia'''
+type: '''Culture, Adventure'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: hidden-gems-top-international-destinations-for-aussies-in-20
+metaTitle: '''Hidden Gems: Top International Destinations for Aussies in 2025'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:
-  name: "Dino Reichmuth"
-  url: "https://unsplash.com/@dinoreichmuth"
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

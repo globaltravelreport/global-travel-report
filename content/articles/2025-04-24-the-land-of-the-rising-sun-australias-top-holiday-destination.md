@@ -1,18 +1,19 @@
 ---
-title: "'The Land of the Rising Sun: Australia''s Top Holiday Destination'"
-summary: ">-"
-keywords: ""
-slug: "the-land-of-the-rising-sun-australias-top-holiday-destination"
-date: "2025-04-24T00:00:00.000Z"
-country: "Australia"
-type: "Airline"
-published: "true"
-categories: "[]"
-imageUrl: "https://images.unsplash.com/photo-1521727857535-28d2047619b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageLink: "https://unsplash.com"
+title: '''The Land of the Rising Sun: Australia''''s Top Holiday Destination'''
+summary: '>-'
+keywords: ''
+slug: the-land-of-the-rising-sun-australias-top-holiday-destination
+date: '2025-04-28T07:35:45.902Z'
+country: Australia
+type: Airline
+published: 'true'
+categories: '[]'
+imageUrl: >-
+  https://images.unsplash.com/photo-1521727857535-28d2047619b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageLink: 'https://unsplash.com'
 photographer:
-  name: "Ashim D'Silva"
-  url: "https://unsplash.com/@randomlies"
+  name: Ashim D'Silva
+  url: 'https://unsplash.com/@randomlies'
 ---
 
 

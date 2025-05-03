@@ -1,23 +1,24 @@
 ---
-title: "Discover 5 Hidden Gems Perfect for Aussie Explorers in"
-summary: "''"
-date: "2025-05-02T10:45:46.411Z"
-country: "Unknown"
-type: "General"
-imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202"
-metaTitle: "1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire"
-published: "true"
-categories: "[]"
+title: Discover 5 Hidden Gems Perfect for Aussie Explorers in
+summary: ''''''
+date: '2025-04-04T04:23:45.814Z'
+country: Unknown
+type: General
+imageUrl: >-
+  https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202
+metaTitle: 1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
+metaDescription: '>-'
+keywords: ''
+originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Jakob Owens"
-  url: "https://unsplash.com/@jakobowens1"
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

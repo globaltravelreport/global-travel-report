@@ -1,22 +1,23 @@
 ---
-title: "'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'"
-summary: ">-"
-date: "2025-05-02T10:45:46.431Z"
-country: "United Kingdom"
-type: "'Culture, Food & Wine, Adventure'"
-imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "Pesto pasta with sliced tomatoes served on white ceramic plate"
-imageCredit: "Eaters Collective"
-imageLink: "https://unsplash.com"
-slug: "1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi"
-metaTitle: "'1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: ">-"
-categories: "[]"
+title: '''UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
+summary: '>-'
+date: '2025-04-08T19:08:45.885Z'
+country: United Kingdom
+type: '''Culture, Food & Wine, Adventure'''
+imageUrl: >-
+  https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
+imageCredit: Eaters Collective
+imageLink: 'https://unsplash.com'
+slug: 1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi
+metaTitle: '''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '>-'
+categories: '[]'
 photographer:
-  name: "Tom Grimbert"
-  url: "https://unsplash.com/@tomgrimbert"
+  name: Tom Grimbert
+  url: 'https://unsplash.com/@tomgrimbert'
 ---
 
 

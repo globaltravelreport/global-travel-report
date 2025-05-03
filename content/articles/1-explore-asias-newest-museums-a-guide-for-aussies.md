@@ -1,23 +1,24 @@
 ---
-title: "'Explore Asia''s Newest Museums: A Guide for Aussies'"
-summary: ">-"
-date: "2025-05-02T10:45:46.418Z"
-country: "Asia (Various)"
-type: "Airline"
-imageUrl: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-imageAlt: "aerial photography of flowers at daytime"
-imageCredit: "Joel Holland"
-imageLink: "https://unsplash.com"
-slug: "1-explore-asias-newest-museums-a-guide-for-aussies"
-metaTitle: "'1. Explore Asia''s Newest Museums: A Guide for Aussies'"
-metaDescription: ">-"
-keywords: ""
-originalTitle: "'Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'"
-published: "true"
-categories: "[]"
+title: '''Explore Asia''''s Newest Museums: A Guide for Aussies'''
+summary: '>-'
+date: '2025-04-08T14:28:45.823Z'
+country: Asia (Various)
+type: Airline
+imageUrl: >-
+  https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+imageAlt: aerial photography of flowers at daytime
+imageCredit: Joel Holland
+imageLink: 'https://unsplash.com'
+slug: 1-explore-asias-newest-museums-a-guide-for-aussies
+metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussies'''
+metaDescription: '>-'
+keywords: ''
+originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
+published: 'true'
+categories: '[]'
 photographer:
-  name: "Suhyeon Choi"
-  url: "https://unsplash.com/@choisyeon"
+  name: Suhyeon Choi
+  url: 'https://unsplash.com/@choisyeon'
 ---
 
 
