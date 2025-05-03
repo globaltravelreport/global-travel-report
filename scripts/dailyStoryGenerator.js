@@ -112,42 +112,54 @@ const FALLBACK_TRAVEL_STORIES = [
     content: "Southeast Asia continues to be a favorite destination for travelers seeking authentic experiences off the beaten path. From the lush rice terraces of Bali to the ancient temples of Cambodia, the region offers a rich tapestry of cultural experiences, stunning landscapes, and unforgettable adventures. Local experts recommend visiting during shoulder seasons to avoid crowds while still enjoying favorable weather conditions.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 3 days ago
+    pubDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Sustainable Tourism Trends for 2025",
     content: "As environmental awareness grows, sustainable tourism is becoming increasingly important to travelers worldwide. Tour operators are responding with eco-friendly packages, carbon-neutral accommodations, and community-based tourism initiatives that benefit local populations. Experts predict that by 2025, over 70% of travelers will consider sustainability factors when booking their trips.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 4 days ago
+    pubDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Digital Nomad Hotspots: Best Cities for Remote Workers",
     content: "The rise of remote work has transformed how people travel, with many professionals embracing the digital nomad lifestyle. Cities like Lisbon, Chiang Mai, Medellin, and Bali have emerged as popular hubs, offering fast internet, affordable living costs, and vibrant expat communities. Many countries now offer special visas for remote workers, making it easier than ever to work while exploring the world.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 5 days ago
+    pubDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Adventure Tourism Boom in New Zealand",
     content: "New Zealand continues to cement its reputation as the adventure capital of the world, with a record number of thrill-seekers visiting in the past year. From bungee jumping and skydiving to white-water rafting and heli-skiing, the country offers adrenaline-pumping activities against the backdrop of its stunning natural landscapes. Tourism officials report a 15% increase in adventure tourism bookings compared to pre-pandemic levels.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 6 days ago
+    pubDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Culinary Tourism: Exploring the World Through Food",
     content: "Food-focused travel is on the rise as more travelers plan their itineraries around culinary experiences. From cooking classes and food tours to visits to local markets and Michelin-starred restaurants, gastronomy has become a key factor in destination selection. Countries like Japan, Italy, and Thailand are particularly popular among food tourists seeking authentic local flavors and cooking techniques.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 7 days ago
+    pubDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Wellness Retreats: The Future of Relaxation Travel",
     content: "Wellness tourism is experiencing unprecedented growth as travelers increasingly seek vacations that rejuvenate both body and mind. Luxury resorts and dedicated retreat centers are expanding their offerings beyond traditional spa treatments to include meditation, yoga, nutrition counseling, and holistic healing practices. Popular destinations include Bali, Costa Rica, and Thailand, where natural settings enhance the wellness experience.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 8 days ago
+    pubDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
@@ -157,28 +169,36 @@ const FALLBACK_CRUISE_STORIES = [
     content: "A new luxury cruise line has announced its inaugural Mediterranean season, featuring intimate ships with all-suite accommodations and a focus on immersive cultural experiences. The vessels, carrying fewer than 300 passengers each, will visit both popular destinations and lesser-known ports, with extended stays allowing guests to explore more deeply. Onboard amenities include multiple gourmet restaurants, a spa, and personalized butler service for all guests.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 2 days ago
+    pubDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Cruise Industry Embraces Sustainable Technologies",
     content: "Major cruise lines are investing billions in eco-friendly technologies as the industry works to reduce its environmental footprint. New ships are being built with advanced waste management systems, shore power capabilities, and hybrid propulsion systems. Several companies have announced plans to launch zero-emission vessels by 2030, powered by a combination of hydrogen fuel cells, solar energy, and other renewable sources.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 3 days ago
+    pubDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "Expedition Cruising: The Fastest-Growing Segment in the Industry",
     content: "Expedition cruising continues its rapid growth as travelers seek more adventurous and educational vacation experiences. These smaller vessels, designed to navigate remote regions like Antarctica, the Galapagos, and the Arctic, offer expert-led excursions and onboard lectures. Industry analysts report that bookings for expedition cruises have increased by over 30% in the past year, with many sailings sold out months in advance.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 4 days ago
+    pubDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     title: "River Cruising Expands Beyond Europe",
     content: "While European rivers remain popular, river cruise operators are increasingly expanding to more exotic destinations. New itineraries on the Mekong, Amazon, Nile, and Yangtze rivers are attracting experienced cruisers looking for new adventures. These journeys offer a blend of cultural immersion, natural beauty, and the convenience of unpacking just once while visiting multiple destinations.",
     feedTitle: "Global Travel Report",
     feedUrl: "https://www.globaltravelreport.com",
-    guid: uuidv4()
+    guid: uuidv4(),
+    // Set publication date to 5 days ago
+    pubDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
