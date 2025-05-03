@@ -162,7 +162,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 Photo by{" "}
                 {story.photographer?.url || story.imageCreditUrl ? (
                   <a
-                    href={story.photographer?.url || story.imageCreditUrl || 'https://unsplash.com'}
+                    href={(story.photographer?.url || story.imageCreditUrl || 'https://unsplash.com').replace(/^'(.*)'$/, '$1')}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-bold underline hover:text-gray-200"

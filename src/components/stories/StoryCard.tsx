@@ -140,7 +140,16 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   // Set the image source and photographer
   const [imageData] = React.useState(getUniqueImageAndPhotographer());
   const imgSrc = story.imageUrl || imageData.imageUrl;
-  const photographer = story.photographer || imageData.photographer;
+
+  // Clean up photographer URL if it has quotes around it
+  let photographer = story.photographer || imageData.photographer;
+  if (photographer && photographer.url) {
+    // Remove single quotes if they exist
+    photographer = {
+      ...photographer,
+      url: photographer.url.replace(/^'(.*)'$/, '$1')
+    };
+  }
 
   // Handle date formatting with our utility
   const formattedDate = React.useMemo(() => {
