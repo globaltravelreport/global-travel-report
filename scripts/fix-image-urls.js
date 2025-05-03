@@ -133,6 +133,7 @@ function isValidUrl(url) {
   }
 
   try {
+    // Only consider it valid if it starts with http
     return url.startsWith('http');
   } catch (error) {
     return false;
@@ -257,6 +258,7 @@ async function fixImageUrls() {
  * @returns {boolean} Whether the URL is valid
  */
 function isValidImageUrl(url) {
+  // Only consider URLs that start with http as valid
   return isValidUrl(url);
 }
 

@@ -226,6 +226,7 @@ export async function getAllStories(): Promise<Story[]> {
               console.warn(`Invalid image URL in ${file}: ${cleanImageUrl}`);
               cleanImageUrl = ''; // Reset invalid URLs
             }
+            // Valid URL, no need to log anything
           }
 
           // Create a story object
