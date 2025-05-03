@@ -1,7 +1,7 @@
 ---
 title: 'Explore Asia''s Newest Museums: A Guide for Aussie Explorers'
 summary: '  Asia''s cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...'
-date: '2025-04-06T13:48:55.777Z'
+date: '2025-05-02T13:53:24.579Z'
 country: Asia
 type: Culture
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'

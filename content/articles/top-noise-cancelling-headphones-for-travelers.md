@@ -1,7 +1,7 @@
 ---
 title: Top Noise-Cancelling Headphones for Travelers
 summary: '  When planning your next getaway, don''t overlook one of the most essential travel accessories—a good pair of noise-cancelling headphones. With the abil...'
-date: '2025-04-16T13:48:55.973Z'
+date: '2025-04-15T13:53:24.671Z'
 country: Global
 type: Travel Tips
 imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'

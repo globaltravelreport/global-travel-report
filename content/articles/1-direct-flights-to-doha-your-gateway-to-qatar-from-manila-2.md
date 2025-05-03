@@ -1,7 +1,7 @@
 ---
 title: 'Direct Flights to Doha: Your Gateway to Qatar from Manila'
 summary: ' Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian travelers to Qatar, AUD flight deals, best time to visit Qatar, Australian...'
-date: '2025-04-11T13:48:55.766Z'
+date: '2025-04-26T13:53:24.571Z'
 country: Global
 type: Destination
 imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'

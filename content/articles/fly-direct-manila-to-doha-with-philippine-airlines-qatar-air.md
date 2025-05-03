@@ -1,7 +1,7 @@
 ---
 title: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
 summary: ' Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines'' direct flights from Manila to Doha, now in codeshare par...'
-date: '2025-04-28T13:48:55.916Z'
+date: '2025-04-12T13:53:24.628Z'
 country: Qatar
 type: '''Culture, Adventure'''
 imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'

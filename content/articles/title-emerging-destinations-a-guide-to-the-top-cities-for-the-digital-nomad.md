@@ -1,6 +1,6 @@
 ---
 title: 'Emerging Destinations: A Guide to the Top Cities for the Digital Nomad'
-date: '2025-04-14T13:48:55.942Z'
+date: '2025-04-28T13:53:24.648Z'
 slug: emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad
 category: Destination
 country: Global

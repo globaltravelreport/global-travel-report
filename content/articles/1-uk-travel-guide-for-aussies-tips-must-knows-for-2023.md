@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide for Aussies: Tips & Must-Knows for'
 summary: ' Embarking on a UK adventure from Australia may seem daunting, but with the right information, it can be a breeze and an experience of a lifetime. Whe...'
-date: '2025-04-04T13:48:55.832Z'
+date: '2025-05-03T13:53:24.611Z'
 country: United Kingdom
 type: Culture
 imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'

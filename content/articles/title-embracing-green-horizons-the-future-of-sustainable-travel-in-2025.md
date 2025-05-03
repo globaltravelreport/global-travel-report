@@ -1,6 +1,6 @@
 ---
 title: 'Embracing Green Horizons: The Future of Sustainable Travel in 2025'
-date: '2025-04-17T13:48:55.938Z'
+date: '2025-04-17T13:53:24.648Z'
 slug: embracing-green-horizons-the-future-of-sustainable-travel-in-2025
 category: Adventure
 country: Global

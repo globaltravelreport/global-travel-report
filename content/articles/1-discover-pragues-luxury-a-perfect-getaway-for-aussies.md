@@ -1,7 +1,7 @@
 ---
 title: 'Discover Prague''s Luxury: A Perfect Getaway for Aussies'
 summary: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it''s even more appealing ...'
-date: '2025-04-07T13:48:55.774Z'
+date: '2025-04-21T13:53:24.577Z'
 country: Czech Republic
 type: Luxury
 imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'

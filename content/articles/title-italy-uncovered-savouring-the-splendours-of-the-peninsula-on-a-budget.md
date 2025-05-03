@@ -1,6 +1,6 @@
 ---
 title: 'Italy Uncovered: Savouring the Splendours of the Peninsula on a Budget'
-date: '2025-04-22T13:48:55.947Z'
+date: '2025-04-12T13:53:24.651Z'
 slug: italy-uncovered-savouring-the-splendours-of-the-peninsula-on-a-budget
 category: Budget Travel
 country: Italy

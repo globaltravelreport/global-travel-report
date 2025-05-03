@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide: Tips for Aussies Planning Their British Escape'
 summary: 'A Guide for Australians Travelling to the UK: Everything You Need to Know...'
-date: '2025-04-21T13:48:55.896Z'
+date: '2025-04-12T13:53:24.614Z'
 country: United Kingdom
 type: Experience
 imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'

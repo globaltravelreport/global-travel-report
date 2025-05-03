@@ -1,7 +1,7 @@
 ---
 title: 'Asia''s Newest Museums: A Must-Visit for Aussies'
 summary: '  Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant cultu...'
-date: '2025-04-06T13:48:55.765Z'
+date: '2025-04-18T13:53:24.570Z'
 country: Asia
 type: Culture
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'

@@ -1,7 +1,7 @@
 ---
 title: New Direct Flights from Copenhagen to Boost Aussie Travels
 summary: ' Explore Copenhagen with New Direct Flights Perfect for Australian Travellers...'
-date: '2025-04-06T13:48:55.788Z'
+date: '2025-04-10T13:53:24.591Z'
 country: Denmark
 type: '''Culture, Adventure'''
 imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'

@@ -1,6 +1,6 @@
 ---
 title: 'A Surge in Seafaring: The Latest Headlines from the World of Luxury Cruising'
-date: '2025-04-07T13:48:55.925Z'
+date: '2025-04-11T13:53:24.638Z'
 slug: a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising
 category: Cruise
 country: Canada

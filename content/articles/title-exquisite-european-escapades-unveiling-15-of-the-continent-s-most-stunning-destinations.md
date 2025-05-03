@@ -2,7 +2,7 @@
 title: >-
   Exquisite European Escapades: Unveiling 15 of the Continent's Most Stunning
   Destinations
-date: '2025-04-25T13:48:55.946Z'
+date: '2025-04-29T13:53:24.649Z'
 slug: >-
   exquisite-european-escapades-unveiling-15-of-the-continent-s-most-stunning-destinations
 category: Destination

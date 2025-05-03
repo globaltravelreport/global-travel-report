@@ -1,6 +1,6 @@
 ---
 title: 'Journey Through the Wild: Top 12 Trails of Patagonia'
-date: '2025-04-11T13:48:55.949Z'
+date: '2025-04-15T13:53:24.654Z'
 slug: journey-through-the-wild-top-12-trails-of-patagonia
 category: Adventure
 country: Patagonia

@@ -2,7 +2,7 @@
 title: >-
   Trailblazing Cities for Global Telecommuters: Embracing the Digital Nomad
   Revolution
-date: '2025-04-13T13:48:55.967Z'
+date: '2025-04-05T13:53:24.667Z'
 slug: >-
   trailblazing-cities-for-global-telecommuters-embracing-the-digital-nomad-revolution
 category: Destination

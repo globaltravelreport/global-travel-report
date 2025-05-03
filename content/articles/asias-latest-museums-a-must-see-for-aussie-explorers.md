@@ -1,7 +1,7 @@
 ---
 title: 'Asia''s Latest Museums: A Must-See for Aussie Explorers'
 summary: ' As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...'
-date: '2025-05-01T13:48:55.909Z'
+date: '2025-04-21T13:53:24.624Z'
 country: '''Japan, Singapore'''
 type: '''Culture, Art'''
 imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'

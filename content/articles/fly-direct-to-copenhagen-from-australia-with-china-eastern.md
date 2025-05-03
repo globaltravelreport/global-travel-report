@@ -1,7 +1,7 @@
 ---
 title: Fly Direct to Copenhagen from Australia with China Eastern
 summary: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
-date: '2025-04-30T13:48:55.917Z'
+date: '2025-04-20T13:53:24.629Z'
 country: Denmark
 type: '''Culture, Food & Wine'''
 imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'

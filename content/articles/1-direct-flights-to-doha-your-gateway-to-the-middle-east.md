@@ -1,7 +1,7 @@
 ---
 title: 'Direct Flights to Doha: Your Gateway to the Middle East'
 summary: ' Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from ...'
-date: '2025-04-26T13:48:55.767Z'
+date: '2025-04-16T13:53:24.572Z'
 country: Qatar
 type: Experience
 imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'

@@ -1,7 +1,7 @@
 ---
 title: 'Hidden Gems: Top International Destinations for Aussies in'
 summary: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it''s all about discovering those u...'
-date: '2025-04-11T13:48:55.917Z'
+date: '2025-04-10T13:53:24.630Z'
 country: '''Ghana, Georgia'''
 type: '''Culture, Adventure'''
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'

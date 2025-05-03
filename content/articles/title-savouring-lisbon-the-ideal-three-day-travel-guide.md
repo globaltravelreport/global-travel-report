@@ -1,6 +1,6 @@
 ---
 title: 'Savouring Lisbon: The Ideal Three-Day Travel Guide '
-date: '2025-04-08T13:48:55.962Z'
+date: '2025-04-12T13:53:24.664Z'
 slug: savouring-lisbon-the-ideal-three-day-travel-guide
 category: Destination
 country: Portugal

@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks'
 summary: Rewritten article...
-date: '2025-04-08T13:48:55.831Z'
+date: '2025-05-01T13:53:24.609Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
 imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'

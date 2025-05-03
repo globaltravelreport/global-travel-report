@@ -1,6 +1,6 @@
 ---
 title: The Resurgence of New Zealand's Thrill-Seeker Tourism
-date: '2025-04-13T13:48:55.966Z'
+date: '2025-04-18T13:53:24.666Z'
 slug: the-resurgence-of-new-zealand-s-thrill-seeker-tourism
 category: Adventure
 country: New Zealand

@@ -1,6 +1,6 @@
 ---
 title: 'Rail Journey Through Mexico: A Scenic Expedition'
-date: '2025-04-11T13:48:55.958Z'
+date: '2025-04-09T13:53:24.659Z'
 slug: rail-journey-through-mexico-a-scenic-expedition
 category: Adventure
 country: Mexico

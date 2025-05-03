@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 summary: '  UK travel guide, Australian travelers, flight deals from Australia to UK, UK visa requirements, travel tips for Australians, AUD to GBP exchange, UK c...'
-date: '2025-04-07T13:48:55.899Z'
+date: '2025-04-24T13:53:24.616Z'
 country: Global
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'

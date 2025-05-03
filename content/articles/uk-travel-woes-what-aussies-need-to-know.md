@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Woes: What Aussies Need to Know'
 summary: '  In a startling move that has raised eyebrows across continents, allegations have surfaced accusing the government of hampering the UK''s tourism indust...'
-date: '2025-04-15T13:48:55.974Z'
+date: '2025-04-19T13:53:24.672Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'

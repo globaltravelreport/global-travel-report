@@ -1,6 +1,6 @@
 ---
 title: 'A Gastronomic Globe-trot: Savouring the World One Bite at a Time'
-date: '2025-04-13T13:48:55.922Z'
+date: '2025-04-08T13:53:24.631Z'
 slug: a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time
 category: Culture
 country: 'Japan, Italy, Thailand'

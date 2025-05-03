@@ -2,7 +2,7 @@
 title: >-
   Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph for
   Sustainability
-date: '2025-04-22T13:48:55.932Z'
+date: '2025-04-11T13:53:24.641Z'
 slug: >-
   cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability
 category: Cruise

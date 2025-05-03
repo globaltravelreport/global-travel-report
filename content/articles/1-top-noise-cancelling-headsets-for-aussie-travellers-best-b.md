@@ -1,7 +1,7 @@
 ---
 title: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
 summary: '  When planning an international trip from Down Under, the right travel accessories can make all the difference, especially during those long-haul fligh...'
-date: '2025-04-08T13:48:55.829Z'
+date: '2025-04-09T13:53:24.608Z'
 country: Various
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'

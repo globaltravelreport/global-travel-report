@@ -1,6 +1,6 @@
 ---
 title: 'New Zealand: The Rising Star of Adventure Tourism'
-date: '2025-04-29T13:48:55.957Z'
+date: '2025-05-01T13:53:24.658Z'
 slug: new-zealand-the-rising-star-of-adventure-tourism
 category: Adventure
 country: New Zealand

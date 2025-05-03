@@ -1,7 +1,7 @@
 ---
 title: Explore the Shanghai Cruise Culture & Tourism Festival
 summary: '  Shanghai''s Cruise Culture and Tourism Festival is set to enchant travelers with its unique blend of cultural festivities and breathtaking sea voyages....'
-date: '2025-05-02T13:48:55.914Z'
+date: '2025-04-28T13:53:24.626Z'
 country: China
 type: Cultural Festivals
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'

@@ -1,6 +1,6 @@
 ---
 title: 'Discovering Mackinac Island: A Novice''s Guide to an Iconic Midwestern Haven'
-date: '2025-04-23T13:48:55.937Z'
+date: '2025-04-26T13:53:24.646Z'
 slug: discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven
 category: Destination
 country: United States

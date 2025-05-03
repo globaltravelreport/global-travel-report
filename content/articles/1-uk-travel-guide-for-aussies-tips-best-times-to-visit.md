@@ -1,7 +1,7 @@
 ---
 title: 'UK Travel Guide for Aussies: Tips & Best Times to Visit'
 summary: ' The UK is calling all Australian adventurers to explore its historic cities, stunning countryside, and vibrant cultural scene. But before you pack yo...'
-date: '2025-05-03T13:48:55.831Z'
+date: '2025-04-15T13:53:24.609Z'
 country: United Kingdom
 type: Culture
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'

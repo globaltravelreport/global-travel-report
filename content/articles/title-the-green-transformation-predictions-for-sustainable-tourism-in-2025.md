@@ -1,6 +1,6 @@
 ---
 title: 'The Green Transformation: Predictions for Sustainable Tourism in 2025'
-date: '2025-05-01T13:48:55.964Z'
+date: '2025-04-21T13:53:24.665Z'
 slug: the-green-transformation-predictions-for-sustainable-tourism-in-2025
 category: Sustainable Tourism
 country: Global

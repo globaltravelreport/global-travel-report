@@ -3,7 +3,7 @@ title: Explore the Whitsundays by Sail
 summary: Discover Australia's best sailing experiences
 keywords: ''
 slug: explore-the-whitsundays-by-sail
-date: '2025-04-10T13:48:55.901Z'
+date: '2025-04-05T13:53:24.620Z'
 country: Australia
 type: Cruise
 published: 'true'

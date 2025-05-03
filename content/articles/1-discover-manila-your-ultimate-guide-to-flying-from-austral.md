@@ -1,7 +1,7 @@
 ---
 title: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 summary: 'Embarking on a Manila Adventure: A Guide for Australian Travelers...'
-date: '2025-04-25T13:48:55.773Z'
+date: '2025-04-13T13:53:24.577Z'
 country: Philippines
 type: Airline
 imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
