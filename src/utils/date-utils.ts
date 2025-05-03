@@ -177,3 +177,56 @@ export function isArchived(publishDate: Date | string, archiveDays: number = 7):
 
   return dateObj < archiveDate;
 }
+
+/**
+ * Validate a date string and return a valid date
+ * If the date is invalid or in the future, returns the current date
+ * @param dateStr - The date string to validate
+ * @returns A valid Date object
+ */
+export function validateDate(dateStr: string | Date): Date {
+  // If it's already a Date object, just check if it's valid and not in the future
+  if (dateStr instanceof Date) {
+    // Check if the date is valid
+    if (isNaN(dateStr.getTime())) {
+      return new Date();
+    }
+
+    // Check if the date is in the future
+    if (isFutureDate(dateStr)) {
+      return new Date();
+    }
+
+    return dateStr;
+  }
+
+  try {
+    const date = new Date(dateStr);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return new Date();
+    }
+
+    // Check if the date is in the future
+    if (isFutureDate(date)) {
+      return new Date();
+    }
+
+    return date;
+  } catch (error) {
+    // If there's any error parsing the date, return the current date
+    return new Date();
+  }
+}
+
+/**
+ * Get a safe date string for database storage
+ * Ensures the date is valid and not in the future
+ * @param dateStr - The date string to validate
+ * @returns A valid ISO date string
+ */
+export function getSafeDateString(dateStr: string | Date): string {
+  const validDate = validateDate(dateStr);
+  return formatDatabaseDate(validDate);
+}

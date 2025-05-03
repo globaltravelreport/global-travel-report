@@ -10,6 +10,7 @@ import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
+import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
 
 /**
  * Safely convert a date string to an ISO string
@@ -21,26 +22,7 @@ function safeToISOString(dateStr: string | Date | undefined): string {
     return new Date().toISOString();
   }
 
-  try {
-    // If it's already a Date object
-    if (dateStr instanceof Date) {
-      return dateStr.toISOString();
-    }
-
-    // Try to parse the date string
-    const date = new Date(dateStr);
-
-    // Check if the date is valid
-    if (isNaN(date.getTime())) {
-      console.warn(`Invalid date: ${dateStr}, using current date instead`);
-      return new Date().toISOString();
-    }
-
-    return date.toISOString();
-  } catch (error) {
-    console.warn(`Error converting date: ${dateStr}, using current date instead`, error);
-    return new Date().toISOString();
-  }
+  return getSafeDateString(dateStr);
 }
 
 // In-memory storage for stories
