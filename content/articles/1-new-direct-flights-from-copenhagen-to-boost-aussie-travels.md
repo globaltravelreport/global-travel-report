@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-09T03:41:45.837Z'
 country: Denmark
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

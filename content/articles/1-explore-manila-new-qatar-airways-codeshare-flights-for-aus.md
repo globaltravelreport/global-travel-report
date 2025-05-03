@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-15T17:24:45.826Z'
 country: Philippines
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

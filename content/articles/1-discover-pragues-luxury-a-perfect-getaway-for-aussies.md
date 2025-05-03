@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-26T12:30:45.818Z'
 country: Czech Republic
 type: Luxury
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: Golden moments await at Prague's newest luxury hotel - Travel Wee
 published: 'true'
 categories: '[]'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

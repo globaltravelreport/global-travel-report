@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-22T19:39:45.906Z'
 country: Global
 type: Accommodation Review
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -20,8 +20,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: What to expect from Ascott’s multi-typology strategy - Travel Weekly Asia
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

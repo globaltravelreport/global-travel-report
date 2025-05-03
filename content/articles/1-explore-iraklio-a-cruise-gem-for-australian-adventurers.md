@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-14T17:47:45.825Z'
 country: Greece
 type: '''Culture, Adventure, Cruise'''
-imageUrl: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: Vidar Nordli-Mathisen
-  url: 'https://unsplash.com/@vidarnm'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

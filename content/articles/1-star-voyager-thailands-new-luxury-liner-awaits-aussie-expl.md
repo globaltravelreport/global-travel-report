@@ -8,7 +8,7 @@ summary: >-
 date: '2025-04-12T17:07:45.847Z'
 country: Thailand
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jezael Melgoza
-  url: 'https://unsplash.com/@jezar'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

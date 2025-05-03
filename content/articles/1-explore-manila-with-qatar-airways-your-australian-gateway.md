@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-21T08:23:45.828Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Flo Maderebner
-  url: 'https://unsplash.com/@flomaderebner'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

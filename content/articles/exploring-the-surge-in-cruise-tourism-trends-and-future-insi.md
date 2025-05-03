@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-03T04:43:45.907Z'
 country: Global
 type: Travel Trends
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -18,8 +18,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '''Cruise Tourism Market Witness Booming Growth: Future Demand, - openPR.com'''
 photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

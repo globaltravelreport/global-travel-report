@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-25T19:29:45.909Z'
 country: Greece
 type: Cruise
-imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: >-
@@ -21,8 +21,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 photographer:
-  name: Alonso Reyes
-  url: 'https://unsplash.com/@alonsoreyes'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

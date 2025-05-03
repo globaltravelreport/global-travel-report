@@ -166,59 +166,84 @@ export class UnsplashService {
   }
 
   /**
-   * Enhance a story with an image from Unsplash
+   * Enhance a story with an image from Unsplash using the image tracker
    */
   public async enhanceStoryWithImage(story: Story): Promise<Story> {
     try {
-      // Build a search query based on the story
-      let query = `${story.country} ${story.category}`;
+      // Import the image tracker dynamically to avoid server/client mismatch
+      const { getImageForStory } = await import('@/src/utils/imageTracker');
 
-      // Add more specific terms for better results
-      if (story.category === 'Cruises') {
-        query += ' cruise ship ocean';
-      } else if (story.category === 'Food & Drink') {
-        query += ' food cuisine restaurant';
-      } else if (story.category === 'Adventure Travel') {
-        query += ' adventure landscape nature';
-      } else if (story.category === 'Luxury Travel') {
-        query += ' luxury hotel resort';
-      } else if (story.category === 'Family Travel') {
-        query += ' family vacation';
-      } else {
-        query += ' travel tourism';
-      }
-
-      // Search for images
-      const images = await this.searchImages(query);
-
-      if (images.length === 0) {
-        throw new Error('No images found');
-      }
-
-      const image = images[0];
-
-      // Trigger a download (required by Unsplash API terms)
-      await this.triggerDownload(image.downloadLocation);
+      // Get a unique image and photographer for this story
+      const { imageUrl, photographer } = getImageForStory(
+        story.slug || `story-${Date.now()}`,
+        story.category || 'Travel'
+      );
 
       // Return the enhanced story
       return {
         ...story,
-        imageUrl: image.url,
-        imageAlt: image.alt,
+        imageUrl: imageUrl,
+        imageAlt: `${story.category} - ${story.title}`,
         // Add photographer information in the format expected by the UI components
-        photographer: {
-          name: image.photographer.name,
-          url: image.photographer.profileUrl
-        },
+        photographer: photographer,
         // Keep these for backward compatibility
-        imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
-        imageCreditUrl: image.photographer.profileUrl
+        imageCredit: `Photo by ${photographer.name} on Unsplash`,
+        imageCreditUrl: photographer.url
       };
     } catch (error) {
       console.error('Error enhancing story with image:', error);
 
-      // Return the original story if image enhancement fails
-      return story;
+      // If the image tracker fails, fall back to the old method
+      try {
+        // Build a search query based on the story
+        let query = `${story.country} ${story.category}`;
+
+        // Add more specific terms for better results
+        if (story.category === 'Cruises') {
+          query += ' cruise ship ocean';
+        } else if (story.category === 'Food & Drink') {
+          query += ' food cuisine restaurant';
+        } else if (story.category === 'Adventure Travel') {
+          query += ' adventure landscape nature';
+        } else if (story.category === 'Luxury Travel') {
+          query += ' luxury hotel resort';
+        } else if (story.category === 'Family Travel') {
+          query += ' family vacation';
+        } else {
+          query += ' travel tourism';
+        }
+
+        // Search for images
+        const images = await this.searchImages(query);
+
+        if (images.length === 0) {
+          throw new Error('No images found');
+        }
+
+        const image = images[0];
+
+        // Trigger a download (required by Unsplash API terms)
+        await this.triggerDownload(image.downloadLocation);
+
+        // Return the enhanced story
+        return {
+          ...story,
+          imageUrl: image.url,
+          imageAlt: image.alt,
+          // Add photographer information in the format expected by the UI components
+          photographer: {
+            name: image.photographer.name,
+            url: image.photographer.profileUrl
+          },
+          // Keep these for backward compatibility
+          imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
+          imageCreditUrl: image.photographer.profileUrl
+        };
+      } catch (fallbackError) {
+        console.error('Fallback image enhancement also failed:', fallbackError);
+        // Return the original story if both methods fail
+        return story;
+      }
     }
   }
 

@@ -9,15 +9,15 @@ slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
 date: '2025-04-24T01:31:45.900Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: '''Sydney Opera House, Australia'''
 imageCredit: Photoholgic on Unsplash
 imageLink: '''https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

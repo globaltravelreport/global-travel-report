@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-06T05:50:45.855Z'
 country: International (General)
 type: Travel Essentials
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '>-'
 categories: '[]'
 photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

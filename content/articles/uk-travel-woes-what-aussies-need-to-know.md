@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-05T11:02:45.913Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
-imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -18,8 +18,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Jingda Chen
-  url: 'https://unsplash.com/@jingda'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 

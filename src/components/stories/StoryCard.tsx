@@ -10,6 +10,36 @@ import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/uti
 import { cn } from '@/src/utils/cn';
 import type { Story } from '@/types/Story';
 
+// Direct mapping between photographers and their images
+const PHOTOGRAPHER_IMAGES: Record<string, string> = {
+  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
+  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
+  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
+  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+  'Josiah Farrow': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+  'Vidar Nordli-Mathisen': 'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
+  'Flo Maderebner': 'https://images.unsplash.com/photo-1551632811-561732d1e306',
+  'Anthony Tran': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
+  'Jingda Chen': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
+  'Esteban Castle': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
+  'Jezael Melgoza': 'https://images.unsplash.com/photo-1518998053901-5348d3961a04',
+  'Brooke Lark': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+  'Kelsey Knight': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
+  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
+  'Sime Basioli': 'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
+  'Braden Jarvis': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
+  'Arto Marttinen': 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a',
+  'Emile Guillemot': 'https://images.unsplash.com/photo-1528127269322-539801943592',
+  'Thomas Tucker': 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff',
+  'Davide Cantelli': 'https://images.unsplash.com/photo-1528164344705-47542687000d',
+  'Raimond Klavins': 'https://images.unsplash.com/photo-1551913902-c92207136625',
+  'Heidi Kaden': 'https://images.unsplash.com/photo-1552084117-56a987666449',
+  'Shifaaz Shamoon': 'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0',
+  'Dario Bronnimann': 'https://images.unsplash.com/photo-1533105079780-92b9be482077'
+};
+
 interface StoryCardProps {
   story: Story;
   className?: string;
@@ -141,7 +171,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   const [imageData] = React.useState(getUniqueImageAndPhotographer());
 
   // Always use the image URL from the story file if it exists
-  const imgSrc = story.imageUrl || imageData.imageUrl;
+  let imgSrc = story.imageUrl || imageData.imageUrl;
 
   // Always use the photographer information from the story file if it exists
   let photographer = story.photographer;
@@ -149,6 +179,19 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   // If the story doesn't have photographer information, use the one from our database
   if (!photographer || !photographer.name) {
     photographer = imageData.photographer;
+  }
+
+  // Ensure the photographer and image URL are consistent
+  // This is a critical check to prevent misattribution
+  if (photographer && photographer.name && Object.keys(PHOTOGRAPHER_IMAGES).includes(photographer.name)) {
+    // Get the correct image URL for this photographer
+    const correctImageUrl = PHOTOGRAPHER_IMAGES[photographer.name];
+
+    // If the image URL doesn't match the photographer, use the correct one
+    if (imgSrc !== correctImageUrl) {
+      console.warn(`Image URL ${imgSrc} doesn't match photographer ${photographer.name}. Using correct URL ${correctImageUrl}`);
+      imgSrc = correctImageUrl;
+    }
   }
 
   // Clean up photographer URL if it has quotes around it

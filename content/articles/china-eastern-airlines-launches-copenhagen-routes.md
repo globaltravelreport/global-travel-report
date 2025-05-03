@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-21T13:49:45.904Z'
 country: Denmark
 type: Travel Tips
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -18,8 +18,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 
