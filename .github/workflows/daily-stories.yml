@@ -10,28 +10,28 @@ on:
 jobs:
   generate-stories:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           # Full git history is needed to get all commits
           fetch-depth: 0
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Configure Git
         run: |
           git config --global user.name "Global Travel Report Bot"
           git config --global user.email "editorial@globaltravelreport.com"
-      
+
       - name: Generate daily stories
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -41,11 +41,11 @@ jobs:
         run: |
           # Create logs directory
           mkdir -p logs
-          
-          # Run the story generator
+
+          # Run the story generator with 9 stories (7 travel + 2 cruise)
           echo "===== Daily Story Generation Started at $(date) =====" > logs/daily-story-generator.log
-          node scripts/dailyStoryGenerator.js >> logs/daily-story-generator.log 2>&1
-          
+          node scripts/dailyStoryGenerator.js --count=9 --cruise-count=2 >> logs/daily-story-generator.log 2>&1
+
           # Check if the script ran successfully
           if [ $? -eq 0 ]; then
             echo "✅ Story generation completed successfully" >> logs/daily-story-generator.log
@@ -53,46 +53,46 @@ jobs:
             echo "❌ Story generation failed with exit code $?" >> logs/daily-story-generator.log
             exit 1
           fi
-      
+
       - name: Commit and push changes
         run: |
           # Check if there are any changes to commit
           if [[ -n $(git status -s content/articles/) ]]; then
             echo "===== Committing and pushing changes to GitHub =====" >> logs/daily-story-generator.log
-            
+
             # Add new story files
             git add content/articles/
-            
+
             # Commit with today's date
             git commit -m "Add daily stories for $(date +%Y-%m-%d)" --no-verify
-            
+
             # Push to the repository
             git push
-            
+
             echo "✅ Changes pushed to GitHub successfully" >> logs/daily-story-generator.log
           else
             echo "No new stories to commit" >> logs/daily-story-generator.log
           fi
-      
+
       - name: Revalidate website
         env:
           CRON_SECRET_KEY: ${{ secrets.CRON_SECRET_KEY }}
           NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
         run: |
           echo "===== Revalidating website =====" >> logs/daily-story-generator.log
-          
+
           # Run the revalidation script
           node scripts/revalidate-website.js >> logs/daily-story-generator.log 2>&1
-          
+
           # Check if the revalidation was successful
           if [ $? -eq 0 ]; then
             echo "✅ Website revalidation completed successfully" >> logs/daily-story-generator.log
           else
             echo "❌ Website revalidation failed with exit code $?" >> logs/daily-story-generator.log
           fi
-          
+
           echo "===== Daily Story Generator Finished at $(date) =====" >> logs/daily-story-generator.log
-      
+
       - name: Upload logs as artifacts
         uses: actions/upload-artifact@v3
         with:

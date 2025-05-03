@@ -30,9 +30,9 @@ if [ -z "$CRON_SECRET_KEY" ]; then
   exit 1
 fi
 
-# Run the story generator with a small count for testing
-echo "Running story generator with count=1..." | tee -a "$LOG_FILE"
-node scripts/dailyStoryGenerator.js --count=1 --cruise-count=1 >> "$LOG_FILE" 2>&1
+# Run the story generator with 9 stories (7 travel + 2 cruise) for testing
+echo "Running story generator with count=9 (7 travel + 2 cruise)..." | tee -a "$LOG_FILE"
+node scripts/dailyStoryGenerator.js --count=9 --cruise-count=2 >> "$LOG_FILE" 2>&1
 
 # Check if the script ran successfully
 if [ $? -eq 0 ]; then
@@ -45,23 +45,23 @@ fi
 # Check if there are any changes to commit
 if [[ -n $(git status -s content/articles/) ]]; then
   echo "✅ New stories were generated" | tee -a "$LOG_FILE"
-  
+
   # Ask if the user wants to commit and push the changes
   read -p "Do you want to commit and push the changes? (y/n) " -n 1 -r
   echo
-  
+
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "===== Committing and pushing changes to GitHub =====" | tee -a "$LOG_FILE"
-    
+
     # Add new story files
     git add content/articles/
-    
+
     # Commit with today's date
     git commit -m "Add test stories for GitHub Actions ($(date +%Y-%m-%d))" --no-verify
-    
+
     # Push to the repository
     git push
-    
+
     echo "✅ Changes pushed to GitHub successfully" | tee -a "$LOG_FILE"
   else
     echo "Skipping commit and push" | tee -a "$LOG_FILE"

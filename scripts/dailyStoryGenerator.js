@@ -2,13 +2,13 @@
  * Daily Story Generator
  *
  * This script automatically:
- * 1. Fetches 8 stories (including 2 cruise-related) from RSS feeds
+ * 1. Fetches 9 stories (including 2 cruise-related) from RSS feeds
  * 2. Rewrites them using OpenAI
  * 3. Adds Unsplash images with proper attribution
  * 4. Saves them as markdown files in the content directory
  *
  * Usage:
- * node scripts/dailyStoryGenerator.js [--count=8] [--cruise-count=2]
+ * node scripts/dailyStoryGenerator.js [--count=9] [--cruise-count=2]
  */
 
 require('dotenv').config({ path: '.env.local' });
@@ -21,7 +21,7 @@ const { v4: uuidv4 } = require('uuid');
 const matter = require('gray-matter');
 
 // Configuration
-const DEFAULT_STORY_COUNT = 8;
+const DEFAULT_STORY_COUNT = 9;
 const DEFAULT_CRUISE_COUNT = 2;
 const CONTENT_DIR = path.join(process.cwd(), 'content/articles');
 const MAX_RETRIES = 3;
