@@ -1,5 +1,5 @@
 ---
-title: 'Star Voyager: Thailand''''s New Luxury Cruise Awaits Aussie Travellers'
+title: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
 summary: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
 date: '2025-04-30T08:48:45.846Z'
 country: Thailand

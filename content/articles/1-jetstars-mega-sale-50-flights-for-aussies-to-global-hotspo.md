@@ -1,5 +1,5 @@
 ---
-title: 'Jetstar''''s Mega Sale: $50 Flights for Aussies to Global Hotspots'
+title: 'Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots'
 summary: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 date: '2025-04-27T04:41:45.831Z'
 country: Multiple countries

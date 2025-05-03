@@ -1,5 +1,5 @@
 ---
-title: 'Australia''''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
+title: 'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
 summary: >-
 
   Australia's cruise industry is riding a wave of extraordinary growth, marked

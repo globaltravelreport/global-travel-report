@@ -1,5 +1,5 @@
 ---
-title: '>-'
+title: ''
 summary: |-
 
   Embarking on a Manila Adventure: A Guide for Australian Travelers...

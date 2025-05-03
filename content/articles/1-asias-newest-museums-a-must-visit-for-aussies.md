@@ -1,5 +1,5 @@
 ---
-title: 'Asia''''s Newest Museums: A Must-Visit for Aussies'
+title: 'Asia''s Newest Museums: A Must-Visit for Aussies'
 summary: >-
   Asia is always evolving, offering fresh and exciting experiences for the
   intrepid Australian traveler. Among the latest additions to its vibrant

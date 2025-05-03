@@ -1,5 +1,5 @@
 ---
-title: 'The Land of the Rising Sun: Australia''''s Top Holiday Destination'
+title: 'The Land of the Rising Sun: Australia''s Top Holiday Destination'
 summary: >-
 
   From the electric buzz of Tokyo's neon-doused streets to the tranquil harmony

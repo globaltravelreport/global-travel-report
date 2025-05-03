@@ -1,5 +1,5 @@
 ---
-title: 'Discover Prague''''s Luxury: A Perfect Getaway for Aussies'
+title: 'Discover Prague''s Luxury: A Perfect Getaway for Aussies'
 summary: >-
 
   Prague, with its enchanting streets and majestic historical sites, has always

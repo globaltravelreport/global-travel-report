@@ -1,5 +1,5 @@
 ---
-title: 'Explore Asia''''s Newest Museums: A Guide for Aussie Explorers'
+title: 'Explore Asia''s Newest Museums: A Guide for Aussie Explorers'
 summary: >-
   Asia's cultural landscape is ever-evolving, and for Australians keen on
   soaking up new artistic and historical insights, two new museums have opened
