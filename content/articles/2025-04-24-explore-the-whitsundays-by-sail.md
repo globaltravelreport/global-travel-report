@@ -8,11 +8,11 @@ country: Australia
 type: Cruise
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110'
+imageUrl: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b'
 imageLink: 'https://unsplash.com'
 photographer:
-  name: Vidar Nordli-Mathisen
-  url: 'https://unsplash.com/@vidarnm'
+  name: Josiah Farrow
+  url: 'https://unsplash.com/@josiahfarrow'
 ---
 
 

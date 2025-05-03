@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-03T18:17:45.871Z'
 country: United Kingdom
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jezael Melgoza
-  url: 'https://unsplash.com/@jezar'
+  name: Jingda Chen
+  url: 'https://unsplash.com/@jingda'
 ---
 
 

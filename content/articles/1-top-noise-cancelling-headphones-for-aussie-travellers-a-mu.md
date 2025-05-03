@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-24T18:08:45.854Z'
 country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

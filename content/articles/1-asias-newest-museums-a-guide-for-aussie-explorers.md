@@ -16,8 +16,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Anthony Tran
-  url: 'https://unsplash.com/@anthonytran'
+  name: Jezael Melgoza
+  url: 'https://unsplash.com/@jezar'
 ---
 
 

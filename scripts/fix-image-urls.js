@@ -15,71 +15,37 @@ const matter = require('gray-matter');
 // Configuration
 const ARTICLES_DIR = path.join(process.cwd(), 'content/articles');
 
-// Category-specific default images with multiple options for variety
-const DEFAULT_IMAGES = {
-  'Travel': [
-    'https://images.unsplash.com/photo-1488085061387-422e29b40080', // Jakob Owens
-    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', // Asoggetti
-    'https://images.unsplash.com/photo-1503220317375-aaad61436b1b', // Jaromir Kavan
-    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', // Dino Reichmuth
-    'https://images.unsplash.com/photo-1501785888041-af3ef285b470'  // Sylvain Mauroux
-  ],
-  'Cruise': [
-    'https://images.unsplash.com/photo-1548574505-5e239809ee19', // Alonso Reyes
-    'https://images.unsplash.com/photo-1599640842225-85d111c60e6b', // Josiah Farrow
-    'https://images.unsplash.com/photo-1548690312-e3b507d8c110', // Vidar Nordli-Mathisen
-    'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a', // Vidar Nordli-Mathisen
-    'https://images.unsplash.com/photo-1548574169-47bca74f9515'  // Alonso Reyes
-  ],
-  'Destination': [
-    'https://images.unsplash.com/photo-1488085061387-422e29b40080', // Jakob Owens
-    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', // Asoggetti
-    'https://images.unsplash.com/photo-1503220317375-aaad61436b1b', // Jaromir Kavan
-    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', // Dino Reichmuth
-    'https://images.unsplash.com/photo-1501785888041-af3ef285b470'  // Sylvain Mauroux
-  ],
-  'Adventure': [
-    'https://images.unsplash.com/photo-1551632811-561732d1e306', // Flo Maderebner
-    'https://images.unsplash.com/photo-1527631746610-bca00a040d60', // Flo Maderebner
-    'https://images.unsplash.com/photo-1516939884455-1445c8652f83', // Flo Maderebner
-    'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd', // Flo Maderebner
-    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4'  // Flo Maderebner
-  ],
-  'Culture': [
-    'https://images.unsplash.com/photo-1493707553966-283afac8c358', // Anthony Tran
-    'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5', // Jingda Chen
-    'https://images.unsplash.com/photo-1566438480900-0609be27a4be', // Esteban Castle
-    'https://images.unsplash.com/photo-1518998053901-5348d3961a04', // Jezael Melgoza
-    'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'  // Jezael Melgoza
-  ],
-  'Food & Wine': [
-    'https://images.unsplash.com/photo-1504674900247-0877df9cc836', // Brooke Lark
-    'https://images.unsplash.com/photo-1543352634-99a5d50ae78e', // Brooke Lark
-    'https://images.unsplash.com/photo-1533777324565-a040eb52facd', // Brooke Lark
-    'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3', // Kelsey Knight
-    'https://images.unsplash.com/photo-1414235077428-338989a2e8c0'  // Brooke Lark
-  ],
-  'Airline': [
-    'https://images.unsplash.com/photo-1488085061387-422e29b40080', // Jakob Owens
-    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', // Dino Reichmuth
-    'https://images.unsplash.com/photo-1508672019048-805c876b67e2', // Simon Migaj
-    'https://images.unsplash.com/photo-1436491865332-7a61a109cc05', // Jakob Owens
-    'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'  // Dino Reichmuth
-  ],
-  'Hotel': [
-    'https://images.unsplash.com/photo-1488085061387-422e29b40080', // Jakob Owens
-    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', // Dino Reichmuth
-    'https://images.unsplash.com/photo-1508672019048-805c876b67e2', // Simon Migaj
-    'https://images.unsplash.com/photo-1566073771259-6a8506099945', // Jakob Owens
-    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa'  // Dino Reichmuth
-  ],
-  'Article': [
-    'https://images.unsplash.com/photo-1488085061387-422e29b40080', // Jakob Owens
-    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d', // Dino Reichmuth
-    'https://images.unsplash.com/photo-1508672019048-805c876b67e2', // Simon Migaj
-    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', // Asoggetti
-    'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'  // Jaromir Kavan
-  ]
+// Direct mapping between photographers and their images
+const PHOTOGRAPHER_IMAGES = {
+  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
+  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
+  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
+  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
+  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+  'Josiah Farrow': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
+  'Vidar Nordli-Mathisen': 'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
+  'Flo Maderebner': 'https://images.unsplash.com/photo-1551632811-561732d1e306',
+  'Anthony Tran': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
+  'Jingda Chen': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
+  'Esteban Castle': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
+  'Jezael Melgoza': 'https://images.unsplash.com/photo-1518998053901-5348d3961a04',
+  'Brooke Lark': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+  'Kelsey Knight': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
+  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+};
+
+// Category-specific photographers
+const CATEGORY_PHOTOGRAPHERS = {
+  'Travel': ['Jakob Owens', 'Asoggetti', 'Jaromir Kavan', 'Dino Reichmuth', 'Sylvain Mauroux'],
+  'Cruise': ['Alonso Reyes', 'Josiah Farrow', 'Vidar Nordli-Mathisen'],
+  'Destination': ['Jakob Owens', 'Asoggetti', 'Jaromir Kavan', 'Dino Reichmuth', 'Sylvain Mauroux'],
+  'Adventure': ['Flo Maderebner', 'Dino Reichmuth', 'Simon Migaj'],
+  'Culture': ['Anthony Tran', 'Jingda Chen', 'Esteban Castle', 'Jezael Melgoza'],
+  'Food & Wine': ['Brooke Lark', 'Kelsey Knight'],
+  'Airline': ['Jakob Owens', 'Dino Reichmuth', 'Simon Migaj'],
+  'Hotel': ['Jakob Owens', 'Dino Reichmuth', 'Simon Migaj'],
+  'Article': ['Jakob Owens', 'Dino Reichmuth', 'Simon Migaj', 'Asoggetti', 'Jaromir Kavan']
 };
 
 // Different photographers for different categories with real Unsplash photographers
@@ -158,24 +124,62 @@ function isValidUrl(url) {
  */
 function getUniqueImageAndPhotographer(title, category) {
   // Find a matching category or use Article as default
-  const categoryKey = Object.keys(DEFAULT_IMAGES).find(key =>
+  const categoryKey = Object.keys(CATEGORY_PHOTOGRAPHERS).find(key =>
     category.toLowerCase().includes(key.toLowerCase())
   ) || 'Article';
 
-  const imageArray = DEFAULT_IMAGES[categoryKey];
-  const photographerArray = PHOTOGRAPHERS[categoryKey];
+  // Get the photographers for this category
+  const photographersForCategory = CATEGORY_PHOTOGRAPHERS[categoryKey];
 
-  // Use the story title to deterministically select an image from the array
+  // Use the story title to deterministically select a photographer
   const titleHash = title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const index = titleHash % imageArray.length;
+  const photographerIndex = titleHash % photographersForCategory.length;
+  const photographerName = photographersForCategory[photographerIndex];
 
-  // Get the corresponding photographer for this category
-  // Make sure we don't go out of bounds
-  const photographerIndex = index % photographerArray.length;
-  const photographer = photographerArray[photographerIndex];
+  // Get the image URL for this photographer
+  const imageUrl = PHOTOGRAPHER_IMAGES[photographerName];
+
+  // Create the photographer object
+  const photographer = {
+    name: photographerName,
+    url: `https://unsplash.com/@${photographerName.toLowerCase().replace(/\s+/g, '')}`
+  };
+
+  // Special cases for URLs that don't follow the pattern
+  if (photographerName === 'Jakob Owens') {
+    photographer.url = 'https://unsplash.com/@jakobowens1';
+  } else if (photographerName === 'Jaromir Kavan') {
+    photographer.url = 'https://unsplash.com/@jerrykavan';
+  } else if (photographerName === 'Dino Reichmuth') {
+    photographer.url = 'https://unsplash.com/@dinoreichmuth';
+  } else if (photographerName === 'Sylvain Mauroux') {
+    photographer.url = 'https://unsplash.com/@sylvainmauroux';
+  } else if (photographerName === 'Vidar Nordli-Mathisen') {
+    photographer.url = 'https://unsplash.com/@vidarnm';
+  } else if (photographerName === 'Flo Maderebner') {
+    photographer.url = 'https://unsplash.com/@flomaderebner';
+  } else if (photographerName === 'Anthony Tran') {
+    photographer.url = 'https://unsplash.com/@anthonytran';
+  } else if (photographerName === 'Jingda Chen') {
+    photographer.url = 'https://unsplash.com/@jingda';
+  } else if (photographerName === 'Esteban Castle') {
+    photographer.url = 'https://unsplash.com/@estebancastel';
+  } else if (photographerName === 'Jezael Melgoza') {
+    photographer.url = 'https://unsplash.com/@jezar';
+  } else if (photographerName === 'Brooke Lark') {
+    photographer.url = 'https://unsplash.com/@brookelark';
+  } else if (photographerName === 'Kelsey Knight') {
+    photographer.url = 'https://unsplash.com/@kelseyannvere';
+  } else if (photographerName === 'Simon Migaj') {
+    photographer.url = 'https://unsplash.com/@simonmigaj';
+  } else if (photographerName === 'Alonso Reyes') {
+    photographer.url = 'https://unsplash.com/@alonsoreyes';
+  } else if (photographerName === 'Josiah Farrow') {
+    photographer.url = 'https://unsplash.com/@josiahfarrow';
+  }
 
   return {
-    imageUrl: imageArray[index],
+    imageUrl: imageUrl,
     photographer: photographer
   };
 }
@@ -248,7 +252,7 @@ async function fixImageUrls() {
         // Adding the file name to ensure uniqueness
         const { imageUrl, photographer } = getUniqueImageAndPhotographer(data.title + '-' + file, category);
 
-        // Update the image URL
+        // Update the image URL to match the photographer
         data.imageUrl = imageUrl;
 
         // Update the photographer information
@@ -258,6 +262,9 @@ async function fixImageUrls() {
 
         data.photographer.name = photographer.name;
         data.photographer.url = photographer.url;
+
+        // Log what we're doing
+        console.log(`Setting image URL for ${file} to ${imageUrl} with photographer ${photographer.name}`);
 
         // Create the updated frontmatter
         const updatedFileContent = matter.stringify(content, data);

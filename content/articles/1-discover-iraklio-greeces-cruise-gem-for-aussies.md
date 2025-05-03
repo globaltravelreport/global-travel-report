@@ -4,7 +4,7 @@ summary: 'Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Ir
 date: '2025-04-13T01:02:45.817Z'
 country: Greece
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd'
+imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'

@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

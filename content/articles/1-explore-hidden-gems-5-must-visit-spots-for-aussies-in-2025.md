@@ -8,7 +8,7 @@ summary: >-
 date: '2025-04-21T09:24:45.824Z'
 country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
 type: '''Adventure, Culture, Wildlife'''
-imageUrl: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 photographer:
-  name: Flo Maderebner
-  url: 'https://unsplash.com/@flomaderebner'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

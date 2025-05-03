@@ -6,7 +6,7 @@ summary: |-
 date: '2025-04-23T02:53:45.817Z'
 country: Philippines
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

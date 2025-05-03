@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-25T10:05:45.908Z'
 country: Denmark
 type: '''Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5'
+imageUrl: 'https://images.unsplash.com/photo-1493707553966-283afac8c358'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 photographer:
-  name: Jingda Chen
-  url: 'https://unsplash.com/@jingda'
+  name: Anthony Tran
+  url: 'https://unsplash.com/@anthonytran'
 ---
 
 

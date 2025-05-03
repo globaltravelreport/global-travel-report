@@ -4,7 +4,7 @@ summary: Rewritten article...
 date: '2025-04-24T15:47:45.862Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'

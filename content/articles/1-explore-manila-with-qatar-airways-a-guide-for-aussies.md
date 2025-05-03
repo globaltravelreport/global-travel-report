@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-29T14:18:45.827Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

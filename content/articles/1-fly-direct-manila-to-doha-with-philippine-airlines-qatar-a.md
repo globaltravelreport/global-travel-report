@@ -16,8 +16,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Jaromir Kavan
+  url: 'https://unsplash.com/@jerrykavan'
 ---
 
 

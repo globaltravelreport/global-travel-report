@@ -8,7 +8,7 @@ summary: >-
 date: '2025-04-14T17:27:45.907Z'
 country: Qatar
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4'
+imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Flo Maderebner
+  url: 'https://unsplash.com/@flomaderebner'
 ---
 
 

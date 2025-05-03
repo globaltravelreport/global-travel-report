@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-07T17:10:45.908Z'
 country: '''Ghana, Georgia'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

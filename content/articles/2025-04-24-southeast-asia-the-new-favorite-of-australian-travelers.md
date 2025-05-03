@@ -9,15 +9,15 @@ slug: southeast-asia-the-new-favorite-of-australian-travelers
 date: '2025-04-17T07:41:45.901Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: city buildings during daytime
 imageCredit: Aniq Danial on Unsplash
 imageLink: '''https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'''
 published: 'true'
 categories: '[]'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-05T17:46:45.822Z'
 country: '''Japan, South Korea'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -21,8 +21,8 @@ keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Simon Migaj
+  url: 'https://unsplash.com/@simonmigaj'
 ---
 
 

@@ -6,7 +6,7 @@ summary: |-
 date: '2025-04-21T06:00:45.895Z'
 country: United Kingdom
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'

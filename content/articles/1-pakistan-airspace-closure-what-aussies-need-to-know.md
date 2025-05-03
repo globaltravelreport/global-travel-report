@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-23T13:18:45.841Z'
 country: India
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
+imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

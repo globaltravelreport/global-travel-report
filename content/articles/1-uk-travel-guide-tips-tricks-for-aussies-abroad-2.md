@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-14T20:43:45.897Z'
 country: '>-'
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ originalTitle: '>-'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

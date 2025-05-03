@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-14T17:02:45.810Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1519181245277-cffeb31da2e3'
+imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -22,8 +22,8 @@ originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia -
 published: 'true'
 categories: '[]'
 photographer:
-  name: Jingda Chen
-  url: 'https://unsplash.com/@jingda'
+  name: Esteban Castle
+  url: 'https://unsplash.com/@estebancastel'
 ---
 
 

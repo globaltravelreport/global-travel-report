@@ -7,7 +7,7 @@ summary: >-
 date: '2025-04-19T06:01:45.838Z'
 country: India
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1516939884455-1445c8652f83'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -20,8 +20,8 @@ metaDescription: >-
 keywords: ''
 originalTitle: '>-'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Dino Reichmuth
+  url: 'https://unsplash.com/@dinoreichmuth'
 ---
 
 

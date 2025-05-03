@@ -6,7 +6,7 @@ summary: >-
 date: '2025-04-09T14:06:45.843Z'
 country: Scotland
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'

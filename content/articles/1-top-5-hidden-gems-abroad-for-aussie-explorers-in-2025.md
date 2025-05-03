@@ -22,8 +22,8 @@ originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Tr
 published: 'true'
 categories: '[]'
 photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+  name: Jaromir Kavan
+  url: 'https://unsplash.com/@jerrykavan'
 ---
 
 

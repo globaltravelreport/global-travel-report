@@ -12,15 +12,15 @@ slug: the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japa
 date: '2025-04-18T13:46:45.903Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 imageAlt: people gathered outside buildings and vehicles
 imageCredit: Jezael Melgoza on Unsplash
 imageLink: 'https://unsplash.com'
 published: 'true'
 categories: '[]'
 photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+  name: Jakob Owens
+  url: 'https://unsplash.com/@jakobowens1'
 ---
 
 
