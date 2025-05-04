@@ -18,7 +18,7 @@ export class StoryDatabase {
     // Set up the stories directory path
     // This will be used for server-side operations only
     if (typeof process !== 'undefined' && process.cwd) {
-      this.storiesDir = path.join(process.cwd(), 'content', 'stories');
+      this.storiesDir = path.join(process.cwd(), 'content', 'articles');
     }
 
     console.log(`StoryDatabase initialized with simple file storage`);

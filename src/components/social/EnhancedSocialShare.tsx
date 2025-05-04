@@ -130,7 +130,12 @@ export function EnhancedSocialShare({
   const baseUrl = url.startsWith('http') ? url :
     typeof window !== 'undefined'
       ? `${window.location.origin}${url.startsWith('/') ? url : `/${url}`}`
-      : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}${url.startsWith('/') ? url : `/${url}`}`;
+      : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}${url.startsWith('/') ? url : `/${url}`}`;
+
+  // Ensure image URL is absolute
+  const absoluteImageUrl = imageUrl && !imageUrl.startsWith('http')
+    ? `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`
+    : imageUrl;
 
   // Add UTM parameters if tracking is enabled
   const shareUrl = trackShares
@@ -142,14 +147,14 @@ export function EnhancedSocialShare({
 
   // Share URLs for different platforms
   const shareUrls = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&picture=${encodeURIComponent(absoluteImageUrl || '')}&quote=${encodeURIComponent(title)}`,
     twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}${hashtagsString ? `&hashtags=${hashtagsString}` : ''}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
     medium: `https://medium.com/new-story?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}`,
     youtube: `https://www.youtube.com/share?url=${encodeURIComponent(shareUrl)}`,
     tiktok: `https://www.tiktok.com/upload?url=${encodeURIComponent(shareUrl)}`,
     whatsapp: `https://wa.me/?text=${encodeURIComponent(`${title} ${shareUrl}`)}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(shareUrl)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(title)}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(shareUrl)}&media=${encodeURIComponent(absoluteImageUrl || '')}&description=${encodeURIComponent(title)}`,
     email: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${description}\n\n${shareUrl}`)}`,
   };
 
@@ -161,7 +166,7 @@ export function EnhancedSocialShare({
         title,
         text: description,
         url: shareUrl,
-        ...(imageUrl ? { image: imageUrl } : {})
+        ...(absoluteImageUrl ? { image: absoluteImageUrl } : {})
       })
         .then(() => {
           toast.success('Shared successfully!');

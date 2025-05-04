@@ -68,14 +68,24 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
           height: 630,
           alt: story.title,
         },
+      ] : story.imageUrl ? [
+        {
+          url: story.imageUrl,
+          width: 1200,
+          height: 630,
+          alt: story.title,
+        }
       ] : [],
+      siteName: 'Global Travel Report',
       tags: story.tags,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : [],
+      images: ogImage ? [ogImage] : story.imageUrl ? [story.imageUrl] : [],
+      creator: "@GTravelReport",
+      site: "@GTravelReport",
     },
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/stories/${story.slug}`,

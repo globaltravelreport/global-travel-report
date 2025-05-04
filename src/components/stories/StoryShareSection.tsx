@@ -46,8 +46,13 @@ export function StoryShareSection({
   showCopyLink = true,
   showFloatingButton = true,
 }: StoryShareSectionProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const storyUrl = `${baseUrl}/stories/${story.slug}`;
+
+  // Ensure image URL is absolute
+  const absoluteImageUrl = story.imageUrl && !story.imageUrl.startsWith('http')
+    ? `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+    : story.imageUrl;
 
   // Generate hashtags from story tags and category
   const hashtags = [
@@ -102,7 +107,7 @@ export function StoryShareSection({
           {/* Social Media Share Buttons */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}&picture=${encodeURIComponent(absoluteImageUrl || '')}&quote=${encodeURIComponent(story.title)}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on Facebook"
@@ -162,7 +167,7 @@ export function StoryShareSection({
             </a>
 
             <a
-              href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}&media=${encodeURIComponent(story.imageUrl || '')}&description=${encodeURIComponent(story.title)}`}
+              href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}&media=${encodeURIComponent(absoluteImageUrl || '')}&description=${encodeURIComponent(story.title)}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on Pinterest"
