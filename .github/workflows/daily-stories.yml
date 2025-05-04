@@ -32,6 +32,26 @@ jobs:
           git config --global user.name "Global Travel Report Bot"
           git config --global user.email "editorial@globaltravelreport.com"
 
+      - name: Test OpenAI API key
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Create logs directory
+          mkdir -p logs
+
+          # Test the OpenAI API key
+          echo "===== Testing OpenAI API Key =====" > logs/openai-test.log
+          node scripts/test-openai.js >> logs/openai-test.log 2>&1
+
+          # Check if the test was successful
+          if [ $? -eq 0 ]; then
+            echo "✅ OpenAI API key test passed"
+          else
+            echo "❌ OpenAI API key test failed"
+            cat logs/openai-test.log
+            exit 1
+          fi
+
       - name: Generate daily stories
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -43,14 +63,24 @@ jobs:
           mkdir -p logs
 
           # Run the story generator with 9 stories (7 travel + 2 cruise)
-          echo "===== Daily Story Generation Started at $(date) =====" > logs/daily-story-generator.log
-          node scripts/dailyStoryGenerator.js --count=9 --cruise-count=2 >> logs/daily-story-generator.log 2>&1
+          # The script now creates its own log file with the current date
+          node scripts/dailyStoryGenerator.js --count=9 --cruise-count=2
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
 
           # Check if the script ran successfully
-          if [ $? -eq 0 ]; then
-            echo "✅ Story generation completed successfully" >> logs/daily-story-generator.log
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Story generation completed successfully"
           else
-            echo "❌ Story generation failed with exit code $?" >> logs/daily-story-generator.log
+            echo "❌ Story generation failed with exit code $EXIT_CODE"
+            # Display the last 50 lines of the log file
+            echo "Last 50 lines of log file:"
+            tail -n 50 $LOG_FILE
             exit 1
           fi
 
@@ -95,6 +125,7 @@ jobs:
 
       - name: Post to social media
         env:
+          # Social media API keys - these are optional, the script will skip platforms with missing keys
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
@@ -108,24 +139,34 @@ jobs:
           TUMBLR_API_KEY: ${{ secrets.TUMBLR_API_KEY }}
           NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
         run: |
-          echo "===== Posting to social media =====" >> logs/daily-story-generator.log
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Posting to social media =====" >> $LOG_FILE
 
           # Create logs directory for social media poster
           mkdir -p logs
 
           # Run the social media poster script
-          node scripts/social-media-poster.js >> logs/daily-story-generator.log 2>&1
+          node scripts/social-media-poster.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
 
           # Check if the social media posting was successful
-          if [ $? -eq 0 ]; then
-            echo "✅ Social media posting completed successfully" >> logs/daily-story-generator.log
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Social media posting completed successfully" >> $LOG_FILE
+            echo "✅ Social media posting completed successfully"
           else
-            echo "⚠️ Social media posting completed with some issues" >> logs/daily-story-generator.log
+            echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)" >> $LOG_FILE
+            echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)"
+            # This is not a critical error, so we don't exit with an error code
           fi
 
       - name: Upload logs as artifacts
         uses: actions/upload-artifact@v3
         with:
           name: daily-story-logs
-          path: logs/daily-story-generator.log
+          path: logs/*.log
           retention-days: 7

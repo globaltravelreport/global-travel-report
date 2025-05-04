@@ -64,42 +64,42 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// RSS Feed URLs
+// RSS Feed URLs - Updated with working feeds
 const TRAVEL_FEEDS = [
-  // Primary feeds
-  'https://www.travelandleisure.com/feed/all',
-  'https://www.lonelyplanet.com/blog/feed/atom',
-  'https://www.afar.com/rss/magazine',
-  'https://www.nationalgeographic.com/travel/feeds/rss/all',
-  'https://www.cntraveler.com/feed/rss',
-  'https://www.smartertravel.com/feed/',
-  'https://www.travelweekly.com/rss',
-  'https://www.travelpulse.com/rss',
-  'https://www.traveloffpath.com/feed/',
-  'https://www.traveldailynews.com/feed/',
-
-  // Backup feeds (used if primary feeds fail)
-  'https://www.fodors.com/feed',
-  'https://www.roughguides.com/feed',
-  'https://www.timeout.com/travel/rss',
-  'https://www.worldnomads.com/explore/feed',
+  // Primary feeds - verified working
+  'https://www.lonelyplanet.com/news/feed',
   'https://www.nomadicmatt.com/feed/',
   'https://www.adventurouskate.com/feed/',
   'https://www.tripsavvy.com/rss',
   'https://www.tourradar.com/days-to-come/feed/',
-  'https://www.wanderlust.co.uk/rss'
+  'https://www.wanderlust.co.uk/feed/rss/',
+  'https://www.traveldailynews.com/feed/',
+  'https://www.traveloffpath.com/feed/',
+  'https://www.travelpulse.com/feed/',
+  'https://www.timeout.com/travel/rss',
+
+  // Backup feeds
+  'https://www.worldnomads.com/blog/feed',
+  'https://www.fodors.com/feed',
+  'https://www.roughguides.com/feed',
+  'https://www.smartertravel.com/feed/',
+  'https://www.travelweekly.com/rss',
+  'https://www.travelandleisure.com/feeds/all.rss',
+  'https://www.afar.com/feed',
+  'https://www.cntraveler.com/feed/rss',
+  'https://www.nationalgeographic.com/travel/feeds/rss/all'
 ];
 
 const CRUISE_FEEDS = [
-  // Primary feeds
-  'https://www.cruisecritic.com/news/feed/',
+  // Primary feeds - verified working
   'https://www.cruisehive.com/feed',
   'https://www.cruiseradio.net/feed/',
-  'https://www.cruiseindustrynews.com/cruise-news/feed/',
   'https://www.royalcaribbeanblog.com/taxonomy/term/1/feed',
+  'https://www.cruisehabit.com/rss.xml',
+  'https://www.cruiseindustrynews.com/cruise-news/feed/',
 
   // Backup feeds
-  'https://www.cruisehabit.com/rss.xml',
+  'https://www.cruisecritic.com/news/feed/',
   'https://www.cruisemapper.com/rss',
   'https://www.cruiseadvice.org/feed/',
   'https://www.cruisingexcursions.com/blog/feed/',
@@ -223,8 +223,40 @@ async function generateDailyStories() {
   try {
     console.log('🚀 Starting daily story generation...');
 
+    // Create a log file with today's date
+    const today = new Date().toISOString().split('T')[0];
+    const logFile = path.join(process.cwd(), 'logs', `daily-story-generator-${today}.log`);
+
+    // Create logs directory if it doesn't exist
+    await fs.mkdir(path.join(process.cwd(), 'logs'), { recursive: true });
+
+    // Start logging to the file
+    await fs.writeFile(logFile, `===== Daily Story Generator Started at ${new Date().toISOString()} =====\n`, 'utf8');
+
+    // Log function that writes to both console and log file
+    const log = async (message) => {
+      console.log(message);
+      await fs.appendFile(logFile, message + '\n', 'utf8');
+    };
+
+    await log('🚀 Starting daily story generation...');
+
     // Reset global state to ensure unique images for this batch
     resetGlobalState();
+
+    // Test OpenAI API key
+    await log('🔑 Testing OpenAI API key...');
+    try {
+      const { testOpenAIKey } = require('./test-openai');
+      const openAIKeyWorks = await testOpenAIKey();
+      if (!openAIKeyWorks) {
+        throw new Error('OpenAI API key test failed');
+      }
+      await log('✅ OpenAI API key is working correctly');
+    } catch (error) {
+      await log(`❌ OpenAI API key test failed: ${error.message}`);
+      throw new Error(`OpenAI API key is not working: ${error.message}`);
+    }
 
     // Validate environment variables
     if (!validateEnvironment()) {
@@ -238,7 +270,9 @@ async function generateDailyStories() {
       const testFile = path.join(CONTENT_DIR, '.test-write-access');
       await fs.writeFile(testFile, 'test');
       await fs.unlink(testFile);
+      await log('✅ Content directory is accessible and writable');
     } catch (error) {
+      await log(`❌ Cannot write to content directory: ${error.message}`);
       throw new Error(`Cannot write to content directory: ${error.message}`);
     }
 
@@ -247,22 +281,37 @@ async function generateDailyStories() {
     const storyCount = getArgValue(args, '--count', DEFAULT_STORY_COUNT);
     const cruiseCount = getArgValue(args, '--cruise-count', DEFAULT_CRUISE_COUNT);
     const regularCount = storyCount - cruiseCount;
+    const testMode = args.includes('--test');
 
-    console.log(`📊 Configuration: Total stories=${storyCount}, Cruise stories=${cruiseCount}, Regular stories=${regularCount}`);
+    await log(`📊 Configuration: Total stories=${storyCount}, Cruise stories=${cruiseCount}, Regular stories=${regularCount}${testMode ? ', Test mode=true' : ''}`);
 
     // Step 1: Fetch stories from RSS feeds
-    console.log('\n📡 Fetching stories from RSS feeds...');
-    let travelStories = await fetchStoriesFromFeeds(TRAVEL_FEEDS, regularCount);
-    let cruiseStories = await fetchStoriesFromFeeds(CRUISE_FEEDS, cruiseCount);
+    await log('\n📡 Fetching stories from RSS feeds...');
+
+    // Create a wrapper for the fetchStoriesFromFeeds function that logs to the file
+    const fetchWithLogging = async (feeds, count, type) => {
+      await log(`Fetching ${count} ${type} stories...`);
+      try {
+        const stories = await fetchStoriesFromFeeds(TRAVEL_FEEDS, regularCount, log);
+        await log(`✅ Fetched ${stories.length}/${count} ${type} stories`);
+        return stories;
+      } catch (error) {
+        await log(`❌ Error fetching ${type} stories: ${error.message}`);
+        return [];
+      }
+    };
+
+    let travelStories = await fetchWithLogging(TRAVEL_FEEDS, regularCount, 'travel');
+    let cruiseStories = await fetchWithLogging(CRUISE_FEEDS, cruiseCount, 'cruise');
 
     // Use fallback stories if needed
     if (travelStories.length === 0) {
-      console.warn('⚠️ No travel stories found from feeds, using fallback stories');
+      await log('⚠️ No travel stories found from feeds, using fallback stories');
       travelStories = FALLBACK_TRAVEL_STORIES.slice(0, regularCount);
     }
 
     if (cruiseStories.length === 0) {
-      console.warn('⚠️ No cruise stories found from feeds, using fallback stories');
+      await log('⚠️ No cruise stories found from feeds, using fallback stories');
       cruiseStories = FALLBACK_CRUISE_STORIES.slice(0, cruiseCount);
     }
 
@@ -271,41 +320,70 @@ async function generateDailyStories() {
     stats.storiesFetched = allStories.length;
 
     if (allStories.length === 0) {
+      await log('❌ No stories found from feeds or fallbacks');
       throw new Error('No stories found from feeds or fallbacks');
     }
 
-    console.log(`✅ Fetched ${allStories.length} stories (${cruiseStories.length} cruise, ${travelStories.length} travel)`);
+    await log(`✅ Fetched ${allStories.length} stories (${cruiseStories.length} cruise, ${travelStories.length} travel)`);
 
     // Step 2: Process each story
-    console.log('\n🔄 Processing stories...');
+    await log('\n🔄 Processing stories...');
     const processedStories = [];
     const failedStories = [];
 
     for (let i = 0; i < allStories.length; i++) {
       const story = allStories[i];
-      console.log(`\n📝 Processing story ${i + 1}/${allStories.length}: "${story.title}"`);
+      await log(`\n📝 Processing story ${i + 1}/${allStories.length}: "${story.title}"`);
 
       try {
+        // Skip processing in test mode
+        if (testMode) {
+          await log('🧪 Test mode: Skipping OpenAI rewriting and image fetching');
+
+          // Create a simplified version of the story for test mode
+          const testStory = {
+            ...story,
+            slug: createSlug(story.title),
+            category: story.feedTitle.includes('Cruise') ? 'Cruise' : 'Travel',
+            country: 'Global',
+            excerpt: story.content.substring(0, 150) + '...',
+            keywords: ['travel'],
+            rewritten: false,
+            imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828',
+            photographer: {
+              name: 'Test Mode',
+              url: 'https://unsplash.com'
+            }
+          };
+
+          processedStories.push(testStory);
+          await log('✅ Added test story to processed stories');
+          continue;
+        }
+
         // Step 2a: Rewrite the story using OpenAI
-        console.log('🤖 Rewriting with OpenAI...');
-        const rewrittenStory = await rewriteStoryWithOpenAI(story);
+        await log('🤖 Rewriting with OpenAI...');
+        const rewrittenStory = await rewriteStoryWithOpenAI(story, log);
         stats.storiesRewritten++;
+        await log('✅ Successfully rewrote story with OpenAI');
 
         // Step 2b: Add an image from Unsplash
-        console.log('🖼️ Adding Unsplash image...');
-        const storyWithImage = await addUnsplashImage(rewrittenStory);
+        await log('🖼️ Adding Unsplash image...');
+        const storyWithImage = await addUnsplashImage(rewrittenStory, log);
+        await log(`✅ Added image: ${storyWithImage.imageUrl}`);
 
         // Add to processed stories
         processedStories.push(storyWithImage);
+        await log('✅ Added story to processed stories');
       } catch (error) {
-        console.error(`❌ Error processing story: ${error.message}`);
+        await log(`❌ Error processing story: ${error.message}`);
         failedStories.push(story);
         continue;
       }
 
       // Add a delay between processing stories to avoid rate limits
       if (i < allStories.length - 1) {
-        console.log('⏱️ Waiting before processing next story...');
+        await log('⏱️ Waiting before processing next story...');
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
@@ -376,9 +454,10 @@ async function generateDailyStories() {
  * Fetch stories from a list of RSS feeds with retry mechanism
  * @param {string[]} feedUrls - Array of RSS feed URLs
  * @param {number} count - Number of stories to fetch
+ * @param {Function} logFn - Function to log messages (optional)
  * @returns {Promise<Array>} - Array of story objects
  */
-async function fetchStoriesFromFeeds(feedUrls, count) {
+async function fetchStoriesFromFeeds(feedUrls, count, logFn = console.log) {
   const allItems = [];
   const failedFeeds = [];
 
@@ -393,17 +472,17 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
     while (!success && retries < MAX_RETRIES) {
       try {
         if (retries > 0) {
-          console.log(`🔄 Retry ${retries}/${MAX_RETRIES} for feed: ${feedUrl}`);
+          await logFn(`🔄 Retry ${retries}/${MAX_RETRIES} for feed: ${feedUrl}`);
           // Add exponential backoff
           await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * Math.pow(2, retries - 1)));
         } else {
-          console.log(`📡 Fetching from: ${feedUrl}`);
+          await logFn(`📡 Fetching from: ${feedUrl}`);
         }
 
         // Set a timeout for the fetch operation
         const feedPromise = parser.parseURL(feedUrl);
         const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Feed fetch timeout')), 10000)
+          setTimeout(() => reject(new Error('Feed fetch timeout')), 15000) // Increased timeout to 15 seconds
         );
 
         // Race between the fetch and the timeout
@@ -411,7 +490,7 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
 
         // Check if feed has items
         if (!feed.items || feed.items.length === 0) {
-          console.warn(`⚠️ Feed ${feedUrl} has no items`);
+          await logFn(`⚠️ Feed ${feedUrl} has no items`);
           failedFeeds.push({ url: feedUrl, reason: 'No items' });
           break;
         }
@@ -445,7 +524,7 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
       } catch (error) {
         retries++;
         if (retries >= MAX_RETRIES) {
-          console.warn(`❌ Failed to fetch feed ${feedUrl} after ${MAX_RETRIES} retries: ${error.message}`);
+          await logFn(`❌ Failed to fetch feed ${feedUrl} after ${MAX_RETRIES} retries: ${error.message}`);
           failedFeeds.push({ url: feedUrl, reason: error.message });
           stats.errors.fetching++;
         }
@@ -455,12 +534,27 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
 
   // Log summary of feed fetching
   if (allItems.length === 0) {
-    console.error('❌ Could not fetch any stories from any feeds');
-    console.error(`Failed feeds: ${failedFeeds.map(f => f.url).join(', ')}`);
+    await logFn('❌ Could not fetch any stories from any feeds');
+    await logFn(`Failed feeds: ${failedFeeds.map(f => f.url).join(', ')}`);
   } else if (allItems.length < count) {
-    console.warn(`⚠️ Could only fetch ${allItems.length}/${count} stories`);
+    await logFn(`⚠️ Could only fetch ${allItems.length}/${count} stories`);
   } else {
-    console.log(`✅ Successfully fetched ${allItems.length} stories`);
+    await logFn(`✅ Successfully fetched ${allItems.length} stories`);
+  }
+
+  // Log details about failed feeds
+  if (failedFeeds.length > 0) {
+    await logFn(`\n📊 Feed fetch summary:`);
+    await logFn(`- Total feeds attempted: ${feedUrls.length}`);
+    await logFn(`- Failed feeds: ${failedFeeds.length}`);
+    await logFn(`- Success rate: ${Math.round((feedUrls.length - failedFeeds.length) / feedUrls.length * 100)}%`);
+
+    // Log the first 5 failed feeds with reasons
+    const topFailures = failedFeeds.slice(0, 5);
+    await logFn(`\nTop feed failures:`);
+    for (const failure of topFailures) {
+      await logFn(`- ${failure.url}: ${failure.reason}`);
+    }
   }
 
   // Sort by publication date if available
@@ -477,19 +571,23 @@ async function fetchStoriesFromFeeds(feedUrls, count) {
 /**
  * Rewrite a story using OpenAI with retry mechanism
  * @param {Object} story - Original story object
+ * @param {Function} logFn - Function to log messages (optional)
  * @returns {Promise<Object>} - Rewritten story object
  */
-async function rewriteStoryWithOpenAI(story) {
+async function rewriteStoryWithOpenAI(story, logFn = console.log) {
   let retries = 0;
 
   while (retries <= MAX_RETRIES) {
     try {
       // If this is a retry, log it and wait before trying again
       if (retries > 0) {
-        console.log(`🔄 Retry ${retries}/${MAX_RETRIES} for OpenAI rewriting...`);
+        await logFn(`🔄 Retry ${retries}/${MAX_RETRIES} for OpenAI rewriting...`);
         // Add exponential backoff
         await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * Math.pow(2, retries - 1)));
       }
+
+      await logFn(`Processing story: "${story.title}" (${story.feedTitle || 'Unknown source'})`);
+
 
       // Truncate content if it's too long to avoid token limits
       const maxContentLength = 4000;
@@ -716,9 +814,10 @@ const DEFAULT_IMAGES = {
 /**
  * Add an Unsplash image to a story with retry mechanism and fallbacks
  * @param {Object} story - Story object
+ * @param {Function} logFn - Function to log messages (optional)
  * @returns {Promise<Object>} - Story with image
  */
-async function addUnsplashImage(story) {
+async function addUnsplashImage(story, logFn = console.log) {
   let retries = 0;
 
   // Try multiple search terms if the first one fails
@@ -735,6 +834,9 @@ async function addUnsplashImage(story) {
     .slice(0, 2);
 
   searchTerms.push(...titleWords);
+
+  await logFn(`🔍 Image search terms: ${searchTerms.join(', ')}`);
+
 
   // Try each search term until we find an image
   for (const searchQuery of searchTerms) {
