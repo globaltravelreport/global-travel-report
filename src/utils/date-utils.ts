@@ -180,23 +180,20 @@ export function isArchived(publishDate: Date | string, archiveDays: number = 7):
 
 /**
  * Validate a date string and return a valid date
- * If the date is invalid or in the future, returns the current date
+ * If the date is invalid, returns the current date
+ * IMPORTANT: This function preserves the original date even if it's in the future
  * @param dateStr - The date string to validate
  * @returns A valid Date object
  */
 export function validateDate(dateStr: string | Date): Date {
-  // If it's already a Date object, just check if it's valid and not in the future
+  // If it's already a Date object, just check if it's valid
   if (dateStr instanceof Date) {
     // Check if the date is valid
     if (isNaN(dateStr.getTime())) {
       return new Date();
     }
 
-    // Check if the date is in the future
-    if (isFutureDate(dateStr)) {
-      return new Date();
-    }
-
+    // Always preserve the original date, even if it's in the future
     return dateStr;
   }
 
@@ -208,11 +205,7 @@ export function validateDate(dateStr: string | Date): Date {
       return new Date();
     }
 
-    // Check if the date is in the future
-    if (isFutureDate(date)) {
-      return new Date();
-    }
-
+    // Always preserve the original date, even if it's in the future
     return date;
   } catch (error) {
     // If there's any error parsing the date, return the current date
@@ -222,7 +215,7 @@ export function validateDate(dateStr: string | Date): Date {
 
 /**
  * Get a safe date string for database storage
- * Ensures the date is valid and not in the future
+ * Ensures the date is valid while preserving the original date
  * @param dateStr - The date string to validate
  * @returns A valid ISO date string
  */

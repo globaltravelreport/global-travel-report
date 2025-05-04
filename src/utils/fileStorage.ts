@@ -22,6 +22,16 @@ function safeToISOString(dateStr: string | Date | undefined): string {
     return new Date().toISOString();
   }
 
+  // Always preserve the original date string if it's valid
+  try {
+    const date = new Date(dateStr);
+    if (!isNaN(date.getTime())) {
+      return date.toISOString();
+    }
+  } catch (error) {
+    console.warn(`Invalid date: ${dateStr}, using safe date string instead`);
+  }
+
   return getSafeDateString(dateStr);
 }
 

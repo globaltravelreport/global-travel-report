@@ -880,8 +880,12 @@ async function saveStoriesToMarkdown(stories) {
         throw new Error('Could not create valid slug');
       }
 
-      // Use the original publication date if available, otherwise use current date
+      // Always use the original publication date if available
+      // This ensures that stories maintain their original publication date
       const pubDate = story.pubDate ? new Date(story.pubDate) : new Date();
+
+      // Log the publication date for debugging
+      console.log(`Publication date for "${story.title}": ${pubDate.toISOString()}`);
 
       // Clean the title (remove any "Title:" prefix)
       let cleanTitle = story.title;
