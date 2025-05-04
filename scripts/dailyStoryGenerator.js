@@ -512,7 +512,7 @@ Rewrite the article and format it as follows:
 2. Write 4-6 paragraphs of engaging content
 3. Include a brief conclusion
 
-Also, provide the following metadata in JSON format at the end:
+After you've written the article, I'll need you to provide the following metadata, but DO NOT include the phrase "Metadata in JSON format:" or any similar text in your response. Just provide the JSON object at the end of your response:
 - category: The most appropriate category (e.g., Adventure, Culture, Cruise, Airline, Destination, etc.)
 - country: The main country or region discussed
 - excerpt: A brief 1-2 sentence summary of the article
