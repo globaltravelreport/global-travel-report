@@ -1,23 +1,14 @@
 ---
-title: Hidden Gems of Southeast Asia
-summary: Uncover the lesser-known treasures of Southeast Asia
-keywords: ''
-slug: hidden-gems-of-southeast-asia
+title: 'Hidden Gems of Southeast Asia'
+summary: 'Uncover the lesser-known treasures of Southeast Asia'
 date: '2025-04-28T13:53:24.621Z'
-country: Southeast Asia
-type: Experience
-published: 'true'
-categories: '[]'
+country: 'Southeast Asia'
+type: 'Experience'
 imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
-imageLink: 'https://unsplash.com'
-photographer: Davide Cantelli
+slug: 2025-04-24-hidden-gems-of-southeast-asia
+photographer:
+  name: 'Davide Cantelli'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 Beyond the well-trodden tourist paths of Southeast Asia lie countless hidden gems...

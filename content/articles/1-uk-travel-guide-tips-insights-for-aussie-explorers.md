@@ -2,27 +2,16 @@
 title: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
 summary: ' Rewritten article...'
 date: '2025-04-08T13:53:24.615Z'
-country: United Kingdom
-type: Airline
+country: 'United Kingdom'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
-imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
-imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
-imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-tips-insights-for-aussie-explorers
-metaTitle: '''1. UK Travel Guide: Tips & Insights for Aussie Explorers'''
+metaTitle: ''1. UK Travel Guide: Tips & Insights for Aussie Explorers''
 metaDescription: ' Rewritten article...'
-keywords: ''
-originalTitle: 'UK Travel Guide: Tips & Insights for Aussie Explorers'
-published: 'true'
-categories: '[]'
-photographer: Willian West
+photographer:
+  name: 'Willian West'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 Rewritten article
 

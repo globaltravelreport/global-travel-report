@@ -1,28 +1,17 @@
 ---
-title: 'Discover Prague''s Luxury: A Perfect Getaway for Aussies'
-summary: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it''s even more appealing ...'
+title: 'Discover Prague's Luxury: A Perfect Getaway for Aussies'
+summary: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing ...'
 date: '2025-04-21T13:53:24.577Z'
-country: Czech Republic
-type: Luxury
+country: 'Czech Republic'
+type: 'Luxury'
 imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-discover-pragues-luxury-a-perfect-getaway-for-aussies
-metaTitle: '''1. Discover Prague''''s Luxury: A Perfect Getaway for Aussies'''
-metaDescription: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it''s even more appealing ...'
-keywords: ''
-originalTitle: Golden moments await at Prague's newest luxury hotel - Travel Weekly Asia
-published: 'true'
-categories: '[]'
-photographer: Asoggetti
+metaTitle: ''1. Discover Prague''s Luxury: A Perfect Getaway for Aussies''
+metaDescription: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing ...'
+photographer:
+  name: 'Asoggetti'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing for Australian travelers with the opening of Prague's newest luxury hotel. As a travel journalist and SEO expert, I've gathered all the essential info to make your Czech vacation as splendid and hassle-free as possible.
 

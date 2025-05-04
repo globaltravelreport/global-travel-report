@@ -1,26 +1,17 @@
 ---
-title: The Resurgence of New Zealand's Thrill-Seeker Tourism
+title: 'The Resurgence of New Zealand's Thrill-Seeker Tourism'
+summary: 'New Zealand continues to affirm its position as the world's adventure capital, witnessing a surge in thrill-seekers over the past year. The country's adventure tourism sector has experienced a 15% increase in bookings compared to pre-pandemic levels.'
 date: '2025-04-18T13:53:24.666Z'
-slug: the-resurgence-of-new-zealand-s-thrill-seeker-tourism
-category: Adventure
-country: New Zealand
-excerpt: >-
-  New Zealand continues to affirm its position as the world's adventure capital,
-  witnessing a surge in thrill-seekers over the past year. The country's
-  adventure tourism sector has experienced a 15% increase in bookings compared
-  to pre-pandemic levels.
+country: 'New Zealand'
+type: 'Adventure'
 imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
-photographer: Dan Gold
-keywords:
-  - New Zealand
-  - adventure tourism
-  - thrill-seekers
-  - bungee jumping
-  - skydiving
-  - white-water rafting
-  - heli-skiing
-author: Global Travel Report Editorial Team
+slug: title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism
+keywords: 'New Zealand,adventure tourism,thrill-seekers,bungee jumping,skydiving,white-water rafting,heli-skiing'
+photographer:
+  name: 'Dan Gold'
+  url: 'https://unsplash.com'
 ---
+
 New Zealand, widely acknowledged as the globe's premier playground for adventure seekers, has seen an unprecedented surge in the number of adrenaline junkies gracing its shores over the past year. This picturesque country, renowned for its awe-inspiring landscapes, continues to enhance its reputation as the world's adventure capital, attracting thrill-seekers from all corners of the globe.
 
 With an exhilarating array of activities ranging from bungee jumping and skydiving to white-water rafting and heli-skiing, New Zealand offers more than just breathtaking scenery. The thrill of these adrenaline-pumping adventures, coupled with the magnificent backdrop of the country's diverse natural landscapes, is an irresistible draw for many tourists.

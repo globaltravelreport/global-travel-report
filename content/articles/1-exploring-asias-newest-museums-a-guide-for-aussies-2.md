@@ -1,27 +1,17 @@
 ---
-title: 'Exploring Asia''s Newest Museums: A Guide for Aussies'
-summary: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I''m thrilled to guide you through the unveiling of two must-visit...'
+title: 'Exploring Asia's Newest Museums: A Guide for Aussies'
+summary: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit...'
 date: '2025-04-16T13:53:24.589Z'
-country: Asia
-type: Culture
+country: 'Asia'
+type: 'Culture'
 imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-exploring-asias-newest-museums-a-guide-for-aussies-2
-metaTitle: 'Exploring Asia''s Newest Museums: A Guide for Aussies'
-metaDescription: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I''m thrilled to guide you through the unveiling of two must-visit...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-published: 'true'
-categories: '[]'
-photographer: Simon Migaj
+metaTitle: 'Exploring Asia's Newest Museums: A Guide for Aussies'
+metaDescription: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit...'
+photographer:
+  name: 'Simon Migaj'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit museums in Asia that have recently opened their doors to the public. These destinations are not only about admiring art but also understanding diverse cultures and histories. Here's everything you need to know, from getting there to making the most out of your visit.
 
@@ -48,4 +38,3 @@ Practical Travel Information
 - Accommodation: Options range from budget hostels to luxury hotels. Booking platforms like Agoda and Booking.com offer great deals, especially when booking in advance.
 
 By keeping these tips in mind, Australian travelers can ensure a smooth and culturally rich experience when visiting Asia's newest museums.**
-

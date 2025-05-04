@@ -1,28 +1,17 @@
 ---
-title: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
-summary: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
+title: 'Star Voyager: Thailand's New Luxury Cruise Awaits Aussie Travellers'
+summary: 'Thailand Beckons Aussie Explorers with the Launch of Star Voyager...'
 date: '2025-04-14T13:53:24.595Z'
-country: Thailand
-type: Luxury
+country: 'Thailand'
+type: 'Luxury'
 imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra
-metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Cruise Awaits Aussie Travellers'''
-metaDescription: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
-keywords: ''
-originalTitle: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
-published: 'true'
-categories: '[]'
-photographer: Ishan Seefromthesky
+metaTitle: ''1. Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers''
+metaDescription: 'Thailand Beckons Aussie Explorers with the Launch of Star Voyager...'
+photographer:
+  name: 'Ishan Seefromthesky'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 Thailand Beckons Aussie Explorers with the Launch of Star Voyager
 

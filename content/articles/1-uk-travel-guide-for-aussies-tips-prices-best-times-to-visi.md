@@ -2,27 +2,16 @@
 title: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
 summary: '### Your Ultimate Guide to Exploring the UK from Australia...'
 date: '2025-04-18T13:53:24.613Z'
-country: United Kingdom
-type: '''Culture, Food & Wine, Adventure'''
+country: 'United Kingdom'
+type: ''Culture, Food & Wine, Adventure''
 imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi
-metaTitle: '''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'''
+metaTitle: ''1. UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit''
 metaDescription: '### Your Ultimate Guide to Exploring the UK from Australia...'
-keywords: ''
-originalTitle: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
-categories: '[]'
-photographer: Luca Bravo
+photographer:
+  name: 'Luca Bravo'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 ### Your Ultimate Guide to Exploring the UK from Australia
 

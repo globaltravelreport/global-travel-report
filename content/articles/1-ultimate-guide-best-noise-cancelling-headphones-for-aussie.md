@@ -2,26 +2,16 @@
 title: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
 summary: '  Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any se...'
 date: '2025-04-22T13:53:24.618Z'
-country: Multiple Countries
-type: '''Budget, Family, Culture, Food & Wine'''
+country: 'Multiple Countries'
+type: ''Budget, Family, Culture, Food & Wine''
 imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: 'https://unsplash.com'
 slug: 1-ultimate-guide-best-noise-cancelling-headphones-for-aussie
-metaTitle: '''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'''
+metaTitle: ''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers''
 metaDescription: '  Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any se...'
-keywords: ''
-originalTitle: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
-photographer: Dan Gold
+photographer:
+  name: 'Dan Gold'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any seasoned traveller. Whether you're jetting off from Sydney, Melbourne, or Perth, these gadgets promise to transform your travel experience, making those long-haul flights to Europe, Asia, or the Americas more enjoyable.
 

@@ -1,23 +1,17 @@
 ---
-title: Unearthing the Undiscovered Treasures of Southeast Asia
+title: 'Unearthing the Undiscovered Treasures of Southeast Asia'
+summary: 'An engaging journey through Southeast Asia, highlighting its diverse cultural experiences, stunning landscapes, and the best time to explore the region.'
 date: '2025-04-10T13:53:24.670Z'
-slug: unearthing-the-undiscovered-treasures-of-southeast-asia
-category: Adventure
-country: Southeast Asia
-excerpt: >-
-  An engaging journey through Southeast Asia, highlighting its diverse cultural
-  experiences, stunning landscapes, and the best time to explore the region.
+country: 'Southeast Asia'
+type: 'Adventure'
 imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
-photographer: Arto Marttinen
-keywords:
-  - Southeast Asia
-  - Travel
-  - Cultural Experiences
-  - Adventure
-  - Bali
-  - Cambodia
-author: Global Travel Report Editorial Team
+slug: title-unearthing-the-undiscovered-treasures-of-southeast-asia
+keywords: 'Southeast Asia,Travel,Cultural Experiences,Adventure,Bali,Cambodia'
+photographer:
+  name: 'Arto Marttinen'
+  url: 'https://unsplash.com'
 ---
+
 Southeast Asia, with its vibrant mosaic of cultures, exquisite landscapes, and thrilling adventures, consistently lures the discerning traveller, seeking a journey less ordinary. Each country in this captivating region tells a unique tale, from the emerald green rice terraces of Bali to the timeless ancient temples of Cambodia, a testament to the rich and diverse tapestry of experiences awaiting the intrepid explorer.
 
 The allure of Southeast Asia isn't confined to its picturesque landscapes and fascinating history. Those who venture here are embraced by a sense of warmth and hospitality that is deeply ingrained in the local culture. It's this spirit that truly sets Southeast Asia apart, enriching every encounter and leaving visitors with lasting memories.

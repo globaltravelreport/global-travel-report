@@ -1,24 +1,17 @@
 ---
 title: 'Emerging Destinations: A Guide to the Top Cities for the Digital Nomad'
+summary: 'This article explores top cities for digital nomads, including Lisbon, Chiang Mai, Medellin, and Bali, highlighting their appeal in terms of fast internet, affordable living costs, and vibrant expat communities.'
 date: '2025-04-28T13:53:24.648Z'
-slug: emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad
-category: Destination
-country: Global
-excerpt: >-
-  This article explores top cities for digital nomads, including Lisbon, Chiang
-  Mai, Medellin, and Bali, highlighting their appeal in terms of fast internet,
-  affordable living costs, and vibrant expat communities.
+country: 'Global'
+type: 'Destination'
 imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
-photographer: Jaromir Kavan
-keywords:
-  - Digital Nomads
-  - Remote Work
-  - Lisbon
-  - Chiang Mai
-  - Medellin
-  - Bali
-author: Global Travel Report Editorial Team
+slug: title-emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad
+keywords: 'Digital Nomads,Remote Work,Lisbon,Chiang Mai,Medellin,Bali'
+photographer:
+  name: 'Jaromir Kavan'
+  url: 'https://unsplash.com'
 ---
+
 As the world of work continues to evolve with the rise of remote employment, a new breed of traveller has emerged: the digital nomad. These are professionals who have melded the realms of work and travel, transforming the global landscape into their office. A selection of cities, including Lisbon, Chiang Mai, Medellin, and Bali, have surged ahead as leading centres for these digital denizens, thanks to their robust internet connections, affordable cost of living, and lively expatriate communities.
 
 Lisbon, the charming capital of Portugal, has become a magnet for digital nomads. With its fast internet, affordable accommodation and vibrant cultural scene, it's no wonder professionals from around the globe are setting up their laptops in this coastal gem. Not to mention, Portugal's temperate climate and picturesque landscapes offer plenty of opportunities for exploration and relaxation during downtime.

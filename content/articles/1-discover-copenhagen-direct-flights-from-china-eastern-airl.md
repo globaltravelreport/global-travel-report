@@ -1,27 +1,17 @@
 ---
 title: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
-summary: Flying to Copenhagen Just Got Easier for Aussies!...
+summary: 'Flying to Copenhagen Just Got Easier for Aussies!...'
 date: '2025-04-17T13:53:24.574Z'
-country: Denmark
-type: '''Culture, Food & Wine'''
+country: 'Denmark'
+type: ''Culture, Food & Wine''
 imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: 'https://unsplash.com'
 slug: 1-discover-copenhagen-direct-flights-from-china-eastern-airl
 metaTitle: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
-metaDescription: Flying to Copenhagen Just Got Easier for Aussies!...
-keywords: ''
-originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
-photographer: Jakob Owens
+metaDescription: 'Flying to Copenhagen Just Got Easier for Aussies!...'
+photographer:
+  name: 'Jakob Owens'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 Flying to Copenhagen Just Got Easier for Aussies!
 
@@ -50,4 +40,3 @@ Practicalities for the Aussie Traveler
 For accommodation, Copenhagen offers options ranging from budget-friendly hostels to luxurious hotels. Public transport is reliable and extensive, including buses, trains, and metro lines, making it easy to navigate the city.
 
 In summary, with China Eastern Airlines, your Copenhagen dream trip is more achievable than ever. Prepare for a seamless journey by booking your flights in AUD, checking visa requirements, and diving into the Danish culture with these travel tips tailored for Australian explorers.
-

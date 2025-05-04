@@ -1,27 +1,17 @@
 ---
-title: 'Explore Asia''s Newest Museums: A Guide for Aussie Explorers'
-summary: '  Asia''s cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...'
+title: 'Explore Asia's Newest Museums: A Guide for Aussie Explorers'
+summary: '  Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...'
 date: '2025-05-02T13:53:24.579Z'
-country: Asia
-type: Culture
+country: 'Asia'
+type: 'Culture'
 imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-explorers
-metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Explorers'''
-metaDescription: '  Asia''s cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-published: 'true'
-categories: '[]'
-photographer: Willian West
+metaTitle: ''1. Explore Asia''s Newest Museums: A Guide for Aussie Explorers''
+metaDescription: '  Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...'
+photographer:
+  name: 'Willian West'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened their doors, promising enriching experiences that are worth the journey. Whether you're planning a solo adventure, a family holiday, or a cultural deep dive, here's everything Australian travelers need to know about these exciting destinations.
 

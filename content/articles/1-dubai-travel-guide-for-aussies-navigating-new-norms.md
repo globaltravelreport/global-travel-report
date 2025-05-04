@@ -2,27 +2,16 @@
 title: 'Dubai Travel Guide for Aussies: Navigating New Norms'
 summary: ' Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The f...'
 date: '2025-05-01T13:53:24.579Z'
-country: United Arab Emirates
-type: Airline
+country: 'United Arab Emirates'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
-imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
-imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
-imageLink: 'https://unsplash.com'
 slug: 1-dubai-travel-guide-for-aussies-navigating-new-norms
-metaTitle: '''1. Dubai Travel Guide for Aussies: Navigating New Norms'''
+metaTitle: ''1. Dubai Travel Guide for Aussies: Navigating New Norms''
 metaDescription: ' Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The f...'
-keywords: ''
-originalTitle: Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - Skift
-published: 'true'
-categories: '[]'
-photographer: Cristina Gottardi
+photographer:
+  name: 'Cristina Gottardi'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The fusion of futuristic architecture and ancient traditions makes Dubai a unique destination, offering something for every type of explorer. Here's what you need to know to make the most out of your Arabian adventure.
 

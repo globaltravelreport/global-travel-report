@@ -1,28 +1,17 @@
 ---
-title: 'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'
-summary: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
+title: 'Scotland's Cruise Boom: A £130m Lift & Aussie Guide'
+summary: '### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...'
 date: '2025-04-24T13:53:24.593Z'
-country: Scotland
-type: Experience
+country: 'Scotland'
+type: 'Experience'
 imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-scotlands-cruise-boom-a-130m-lift-aussie-guide
-metaTitle: '''1. Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'''
-metaDescription: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
-keywords: ''
-originalTitle: 'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'
-published: 'true'
-categories: '[]'
-photographer: Cristina Gottardi
+metaTitle: ''1. Scotland''s Cruise Boom: A £130m Lift & Aussie Guide''
+metaDescription: '### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...'
+photographer:
+  name: 'Cristina Gottardi'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 ### Scotland's Cruise Boom: A £130m Lift & Aussie Guide
 

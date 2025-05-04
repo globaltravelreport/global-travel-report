@@ -2,27 +2,16 @@
 title: 'Direct Flights to Doha: Your Gateway to the Middle East'
 summary: ' Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from ...'
 date: '2025-04-16T13:53:24.572Z'
-country: Qatar
-type: Experience
+country: 'Qatar'
+type: 'Experience'
 imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-direct-flights-to-doha-your-gateway-to-the-middle-east
-metaTitle: '''1. Direct Flights to Doha: Your Gateway to the Middle East'''
+metaTitle: ''1. Direct Flights to Doha: Your Gateway to the Middle East''
 metaDescription: ' Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from ...'
-keywords: ''
-originalTitle: 'Direct Flights to Doha: Your Gateway to the Middle East'
-published: 'true'
-categories: '[]'
-photographer: Simon Migaj
+photographer:
+  name: 'Simon Migaj'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 Embarking on an adventure or seeking luxury in the Middle East has never been easier for Aussie globetrotters, thanks to the new direct flights from Manila to Doha offered by Philippine Airlines in a codeshare partnership with Qatar Airways. This strategic collaboration promises a seamless journey to the heart of Qatar, a nation that blends traditional charm with futuristic allure.
 

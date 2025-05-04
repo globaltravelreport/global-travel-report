@@ -1,22 +1,17 @@
 ---
 title: 'Rail Journey Through Mexico: A Scenic Expedition'
+summary: 'Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.'
 date: '2025-04-09T13:53:24.659Z'
-slug: rail-journey-through-mexico-a-scenic-expedition
-category: Adventure
-country: Mexico
-excerpt: >-
-  Explore Mexico's expanding rail network, offering travellers an immersive
-  journey through the country's diverse landscapes and rich culture.
+country: 'Mexico'
+type: 'Adventure'
 imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
-photographer: Luca Bravo
-keywords:
-  - Mexico
-  - Train travel
-  - El Chepe
-  - Tren Maya
-  - Scenic routes
-author: Global Travel Report Editorial Team
+slug: title-rail-journey-through-mexico-a-scenic-expedition
+keywords: 'Mexico,Train travel,El Chepe,Tren Maya,Scenic routes'
+photographer:
+  name: 'Luca Bravo'
+  url: 'https://unsplash.com'
 ---
+
 Content:
 
 Mexico, a country teeming with vibrant culture and picturesque landscapes, offers experiences that go beyond the usual explorations of its historic sites and spectacular beaches. One such experience that remains relatively untouched by most travellers is the journey through its expanding passenger rail network. If you've visited Mexico before, you might have missed out on this unique opportunity to see the country from a different perspective.

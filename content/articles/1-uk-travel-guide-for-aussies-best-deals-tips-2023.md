@@ -1,29 +1,17 @@
 ---
 title: 'UK Travel Guide for Aussies: Best Deals & Tips'
-summary: The Ultimate UK Travel Guide for Australian Adventurers...
+summary: 'The Ultimate UK Travel Guide for Australian Adventurers...'
 date: '2025-04-24T13:53:24.608Z'
-country: United Kingdom
-type: Experience
+country: 'United Kingdom'
+type: 'Experience'
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
-imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
-imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
-imageLink: 'https://unsplash.com'
 slug: 1-uk-travel-guide-for-aussies-best-deals-tips-2023
-metaTitle: '''1. UK Travel Guide for Aussies: Best Deals & Tips 2023'''
-metaDescription: The Ultimate UK Travel Guide for Australian Adventurers...
-keywords: ''
-originalTitle: 'UK Travel Guide for Aussies: Best Deals & Tips'
-published: 'true'
-categories: '[]'
-photographer: Dino Reichmuth
+metaTitle: ''1. UK Travel Guide for Aussies: Best Deals & Tips 2023''
+metaDescription: 'The Ultimate UK Travel Guide for Australian Adventurers...'
+photographer:
+  name: 'Dino Reichmuth'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 The Ultimate UK Travel Guide for Australian Adventurers
 

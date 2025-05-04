@@ -1,27 +1,17 @@
 ---
-title: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
+title: 'Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys'
 summary: '  When planning an international trip from Down Under, the right travel accessories can make all the difference, especially during those long-haul fligh...'
 date: '2025-04-09T13:53:24.608Z'
-country: Various
-type: Airline
+country: 'Various'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-top-noise-cancelling-headsets-for-aussie-travellers-best-b
-metaTitle: 1. Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys 2023
+metaTitle: '1. Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys 2023'
 metaDescription: '  When planning an international trip from Down Under, the right travel accessories can make all the difference, especially during those long-haul fligh...'
-keywords: ''
-originalTitle: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
-published: 'true'
-categories: '[]'
-photographer: Jakob Owens
+photographer:
+  name: 'Jakob Owens'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 When planning an international trip from Down Under, the right travel accessories can make all the difference, especially during those long-haul flights from major Australian cities to far-flung destinations. One essential gadget you shouldn't overlook is many travellers' secret weapon: noise-cancelling headphones. They're not just about blocking out the drone of the plane engine, but also about enveloping you in your own private oasis, whether that's catching up on the latest TV series, diving into a new music playlist, or escaping the world with an audiobook.
 

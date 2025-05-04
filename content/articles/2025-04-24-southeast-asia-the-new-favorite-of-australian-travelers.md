@@ -1,23 +1,15 @@
 ---
 title: 'Southeast Asia: The New Favorite of Australian Travelers'
-summary: ' In the travel sphere, Australia''s compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as th...'
-keywords: ''
-slug: southeast-asia-the-new-favorite-of-australian-travelers
+summary: ' In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as th...'
 date: '2025-04-05T13:53:24.621Z'
-country: Australia
-type: Airline
+country: 'Australia'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
-imageAlt: city buildings during daytime
-imageCredit: Aniq Danial on Unsplash
-imageLink: '''https://unsplash.com/photos/city-buildings-during-daytime-prZLk4DWgzY'''
-published: 'true'
-categories: '[]'
-photographer: Thomas Tucker
+slug: 2025-04-24-southeast-asia-the-new-favorite-of-australian-travelers
+photographer:
+  name: 'Thomas Tucker'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
 
 In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as the most preferred travel destination for Australians in 2025. A blend of rich culture, breathtaking beaches, and the promise of affordable luxury has won the hearts of Australian globetrotters.
 

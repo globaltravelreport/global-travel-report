@@ -1,23 +1,17 @@
 ---
 title: 'Navigating the High Seas: A Weekly Cruise Line Overview'
+summary: 'This article provides a weekly overview of the major developments in the cruise industry, with a focus on the upcoming busy season at the Port of Vancouver.'
 date: '2025-04-05T13:53:24.655Z'
-slug: navigating-the-high-seas-a-weekly-cruise-line-overview
-category: Cruise
-country: Canada
-excerpt: >-
-  This article provides a weekly overview of the major developments in the
-  cruise industry, with a focus on the upcoming busy season at the Port of
-  Vancouver.
+country: 'Canada'
+type: 'Cruise'
 imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
-photographer: Emile Guillemot
-keywords:
-  - Cruise industry
-  - Port of Vancouver
-  - Cruise Hive
-  - Alaska cruises
-  - Cruise tourism
-author: Global Travel Report Editorial Team
+slug: title-navigating-the-high-seas-a-weekly-cruise-line-overview
+keywords: 'Cruise industry,Port of Vancouver,Cruise Hive,Alaska cruises,Cruise tourism'
+photographer:
+  name: 'Emile Guillemot'
+  url: 'https://unsplash.com'
 ---
+
 As the sun dips below the horizon, casting long shadows on the languid waves, the world of oceanic travel continues to ebb and flow with news and developments. This week, we're taking you on a voyage through the week's major events in the cruise industry, sailing from the bustling Port of Vancouver to the fleets of the Norwegian Cruise Line, Holland America Line, Royal Caribbean, and Carnival Cruise Line.
 
 To ensure you never miss the boat on the latest news, we recommend subscribing to Cruise Hive’s Daily Update. This will ensure the major stories from the high seas find their way directly to your inbox, keeping you abreast of the ever-changing tides of the industry.

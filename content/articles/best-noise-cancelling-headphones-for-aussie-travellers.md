@@ -1,26 +1,17 @@
 ---
-title: Best Noise-Cancelling Headphones for Aussie Travellers
-summary: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you''r...'
+title: 'Best Noise-Cancelling Headphones for Aussie Travellers'
+summary: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you'r...'
 date: '2025-04-06T13:53:24.625Z'
-country: Multiple destinations
-type: Travel Essentials
+country: 'Multiple destinations'
+type: 'Travel Essentials'
 imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: best-noise-cancelling-headphones-for-aussie-travellers
-metaTitle: Best Noise-Cancelling Headphones for Aussie Travellers
-metaDescription: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you''r...'
-keywords: ''
-originalTitle: Best Noise-Cancelling Headphones for Aussie Travellers
-photographer: Sylvain Mauroux
+metaTitle: 'Best Noise-Cancelling Headphones for Aussie Travellers'
+metaDescription: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you'r...'
+photographer:
+  name: 'Sylvain Mauroux'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you're escaping the Aussie winter for Europe's summer charm or chasing the northern lights during our summer break, having the best noise-cancelling headphones can transform your travel experience.
 

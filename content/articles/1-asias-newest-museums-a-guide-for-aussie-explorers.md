@@ -1,27 +1,17 @@
 ---
-title: 'Asia''s Newest Museums: A Guide for Aussie Explorers'
-summary: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
+title: 'Asia's Newest Museums: A Guide for Aussie Explorers'
+summary: '### Asia's Newest Museums: A Guide for Aussie Explorers...'
 date: '2025-04-16T13:53:24.568Z'
-country: Asia
-type: Culture
+country: 'Asia'
+type: 'Culture'
 imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-asias-newest-museums-a-guide-for-aussie-explorers
-metaTitle: '''1. Asia''''s Newest Museums: A Guide for Aussie Explorers'''
-metaDescription: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-published: 'true'
-categories: '[]'
-photographer: Davide Cantelli
+metaTitle: ''1. Asia''s Newest Museums: A Guide for Aussie Explorers''
+metaDescription: '### Asia's Newest Museums: A Guide for Aussie Explorers...'
+photographer:
+  name: 'Davide Cantelli'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 ### Asia's Newest Museums: A Guide for Aussie Explorers
 

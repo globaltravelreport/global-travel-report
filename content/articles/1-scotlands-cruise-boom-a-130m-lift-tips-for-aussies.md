@@ -2,26 +2,16 @@
 title: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
 summary: '  Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian ...'
 date: '2025-04-19T13:53:24.593Z'
-country: Scotland
-type: Airline
+country: 'Scotland'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies
-metaTitle: '''1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'''
+metaTitle: ''1. Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies''
 metaDescription: '  Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian ...'
-keywords: ''
-originalTitle: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
-published: 'true'
-categories: '[]'
-photographer: Willian West
+photographer:
+  name: 'Willian West'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian travelers, this opens up an enticing avenue to explore the historic beauty and natural landscapes that Scotland is renowned for. Here's everything you need to know to make this trip a seamless adventure.
 

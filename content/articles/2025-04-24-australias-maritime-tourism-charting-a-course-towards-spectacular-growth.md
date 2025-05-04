@@ -1,23 +1,15 @@
 ---
-title: 'Australia''s Maritime Tourism: Charting a Course Towards Spectacular Growth'
-summary: ' Australia''s cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vib...'
-keywords: ''
-slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
+title: 'Australia's Maritime Tourism: Charting a Course Towards Spectacular Growth'
+summary: ' Australia's cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vib...'
 date: '2025-04-05T13:53:24.619Z'
-country: Australia
-type: Airline
+country: 'Australia'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
-imageAlt: '''Sydney Opera House, Australia'''
-imageCredit: Photoholgic on Unsplash
-imageLink: '''https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'''
-published: 'true'
-categories: '[]'
-photographer: Ishan Seefromthesky
+slug: 2025-04-24-australias-maritime-tourism-charting-a-course-towards-spectacular-growth
+photographer:
+  name: 'Ishan Seefromthesky'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
 
 Australia's cruise industry is riding a wave of extraordinary growth, marked by innovative partnerships and an expansion of routes that promise a vibrant future for maritime tourism. Both domestic and international cruise bookings have witnessed a significant uptick, as per industry top brass.
 

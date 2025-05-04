@@ -1,27 +1,17 @@
 ---
-title: 'Explore Asia''s Newest Museums: A Guide for Aussie Travellers'
-summary: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
+title: 'Explore Asia's Newest Museums: A Guide for Aussie Travellers'
+summary: ' As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
 date: '2025-04-28T13:53:24.579Z'
-country: '''Japan, South Korea'''
-type: '''Culture, Adventure'''
+country: ''Japan, South Korea''
+type: ''Culture, Adventure''
 imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-travellers
-metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
-metaDescription: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-categories: '[]'
-photographer: Shifaaz Shamoon
+metaTitle: ''1. Explore Asia''s Newest Museums: A Guide for Aussie Travellers''
+metaDescription: ' As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
+photographer:
+  name: 'Shifaaz Shamoon'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust. Today, I'm thrilled to share two of Asia's newest museums that are making waves on the international scene, tailored specifically for Australian travellers. Whether you're a culture vulture or just looking to add some educational flair to your next holiday, these destinations offer a unique glimpse into Asia's rich artistic heritage. 
 

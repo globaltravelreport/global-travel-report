@@ -1,28 +1,17 @@
 ---
-title: Top Noise-Cancelling Headphones for Aussie Globetrotters
+title: 'Top Noise-Cancelling Headphones for Aussie Globetrotters'
 summary: ' As Australian wanderlusts gear up for their next international escape, knowing the best noise-cancelling headphones to bring along can transform the ...'
 date: '2025-04-07T13:53:24.598Z'
-country: Global
-type: Airline
+country: 'Global'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: 'https://unsplash.com'
 slug: 1-top-noise-cancelling-headphones-for-aussie-globetrotters
-metaTitle: 1. Top Noise-Cancelling Headphones for Aussie Globetrotters
+metaTitle: '1. Top Noise-Cancelling Headphones for Aussie Globetrotters'
 metaDescription: ' As Australian wanderlusts gear up for their next international escape, knowing the best noise-cancelling headphones to bring along can transform the ...'
-keywords: ''
-originalTitle: Top Noise-Cancelling Headphones for Aussie Globetrotters
-published: 'true'
-categories: '[]'
-photographer: Simon Migaj
+photographer:
+  name: 'Simon Migaj'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 As Australian wanderlusts gear up for their next international escape, knowing the best noise-cancelling headphones to bring along can transform the journey from good to great. Whether you're jetting off from Sydney, Melbourne, Brisbane, or Perth, long-haul flights across oceans and continents can be a breeze with the right gear. 
 

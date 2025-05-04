@@ -1,23 +1,17 @@
 ---
-title: Cayman Islands Puts a Hold on Cruise Infrastructure Expansion
+title: 'Cayman Islands Puts a Hold on Cruise Infrastructure Expansion'
+summary: 'In a public vote, the Cayman Islands has decided against the proposed expansion of its cruise infrastructure, prioritising sustainable development and quality of life over tourism growth.'
 date: '2025-04-14T13:53:24.640Z'
-slug: cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion
-category: Cruise
-country: Cayman Islands
-excerpt: >-
-  In a public vote, the Cayman Islands has decided against the proposed
-  expansion of its cruise infrastructure, prioritising sustainable development
-  and quality of life over tourism growth.
+country: 'Cayman Islands'
+type: 'Cruise'
 imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
-photographer: Davide Cantelli
-keywords:
-  - Cayman Islands
-  - cruise infrastructure
-  - public vote
-  - sustainable development
-  - tourism
-author: Global Travel Report Editorial Team
+slug: title-cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion
+keywords: 'Cayman Islands,cruise infrastructure,public vote,sustainable development,tourism'
+photographer:
+  name: 'Davide Cantelli'
+  url: 'https://unsplash.com'
 ---
+
 In a remarkable turn of events, the residents of the scenic Cayman Islands have collectively decided against the expansion of cruise infrastructure. The decision, resulting from a public vote, may not be well-received by cruise enthusiasts worldwide.
 
 The Association for Advancement of Cruise Tourism (ACT) in Grand Cayman had invested significant effort to put forward a proposition for expanding the island's cruise infrastructure in the 2025 ballot. However, the proposal eventually met with rejection. The public referendum held on April 30, 2025, saw a majority of 11,973 voters, comprising around 64% of the total votes, firmly respond 'no' to the question, "Should the Cayman Islands develop cruise berthing infrastructure?". In contrast, a mere 5,417 voters marked 'yes'.

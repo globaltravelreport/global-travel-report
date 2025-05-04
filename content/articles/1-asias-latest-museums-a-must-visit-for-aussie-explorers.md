@@ -1,27 +1,17 @@
 ---
-title: 'Asia''s Latest Museums: A Must-Visit for Aussie Explorers'
-summary: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
+title: 'Asia's Latest Museums: A Must-Visit for Aussie Explorers'
+summary: 'Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...'
 date: '2025-05-01T13:53:24.566Z'
-country: Multiple countries in Asia
-type: Culture
+country: 'Multiple countries in Asia'
+type: 'Culture'
 imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-asias-latest-museums-a-must-visit-for-aussie-explorers
-metaTitle: '''1. Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
-metaDescription: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-published: 'true'
-categories: '[]'
-photographer: Arto Marttinen
+metaTitle: ''1. Asia''s Latest Museums: A Must-Visit for Aussie Explorers''
+metaDescription: 'Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...'
+photographer:
+  name: 'Arto Marttinen'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers
 

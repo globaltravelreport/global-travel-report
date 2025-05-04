@@ -1,23 +1,17 @@
 ---
 title: 'A Gastronomic Odyssey: Roaming the Globe Through Its Plates'
+summary: 'A Gastronomic Odyssey explores the rising trend of culinary tourism, focusing on the unique culinary experiences in Japan, Italy, and Thailand.'
 date: '2025-04-09T13:53:24.634Z'
-slug: a-gastronomic-odyssey-roaming-the-globe-through-its-plates
-category: Culture
 country: 'Japan, Italy, Thailand'
-excerpt: >-
-  A Gastronomic Odyssey explores the rising trend of culinary tourism, focusing
-  on the unique culinary experiences in Japan, Italy, and Thailand.
+type: 'Culture'
 imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
-photographer: Ishan Seefromthesky
-keywords:
-  - culinary tourism
-  - gastronomy
-  - food culture
-  - Japanese cuisine
-  - Italian cuisine
-  - Thai cuisine
-author: Global Travel Report Editorial Team
+slug: title-a-gastronomic-odyssey-roaming-the-globe-through-its-plates
+keywords: 'culinary tourism,gastronomy,food culture,Japanese cuisine,Italian cuisine,Thai cuisine'
+photographer:
+  name: 'Ishan Seefromthesky'
+  url: 'https://unsplash.com'
 ---
+
 Content: 
 
 Embarking on a culinary journey is an increasingly popular trend among globetrotters, with the allure of food-centric experiences shaping the trajectories of their travel plans. These gastronomic adventures offer a sensory feast, extending beyond mere sustenance to a rich tapestry of cultural immersion and epicurean exploration. A growing wave of travellers are now charting their courses based on the unique culinary experiences they can savour, from engaging cooking workshops and enlightening food tours to meandering through bustling local markets and dining at esteemed Michelin-starred establishments.

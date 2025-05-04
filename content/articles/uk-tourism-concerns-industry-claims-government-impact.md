@@ -5,7 +5,6 @@ date: '2025-04-25T13:53:24.671Z'
 country: 'United Kingdom'
 type: 'Travel Industry'
 imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
-imageAlt: 'London cityscape with Tower Bridge'
 slug: uk-tourism-concerns-industry-claims-government-impact
 metaTitle: 'UK Tourism Concerns: Industry Claims Government Impact'
 metaDescription: 'The UK travel industry has voiced concerns over government policies affecting tourism growth and international appeal.'

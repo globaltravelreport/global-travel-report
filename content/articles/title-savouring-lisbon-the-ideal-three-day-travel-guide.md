@@ -1,22 +1,17 @@
 ---
 title: 'Savouring Lisbon: The Ideal Three-Day Travel Guide '
+summary: 'A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.'
 date: '2025-04-12T13:53:24.664Z'
-slug: savouring-lisbon-the-ideal-three-day-travel-guide
-category: Destination
-country: Portugal
-excerpt: >-
-  A captivating three-day guide to Lisbon, blending the city's main attractions
-  with unexpected delights and gastronomic experiences.
+country: 'Portugal'
+type: 'Destination'
 imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
-photographer: Willian West
-keywords:
-  - Lisbon
-  - Portugal
-  - Three-day itinerary
-  - Travel guide
-  - Cultural travel
-author: Global Travel Report Editorial Team
+slug: title-savouring-lisbon-the-ideal-three-day-travel-guide
+keywords: 'Lisbon,Portugal,Three-day itinerary,Travel guide,Cultural travel'
+photographer:
+  name: 'Willian West'
+  url: 'https://unsplash.com'
 ---
+
 Immerse yourself in the mesmerising charm of Lisbon, a city like no other in Europe. The Portuguese capital, with its time-worn pastel façades, ornate azulejos (painted glazed tiles), hill-climbing vintage funiculars, and a timeless, laid-back allure, has a magnetic pull. Over the last twenty years, my countless visits to this captivating city have only intensified my fascination. Although I currently reside in the Algarve, a swift train journey frequently reunites me with my cherished city. 
 
 Spend a weekend traversing the seven hills of Lisbon, and you'll find yourself marvelling at the city in its most atmospheric form. While a weekend may not suffice to uncover all the treasures of Lisbon, it will provide a tantalising introduction that will undoubtedly leave you enchanted. Allow me to guide you through a meticulously curated three-day itinerary that seamlessly blends the city's main attractions with unexpected delights and gastronomic experiences. 

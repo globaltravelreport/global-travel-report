@@ -1,28 +1,17 @@
 ---
-title: Discover 5 Hidden Gems Perfect for Aussie Explorers in
-summary: ''''''
+title: 'Discover 5 Hidden Gems Perfect for Aussie Explorers in'
+summary: ''''
 date: '2025-04-10T13:53:24.573Z'
-country: Unknown
-type: General
+country: 'Unknown'
+type: 'General'
 imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202
-metaTitle: 1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
-metaDescription: ''''''
-keywords: ''
-originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
-published: 'true'
-categories: '[]'
-photographer: Sylvain Mauroux
+metaTitle: '1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025'
+metaDescription: ''''
+photographer:
+  name: 'Sylvain Mauroux'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
 
 ### Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
 

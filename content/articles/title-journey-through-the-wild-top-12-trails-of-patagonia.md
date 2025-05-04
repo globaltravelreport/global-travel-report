@@ -1,22 +1,17 @@
 ---
 title: 'Journey Through the Wild: Top 12 Trails of Patagonia'
+summary: 'An engaging exploration of the top 12 trails in the vast wilderness of Patagonia, offering a thrilling blend of adventure and natural beauty.'
 date: '2025-04-15T13:53:24.654Z'
-slug: journey-through-the-wild-top-12-trails-of-patagonia
-category: Adventure
-country: Patagonia
-excerpt: >-
-  An engaging exploration of the top 12 trails in the vast wilderness of
-  Patagonia, offering a thrilling blend of adventure and natural beauty.
+country: 'Patagonia'
+type: 'Adventure'
 imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
-photographer: Dino Reichmuth
-keywords:
-  - Patagonia
-  - hiking trails
-  - outdoor adventure
-  - nature
-  - wilderness
-author: Global Travel Report Editorial Team
+slug: title-journey-through-the-wild-top-12-trails-of-patagonia
+keywords: 'Patagonia,hiking trails,outdoor adventure,nature,wilderness'
+photographer:
+  name: 'Dino Reichmuth'
+  url: 'https://unsplash.com'
 ---
+
 Patagonia, a vast wilderness stretching across southern Chile and Argentina, offers an unfiltered spectacle of nature. From the dichotomy of the scrubland and ancient woods to the labyrinth of glacial rivers and streams, and the diversity of wildlife, the region is a canvas painted with a breathtaking spectrum of colours, from ice-melt lakes' pale blue to deep navy waters. The topography of Patagonia is synonymous with outdoor adventure, beckoning thrill-seekers and nature lovers alike.
 
 Whether your idea of an adventure involves immersive multi-day hikes through unspoiled wilderness, hopping from one refuge to another in national parks of epic proportions, challenging day hikes rewarded with a cosy boutique guesthouse, or simply an occasional leg stretch during a road trip on the Carretera Austral, Patagonia caters to diverse expectations.

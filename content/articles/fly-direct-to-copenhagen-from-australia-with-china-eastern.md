@@ -1,27 +1,17 @@
 ---
-title: Fly Direct to Copenhagen from Australia with China Eastern
-summary: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
+title: 'Fly Direct to Copenhagen from Australia with China Eastern'
+summary: '  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
 date: '2025-04-20T13:53:24.629Z'
-country: Denmark
-type: '''Culture, Food & Wine'''
+country: 'Denmark'
+type: ''Culture, Food & Wine''
 imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
-imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
-imageCredit: Eaters Collective
-imageLink: 'https://unsplash.com'
 slug: fly-direct-to-copenhagen-from-australia-with-china-eastern
-metaTitle: Fly Direct to Copenhagen from Australia with China Eastern
-metaDescription: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
-keywords: ''
-originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
-photographer: Cristina Gottardi
+metaTitle: 'Fly Direct to Copenhagen from Australia with China Eastern'
+metaDescription: '  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
+photographer:
+  name: 'Cristina Gottardi'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
-
-
 
 In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition is not just about expanding their network but opening up a seamless pathway for Australians looking to explore the enchanting city of Copenhagen. 
 

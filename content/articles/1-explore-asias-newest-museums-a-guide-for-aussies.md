@@ -1,27 +1,17 @@
 ---
-title: 'Explore Asia''s Newest Museums: A Guide for Aussies'
+title: 'Explore Asia's Newest Museums: A Guide for Aussies'
 summary: 'Rewritten article:...'
 date: '2025-04-11T13:53:24.581Z'
-country: Asia (Various)
-type: Airline
+country: 'Asia (Various)'
+type: 'Airline'
 imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
-imageAlt: aerial photography of flowers at daytime
-imageCredit: Joel Holland
-imageLink: 'https://unsplash.com'
 slug: 1-explore-asias-newest-museums-a-guide-for-aussies
-metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussies'''
+metaTitle: ''1. Explore Asia''s Newest Museums: A Guide for Aussies''
 metaDescription: 'Rewritten article:...'
-keywords: ''
-originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-published: 'true'
-categories: '[]'
-photographer: Dan Gold
+photographer:
+  name: 'Dan Gold'
+  url: 'https://unsplash.com'
 ---
-
-
-
-
-
 
 Rewritten article:
 
