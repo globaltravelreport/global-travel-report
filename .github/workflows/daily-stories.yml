@@ -109,19 +109,28 @@ jobs:
           CRON_SECRET_KEY: ${{ secrets.CRON_SECRET_KEY }}
           NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
         run: |
-          echo "===== Revalidating website =====" >> logs/daily-story-generator.log
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Revalidating website =====" >> $LOG_FILE
 
           # Run the revalidation script
-          node scripts/revalidate-website.js >> logs/daily-story-generator.log 2>&1
+          node scripts/revalidate-website.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
 
           # Check if the revalidation was successful
-          if [ $? -eq 0 ]; then
-            echo "✅ Website revalidation completed successfully" >> logs/daily-story-generator.log
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Website revalidation completed successfully" >> $LOG_FILE
+            echo "✅ Website revalidation completed successfully"
           else
-            echo "❌ Website revalidation failed with exit code $?" >> logs/daily-story-generator.log
+            echo "❌ Website revalidation failed with exit code $EXIT_CODE" >> $LOG_FILE
+            echo "❌ Website revalidation failed with exit code $EXIT_CODE"
           fi
 
-          echo "===== Daily Story Generator Finished at $(date) =====" >> logs/daily-story-generator.log
+          echo "===== Daily Story Generator Finished at $(date) =====" >> $LOG_FILE
 
       - name: Post to social media
         env:
@@ -161,6 +170,33 @@ jobs:
           else
             echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)" >> $LOG_FILE
             echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)"
+            # This is not a critical error, so we don't exit with an error code
+          fi
+
+      - name: Monitor daily story generation
+        env:
+          ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Monitoring daily story generation =====" >> $LOG_FILE
+
+          # Run the monitoring script
+          node scripts/monitor-daily-stories.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Check if the monitoring was successful
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Daily story generation monitoring completed successfully" >> $LOG_FILE
+            echo "✅ Daily story generation monitoring completed successfully"
+          else
+            echo "⚠️ Daily story generation monitoring detected issues (exit code: $EXIT_CODE)" >> $LOG_FILE
+            echo "⚠️ Daily story generation monitoring detected issues (exit code: $EXIT_CODE)"
             # This is not a critical error, so we don't exit with an error code
           fi
 
