@@ -240,12 +240,24 @@ export async function getAllStories(): Promise<Story[]> {
             // Valid URL, no need to log anything
           }
 
+          // Clean up the content - remove "Content:" prefix and "Metadata in JSON format:" suffix if present
+          let cleanContent = storyContent.trim();
+          if (cleanContent.startsWith('Content:')) {
+            cleanContent = cleanContent.substring('Content:'.length).trim();
+          }
+
+          // Remove metadata suffix if present
+          const metadataIndex = cleanContent.lastIndexOf('Metadata in JSON format:');
+          if (metadataIndex !== -1) {
+            cleanContent = cleanContent.substring(0, metadataIndex).trim();
+          }
+
           // Create a story object
           const story: Story = {
             id: file.replace('.md', ''),
             slug: storyData.slug || file.replace('.md', ''),
             title: storyData.title || 'Untitled',
-            content: storyContent.trim(),
+            content: cleanContent,
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
             publishedAt: safeToISOString(storyData.date),
@@ -254,7 +266,11 @@ export async function getAllStories(): Promise<Story[]> {
             imageUrl: cleanImageUrl,
             featured: storyData.featured === 'true',
             editorsPick: false,
-            tags: storyData.tags ? storyData.tags.split(',').map((tag: string) => tag.trim()) : []
+            tags: storyData.tags
+              ? storyData.tags.split(',').map((tag: string) => tag.trim())
+              : storyData.keywords
+                ? storyData.keywords.split(',').map((tag: string) => tag.trim())
+                : []
           };
 
           // Add photographer information if available
