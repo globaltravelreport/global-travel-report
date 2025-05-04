@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Button } from "./button";
 import { Input } from "./input";
-import { ReCaptcha } from "./ReCaptcha";
 import { useToast } from "@/components/ui/use-toast";
 import { useCsrfToken } from "@/src/hooks/useCsrfToken";
 
@@ -15,7 +14,6 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const { toast } = useToast();
   const { csrfToken } = useCsrfToken();
 
@@ -23,15 +21,6 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
     e.preventDefault();
     setStatus('loading');
     setError(null);
-
-    if (!recaptchaToken) {
-      toast({
-        title: 'Error',
-        description: 'Please complete the reCAPTCHA verification'
-      });
-      setStatus('error');
-      return;
-    }
 
     try {
       const response = await fetch('/api/newsletter', {
@@ -42,7 +31,6 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
         },
         body: JSON.stringify({
           email,
-          recaptchaToken,
           csrfToken: csrfToken,
         }),
       });
@@ -100,18 +88,7 @@ export function NewsletterSignup({ onClose }: NewsletterSignupProps) {
           )}
         </div>
 
-        <ReCaptcha
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-          onChange={(token: string | null) => {
-            if (!token) {
-              setError('Please complete the reCAPTCHA verification');
-              setStatus("error");
-            } else {
-              setError(null);
-            }
-            setRecaptchaToken(token);
-          }}
-        />
+        {/* reCAPTCHA removed */}
 
         <Button
           type="submit"

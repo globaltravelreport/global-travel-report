@@ -20,7 +20,7 @@ export const NewsletterPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const { toast } = useToast();
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  // Removed reCAPTCHA
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -45,14 +45,6 @@ export const NewsletterPopup = () => {
   }, [hasShown]);
 
   const onSubmit = async (data: FormData) => {
-    if (!recaptchaValue) {
-      toast({
-        title: 'Error',
-        description: 'Please complete the reCAPTCHA verification'
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
@@ -63,7 +55,6 @@ export const NewsletterPopup = () => {
         },
         body: JSON.stringify({
           ...data,
-          recaptchaToken: recaptchaValue,
         }),
       });
 
@@ -77,7 +68,6 @@ export const NewsletterPopup = () => {
       });
 
       reset();
-      setRecaptchaValue(null);
     } catch {
       toast({
         title: 'Error',
@@ -145,4 +135,4 @@ export const NewsletterPopup = () => {
       )}
     </AnimatePresence>
   );
-}; 
+};
