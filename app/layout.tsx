@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: 'Global Travel Report',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/images/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: 'Global Travel Report',
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     description: 'Your trusted source for global travel insights, destination guides, and inspiring stories from around the world.',
     site: '@GTravelReport',
     creator: '@GTravelReport',
-    images: ['/images/twitter-image.jpg'],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/images/twitter-image.jpg`],
   },
   robots: {
     index: true,

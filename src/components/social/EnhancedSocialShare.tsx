@@ -128,10 +128,12 @@ export function EnhancedSocialShare({
 
   // Ensure URL is absolute
   const baseUrl = url.startsWith('http') ? url :
-    typeof window !== 'undefined' ? `${window.location.origin}${url}` : url;
-  
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${url.startsWith('/') ? url : `/${url}`}`
+      : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}${url.startsWith('/') ? url : `/${url}`}`;
+
   // Add UTM parameters if tracking is enabled
-  const shareUrl = trackShares 
+  const shareUrl = trackShares
     ? `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`
     : baseUrl;
 
@@ -268,7 +270,7 @@ export function EnhancedSocialShare({
           size={floating ? "icon" : "sm"}
           onClick={() => setIsOpen(true)}
           className={cn(
-            "flex items-center gap-2", 
+            "flex items-center gap-2",
             className,
             floatingStyles,
             floating && "rounded-full shadow-lg h-12 w-12"
