@@ -19,47 +19,111 @@ const path = require('path');
 const matter = require('gray-matter');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
-// Mock implementations for social media APIs
-// These will be replaced with actual implementations when the real packages are available
-const TwitterApi = function(config) {
-  return {
-    v2: {
-      tweet: async (text) => {
-        console.log(`[MOCK] Posting to Twitter: ${text}`);
-        return { data: { id: 'mock-tweet-id-' + Date.now() } };
-      }
-    }
-  };
-};
+const { TwitterApi } = require('twitter-api-v2');
+const FB = require('fb');
 
+// LinkedIn API client (using axios directly since there's no official package)
 const LinkedInApi = function(config) {
-  return {
+  const instance = {
     posts: {
       create: async (post) => {
-        console.log(`[MOCK] Posting to LinkedIn: ${post.text}`);
-        return { id: 'mock-linkedin-post-id-' + Date.now() };
+        try {
+          const response = await axios({
+            method: 'POST',
+            url: 'https://api.linkedin.com/v2/ugcPosts',
+            headers: {
+              'Authorization': `Bearer ${config.accessToken}`,
+              'Content-Type': 'application/json',
+              'X-Restli-Protocol-Version': '2.0.0'
+            },
+            data: {
+              author: `urn:li:person:${process.env.LINKEDIN_PERSON_ID || 'me'}`,
+              lifecycleState: 'PUBLISHED',
+              specificContent: {
+                'com.linkedin.ugc.ShareContent': {
+                  shareCommentary: {
+                    text: post.text
+                  },
+                  shareMediaCategory: 'NONE'
+                }
+              },
+              visibility: {
+                'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
+              }
+            }
+          });
+
+          return { id: response.data.id };
+        } catch (error) {
+          console.error('LinkedIn API error:', error.response?.data || error.message);
+          throw error;
+        }
       }
     }
   };
+
+  return instance;
 };
 
+// Facebook API client (using the fb package)
 const FacebookApi = function(token) {
+  FB.setAccessToken(token);
+
   return {
     posts: {
       create: async (pageId, post) => {
-        console.log(`[MOCK] Posting to Facebook page ${pageId}: ${post.message}`);
-        return { id: 'mock-facebook-post-id-' + Date.now() };
+        return new Promise((resolve, reject) => {
+          FB.api(
+            `/${pageId}/feed`,
+            'POST',
+            {
+              message: post.message,
+              link: post.link
+            },
+            function(response) {
+              if (!response || response.error) {
+                reject(response?.error || new Error('Unknown Facebook API error'));
+                return;
+              }
+
+              resolve({ id: response.id });
+            }
+          );
+        });
       }
     }
   };
 };
 
+// Medium API client (using axios directly)
 const MediumApi = function(config) {
   return {
     posts: {
       create: async (post) => {
-        console.log(`[MOCK] Posting to Medium: ${post.title}`);
-        return { id: 'mock-medium-post-id-' + Date.now() };
+        try {
+          const response = await axios({
+            method: 'POST',
+            url: 'https://api.medium.com/v1/users/me/posts',
+            headers: {
+              'Authorization': `Bearer ${config.accessToken}`,
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            data: {
+              title: post.title,
+              contentFormat: post.contentFormat,
+              content: post.content,
+              canonicalUrl: post.canonicalUrl,
+              tags: post.tags,
+              publishStatus: post.publishStatus
+            }
+          });
+
+          return { id: response.data.data.id };
+        } catch (error) {
+          console.error('Medium API error:', error.response?.data || error.message);
+          throw error;
+        }
       }
     }
   };

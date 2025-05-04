@@ -31,7 +31,11 @@
     "setup-story-cron": "node scripts/setupDailyStoryCron.js",
     "fix-all-story-issues": "node scripts/fix-all-story-issues.js",
     "post-to-social": "node scripts/social-media-poster.js",
-    "post-to-social:test": "node scripts/social-media-poster.js --test"
+    "post-to-social:test": "node scripts/social-media-poster.js --test",
+    "test-social-media": "node scripts/test-social-media.js",
+    "test-twitter": "node scripts/test-social-media.js --platform=twitter",
+    "test-facebook": "node scripts/test-social-media.js --platform=facebook",
+    "test-linkedin": "node scripts/test-social-media.js --platform=linkedin"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",
@@ -52,6 +56,7 @@
     "clsx": "2.1.1",
     "date-fns": "3.3.1",
     "dompurify": "3.2.5",
+    "fb": "2.0.0",
     "framer-motion": "12.9.2",
     "isomorphic-dompurify": "2.24.0",
     "lucide-react": "0.503.0",
@@ -69,7 +74,7 @@
     "sonner": "2.0.3",
     "tailwind-merge": "3.2.0",
     "tailwindcss-animate": "1.0.7",
-    "twitter-api-v2": "^1.15.1",
+    "twitter-api-v2": "1.22.0",
     "uuid": "11.1.0",
     "zod": "3.24.3"
   },
