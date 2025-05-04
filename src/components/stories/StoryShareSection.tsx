@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/src
 import { Story } from '@/types/Story';
 import { Separator } from '@/src/components/ui/separator';
 import { Button } from '@/src/components/ui/button';
-import { Copy, Rss } from 'lucide-react';
+import { Copy, Rss, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface StoryShareSectionProps {

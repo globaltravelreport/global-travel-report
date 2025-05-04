@@ -48,9 +48,12 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   const { title, description } = generateStoryMeta(story);
 
   // Generate Open Graph image URL
+  // Use the story's image if available, otherwise use a static OG image
   const ogImage = story.imageUrl
-    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=${encodeURIComponent(story.title.replace(/^Title:\s*/i, ''))}&destination=${encodeURIComponent(story.country)}`
-    : undefined;
+    ? story.imageUrl.startsWith('http')
+      ? story.imageUrl
+      : `${process.env.NEXT_PUBLIC_SITE_URL}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+    : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-image.jpg`;
 
   return {
     title,

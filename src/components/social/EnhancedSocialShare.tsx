@@ -5,7 +5,7 @@ import {
   Facebook,
   Twitter,
   Linkedin,
-  Mail,
+  Mail as MailIcon,
   Link as LinkIcon,
   Share2,
   Check,
@@ -337,7 +337,7 @@ export function EnhancedSocialShare({
             {platforms.includes('email') && (
               <SharePlatform
                 platform="email"
-                icon={<Mail size={iconSize} className="text-gray-600" />}
+                icon={<MailIcon size={iconSize} className="text-gray-600" />}
                 label="Email"
               />
             )}

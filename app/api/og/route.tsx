@@ -3,29 +3,23 @@ import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
+/**
+ * Generate a simple OG image for social media sharing
+ */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
+
     // Get title and destination from query params
     const title = searchParams.get('title') || 'Global Travel Report';
     const destination = searchParams.get('destination') || 'Global';
-    
+
     // Truncate title if too long
-    const truncatedTitle = title.length > 70 
-      ? title.substring(0, 70) + '...' 
+    const truncatedTitle = title.length > 60
+      ? title.substring(0, 60) + '...'
       : title;
-    
-    // Define font data
-    const interBold = await fetch(
-      new URL('../../../public/fonts/Inter-Bold.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer());
-    
-    const interRegular = await fetch(
-      new URL('../../../public/fonts/Inter-Regular.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer());
-    
-    // Generate the image
+
+    // Generate the image with a simpler design
     return new ImageResponse(
       (
         <div
@@ -40,7 +34,7 @@ export async function GET(request: NextRequest) {
             padding: '40px',
             color: 'white',
             textAlign: 'center',
-            fontFamily: 'Inter',
+            fontFamily: 'sans-serif',
           }}
         >
           <div
@@ -85,27 +79,7 @@ export async function GET(request: NextRequest) {
                 opacity: 0.8,
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginRight: '15px',
-                }}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  style={{ marginRight: '8px' }}
-                >
-                  <path
-                    d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"
-                    fill="white"
-                  />
-                </svg>
-                {destination}
-              </div>
+              {destination}
             </div>
           </div>
           <div
@@ -127,24 +101,17 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
-        fonts: [
-          {
-            name: 'Inter',
-            data: interBold,
-            weight: 700,
-            style: 'normal',
-          },
-          {
-            name: 'Inter',
-            data: interRegular,
-            weight: 400,
-            style: 'normal',
-          },
-        ],
       }
     );
   } catch (error) {
     console.error('Error generating OG image:', error);
-    return new Response('Failed to generate image', { status: 500 });
+
+    // Return a fallback image response
+    return new Response(JSON.stringify({ error: 'Failed to generate image' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
   }
 }
