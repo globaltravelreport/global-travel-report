@@ -8,6 +8,7 @@ import { Separator } from '@/src/components/ui/separator';
 import { Button } from '@/src/components/ui/button';
 import { Copy, Rss, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { FacebookShareButton } from '@/src/components/social/FacebookShareButton';
 
 interface StoryShareSectionProps {
   /**
@@ -106,20 +107,22 @@ export function StoryShareSection({
         <div className="flex flex-col gap-6">
           {/* Social Media Share Buttons */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-            <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}&picture=${encodeURIComponent(absoluteImageUrl || '')}&quote=${encodeURIComponent(story.title)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Share on Facebook"
-              className="flex flex-col items-center justify-center gap-2 p-3 bg-white hover:bg-blue-50 rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md group"
-            >
+            <div className="flex flex-col items-center justify-center gap-2 p-3 bg-white hover:bg-blue-50 rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md group">
               <div className="w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
                 </svg>
               </div>
-              <span className="text-xs font-medium text-gray-700">Facebook</span>
-            </a>
+              <FacebookShareButton
+                url={storyUrl}
+                title={story.title}
+                description={story.excerpt || ''}
+                imageUrl={absoluteImageUrl || ''}
+                className="text-xs font-medium text-gray-700 bg-transparent hover:bg-transparent p-0 h-auto"
+              >
+                Facebook
+              </FacebookShareButton>
+            </div>
 
             <a
               href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${baseUrl}/stories/${story.slug}`)}&text=${encodeURIComponent(story.title)}&hashtags=${uniqueHashtags.join(',')}`}
