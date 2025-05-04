@@ -101,7 +101,27 @@ export class StoryDatabase {
    */
   public async getStoryBySlug(slug: string): Promise<Story | null> {
     await this.initialize();
-    return this.stories.find(story => story.slug === slug) || null;
+
+    // Normalize the slug for comparison
+    const normalizedSlug = slug.trim().toLowerCase();
+
+    // Try exact match first
+    let story = this.stories.find(s => s.slug === slug);
+
+    // If not found, try case-insensitive match
+    if (!story) {
+      story = this.stories.find(s => s.slug.toLowerCase() === normalizedSlug);
+    }
+
+    // If still not found, try partial match (for slugs that might have been truncated)
+    if (!story && slug.length > 5) {
+      story = this.stories.find(s =>
+        s.slug.toLowerCase().includes(normalizedSlug) ||
+        normalizedSlug.includes(s.slug.toLowerCase())
+      );
+    }
+
+    return story || null;
   }
 
   /**

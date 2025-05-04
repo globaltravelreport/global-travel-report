@@ -97,18 +97,26 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
 }
 
 export default async function StoryPage({ params }: { params: StoryParams }) {
-  // Try to get the story by slug
-  let story = await getStoryBySlug(params.slug);
+  try {
+    console.log(`Attempting to fetch story with slug: ${params.slug}`);
 
-  // If not found, try to get from mock stories as a fallback
-  if (!story) {
-    const { mockStories } = await import('@/src/mocks/stories');
-    story = mockStories.find(s => s.slug === params.slug) || null;
-  }
+    // Try to get the story by slug
+    let story = await getStoryBySlug(params.slug);
 
-  if (!story) {
-    notFound();
-  }
+    // If not found, try to get from mock stories as a fallback
+    if (!story) {
+      console.log(`Story not found in database, trying mock stories for slug: ${params.slug}`);
+      const { mockStories } = await import('@/src/mocks/stories');
+      story = mockStories.find(s => s.slug === params.slug) || null;
+    }
+
+    if (!story) {
+      console.log(`Story not found for slug: ${params.slug}, returning 404`);
+      notFound();
+    }
+
+    console.log(`Successfully loaded story: ${story.title}`);
+
 
   return (
     <>
@@ -119,7 +127,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       {/* We'll use the enhanced StoryShareSection component instead of FloatingShareButton */}
 
       {/* Add structured data for SEO */}
-      <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL} />
+      <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'} />
 
       <header className="mb-8">
         <div className="flex flex-wrap gap-2 mb-4">
@@ -265,4 +273,8 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
     </article>
     </>
   );
+  } catch (error) {
+    console.error('Error rendering story page:', error);
+    throw error; // This will trigger the error.tsx component
+  }
 }

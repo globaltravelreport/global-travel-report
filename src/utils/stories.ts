@@ -509,28 +509,87 @@ export async function getUniqueCategories(): Promise<string[]> {
  */
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
+    console.log(`[getStoryBySlug] Looking for story with slug: ${slug}`);
+
+    // Normalize the slug for comparison
+    const normalizedSlug = slug.trim().toLowerCase();
+
     // Get the database instance
     const db = StoryDatabase.getInstance();
 
     // Try to get the story directly from the database
-    const story = await db.getStoryBySlug(slug);
+    let story = await db.getStoryBySlug(normalizedSlug);
 
     // If found in the database, return it
     if (story) {
+      console.log(`[getStoryBySlug] Found story in database: ${story.title}`);
+      return story;
+    }
+
+    // Try with the original slug
+    story = await db.getStoryBySlug(slug);
+    if (story) {
+      console.log(`[getStoryBySlug] Found story in database with original slug: ${story.title}`);
       return story;
     }
 
     // If not found in the database, fall back to the old method
+    console.log(`[getStoryBySlug] Story not found in database, trying getAllStories`);
     const stories = await getAllStories();
-    return stories.find(story => story.slug === slug) || null;
+
+    // Try exact match first
+    let foundStory = stories.find(s => s.slug === slug);
+
+    // If not found, try case-insensitive match
+    if (!foundStory) {
+      foundStory = stories.find(s => s.slug.toLowerCase() === normalizedSlug);
+    }
+
+    // If still not found, try partial match (for slugs that might have been truncated)
+    if (!foundStory && slug.length > 5) {
+      foundStory = stories.find(s => s.slug.toLowerCase().includes(normalizedSlug) ||
+                                    normalizedSlug.includes(s.slug.toLowerCase()));
+    }
+
+    if (foundStory) {
+      console.log(`[getStoryBySlug] Found story in getAllStories: ${foundStory.title}`);
+    } else {
+      console.log(`[getStoryBySlug] Story not found in getAllStories`);
+    }
+
+    return foundStory || null;
   } catch (error) {
-    console.error(`Error fetching story with slug "${slug}":`, error);
+    console.error(`[getStoryBySlug] Error fetching story with slug "${slug}":`, error);
 
     // Fall back to the old method if database access fails
     try {
+      console.log(`[getStoryBySlug] Trying fallback method for slug: ${slug}`);
       const stories = await getAllStories();
-      return stories.find(story => story.slug === slug) || null;
-    } catch {
+      const normalizedSlug = slug.trim().toLowerCase();
+
+      // Try exact match first
+      let foundStory = stories.find(s => s.slug === slug);
+
+      // If not found, try case-insensitive match
+      if (!foundStory) {
+        foundStory = stories.find(s => s.slug.toLowerCase() === normalizedSlug);
+      }
+
+      // If still not found, try partial match
+      if (!foundStory && slug.length > 5) {
+        foundStory = stories.find(s => s.slug.toLowerCase().includes(normalizedSlug) ||
+                                      normalizedSlug.includes(s.slug.toLowerCase()));
+      }
+
+      if (foundStory) {
+        console.log(`[getStoryBySlug] Found story in fallback: ${foundStory.title}`);
+      } else {
+        console.log(`[getStoryBySlug] Story not found in fallback`);
+      }
+
+      return foundStory || null;
+    } catch (fallbackError) {
+      console.error(`[getStoryBySlug] Fallback method failed:`, fallbackError);
       return null;
     }
   }

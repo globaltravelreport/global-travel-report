@@ -386,8 +386,165 @@ export async function getAllStories(): Promise<Story[]> {
  * @returns A promise that resolves to the story or null if not found
  */
 export async function getStoryBySlug(slug: string): Promise<Story | null> {
-  const stories = await getAllStories();
-  return stories.find(story => story.slug === slug) || null;
+  try {
+    console.log(`[fileStorage.getStoryBySlug] Looking for story with slug: ${slug}`);
+
+    // Normalize the slug for comparison
+    const normalizedSlug = slug.trim().toLowerCase();
+
+    // Get all stories
+    const stories = await getAllStories();
+
+    // Try exact match first
+    let story = stories.find(s => s.slug === slug);
+
+    // If not found, try case-insensitive match
+    if (!story) {
+      story = stories.find(s => s.slug.toLowerCase() === normalizedSlug);
+    }
+
+    // If still not found, try partial match (for slugs that might have been truncated)
+    if (!story && slug.length > 5) {
+      story = stories.find(s =>
+        s.slug.toLowerCase().includes(normalizedSlug) ||
+        normalizedSlug.includes(s.slug.toLowerCase())
+      );
+    }
+
+    // If still not found, try to load the file directly
+    if (!story) {
+      console.log(`[fileStorage.getStoryBySlug] Story not found in memory, trying to load file directly`);
+      const articlesDir = getArticlesDir();
+
+      if (articlesDir && fs.existsSync(articlesDir)) {
+        // Try with exact slug
+        let filePath = path.join(articlesDir, `${slug}.md`);
+
+        // If file doesn't exist, try to find a file with a similar name
+        if (!fs.existsSync(filePath)) {
+          const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.md'));
+          const matchingFile = files.find(file =>
+            file.toLowerCase().includes(normalizedSlug) ||
+            normalizedSlug.includes(file.toLowerCase().replace('.md', ''))
+          );
+
+          if (matchingFile) {
+            filePath = path.join(articlesDir, matchingFile);
+          }
+        }
+
+        // If we found a file, try to parse it
+        if (fs.existsSync(filePath)) {
+          try {
+            const content = fs.readFileSync(filePath, 'utf8');
+            const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+
+            if (frontmatterMatch) {
+              const frontmatter = frontmatterMatch[1];
+              const storyContent = frontmatterMatch[2];
+
+              // Parse the frontmatter into key-value pairs
+              const frontmatterLines = frontmatter.split('\n');
+              const storyData: Record<string, any> = {};
+              let inPhotographerBlock = false;
+              let photographerData: { name?: string; url?: string } = {};
+
+              for (const line of frontmatterLines) {
+                // Check if we're entering the photographer block
+                if (line.trim() === 'photographer:') {
+                  inPhotographerBlock = true;
+                  continue;
+                }
+
+                // If we're in the photographer block, parse the photographer data
+                if (inPhotographerBlock) {
+                  // Check if the line is indented (part of the photographer block)
+                  if (line.startsWith('  ')) {
+                    const match = line.match(/^\s+(\w+):\s*(.*)$/);
+                    if (match) {
+                      const [, key, value] = match;
+                      photographerData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+                    }
+                  } else {
+                    // We've exited the photographer block
+                    inPhotographerBlock = false;
+                  }
+                }
+
+                // Parse regular key-value pairs
+                if (!inPhotographerBlock) {
+                  const match = line.match(/^(\w+):\s*(.*)$/);
+                  if (match) {
+                    const [, key, value] = match;
+                    storyData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+                  }
+                }
+              }
+
+              // Add the photographer data to storyData
+              if (Object.keys(photographerData).length > 0) {
+                storyData.photographer = photographerData;
+              }
+
+              // Clean up the content
+              let cleanContent = storyContent.trim();
+              if (cleanContent.startsWith('Content:')) {
+                cleanContent = cleanContent.substring('Content:'.length).trim();
+              }
+
+              // Remove metadata suffix if present
+              const metadataIndex = cleanContent.lastIndexOf('Metadata in JSON format:');
+              if (metadataIndex !== -1) {
+                cleanContent = cleanContent.substring(0, metadataIndex).trim();
+              }
+
+              // Create a story object
+              const fileName = path.basename(filePath, '.md');
+              story = {
+                id: fileName,
+                slug: storyData.slug || fileName,
+                title: storyData.title || 'Untitled',
+                content: cleanContent,
+                excerpt: storyData.summary || '',
+                author: 'Global Travel Report Editorial Team',
+                publishedAt: safeToISOString(storyData.date),
+                category: storyData.type || 'Article',
+                country: storyData.country || 'Global',
+                imageUrl: storyData.imageUrl || '',
+                featured: storyData.featured === 'true',
+                editorsPick: false,
+                tags: storyData.tags
+                  ? storyData.tags.split(',').map((tag: string) => tag.trim())
+                  : storyData.keywords
+                    ? storyData.keywords.split(',').map((tag: string) => tag.trim())
+                    : []
+              };
+
+              // Add photographer information if available
+              if (storyData.photographer) {
+                story.photographer = storyData.photographer;
+              }
+
+              console.log(`[fileStorage.getStoryBySlug] Successfully loaded story from file: ${story.title}`);
+            }
+          } catch (error) {
+            console.error(`[fileStorage.getStoryBySlug] Error parsing file ${filePath}:`, error);
+          }
+        }
+      }
+    }
+
+    if (story) {
+      console.log(`[fileStorage.getStoryBySlug] Found story: ${story.title}`);
+    } else {
+      console.log(`[fileStorage.getStoryBySlug] Story not found for slug: ${slug}`);
+    }
+
+    return story || null;
+  } catch (error) {
+    console.error(`[fileStorage.getStoryBySlug] Error getting story by slug ${slug}:`, error);
+    return null;
+  }
 }
 
 /**
