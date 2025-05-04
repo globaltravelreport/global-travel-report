@@ -1,5 +1,6 @@
 import { getAllStories } from '@/src/utils/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
+import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function DestinationsPage() {
   const allStories = await getAllStories();
-  
+
   // Group stories by country
   const storiesByCountry = allStories.reduce((acc, story) => {
     if (story.country) {
@@ -47,16 +48,16 @@ export default async function DestinationsPage() {
           <h1 className="text-5xl font-bold text-white text-center">Destinations</h1>
         </div>
         <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
-          Photo by <a 
-            href="https://unsplash.com/@jeremybishop" 
-            target="_blank" 
+          Photo by <a
+            href="https://unsplash.com/@jeremybishop"
+            target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-200"
           >
             Jeremy Bishop
-          </a> on <a 
-            href="https://unsplash.com/photos/8xznAGy4HcY" 
-            target="_blank" 
+          </a> on <a
+            href="https://unsplash.com/photos/8xznAGy4HcY"
+            target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-200"
           >
@@ -65,36 +66,48 @@ export default async function DestinationsPage() {
         </div>
       </div>
 
-      <div className="mb-12">
+      <div className="mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
-          Explore our collection of travel stories, guides, and insights from destinations around the world. 
+          Explore our collection of travel stories, guides, and insights from destinations around the world.
           Find inspiration for your next adventure.
         </p>
       </div>
 
       {sortedCountries.length > 0 ? (
-        <div className="space-y-16">
-          {sortedCountries.map((country) => (
-            <section key={country} className="space-y-6">
-              <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {storiesByCountry[country].slice(0, 6).map((story) => (
-                  <StoryCard key={story.id} story={story} />
-                ))}
-              </div>
-              {storiesByCountry[country].length > 6 && (
-                <div className="text-center mt-4">
-                  <a 
-                    href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                  >
-                    View all {country} stories
-                  </a>
+        <>
+          {/* Country Dropdown Navigation */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-12 shadow-sm">
+            <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Find Stories by Country</h2>
+            <CountryDropdown countries={sortedCountries} />
+          </div>
+
+          <div className="space-y-16">
+            {sortedCountries.map((country) => (
+              <section
+                key={country}
+                id={`country-${country.toLowerCase().replace(/\s+/g, '-')}`}
+                className="space-y-6 scroll-mt-24"
+              >
+                <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {storiesByCountry[country].slice(0, 6).map((story) => (
+                    <StoryCard key={story.id} story={story} />
+                  ))}
                 </div>
-              )}
-            </section>
-          ))}
-        </div>
+                {storiesByCountry[country].length > 6 && (
+                  <div className="text-center mt-4">
+                    <a
+                      href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                    >
+                      View all {country} stories
+                    </a>
+                  </div>
+                )}
+              </section>
+            ))}
+          </div>
+        </>
       ) : (
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">No destinations found</h2>
