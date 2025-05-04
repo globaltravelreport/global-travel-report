@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
@@ -64,8 +64,17 @@ export const Footer = () => {
           >
             <FaTiktok className="w-6 h-6" />
           </a>
+          <a
+            href="https://www.tumblr.com/blog/globaltravelreport"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tumblr"
+            className="hover:text-white transition-colors"
+          >
+            <FaTumblr className="w-6 h-6" />
+          </a>
         </div>
       </div>
     </footer>
   );
-}; 
+};

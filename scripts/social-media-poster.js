@@ -21,6 +21,7 @@ const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const { TwitterApi } = require('twitter-api-v2');
 const FB = require('fb');
+const tumblr = require('tumblr.js');
 
 // LinkedIn API client (using axios directly since there's no official package)
 const LinkedInApi = function(config) {
@@ -129,6 +130,41 @@ const MediumApi = function(config) {
   };
 };
 
+// Tumblr API client (using tumblr.js)
+const TumblrApi = function(config) {
+  // Create a Tumblr client
+  const client = tumblr.createClient({
+    consumer_key: config.consumerKey,
+    consumer_secret: config.consumerSecret,
+    token: config.accessToken,
+    token_secret: config.accessTokenSecret
+  });
+
+  return {
+    posts: {
+      create: async (post) => {
+        try {
+          // Create a new post on the blog
+          const response = await new Promise((resolve, reject) => {
+            client.createTextPost(config.blogName, post, (err, data) => {
+              if (err) {
+                reject(err);
+                return;
+              }
+              resolve(data);
+            });
+          });
+
+          return { id: response.id_string || response.id };
+        } catch (error) {
+          console.error('Tumblr API error:', error);
+          throw error;
+        }
+      }
+    }
+  };
+};
+
 // Configuration
 const CONTENT_DIR = path.join(process.cwd(), 'content/articles');
 const MAX_RETRIES = 3;
@@ -144,6 +180,7 @@ const stats = {
     twitter: 0,
     linkedin: 0,
     medium: 0,
+    tumblr: 0,
     youtube: 0,
     tiktok: 0
   },
@@ -152,6 +189,7 @@ const stats = {
     twitter: 0,
     linkedin: 0,
     medium: 0,
+    tumblr: 0,
     youtube: 0,
     tiktok: 0
   }
@@ -169,7 +207,8 @@ function validateEnvironment() {
     'LINKEDIN_CLIENT_ID',
     'LINKEDIN_CLIENT_SECRET',
     'LINKEDIN_ACCESS_TOKEN',
-    'MEDIUM_ACCESS_TOKEN'
+    'MEDIUM_ACCESS_TOKEN',
+    'TUMBLR_API_KEY'
   ];
 
   const missingVars = requiredVars.filter(varName => !process.env[varName]);
@@ -235,6 +274,22 @@ function initializeApiClients() {
       console.log('✅ Medium API client initialized');
     } catch (error) {
       console.error(`❌ Failed to initialize Medium API client: ${error.message}`);
+    }
+  }
+
+  // Tumblr API client
+  if (process.env.TUMBLR_API_KEY) {
+    try {
+      clients.tumblr = new TumblrApi({
+        consumerKey: process.env.TUMBLR_API_KEY,
+        consumerSecret: process.env.TUMBLR_CONSUMER_SECRET || '',
+        accessToken: process.env.TUMBLR_ACCESS_TOKEN || '',
+        accessTokenSecret: process.env.TUMBLR_ACCESS_TOKEN_SECRET || '',
+        blogName: process.env.TUMBLR_BLOG_NAME || 'globaltravelreport'
+      });
+      console.log('✅ Tumblr API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize Tumblr API client: ${error.message}`);
     }
   }
 
@@ -416,6 +471,27 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
       await logToFile(`Error posting to Medium: ${error.message}`);
     }
   }
+
+  // Post to Tumblr
+  if (apiClients.tumblr) {
+    try {
+      const tumblrPost = formatForTumblr(story, trackingUrl, hashtags);
+      console.log(`📓 Posting to Tumblr: ${tumblrPost.title}`);
+
+      if (!isTest) {
+        const post = await apiClients.tumblr.posts.create(tumblrPost);
+        console.log(`✅ Posted to Tumblr: ${post.id}`);
+        stats.postsCreated.tumblr++;
+        await logToFile(`Posted to Tumblr: ${post.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to Tumblr');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to Tumblr: ${error.message}`);
+      stats.errors.tumblr++;
+      await logToFile(`Error posting to Tumblr: ${error.message}`);
+    }
+  }
 }
 
 /**
@@ -503,6 +579,38 @@ function formatForMedium(story, url, hashtags) {
     canonicalUrl: url,
     tags: hashtags,
     publishStatus: 'public'
+  };
+}
+
+/**
+ * Format a story for Tumblr
+ */
+function formatForTumblr(story, url, hashtags) {
+  // Create the title and content
+  const title = story.title;
+
+  // Format the content with HTML
+  let content = `<p>${story.excerpt}</p>`;
+
+  // Add the full story link
+  content += `<p><a href="${url}" target="_blank">Read the full story on Global Travel Report</a></p>`;
+
+  // Add image if available
+  if (story.imageUrl) {
+    content = `<p><img src="${story.imageUrl}" alt="${story.title}" /></p>` + content;
+  }
+
+  // Add photographer credit if available
+  if (story.photographer) {
+    content += `<p><small>Photo by ${story.photographer} on Unsplash</small></p>`;
+  }
+
+  return {
+    title: title,
+    body: content,
+    tags: hashtags,
+    format: 'html',
+    state: 'published'
   };
 }
 

@@ -20,6 +20,7 @@ try {
 const { TwitterApi } = require('twitter-api-v2');
 const FB = require('fb');
 const axios = require('axios');
+const tumblr = require('tumblr.js');
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -46,6 +47,11 @@ async function main() {
   // Test LinkedIn
   if (platform === 'all' || platform === 'linkedin') {
     await testLinkedIn(testMessage, testUrl);
+  }
+
+  // Test Tumblr
+  if (platform === 'all' || platform === 'tumblr') {
+    await testTumblr(testMessage, testUrl);
   }
 
   console.log('✅ Social media testing completed!');
@@ -200,6 +206,64 @@ async function testLinkedIn(message, url) {
     console.error('❌ LinkedIn API error:', error.message);
     if (error.response) {
       console.error('Error details:', JSON.stringify(error.response.data, null, 2));
+    }
+  }
+}
+
+/**
+ * Test Tumblr API
+ */
+async function testTumblr(message, url) {
+  console.log('\n📓 Testing Tumblr API...');
+
+  if (!process.env.TUMBLR_API_KEY) {
+    console.error('❌ Missing Tumblr API key');
+    return;
+  }
+
+  try {
+    // Initialize Tumblr client
+    const client = tumblr.createClient({
+      consumer_key: process.env.TUMBLR_API_KEY,
+      consumer_secret: process.env.TUMBLR_CONSUMER_SECRET || '',
+      token: process.env.TUMBLR_ACCESS_TOKEN || '',
+      token_secret: process.env.TUMBLR_ACCESS_TOKEN_SECRET || ''
+    });
+
+    console.log('✅ Tumblr client initialized');
+
+    // Create test post content
+    const blogName = process.env.TUMBLR_BLOG_NAME || 'globaltravelreport';
+    const testPost = {
+      title: 'Test Post from Global Travel Report',
+      body: `<p>${message}</p><p><a href="${url}">Visit our website</a></p>`,
+      format: 'html',
+      tags: ['test', 'globaltravelreport', 'travel']
+    };
+
+    console.log(`Posting test message to Tumblr blog ${blogName}: ${testPost.title}`);
+
+    if (dryRun) {
+      console.log('🧪 DRY RUN: Would post to Tumblr:', testPost.title);
+      console.log('✅ Tumblr API connection verified successfully!');
+    } else {
+      const response = await new Promise((resolve, reject) => {
+        client.createTextPost(blogName, testPost, (err, data) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(data);
+        });
+      });
+
+      console.log(`✅ Tumblr post created successfully! Post ID: ${response.id_string || response.id}`);
+      console.log(`View post at: https://${blogName}.tumblr.com/post/${response.id_string || response.id}`);
+    }
+  } catch (error) {
+    console.error('❌ Tumblr API error:', error.message);
+    if (error.response) {
+      console.error('Error details:', JSON.stringify(error.response, null, 2));
     }
   }
 }
