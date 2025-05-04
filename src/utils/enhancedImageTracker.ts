@@ -11,6 +11,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { validateAndCorrectImageData } from './imageManager';
 
 // Define interfaces
 interface Photographer {
@@ -254,40 +255,50 @@ export function getBestImageForStory(
     // Get the best matching image
     const bestMatch = scoredImages[0].image;
 
+    // Validate and correct the image data using our central image manager
+    const validatedData = validateAndCorrectImageData(bestMatch.imageUrl, bestMatch.name);
+
+    // Use the validated data
+    const imageUrl = validatedData.url;
+    const photographerName = validatedData.photographer;
+
+    // Create the photographer URL from the name
+    const photographerUrl = `https://unsplash.com/@${photographerName.toLowerCase().replace(/\s+/g, '')}`;
+
     // Mark this image as used for this story
-    if (!tracker.images[bestMatch.imageUrl]) {
-      tracker.images[bestMatch.imageUrl] = {
-        url: bestMatch.imageUrl,
+    if (!tracker.images[imageUrl]) {
+      tracker.images[imageUrl] = {
+        url: imageUrl,
         photographer: {
-          name: bestMatch.name,
-          url: bestMatch.url
+          name: photographerName,
+          url: photographerUrl
         },
         category: normalizedCategory,
         keywords: bestMatch.keywords,
         usedInStories: [storySlug]
       };
     } else {
-      if (!tracker.images[bestMatch.imageUrl].usedInStories.includes(storySlug)) {
-        tracker.images[bestMatch.imageUrl].usedInStories.push(storySlug);
+      if (!tracker.images[imageUrl].usedInStories.includes(storySlug)) {
+        tracker.images[imageUrl].usedInStories.push(storySlug);
       }
     }
 
     // Add to used image URLs
-    if (!tracker.usedImageUrls.includes(bestMatch.imageUrl)) {
-      tracker.usedImageUrls.push(bestMatch.imageUrl);
+    if (!tracker.usedImageUrls.includes(imageUrl)) {
+      tracker.usedImageUrls.push(imageUrl);
     }
 
     // Map this story to the selected image
-    tracker.storyToImage[storySlug] = bestMatch.imageUrl;
+    tracker.storyToImage[storySlug] = imageUrl;
 
     // Save the updated tracker
     fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
 
     return {
-      imageUrl: bestMatch.imageUrl,
+      imageUrl,
       photographer: {
-        name: bestMatch.name,
-        url: bestMatch.url
+        name: photographerName,
+        url: photographerUrl
       }
     };
   } catch (error) {

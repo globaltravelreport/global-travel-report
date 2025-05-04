@@ -19,6 +19,7 @@ const OpenAI = require('openai');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const matter = require('gray-matter');
+const imageManager = require('./imageManager');
 
 // Configuration
 const DEFAULT_STORY_COUNT = 9;
@@ -772,12 +773,18 @@ async function addUnsplashImage(story) {
           const randomIndex = Math.floor(Math.random() * response.data.results.length);
           const photo = response.data.results[randomIndex];
 
+          // Validate and correct the image data using our central image manager
+          const validatedData = imageManager.validateAndCorrectImageData(
+            photo.urls.regular,
+            photo.user.name
+          );
+
           return {
             ...story,
-            imageUrl: photo.urls.regular,
+            imageUrl: validatedData.url,
             photographer: {
-              name: photo.user.name,
-              url: photo.user.links.html
+              name: validatedData.photographer,
+              url: photo.user.links.html || `https://unsplash.com/@${validatedData.photographer.toLowerCase().replace(/\s+/g, '')}`
             }
           };
         }
@@ -798,27 +805,25 @@ async function addUnsplashImage(story) {
   }
 
   // If we get here, all search terms and retries failed
-  // Use a default image based on category, but ensure it's unique
-  console.warn('⚠️ Using default image as fallback');
+  // Use our image manager to get a consistent image
+  console.warn('⚠️ Using image manager as fallback');
 
-  const category = story.category || 'Travel';
+  // Get a random photographer from our consistent mapping
+  const randomPhotographer = imageManager.getRandomPhotographer();
 
-  // Get all default images for this category
-  const defaultImages = Object.values(DEFAULT_IMAGES);
+  // Get the correct image URL for this photographer
+  const imageUrl = imageManager.getImageUrlForPhotographer(randomPhotographer);
 
-  // Try to find an image that hasn't been used recently
-  // We'll use a timestamp to make it more random
-  const timestamp = Date.now();
-  const randomIndex = timestamp % defaultImages.length;
-  const defaultImage = defaultImages[randomIndex] || DEFAULT_IMAGES.Travel;
-
-  // Add a timestamp parameter to the URL to make it unique
-  const uniqueImageUrl = `${defaultImage.imageUrl}?t=${timestamp}`;
+  // Create the photographer URL
+  const photographerUrl = `https://unsplash.com/@${randomPhotographer.toLowerCase().replace(/\s+/g, '')}`;
 
   return {
     ...story,
-    imageUrl: uniqueImageUrl,
-    photographer: defaultImage.photographer
+    imageUrl: imageUrl,
+    photographer: {
+      name: randomPhotographer,
+      url: photographerUrl
+    }
   };
 }
 

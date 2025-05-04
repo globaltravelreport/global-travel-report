@@ -9,6 +9,7 @@ import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
 import { cn } from '@/src/utils/cn';
 import type { Story } from '@/types/Story';
+import { validateAndCorrectImageData } from '@/src/utils/imageManager';
 
 // Direct mapping between photographers and their images
 const PHOTOGRAPHER_IMAGES: Record<string, string> = {
@@ -167,32 +168,32 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     };
   }, [story.category, story.title, story.id, story.slug]);
 
-  // Set the image source and photographer
-  const [imageData] = React.useState(getUniqueImageAndPhotographer());
+  // Set the image source and photographer using our central image manager
+  const [imageData] = React.useState(() => {
+    // Use the validateAndCorrectImageData function to ensure consistency
+    const validatedData = validateAndCorrectImageData(story.imageUrl, story.photographer?.name);
 
-  // Always use the image URL from the story file if it exists
-  let imgSrc = story.imageUrl || imageData.imageUrl;
-
-  // Always use the photographer information from the story file if it exists
-  let photographer = story.photographer;
-
-  // If the story doesn't have photographer information, use the one from our database
-  if (!photographer || !photographer.name) {
-    photographer = imageData.photographer;
-  }
-
-  // Ensure the photographer and image URL are consistent
-  // This is a critical check to prevent misattribution
-  if (photographer && photographer.name && Object.keys(PHOTOGRAPHER_IMAGES).includes(photographer.name)) {
-    // Get the correct image URL for this photographer
-    const correctImageUrl = PHOTOGRAPHER_IMAGES[photographer.name];
-
-    // If the image URL doesn't match the photographer, use the correct one
-    if (imgSrc !== correctImageUrl) {
-      console.warn(`Image URL ${imgSrc} doesn't match photographer ${photographer.name}. Using correct URL ${correctImageUrl}`);
-      imgSrc = correctImageUrl;
+    // If we don't have valid data, fall back to our unique image generator
+    if (!validatedData.url || !validatedData.photographer) {
+      const fallbackData = getUniqueImageAndPhotographer();
+      return {
+        imageUrl: fallbackData.imageUrl,
+        photographer: fallbackData.photographer
+      };
     }
-  }
+
+    return {
+      imageUrl: validatedData.url,
+      photographer: {
+        name: validatedData.photographer,
+        url: `https://unsplash.com/@${validatedData.photographer.toLowerCase().replace(/\s+/g, '')}`
+      }
+    };
+  });
+
+  // Use the validated image URL and photographer
+  let imgSrc = imageData.imageUrl;
+  let photographer = imageData.photographer;
 
   // Use React.useEffect to ensure image consistency on mount and updates
   React.useEffect(() => {
