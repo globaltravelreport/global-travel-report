@@ -596,24 +596,34 @@ async function rewriteStoryWithOpenAI(story, logFn = console.log) {
         truncatedContent = truncatedContent.substring(0, maxContentLength) + '...';
       }
 
-      // Create a prompt for OpenAI
-      const prompt = `Rewrite the following travel article in the style of a professional Australian travel journalist.
-Use Australian English (no slang). Make it engaging, informative, and detailed, as if written for a national travel magazine.
-Keep the same key information and facts, but improve the writing style.
+      // Create a prompt for OpenAI that produces human-like content
+      const prompt = `Rewrite the following travel article in a natural, human-like style that won't be detected as AI-generated content.
 
 Title: ${story.title}
 
 Content: ${truncatedContent}
 
-Rewrite the article and format it as follows:
-1. Start with a catchy title (different from the original)
-2. Write 4-6 paragraphs of engaging content
-3. Include a brief conclusion
+Important guidelines for rewriting:
+1. Use a conversational, authentic voice with personal touches and anecdotes
+2. Vary sentence structure and length (mix short and long sentences)
+3. Include imperfections, casual transitions, and occasional colloquialisms
+4. Add specific details, sensory descriptions, and unique observations
+5. Avoid formulaic writing patterns and overly perfect grammar
+6. Use Australian English spelling and expressions where appropriate
+7. Include occasional first-person perspective or personal opinions
+8. Maintain a natural flow with varied paragraph lengths
+9. Incorporate rhetorical questions or direct reader address
+10. Keep the same key information and facts from the original article
+
+Format your rewrite as follows:
+1. Create an engaging title that feels written by a human travel writer
+2. Write 4-6 paragraphs with varied lengths and structures
+3. Include a natural, conversational conclusion
 
 After you've written the article, I'll need you to provide the following metadata, but DO NOT include the phrase "Metadata in JSON format:" or any similar text in your response. Just provide the JSON object at the end of your response:
 - category: The most appropriate category (e.g., Adventure, Culture, Cruise, Airline, Destination, etc.)
 - country: The main country or region discussed
-- excerpt: A brief 1-2 sentence summary of the article
+- excerpt: A brief 1-2 sentence summary of the article that sounds natural
 - keywords: 3-5 relevant keywords`;
 
       // Set a timeout for the OpenAI call
@@ -622,15 +632,17 @@ After you've written the article, I'll need you to provide the following metadat
         messages: [
           {
             role: "system",
-            content: "You are a professional Australian travel journalist. Your writing style is engaging, informative, and objective. You use Australian English without slang, and your tone is polished and professional."
+            content: "You are an experienced travel writer with a unique, authentic voice. Your writing feels natural and human, with occasional imperfections, personal anecdotes, and varied sentence structures. You avoid AI-detectable patterns like formulaic writing, perfect grammar, and repetitive structures. You write in a way that passes AI content detection tools by incorporating human-like elements: occasional first-person perspective, rhetorical questions, sensory details, and natural transitions. Your goal is to create content that feels genuinely written by a human travel enthusiast with years of experience."
           },
           {
             role: "user",
             content: prompt
           }
         ],
-        temperature: 0.7,
+        temperature: 0.8, // Slightly higher temperature for more creative, varied outputs
         max_tokens: 2000,
+        presence_penalty: 0.6, // Encourage more novel phrasing
+        frequency_penalty: 0.6, // Discourage repetitive patterns
       });
 
       const timeoutPromise = new Promise((_, reject) =>
