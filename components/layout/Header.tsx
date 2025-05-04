@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, Search } from 'lucide-react';
 import Image from 'next/image';
-import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { EnhancedSearchBar } from '@/src/components/search/EnhancedSearchBar';
 import { Story } from '@/types/Story';
 
@@ -226,6 +226,15 @@ export function Header() {
               >
                 <FaTiktok className="w-5 h-5" />
               </a>
+              <a
+                href="https://www.tumblr.com/blog/globaltravelreport"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Tumblr"
+                className="text-[#C9A14A] hover:text-white transition-colors"
+              >
+                <FaTumblr className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
@@ -400,6 +409,15 @@ export function Header() {
                   className="text-[#C9A14A] hover:text-white transition-colors"
                 >
                   <FaTiktok className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.tumblr.com/blog/globaltravelreport"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Tumblr"
+                  className="text-[#C9A14A] hover:text-white transition-colors"
+                >
+                  <FaTumblr className="w-5 h-5" />
                 </a>
               </div>
             </div>
