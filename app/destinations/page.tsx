@@ -1,6 +1,7 @@
 import { getAllStories } from '@/src/utils/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
+import { isValidCountry } from '@/src/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
@@ -27,10 +28,25 @@ export default async function DestinationsPage() {
     return acc;
   }, {} as Record<string, typeof allStories>);
 
-  // Sort countries by number of stories (descending)
-  const sortedCountries = Object.keys(storiesByCountry).sort(
+  // Filter out non-country entries and sort by number of stories (descending)
+  const allCountries = Object.keys(storiesByCountry);
+
+  // Separate valid countries from regions/other entries
+  const validCountryEntries = allCountries.filter(country => isValidCountry(country));
+  const otherEntries = allCountries.filter(country => !isValidCountry(country));
+
+  // Sort valid countries by number of stories (descending)
+  const sortedValidCountries = validCountryEntries.sort(
     (a, b) => storiesByCountry[b].length - storiesByCountry[a].length
   );
+
+  // Sort other entries by number of stories (descending)
+  const sortedOtherEntries = otherEntries.sort(
+    (a, b) => storiesByCountry[b].length - storiesByCountry[a].length
+  );
+
+  // Combine the sorted lists, with valid countries first
+  const sortedCountries = [...sortedValidCountries, ...sortedOtherEntries];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
