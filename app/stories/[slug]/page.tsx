@@ -18,6 +18,7 @@ import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/src/utils/meta";
 import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
+import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -122,8 +123,17 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
     console.log(`Successfully loaded story: ${story.title}`);
 
 
+  // Construct the canonical URL for this story
+    const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
+
   return (
     <>
+    {/* Add Facebook meta tags directly to the head */}
+    <FacebookMetaTags
+      appId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
+      url={storyUrl}
+    />
+
     <article className="max-w-4xl mx-auto px-4 py-8">
       {/* Toast notifications for copy to clipboard */}
       <Toaster position="top-right" />
