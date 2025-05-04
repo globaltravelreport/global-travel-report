@@ -7,11 +7,8 @@ country: Canada
 excerpt: >-
   This article covers the latest news in the global cruise industry, with a
   focus on the anticipated surge in activity at the Port of Vancouver in 2025.
-imageUrl: >-
-  https://images.unsplash.com/photo-1559599746-8823b38544c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxDcnVpc2V8ZW58MHwwfHx8MTc0NjI3NDU4Mnww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Alonso Reyes
-  url: 'https://unsplash.com/@alonsoreyes'
+imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+photographer: Caleb Jones
 keywords:
   - Cruise
   - Port of Vancouver

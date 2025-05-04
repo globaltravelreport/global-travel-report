@@ -9,11 +9,8 @@ excerpt: >-
   cultural heritage, stunning landscapes, and unforgettable adventures. It
   offers insightful travel tips, including the best time to visit to avoid the
   crowds.
-imageUrl: >-
-  https://images.unsplash.com/photo-1612257999831-555846cde043?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw1fHxTb3V0aGVhc3QlMjBBc2lhfGVufDB8MHx8fDE3NDYyNzU4MTd8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Alexander Schimmeck
-  url: 'https://unsplash.com/@alschim'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+photographer: Davide Cantelli
 keywords:
   - Southeast Asia
   - Cultural Heritage

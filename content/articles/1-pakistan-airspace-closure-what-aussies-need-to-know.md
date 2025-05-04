@@ -4,7 +4,7 @@ summary: '  As an Australian looking to explore the vibrant cultures, breathtaki
 date: '2025-04-20T13:53:24.592Z'
 country: India
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: '  As an Australian looking to explore the vibrant cultures, br
 keywords: ''
 originalTitle: 'Pakistan Airspace Closure: What Aussies Need to Know'
 categories: '[]'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Luca Bravo
 ---
 
 

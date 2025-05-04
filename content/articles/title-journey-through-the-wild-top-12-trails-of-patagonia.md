@@ -7,11 +7,8 @@ country: Patagonia
 excerpt: >-
   An engaging exploration of the top 12 trails in the vast wilderness of
   Patagonia, offering a thrilling blend of adventure and natural beauty.
-imageUrl: >-
-  https://images.unsplash.com/photo-1551632811-561732d1e306?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwyfHxQYXRhZ29uaWF8ZW58MHwwfHx8MTc0NjI3NDY2NHww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Toomas Tartes
-  url: 'https://unsplash.com/@toomastartes'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+photographer: Dino Reichmuth
 keywords:
   - Patagonia
   - hiking trails

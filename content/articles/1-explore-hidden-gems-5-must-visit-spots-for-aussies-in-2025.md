@@ -4,7 +4,7 @@ summary: ' As Australian wanderlust continues to grow, the quest for unique and 
 date: '2025-04-06T13:53:24.585Z'
 country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
 type: '''Adventure, Culture, Wildlife'''
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'''
 metaDescription: ' As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holida...'
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
-photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+photographer: Caleb Jones
 ---
 
 

@@ -4,7 +4,7 @@ summary: ' Embarking on a journey to position Thailand as a premier cruise hub, 
 date: '2025-04-16T13:53:24.595Z'
 country: Thailand
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Expl
 metaDescription: ' Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream ...'
 keywords: ''
 originalTitle: 'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'
-photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+photographer: Caleb Jones
 ---
 
 

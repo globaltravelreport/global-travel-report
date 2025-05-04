@@ -8,11 +8,8 @@ excerpt: >-
   Experiencing a surge in adventure tourism, New Zealand is quickly establishing
   itself as the world's leading destination for thrill-seekers, with a 15%
   increase in bookings, even outperforming pre-pandemic levels.
-imageUrl: >-
-  https://images.unsplash.com/photo-1507699622108-4be3abd695ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxOZXclMjBaZWFsYW5kfGVufDB8MHx8fDE3NDYyNzU4NzN8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Dan Freeman
-  url: 'https://unsplash.com/@danfreemanphoto'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+photographer: Asoggetti
 keywords:
   - New Zealand
   - adventure tourism

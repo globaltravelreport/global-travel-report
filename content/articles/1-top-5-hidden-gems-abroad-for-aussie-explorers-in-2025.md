@@ -4,7 +4,7 @@ summary: ' As Australian wanderlust continues to grow, the quest for unique and 
 date: '2025-05-02T13:53:24.596Z'
 country: '''Georgia, Namibia, Slovenia, Uruguay, Mongolia'''
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@basecore'
+photographer: Davide Cantelli
 ---
 
 

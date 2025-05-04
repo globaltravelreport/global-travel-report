@@ -4,7 +4,7 @@ summary: ' Philippine Airlines, Qatar Airways, direct flights Manila Doha, Austr
 date: '2025-04-26T13:53:24.571Z'
 country: Global
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Direct Flights to Doha: Your Gateway to Qatar from Manila'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+photographer: Braden Jarvis
 ---
 
 

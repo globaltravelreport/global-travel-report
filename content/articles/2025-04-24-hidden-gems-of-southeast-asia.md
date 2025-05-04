@@ -8,11 +8,9 @@ country: Southeast Asia
 type: Experience
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageLink: 'https://unsplash.com'
-photographer:
-  name: Asoggetti
-  url: 'https://unsplash.com/@asoggetti'
+photographer: Davide Cantelli
 ---
 
 

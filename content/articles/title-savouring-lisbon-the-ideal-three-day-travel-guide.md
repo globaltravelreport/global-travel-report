@@ -7,11 +7,8 @@ country: Portugal
 excerpt: >-
   A captivating three-day guide to Lisbon, blending the city's main attractions
   with unexpected delights and gastronomic experiences.
-imageUrl: >-
-  https://images.unsplash.com/photo-1585208798174-6cedd86e019a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxMaXNib258ZW58MHwwfHx8MTc0NjI3NDY0NXww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Aayush Gupta
-  url: 'https://unsplash.com/@aayush_gupta'
+imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
+photographer: Willian West
 keywords:
   - Lisbon
   - Portugal

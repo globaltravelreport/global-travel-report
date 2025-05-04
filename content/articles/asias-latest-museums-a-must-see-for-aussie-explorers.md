@@ -4,7 +4,7 @@ summary: ' As Australian wanderlust continues to grow, two new museums in Asia a
 date: '2025-04-21T13:53:24.624Z'
 country: '''Japan, Singapore'''
 type: '''Culture, Art'''
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
 metaDescription: ' As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...'
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Jaromir Kavan
 ---
 
 

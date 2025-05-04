@@ -8,11 +8,8 @@ excerpt: >-
   This article explores top cities for digital nomads, including Lisbon, Chiang
   Mai, Medellin, and Bali, highlighting their appeal in terms of fast internet,
   affordable living costs, and vibrant expat communities.
-imageUrl: >-
-  https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxEaWdpdGFsJTIwTm9tYWRzfGVufDB8MHx8fDE3NDYyNzU4NTN8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Marvin Meyer
-  url: 'https://unsplash.com/@marvelous'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+photographer: Jaromir Kavan
 keywords:
   - Digital Nomads
   - Remote Work

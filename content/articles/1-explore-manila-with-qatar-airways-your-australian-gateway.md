@@ -4,7 +4,7 @@ summary: ' ### Discover Manila: A Guide for Australian Travelers Flying with Qat
 date: '2025-04-18T13:53:24.588Z'
 country: Philippines
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: ' ### Discover Manila: A Guide for Australian Travelers Flying 
 keywords: ''
 originalTitle: 'Explore Manila with Qatar Airways: Your Australian Gateway'
 categories: '[]'
-photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+photographer: Braden Jarvis
 ---
 
 

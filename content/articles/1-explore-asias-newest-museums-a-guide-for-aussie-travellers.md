@@ -4,7 +4,7 @@ summary: ' As an Australian travel journalist and SEO expert, I''m always on the
 date: '2025-04-28T13:53:24.579Z'
 country: '''Japan, South Korea'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: ' As an Australian travel journalist and SEO expert, I''m alway
 keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 categories: '[]'
-photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+photographer: Shifaaz Shamoon
 ---
 
 

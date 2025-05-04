@@ -4,7 +4,7 @@ summary: 'Rewritten article:...'
 date: '2025-04-11T13:53:24.581Z'
 country: Asia (Various)
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@basecore'
+photographer: Dan Gold
 ---
 
 

@@ -4,7 +4,7 @@ summary: 'Embarking on a Manila Adventure: A Guide for Australian Travelers...'
 date: '2025-04-13T13:53:24.577Z'
 country: Philippines
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Embarking on a Manila Adventure: A Guide for Australian Travelers'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Davide Cantelli
-  url: 'https://unsplash.com/@cant89'
+photographer: Alonso Reyes
 ---
 Australia's wanderlust-driven souls are always on the lookout for their next adventure, and Manila, with its vibrant culture and stunning landscapes, beckons. Thanks to a strategic codeshare between Qatar Airways and Philippine Airlines, your journey from major Australian cities to the heart of the Philippines is now smoother and more accessible than ever. Here's what Australian travelers need to know to make the most out of this exciting destination.
 

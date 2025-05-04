@@ -4,7 +4,7 @@ summary: ' Embarking on a journey from the Land Down Under to the dazzling citys
 date: '2025-05-01T13:53:24.579Z'
 country: United Arab Emirates
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: Tourism Execs in Dubai Talk Global 'Uncertainties' For Travel - Skift
 published: 'true'
 categories: '[]'
-photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+photographer: Cristina Gottardi
 ---
 
 

@@ -4,7 +4,7 @@ summary: '  In a move that''s sure to excite Australian globetrotters, China Eas
 date: '2025-04-20T13:53:24.629Z'
 country: Denmark
 type: '''Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: Fly Direct to Copenhagen from Australia with China Eastern
 metaDescription: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
-photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+photographer: Cristina Gottardi
 ---
 
 

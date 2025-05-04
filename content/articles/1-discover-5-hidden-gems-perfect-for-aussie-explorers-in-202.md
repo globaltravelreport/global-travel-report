@@ -4,7 +4,7 @@ summary: ''''''
 date: '2025-04-10T13:53:24.573Z'
 country: Unknown
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
-photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+photographer: Sylvain Mauroux
 ---
 
 

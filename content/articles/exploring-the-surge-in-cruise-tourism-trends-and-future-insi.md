@@ -4,7 +4,7 @@ summary: '  The cruise tourism industry is experiencing a significant boom, refl
 date: '2025-04-24T13:53:24.627Z'
 country: Global
 type: Travel Trends
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -13,9 +13,7 @@ metaTitle: '''Exploring the Surge in Cruise Tourism: Trends and Future Insights'
 metaDescription: '  The cruise tourism industry is experiencing a significant boom, reflecting an increasing interest among travelers in exploring the world from the deck...'
 keywords: ''
 originalTitle: '''Cruise Tourism Market Witness Booming Growth: Future Demand, - openPR.com'''
-photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+photographer: Asoggetti
 ---
 
 

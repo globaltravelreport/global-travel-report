@@ -4,7 +4,7 @@ summary: ' Explore Copenhagen with New Direct Flights Perfect for Australian Tra
 date: '2025-04-10T13:53:24.591Z'
 country: Denmark
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: ' Explore Copenhagen with New Direct Flights Perfect for Austra
 keywords: ''
 originalTitle: China Eastern Airlines to add Copenhagen flights - Business Traveller
 categories: '[]'
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Emile Guillemot
 ---
 
 

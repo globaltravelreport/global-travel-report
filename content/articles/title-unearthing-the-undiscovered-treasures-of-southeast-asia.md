@@ -7,11 +7,8 @@ country: Southeast Asia
 excerpt: >-
   An engaging journey through Southeast Asia, highlighting its diverse cultural
   experiences, stunning landscapes, and the best time to explore the region.
-imageUrl: >-
-  https://images.unsplash.com/photo-1612257999781-1a997105f94b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwzfHxTb3V0aGVhc3QlMjBBc2lhfGVufDB8MHx8fDE3NDYyNzU4MTd8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Alexander Schimmeck
-  url: 'https://unsplash.com/@alschim'
+imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+photographer: Arto Marttinen
 keywords:
   - Southeast Asia
   - Travel

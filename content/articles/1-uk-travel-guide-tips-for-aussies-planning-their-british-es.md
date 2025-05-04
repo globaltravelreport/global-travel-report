@@ -4,7 +4,7 @@ summary: 'A Guide for Australians Travelling to the UK: Everything You Need to K
 date: '2025-04-12T13:53:24.614Z'
 country: United Kingdom
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'UK Travel Guide: Tips for Aussies Planning Their British Escape'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Cristina Gottardi
 ---
 
 

@@ -4,7 +4,7 @@ summary: '  As Australian wanderlusts begin to plot their next international esc
 date: '2025-05-02T13:53:24.599Z'
 country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+photographer: Jaromir Kavan
 ---
 
 

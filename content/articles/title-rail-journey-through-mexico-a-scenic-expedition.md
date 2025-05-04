@@ -7,11 +7,8 @@ country: Mexico
 excerpt: >-
   Explore Mexico's expanding rail network, offering travellers an immersive
   journey through the country's diverse landscapes and rich culture.
-imageUrl: >-
-  https://images.unsplash.com/photo-1521216774850-01bc1c5fe0da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw0fHxNZXhpY298ZW58MHwwfHx8MTc0NjI3NDYxOXww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: david carballar
-  url: 'https://unsplash.com/@david_carballar'
+imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
+photographer: Luca Bravo
 keywords:
   - Mexico
   - Train travel

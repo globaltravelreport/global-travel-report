@@ -4,7 +4,7 @@ summary: '  In a startling move that has raised eyebrows across continents, alle
 date: '2025-04-19T13:53:24.672Z'
 country: United Kingdom
 type: '''Culture, History, Leisure'''
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''UK Travel Woes: What Aussies Need to Know'''
 metaDescription: '  In a startling move that has raised eyebrows across continents, allegations have surfaced accusing the government of hampering the UK''s tourism indust...'
 keywords: ''
 originalTitle: 'UK Travel Woes: What Aussies Need to Know'
-photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+photographer: Braden Jarvis
 ---
 
 

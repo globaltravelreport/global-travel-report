@@ -4,7 +4,7 @@ summary: '### Discover Hidden Gems: 5 Must-See Places for Aussies in 2025...'
 date: '2025-04-22T13:53:24.575Z'
 country: '''Georgia, Madagascar, Oman, Uruguay, Bhutan'''
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Dino Reichmuth
 ---
 
 

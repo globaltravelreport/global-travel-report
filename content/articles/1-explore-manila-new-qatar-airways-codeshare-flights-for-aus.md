@@ -4,7 +4,7 @@ summary: ' # Explore Manila with Ease: Qatar Airways'' New Codeshare Flights fro
 date: '2025-04-24T13:53:24.586Z'
 country: Philippines
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Explore Manila: New Qatar Airways Codeshare Flights for Aussies'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Davide Cantelli
 ---
 
 

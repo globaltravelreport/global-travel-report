@@ -9,11 +9,8 @@ excerpt: >-
   witnessing a surge in thrill-seekers over the past year. The country's
   adventure tourism sector has experienced a 15% increase in bookings compared
   to pre-pandemic levels.
-imageUrl: >-
-  https://images.unsplash.com/photo-1528988719300-046ff7faf8cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw1fHxOZXclMjBaZWFsYW5kfGVufDB8MHx8fDE3NDYyNzU4NzN8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Aaron Sebastian
-  url: 'https://unsplash.com/@aaronkongsebastian'
+imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
+photographer: Dan Gold
 keywords:
   - New Zealand
   - adventure tourism

@@ -4,7 +4,7 @@ summary: ' As Australian wanderlusts gear up for their next international escape
 date: '2025-04-07T13:53:24.598Z'
 country: Global
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: Top Noise-Cancelling Headphones for Aussie Globetrotters
 published: 'true'
 categories: '[]'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Simon Migaj
 ---
 
 

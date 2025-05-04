@@ -4,7 +4,7 @@ summary: ' Prague, with its enchanting streets and majestic historical sites, ha
 date: '2025-04-21T13:53:24.577Z'
 country: Czech Republic
 type: Luxury
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: Golden moments await at Prague's newest luxury hotel - Travel Weekly Asia
 published: 'true'
 categories: '[]'
-photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+photographer: Asoggetti
 ---
 
 

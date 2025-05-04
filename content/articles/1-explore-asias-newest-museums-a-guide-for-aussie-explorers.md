@@ -4,7 +4,7 @@ summary: '  Asia''s cultural landscape is ever-evolving, and for Australians kee
 date: '2025-05-02T13:53:24.579Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'
 categories: '[]'
-photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+photographer: Willian West
 ---
 
 

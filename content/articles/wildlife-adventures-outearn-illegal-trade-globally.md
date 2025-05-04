@@ -4,7 +4,7 @@ summary: ' Wildlife tourism is not just a thrilling adventure for Australians lo
 date: '2025-04-28T13:53:24.672Z'
 country: Global
 type: '''Adventure, Ethical, Wildlife'''
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: Wildlife Adventures Outearn Illegal Trade Globally
 metaDescription: ' Wildlife tourism is not just a thrilling adventure for Australians looking to explore the wonders of the natural world; it''s also a booming industry ...'
 keywords: ''
 originalTitle: Wildlife Adventures Outearn Illegal Trade Globally
-photographer:
-  name: Davide Cantelli
-  url: 'https://unsplash.com/@cant89'
+photographer: Simon Migaj
 ---
 
 

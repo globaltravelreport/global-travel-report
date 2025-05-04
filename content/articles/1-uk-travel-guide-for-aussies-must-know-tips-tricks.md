@@ -4,7 +4,7 @@ summary: Rewritten article...
 date: '2025-05-01T13:53:24.609Z'
 country: United Kingdom
 type: '''Culture, Adventure, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
 metaDescription: Rewritten article...
 keywords: ''
 originalTitle: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks'
-photographer:
-  name: Jaromir Kavan
-  url: 'https://unsplash.com/@jerrykavan'
+photographer: Emile Guillemot
 ---
 
 

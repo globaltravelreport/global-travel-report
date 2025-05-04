@@ -4,7 +4,7 @@ summary: ' Embarking on a UK adventure from Australia may seem daunting, but wit
 date: '2025-05-03T13:53:24.611Z'
 country: United Kingdom
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'UK Travel Guide for Aussies: Tips & Must-Knows for'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+photographer: Asoggetti
 ---
 
 

@@ -4,7 +4,7 @@ summary: ' Australian adventurers seeking new horizons have reason to rejoice wi
 date: '2025-04-12T13:53:24.628Z'
 country: Qatar
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airway
 metaDescription: ' Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines'' direct flights from Manila to Doha, now in codeshare par...'
 keywords: ''
 originalTitle: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
-photographer:
-  name: Asoggetti
-  url: 'https://unsplash.com/@asoggetti'
+photographer: Luca Bravo
 ---
 
 

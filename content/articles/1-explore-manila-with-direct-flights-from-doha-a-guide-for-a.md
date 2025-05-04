@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+photographer: Thomas Tucker
 ---
 
 

@@ -4,7 +4,7 @@ summary: ' The UK is calling all Australian adventurers to explore its historic 
 date: '2025-04-15T13:53:24.609Z'
 country: United Kingdom
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'UK Travel Guide for Aussies: Tips & Best Times to Visit'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+photographer: Alonso Reyes
 ---
 
 

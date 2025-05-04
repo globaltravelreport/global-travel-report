@@ -11,11 +11,8 @@ excerpt: >-
   Exploring the emergence of Lisbon, Chiang Mai, Medellin, and Bali as leading
   hotspots for digital nomads, this article delves into how these cities are
   reshaping the future of work and travel.
-imageUrl: >-
-  https://images.unsplash.com/photo-1572511443032-a3cfe6823872?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw0fHxEaWdpdGFsJTIwbm9tYWR8ZW58MHwwfHx8MTc0NjI3NjIyMHww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Peggy Anke
-  url: 'https://unsplash.com/@instagramfotografin'
+imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
+photographer: Ishan Seefromthesky
 keywords:
   - Digital nomad
   - Remote work

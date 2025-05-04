@@ -4,7 +4,7 @@ summary: 'Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Ir
 date: '2025-04-30T13:53:24.576Z'
 country: Greece
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: 'Embarking on a Grecian Odyssey: A Guide for Australian Travele
 keywords: ''
 originalTitle: Iraklio port focuses on cruise tourism - eKathimerini.com
 categories: '[]'
-photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+photographer: Emile Guillemot
 ---
 
 

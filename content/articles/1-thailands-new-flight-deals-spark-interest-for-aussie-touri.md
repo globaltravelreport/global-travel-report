@@ -4,7 +4,7 @@ summary: ' Thailand is rolling out the red carpet for Australian travelers with 
 date: '2025-04-15T13:53:24.596Z'
 country: Thailand
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: Thailand's New Flight Deals Spark Interest for Aussie Tourists
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sylvain Mauroux
-  url: 'https://unsplash.com/@sylvainmauroux'
+photographer: Arto Marttinen
 ---
 
 

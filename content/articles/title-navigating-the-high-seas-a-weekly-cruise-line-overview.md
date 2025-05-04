@@ -8,11 +8,8 @@ excerpt: >-
   This article provides a weekly overview of the major developments in the
   cruise industry, with a focus on the upcoming busy season at the Port of
   Vancouver.
-imageUrl: >-
-  https://images.unsplash.com/photo-1731416812841-2715d498f884?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw1fHxDcnVpc2UlMjBpbmR1c3RyeXxlbnwwfDB8fHwxNzQ2Mjc1ODAwfDA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Dmitryii Malygin
-  url: 'https://unsplash.com/@aerodrone_nn'
+imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+photographer: Emile Guillemot
 keywords:
   - Cruise industry
   - Port of Vancouver

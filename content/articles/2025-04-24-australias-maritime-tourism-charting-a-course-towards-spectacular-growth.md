@@ -6,15 +6,13 @@ slug: australias-maritime-tourism-charting-a-course-towards-spectacular-growth
 date: '2025-04-05T13:53:24.619Z'
 country: Australia
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
 imageAlt: '''Sydney Opera House, Australia'''
 imageCredit: Photoholgic on Unsplash
 imageLink: '''https://unsplash.com/photos/sydney-opera-house-australia-jK9dT34TfuI'''
 published: 'true'
 categories: '[]'
-photographer:
-  name: Thomas Tucker
-  url: 'https://unsplash.com/@tents_and_tread'
+photographer: Ishan Seefromthesky
 ---
 
 

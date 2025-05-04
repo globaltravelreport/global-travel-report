@@ -11,11 +11,8 @@ excerpt: >-
   In a landmark decision, the Cayman Islands rejected a proposal for cruise
   infrastructure expansion, prioritising sustainable tourism and the
   preservation of local quality of life.
-imageUrl: >-
-  https://images.unsplash.com/photo-1622561722733-658777b6ff47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw0fHxDYXltYW4lMjBJc2xhbmRzfGVufDB8MHx8fDE3NDYyNzQ1NjZ8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Ronny Rondon
-  url: 'https://unsplash.com/@ronnyrondonph'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+photographer: Thomas Tucker
 keywords:
   - Cayman Islands
   - Cruise Tourism

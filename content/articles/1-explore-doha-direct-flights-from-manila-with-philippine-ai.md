@@ -4,7 +4,7 @@ summary: '  Philippine Airlines, direct flights to Doha, Australian travelers, M
 date: '2025-05-02T13:53:24.581Z'
 country: Global
 type: Destination
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Explore Doha: Direct Flights from Manila with Philippine Airlines'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Ishan Seefromthesky
 ---
 
 

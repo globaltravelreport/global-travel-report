@@ -8,11 +8,8 @@ excerpt: >-
   An engaging and informative guide for first-time visitors to Mackinac Island -
   a charming, car-free destination rich in history and natural beauty in
   Northern Michigan.
-imageUrl: >-
-  https://images.unsplash.com/photo-1561171466-9d2a061c1688?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw0fHxNYWNraW5hYyUyMElzbGFuZHxlbnwwfDB8fHwxNzQ2Mjc0NzEzfDA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Aaron Burden
-  url: 'https://unsplash.com/@aaronburden'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+photographer: Braden Jarvis
 keywords:
   - Mackinac Island
   - Travel Guide

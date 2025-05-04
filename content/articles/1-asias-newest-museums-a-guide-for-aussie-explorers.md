@@ -4,7 +4,7 @@ summary: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
 date: '2025-04-16T13:53:24.568Z'
 country: Asia
 type: Culture
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: '''Travel destinations: 2 new museums setting the scene in Asia - ArtsHub'''
 published: 'true'
 categories: '[]'
-photographer:
-  name: Asoggetti
-  url: 'https://unsplash.com/@asoggetti'
+photographer: Davide Cantelli
 ---
 
 

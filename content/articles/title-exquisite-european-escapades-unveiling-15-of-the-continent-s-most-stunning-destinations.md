@@ -11,11 +11,8 @@ excerpt: >-
   Unveiling 15 of Europe's most stunning destinations, this article takes
   readers on a journey through the continent's diverse landscapes, from
   Switzerland's Swiss National Park to Italy's Stromboli.
-imageUrl: >-
-  https://images.unsplash.com/photo-1589262804704-c5aa9e6def89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwzfHxFdXJvcGV8ZW58MHwwfHx8MTc0NjI3NDY4OHww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Christian Lue
-  url: 'https://unsplash.com/@christianlue'
+imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+photographer: Sylvain Mauroux
 keywords:
   - Europe
   - Travel

@@ -4,7 +4,7 @@ summary: The Ultimate UK Travel Guide for Australian Adventurers...
 date: '2025-04-24T13:53:24.608Z'
 country: United Kingdom
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: rock formation on wide field grass under cloudy blue sky during daytime
 imageCredit: "\U0001F9D4‍♂️ Michal Kmeť"
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'UK Travel Guide for Aussies: Best Deals & Tips'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Asoggetti
-  url: 'https://unsplash.com/@asoggetti'
+photographer: Dino Reichmuth
 ---
 
 

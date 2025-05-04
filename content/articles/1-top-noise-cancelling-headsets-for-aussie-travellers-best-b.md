@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: Top Noise-Cancelling Headsets for Aussie Travellers | Best Buys
 published: 'true'
 categories: '[]'
-photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+photographer: Jakob Owens
 ---
 
 

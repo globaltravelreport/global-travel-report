@@ -4,7 +4,7 @@ summary: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explo
 date: '2025-04-04T13:53:24.594Z'
 country: Scotland
 type: '''Luxury, Culture'''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Jakob Owens
-  url: 'https://unsplash.com/@jakobowens1'
+photographer: Shifaaz Shamoon
 ---
 
 

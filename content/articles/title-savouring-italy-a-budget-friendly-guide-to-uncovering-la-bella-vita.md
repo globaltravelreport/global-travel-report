@@ -8,7 +8,7 @@ excerpt: >-
   This article provides an insider's guide on how to traverse the diverse
   regions of Italy on a budget, without compromising on the rich cultural and
   historical experiences.
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
 keywords:
   - Italy
   - Budget Travel
@@ -16,9 +16,7 @@ keywords:
   - Historical Sites
   - Italian Cuisine
 author: Global Travel Report Editorial Team
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Cristina Gottardi
 ---
 In the allure of Italy, dreams of a Mediterranean getaway, a vibrant journey through undulating vineyards, or an immersive exploration of medieval cities bursting with art, become a reality. Italy, with its rich tapestry of attractions encompassing culinary delights, scenic vistas, architectural marvels, historic treasures, and cultural richness, promises an unforgettable experience. However, orchestrating an Italian adventure on a budget can be a challenging puzzle. This is due to fluctuations in prices across seasons, varying from city to countryside and from the northern regions to the south. Moreover, some areas of Italy are tourism hotspots offering a plethora of attractions and services catered to suit all budgets, while others, less inundated by tourists, offer a chance for economical exploration.
 

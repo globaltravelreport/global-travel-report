@@ -4,7 +4,7 @@ summary: '  Embarking on international adventures from Australia just got more s
 date: '2025-04-22T13:53:24.618Z'
 country: Multiple Countries
 type: '''Budget, Family, Culture, Food & Wine'''
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''1. Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Tra
 metaDescription: '  Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any se...'
 keywords: ''
 originalTitle: 'Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Dan Gold
 ---
 
 

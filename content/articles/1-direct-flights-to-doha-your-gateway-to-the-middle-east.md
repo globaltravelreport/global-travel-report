@@ -4,7 +4,7 @@ summary: ' Embarking on an adventure or seeking luxury in the Middle East has ne
 date: '2025-04-16T13:53:24.572Z'
 country: Qatar
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Direct Flights to Doha: Your Gateway to the Middle East'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@basecore'
+photographer: Simon Migaj
 ---
 
 

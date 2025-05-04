@@ -4,7 +4,7 @@ summary: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotter
 date: '2025-04-04T13:53:24.590Z'
 country: Multiple countries
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@basecore'
+photographer: Dino Reichmuth
 ---
 
 

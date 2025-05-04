@@ -4,7 +4,7 @@ summary: '  Scotland has recently emerged as a crowd-puller in the cruise touris
 date: '2025-04-19T13:53:24.593Z'
 country: Scotland
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Davide Cantelli
-  url: 'https://unsplash.com/@cant89'
+photographer: Willian West
 ---
 
 

@@ -9,11 +9,8 @@ excerpt: >-
   rejected by voters. The decision underscores the island's commitment to
   sustainable tourism and the preservation of its unique lifestyle and
   environment.
-imageUrl: >-
-  https://images.unsplash.com/photo-1514476539041-12fdaab41d70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwzfHxDYXltYW4lMjBJc2xhbmRzfGVufDB8MHx8fDE3NDYyNzQ1NjZ8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Marc Babin
-  url: 'https://unsplash.com/@marcbabin'
+imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+photographer: Sime Basioli
 keywords:
   - Cayman Islands
   - cruise infrastructure

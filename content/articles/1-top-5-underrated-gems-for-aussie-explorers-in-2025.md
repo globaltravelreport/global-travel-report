@@ -4,7 +4,7 @@ summary: '  As Australian wanderlust continues to grow, seeking out lesser-trodd
 date: '2025-04-23T13:53:24.597Z'
 country: '''Chile, Estonia, Malaysia, Slovenia, Senegal'''
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 published: 'true'
 categories: '[]'
-photographer:
-  name: Arto Marttinen
-  url: 'https://unsplash.com/@wandervisions'
+photographer: Braden Jarvis
 ---
 
 

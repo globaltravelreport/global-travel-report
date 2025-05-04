@@ -4,7 +4,7 @@ summary: '### Your Ultimate Guide to Exploring the UK from Australia...'
 date: '2025-04-18T13:53:24.613Z'
 country: United Kingdom
 type: '''Culture, Food & Wine, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
 imageAlt: Pesto pasta with sliced tomatoes served on white ceramic plate
 imageCredit: Eaters Collective
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: '### Your Ultimate Guide to Exploring the UK from Australia...'
 keywords: ''
 originalTitle: 'UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit'
 categories: '[]'
-photographer:
-  name: Sime Basioli
-  url: 'https://unsplash.com/@basecore'
+photographer: Luca Bravo
 ---
 
 

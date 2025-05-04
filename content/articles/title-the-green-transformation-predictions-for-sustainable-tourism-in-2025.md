@@ -8,11 +8,8 @@ excerpt: >-
   This article explores the growing trend of sustainable tourism and predicts
   that by 2025, over 70% of travellers will consider sustainability factors when
   planning their trips.
-imageUrl: >-
-  https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwyfHxTdXN0YWluYWJsZSUyMFRvdXJpc218ZW58MHwwfHx8MTc0NjI3NjE5OXww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Noah Buscher
-  url: 'https://unsplash.com/@noahbuscher'
+imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
+photographer: Shifaaz Shamoon
 keywords:
   - Sustainable Tourism
   - Eco-Friendly Travel

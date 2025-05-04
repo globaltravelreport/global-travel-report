@@ -9,11 +9,8 @@ excerpt: >-
   predicted to consider sustainability factors by 2025. This emerging trend is
   paving the way for eco-friendly packages and community-based tourism
   initiatives.
-imageUrl: >-
-  https://images.unsplash.com/photo-1591807105152-594ed605cc58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHw1fHxTdXN0YWluYWJsZSUyMHRvdXJpc218ZW58MHwwfHx8MTc0NjI3NTgzNHww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Alexey Marchenko
-  url: 'https://unsplash.com/@alex_marchenko'
+imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+photographer: Simon Migaj
 keywords:
   - Sustainable tourism
   - Eco-friendly travel

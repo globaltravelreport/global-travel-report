@@ -4,7 +4,7 @@ summary: ' When it comes to jet-setting from Down Under to the far reaches of ou
 date: '2025-04-06T13:53:24.625Z'
 country: Multiple destinations
 type: Travel Essentials
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: Best Noise-Cancelling Headphones for Aussie Travellers
 metaDescription: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you''r...'
 keywords: ''
 originalTitle: Best Noise-Cancelling Headphones for Aussie Travellers
-photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+photographer: Sylvain Mauroux
 ---
 
 

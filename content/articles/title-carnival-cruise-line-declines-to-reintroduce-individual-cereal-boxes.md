@@ -8,7 +8,7 @@ excerpt: >-
   A request by a Carnival Cruise Line passenger for the return of individual
   boxed cereals has been declined, citing practicality and local laws at ports
   of call as reasons.
-imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
+imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
 keywords:
   - Carnival Cruise Line
   - cereal boxes
@@ -16,9 +16,7 @@ keywords:
   - breakfast buffet
   - cruise ship dining
 author: Global Travel Report Editorial Team
-photographer:
-  name: Alonso Reyes
-  url: 'https://unsplash.com/@alonsoreyes'
+photographer: Arto Marttinen
 ---
 
 Cruise ships are known for their copious amounts of food offerings, designed to cater to every palate. However, it appears that one passenger's request for a return to individual boxed cereals has been refused by the Carnival Cruise Line. The passenger, who voiced their displeasure to Brand Ambassador, John Heald, felt that these boxes were a convenient snack option, especially for their children.

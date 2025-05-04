@@ -4,7 +4,7 @@ summary: United Kingdom
 date: '2025-04-25T13:53:24.671Z'
 country: Travel Industry Insights
 type: General
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
 imageAlt: stack of assorted-color suit case lot
 imageCredit: Erwan Hesry
 imageLink: ''
@@ -13,9 +13,7 @@ metaTitle: '''UK Tourism Concerns: Industry Claims Government Impact'''
 metaDescription: United Kingdom
 keywords: ''
 originalTitle: 'UK Tourism Concerns: Industry Claims Government Impact'
-photographer:
-  name: Emile Guillemot
-  url: 'https://unsplash.com/@emilegt'
+photographer: Sime Basioli
 ---
 
 

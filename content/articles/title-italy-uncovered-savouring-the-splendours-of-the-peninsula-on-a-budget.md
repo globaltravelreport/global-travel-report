@@ -7,11 +7,8 @@ country: Italy
 excerpt: >-
   An informative guide on how to explore the rich cultural and scenic beauty of
   Italy on a budget, offering strategies for cost-effective travel.
-imageUrl: >-
-  https://images.unsplash.com/photo-1491900177661-4e1cd2d7cce2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxJdGFseSUyMHRyYXZlbHxlbnwwfDB8fHwxNzQ2Mjc0NjAwfDA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Fabio Mangione
-  url: 'https://unsplash.com/@bu3'
+imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+photographer: Jakob Owens
 keywords:
   - Italy travel
   - budget travel

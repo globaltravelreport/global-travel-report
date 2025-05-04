@@ -4,7 +4,7 @@ summary: ' Exploring Manila just got easier and more affordable for Aussies, tha
 date: '2025-04-18T13:53:24.591Z'
 country: Philippines
 type: Experience
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'New Qatar-Philippine Airlines Deal: Your Gateway to Manila'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+photographer: Alonso Reyes
 ---
 
 

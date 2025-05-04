@@ -8,11 +8,9 @@ country: Australia
 type: Airline
 published: 'true'
 categories: '[]'
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
 imageLink: 'https://unsplash.com'
-photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+photographer: Sime Basioli
 ---
 
 

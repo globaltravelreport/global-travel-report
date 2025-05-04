@@ -8,11 +8,8 @@ excerpt: >-
   This article explores the rise of culinary tourism, focusing on how travellers
   are planning their journeys around gastronomic experiences, with a spotlight
   on Japan, Italy, and Thailand.
-imageUrl: >-
-  https://images.unsplash.com/photo-1673213314908-5b1863e742d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwzfHxjdWxpbmFyeSUyMHRvdXJpc218ZW58MHwwfHx8MTc0NjI3NTg5NXww&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Leonhard Niederwimmer
-  url: 'https://unsplash.com/@lnlnln'
+imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
+photographer: Dan Gold
 keywords:
   - culinary tourism
   - gastronomy

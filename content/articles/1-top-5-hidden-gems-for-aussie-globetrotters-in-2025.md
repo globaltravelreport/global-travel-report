@@ -4,7 +4,7 @@ summary: 'Exploring the Roads Less Travelled: A 2025 Guide for Australian Advent
 date: '2025-04-21T13:53:24.596Z'
 country: '''Georgia, Namibia, Slovenia, Taiwan, Uruguay'''
 type: '''Adventure, Culture, Budget'''
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -14,9 +14,7 @@ metaDescription: 'Exploring the Roads Less Travelled: A 2025 Guide for Australia
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
 categories: '[]'
-photographer:
-  name: Braden Jarvis
-  url: 'https://unsplash.com/@jarvisphoto'
+photographer: Thomas Tucker
 ---
 
 

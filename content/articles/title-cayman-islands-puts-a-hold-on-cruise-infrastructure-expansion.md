@@ -8,11 +8,8 @@ excerpt: >-
   In a public vote, the Cayman Islands has decided against the proposed
   expansion of its cruise infrastructure, prioritising sustainable development
   and quality of life over tourism growth.
-imageUrl: >-
-  https://images.unsplash.com/photo-1514476539041-12fdaab41d70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwzfHxDYXltYW4lMjBJc2xhbmRzfGVufDB8MHx8fDE3NDYyNzQ1NjZ8MA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Marc Babin
-  url: 'https://unsplash.com/@marcbabin'
+imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+photographer: Davide Cantelli
 keywords:
   - Cayman Islands
   - cruise infrastructure

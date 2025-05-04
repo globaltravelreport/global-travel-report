@@ -8,11 +8,8 @@ excerpt: >-
   This article explores the latest developments in the cruise industry, with a
   focus on the Port of Vancouver's upcoming season, expected to see an estimated
   1.2 million passenger transits.
-imageUrl: >-
-  https://images.unsplash.com/photo-1685366308169-d24582430e08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mzk5OTB8MHwxfHNlYXJjaHwxfHxDcnVpc2UlMjBpbmR1c3RyeXxlbnwwfDB8fHwxNzQ2Mjc1ODAwfDA&ixlib=rb-4.0.3&q=80&w=1080
-photographer:
-  name: Pauline Bernfeld
-  url: 'https://unsplash.com/@pizbern'
+imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
+photographer: Alonso Reyes
 keywords:
   - Cruise industry
   - Port of Vancouver

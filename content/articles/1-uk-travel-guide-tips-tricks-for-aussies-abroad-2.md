@@ -4,7 +4,7 @@ summary: '  UK travel guide, Australian travelers, flight deals from Australia t
 date: '2025-04-24T13:53:24.616Z'
 country: Global
 type: Airline
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -15,9 +15,7 @@ keywords: ''
 originalTitle: 'UK Travel Guide: Tips & Tricks for Aussies Abroad'
 published: 'true'
 categories: '[]'
-photographer:
-  name: Arto Marttinen
-  url: 'https://unsplash.com/@wandervisions'
+photographer: Shifaaz Shamoon
 ---
 
 

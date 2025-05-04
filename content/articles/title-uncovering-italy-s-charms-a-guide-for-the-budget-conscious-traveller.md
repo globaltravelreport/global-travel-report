@@ -8,7 +8,7 @@ excerpt: >-
   This article offers practical tips and insider advice to help budget-conscious
   travellers plan an affordable journey through the captivating regions of
   Italy.
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
 keywords:
   - Budget travel
   - Italy
@@ -16,9 +16,7 @@ keywords:
   - Affordable travel
   - Travel planning
 author: Global Travel Report Editorial Team
-photographer:
-  name: Simon Migaj
-  url: 'https://unsplash.com/@simonmigaj'
+photographer: Caleb Jones
 ---
 As a traveller, who wouldn't dream of a Mediterranean escape, an exhilarating road trip through undulating vineyards, or an immersive art-fuelled exploration of medieval cities? Italy, with its vast array of culinary, scenic, architectural, historical, and cultural attractions, is a dream destination that never fails to enchant its visitors.
 

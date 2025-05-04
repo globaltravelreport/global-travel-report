@@ -4,7 +4,7 @@ summary: ' Gone are the days when Australian travelers stuck to the well-trodden
 date: '2025-04-10T13:53:24.630Z'
 country: '''Ghana, Georgia'''
 type: '''Culture, Adventure'''
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
 imageAlt: aerial photography of flowers at daytime
 imageCredit: Joel Holland
 imageLink: 'https://unsplash.com'
@@ -13,9 +13,7 @@ metaTitle: '''Hidden Gems: Top International Destinations for Aussies in 2025'''
 metaDescription: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it''s all about discovering those u...'
 keywords: ''
 originalTitle: 5 Underrated Travel Destinations For Black Travelers In 2025 - Travel Noire
-photographer:
-  name: Dino Reichmuth
-  url: 'https://unsplash.com/@dinoreichmuth'
+photographer: Willian West
 ---
 
 
