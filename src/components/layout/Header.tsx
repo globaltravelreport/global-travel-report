@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/src/components/ui/button';
-import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { cn } from '@/src/lib/utils';
 // Theme toggle has been removed
 
@@ -61,6 +61,9 @@ export default function Header() {
             </a>
             <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
               <FaTiktok className="w-4 h-4" />
+            </a>
+            <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Tumblr">
+              <FaTumblr className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -269,6 +272,9 @@ export default function Header() {
                   </a>
                   <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
                     <FaTiktok className="w-5 h-5" />
+                  </a>
+                  <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Tumblr">
+                    <FaTumblr className="w-5 h-5" />
                   </a>
                 </div>
               </div>
