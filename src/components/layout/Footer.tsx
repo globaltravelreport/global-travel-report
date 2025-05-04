@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok } from "react-icons/fa6";
+import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -225,6 +225,18 @@ export default function Footer() {
               >
                 <FaTiktok className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
                 <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">TikTok</span>
+              </a>
+
+              {/* Tumblr */}
+              <a
+                href="https://www.tumblr.com/blog/globaltravelreport"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center bg-gray-800 hover:bg-[#C9A14A] p-4 rounded-lg transition-all duration-300 group shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                aria-label="Tumblr"
+              >
+                <FaTumblr className="h-7 w-7 text-[#C9A14A] group-hover:text-white transition-colors" />
+                <span className="mt-2 text-xs font-medium text-gray-300 group-hover:text-white transition-colors">Tumblr</span>
               </a>
             </div>
           </div>
