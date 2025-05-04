@@ -48,6 +48,31 @@ export const OPTIONS = createOptionsHandler();
  */
 export const POST = createApiHandler<ContactFormRequest>(
   async (_req: NextRequest, data: ContactFormRequest) => {
+    // Check if we're in development mode
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
+    // In production, verify reCAPTCHA if configured
+    if (!isDevelopment && config.api.recaptcha.secretKey) {
+      try {
+        // Get the reCAPTCHA token from the request headers
+        const token = _req.headers.get('X-Recaptcha-Token') || '';
+
+        // Verify the token
+        const isValid = await verifyRecaptcha(token);
+
+        if (!isValid) {
+          return createApiResponse(
+            new Error('reCAPTCHA verification failed. Please try again.'),
+            { status: 403 }
+          );
+        }
+      } catch (error) {
+        console.error('Error verifying reCAPTCHA:', error);
+        // Continue processing in case of reCAPTCHA error
+        // This prevents the form from being completely blocked if reCAPTCHA has issues
+      }
+    }
+
     // Send the email
     const emailSent = await sendEmail(data);
 

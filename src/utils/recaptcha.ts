@@ -27,14 +27,34 @@ export async function verifyRecaptcha(
   minScore: number = 0.5
 ): Promise<boolean> {
   try {
+    // Check if we're in development mode
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
     // Get the secret key from environment variables
     const secretKey = config.api.recaptcha.secretKey;
-    
+
+    // Skip verification in development mode if no key is provided
     if (!secretKey) {
-      console.error('reCAPTCHA secret key is not configured');
-      return false;
+      if (isDevelopment) {
+        console.log('Development mode: Skipping reCAPTCHA verification');
+        return true; // Auto-pass in development
+      } else {
+        console.error('reCAPTCHA secret key is not configured');
+        return false;
+      }
     }
-    
+
+    // Skip verification if token is missing (likely in development)
+    if (!token) {
+      if (isDevelopment) {
+        console.log('Development mode: No reCAPTCHA token provided, skipping verification');
+        return true; // Auto-pass in development
+      } else {
+        console.error('No reCAPTCHA token provided');
+        return false;
+      }
+    }
+
     // Make the verification request to Google's API
     const response = await fetch(
       'https://www.google.com/recaptcha/api/siteverify',
@@ -46,18 +66,24 @@ export async function verifyRecaptcha(
         body: `secret=${secretKey}&response=${token}`,
       }
     );
-    
+
     // Parse the response
     const data = await response.json() as RecaptchaResponse;
-    
+
     // For reCAPTCHA v3, check the score
     if (data.score !== undefined) {
       return data.success && data.score >= minScore;
     }
-    
+
     // For reCAPTCHA v2, just check success
     return data.success;
   } catch (error) {
+    // Check if we're in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Development mode: reCAPTCHA error, bypassing verification');
+      return true; // Auto-pass in development
+    }
+
     console.error('Error verifying reCAPTCHA:', error);
     return false;
   }
@@ -70,14 +96,46 @@ export async function verifyRecaptcha(
  */
 export async function getRecaptchaDetails(token: string): Promise<RecaptchaResponse | null> {
   try {
+    // Check if we're in development mode
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
     // Get the secret key from environment variables
     const secretKey = config.api.recaptcha.secretKey;
-    
+
+    // Return mock data in development mode if no key is provided
     if (!secretKey) {
-      console.error('reCAPTCHA secret key is not configured');
-      return null;
+      if (isDevelopment) {
+        console.log('Development mode: Returning mock reCAPTCHA details');
+        return {
+          success: true,
+          score: 1.0,
+          action: 'mock_action',
+          challenge_ts: new Date().toISOString(),
+          hostname: 'localhost'
+        };
+      } else {
+        console.error('reCAPTCHA secret key is not configured');
+        return null;
+      }
     }
-    
+
+    // Return mock data if token is missing (likely in development)
+    if (!token) {
+      if (isDevelopment) {
+        console.log('Development mode: No reCAPTCHA token provided, returning mock details');
+        return {
+          success: true,
+          score: 1.0,
+          action: 'mock_action',
+          challenge_ts: new Date().toISOString(),
+          hostname: 'localhost'
+        };
+      } else {
+        console.error('No reCAPTCHA token provided');
+        return null;
+      }
+    }
+
     // Make the verification request to Google's API
     const response = await fetch(
       'https://www.google.com/recaptcha/api/siteverify',
@@ -89,10 +147,22 @@ export async function getRecaptchaDetails(token: string): Promise<RecaptchaRespo
         body: `secret=${secretKey}&response=${token}`,
       }
     );
-    
+
     // Parse and return the full response
     return await response.json() as RecaptchaResponse;
   } catch (error) {
+    // Return mock data in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Development mode: reCAPTCHA error, returning mock details');
+      return {
+        success: true,
+        score: 1.0,
+        action: 'mock_action',
+        challenge_ts: new Date().toISOString(),
+        hostname: 'localhost'
+      };
+    }
+
     console.error('Error getting reCAPTCHA details:', error);
     return null;
   }
