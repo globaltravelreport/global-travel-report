@@ -207,26 +207,20 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       <div className="prose prose-lg max-w-none">
         <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
 
-        {/* First paragraph of content */}
+        {/* Full content */}
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-              story.content.replace(/^\s*\|-\s*\n/m, '').split('</p>')[0] + '</p>'
+              story.content
+                .replace(/^\s*\|-\s*\n/m, '')
+                .replace(/^Content:\s*/i, '')
+                .replace(/Metadata in JSON format:[\s\S]*$/, '')
             )
           }}
         />
 
         {/* AdSense In-Article Ad */}
         <AdSenseInArticle />
-
-        {/* Rest of the content */}
-        <div
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              story.content.replace(/^\s*\|-\s*\n/m, '').split('</p>').slice(1).join('</p>')
-            )
-          }}
-        />
       </div>
 
       <footer className="mt-8 pt-8 border-t">
