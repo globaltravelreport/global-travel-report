@@ -55,6 +55,9 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       : `${process.env.NEXT_PUBLIC_SITE_URL}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
     : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-image.jpg`;
 
+  // Construct the canonical URL for this story
+  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;
+
   return {
     title,
     description,
@@ -64,6 +67,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       type: "article",
       publishedTime: new Date(story.publishedAt).toISOString(),
       authors: ["Global Travel Report Editorial Team"],
+      url: storyUrl, // Add the URL property for og:url
       images: ogImage ? [
         {
           url: ogImage,
@@ -91,7 +95,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       site: "@GTravelReport",
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/stories/${story.slug}`,
+      canonical: storyUrl,
     },
   };
 }

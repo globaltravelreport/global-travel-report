@@ -13,6 +13,7 @@ export interface UnsplashImage {
 
 // Definitive mapping of photographers to their image URLs
 const PHOTOGRAPHER_IMAGE_MAP: Record<string, string> = {
+  // Original photographers
   'Arto Marttinen': 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a',
   'Davide Cantelli': 'https://images.unsplash.com/photo-1528164344705-47542687000d',
   'Thomas Tucker': 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff',
@@ -32,7 +33,10 @@ const PHOTOGRAPHER_IMAGE_MAP: Record<string, string> = {
   'Shifaaz Shamoon': 'https://images.unsplash.com/photo-1540202404-a2f29016b523',
   'Dan Gold': 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843',
   'Ishan Seefromthesky': 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32',
-  'Caleb Jones': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+  'Caleb Jones': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+
+  // Additional photographers from build logs
+  'Test Mode': 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
 };
 
 // Additional photographers to use if needed
@@ -62,7 +66,7 @@ export function getImageUrlForPhotographer(photographer: string): string {
   const url = PHOTOGRAPHER_IMAGE_MAP[photographer];
 
   if (!url) {
-    console.warn(`Unknown photographer: ${photographer}. Using fallback image.`);
+    // Use a fallback image without logging during build
     return PHOTOGRAPHER_IMAGE_MAP['Arto Marttinen']; // Default fallback
   }
 
@@ -81,7 +85,7 @@ export function getPhotographerForImageUrl(url: string): string {
     }
   }
 
-  console.warn(`Unknown image URL: ${url}. Using fallback photographer.`);
+  // Use a fallback photographer without logging during build
   return 'Arto Marttinen'; // Default fallback
 }
 
@@ -101,7 +105,7 @@ export function validateAndCorrectImageData(
 
     // If the URL doesn't match the photographer, use the correct URL
     if (correctUrl && imageUrl !== correctUrl) {
-      console.log(`Image URL ${imageUrl} doesn't match photographer ${photographer}. Using correct URL ${correctUrl}`);
+      // Silently correct the URL without logging during build
       return { photographer, url: correctUrl };
     }
 

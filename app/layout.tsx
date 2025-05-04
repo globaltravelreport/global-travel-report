@@ -76,6 +76,10 @@ export const metadata: Metadata = {
       },
     ],
   },
+  // Add Facebook App ID for Facebook sharing
+  other: {
+    'fb:app_id': process.env.FACEBOOK_APP_ID || '1122233334445556', // Replace with your actual Facebook App ID
+  },
   twitter: {
     card: 'summary_large_image',
     title: 'Global Travel Report | Travel Insights & Stories',
