@@ -223,6 +223,9 @@ async function generateDailyStories() {
   try {
     console.log('🚀 Starting daily story generation...');
 
+    // Reset global state to ensure unique images for this batch
+    resetGlobalState();
+
     // Validate environment variables
     if (!validateEnvironment()) {
       throw new Error('Missing required environment variables');
@@ -773,18 +776,36 @@ async function addUnsplashImage(story) {
           const randomIndex = Math.floor(Math.random() * response.data.results.length);
           const photo = response.data.results[randomIndex];
 
+          // Track used images to avoid duplicates in the same batch
+          if (!global.usedImagesInBatch) {
+            global.usedImagesInBatch = [];
+          }
+
           // Validate and correct the image data using our central image manager
-          const validatedData = imageManager.validateAndCorrectImageData(
+          let validatedData = imageManager.validateAndCorrectImageData(
             photo.urls.regular,
             photo.user.name
           );
+
+          // If this image has already been used in this batch, get an alternative
+          if (global.usedImagesInBatch.includes(validatedData.url)) {
+            console.log(`Image ${validatedData.url} already used in this batch. Getting alternative.`);
+            validatedData = imageManager.getAlternativeImage(validatedData.photographer, global.usedImagesInBatch);
+          }
+
+          // Add this image to the used images list
+          global.usedImagesInBatch.push(validatedData.url);
+
+          // Create the photographer URL
+          const photographerUrl = photo.user.links.html ||
+            `https://unsplash.com/@${validatedData.photographer.toLowerCase().replace(/\s+/g, '')}`;
 
           return {
             ...story,
             imageUrl: validatedData.url,
             photographer: {
               name: validatedData.photographer,
-              url: photo.user.links.html || `https://unsplash.com/@${validatedData.photographer.toLowerCase().replace(/\s+/g, '')}`
+              url: photographerUrl
             }
           };
         }
@@ -808,20 +829,25 @@ async function addUnsplashImage(story) {
   // Use our image manager to get a consistent image
   console.warn('⚠️ Using image manager as fallback');
 
-  // Get a random photographer from our consistent mapping
-  const randomPhotographer = imageManager.getRandomPhotographer();
+  // Track used images to avoid duplicates in the same batch
+  if (!global.usedImagesInBatch) {
+    global.usedImagesInBatch = [];
+  }
 
-  // Get the correct image URL for this photographer
-  const imageUrl = imageManager.getImageUrlForPhotographer(randomPhotographer);
+  // Get an alternative image that hasn't been used in this batch
+  const alternativeImage = imageManager.getAlternativeImage('', global.usedImagesInBatch);
+
+  // Add this image to the used images list
+  global.usedImagesInBatch.push(alternativeImage.url);
 
   // Create the photographer URL
-  const photographerUrl = `https://unsplash.com/@${randomPhotographer.toLowerCase().replace(/\s+/g, '')}`;
+  const photographerUrl = `https://unsplash.com/@${alternativeImage.photographer.toLowerCase().replace(/\s+/g, '')}`;
 
   return {
     ...story,
-    imageUrl: imageUrl,
+    imageUrl: alternativeImage.url,
     photographer: {
-      name: randomPhotographer,
+      name: alternativeImage.photographer,
       url: photographerUrl
     }
   };
@@ -1031,9 +1057,21 @@ function getArgValue(args, name, defaultValue) {
   return isNaN(value) ? value : parseInt(value, 10);
 }
 
+/**
+ * Reset the global state for a new batch of stories
+ * This ensures that each batch of stories gets unique images
+ */
+function resetGlobalState() {
+  // Reset the used images tracker
+  global.usedImagesInBatch = [];
+  console.log('🔄 Reset global state for new batch of stories');
+}
+
 // Run the script if called directly
 if (require.main === module) {
+  // Reset global state before generating stories
+  resetGlobalState();
   generateDailyStories();
 }
 
-module.exports = { generateDailyStories };
+module.exports = { generateDailyStories, resetGlobalState };

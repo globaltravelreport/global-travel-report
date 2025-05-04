@@ -1,6 +1,6 @@
 /**
  * Image Manager
- * 
+ *
  * A central system for managing image URLs and photographer attribution.
  * This ensures consistency across the entire application.
  */
@@ -60,12 +60,12 @@ const ALL_IMAGES: UnsplashImage[] = [
  */
 export function getImageUrlForPhotographer(photographer: string): string {
   const url = PHOTOGRAPHER_IMAGE_MAP[photographer];
-  
+
   if (!url) {
     console.warn(`Unknown photographer: ${photographer}. Using fallback image.`);
     return PHOTOGRAPHER_IMAGE_MAP['Arto Marttinen']; // Default fallback
   }
-  
+
   return url;
 }
 
@@ -80,7 +80,7 @@ export function getPhotographerForImageUrl(url: string): string {
       return photographer;
     }
   }
-  
+
   console.warn(`Unknown image URL: ${url}. Using fallback photographer.`);
   return 'Arto Marttinen'; // Default fallback
 }
@@ -92,59 +92,108 @@ export function getPhotographerForImageUrl(url: string): string {
  * @returns Corrected image data
  */
 export function validateAndCorrectImageData(
-  imageUrl?: string, 
+  imageUrl?: string,
   photographer?: string
 ): UnsplashImage {
   // If we have both, check if they match
   if (imageUrl && photographer) {
     const correctUrl = getImageUrlForPhotographer(photographer);
-    
+
     // If the URL doesn't match the photographer, use the correct URL
     if (correctUrl && imageUrl !== correctUrl) {
       console.log(`Image URL ${imageUrl} doesn't match photographer ${photographer}. Using correct URL ${correctUrl}`);
       return { photographer, url: correctUrl };
     }
-    
+
     // If we have a valid pair, return it
     if (correctUrl) {
       return { photographer, url: correctUrl };
     }
   }
-  
+
   // If we only have the photographer, get the correct URL
   if (photographer && !imageUrl) {
     const url = getImageUrlForPhotographer(photographer);
     return { photographer, url };
   }
-  
+
   // If we only have the URL, get the correct photographer
   if (imageUrl && !photographer) {
     const photographer = getPhotographerForImageUrl(imageUrl);
     return { photographer, url: imageUrl };
   }
-  
+
   // If we have neither, return a random image
   return getRandomImage();
 }
 
 /**
  * Get a random image
- * @returns A random image
+ * @param excludeUrls Optional array of image URLs to exclude
+ * @returns A random image that's not in the excluded list
  */
-export function getRandomImage(): UnsplashImage {
-  const randomIndex = Math.floor(Math.random() * ALL_IMAGES.length);
-  return ALL_IMAGES[randomIndex];
+export function getRandomImage(excludeUrls: string[] = []): UnsplashImage {
+  // Filter out excluded images
+  const availableImages = ALL_IMAGES.filter(img => !excludeUrls.includes(img.url));
+
+  // If all images are excluded (unlikely but possible), return a random one anyway
+  if (availableImages.length === 0) {
+    const randomIndex = Math.floor(Math.random() * ALL_IMAGES.length);
+    return ALL_IMAGES[randomIndex];
+  }
+
+  // Return a random image from the available ones
+  const randomIndex = Math.floor(Math.random() * availableImages.length);
+  return availableImages[randomIndex];
 }
 
 /**
  * Get a random image for a category
  * @param category The category
- * @returns A random image appropriate for the category
+ * @param excludeUrls Optional array of image URLs to exclude
+ * @returns A random image appropriate for the category that's not in the excluded list
  */
-export function getRandomImageForCategory(category: string): UnsplashImage {
+export function getRandomImageForCategory(category: string, excludeUrls: string[] = []): UnsplashImage {
   // In a real implementation, we would have category-specific images
   // For now, we'll just return a random image
-  return getRandomImage();
+  return getRandomImage(excludeUrls);
+}
+
+/**
+ * Get an alternative image for a photographer
+ * @param photographer The photographer to find an alternative for
+ * @param excludeUrls Optional array of image URLs to exclude
+ * @returns An alternative image by a different photographer
+ */
+export function getAlternativeImage(photographer: string, excludeUrls: string[] = []): UnsplashImage {
+  // Get all photographers except the current one
+  const otherPhotographers = Object.keys(PHOTOGRAPHER_IMAGE_MAP).filter(p => p !== photographer);
+
+  // If there are no other photographers (unlikely), return a random image
+  if (otherPhotographers.length === 0) {
+    return getRandomImage(excludeUrls);
+  }
+
+  // Filter out photographers whose images are in the excluded list
+  const availablePhotographers = otherPhotographers.filter(p => {
+    const url = PHOTOGRAPHER_IMAGE_MAP[p];
+    return !excludeUrls.includes(url);
+  });
+
+  // If all alternatives are excluded, return a random image
+  if (availablePhotographers.length === 0) {
+    return getRandomImage(excludeUrls);
+  }
+
+  // Pick a random photographer from the available ones
+  const randomIndex = Math.floor(Math.random() * availablePhotographers.length);
+  const selectedPhotographer = availablePhotographers[randomIndex];
+
+  // Return the image for this photographer
+  return {
+    photographer: selectedPhotographer,
+    url: PHOTOGRAPHER_IMAGE_MAP[selectedPhotographer]
+  };
 }
 
 export default {
@@ -152,5 +201,6 @@ export default {
   getPhotographerForImageUrl,
   validateAndCorrectImageData,
   getRandomImage,
-  getRandomImageForCategory
+  getRandomImageForCategory,
+  getAlternativeImage
 };

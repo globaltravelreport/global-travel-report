@@ -1,6 +1,6 @@
 /**
  * Image Manager
- * 
+ *
  * A central system for managing image URLs and photographer attribution.
  * This ensures consistency across the entire application.
  */
@@ -45,12 +45,12 @@ const ADDITIONAL_PHOTOGRAPHERS = [
  */
 function getImageUrlForPhotographer(photographer) {
   const url = PHOTOGRAPHER_IMAGE_MAP[photographer];
-  
+
   if (!url) {
     console.warn(`Unknown photographer: ${photographer}. Using fallback image.`);
     return PHOTOGRAPHER_IMAGE_MAP['Arto Marttinen']; // Default fallback
   }
-  
+
   return url;
 }
 
@@ -65,7 +65,7 @@ function getPhotographerForImageUrl(url) {
       return photographer;
     }
   }
-  
+
   console.warn(`Unknown image URL: ${url}. Using fallback photographer.`);
   return 'Arto Marttinen'; // Default fallback
 }
@@ -80,31 +80,31 @@ function validateAndCorrectImageData(imageUrl, photographer) {
   // If we have both, check if they match
   if (imageUrl && photographer) {
     const correctUrl = getImageUrlForPhotographer(photographer);
-    
+
     // If the URL doesn't match the photographer, use the correct URL
     if (correctUrl && imageUrl !== correctUrl) {
       console.log(`Image URL ${imageUrl} doesn't match photographer ${photographer}. Using correct URL ${correctUrl}`);
       return { url: correctUrl, photographer };
     }
-    
+
     // If we have a valid pair, return it
     if (correctUrl) {
       return { url: correctUrl, photographer };
     }
   }
-  
+
   // If we only have the photographer, get the correct URL
   if (photographer && !imageUrl) {
     const url = getImageUrlForPhotographer(photographer);
     return { url, photographer };
   }
-  
+
   // If we only have the URL, get the correct photographer
   if (imageUrl && !photographer) {
     const photographer = getPhotographerForImageUrl(imageUrl);
     return { url: imageUrl, photographer };
   }
-  
+
   // If we have neither, return a random image
   const randomPhotographer = getRandomPhotographer();
   const randomUrl = getImageUrlForPhotographer(randomPhotographer);
@@ -121,10 +121,56 @@ function getRandomPhotographer() {
   return photographers[randomIndex];
 }
 
+/**
+ * Get an alternative image for a photographer
+ * @param {string} photographer The photographer to find an alternative for
+ * @param {string[]} excludeUrls Optional array of image URLs to exclude
+ * @returns {Object} An alternative image by a different photographer
+ */
+function getAlternativeImage(photographer, excludeUrls = []) {
+  // Get all photographers except the current one
+  const otherPhotographers = Object.keys(PHOTOGRAPHER_IMAGE_MAP).filter(p => p !== photographer);
+
+  // If there are no other photographers (unlikely), return a random one
+  if (otherPhotographers.length === 0) {
+    const randomPhotographer = getRandomPhotographer();
+    return {
+      photographer: randomPhotographer,
+      url: PHOTOGRAPHER_IMAGE_MAP[randomPhotographer]
+    };
+  }
+
+  // Filter out photographers whose images are in the excluded list
+  const availablePhotographers = otherPhotographers.filter(p => {
+    const url = PHOTOGRAPHER_IMAGE_MAP[p];
+    return !excludeUrls.includes(url);
+  });
+
+  // If all alternatives are excluded, return a random photographer
+  if (availablePhotographers.length === 0) {
+    const randomPhotographer = getRandomPhotographer();
+    return {
+      photographer: randomPhotographer,
+      url: PHOTOGRAPHER_IMAGE_MAP[randomPhotographer]
+    };
+  }
+
+  // Pick a random photographer from the available ones
+  const randomIndex = Math.floor(Math.random() * availablePhotographers.length);
+  const selectedPhotographer = availablePhotographers[randomIndex];
+
+  // Return the image for this photographer
+  return {
+    photographer: selectedPhotographer,
+    url: PHOTOGRAPHER_IMAGE_MAP[selectedPhotographer]
+  };
+}
+
 module.exports = {
   getImageUrlForPhotographer,
   getPhotographerForImageUrl,
   validateAndCorrectImageData,
   getRandomPhotographer,
+  getAlternativeImage,
   PHOTOGRAPHER_IMAGE_MAP
 };

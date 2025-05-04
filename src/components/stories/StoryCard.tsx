@@ -9,7 +9,8 @@ import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
 import { cn } from '@/src/utils/cn';
 import type { Story } from '@/types/Story';
-import { validateAndCorrectImageData } from '@/src/utils/imageManager';
+import { validateAndCorrectImageData, getAlternativeImage } from '@/src/utils/imageManager';
+import { isImageUsedOnPage, markImageAsUsed, getUsedImagesOnPage, setupPageImageTracker } from '@/src/utils/pageImageTracker';
 
 // Direct mapping between photographers and their images
 const PHOTOGRAPHER_IMAGES: Record<string, string> = {
@@ -168,19 +169,68 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     };
   }, [story.category, story.title, story.id, story.slug]);
 
+  // Set up the page image tracker when the component mounts
+  React.useEffect(() => {
+    setupPageImageTracker();
+  }, []);
+
   // Set the image source and photographer using our central image manager
   const [imageData] = React.useState(() => {
     // Use the validateAndCorrectImageData function to ensure consistency
     const validatedData = validateAndCorrectImageData(story.imageUrl, story.photographer?.name);
 
+    // Get all currently used images on the page
+    const usedImages = getUsedImagesOnPage();
+
+    // If the validated image is already used on this page, get an alternative
+    if (validatedData.url && isImageUsedOnPage(validatedData.url)) {
+      console.log(`Image ${validatedData.url} is already used on this page. Getting alternative.`);
+      const alternativeData = getAlternativeImage(validatedData.photographer, usedImages);
+
+      // Mark this new image as used
+      markImageAsUsed(alternativeData.url);
+
+      return {
+        imageUrl: alternativeData.url,
+        photographer: {
+          name: alternativeData.photographer,
+          url: `https://unsplash.com/@${alternativeData.photographer.toLowerCase().replace(/\s+/g, '')}`
+        }
+      };
+    }
+
     // If we don't have valid data, fall back to our unique image generator
     if (!validatedData.url || !validatedData.photographer) {
       const fallbackData = getUniqueImageAndPhotographer();
+
+      // Make sure this fallback image isn't already used
+      if (isImageUsedOnPage(fallbackData.imageUrl)) {
+        // Get a random image that's not already used
+        const alternativeData = getAlternativeImage(fallbackData.photographer.name, usedImages);
+
+        // Mark this new image as used
+        markImageAsUsed(alternativeData.url);
+
+        return {
+          imageUrl: alternativeData.url,
+          photographer: {
+            name: alternativeData.photographer,
+            url: `https://unsplash.com/@${alternativeData.photographer.toLowerCase().replace(/\s+/g, '')}`
+          }
+        };
+      }
+
+      // Mark this image as used
+      markImageAsUsed(fallbackData.imageUrl);
+
       return {
         imageUrl: fallbackData.imageUrl,
         photographer: fallbackData.photographer
       };
     }
+
+    // Mark this image as used
+    markImageAsUsed(validatedData.url);
 
     return {
       imageUrl: validatedData.url,
