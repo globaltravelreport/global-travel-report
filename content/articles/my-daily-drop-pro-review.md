@@ -1,15 +1,17 @@
 ---
-title: 'My Daily Drop Pro Review'
-summary: '<p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt sitti...'
+title: My Daily Drop Pro Review
+summary: <p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt sitti...
 date: '2025-04-30T13:53:23.000Z'
-country: 'Global'
-type: 'Travel'
-imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828'
+country: Global
+type: Travel
+imageUrl: https://images.unsplash.com/photo-1488646953014-85cb44e25828
 slug: my-daily-drop-pro-review
-keywords: 'travel'
+keywords: Travel, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel
 photographer:
-  name: 'Test Mode'
-  url: 'https://unsplash.com'
+  name: Test Mode
+  url: https://unsplash.com
+excerpt: <p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt...
+imageAlt: My Daily Drop Pro Review - Travel Guide | Photo by Test Mode
 ---
 
 <p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt sitting on a bridge in Vienna, Austria" /><br />

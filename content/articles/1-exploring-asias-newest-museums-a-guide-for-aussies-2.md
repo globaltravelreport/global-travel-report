@@ -1,16 +1,20 @@
 ---
-title: 'Exploring Asia's Newest Museums: A Guide for Aussies'
-summary: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit...'
+title: 'Exploring Asia''s Newest Museums: A Guide for Aussies'
+summary: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I''m thrilled to guide you through the unveiling of two must-visit...'
 date: '2025-04-16T13:53:24.589Z'
-country: 'Asia'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+country: Asia
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1508672019048-805c876b67e2
 slug: 1-exploring-asias-newest-museums-a-guide-for-aussies-2
-metaTitle: 'Exploring Asia's Newest Museums: A Guide for Aussies'
-metaDescription: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit...'
+metaTitle: 'Exploring Asia''s Newest Museums: A Guide for Aussies'
+metaDescription: '  **As an Australian travel journalist with a knack for uncovering cultural treasures, I''m thrilled to guide you through the unveiling of two must-visit...'
 photographer:
-  name: 'Simon Migaj'
-  url: 'https://unsplash.com'
+  name: Simon Migaj
+  url: https://unsplash.com
+name: Simon Migaj
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Cultural tourism, Historical sites, Museums, Local traditions, Festivals, Travel guide, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'Exploring Asia''s Newest Museums: A Guide for Aussies - Culture Guide | Photo by Simon Migaj'
 ---
 
 **As an Australian travel journalist with a knack for uncovering cultural treasures, I'm thrilled to guide you through the unveiling of two must-visit museums in Asia that have recently opened their doors to the public. These destinations are not only about admiring art but also understanding diverse cultures and histories. Here's everything you need to know, from getting there to making the most out of your visit.

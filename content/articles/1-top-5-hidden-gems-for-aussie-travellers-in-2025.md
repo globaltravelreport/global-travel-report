@@ -1,16 +1,20 @@
 ---
-title: 'Top 5 Hidden Gems for Aussie Travellers in'
+title: Top 5 Hidden Gems for Aussie Travellers in
 summary: '### Top 5 Hidden Gems for Aussie Travellers in 2025...'
 date: '2025-04-25T13:53:24.597Z'
-country: ''Montenegro, Ghana, Uruguay, Georgia, Taiwan''
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+country: '''Montenegro, Ghana, Uruguay, Georgia, Taiwan'''
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1530789253388-582c481c54b0
 slug: 1-top-5-hidden-gems-for-aussie-travellers-in-2025
-metaTitle: '1. Top 5 Hidden Gems for Aussie Travellers in 2025'
+metaTitle: 1. Top 5 Hidden Gems for Aussie Travellers in 2025
 metaDescription: '### Top 5 Hidden Gems for Aussie Travellers in 2025...'
 photographer:
-  name: 'Sime Basioli'
-  url: 'https://unsplash.com'
+  name: Sime Basioli
+  url: https://unsplash.com
+name: Sime Basioli
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: Top 5 Hidden Gems for Aussie Travellers in in 'Montenegro, Ghana, Uruguay, Georgia, Taiwan' - Experience Guide | Photo by ...
 ---
 
 ### Top 5 Hidden Gems for Aussie Travellers in 2025

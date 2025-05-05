@@ -1,16 +1,20 @@
 ---
-title: 'Asia's Newest Museums: A Guide for Aussie Explorers'
-summary: '### Asia's Newest Museums: A Guide for Aussie Explorers...'
+title: 'Asia''s Newest Museums: A Guide for Aussie Explorers'
+summary: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
 date: '2025-04-16T13:53:24.568Z'
-country: 'Asia'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+country: Asia
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1528164344705-47542687000d
 slug: 1-asias-newest-museums-a-guide-for-aussie-explorers
-metaTitle: ''1. Asia''s Newest Museums: A Guide for Aussie Explorers''
-metaDescription: '### Asia's Newest Museums: A Guide for Aussie Explorers...'
+metaTitle: '''1. Asia''''s Newest Museums: A Guide for Aussie Explorers'''
+metaDescription: '### Asia''s Newest Museums: A Guide for Aussie Explorers...'
 photographer:
-  name: 'Davide Cantelli'
-  url: 'https://unsplash.com'
+  name: Davide Cantelli
+  url: https://unsplash.com
+name: Davide Cantelli
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Cultural tourism, Historical sites, Museums, Local traditions, Festivals, Travel guide, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'Asia''s Newest Museums: A Guide for Aussie Explorers - Culture Guide | Photo by Davide Cantelli'
 ---
 
 ### Asia's Newest Museums: A Guide for Aussie Explorers

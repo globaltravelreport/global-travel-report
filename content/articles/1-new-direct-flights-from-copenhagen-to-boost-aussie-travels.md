@@ -1,16 +1,20 @@
 ---
-title: 'New Direct Flights from Copenhagen to Boost Aussie Travels'
+title: New Direct Flights from Copenhagen to Boost Aussie Travels
 summary: ' Explore Copenhagen with New Direct Flights Perfect for Australian Travellers...'
 date: '2025-04-10T13:53:24.591Z'
-country: 'Denmark'
-type: ''Culture, Adventure''
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+country: Denmark
+type: '''Culture, Adventure'''
+imageUrl: https://images.unsplash.com/photo-1528127269322-539801943592
 slug: 1-new-direct-flights-from-copenhagen-to-boost-aussie-travels
-metaTitle: '1. New Direct Flights from Copenhagen to Boost Aussie Travels'
+metaTitle: 1. New Direct Flights from Copenhagen to Boost Aussie Travels
 metaDescription: ' Explore Copenhagen with New Direct Flights Perfect for Australian Travellers...'
 photographer:
-  name: 'Emile Guillemot'
-  url: 'https://unsplash.com'
+  name: Emile Guillemot
+  url: https://unsplash.com
+name: Emile Guillemot
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: New Direct Flights from Copenhagen to Boost Aussie Travels in Denmark - 'Culture, Adventure' Guide | Photo by Emile Guillemot
 ---
 
 Explore Copenhagen with New Direct Flights Perfect for Australian Travellers

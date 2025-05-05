@@ -1,16 +1,20 @@
 ---
-title: 'Star Voyager: Thailand's New Luxury Liner Awaits Aussie Explorers'
+title: 'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers'
 summary: ' Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream ...'
 date: '2025-04-16T13:53:24.595Z'
-country: 'Thailand'
-type: ''Luxury, Culture''
-imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+country: Thailand
+type: '''Luxury, Culture'''
+imageUrl: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
 slug: 1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl
-metaTitle: ''1. Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers''
+metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Liner Awaits Aussie Explorers'''
 metaDescription: ' Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream ...'
 photographer:
-  name: 'Caleb Jones'
-  url: 'https://unsplash.com'
+  name: Caleb Jones
+  url: https://unsplash.com
+name: Caleb Jones
+url: https://unsplash.com
+keywords: Bangkok, Phuket, Chiang mai, Thai islands, Thai food, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel
+imageAlt: 'Star Voyager: Thailand''s New Luxury Liner Awaits Aussie Explorers - ''Luxury, Culture'' Guide | Photo by Caleb Jones'
 ---
 
 Embarking on a journey to position Thailand as a premier cruise hub, the collaboration between the Tourism Authority of Thailand (TAT) and StarDream Cruises introduces the magnificent *Star Voyager*, a beacon of luxury and adventure for Australian travelers.

@@ -1,16 +1,24 @@
 ---
-title: 'Asia's Newest Museums: A Must-Visit for Aussie Travellers'
-summary: 'Rewritten article...'
+title: Asia
+s Newest Museums: A Must-Visit for Aussie Travellers'
+summary: Rewritten article...
 date: '2025-04-09T13:53:24.569Z'
-country: 'Global'
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+country: Global
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1526772662000-3f88f10405ff
 slug: 1-asias-newest-museums-a-must-visit-for-aussie-travellers
-metaTitle: ''1. **Asia''s Newest Museums: A Must-Visit for Aussie Travellers**''
-metaDescription: 'Rewritten article...'
+metaTitle: ''
+1. **Asia''s Newest Museums: A Must-Visit for Aussie Travellers**''
+metaDescription: Rewritten article...
 photographer:
-  name: 'Thomas Tucker'
-  url: 'https://unsplash.com'
+  name: Thomas Tucker
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: |-
+  Rewritten article
+
+  Australia's avid explorers are always on the lookout for fresh and exciting destinations. Asia, with its rich tapestry of...
+imageAlt: Asia - Airline Guide | Photo by Thomas Tucker
 ---
 
 Rewritten article

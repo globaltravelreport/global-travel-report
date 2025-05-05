@@ -1,16 +1,20 @@
 ---
 title: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
-summary: 'Flying to Copenhagen Just Got Easier for Aussies!...'
+summary: Flying to Copenhagen Just Got Easier for Aussies!...
 date: '2025-04-17T13:53:24.574Z'
-country: 'Denmark'
-type: ''Culture, Food & Wine''
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+country: Denmark
+type: '''Culture, Food & Wine'''
+imageUrl: https://images.unsplash.com/photo-1488085061387-422e29b40080
 slug: 1-discover-copenhagen-direct-flights-from-china-eastern-airl
 metaTitle: 'Discover Copenhagen: Direct Flights from China Eastern Airlines'
-metaDescription: 'Flying to Copenhagen Just Got Easier for Aussies!...'
+metaDescription: Flying to Copenhagen Just Got Easier for Aussies!...
 photographer:
-  name: 'Jakob Owens'
-  url: 'https://unsplash.com'
+  name: Jakob Owens
+  url: https://unsplash.com
+name: Jakob Owens
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Discover Copenhagen: Direct Flights from China Eastern Airlines in Denmark - ''Culture, Food & Wine'' Guide | Photo by Jakob...'
 ---
 
 Flying to Copenhagen Just Got Easier for Aussies!

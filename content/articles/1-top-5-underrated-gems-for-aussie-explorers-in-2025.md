@@ -1,16 +1,20 @@
 ---
-title: 'Top 5 Underrated Gems for Aussie Explorers in'
+title: Top 5 Underrated Gems for Aussie Explorers in
 summary: '  As Australian wanderlust continues to grow, seeking out lesser-trodden paths has become the new trend. For those looking to escape the usual tourist t...'
 date: '2025-04-23T13:53:24.597Z'
-country: ''Chile, Estonia, Malaysia, Slovenia, Senegal''
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800'
+country: '''Chile, Estonia, Malaysia, Slovenia, Senegal'''
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1469854523086-cc02fe5d8800
 slug: 1-top-5-underrated-gems-for-aussie-explorers-in-2025
-metaTitle: '1. Top 5 Underrated Gems for Aussie Explorers in 2025'
+metaTitle: 1. Top 5 Underrated Gems for Aussie Explorers in 2025
 metaDescription: '  As Australian wanderlust continues to grow, seeking out lesser-trodden paths has become the new trend. For those looking to escape the usual tourist t...'
 photographer:
-  name: 'Braden Jarvis'
-  url: 'https://unsplash.com'
+  name: Braden Jarvis
+  url: https://unsplash.com
+name: Braden Jarvis
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: Top 5 Underrated Gems for Aussie Explorers in in 'Chile, Estonia, Malaysia, Slovenia, Senegal' - Experience Guide | Photo ...
 ---
 
 As Australian wanderlust continues to grow, seeking out lesser-trodden paths has become the new trend. For those looking to escape the usual tourist traps in 2025, here are five underrated destinations that promise adventure, culture, and a touch of the unique, all tailored for the Aussie explorer.

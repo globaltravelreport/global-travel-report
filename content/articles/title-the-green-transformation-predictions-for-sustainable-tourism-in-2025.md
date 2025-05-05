@@ -1,15 +1,17 @@
 ---
 title: 'The Green Transformation: Predictions for Sustainable Tourism in 2025'
-summary: 'This article explores the growing trend of sustainable tourism and predicts that by 2025, over 70% of travellers will consider sustainability factors when planning their trips.'
+summary: This article explores the growing trend of sustainable tourism and predicts that by 2025, over 70% of travellers will consider sustainability factors when planning their trips.
 date: '2025-04-21T13:53:24.665Z'
-country: 'Global'
-type: 'Sustainable Tourism'
-imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
+country: Global
+type: Sustainable Tourism
+imageUrl: https://images.unsplash.com/photo-1540202404-a2f29016b523
 slug: title-the-green-transformation-predictions-for-sustainable-tourism-in-2025
-keywords: 'Sustainable Tourism,Eco-Friendly Travel,Future Tourism Trends,Travel Industry,Environmental Impact'
+keywords: Sustainable tourism, Eco-friendly travel, Future tourism trends, Travel industry, Environmental impact, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems
 photographer:
-  name: 'Shifaaz Shamoon'
-  url: 'https://unsplash.com'
+  name: Shifaaz Shamoon
+  url: https://unsplash.com
+excerpt: As the world becomes increasingly environmentally conscious, the concept of sustainable tourism is gaining significant traction among travellers...
+imageAlt: 'The Green Transformation: Predictions for Sustainable Tourism in 2025 | Photo by Shifaaz Shamoon'
 ---
 
 As the world becomes increasingly environmentally conscious, the concept of sustainable tourism is gaining significant traction among travellers across the globe. A growing number of explorers are prioritising not only the wonders that each destination offers but also how their personal choices can positively impact these places and their communities.

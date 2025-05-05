@@ -1,16 +1,26 @@
 ---
-title: 'Explore Asia's Newest Museums: A Guide for Aussies'
-summary: 'Rewritten article:...'
+title: Explore Asia
+s Newest Museums: A Guide for Aussies'
+summary: Rewritten article:...
 date: '2025-04-11T13:53:24.581Z'
-country: 'Asia (Various)'
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
+country: Asia (Various)
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1565073624497-7e91b5cc3843
 slug: 1-explore-asias-newest-museums-a-guide-for-aussies
-metaTitle: ''1. Explore Asia''s Newest Museums: A Guide for Aussies''
-metaDescription: 'Rewritten article:...'
+metaTitle: ''
+1. Explore Asia''s Newest Museums: A Guide for Aussies''
+metaDescription: Rewritten article:...
 photographer:
-  name: 'Dan Gold'
-  url: 'https://unsplash.com'
+  name: Dan Gold
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: |-
+  Rewritten article:
+
+  ### Unveiling Asia's Cultural Jewels: Museums Aussies Must Visit
+
+  Asia, a continent rich in history and diversity, has recently... Explor...
+imageAlt: Explore Asia in Asia (Various) - Airline Guide | Photo by Dan Gold
 ---
 
 Rewritten article:

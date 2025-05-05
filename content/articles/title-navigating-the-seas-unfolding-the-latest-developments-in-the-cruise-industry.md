@@ -1,15 +1,18 @@
 ---
 title: 'Navigating the Seas: Unfolding the Latest Developments in the Cruise Industry'
-summary: 'This article explores the latest developments in the cruise industry, with a focus on the Port of Vancouver's upcoming season, expected to see an estimated 1.2 million passenger transits.'
+summary: This article explores the latest developments in the cruise industry, with a focus on the Port of Vancouver's upcoming season, expected to see an estimated 1.2 million passenger transits.
 date: '2025-05-02T13:53:24.656Z'
-country: 'Canada'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'
+country: Canada
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1548574505-5e239809ee19
 slug: title-navigating-the-seas-unfolding-the-latest-developments-in-the-cruise-industry
-keywords: 'Cruise industry,Port of Vancouver,Cruise tourism,Passenger transits,Cruise Hive'
+keywords: Cruise industry, Port of vancouver, Cruise tourism, Passenger transits, Cruise hive, International, Worldwide, Global destinations, World travel, Cruise ships, Cruise lines, Cruise destinations, Cruise deals, Cruise tips, Travel guide
 photographer:
-  name: 'Alonso Reyes'
-  url: 'https://unsplash.com'
+  name: Alonso Reyes
+  url: https://unsplash.com
+name: Alonso Reyes
+url: https://unsplash.com
+imageAlt: 'Navigating the Seas: Unfolding the Latest Developments in the Cruise Industry in Canada | Photo by Alonso Reyes'
 ---
 
 As the sun sets over the horizon, casting a golden glow on the pristine waters, the cruise industry continues to sail forward, charting its course amidst the ever-changing currents of global tourism. This week, we delve into the heart of this dynamic industry, bringing you the latest updates from major players such as the Port of Vancouver, Norwegian Cruise Line, Holland America Line, Royal Caribbean, and Carnival Cruise Line. 

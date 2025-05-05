@@ -1,16 +1,20 @@
 ---
 title: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'
-summary: '  As Australian wanderlusts begin to plot their next international escapade, there's one travel accessory that's becoming a non-negotiable: noise-cancel...'
+summary: '  As Australian wanderlusts begin to plot their next international escapade, there''s one travel accessory that''s becoming a non-negotiable: noise-cancel...'
 date: '2025-05-02T13:53:24.599Z'
-country: ''Multiple countries (e.g., USA, Japan, Italy, France)''
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+country: '''Multiple countries (e.g., USA, Japan, Italy, France)'''
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1503220317375-aaad61436b1b
 slug: 1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu
-metaTitle: ''1. Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have''
-metaDescription: '  As Australian wanderlusts begin to plot their next international escapade, there's one travel accessory that's becoming a non-negotiable: noise-cancel...'
+metaTitle: '''1. Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have'''
+metaDescription: '  As Australian wanderlusts begin to plot their next international escapade, there''s one travel accessory that''s becoming a non-negotiable: noise-cancel...'
 photographer:
-  name: 'Jaromir Kavan'
-  url: 'https://unsplash.com'
+  name: Jaromir Kavan
+  url: https://unsplash.com
+name: Jaromir Kavan
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Top Noise-Cancelling Headphones for Aussie Travellers: A Must-Have in ''Multiple countries (e.g., USA, Japan, Italy, France...'
 ---
 
 As Australian wanderlusts begin to plot their next international escapade, there's one travel accessory that's becoming a non-negotiable: noise-cancelling headphones. For those about to embark on long-haul flights from Sydney, Melbourne, or any major Aussie city, we've scoured the globe (and the internet) to bring you three top deals on noise-cancelling headphones that will transform your travel experience.

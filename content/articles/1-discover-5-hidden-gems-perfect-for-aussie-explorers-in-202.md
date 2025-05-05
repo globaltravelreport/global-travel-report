@@ -1,16 +1,22 @@
 ---
-title: 'Discover 5 Hidden Gems Perfect for Aussie Explorers in'
+title: Discover 5 Hidden Gems Perfect for Aussie Explorers in
 summary: ''''
 date: '2025-04-10T13:53:24.573Z'
-country: 'Unknown'
-type: 'General'
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+country: Unknown
+type: General
+imageUrl: https://images.unsplash.com/photo-1501785888041-af3ef285b470
 slug: 1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202
-metaTitle: '1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025'
+metaTitle: 1. Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
 metaDescription: ''''
 photographer:
-  name: 'Sylvain Mauroux'
-  url: 'https://unsplash.com'
+  name: Sylvain Mauroux
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: |-
+  ### Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025
+
+  As an Aussie wanderlust looking for an escape from the well-trodden tourist... Explore Unkno...
+imageAlt: Discover 5 Hidden Gems Perfect for Aussie Explorers in in Unknown - General Guide | Photo by Sylvain Mauroux
 ---
 
 ### Discover 5 Hidden Gems Perfect for Aussie Explorers in 2025

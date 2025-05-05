@@ -1,15 +1,18 @@
 ---
 title: 'Rail Journey Through Mexico: A Scenic Expedition'
-summary: 'Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.'
+summary: Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.
 date: '2025-04-09T13:53:24.659Z'
-country: 'Mexico'
-type: 'Adventure'
-imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
+country: Mexico
+type: Adventure
+imageUrl: https://images.unsplash.com/photo-1470770841072-f978cf4d019e
 slug: title-rail-journey-through-mexico-a-scenic-expedition
-keywords: 'Mexico,Train travel,El Chepe,Tren Maya,Scenic routes'
+keywords: Mexico, Train travel, El chepe, Tren maya, Scenic routes, International, Worldwide, Global destinations, World travel, Outdoor activities, Adventure sports, Hiking, Trekking, Extreme sports, Travel guide
 photographer:
-  name: 'Luca Bravo'
-  url: 'https://unsplash.com'
+  name: Luca Bravo
+  url: https://unsplash.com
+name: Luca Bravo
+url: https://unsplash.com
+imageAlt: 'Rail Journey Through Mexico: A Scenic Expedition - Adventure Guide | Photo by Luca Bravo'
 ---
 
 Content:

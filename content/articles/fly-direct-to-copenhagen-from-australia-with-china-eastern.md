@@ -1,16 +1,20 @@
 ---
-title: 'Fly Direct to Copenhagen from Australia with China Eastern'
-summary: '  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
+title: Fly Direct to Copenhagen from Australia with China Eastern
+summary: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
 date: '2025-04-20T13:53:24.629Z'
-country: 'Denmark'
-type: ''Culture, Food & Wine''
-imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
+country: Denmark
+type: '''Culture, Food & Wine'''
+imageUrl: https://images.unsplash.com/photo-1517760444937-f6397edcbbcd
 slug: fly-direct-to-copenhagen-from-australia-with-china-eastern
-metaTitle: 'Fly Direct to Copenhagen from Australia with China Eastern'
-metaDescription: '  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
+metaTitle: Fly Direct to Copenhagen from Australia with China Eastern
+metaDescription: '  In a move that''s sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...'
 photographer:
-  name: 'Cristina Gottardi'
-  url: 'https://unsplash.com'
+  name: Cristina Gottardi
+  url: https://unsplash.com
+name: Cristina Gottardi
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: Fly Direct to Copenhagen from Australia with China Eastern in Denmark - 'Culture, Food & Wine' Guide | Photo by Cristina G...
 ---
 
 In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition is not just about expanding their network but opening up a seamless pathway for Australians looking to explore the enchanting city of Copenhagen. 

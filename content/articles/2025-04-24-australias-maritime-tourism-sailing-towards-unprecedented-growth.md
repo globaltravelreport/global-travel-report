@@ -1,14 +1,18 @@
 ---
-title: 'Australia's Maritime Tourism: Sailing Towards Unprecedented Growth'
-summary: ' Australia's cruise industry is navigating towards an exciting future, witnessing a tremendous growth that is largely unmatched. With new partnerships...'
+title: 'Australia''s Maritime Tourism: Sailing Towards Unprecedented Growth'
+summary: ' Australia''s cruise industry is navigating towards an exciting future, witnessing a tremendous growth that is largely unmatched. With new partnerships...'
 date: '2025-04-21T13:53:24.619Z'
-country: 'Australia'
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+country: Australia
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
 slug: 2025-04-24-australias-maritime-tourism-sailing-towards-unprecedented-growth
 photographer:
-  name: 'Caleb Jones'
-  url: 'https://unsplash.com'
+  name: Caleb Jones
+  url: https://unsplash.com
+name: Caleb Jones
+url: https://unsplash.com
+keywords: Aussie, Down under, Outback, Great barrier reef, Sydney, Melbourne, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'Australia''s Maritime Tourism: Sailing Towards Unprecedented Growth - Airline Guide | Photo by Caleb Jones'
 ---
 
 Australia's cruise industry is navigating towards an exciting future, witnessing a tremendous growth that is largely unmatched. With new partnerships on the horizon and the expansion of cruise routes, maritime tourism is set to redefine the Australian travel landscape. A swell in bookings for both local and international cruises is a testament to this burgeoning sector.

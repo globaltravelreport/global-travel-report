@@ -1,16 +1,20 @@
 ---
-title: 'Discover Iraklio: Greece's Cruise Gem for Aussies'
+title: 'Discover Iraklio: Greece''s Cruise Gem for Aussies'
 summary: 'Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...'
 date: '2025-04-30T13:53:24.576Z'
-country: 'Greece'
-type: ''Culture, Food & Wine, Adventure''
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+country: Greece
+type: '''Culture, Food & Wine, Adventure'''
+imageUrl: https://images.unsplash.com/photo-1528127269322-539801943592
 slug: 1-discover-iraklio-greeces-cruise-gem-for-aussies
-metaTitle: ''1. Discover Iraklio: Greece''s Cruise Gem for Aussies''
+metaTitle: '''1. Discover Iraklio: Greece''''s Cruise Gem for Aussies'''
 metaDescription: 'Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...'
 photographer:
-  name: 'Emile Guillemot'
-  url: 'https://unsplash.com'
+  name: Emile Guillemot
+  url: https://unsplash.com
+name: Emile Guillemot
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Discover Iraklio: Greece''s Cruise Gem for Aussies - ''Culture, Food & Wine, Adventure'' Guide | Photo by Emile Guillemot'
 ---
 
 Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio

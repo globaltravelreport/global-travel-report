@@ -1,15 +1,20 @@
 ---
 title: 'A Gastronomic Odyssey: Roaming the Globe Through Its Plates'
-summary: 'A Gastronomic Odyssey explores the rising trend of culinary tourism, focusing on the unique culinary experiences in Japan, Italy, and Thailand.'
+summary: A Gastronomic Odyssey explores the rising trend of culinary tourism, focusing on the unique culinary experiences in Japan, Italy, and Thailand.
 date: '2025-04-09T13:53:24.634Z'
-country: 'Japan, Italy, Thailand'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
+country: Japan, Italy, Thailand
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1544644181-1484b3fdfc32
 slug: title-a-gastronomic-odyssey-roaming-the-globe-through-its-plates
-keywords: 'culinary tourism,gastronomy,food culture,Japanese cuisine,Italian cuisine,Thai cuisine'
+keywords: Culinary tourism, Gastronomy, Food culture, Japanese cuisine, Italian cuisine, Thai cuisine, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places
 photographer:
-  name: 'Ishan Seefromthesky'
-  url: 'https://unsplash.com'
+  name: Ishan Seefromthesky
+  url: https://unsplash.com
+excerpt: |-
+  Content: 
+
+  Embarking on a culinary journey is an increasingly popular trend among globetrotters, with the allure of food-centric experiences... Explore Japan...
+imageAlt: 'A Gastronomic Odyssey: Roaming the Globe Through Its Plates in Japan, Italy, Thailand - Culture Guide | Photo by Ishan See...'
 ---
 
 Content: 

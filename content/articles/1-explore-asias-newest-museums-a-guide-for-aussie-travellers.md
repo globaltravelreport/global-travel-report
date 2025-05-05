@@ -1,16 +1,20 @@
 ---
-title: 'Explore Asia's Newest Museums: A Guide for Aussie Travellers'
-summary: ' As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
+title: 'Explore Asia''s Newest Museums: A Guide for Aussie Travellers'
+summary: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
 date: '2025-04-28T13:53:24.579Z'
-country: ''Japan, South Korea''
-type: ''Culture, Adventure''
-imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
+country: '''Japan, South Korea'''
+type: '''Culture, Adventure'''
+imageUrl: https://images.unsplash.com/photo-1540202404-a2f29016b523
 slug: 1-explore-asias-newest-museums-a-guide-for-aussie-travellers
-metaTitle: ''1. Explore Asia''s Newest Museums: A Guide for Aussie Travellers''
-metaDescription: ' As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
+metaTitle: '''1. Explore Asia''''s Newest Museums: A Guide for Aussie Travellers'''
+metaDescription: ' As an Australian travel journalist and SEO expert, I''m always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust...'
 photographer:
-  name: 'Shifaaz Shamoon'
-  url: 'https://unsplash.com'
+  name: Shifaaz Shamoon
+  url: https://unsplash.com
+name: Shifaaz Shamoon
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Explore Asia''s Newest Museums: A Guide for Aussie Travellers in ''Japan, South Korea'' - ''Culture, Adventure'' Guide | Photo ...'
 ---
 
 As an Australian travel journalist and SEO expert, I'm always on the lookout for fresh and exciting destinations that resonate with Aussie wanderlust. Today, I'm thrilled to share two of Asia's newest museums that are making waves on the international scene, tailored specifically for Australian travellers. Whether you're a culture vulture or just looking to add some educational flair to your next holiday, these destinations offer a unique glimpse into Asia's rich artistic heritage. 

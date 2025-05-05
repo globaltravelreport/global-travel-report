@@ -1,15 +1,18 @@
 ---
 title: 'Cruise Conundrum: Cayman Islands Says No to Cruise Infrastructure Expansion'
-summary: 'A proposal to expand cruise infrastructure in the Cayman Islands has been rejected by voters. The decision underscores the island's commitment to sustainable tourism and the preservation of its unique lifestyle and environment.'
+summary: A proposal to expand cruise infrastructure in the Cayman Islands has been rejected by voters. The decision underscores the island's commitment to sustainable tourism and the preservation of its unique lifestyle and environment.
 date: '2025-04-29T13:53:24.642Z'
-country: 'Cayman Islands'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+country: Cayman Islands
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1530789253388-582c481c54b0
 slug: title-cruise-conundrum-cayman-islands-says-no-to-cruise-infrastructure-expansion
-keywords: 'Cayman Islands,cruise infrastructure,sustainable tourism,Cruise Port Referendum,Association for Advancement of Cruise Tourism'
+keywords: Cayman islands, Cruise infrastructure, Sustainable tourism, Cruise port referendum, Association for advancement of cruise tourism, International, Worldwide, Global destinations, World travel, Cruise ships, Cruise lines, Cruise destinations, Cruise deals, Cruise tips, Travel guide
 photographer:
-  name: 'Sime Basioli'
-  url: 'https://unsplash.com'
+  name: Sime Basioli
+  url: https://unsplash.com
+name: Sime Basioli
+url: https://unsplash.com
+imageAlt: 'Cruise Conundrum: Cayman Islands Says No to Cruise Infrastructure Expansion | Photo by Sime Basioli'
 ---
 
 In an apparent setback for cruising enthusiasts, the citizens of the Cayman Islands have voiced their verdict against the expansion of cruise infrastructure. A proposal spearheaded by the Association for Advancement of Cruise Tourism (ACT) in Grand Cayman, advocating for a significant upgrade to the cruise infrastructure, was met with a resounding 'no' from voters in 2025.

@@ -1,15 +1,17 @@
 ---
 title: 'Navigating the High Seas: A Weekly Cruise Line Overview'
-summary: 'This article provides a weekly overview of the major developments in the cruise industry, with a focus on the upcoming busy season at the Port of Vancouver.'
+summary: This article provides a weekly overview of the major developments in the cruise industry, with a focus on the upcoming busy season at the Port of Vancouver.
 date: '2025-04-05T13:53:24.655Z'
-country: 'Canada'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+country: Canada
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1528127269322-539801943592
 slug: title-navigating-the-high-seas-a-weekly-cruise-line-overview
-keywords: 'Cruise industry,Port of Vancouver,Cruise Hive,Alaska cruises,Cruise tourism'
+keywords: Cruise industry, Port of vancouver, Cruise hive, Alaska cruises, Cruise tourism, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems
 photographer:
-  name: 'Emile Guillemot'
-  url: 'https://unsplash.com'
+  name: Emile Guillemot
+  url: https://unsplash.com
+excerpt: As the sun dips below the horizon, casting long shadows on the languid waves, the world of oceanic travel continues to ebb and flow with news and... Explore ...
+imageAlt: 'Navigating the High Seas: A Weekly Cruise Line Overview in Canada | Photo by Emile Guillemot'
 ---
 
 As the sun dips below the horizon, casting long shadows on the languid waves, the world of oceanic travel continues to ebb and flow with news and developments. This week, we're taking you on a voyage through the week's major events in the cruise industry, sailing from the bustling Port of Vancouver to the fleets of the Norwegian Cruise Line, Holland America Line, Royal Caribbean, and Carnival Cruise Line.

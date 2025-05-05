@@ -2,15 +2,19 @@
 title: 'Explore Hidden Gems: 5 Must-Visit Spots for Aussies in'
 summary: ' As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holida...'
 date: '2025-04-06T13:53:24.585Z'
-country: ''Georgia, Madagascar, Oman, Belize, Mongolia''
-type: ''Adventure, Culture, Wildlife''
-imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+country: '''Georgia, Madagascar, Oman, Belize, Mongolia'''
+type: '''Adventure, Culture, Wildlife'''
+imageUrl: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
 slug: 1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025
-metaTitle: ''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025''
+metaTitle: '''1. Explore Hidden Gems: 5 Must-Visit Spots for Aussies in 2025'''
 metaDescription: ' As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holida...'
 photographer:
-  name: 'Caleb Jones'
-  url: 'https://unsplash.com'
+  name: Caleb Jones
+  url: https://unsplash.com
+name: Caleb Jones
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Explore Hidden Gems: 5 Must-Visit Spots for Aussies in in ''Georgia, Madagascar, Oman, Belize, Mongolia'' - ''Adventure, Cult...'
 ---
 
 As Australian wanderlust continues to grow, the quest for unique and less-traveled destinations becomes a paramount part of planning your next holiday. Here's a guide to five underrated travel destinations that promise adventure, culture, and unforgettable memories for Aussie travelers in 2025.

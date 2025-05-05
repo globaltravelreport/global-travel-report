@@ -1,16 +1,20 @@
 ---
 title: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies'
-summary: ' Australia's wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...'
+summary: ' Australia''s wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...'
 date: '2025-04-05T13:53:24.586Z'
-country: 'Philippines'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+country: Philippines
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1526772662000-3f88f10405ff
 slug: 1-explore-manila-with-direct-flights-from-doha-a-guide-for-a
-metaTitle: ''1. Explore Manila with Direct Flights from Doha: A Guide for Aussies''
-metaDescription: ' Australia's wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...'
+metaTitle: '''1. Explore Manila with Direct Flights from Doha: A Guide for Aussies'''
+metaDescription: ' Australia''s wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop f...'
 photographer:
-  name: 'Thomas Tucker'
-  url: 'https://unsplash.com'
+  name: Thomas Tucker
+  url: https://unsplash.com
+name: Thomas Tucker
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Explore Manila with Direct Flights from Doha: A Guide for Aussies in Philippines - Experience Guide | Photo by Thomas Tucker'
 ---
 
 Australia's wanderlust community is buzzing with excitement as Philippine Airlines, in a codeshare agreement with Qatar Airways, now offers nonstop flights from Manila to Doha, creating a seamless connection for Australians looking to explore the vibrant city of Manila. This development is a game-changer for Aussie adventurers and culture seekers aiming to dive into the heart of the Philippines without the hassle of multiple layovers.

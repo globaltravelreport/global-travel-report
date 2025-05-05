@@ -1,16 +1,20 @@
 ---
-title: 'Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots'
-summary: '### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...'
+title: 'Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots'
+summary: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 date: '2025-04-04T13:53:24.590Z'
-country: 'Multiple countries'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d'
+country: Multiple countries
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1530521954074-e64f6810b32d
 slug: 1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo
-metaTitle: ''1. Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots''
-metaDescription: '### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...'
+metaTitle: '''1. Jetstar''''s Mega Sale: $50 Flights for Aussies to Global Hotspots'''
+metaDescription: '### Jetstar''s Mega Sale: Unmissable Deals for Australian Globetrotters...'
 photographer:
-  name: 'Dino Reichmuth'
-  url: 'https://unsplash.com'
+  name: Dino Reichmuth
+  url: https://unsplash.com
+name: Dino Reichmuth
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Jetstar''s Mega Sale: $50 Flights for Aussies to Global Hotspots in Multiple countries - Experience Guide | Photo by Dino R...'
 ---
 
 ### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters

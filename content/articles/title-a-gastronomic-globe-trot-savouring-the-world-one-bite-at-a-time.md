@@ -1,15 +1,17 @@
 ---
 title: 'A Gastronomic Globe-trot: Savouring the World One Bite at a Time'
-summary: 'This article explores the rise of culinary tourism, focusing on how travellers are planning their journeys around gastronomic experiences, with a spotlight on Japan, Italy, and Thailand.'
+summary: This article explores the rise of culinary tourism, focusing on how travellers are planning their journeys around gastronomic experiences, with a spotlight on Japan, Italy, and Thailand.
 date: '2025-04-08T13:53:24.631Z'
-country: 'Japan, Italy, Thailand'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843'
+country: Japan, Italy, Thailand
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1565073624497-7e91b5cc3843
 slug: title-a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time
-keywords: 'culinary tourism,gastronomy,Japan,Italy,Thailand,food-focused travel'
+keywords: Culinary tourism, Gastronomy, Japan, Italy, Thailand, Food-focused travel, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places
 photographer:
-  name: 'Dan Gold'
-  url: 'https://unsplash.com'
+  name: Dan Gold
+  url: https://unsplash.com
+excerpt: The world of travel has evolved, and the rise of culinary tourism is a testament to this. In an era where experiences are valued more than mere... Explore Ja...
+imageAlt: 'A Gastronomic Globe-trot: Savouring the World One Bite at a Time in Japan, Italy, Thailand - Culture Guide | Photo by Dan ...'
 ---
 
 The world of travel has evolved, and the rise of culinary tourism is a testament to this. In an era where experiences are valued more than mere sightseeing, travellers are meticulously planning their itineraries around gastronomic experiences. The thrill of exploring new destinations is now flavoured with the excitement of savouring local cuisines and understanding their cultural significance.

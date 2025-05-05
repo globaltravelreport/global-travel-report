@@ -1,15 +1,18 @@
 ---
-title: 'Uncovering Italy's Charms: A Guide for the Budget-Conscious Traveller'
-summary: 'This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.'
+title: Uncovering Italy
+s Charms: A Guide for the Budget-Conscious Traveller'
+summary: This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.
 date: '2025-04-10T13:53:24.669Z'
-country: 'Italy'
-type: 'Budget Travel'
-imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+country: Italy
+type: Budget Travel
+imageUrl: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
 slug: title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller
-keywords: 'Budget travel,Italy,Budget tips,Affordable travel,Travel planning'
+keywords: Budget travel, Italy, Budget tips, Affordable travel, Travel planning, Rome, Venice, Florence, Tuscany, Amalfi coast, Sicily, Destinations, Places to visit, Travel guide, Vacation spots
 photographer:
-  name: 'Caleb Jones'
-  url: 'https://unsplash.com'
+  name: Caleb Jones
+  url: https://unsplash.com
+excerpt: As a traveller, who wouldn't dream of a Mediterranean escape, an exhilarating road trip through undulating vineyards, or an immersive art-fuelled... Explore ...
+imageAlt: Uncovering Italy - Budget Travel Guide | Photo by Caleb Jones
 ---
 
 As a traveller, who wouldn't dream of a Mediterranean escape, an exhilarating road trip through undulating vineyards, or an immersive art-fuelled exploration of medieval cities? Italy, with its vast array of culinary, scenic, architectural, historical, and cultural attractions, is a dream destination that never fails to enchant its visitors.

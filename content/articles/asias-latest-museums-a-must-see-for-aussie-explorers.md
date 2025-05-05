@@ -1,16 +1,20 @@
 ---
-title: 'Asia's Latest Museums: A Must-See for Aussie Explorers'
+title: 'Asia''s Latest Museums: A Must-See for Aussie Explorers'
 summary: ' As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...'
 date: '2025-04-21T13:53:24.624Z'
-country: ''Japan, Singapore''
-type: ''Culture, Art''
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+country: '''Japan, Singapore'''
+type: '''Culture, Art'''
+imageUrl: https://images.unsplash.com/photo-1503220317375-aaad61436b1b
 slug: asias-latest-museums-a-must-see-for-aussie-explorers
-metaTitle: ''Asia''s Latest Museums: A Must-See for Aussie Explorers''
+metaTitle: '''Asia''''s Latest Museums: A Must-See for Aussie Explorers'''
 metaDescription: ' As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...'
 photographer:
-  name: 'Jaromir Kavan'
-  url: 'https://unsplash.com'
+  name: Jaromir Kavan
+  url: https://unsplash.com
+name: Jaromir Kavan
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Asia''s Latest Museums: A Must-See for Aussie Explorers in ''Japan, Singapore'' - ''Culture, Art'' Guide | Photo by Jaromir Kavan'
 ---
 
 As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinations not only offer a deep dive into rich histories and contemporary art but are also easily accessible from major Australian cities, making them perfect additions to your travel bucket list.

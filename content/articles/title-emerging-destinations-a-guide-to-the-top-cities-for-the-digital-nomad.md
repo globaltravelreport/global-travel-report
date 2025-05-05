@@ -1,15 +1,17 @@
 ---
 title: 'Emerging Destinations: A Guide to the Top Cities for the Digital Nomad'
-summary: 'This article explores top cities for digital nomads, including Lisbon, Chiang Mai, Medellin, and Bali, highlighting their appeal in terms of fast internet, affordable living costs, and vibrant expat communities.'
+summary: This article explores top cities for digital nomads, including Lisbon, Chiang Mai, Medellin, and Bali, highlighting their appeal in terms of fast internet, affordable living costs, and vibrant expat communities.
 date: '2025-04-28T13:53:24.648Z'
-country: 'Global'
-type: 'Destination'
-imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b'
+country: Global
+type: Destination
+imageUrl: https://images.unsplash.com/photo-1503220317375-aaad61436b1b
 slug: title-emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad
-keywords: 'Digital Nomads,Remote Work,Lisbon,Chiang Mai,Medellin,Bali'
+keywords: Digital nomads, Remote work, Lisbon, Chiang mai, Medellin, Bali, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places
 photographer:
-  name: 'Jaromir Kavan'
-  url: 'https://unsplash.com'
+  name: Jaromir Kavan
+  url: https://unsplash.com
+excerpt: 'As the world of work continues to evolve with the rise of remote employment, a new breed of traveller has emerged: the digital nomad. These are...'
+imageAlt: 'Emerging Destinations: A Guide to the Top Cities for the Digital Nomad | Photo by Jaromir Kavan'
 ---
 
 As the world of work continues to evolve with the rise of remote employment, a new breed of traveller has emerged: the digital nomad. These are professionals who have melded the realms of work and travel, transforming the global landscape into their office. A selection of cities, including Lisbon, Chiang Mai, Medellin, and Bali, have surged ahead as leading centres for these digital denizens, thanks to their robust internet connections, affordable cost of living, and lively expatriate communities.

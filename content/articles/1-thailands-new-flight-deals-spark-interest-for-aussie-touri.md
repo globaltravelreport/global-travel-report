@@ -1,16 +1,20 @@
 ---
-title: 'Thailand's New Flight Deals Spark Interest for Aussie Tourists'
+title: Thailand's New Flight Deals Spark Interest for Aussie Tourists
 summary: ' Thailand is rolling out the red carpet for Australian travelers with new subsidized flight offers, aiming to rejuvenate its appeal amongst internatio...'
 date: '2025-04-15T13:53:24.596Z'
-country: 'Thailand'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+country: Thailand
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1473496169904-658ba7c44d8a
 slug: 1-thailands-new-flight-deals-spark-interest-for-aussie-touri
-metaTitle: '1. Thailand's New Flight Deals Spark Interest for Aussie Tourists'
+metaTitle: 1. Thailand's New Flight Deals Spark Interest for Aussie Tourists
 metaDescription: ' Thailand is rolling out the red carpet for Australian travelers with new subsidized flight offers, aiming to rejuvenate its appeal amongst internatio...'
 photographer:
-  name: 'Arto Marttinen'
-  url: 'https://unsplash.com'
+  name: Arto Marttinen
+  url: https://unsplash.com
+name: Arto Marttinen
+url: https://unsplash.com
+keywords: Bangkok, Phuket, Chiang mai, Thai islands, Thai food, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel
+imageAlt: Thailand's New Flight Deals Spark Interest for Aussie Tourists - Experience Guide | Photo by Arto Marttinen
 ---
 
 Thailand is rolling out the red carpet for Australian travelers with new subsidized flight offers, aiming to rejuvenate its appeal amongst international visitors, particularly those from Down Under. Here’s what you need to know about making the most of these deals and planning your Thai getaway.

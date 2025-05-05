@@ -2,15 +2,22 @@
 title: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways'
 summary: '### Direct Flights from Manila to Doha: A New Gateway for Aussie Explorers...'
 date: '2025-04-29T13:53:24.589Z'
-country: 'Qatar'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+country: Qatar
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1501785888041-af3ef285b470
 slug: 1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a
-metaTitle: ''1. Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways''
+metaTitle: ''
+1. Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways''
 metaDescription: '### Direct Flights from Manila to Doha: A New Gateway for Aussie Explorers...'
 photographer:
-  name: 'Sylvain Mauroux'
-  url: 'https://unsplash.com'
+  name: Sylvain Mauroux
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: |-
+  ### Direct Flights from Manila to Doha: A New Gateway for Aussie Explorers
+
+  Australian globetrotters looking for an exciting new destination can... Explore Q...
+imageAlt: 'Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways - Experience Guide | Photo by Sylvain Mauroux'
 ---
 
 ### Direct Flights from Manila to Doha: A New Gateway for Aussie Explorers

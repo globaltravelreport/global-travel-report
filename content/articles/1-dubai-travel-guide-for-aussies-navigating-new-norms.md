@@ -2,15 +2,19 @@
 title: 'Dubai Travel Guide for Aussies: Navigating New Norms'
 summary: ' Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The f...'
 date: '2025-05-01T13:53:24.579Z'
-country: 'United Arab Emirates'
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
+country: United Arab Emirates
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1517760444937-f6397edcbbcd
 slug: 1-dubai-travel-guide-for-aussies-navigating-new-norms
-metaTitle: ''1. Dubai Travel Guide for Aussies: Navigating New Norms''
+metaTitle: ''
+1. Dubai Travel Guide for Aussies: Navigating New Norms''
 metaDescription: ' Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The f...'
 photographer:
-  name: 'Cristina Gottardi'
-  url: 'https://unsplash.com'
+  name: Cristina Gottardi
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The... Explor...
+imageAlt: 'Dubai Travel Guide for Aussies: Navigating New Norms in United Arab Emirates - Airline Guide | Photo by Cristina Gottardi'
 ---
 
 Embarking on a journey from the Land Down Under to the dazzling cityscapes of Dubai can be an exhilarating experience for Australian travelers. The fusion of futuristic architecture and ancient traditions makes Dubai a unique destination, offering something for every type of explorer. Here's what you need to know to make the most out of your Arabian adventure.

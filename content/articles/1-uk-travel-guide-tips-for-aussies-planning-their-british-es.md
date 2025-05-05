@@ -2,15 +2,22 @@
 title: 'UK Travel Guide: Tips for Aussies Planning Their British Escape'
 summary: 'A Guide for Australians Travelling to the UK: Everything You Need to Know...'
 date: '2025-04-12T13:53:24.614Z'
-country: 'United Kingdom'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
+country: United Kingdom
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1517760444937-f6397edcbbcd
 slug: 1-uk-travel-guide-tips-for-aussies-planning-their-british-es
-metaTitle: ''1. UK Travel Guide: Tips for Aussies Planning Their British Escape''
+metaTitle: ''
+1. UK Travel Guide: Tips for Aussies Planning Their British Escape''
 metaDescription: 'A Guide for Australians Travelling to the UK: Everything You Need to Know...'
 photographer:
-  name: 'Cristina Gottardi'
-  url: 'https://unsplash.com'
+  name: Cristina Gottardi
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: |-
+  A Guide for Australians Travelling to the UK: Everything You Need to Know
+
+  For Aussies looking to swap the sunburnt country for the historic... Explore Unite...
+imageAlt: 'UK Travel Guide: Tips for Aussies Planning Their British Escape in United Kingdom - Experience Guide | Photo by Cristina G...'
 ---
 
 A Guide for Australians Travelling to the UK: Everything You Need to Know

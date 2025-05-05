@@ -1,16 +1,20 @@
 ---
-title: 'Asia's Latest Museums: A Must-Visit for Aussie Explorers'
-summary: 'Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...'
+title: 'Asia''s Latest Museums: A Must-Visit for Aussie Explorers'
+summary: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
 date: '2025-05-01T13:53:24.566Z'
-country: 'Multiple countries in Asia'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+country: Multiple countries in Asia
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1473496169904-658ba7c44d8a
 slug: 1-asias-latest-museums-a-must-visit-for-aussie-explorers
-metaTitle: ''1. Asia''s Latest Museums: A Must-Visit for Aussie Explorers''
-metaDescription: 'Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...'
+metaTitle: '''1. Asia''''s Latest Museums: A Must-Visit for Aussie Explorers'''
+metaDescription: 'Exploring Asia''s Newest Cultural Gems: A Guide for Australian Travelers...'
 photographer:
-  name: 'Arto Marttinen'
-  url: 'https://unsplash.com'
+  name: Arto Marttinen
+  url: https://unsplash.com
+name: Arto Marttinen
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Cultural tourism, Historical sites, Museums, Local traditions, Festivals, Travel guide, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'Asia''s Latest Museums: A Must-Visit for Aussie Explorers in Multiple countries in Asia - Culture Guide | Photo by Arto Mar...'
 ---
 
 Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers

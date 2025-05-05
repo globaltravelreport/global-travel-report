@@ -1,16 +1,20 @@
 ---
-title: 'Scotland's Cruise Boom: A £130m Lift & Aussie Guide'
-summary: '### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...'
+title: 'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide'
+summary: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
 date: '2025-04-24T13:53:24.593Z'
-country: 'Scotland'
-type: 'Experience'
-imageUrl: 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd'
+country: Scotland
+type: Experience
+imageUrl: https://images.unsplash.com/photo-1517760444937-f6397edcbbcd
 slug: 1-scotlands-cruise-boom-a-130m-lift-aussie-guide
-metaTitle: ''1. Scotland''s Cruise Boom: A £130m Lift & Aussie Guide''
-metaDescription: '### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...'
+metaTitle: '''1. Scotland''''s Cruise Boom: A £130m Lift & Aussie Guide'''
+metaDescription: '### Scotland''s Cruise Boom: A £130m Lift & Aussie Guide...'
 photographer:
-  name: 'Cristina Gottardi'
-  url: 'https://unsplash.com'
+  name: Cristina Gottardi
+  url: https://unsplash.com
+name: Cristina Gottardi
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Scotland''s Cruise Boom: A £130m Lift & Aussie Guide - Experience Guide | Photo by Cristina Gottardi'
 ---
 
 ### Scotland's Cruise Boom: A £130m Lift & Aussie Guide

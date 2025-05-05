@@ -1,16 +1,20 @@
 ---
-title: 'Star Voyager: Thailand's New Luxury Cruise Awaits Aussie Travellers'
-summary: 'Thailand Beckons Aussie Explorers with the Launch of Star Voyager...'
+title: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers'
+summary: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
 date: '2025-04-14T13:53:24.595Z'
-country: 'Thailand'
-type: 'Luxury'
-imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32'
+country: Thailand
+type: Luxury
+imageUrl: https://images.unsplash.com/photo-1544644181-1484b3fdfc32
 slug: 1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra
-metaTitle: ''1. Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers''
-metaDescription: 'Thailand Beckons Aussie Explorers with the Launch of Star Voyager...'
+metaTitle: '''1. Star Voyager: Thailand''''s New Luxury Cruise Awaits Aussie Travellers'''
+metaDescription: Thailand Beckons Aussie Explorers with the Launch of Star Voyager...
 photographer:
-  name: 'Ishan Seefromthesky'
-  url: 'https://unsplash.com'
+  name: Ishan Seefromthesky
+  url: https://unsplash.com
+name: Ishan Seefromthesky
+url: https://unsplash.com
+keywords: Bangkok, Phuket, Chiang mai, Thai islands, Thai food, Luxury hotels, Luxury resorts, Luxury travel, Exclusive destinations, Travel guide, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'Star Voyager: Thailand''s New Luxury Cruise Awaits Aussie Travellers | Photo by Ishan Seefromthesky'
 ---
 
 Thailand Beckons Aussie Explorers with the Launch of Star Voyager

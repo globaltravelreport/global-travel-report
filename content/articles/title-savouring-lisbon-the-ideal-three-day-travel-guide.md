@@ -1,15 +1,18 @@
 ---
 title: 'Savouring Lisbon: The Ideal Three-Day Travel Guide '
-summary: 'A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.'
+summary: A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.
 date: '2025-04-12T13:53:24.664Z'
-country: 'Portugal'
-type: 'Destination'
-imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
+country: Portugal
+type: Destination
+imageUrl: https://images.unsplash.com/photo-1520466809213-7b9a56adcd45
 slug: title-savouring-lisbon-the-ideal-three-day-travel-guide
-keywords: 'Lisbon,Portugal,Three-day itinerary,Travel guide,Cultural travel'
+keywords: Lisbon, Portugal, Three-day itinerary, Travel guide, Cultural travel, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Vacation spots, Best places, Hidden gems, Travel tips
 photographer:
-  name: 'Willian West'
-  url: 'https://unsplash.com'
+  name: Willian West
+  url: https://unsplash.com
+name: Willian West
+url: https://unsplash.com
+imageAlt: 'Savouring Lisbon: The Ideal Three-Day Travel Guide  in Portugal - Destination Guide | Photo by Willian West'
 ---
 
 Immerse yourself in the mesmerising charm of Lisbon, a city like no other in Europe. The Portuguese capital, with its time-worn pastel façades, ornate azulejos (painted glazed tiles), hill-climbing vintage funiculars, and a timeless, laid-back allure, has a magnetic pull. Over the last twenty years, my countless visits to this captivating city have only intensified my fascination. Although I currently reside in the Algarve, a swift train journey frequently reunites me with my cherished city. 

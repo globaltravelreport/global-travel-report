@@ -1,16 +1,20 @@
 ---
-title: 'Scotland's Cruise Boom: A £130M Windfall & Aussie Guide'
-summary: 'Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
+title: 'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide'
+summary: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
 date: '2025-04-04T13:53:24.594Z'
-country: 'Scotland'
-type: ''Luxury, Culture''
-imageUrl: 'https://images.unsplash.com/photo-1540202404-a2f29016b523'
+country: Scotland
+type: '''Luxury, Culture'''
+imageUrl: https://images.unsplash.com/photo-1540202404-a2f29016b523
 slug: 1-scotlands-cruise-boom-a-130m-windfall-aussie-guide
-metaTitle: ''1. Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide''
-metaDescription: 'Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
+metaTitle: '''1. Scotland''''s Cruise Boom: A £130M Windfall & Aussie Guide'''
+metaDescription: 'Scotland''s Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...'
 photographer:
-  name: 'Shifaaz Shamoon'
-  url: 'https://unsplash.com'
+  name: Shifaaz Shamoon
+  url: https://unsplash.com
+name: Shifaaz Shamoon
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Scotland''s Cruise Boom: A £130M Windfall & Aussie Guide - ''Luxury, Culture'' Guide | Photo by Shifaaz Shamoon'
 ---
 
 Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers

@@ -1,16 +1,20 @@
 ---
 title: 'Hidden Gems: Top International Destinations for Aussies in'
-summary: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those u...'
+summary: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it''s all about discovering those u...'
 date: '2025-04-10T13:53:24.630Z'
-country: ''Ghana, Georgia''
-type: ''Culture, Adventure''
-imageUrl: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45'
+country: '''Ghana, Georgia'''
+type: '''Culture, Adventure'''
+imageUrl: https://images.unsplash.com/photo-1520466809213-7b9a56adcd45
 slug: hidden-gems-top-international-destinations-for-aussies-in-20
-metaTitle: ''Hidden Gems: Top International Destinations for Aussies in 2025''
-metaDescription: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those u...'
+metaTitle: '''Hidden Gems: Top International Destinations for Aussies in 2025'''
+metaDescription: ' Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it''s all about discovering those u...'
 photographer:
-  name: 'Willian West'
-  url: 'https://unsplash.com'
+  name: Willian West
+  url: https://unsplash.com
+name: Willian West
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'Hidden Gems: Top International Destinations for Aussies in in ''Ghana, Georgia'' - ''Culture, Adventure'' Guide | Photo by Wil...'
 ---
 
 Gone are the days when Australian travelers stuck to the well-trodden paths of Europe and Southeast Asia. In 2025, it's all about discovering those underrated gems that offer unique experiences without the crowds. From the vibrant streets of Accra, Ghana, to the tranquil beauty of Georgia's mountains, there's a world waiting to be explored that meshes well with the adventurous Aussie spirit. 

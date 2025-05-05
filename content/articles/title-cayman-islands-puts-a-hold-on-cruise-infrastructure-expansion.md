@@ -1,15 +1,17 @@
 ---
-title: 'Cayman Islands Puts a Hold on Cruise Infrastructure Expansion'
-summary: 'In a public vote, the Cayman Islands has decided against the proposed expansion of its cruise infrastructure, prioritising sustainable development and quality of life over tourism growth.'
+title: Cayman Islands Puts a Hold on Cruise Infrastructure Expansion
+summary: In a public vote, the Cayman Islands has decided against the proposed expansion of its cruise infrastructure, prioritising sustainable development and quality of life over tourism growth.
 date: '2025-04-14T13:53:24.640Z'
-country: 'Cayman Islands'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d'
+country: Cayman Islands
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1528164344705-47542687000d
 slug: title-cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion
-keywords: 'Cayman Islands,cruise infrastructure,public vote,sustainable development,tourism'
+keywords: Cayman islands, Cruise infrastructure, Public vote, Sustainable development, Tourism, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems
 photographer:
-  name: 'Davide Cantelli'
-  url: 'https://unsplash.com'
+  name: Davide Cantelli
+  url: https://unsplash.com
+excerpt: In a remarkable turn of events, the residents of the scenic Cayman Islands have collectively decided against the expansion of cruise...
+imageAlt: Cayman Islands Puts a Hold on Cruise Infrastructure Expansion | Photo by Davide Cantelli
 ---
 
 In a remarkable turn of events, the residents of the scenic Cayman Islands have collectively decided against the expansion of cruise infrastructure. The decision, resulting from a public vote, may not be well-received by cruise enthusiasts worldwide.

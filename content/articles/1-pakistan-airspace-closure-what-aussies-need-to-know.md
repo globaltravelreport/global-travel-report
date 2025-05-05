@@ -2,15 +2,19 @@
 title: 'Pakistan Airspace Closure: What Aussies Need to Know'
 summary: '  As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closu...'
 date: '2025-04-20T13:53:24.592Z'
-country: 'India'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e'
+country: India
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1470770841072-f978cf4d019e
 slug: 1-pakistan-airspace-closure-what-aussies-need-to-know
-metaTitle: ''1. Pakistan Airspace Closure: What Aussies Need to Know''
+metaTitle: ''
+1. Pakistan Airspace Closure: What Aussies Need to Know''
 metaDescription: '  As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closu...'
 photographer:
-  name: 'Luca Bravo'
-  url: 'https://unsplash.com'
+  name: Luca Bravo
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent...
+imageAlt: 'Pakistan Airspace Closure: What Aussies Need to Know in India - Culture Guide | Photo by Luca Bravo'
 ---
 
 As an Australian looking to explore the vibrant cultures, breathtaking landscapes, and historical marvels of the Indian subcontinent, the recent closure of Pakistan's airspace to Indian airlines might have you wondering how your travel plans could be affected. Here's everything you need to know, from altered flight routes to the best times to visit.

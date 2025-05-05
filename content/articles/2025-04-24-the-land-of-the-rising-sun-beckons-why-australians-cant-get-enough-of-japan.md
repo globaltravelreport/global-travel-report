@@ -1,14 +1,18 @@
 ---
-title: 'The Land of the Rising Sun Beckons: Why Australians Can't Get Enough of Japan'
+title: 'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan'
 summary: ' Japan, with its unique blend of time-honored customs and cutting-edge innovation, has become an irresistible magnet for Australians seeking adventure...'
 date: '2025-04-18T13:53:24.623Z'
-country: 'Australia'
-type: 'Airline'
-imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+country: Australia
+type: Airline
+imageUrl: https://images.unsplash.com/photo-1508672019048-805c876b67e2
 slug: 2025-04-24-the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan
 photographer:
-  name: 'Simon Migaj'
-  url: 'https://unsplash.com'
+  name: Simon Migaj
+  url: https://unsplash.com
+name: Simon Migaj
+url: https://unsplash.com
+keywords: Aussie, Down under, Outback, Great barrier reef, Sydney, Melbourne, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel
+imageAlt: 'The Land of the Rising Sun Beckons: Why Australians Can''t Get Enough of Japan - Airline Guide | Photo by Simon Migaj'
 ---
 
 Japan, with its unique blend of time-honored customs and cutting-edge innovation, has become an irresistible magnet for Australians seeking adventures off the beaten track. From the dazzling neon skyline of Tokyo to the tranquil, temple-dotted landscape of Kyoto, Australian globe-trotters are flocking to Japan in unprecedented numbers.

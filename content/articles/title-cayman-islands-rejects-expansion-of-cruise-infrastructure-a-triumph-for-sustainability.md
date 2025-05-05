@@ -1,15 +1,17 @@
 ---
 title: 'Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph for Sustainability'
-summary: 'In a landmark decision, the Cayman Islands rejected a proposal for cruise infrastructure expansion, prioritising sustainable tourism and the preservation of local quality of life.'
+summary: In a landmark decision, the Cayman Islands rejected a proposal for cruise infrastructure expansion, prioritising sustainable tourism and the preservation of local quality of life.
 date: '2025-04-11T13:53:24.641Z'
-country: 'Cayman Islands'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff'
+country: Cayman Islands
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1526772662000-3f88f10405ff
 slug: title-cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability
-keywords: 'Cayman Islands,Cruise Tourism,Sustainable Tourism,Cruise Port Referendum,Cruise Infrastructure'
+keywords: Cayman islands, Cruise tourism, Sustainable tourism, Cruise port referendum, Cruise infrastructure, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems
 photographer:
-  name: 'Thomas Tucker'
-  url: 'https://unsplash.com'
+  name: Thomas Tucker
+  url: https://unsplash.com
+excerpt: In a significant and possibly unexpected decision, the people of the Cayman Islands have voiced their collective opinion against the proposed...
+imageAlt: 'Cayman Islands Rejects Expansion of Cruise Infrastructure: A Triumph for Sustainability | Photo by Thomas Tucker'
 ---
 
 In a significant and possibly unexpected decision, the people of the Cayman Islands have voiced their collective opinion against the proposed expansion of cruise infrastructure.

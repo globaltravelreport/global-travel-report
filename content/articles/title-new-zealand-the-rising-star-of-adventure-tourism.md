@@ -1,15 +1,18 @@
 ---
 title: 'New Zealand: The Rising Star of Adventure Tourism'
-summary: 'Experiencing a surge in adventure tourism, New Zealand is quickly establishing itself as the world's leading destination for thrill-seekers, with a 15% increase in bookings, even outperforming pre-pandemic levels.'
+summary: Experiencing a surge in adventure tourism, New Zealand is quickly establishing itself as the world's leading destination for thrill-seekers, with a 15% increase in bookings, even outperforming pre-pandemic levels.
 date: '2025-05-01T13:53:24.658Z'
-country: 'New Zealand'
-type: 'Adventure'
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+country: New Zealand
+type: Adventure
+imageUrl: https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1
 slug: title-new-zealand-the-rising-star-of-adventure-tourism
-keywords: 'New Zealand,adventure tourism,thrill-seekers,adrenaline-pumping activities,tourism boom'
+keywords: New zealand, Adventure tourism, Thrill-seekers, Adrenaline-pumping activities, Tourism boom, International, Worldwide, Global destinations, World travel, Outdoor activities, Adventure sports, Hiking, Trekking, Extreme sports, Travel guide
 photographer:
-  name: 'Asoggetti'
-  url: 'https://unsplash.com'
+  name: Asoggetti
+  url: https://unsplash.com
+name: Asoggetti
+url: https://unsplash.com
+imageAlt: 'New Zealand: The Rising Star of Adventure Tourism | Photo by Asoggetti'
 ---
 
 In the realm of thrill-seeking and adrenaline-pumping pursuits, New Zealand is emerging as a global hotspot. This serene island nation, renowned for its captivating natural beauty, has witnessed a significant surge in adventure tourism over the past year, firmly establishing itself as the world's premier adventure destination.

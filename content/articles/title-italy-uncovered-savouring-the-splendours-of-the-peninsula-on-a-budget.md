@@ -1,15 +1,17 @@
 ---
 title: 'Italy Uncovered: Savouring the Splendours of the Peninsula on a Budget'
-summary: 'An informative guide on how to explore the rich cultural and scenic beauty of Italy on a budget, offering strategies for cost-effective travel.'
+summary: An informative guide on how to explore the rich cultural and scenic beauty of Italy on a budget, offering strategies for cost-effective travel.
 date: '2025-04-12T13:53:24.651Z'
-country: 'Italy'
-type: 'Budget Travel'
-imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+country: Italy
+type: Budget Travel
+imageUrl: https://images.unsplash.com/photo-1488085061387-422e29b40080
 slug: title-italy-uncovered-savouring-the-splendours-of-the-peninsula-on-a-budget
-keywords: 'Italy travel,budget travel,travel planning,Italian journey,cost-effective travel'
+keywords: Italy travel, Budget travel, Travel planning, Italian journey, Cost-effective travel, Rome, Venice, Florence, Tuscany, Amalfi coast, Sicily, Destinations, Places to visit, Travel guide, Vacation spots
 photographer:
-  name: 'Jakob Owens'
-  url: 'https://unsplash.com'
+  name: Jakob Owens
+  url: https://unsplash.com
+excerpt: As you embark on your quest for a Mediterranean adventure, the allure of Italy, with its majestic landscapes, historic towns, and gastronomic...
+imageAlt: 'Italy Uncovered: Savouring the Splendours of the Peninsula on a Budget - Budget Travel Guide | Photo by Jakob Owens'
 ---
 
 As you embark on your quest for a Mediterranean adventure, the allure of Italy, with its majestic landscapes, historic towns, and gastronomic delights, is undeniably irresistible. From the rolling vineyards of Tuscany to the medieval charm of Siena and the artistic richness of Rome, the Italian peninsula promises an unforgettable journey. As you plan your expedition, understanding the cost of Italian experiences will aid in crafting a budget-friendly itinerary without compromising the richness of your experience.

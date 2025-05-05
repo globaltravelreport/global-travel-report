@@ -1,15 +1,17 @@
 ---
-title: 'Unearthing the Undiscovered Treasures of Southeast Asia'
-summary: 'An engaging journey through Southeast Asia, highlighting its diverse cultural experiences, stunning landscapes, and the best time to explore the region.'
+title: Unearthing the Undiscovered Treasures of Southeast Asia
+summary: An engaging journey through Southeast Asia, highlighting its diverse cultural experiences, stunning landscapes, and the best time to explore the region.
 date: '2025-04-10T13:53:24.670Z'
-country: 'Southeast Asia'
-type: 'Adventure'
-imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a'
+country: Southeast Asia
+type: Adventure
+imageUrl: https://images.unsplash.com/photo-1473496169904-658ba7c44d8a
 slug: title-unearthing-the-undiscovered-treasures-of-southeast-asia
-keywords: 'Southeast Asia,Travel,Cultural Experiences,Adventure,Bali,Cambodia'
+keywords: Southeast asia, Travel, Cultural experiences, Adventure, Bali, Cambodia, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places
 photographer:
-  name: 'Arto Marttinen'
-  url: 'https://unsplash.com'
+  name: Arto Marttinen
+  url: https://unsplash.com
+excerpt: Southeast Asia, with its vibrant mosaic of cultures, exquisite landscapes, and thrilling adventures, consistently lures the discerning traveller,...
+imageAlt: Unearthing the Undiscovered Treasures of Southeast Asia - Adventure Guide | Photo by Arto Marttinen
 ---
 
 Southeast Asia, with its vibrant mosaic of cultures, exquisite landscapes, and thrilling adventures, consistently lures the discerning traveller, seeking a journey less ordinary. Each country in this captivating region tells a unique tale, from the emerald green rice terraces of Bali to the timeless ancient temples of Cambodia, a testament to the rich and diverse tapestry of experiences awaiting the intrepid explorer.

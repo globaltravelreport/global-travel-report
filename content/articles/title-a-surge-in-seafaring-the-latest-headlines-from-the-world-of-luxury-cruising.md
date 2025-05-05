@@ -1,15 +1,17 @@
 ---
 title: 'A Surge in Seafaring: The Latest Headlines from the World of Luxury Cruising'
-summary: 'This article covers the latest news in the global cruise industry, with a focus on the anticipated surge in activity at the Port of Vancouver in 2025.'
+summary: This article covers the latest news in the global cruise industry, with a focus on the anticipated surge in activity at the Port of Vancouver in 2025.
 date: '2025-04-11T13:53:24.638Z'
-country: 'Canada'
-type: 'Cruise'
-imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'
+country: Canada
+type: Cruise
+imageUrl: https://images.unsplash.com/photo-1507525428034-b723cf961d3e
 slug: title-a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising
-keywords: 'Cruise,Port of Vancouver,Cruise Industry,Luxury Cruising,Travel News'
+keywords: Cruise, Port of vancouver, Cruise industry, Luxury cruising, Travel news, International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems
 photographer:
-  name: 'Caleb Jones'
-  url: 'https://unsplash.com'
+  name: Caleb Jones
+  url: https://unsplash.com
+excerpt: Delve into the most recent developments across the global cruise industry as we navigate through this week's news round-up. From the bustling Port... Explore...
+imageAlt: 'A Surge in Seafaring: The Latest Headlines from the World of Luxury Cruising in Canada - Cruise Guide | Photo by Caleb Jones'
 ---
 
 Delve into the most recent developments across the global cruise industry as we navigate through this week's news round-up. From the bustling Port of Vancouver to the luxurious fleets of Norwegian Cruise Line, Holland America Line, Royal Caribbean, and Carnival Cruise Line, we've got all your seafaring updates covered. 

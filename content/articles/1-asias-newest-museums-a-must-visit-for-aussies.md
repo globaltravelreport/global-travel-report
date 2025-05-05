@@ -1,16 +1,21 @@
 ---
-title: 'Asia's Newest Museums: A Must-Visit for Aussies'
+title: Asia
+s Newest Museums: A Must-Visit for Aussies'
 summary: '  Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant cultu...'
 date: '2025-04-18T13:53:24.570Z'
-country: 'Asia'
-type: 'Culture'
-imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0'
+country: Asia
+type: Culture
+imageUrl: https://images.unsplash.com/photo-1530789253388-582c481c54b0
 slug: 1-asias-newest-museums-a-must-visit-for-aussies
-metaTitle: ''1. Asia''s Newest Museums: A Must-Visit for Aussies''
+metaTitle: ''
+1. Asia''s Newest Museums: A Must-Visit for Aussies''
 metaDescription: '  Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant cultu...'
 photographer:
-  name: 'Sime Basioli'
-  url: 'https://unsplash.com'
+  name: Sime Basioli
+  url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+excerpt: Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant...
+imageAlt: Asia - Culture Guide | Photo by Sime Basioli
 ---
 
 Asia is always evolving, offering fresh and exciting experiences for the intrepid Australian traveler. Among the latest additions to its vibrant cultural scene are two museums that are quickly becoming must-visit destinations. Here's everything you need to know about these new cultural gems, from flight routes and prices to the best times to visit.

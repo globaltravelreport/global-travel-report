@@ -1,16 +1,20 @@
 ---
-title: 'Discover Prague's Luxury: A Perfect Getaway for Aussies'
-summary: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing ...'
+title: 'Discover Prague''s Luxury: A Perfect Getaway for Aussies'
+summary: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it''s even more appealing ...'
 date: '2025-04-21T13:53:24.577Z'
-country: 'Czech Republic'
-type: 'Luxury'
-imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'
+country: Czech Republic
+type: Luxury
+imageUrl: https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1
 slug: 1-discover-pragues-luxury-a-perfect-getaway-for-aussies
-metaTitle: ''1. Discover Prague''s Luxury: A Perfect Getaway for Aussies''
-metaDescription: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing ...'
+metaTitle: '''1. Discover Prague''''s Luxury: A Perfect Getaway for Aussies'''
+metaDescription: ' Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it''s even more appealing ...'
 photographer:
-  name: 'Asoggetti'
-  url: 'https://unsplash.com'
+  name: Asoggetti
+  url: https://unsplash.com
+name: Asoggetti
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Luxury hotels, Luxury resorts, Luxury travel, Exclusive destinations, Travel guide, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Adventure travel
+imageAlt: 'Discover Prague''s Luxury: A Perfect Getaway for Aussies in Czech Republic | Photo by Asoggetti'
 ---
 
 Prague, with its enchanting streets and majestic historical sites, has always been a bucket-list destination for many. Now, it's even more appealing for Australian travelers with the opening of Prague's newest luxury hotel. As a travel journalist and SEO expert, I've gathered all the essential info to make your Czech vacation as splendid and hassle-free as possible.

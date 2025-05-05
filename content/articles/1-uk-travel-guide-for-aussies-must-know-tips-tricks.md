@@ -1,16 +1,20 @@
 ---
 title: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks'
-summary: 'Rewritten article...'
+summary: Rewritten article...
 date: '2025-05-01T13:53:24.609Z'
-country: 'United Kingdom'
-type: ''Culture, Adventure, Budget''
-imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592'
+country: United Kingdom
+type: '''Culture, Adventure, Budget'''
+imageUrl: https://images.unsplash.com/photo-1528127269322-539801943592
 slug: 1-uk-travel-guide-for-aussies-must-know-tips-tricks
-metaTitle: ''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks''
-metaDescription: 'Rewritten article...'
+metaTitle: '''1. UK Travel Guide for Aussies: Must-Know Tips & Tricks'''
+metaDescription: Rewritten article...
 photographer:
-  name: 'Emile Guillemot'
-  url: 'https://unsplash.com'
+  name: Emile Guillemot
+  url: https://unsplash.com
+name: Emile Guillemot
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: 'UK Travel Guide for Aussies: Must-Know Tips & Tricks in United Kingdom - ''Culture, Adventure, Budget'' Guide | Photo by Emi...'
 ---
 
 Rewritten article

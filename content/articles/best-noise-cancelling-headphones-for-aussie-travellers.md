@@ -1,16 +1,20 @@
 ---
-title: 'Best Noise-Cancelling Headphones for Aussie Travellers'
-summary: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you'r...'
+title: Best Noise-Cancelling Headphones for Aussie Travellers
+summary: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you''r...'
 date: '2025-04-06T13:53:24.625Z'
-country: 'Multiple destinations'
-type: 'Travel Essentials'
-imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470'
+country: Multiple destinations
+type: Travel Essentials
+imageUrl: https://images.unsplash.com/photo-1501785888041-af3ef285b470
 slug: best-noise-cancelling-headphones-for-aussie-travellers
-metaTitle: 'Best Noise-Cancelling Headphones for Aussie Travellers'
-metaDescription: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you'r...'
+metaTitle: Best Noise-Cancelling Headphones for Aussie Travellers
+metaDescription: ' When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you''r...'
 photographer:
-  name: 'Sylvain Mauroux'
-  url: 'https://unsplash.com'
+  name: Sylvain Mauroux
+  url: https://unsplash.com
+name: Sylvain Mauroux
+url: https://unsplash.com
+keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
+imageAlt: Best Noise-Cancelling Headphones for Aussie Travellers in Multiple destinations - Travel Essentials Guide | Photo by Sylva...
 ---
 
 When it comes to jet-setting from Down Under to the far reaches of our planet, the journey can be just as important as the destination. Whether you're escaping the Aussie winter for Europe's summer charm or chasing the northern lights during our summer break, having the best noise-cancelling headphones can transform your travel experience.
