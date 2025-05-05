@@ -197,28 +197,42 @@ const stats = {
 
 // Validate environment variables
 function validateEnvironment() {
-  const requiredVars = [
-    'TWITTER_API_KEY',
-    'TWITTER_API_SECRET',
-    'TWITTER_ACCESS_TOKEN',
-    'TWITTER_ACCESS_SECRET',
-    'FACEBOOK_PAGE_ID',
-    'FACEBOOK_ACCESS_TOKEN',
-    'LINKEDIN_CLIENT_ID',
-    'LINKEDIN_CLIENT_SECRET',
-    'LINKEDIN_ACCESS_TOKEN',
-    'MEDIUM_ACCESS_TOKEN',
-    'TUMBLR_API_KEY'
-  ];
+  // Group required variables by platform
+  const requiredVarsByPlatform = {
+    twitter: ['TWITTER_API_KEY', 'TWITTER_API_SECRET', 'TWITTER_ACCESS_TOKEN', 'TWITTER_ACCESS_SECRET'],
+    facebook: ['FACEBOOK_PAGE_ID', 'FACEBOOK_ACCESS_TOKEN'],
+    linkedin: ['LINKEDIN_ACCESS_TOKEN'],
+    tumblr: ['TUMBLR_API_KEY'],
+    // Medium is optional since we don't have the token yet
+    medium: []
+  };
 
-  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+  // Check which platforms are available
+  const availablePlatforms = [];
+  const unavailablePlatforms = [];
+  const missingVars = [];
+
+  for (const [platform, vars] of Object.entries(requiredVarsByPlatform)) {
+    const platformMissingVars = vars.filter(varName => !process.env[varName]);
+
+    if (platformMissingVars.length === 0) {
+      availablePlatforms.push(platform);
+    } else {
+      unavailablePlatforms.push(platform);
+      missingVars.push(...platformMissingVars);
+    }
+  }
 
   if (missingVars.length > 0) {
     console.warn(`⚠️ Missing some social media API keys: ${missingVars.join(', ')}`);
-    console.warn('Some social media platforms may not be available');
+    console.warn(`⚠️ Unavailable platforms: ${unavailablePlatforms.join(', ')}`);
+    console.warn(`✅ Available platforms: ${availablePlatforms.join(', ')}`);
+  } else {
+    console.log(`✅ All configured social media platforms are available`);
   }
 
-  return missingVars.length === 0;
+  // Return true if at least one platform is available
+  return availablePlatforms.length > 0;
 }
 
 // Initialize API clients
@@ -388,6 +402,9 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
   // Log the story being posted
   await logToFile(`Posting story: ${story.title} (${trackingUrl})`);
 
+  // Track successful posts to determine if we should mark the story as posted
+  let successfulPosts = 0;
+
   // Post to Twitter
   if (apiClients.twitter) {
     try {
@@ -398,6 +415,7 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
         const tweet = await apiClients.twitter.v2.tweet(tweetText);
         console.log(`✅ Posted to Twitter: ${tweet.data.id}`);
         stats.postsCreated.twitter++;
+        successfulPosts++;
         await logToFile(`Posted to Twitter: ${tweet.data.id}`);
       } else {
         console.log('🧪 Test mode: Would post to Twitter');
@@ -419,6 +437,7 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
         const post = await apiClients.facebook.posts.create(process.env.FACEBOOK_PAGE_ID, fbPost);
         console.log(`✅ Posted to Facebook: ${post.id}`);
         stats.postsCreated.facebook++;
+        successfulPosts++;
         await logToFile(`Posted to Facebook: ${post.id}`);
       } else {
         console.log('🧪 Test mode: Would post to Facebook');
@@ -440,6 +459,7 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
         const post = await apiClients.linkedin.posts.create(linkedinPost);
         console.log(`✅ Posted to LinkedIn: ${post.id}`);
         stats.postsCreated.linkedin++;
+        successfulPosts++;
         await logToFile(`Posted to LinkedIn: ${post.id}`);
       } else {
         console.log('🧪 Test mode: Would post to LinkedIn');
@@ -482,6 +502,7 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
         const post = await apiClients.tumblr.posts.create(tumblrPost);
         console.log(`✅ Posted to Tumblr: ${post.id}`);
         stats.postsCreated.tumblr++;
+        successfulPosts++;
         await logToFile(`Posted to Tumblr: ${post.id}`);
       } else {
         console.log('🧪 Test mode: Would post to Tumblr');
@@ -491,6 +512,18 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
       stats.errors.tumblr++;
       await logToFile(`Error posting to Tumblr: ${error.message}`);
     }
+  }
+
+  // Mark the story as posted if at least one post was successful
+  if (successfulPosts > 0 && !isTest) {
+    console.log(`✅ Successfully posted to ${successfulPosts} platform(s)`);
+    await markStoryAsPosted(story);
+    await logToFile(`Marked story as posted: ${story.title}`);
+  } else if (isTest) {
+    console.log('🧪 Test mode: Would mark story as posted');
+  } else {
+    console.log(`⚠️ No successful posts for story: ${story.title}`);
+    await logToFile(`No successful posts for story: ${story.title}`);
   }
 }
 
@@ -663,16 +696,56 @@ async function getRecentStories() {
     }
 
     // Sort by publication date (newest first)
-    stories.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    stories.sort((a, b) => {
+      // Handle potential date parsing errors
+      try {
+        const dateA = new Date(b.date || b.publishedAt);
+        const dateB = new Date(a.date || a.publishedAt);
+        return dateA - dateB;
+      } catch (error) {
+        console.warn(`⚠️ Error comparing dates: ${error.message}`);
+        return 0;
+      }
+    });
 
     // Get stories from the last 24 hours that haven't been posted to social media
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    return stories.filter(story => {
-      const pubDate = new Date(story.publishedAt);
-      return pubDate > oneDayAgo && !story.postedToSocialMedia;
+    // Get today's date at midnight
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Filter stories
+    const recentStories = stories.filter(story => {
+      try {
+        // Use date or publishedAt, whichever is available
+        const pubDateStr = story.date || story.publishedAt;
+        const pubDate = new Date(pubDateStr);
+
+        // Check if the date is valid
+        if (isNaN(pubDate.getTime())) {
+          console.warn(`⚠️ Invalid date for story "${story.title}": ${pubDateStr}`);
+          return false;
+        }
+
+        // Check if the story was published today or yesterday
+        const isRecent = pubDate >= oneDayAgo;
+
+        // Check if the story has already been posted to social media
+        const notPosted = !story.postedToSocialMedia;
+
+        return isRecent && notPosted;
+      } catch (error) {
+        console.warn(`⚠️ Error processing story date: ${error.message}`);
+        return false;
+      }
     });
+
+    console.log(`📊 Found ${recentStories.length} recent stories that haven't been posted to social media`);
+
+    // Limit to 5 stories to avoid flooding social media
+    return recentStories.slice(0, 5);
   } catch (error) {
     console.error(`❌ Error getting recent stories: ${error.message}`);
     return [];
