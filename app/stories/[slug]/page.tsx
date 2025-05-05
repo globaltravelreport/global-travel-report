@@ -8,7 +8,6 @@ import { Badge } from "@/src/components/ui/badge";
 import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
 import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
-import SchemaOrg from "@/components/SchemaOrg";
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
 import { getAllStories, getStoryBySlug } from "@/src/utils/stories";
@@ -19,6 +18,12 @@ import { generateStoryMeta } from "@/src/utils/meta";
 import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
+// Import our new SEO utilities
+import { enhanceStoryForSEO } from "@/src/utils/seoEnhancer";
+import { optimizeStoryImageForSeo } from "@/src/utils/imageSeoOptimizer";
+import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
+// Import our new StructuredData component
+import StructuredData from "@/src/components/StructuredData";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -45,58 +50,87 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     };
   }
 
+  // Enhance the story with optimized SEO metadata
+  const enhancedStory = enhanceStoryForSEO(story);
+
   // Generate optimized meta title and description
-  const { title, description } = generateStoryMeta(story);
+  const { title, description } = generateStoryMeta(enhancedStory);
+
+  // Optimize the story image for SEO
+  const { imageUrl: optimizedImageUrl, altText: optimizedAltText } = optimizeStoryImageForSeo(enhancedStory);
 
   // Generate Open Graph image URL
-  // Use the story's image if available, otherwise use a static OG image
-  const ogImage = story.imageUrl
-    ? story.imageUrl.startsWith('http')
-      ? story.imageUrl
-      : `${process.env.NEXT_PUBLIC_SITE_URL}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+  // Use the optimized image if available, otherwise use a static OG image
+  const ogImage = optimizedImageUrl
+    ? optimizedImageUrl.startsWith('http')
+      ? optimizedImageUrl
+      : `${process.env.NEXT_PUBLIC_SITE_URL}${optimizedImageUrl.startsWith('/') ? optimizedImageUrl : `/${optimizedImageUrl}`}`
     : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-image.jpg`;
 
   // Construct the canonical URL for this story
-  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;
+  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${enhancedStory.slug}`;
+
+  // Get the base site URL
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
 
   return {
     title,
     description,
+    keywords: enhancedStory.tags.join(', '),
     openGraph: {
       title,
       description,
       type: "article",
-      publishedTime: new Date(story.publishedAt).toISOString(),
+      publishedTime: new Date(enhancedStory.publishedAt).toISOString(),
       authors: ["Global Travel Report Editorial Team"],
-      url: storyUrl, // Add the URL property for og:url
+      url: storyUrl,
       images: ogImage ? [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: story.title,
+          alt: optimizedAltText,
         },
-      ] : story.imageUrl ? [
-        {
-          url: story.imageUrl,
-          width: 1200,
-          height: 630,
-          alt: story.title,
-        }
       ] : [],
       siteName: 'Global Travel Report',
-      tags: story.tags,
+      tags: enhancedStory.tags,
+      locale: 'en_AU',
+      countryName: enhancedStory.country,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : story.imageUrl ? [story.imageUrl] : [],
+      images: ogImage ? [ogImage] : [],
       creator: "@GTravelReport",
       site: "@GTravelReport",
     },
     alternates: {
       canonical: storyUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    other: {
+      'geo.placename': enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
+      'geo.region': enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
+      'og:image:width': '1200',
+      'og:image:height': '630',
+      'article:published_time': new Date(enhancedStory.publishedAt).toISOString(),
+      'article:publisher': siteUrl,
+      'article:author': 'Global Travel Report Editorial Team',
+      'article:section': enhancedStory.category,
+      'article:tag': enhancedStory.tags.join(','),
     },
   };
 }
@@ -140,8 +174,11 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
       {/* We'll use the enhanced StoryShareSection component instead of FloatingShareButton */}
 
-      {/* Add structured data for SEO */}
-      <SchemaOrg story={story} siteUrl={process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'} />
+      {/* Add enhanced structured data for SEO using our new component */}
+      <StructuredData
+        slug={story.slug}
+        data={generateAllEnhancedSchemas(enhanceStoryForSEO(story), process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com')}
+      />
 
       <header className="mb-8">
         <div className="flex flex-wrap gap-2 mb-4">
@@ -159,7 +196,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between text-muted-foreground mb-6">
           <div className="mb-4 sm:mb-0">
-            <span>{format(new Date(story.publishedAt), 'MMMM dd, yyyy')}</span>
+            <span>{format(new Date(story.date || story.publishedAt), 'MMMM dd, yyyy')}</span>
             <span className="mx-2">•</span>
             <span>By Global Travel Report Editorial Team</span>
           </div>
@@ -184,7 +221,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           <div className="relative w-full mb-8">
             <ResponsiveImage
               src={story.imageUrl}
-              alt={story.title}
+              alt={optimizeStoryImageForSeo(story).altText}
               priority={true}
               className="rounded-lg"
               aspectRatio="21/9"
@@ -240,6 +277,8 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 .replace(/^\s*\|-\s*\n/m, '')
                 .replace(/^Content:\s*/i, '')
                 .replace(/Metadata in JSON format:[\s\S]*$/, '')
+                .replace(/\s*JSON\s*$/i, '') // Remove any "JSON" text at the end
+                .replace(/\n---\n[\s\S]*$/, '') // Remove any separator and metadata
             )
           }}
         />

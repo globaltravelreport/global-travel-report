@@ -24,5 +24,3 @@ The latest figures from tourism officials reveal a noteworthy resurgence in the 
 This reinvigorated interest in New Zealand as an adventure destination underscores the country's unique appeal. It's not just about the thrill of the adventure; it's also about the captivating natural environment where the adventure unfolds. New Zealand's stunning landscapes, from its towering mountains to its roaring rivers, provide an unparalleled setting for these unforgettable experiences.
 
 In conclusion, the adventure tourism boom in New Zealand is more than a testament to the country's resilience in the face of global adversity. It is a reaffirmation of New Zealand's standing as the ultimate destination for thrill-seekers worldwide, offering a captivating blend of adrenaline-fueled activities and stunning natural beauty.
-
-JSON

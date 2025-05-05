@@ -620,11 +620,13 @@ Format your rewrite as follows:
 2. Write 4-6 paragraphs with varied lengths and structures
 3. Include a natural, conversational conclusion
 
-After you've written the article, I'll need you to provide the following metadata, but DO NOT include the phrase "Metadata in JSON format:" or any similar text in your response. Just provide the JSON object at the end of your response:
+After the article, add a single line with three dashes (---) as a separator, then provide the following metadata as a JSON object:
 - category: The most appropriate category (e.g., Adventure, Culture, Cruise, Airline, Destination, etc.)
 - country: The main country or region discussed
 - excerpt: A brief 1-2 sentence summary of the article that sounds natural
-- keywords: 3-5 relevant keywords`;
+- keywords: 3-5 relevant keywords
+
+DO NOT include the word "JSON" or any other text before or after the JSON object.`;
 
       // Set a timeout for the OpenAI call
       const openaiPromise = openai.chat.completions.create({
@@ -732,22 +734,45 @@ function parseOpenAIResponse(response, originalStory) {
     // Extract the title (first non-empty line)
     const title = lines.find(line => line.trim().length > 0) || originalStory.title;
 
-    // Find JSON metadata block
-    const jsonStartIndex = response.indexOf('{');
-    const jsonEndIndex = response.lastIndexOf('}');
+    // Check if the response contains the separator
+    const separatorIndex = response.indexOf('\n---\n');
 
     let metadata = {};
     let content = response;
 
-    if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
-      // Extract and parse JSON
-      const jsonStr = response.substring(jsonStartIndex, jsonEndIndex + 1);
-      try {
-        metadata = JSON.parse(jsonStr);
-        // Remove JSON from content
-        content = response.substring(0, jsonStartIndex).trim();
-      } catch (e) {
-        console.warn('⚠️ Could not parse metadata JSON, using default values');
+    if (separatorIndex !== -1) {
+      // Extract content and metadata parts
+      content = response.substring(0, separatorIndex).trim();
+      const metadataPart = response.substring(separatorIndex + 5).trim(); // 5 is the length of '\n---\n'
+
+      // Find JSON in the metadata part
+      const jsonStartIndex = metadataPart.indexOf('{');
+      const jsonEndIndex = metadataPart.lastIndexOf('}');
+
+      if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+        // Extract and parse JSON
+        const jsonStr = metadataPart.substring(jsonStartIndex, jsonEndIndex + 1);
+        try {
+          metadata = JSON.parse(jsonStr);
+        } catch (e) {
+          console.warn('⚠️ Could not parse metadata JSON, using default values:', e.message);
+        }
+      }
+    } else {
+      // Fallback to the old method if separator not found
+      const jsonStartIndex = response.indexOf('{');
+      const jsonEndIndex = response.lastIndexOf('}');
+
+      if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+        // Extract and parse JSON
+        const jsonStr = response.substring(jsonStartIndex, jsonEndIndex + 1);
+        try {
+          metadata = JSON.parse(jsonStr);
+          // Remove JSON from content
+          content = response.substring(0, jsonStartIndex).trim();
+        } catch (e) {
+          console.warn('⚠️ Could not parse metadata JSON, using default values');
+        }
       }
     }
 
@@ -756,6 +781,9 @@ function parseOpenAIResponse(response, originalStory) {
     metadata.country = metadata.country || 'Global';
     metadata.excerpt = metadata.excerpt || content.substring(0, 150) + '...';
     metadata.keywords = metadata.keywords || ['travel'];
+
+    // Remove any "JSON" text at the end of the content
+    content = content.replace(/\s*JSON\s*$/i, '');
 
     return { title, content, metadata };
   } catch (error) {
@@ -1027,6 +1055,9 @@ async function saveStoriesToMarkdown(stories) {
       // Log the publication date for debugging
       console.log(`Publication date for "${story.title}": ${pubDate.toISOString()}`);
 
+      // Store the original date string to ensure it's preserved
+      const originalDateString = story.pubDate || pubDate.toISOString();
+
       // Clean the title (remove any "Title:" prefix)
       let cleanTitle = story.title;
       if (cleanTitle.startsWith('Title:')) {
@@ -1036,7 +1067,7 @@ async function saveStoriesToMarkdown(stories) {
       // Create frontmatter with defaults for missing fields
       const frontmatter = {
         title: cleanTitle,
-        date: pubDate.toISOString(),
+        date: originalDateString, // Use the original date string to preserve the exact format
         slug: slug.replace(/^title-/, ''), // Remove any "title-" prefix from slug
         category: story.category || 'Travel',
         country: story.country || 'Global',
