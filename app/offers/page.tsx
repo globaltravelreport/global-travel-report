@@ -1,6 +1,5 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { TuneOffersSection } from '@/src/components/affiliates/TuneOffersSection';
 import { AdSenseLeaderboard } from '@/src/components/ads/AdSense';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
  * This page displays travel offers and deals from:
  * 1. Saily - International SIM cards and eSIMs
  * 2. Nord VPN - Travel security essentials
- * 3. TUNE affiliate network - Various travel deals
  */
 export default function OffersPage() {
   // Get affiliate service instance
@@ -37,15 +35,7 @@ export default function OffersPage() {
         </p>
       </div>
 
-      {/* Featured Offers */}
-      <TuneOffersSection
-        title="Featured Travel Offers"
-        description="Handpicked travel deals from our partners"
-        source="offers-featured"
-        layout="featured"
-        featuredOnly={true}
-        limit={4}
-      />
+
 
       {/* International SIM Cards Section */}
       {sailyProducts.length > 0 && (
@@ -110,56 +100,6 @@ export default function OffersPage() {
       <div className="my-12">
         <AdSenseLeaderboard />
       </div>
-
-      {/* Cruise Offers */}
-      <TuneOffersSection
-        title="Cruise Deals"
-        description="Discover amazing cruise deals to destinations around the world"
-        source="offers-cruise"
-        category="Cruise"
-        limit={3}
-      />
-
-      {/* Hotel Offers */}
-      <TuneOffersSection
-        title="Hotel Deals"
-        description="Find the perfect accommodation for your next trip"
-        source="offers-hotel"
-        tag="Hotel"
-        limit={3}
-      />
-
-      {/* Flight Offers */}
-      <TuneOffersSection
-        title="Flight Deals"
-        description="Save on flights to your favorite destinations"
-        source="offers-flight"
-        tag="Flight"
-        limit={3}
-      />
-
-      {/* AdSense Leaderboard */}
-      <div className="my-12">
-        <AdSenseLeaderboard />
-      </div>
-
-      {/* Travel Insurance Offers */}
-      <TuneOffersSection
-        title="Travel Insurance"
-        description="Protect your trip with comprehensive travel insurance"
-        source="offers-insurance"
-        tag="Insurance"
-        limit={3}
-      />
-
-      {/* Travel Packages */}
-      <TuneOffersSection
-        title="Travel Packages"
-        description="Complete travel packages for hassle-free adventures"
-        source="offers-packages"
-        tag="Package"
-        limit={3}
-      />
     </div>
   );
 }

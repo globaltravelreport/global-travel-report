@@ -16,7 +16,6 @@ import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
 import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
-import { ContextualTuneOffers } from "@/src/components/affiliates/ContextualTuneOffers";
 
 // Define the params type for Next.js
 type StoryParams = {
@@ -268,12 +267,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               />
             )}
 
-            <ContextualTuneOffers
-              story={story}
-              variant="inline"
-              title="Exclusive Travel Offers"
-              limit={2}
-            />
+
 
             <AdSenseInArticle />
           </div>
