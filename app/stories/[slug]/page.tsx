@@ -18,12 +18,11 @@ import { generateStoryMeta } from "@/src/utils/meta";
 import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
-// Import our new SEO utilities
-import { enhanceStoryForSEO } from "@/utils/seoEnhancer";
-import { optimizeStoryImageForSeo } from "@/utils/imageSeoOptimizer";
-import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
-// Import our new StructuredData component
-import StructuredData from "@/components/StructuredData";
+// SEO utilities and components are temporarily commented out to fix build issues
+// import { enhanceStoryForSEO } from "@/utils/seoEnhancer";
+// import { optimizeStoryImageForSeo } from "@/utils/imageSeoOptimizer";
+// import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
+// import StructuredData from "@/components/StructuredData";
 // Import affiliate components
 import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
 import { ContextualTuneOffers } from "@/src/components/affiliates/ContextualTuneOffers";
@@ -53,14 +52,15 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     };
   }
 
-  // Enhance the story with optimized SEO metadata
-  const enhancedStory = enhanceStoryForSEO(story);
+  // Temporarily using basic story data instead of enhanced SEO metadata
+  const enhancedStory = story; // Temporarily using story directly instead of enhanceStoryForSEO(story)
 
   // Generate optimized meta title and description
   const { title, description } = generateStoryMeta(enhancedStory);
 
-  // Optimize the story image for SEO
-  const { imageUrl: optimizedImageUrl, altText: optimizedAltText } = optimizeStoryImageForSeo(enhancedStory);
+  // Basic image data instead of optimized SEO image
+  const optimizedImageUrl = story.imageUrl;
+  const optimizedAltText = story.title;
 
   // Generate Open Graph image URL
   // Use the optimized image if available, otherwise use a static OG image
@@ -178,10 +178,12 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       {/* We'll use the enhanced StoryShareSection component instead of FloatingShareButton */}
 
       {/* Add enhanced structured data for SEO using our new component */}
+      {/* Temporarily commented out to fix build issues
       <StructuredData
         slug={story.slug}
         data={generateAllEnhancedSchemas(enhanceStoryForSEO(story), process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com')}
       />
+      */}
 
       <header className="mb-8">
         <div className="flex flex-wrap gap-2 mb-4">
@@ -224,7 +226,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           <div className="relative w-full mb-8">
             <ResponsiveImage
               src={story.imageUrl}
-              alt={optimizeStoryImageForSeo(story).altText}
+              alt={story.title} {/* Temporarily using story.title instead of optimizeStoryImageForSeo(story).altText */}
               priority={true}
               className="rounded-lg"
               aspectRatio="21/9"
