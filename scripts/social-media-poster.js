@@ -695,12 +695,49 @@ async function getRecentStories() {
       }
     }
 
+    // Log date formats for debugging
+    if (stories.length > 0) {
+      const sampleStory = stories[0];
+      console.log(`Sample story date formats:`);
+      console.log(`- date: ${sampleStory.date}`);
+      console.log(`- publishedAt: ${sampleStory.publishedAt}`);
+      console.log(`- Date object from date: ${new Date(sampleStory.date || '')}`);
+      console.log(`- Date object from publishedAt: ${new Date(sampleStory.publishedAt || '')}`);
+    }
+
     // Sort by publication date (newest first)
     stories.sort((a, b) => {
       // Handle potential date parsing errors
       try {
-        const dateA = new Date(b.date || b.publishedAt);
-        const dateB = new Date(a.date || a.publishedAt);
+        // Try to parse dates, with fallbacks
+        let dateA, dateB;
+
+        // For dateA (from story b)
+        if (b.date) {
+          dateA = new Date(b.date);
+          if (isNaN(dateA.getTime())) {
+            console.warn(`⚠️ Invalid date format for story "${b.title}": ${b.date}`);
+            dateA = b.publishedAt ? new Date(b.publishedAt) : new Date();
+          }
+        } else if (b.publishedAt) {
+          dateA = new Date(b.publishedAt);
+        } else {
+          dateA = new Date();
+        }
+
+        // For dateB (from story a)
+        if (a.date) {
+          dateB = new Date(a.date);
+          if (isNaN(dateB.getTime())) {
+            console.warn(`⚠️ Invalid date format for story "${a.title}": ${a.date}`);
+            dateB = a.publishedAt ? new Date(a.publishedAt) : new Date();
+          }
+        } else if (a.publishedAt) {
+          dateB = new Date(a.publishedAt);
+        } else {
+          dateB = new Date();
+        }
+
         return dateA - dateB;
       } catch (error) {
         console.warn(`⚠️ Error comparing dates: ${error.message}`);
@@ -718,7 +755,26 @@ async function getRecentStories() {
         // Make sure the story has a valid title and content
         const hasValidContent = story.title && story.content && story.title.length > 0;
 
-        return notPosted && hasValidContent;
+        // Log the story status for debugging
+        console.log(`Story "${story.title}" - Posted: ${!notPosted}, Valid Content: ${hasValidContent}`);
+
+        // Check if the story has a valid date
+        let hasValidDate = true;
+        if (story.date) {
+          const dateObj = new Date(story.date);
+          if (isNaN(dateObj.getTime())) {
+            console.warn(`⚠️ Story "${story.title}" has invalid date: ${story.date}`);
+            hasValidDate = false;
+          }
+        } else if (story.publishedAt) {
+          const dateObj = new Date(story.publishedAt);
+          if (isNaN(dateObj.getTime())) {
+            console.warn(`⚠️ Story "${story.title}" has invalid publishedAt: ${story.publishedAt}`);
+            hasValidDate = false;
+          }
+        }
+
+        return notPosted && hasValidContent && hasValidDate;
       } catch (error) {
         console.warn(`⚠️ Error processing story: ${error.message}`);
         return false;
@@ -776,15 +832,38 @@ async function loadStory(filePath) {
  */
 async function markStoryAsPosted(story) {
   try {
+    // Check if the story has a valid file path
+    if (!story.filePath) {
+      console.error(`❌ Cannot mark story as posted: No file path provided for "${story.title}"`);
+      return;
+    }
+
+    // Check if the file exists
+    try {
+      await fs.access(story.filePath);
+    } catch (error) {
+      console.error(`❌ Cannot mark story as posted: File does not exist: ${story.filePath}`);
+      return;
+    }
+
     // Read the file
     const fileContent = await fs.readFile(story.filePath, 'utf8');
 
     // Parse frontmatter
     const { data, content } = matter(fileContent);
 
+    // Log the current frontmatter for debugging
+    console.log(`Current frontmatter for "${story.title}":`);
+    console.log(JSON.stringify(data, null, 2));
+
     // Update frontmatter
     data.postedToSocialMedia = true;
     data.postedToSocialMediaAt = new Date().toISOString();
+
+    // Preserve the original date
+    if (story.date && !data.date) {
+      data.date = story.date;
+    }
 
     // Stringify frontmatter
     const updatedFileContent = matter.stringify(content, data);
@@ -793,6 +872,16 @@ async function markStoryAsPosted(story) {
     await fs.writeFile(story.filePath, updatedFileContent);
 
     console.log(`✅ Marked story as posted to social media: ${story.title}`);
+
+    // Verify the update
+    const verifyContent = await fs.readFile(story.filePath, 'utf8');
+    const verifyData = matter(verifyContent).data;
+
+    if (verifyData.postedToSocialMedia) {
+      console.log(`✅ Verified story marked as posted: ${story.title}`);
+    } else {
+      console.warn(`⚠️ Failed to verify story marked as posted: ${story.title}`);
+    }
   } catch (error) {
     console.error(`❌ Error marking story as posted: ${error.message}`);
   }

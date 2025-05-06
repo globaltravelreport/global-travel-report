@@ -261,6 +261,7 @@ export async function getAllStories(): Promise<Story[]> {
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
             publishedAt: safeToISOString(storyData.date),
+            date: storyData.date, // Preserve the original date string
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
             imageUrl: cleanImageUrl,
@@ -508,6 +509,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 excerpt: storyData.summary || '',
                 author: 'Global Travel Report Editorial Team',
                 publishedAt: safeToISOString(storyData.date),
+                date: storyData.date, // Preserve the original date string
                 category: storyData.type || 'Article',
                 country: storyData.country || 'Global',
                 imageUrl: storyData.imageUrl || '',
@@ -581,7 +583,7 @@ export async function saveStory(story: Story): Promise<void> {
     let frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
-date: "${safeToISOString(story.publishedAt)}"
+date: "${story.date || safeToISOString(story.publishedAt)}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${imageUrl}"

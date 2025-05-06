@@ -1064,6 +1064,13 @@ async function saveStoriesToMarkdown(stories) {
 
       console.log(`Original date string: ${originalDateString}`);
 
+      // Double-check that we're using the original date string
+      if (story.pubDate && originalDateString !== story.pubDate) {
+        console.warn(`⚠️ Date mismatch: ${originalDateString} !== ${story.pubDate}`);
+        // Force the original date string to be the exact pubDate
+        originalDateString = story.pubDate;
+      }
+
       // Clean the title (remove any "Title:" prefix)
       let cleanTitle = story.title;
       if (cleanTitle.startsWith('Title:')) {
