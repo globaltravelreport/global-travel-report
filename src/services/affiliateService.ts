@@ -1,6 +1,6 @@
 /**
  * Affiliate Service
- * 
+ *
  * This service manages affiliate links, tracking, and reporting for the Global Travel Report.
  * It handles UTM parameters, affiliate IDs, and tracking for various affiliate programs.
  */
@@ -42,7 +42,7 @@ const AFFILIATE_PROVIDERS: Record<string, AffiliateProvider> = {
     baseUrl: 'https://www.saily.com',
     affiliateId: process.env.SAILY_AFFILIATE_ID || '',
     logoUrl: '/images/affiliates/saily-logo.png',
-    description: 'Find the best cruise deals and travel packages'
+    description: 'Stay connected worldwide with affordable international SIM cards and eSIMs'
   },
   nordvpn: {
     id: 'nordvpn',
@@ -57,32 +57,32 @@ const AFFILIATE_PROVIDERS: Record<string, AffiliateProvider> = {
 // Sample affiliate products (to be replaced with API data)
 const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
   {
-    id: 'saily-caribbean-cruise',
-    name: '7-Day Caribbean Cruise',
-    description: 'Explore the beautiful Caribbean islands with this amazing cruise deal',
-    imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-    affiliateUrl: 'https://www.saily.com/deals/caribbean-cruise',
+    id: 'saily-global-esim',
+    name: 'Global eSIM Data Plan',
+    description: 'Stay connected in 190+ countries with affordable data plans and instant activation',
+    imageUrl: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb',
+    affiliateUrl: 'https://www.saily.com/esim/global',
     provider: 'saily',
-    category: 'Cruise',
-    tags: ['Caribbean', 'Cruise', 'Beach', 'Island'],
-    price: '$1,299',
-    discountPrice: '$899',
-    discountPercentage: 30,
+    category: 'Connectivity',
+    tags: ['eSIM', 'Data', 'International', 'Travel Essentials'],
+    price: '$49.99',
+    discountPrice: '$29.99',
+    discountPercentage: 40,
     rating: 4.8,
     featured: true
   },
   {
-    id: 'saily-mediterranean-cruise',
-    name: 'Mediterranean Adventure',
-    description: 'Discover the Mediterranean with stops in Italy, Greece, and Spain',
-    imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401',
-    affiliateUrl: 'https://www.saily.com/deals/mediterranean-cruise',
+    id: 'saily-europe-sim',
+    name: 'Europe Travel SIM Card',
+    description: 'Unlimited data across 30+ European countries with no roaming charges',
+    imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac',
+    affiliateUrl: 'https://www.saily.com/sim/europe',
     provider: 'saily',
-    category: 'Cruise',
-    tags: ['Mediterranean', 'Cruise', 'Europe', 'Culture'],
-    price: '$1,599',
-    discountPrice: '$1,199',
-    discountPercentage: 25,
+    category: 'Connectivity',
+    tags: ['SIM Card', 'Europe', 'Data', 'Roaming'],
+    price: '$39.99',
+    discountPrice: '$24.99',
+    discountPercentage: 37,
     rating: 4.7
   },
   {
@@ -142,7 +142,7 @@ export class AffiliateService {
    * Get affiliate products by category
    */
   public getProductsByCategory(category: string): AffiliateProduct[] {
-    return this.getAllProducts().filter(product => 
+    return this.getAllProducts().filter(product =>
       product.category.toLowerCase() === category.toLowerCase() ||
       product.tags.some(tag => tag.toLowerCase() === category.toLowerCase())
     );
@@ -153,7 +153,7 @@ export class AffiliateService {
    */
   public getProductsByTags(tags: string[]): AffiliateProduct[] {
     const normalizedTags = tags.map(tag => tag.toLowerCase());
-    return this.getAllProducts().filter(product => 
+    return this.getAllProducts().filter(product =>
       product.tags.some(tag => normalizedTags.includes(tag.toLowerCase()))
     );
   }
@@ -182,12 +182,12 @@ export class AffiliateService {
     if (!provider) return product.affiliateUrl;
 
     const url = new URL(product.affiliateUrl);
-    
+
     // Add affiliate ID
     if (provider.affiliateId) {
       url.searchParams.append('ref', provider.affiliateId);
     }
-    
+
     // Add tracking parameters if enabled
     if (this.trackingEnabled) {
       const trackingId = uuidv4().substring(0, 8);
@@ -197,7 +197,7 @@ export class AffiliateService {
       url.searchParams.append('utm_content', product.id);
       url.searchParams.append('utm_term', trackingId);
     }
-    
+
     return url.toString();
   }
 
@@ -206,10 +206,10 @@ export class AffiliateService {
    */
   public trackClick(product: AffiliateProduct, source: string = 'website'): void {
     if (!this.trackingEnabled) return;
-    
+
     // In a real implementation, this would send data to an analytics service
     console.log(`Affiliate click tracked: ${product.id} from ${source}`);
-    
+
     // Example of sending to a tracking endpoint
     if (typeof window !== 'undefined') {
       const trackingData = {
@@ -218,7 +218,7 @@ export class AffiliateService {
         source,
         timestamp: new Date().toISOString()
       };
-      
+
       // This would be replaced with a real tracking implementation
       console.log('Tracking data:', trackingData);
     }

@@ -56,11 +56,11 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Cruise Deals Section */}
+      {/* International SIM Cards Section */}
       {sailyProducts.length > 0 && (
         <AffiliateSection
-          title="Cruise Deals from Saily.com"
-          description="Discover amazing cruise deals to destinations around the world"
+          title="International SIM Cards from Saily.com"
+          description="Stay connected worldwide with affordable international SIM cards and eSIMs"
           products={sailyProducts}
           source="resources-saily"
           layout="grid"
