@@ -59,7 +59,7 @@ export default function ResourcesPage() {
       {/* International SIM Cards Section */}
       {sailyProducts.length > 0 && (
         <AffiliateSection
-          title="International SIM Cards from Saily.com"
+          title="International SIM Cards from Saily"
           description="Stay connected worldwide with affordable international SIM cards and eSIMs"
           products={sailyProducts}
           source="resources-saily"

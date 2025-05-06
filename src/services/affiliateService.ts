@@ -38,17 +38,17 @@ export interface AffiliateProvider {
 const AFFILIATE_PROVIDERS: Record<string, AffiliateProvider> = {
   saily: {
     id: 'saily',
-    name: 'Saily.com',
-    baseUrl: 'https://www.saily.com',
-    affiliateId: process.env.SAILY_AFFILIATE_ID || '',
+    name: 'Saily',
+    baseUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
+    affiliateId: '',
     logoUrl: '/images/affiliates/saily-logo.png',
     description: 'Stay connected worldwide with affordable international SIM cards and eSIMs'
   },
   nordvpn: {
     id: 'nordvpn',
     name: 'Nord VPN',
-    baseUrl: 'https://nordvpn.com',
-    affiliateId: process.env.NORDVPN_AFFILIATE_ID || '',
+    baseUrl: 'https://go.nordpass.io/aff_c?offer_id=488&aff_id=123038&url_id=9356',
+    affiliateId: '',
     logoUrl: '/images/affiliates/nordvpn-logo.png',
     description: 'Secure your internet connection while traveling'
   }
@@ -61,7 +61,7 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     name: 'Global eSIM Data Plan',
     description: 'Stay connected in 190+ countries with affordable data plans and instant activation',
     imageUrl: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb',
-    affiliateUrl: 'https://www.saily.com/esim/global',
+    affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
     provider: 'saily',
     category: 'Connectivity',
     tags: ['eSIM', 'Data', 'International', 'Travel Essentials'],
@@ -76,7 +76,7 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     name: 'Europe Travel SIM Card',
     description: 'Unlimited data across 30+ European countries with no roaming charges',
     imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac',
-    affiliateUrl: 'https://www.saily.com/sim/europe',
+    affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
     provider: 'saily',
     category: 'Connectivity',
     tags: ['SIM Card', 'Europe', 'Data', 'Roaming'],
@@ -90,7 +90,7 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     name: 'Nord VPN Annual Plan',
     description: 'Stay secure while traveling with Nord VPN\'s annual subscription',
     imageUrl: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3',
-    affiliateUrl: 'https://nordvpn.com/special-deal',
+    affiliateUrl: 'https://go.nordpass.io/aff_c?offer_id=488&aff_id=123038&url_id=9356',
     provider: 'nordvpn',
     category: 'Security',
     tags: ['VPN', 'Security', 'Privacy', 'Travel Essentials'],
@@ -178,27 +178,37 @@ export class AffiliateService {
    * Generate an affiliate link with tracking parameters
    */
   public generateAffiliateLink(product: AffiliateProduct, source: string = 'website'): string {
+    // For Saily and Nord VPN, we use the direct tracking links
+    if (product.provider === 'saily' || product.provider === 'nordvpn') {
+      return product.affiliateUrl;
+    }
+
     const provider = this.getProvider(product.provider);
     if (!provider) return product.affiliateUrl;
 
-    const url = new URL(product.affiliateUrl);
+    try {
+      const url = new URL(product.affiliateUrl);
 
-    // Add affiliate ID
-    if (provider.affiliateId) {
-      url.searchParams.append('ref', provider.affiliateId);
+      // Add affiliate ID
+      if (provider.affiliateId) {
+        url.searchParams.append('ref', provider.affiliateId);
+      }
+
+      // Add tracking parameters if enabled
+      if (this.trackingEnabled) {
+        const trackingId = uuidv4().substring(0, 8);
+        url.searchParams.append('utm_source', 'globaltravelreport');
+        url.searchParams.append('utm_medium', 'affiliate');
+        url.searchParams.append('utm_campaign', source);
+        url.searchParams.append('utm_content', product.id);
+        url.searchParams.append('utm_term', trackingId);
+      }
+
+      return url.toString();
+    } catch (error) {
+      console.error('Error generating affiliate link:', error);
+      return product.affiliateUrl;
     }
-
-    // Add tracking parameters if enabled
-    if (this.trackingEnabled) {
-      const trackingId = uuidv4().substring(0, 8);
-      url.searchParams.append('utm_source', 'globaltravelreport');
-      url.searchParams.append('utm_medium', 'affiliate');
-      url.searchParams.append('utm_campaign', source);
-      url.searchParams.append('utm_content', product.id);
-      url.searchParams.append('utm_term', trackingId);
-    }
-
-    return url.toString();
   }
 
   /**
