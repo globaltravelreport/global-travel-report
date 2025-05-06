@@ -5,29 +5,20 @@ import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
-import { StoryCoverImage } from "@/src/components/ui/OptimizedImage";
 import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
-import { getAllStories, getStoryBySlug } from "@/src/utils/stories";
-import { ShareButtons } from "@/src/components/ui/ShareButtons";
-import { FloatingShareButton } from "@/src/components/ui/FloatingShareButton";
+import { getStoryBySlug } from "@/src/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/src/utils/meta";
 import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
-// SEO utilities and components are temporarily commented out to fix build issues
-// import { enhanceStoryForSEO } from "@/utils/seoEnhancer";
-// import { optimizeStoryImageForSeo } from "@/utils/imageSeoOptimizer";
-// import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
-// import StructuredData from "@/components/StructuredData";
-// Import affiliate components
 import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
 import { ContextualTuneOffers } from "@/src/components/affiliates/ContextualTuneOffers";
 
-// Define the params type for Next.js 15
+// Define the params type for Next.js
 type StoryParams = {
   slug: string;
 };
@@ -52,18 +43,14 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     };
   }
 
-  // Temporarily using basic story data instead of enhanced SEO metadata
-  const enhancedStory = story; // Temporarily using story directly instead of enhanceStoryForSEO(story)
-
   // Generate optimized meta title and description
-  const { title, description } = generateStoryMeta(enhancedStory);
+  const { title, description } = generateStoryMeta(story);
 
-  // Basic image data instead of optimized SEO image
+  // Basic image data
   const optimizedImageUrl = story.imageUrl;
   const optimizedAltText = story.title;
 
   // Generate Open Graph image URL
-  // Use the optimized image if available, otherwise use a static OG image
   const ogImage = optimizedImageUrl
     ? optimizedImageUrl.startsWith('http')
       ? optimizedImageUrl
@@ -71,7 +58,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-image.jpg`;
 
   // Construct the canonical URL for this story
-  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${enhancedStory.slug}`;
+  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;
 
   // Get the base site URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
@@ -79,12 +66,12 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   return {
     title,
     description,
-    keywords: enhancedStory.tags.join(', '),
+    keywords: story.tags.join(', '),
     openGraph: {
       title,
       description,
       type: "article",
-      publishedTime: new Date(enhancedStory.publishedAt).toISOString(),
+      publishedTime: new Date(story.publishedAt).toISOString(),
       authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
       images: ogImage ? [
@@ -96,9 +83,9 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
         },
       ] : [],
       siteName: 'Global Travel Report',
-      tags: enhancedStory.tags,
+      tags: story.tags,
       locale: 'en_AU',
-      countryName: enhancedStory.country,
+      countryName: story.country,
     },
     twitter: {
       card: "summary_large_image",
@@ -125,65 +112,46 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       },
     },
     other: {
-      'geo.placename': enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
-      'geo.region': enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
+      'geo.placename': story.country !== 'Global' ? story.country : undefined,
+      'geo.region': story.country !== 'Global' ? story.country : undefined,
       'og:image:width': '1200',
       'og:image:height': '630',
-      'article:published_time': new Date(enhancedStory.publishedAt).toISOString(),
+      'article:published_time': new Date(story.publishedAt).toISOString(),
       'article:publisher': siteUrl,
       'article:author': 'Global Travel Report Editorial Team',
-      'article:section': enhancedStory.category,
-      'article:tag': enhancedStory.tags.join(','),
+      'article:section': story.category,
+      'article:tag': story.tags.join(','),
     },
   };
 }
 
 export default async function StoryPage({ params }: { params: StoryParams }) {
   try {
-    console.log(`Attempting to fetch story with slug: ${params.slug}`);
-
     // Try to get the story by slug
     let story = await getStoryBySlug(params.slug);
 
     // If not found, try to get from mock stories as a fallback
     if (!story) {
-      console.log(`Story not found in database, trying mock stories for slug: ${params.slug}`);
       const { mockStories } = await import('@/src/mocks/stories');
       story = mockStories.find(s => s.slug === params.slug) || null;
     }
 
     if (!story) {
-      console.log(`Story not found for slug: ${params.slug}, returning 404`);
       notFound();
     }
-
-    console.log(`Successfully loaded story: ${story.title}`);
-
 
     // Construct the canonical URL for this story
     const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
 
     return (
-      <>
-        {/* Add Facebook meta tags directly to the head */}
+      <div>
         <FacebookMetaTags
           appId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
           url={storyUrl}
         />
 
         <article className="max-w-4xl mx-auto px-4 py-8">
-          {/* Toast notifications for copy to clipboard */}
           <Toaster position="top-right" />
-
-          {/* We'll use the enhanced StoryShareSection component instead of FloatingShareButton */}
-
-          {/* Add enhanced structured data for SEO using our new component */}
-          {/* Temporarily commented out to fix build issues
-          <StructuredData
-            slug={story.slug}
-            data={generateAllEnhancedSchemas(enhanceStoryForSEO(story), process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com')}
-          />
-          */}
 
           <header className="mb-8">
             <div className="flex flex-wrap gap-2 mb-4">
@@ -206,7 +174,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 <span>By Global Travel Report Editorial Team</span>
               </div>
 
-              {/* Enhanced share buttons */}
               <div className="hidden sm:block">
                 <EnhancedSocialShare
                   url={`/stories/${story.slug}`}
@@ -226,7 +193,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               <div className="relative w-full mb-8">
                 <ResponsiveImage
                   src={story.imageUrl}
-                  alt={story.title} {/* Temporarily using story.title instead of optimizeStoryImageForSeo(story).altText */}
+                  alt={story.title}
                   priority={true}
                   className="rounded-lg"
                   aspectRatio="21/9"
@@ -274,7 +241,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
 
-            {/* Full content */}
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
@@ -282,13 +248,12 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                     .replace(/^\s*\|-\s*\n/m, '')
                     .replace(/^Content:\s*/i, '')
                     .replace(/Metadata in JSON format:[\s\S]*$/, '')
-                    .replace(/\s*JSON\s*$/i, '') // Remove any "JSON" text at the end
-                    .replace(/\n---\n[\s\S]*$/, '') // Remove any separator and metadata
+                    .replace(/\s*JSON\s*$/i, '')
+                    .replace(/\n---\n[\s\S]*$/, '')
                 )
               }}
             />
 
-            {/* Contextual Affiliate Recommendations - Mid-content */}
             {story.category === 'Cruise' ? (
               <ContextualAffiliateRecommendations
                 story={story}
@@ -303,7 +268,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               />
             )}
 
-            {/* TUNE Contextual Offers */}
             <ContextualTuneOffers
               story={story}
               variant="inline"
@@ -311,7 +275,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               limit={2}
             />
 
-            {/* AdSense In-Article Ad */}
             <AdSenseInArticle />
           </div>
 
@@ -324,7 +287,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
               ))}
             </div>
 
-            {/* Enhanced share section at the bottom */}
             <StoryShareSection
               story={story}
               className="mb-8"
@@ -334,7 +296,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             />
           </footer>
 
-          {/* Nord VPN Recommendation for International Travel */}
           {story.country !== 'Australia' && story.country !== 'Global' && (
             <div className="my-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
               <h3 className="text-xl font-bold mb-2">Traveling to {story.country}?</h3>
@@ -351,15 +312,12 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             </div>
           )}
 
-          {/* AdSense Leaderboard */}
           <div className="my-8">
             <AdSenseLeaderboard />
           </div>
 
-          {/* Related stories based on content similarity */}
           <RelatedStories currentStory={story} limit={4} />
 
-          {/* More stories from the same category */}
           <CategoryStories category={story.category} excludeStoryId={story.id} limit={4} />
 
           <div className="mt-12">
@@ -369,10 +327,10 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             />
           </div>
         </article>
-      </>
+      </div>
     );
   } catch (error) {
     console.error('Error rendering story page:', error);
-    throw error; // This will trigger the error.tsx component
+    throw error;
   }
 }
