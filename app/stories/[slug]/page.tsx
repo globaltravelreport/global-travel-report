@@ -19,11 +19,11 @@ import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
 // Import our new SEO utilities
-import { enhanceStoryForSEO } from "@/src/utils/seoEnhancer";
-import { optimizeStoryImageForSeo } from "@/src/utils/imageSeoOptimizer";
-import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
+import { enhanceStoryForSEO } from "@/utils/seoEnhancer";
+import { optimizeStoryImageForSeo } from "@/utils/imageSeoOptimizer";
+import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 // Import our new StructuredData component
-import StructuredData from "@/src/components/StructuredData";
+import StructuredData from "@/components/StructuredData";
 // Import affiliate components
 import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
 import { ContextualTuneOffers } from "@/src/components/affiliates/ContextualTuneOffers";
