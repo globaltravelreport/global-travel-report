@@ -24,6 +24,9 @@ import { optimizeStoryImageForSeo } from "@/src/utils/imageSeoOptimizer";
 import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
 // Import our new StructuredData component
 import StructuredData from "@/src/components/StructuredData";
+// Import affiliate components
+import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
+import { ContextualTuneOffers } from "@/src/components/affiliates/ContextualTuneOffers";
 
 // Define the params type for Next.js 15
 type StoryParams = {
@@ -283,6 +286,29 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           }}
         />
 
+        {/* Contextual Affiliate Recommendations - Mid-content */}
+        {story.category === 'Cruise' ? (
+          <ContextualAffiliateRecommendations
+            story={story}
+            variant="banner"
+            title="Recommended Cruise Deals"
+          />
+        ) : (
+          <ContextualAffiliateRecommendations
+            story={story}
+            variant="inline"
+            title="Travel Recommendations"
+          />
+        )}
+
+        {/* TUNE Contextual Offers */}
+        <ContextualTuneOffers
+          story={story}
+          variant="inline"
+          title="Exclusive Travel Offers"
+          limit={2}
+        />
+
         {/* AdSense In-Article Ad */}
         <AdSenseInArticle />
       </div>
@@ -305,6 +331,23 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           showFloatingButton={true}
         />
       </footer>
+
+      {/* Nord VPN Recommendation for International Travel */}
+      {story.country !== 'Australia' && story.country !== 'Global' && (
+        <div className="my-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
+          <h3 className="text-xl font-bold mb-2">Traveling to {story.country}?</h3>
+          <p className="mb-4">
+            Protect your online privacy and security while traveling internationally with Nord VPN.
+            Access your favorite websites and services from anywhere in the world.
+          </p>
+          <ContextualAffiliateRecommendations
+            story={{...story, tags: [...story.tags, 'Security', 'VPN']}}
+            variant="banner"
+            title=""
+            limit={1}
+          />
+        </div>
+      )}
 
       {/* AdSense Leaderboard */}
       <div className="my-8">
