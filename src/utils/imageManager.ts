@@ -93,42 +93,76 @@ export function getPhotographerForImageUrl(url: string): string {
  * Validate and correct image data
  * @param imageUrl The image URL
  * @param photographer The photographer's name
+ * @param silent Whether to suppress warnings (default: true)
  * @returns Corrected image data
  */
 export function validateAndCorrectImageData(
   imageUrl?: string,
-  photographer?: string
+  photographer?: string,
+  silent: boolean = true
 ): UnsplashImage {
-  // If we have both, check if they match
-  if (imageUrl && photographer) {
-    const correctUrl = getImageUrlForPhotographer(photographer);
+  // Import the logger dynamically to avoid circular dependencies
+  const logWarning = (message: string, context?: Record<string, any>) => {
+    if (silent) return;
 
-    // If the URL doesn't match the photographer, use the correct URL
-    if (correctUrl && imageUrl !== correctUrl) {
-      // Silently correct the URL without logging during build
-      return { photographer, url: correctUrl };
+    if (process.env.NODE_ENV === 'development') {
+      console.debug(`[ImageManager] ${message}`, context);
+    } else {
+      // In production, only log to console if not silent
+      if (!silent) {
+        console.debug(`[ImageManager] ${message}`);
+      }
+    }
+  };
+
+  try {
+    // If we have both, check if they match
+    if (imageUrl && photographer) {
+      const correctUrl = getImageUrlForPhotographer(photographer);
+
+      // If the URL doesn't match the photographer, use the correct URL
+      if (correctUrl && imageUrl !== correctUrl) {
+        // Log the correction if not silent
+        logWarning(`Corrected image URL for photographer ${photographer}`, {
+          originalUrl: imageUrl,
+          correctedUrl: correctUrl
+        });
+
+        return { photographer, url: correctUrl };
+      }
+
+      // If we have a valid pair, return it
+      if (correctUrl) {
+        return { photographer, url: correctUrl };
+      }
     }
 
-    // If we have a valid pair, return it
-    if (correctUrl) {
-      return { photographer, url: correctUrl };
+    // If we only have the photographer, get the correct URL
+    if (photographer && !imageUrl) {
+      const url = getImageUrlForPhotographer(photographer);
+      return { photographer, url };
     }
-  }
 
-  // If we only have the photographer, get the correct URL
-  if (photographer && !imageUrl) {
-    const url = getImageUrlForPhotographer(photographer);
-    return { photographer, url };
-  }
+    // If we only have the URL, get the correct photographer
+    if (imageUrl && !photographer) {
+      const photographer = getPhotographerForImageUrl(imageUrl);
+      return { photographer, url: imageUrl };
+    }
 
-  // If we only have the URL, get the correct photographer
-  if (imageUrl && !photographer) {
-    const photographer = getPhotographerForImageUrl(imageUrl);
-    return { photographer, url: imageUrl };
-  }
+    // If we have neither, return a random image
+    logWarning('No image data provided, using random image');
+    return getRandomImage();
+  } catch (error) {
+    // Log the error if not silent
+    logWarning('Error validating image data, using random image', {
+      error,
+      imageUrl,
+      photographer
+    });
 
-  // If we have neither, return a random image
-  return getRandomImage();
+    // Return a random image as a fallback
+    return getRandomImage();
+  }
 }
 
 /**

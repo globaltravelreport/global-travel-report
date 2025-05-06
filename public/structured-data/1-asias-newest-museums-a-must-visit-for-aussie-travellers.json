@@ -1,0 +1,56 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Asia",
+    "description": "Rewritten article...",
+    "image": [
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-09T13:53:24.569Z",
+    "dateModified": "2025-04-09T13:53:24.569Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-asias-newest-museums-a-must-visit-for-aussie-travellers"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Airline",
+        "item": "https://globaltravelreport.com/category/airline"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Asia",
+        "item": "https://globaltravelreport.com/1-asias-newest-museums-a-must-visit-for-aussie-travellers"
+      }
+    ]
+  }
+]

@@ -23,7 +23,7 @@ export class AppError extends Error {
   type: ErrorType;
   code?: string;
   details?: any;
-  
+
   constructor(message: string, type: ErrorType = ErrorType.UNKNOWN, code?: string, details?: any) {
     super(message);
     this.name = 'AppError';
@@ -31,7 +31,7 @@ export class AppError extends Error {
     this.code = code;
     this.details = details;
   }
-  
+
   /**
    * Check if the error is a specific type
    * @param type - The error type to check
@@ -40,7 +40,7 @@ export class AppError extends Error {
   isType(type: ErrorType): boolean {
     return this.type === type;
   }
-  
+
   /**
    * Get a user-friendly error message
    * @returns A user-friendly error message
@@ -65,7 +65,7 @@ export class AppError extends Error {
         return 'An unexpected error occurred. Please try again later.';
     }
   }
-  
+
   /**
    * Get the HTTP status code for the error
    * @returns The HTTP status code
@@ -172,11 +172,11 @@ export function handleError(error: unknown): AppError {
   if (error instanceof AppError) {
     return error;
   }
-  
+
   if (error instanceof Error) {
     return new AppError(error.message, ErrorType.UNKNOWN, 'UNKNOWN_ERROR', { originalError: error });
   }
-  
+
   return new AppError(
     typeof error === 'string' ? error : 'An unknown error occurred',
     ErrorType.UNKNOWN,
@@ -186,23 +186,42 @@ export function handleError(error: unknown): AppError {
 }
 
 /**
- * Log an error to the console
+ * Log an error to the centralized error logging system
  * @param error - The error to log
  * @param context - Additional context information
+ * @param level - The log level (default: error)
  */
-export function logError(error: unknown, context?: Record<string, any>): void {
+export function logError(
+  error: unknown,
+  context?: Record<string, any>,
+  level: 'debug' | 'info' | 'warn' | 'error' | 'fatal' = 'error'
+): void {
   const appError = handleError(error);
-  
-  console.error(
-    `[ERROR] [${appError.type.toUpperCase()}] ${appError.message}`,
-    {
-      code: appError.code,
-      details: appError.details,
-      context,
-      stack: appError.stack,
-    }
-  );
-  
-  // In a real application, you might send this to an error tracking service
-  // Example: sendToErrorTrackingService(appError, context);
+
+  // Import the error logger dynamically to avoid circular dependencies
+  import('./errorLogger').then(({ default: logger }) => {
+    // Log the error with the appropriate level
+    logger.log(
+      logger.LogLevel[level.toUpperCase() as keyof typeof logger.LogLevel],
+      `[${appError.type.toUpperCase()}] ${appError.message}`,
+      {
+        code: appError.code,
+        details: appError.details,
+        ...context
+      },
+      appError
+    );
+  }).catch(err => {
+    // Fallback to console if the logger fails
+    console.error(
+      `[ERROR] [${appError.type.toUpperCase()}] ${appError.message}`,
+      {
+        code: appError.code,
+        details: appError.details,
+        context,
+        stack: appError.stack,
+      }
+    );
+    console.error('Error importing logger:', err);
+  });
 }

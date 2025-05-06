@@ -153,6 +153,22 @@ export default function RootLayout({
         {/* Google AdSense Verification Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-4005772594728149" />
 
+        {/* Resource Hints for Performance Optimization */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+
+        {/* Preload Critical Assets */}
+        <link rel="preload" href="/logo-gtr.png" as="image" />
+        <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
+        {/* DNS Prefetch for External Resources */}
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://stats.g.doubleclick.net" />
+
         {/* Google AdSense Script - Primary Verification Method */}
         <Script
           id="google-adsense"

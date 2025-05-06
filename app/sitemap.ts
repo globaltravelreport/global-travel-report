@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllStories } from '@/src/utils/stories';
+import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
+import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
 
 /**
  * Generate a dynamic sitemap based on actual content
@@ -48,27 +50,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic routes for stories with proper lastModified dates and image sitemaps
   const storyRoutes = stories.map((story) => {
+    // Enhance the story with SEO optimizations
+    const enhancedStory = enhanceStoryForSEO(story);
+
+    // Get optimized image data
+    const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
+
     // Use the story's published date as the lastModified date
-    const lastModified = new Date(story.publishedAt);
+    const lastModified = new Date(enhancedStory.publishedAt);
+
+    // Calculate priority based on multiple factors for better SEO
+    let priority = 0.7; // Default priority
+
+    // Increase priority for featured or editor's pick stories
+    if (enhancedStory.featured) priority += 0.2;
+    if (enhancedStory.editorsPick) priority += 0.1;
+
+    // Increase priority for stories with more tags (indicates more comprehensive content)
+    if (enhancedStory.tags && enhancedStory.tags.length > 5) priority += 0.05;
+
+    // Increase priority for recent stories (within the last 7 days)
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    if (lastModified > oneWeekAgo) priority += 0.1;
+
+    // Cap priority at 1.0
+    priority = Math.min(priority, 1.0);
 
     // Create the basic sitemap entry
     const sitemapEntry: any = {
-      url: `${baseUrl}/stories/${story.slug}`,
+      url: `${baseUrl}/stories/${enhancedStory.slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
-      priority: story.featured ? 0.9 : 0.7,
+      priority,
     };
 
-    // Add image data if available
-    if (story.imageUrl) {
+    // Add image data if available with enhanced SEO information
+    if (imageUrl) {
+      const fullImageUrl = imageUrl.startsWith('http')
+        ? imageUrl
+        : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
+
       sitemapEntry.images = [
         {
-          url: story.imageUrl.startsWith('http')
-            ? story.imageUrl
-            : `${baseUrl}${story.imageUrl}`,
-          title: story.title,
-          caption: story.excerpt.substring(0, 100),
-          geo_location: story.country || undefined,
+          url: fullImageUrl,
+          title: altText,
+          caption: caption,
+          geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
           license: 'https://creativecommons.org/licenses/by/4.0/'
         }
       ];

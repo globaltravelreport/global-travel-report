@@ -184,7 +184,11 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 
     // If the validated image is already used on this page, get an alternative
     if (validatedData.url && isImageUsedOnPage(validatedData.url)) {
-      console.log(`Image ${validatedData.url} is already used on this page. Getting alternative.`);
+      // Use silent operation during build to reduce console noise
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`[StoryCard] Image ${validatedData.url} is already used on this page. Getting alternative.`);
+      }
+
       const alternativeData = getAlternativeImage(validatedData.photographer, usedImages);
 
       // Mark this new image as used
@@ -265,10 +269,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             story.tags || []
           );
 
-          // If the current image doesn't match the best image, log a warning
+          // If the current image doesn't match the best image, log a warning in development only
           // We don't update the image here to avoid flickering, but this helps with debugging
-          if (imgSrc !== bestImage.imageUrl) {
-            console.log(`Story ${story.slug} should use image ${bestImage.imageUrl} (${bestImage.photographer.name})`);
+          if (imgSrc !== bestImage.imageUrl && process.env.NODE_ENV === 'development') {
+            console.debug(`[StoryCard] Story ${story.slug} should use image ${bestImage.imageUrl} (${bestImage.photographer.name})`);
           }
         }
       } catch (error) {
