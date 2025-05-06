@@ -131,17 +131,7 @@ export default function Header() {
             >
               Travel Offers
             </Link>
-            <Link
-              href="/resources"
-              className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
-                pathname === '/resources' || pathname.startsWith('/resources/')
-                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-white'
-              )}
-            >
-              Resources
-            </Link>
+
             <Link
               href="/about"
               className={cn(
@@ -246,18 +236,7 @@ export default function Header() {
               >
                 Travel Offers
               </Link>
-              <Link
-                href="/resources"
-                className={cn(
-                  'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
-                  pathname === '/resources' || pathname.startsWith('/resources/')
-                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
-                    : 'text-white'
-                )}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Resources
-              </Link>
+
               <Link
                 href="/about"
                 className={cn(

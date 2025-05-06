@@ -14,6 +14,16 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // Redirects
+  async redirects() {
+    return [
+      {
+        source: '/resources',
+        destination: '/offers',
+        permanent: true,
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [

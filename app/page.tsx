@@ -10,6 +10,8 @@ import { PopularStories } from '@/components/recommendations/PopularStories';
 import { getFeaturedCategories, CATEGORIES } from '@/src/config/categories';
 import WebsiteSchema from '@/components/WebsiteSchema';
 import { CategorySection } from '@/src/components/home/CategorySection';
+import { AffiliateService } from '@/src/services/affiliateService';
+import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -138,6 +140,32 @@ export default async function Home() {
       <section className="py-8 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AdSenseLeaderboard />
+        </div>
+      </section>
+
+      {/* Travel Deals Section */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Suspense fallback={<div className="animate-pulse space-y-4">
+            <div className="h-10 bg-gray-200 rounded w-1/3 mx-auto"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-gray-200 rounded-lg h-80"></div>
+              ))}
+            </div>
+          </div>}>
+            <AffiliateSection
+              title="Exclusive Travel Deals"
+              description="Handpicked travel deals and resources to enhance your next adventure"
+              products={AffiliateService.getInstance().getAllProducts()}
+              source="homepage"
+              layout="featured"
+              showViewAll={true}
+              viewAllLink="/offers"
+              viewAllText="View All Offers"
+            />
+          </Suspense>
         </div>
       </section>
 
