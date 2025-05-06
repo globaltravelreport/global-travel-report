@@ -508,11 +508,14 @@ async function fetchStoriesFromFeeds(feedUrls, count, logFn = console.log) {
           // Skip items with very short content
           if (content.length < 100) continue;
 
+          // Log the original pubDate for debugging
+          console.log(`Original pubDate for "${item.title}": ${item.pubDate}`);
+
           // Create a story object
           allItems.push({
             title: item.title,
             link: item.link,
-            pubDate: item.pubDate,
+            pubDate: item.pubDate, // Preserve the exact original date string
             content: content,
             feedTitle: feed.title || 'Unknown Source',
             feedUrl: feedUrl,
@@ -1056,7 +1059,10 @@ async function saveStoriesToMarkdown(stories) {
       console.log(`Publication date for "${story.title}": ${pubDate.toISOString()}`);
 
       // Store the original date string to ensure it's preserved
+      // If the story has a pubDate, use it exactly as is to preserve the format
       const originalDateString = story.pubDate || pubDate.toISOString();
+
+      console.log(`Original date string: ${originalDateString}`);
 
       // Clean the title (remove any "Title:" prefix)
       let cleanTitle = story.title;

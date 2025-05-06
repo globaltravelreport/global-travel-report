@@ -64,6 +64,23 @@ done
 echo "Waiting for revalidation to complete..." >> "$LOG_FILE"
 sleep 10
 
+# Post to social media
+echo "===== Posting to social media =====" >> "$LOG_FILE"
+node scripts/social-media-poster.js >> "$LOG_FILE" 2>&1
+
+# Check if the social media posting was successful
+if [ $? -eq 0 ]; then
+  echo "✅ Social media posting completed successfully" >> "$LOG_FILE"
+else
+  echo "⚠️ Social media posting completed with some issues" >> "$LOG_FILE"
+fi
+
+# Log the date format being used
+echo "===== Date format check =====" >> "$LOG_FILE"
+echo "Current date: $(date)" >> "$LOG_FILE"
+echo "Current date in ISO format: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> "$LOG_FILE"
+echo "Current date in RSS format: $(date -u +"%a, %d %b %Y %H:%M:%S %z")" >> "$LOG_FILE"
+
 # Log the end time
 echo "===== Daily Story Generator Finished at $(date) =====" >> "$LOG_FILE"
 echo "" >> "$LOG_FILE"

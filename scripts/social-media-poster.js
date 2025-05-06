@@ -678,7 +678,7 @@ function generateHashtags(story) {
 }
 
 /**
- * Get recent stories that haven't been posted to social media yet
+ * Get stories that haven't been posted to social media yet
  */
 async function getRecentStories() {
   try {
@@ -708,46 +708,42 @@ async function getRecentStories() {
       }
     });
 
-    // Get stories from the last 24 hours that haven't been posted to social media
-    const oneDayAgo = new Date();
-    oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-
-    // Get today's date at midnight
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    // Get all stories that haven't been posted to social media
     // Filter stories
-    const recentStories = stories.filter(story => {
+    const unpublishedStories = stories.filter(story => {
       try {
-        // Use date or publishedAt, whichever is available
-        const pubDateStr = story.date || story.publishedAt;
-        const pubDate = new Date(pubDateStr);
-
-        // Check if the date is valid
-        if (isNaN(pubDate.getTime())) {
-          console.warn(`⚠️ Invalid date for story "${story.title}": ${pubDateStr}`);
-          return false;
-        }
-
-        // Check if the story was published today or yesterday
-        const isRecent = pubDate >= oneDayAgo;
-
         // Check if the story has already been posted to social media
         const notPosted = !story.postedToSocialMedia;
 
-        return isRecent && notPosted;
+        // Make sure the story has a valid title and content
+        const hasValidContent = story.title && story.content && story.title.length > 0;
+
+        return notPosted && hasValidContent;
       } catch (error) {
-        console.warn(`⚠️ Error processing story date: ${error.message}`);
+        console.warn(`⚠️ Error processing story: ${error.message}`);
         return false;
       }
     });
 
-    console.log(`📊 Found ${recentStories.length} recent stories that haven't been posted to social media`);
+    console.log(`📊 Found ${unpublishedStories.length} stories that haven't been posted to social media`);
 
-    // Limit to 5 stories to avoid flooding social media
-    return recentStories.slice(0, 5);
+    // Get the command line arguments
+    const args = process.argv.slice(2);
+
+    // Check if we should post all stories
+    const postAll = args.includes('--post-all');
+
+    if (postAll) {
+      console.log(`🔄 Posting all unpublished stories (${unpublishedStories.length})`);
+      return unpublishedStories;
+    } else {
+      // Limit to 10 stories to avoid flooding social media
+      const storiesToPost = unpublishedStories.slice(0, 10);
+      console.log(`🔄 Posting the newest ${storiesToPost.length} stories`);
+      return storiesToPost;
+    }
   } catch (error) {
-    console.error(`❌ Error getting recent stories: ${error.message}`);
+    console.error(`❌ Error getting stories: ${error.message}`);
     return [];
   }
 }
