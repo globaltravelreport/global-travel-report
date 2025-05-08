@@ -72,7 +72,10 @@ export class GoogleAnalyticsService {
       });
 
       // Create the analytics client
-      this.client = new BetaAnalyticsDataClient({ auth });
+      // Use a type assertion to satisfy the GoogleAuth type requirement
+      this.client = new BetaAnalyticsDataClient({
+        auth: auth as unknown as any
+      });
       this.isInitialized = true;
     } catch (error) {
       console.error('Failed to initialize Google Analytics client:', error);
@@ -194,7 +197,7 @@ export class GoogleAnalyticsService {
       const deviceBreakdown = deviceBreakdownResponse.rows?.map(row => {
         const sessions = parseInt(row.metricValues?.[0]?.value || '0');
         const percentage = totalSessions > 0 ? (sessions / totalSessions) * 100 : 0;
-        
+
         return {
           device: row.dimensionValues?.[0]?.value || 'Unknown',
           sessions,
@@ -221,7 +224,7 @@ export class GoogleAnalyticsService {
       };
     } catch (error) {
       console.error('Failed to get analytics data:', error);
-      
+
       // Return mock data for development or when GA is not available
       return this.getMockAnalyticsData();
     }
@@ -259,11 +262,11 @@ export class GoogleAnalyticsService {
     if (dateString.length !== 8) {
       return dateString;
     }
-    
+
     const year = dateString.substring(0, 4);
     const month = dateString.substring(4, 6);
     const day = dateString.substring(6, 8);
-    
+
     return `${year}-${month}-${day}`;
   }
 
@@ -308,7 +311,7 @@ export class GoogleAnalyticsService {
         const date = new Date();
         date.setDate(date.getDate() - (6 - i));
         const dateString = date.toISOString().split('T')[0];
-        
+
         return {
           date: dateString,
           pageViews: Math.floor(Math.random() * 1000) + 500,

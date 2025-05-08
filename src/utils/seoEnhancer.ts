@@ -1,6 +1,6 @@
 /**
  * SEO Enhancer
- * 
+ *
  * A utility for enhancing story metadata for better SEO performance.
  * This includes generating optimized tags, slugs, and meta descriptions.
  */
@@ -51,31 +51,31 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
 export function generateOptimizedTags(story: Story): string[] {
   const existingTags = story.tags || [];
   const suggestedTags: string[] = [];
-  
+
   // Add country-specific keywords
   const countryKeywords = COUNTRY_KEYWORDS[story.country] || COUNTRY_KEYWORDS['Global'];
   suggestedTags.push(...countryKeywords);
-  
+
   // Add category-specific keywords
   const mainCategory = story.category.split(',')[0].trim();
   const categoryKeywords = CATEGORY_KEYWORDS[mainCategory] || CATEGORY_KEYWORDS['Travel'];
   suggestedTags.push(...categoryKeywords);
-  
+
   // Add popular travel keywords
   suggestedTags.push(...POPULAR_TRAVEL_KEYWORDS);
-  
+
   // Extract potential keywords from title and content
   const titleWords = story.title.split(' ')
     .filter(word => word.length > 5)
     .map(word => word.toLowerCase());
-  
+
   suggestedTags.push(...titleWords);
-  
+
   // Combine existing and suggested tags, remove duplicates, and limit to 15 tags
   const allTags = [...existingTags, ...suggestedTags];
   const uniqueTags = Array.from(new Set(allTags.map(tag => tag.toLowerCase())))
     .map(tag => tag.charAt(0).toUpperCase() + tag.slice(1)); // Capitalize first letter
-  
+
   return uniqueTags.slice(0, 15);
 }
 
@@ -87,21 +87,21 @@ export function generateOptimizedTags(story: Story): string[] {
 export function generateOptimizedSlug(story: Story): string {
   // Start with the title
   let baseSlug = story.title;
-  
+
   // Add country if it's not already in the title
   if (story.country && story.country !== 'Global' && !story.title.includes(story.country)) {
     baseSlug = `${baseSlug} ${story.country}`;
   }
-  
+
   // Add main category if it's not already in the title
   const mainCategory = story.category.split(',')[0].trim();
   if (mainCategory && !story.title.toLowerCase().includes(mainCategory.toLowerCase())) {
     baseSlug = `${baseSlug} ${mainCategory}`;
   }
-  
+
   // Generate the slug
   const optimizedSlug = slugify(baseSlug);
-  
+
   // Ensure the slug is not too long (max 60 characters)
   return optimizedSlug.length > 60 ? optimizedSlug.substring(0, 60) : optimizedSlug;
 }
@@ -114,35 +114,35 @@ export function generateOptimizedSlug(story: Story): string {
 export function generateOptimizedDescription(story: Story): string {
   // Start with the excerpt if available
   let description = story.excerpt || '';
-  
+
   // If no excerpt, use the first 150 characters of the content
   if (!description && story.content) {
     description = story.content.substring(0, 150).trim();
-    
+
     // Ensure it doesn't cut off in the middle of a word
     const lastSpaceIndex = description.lastIndexOf(' ');
     if (lastSpaceIndex > 0) {
       description = description.substring(0, lastSpaceIndex);
     }
-    
+
     description += '...';
   }
-  
+
   // If still no description, create one from the title
   if (!description) {
     description = `Discover everything about ${story.title}. Read our comprehensive guide on ${story.title} at Global Travel Report.`;
   }
-  
+
   // Add country and category if not already mentioned
   if (story.country && story.country !== 'Global' && !description.includes(story.country)) {
     description = `${description} Explore ${story.country} with our expert travel insights.`;
   }
-  
+
   // Ensure the description is not too long (max 160 characters)
   if (description.length > 160) {
     description = description.substring(0, 157) + '...';
   }
-  
+
   return description;
 }
 
@@ -154,22 +154,22 @@ export function generateOptimizedDescription(story: Story): string {
 export function generateOptimizedImageAlt(story: Story): string {
   // Start with the title
   let altText = story.title;
-  
+
   // Add country if it's not already in the title
   if (story.country && story.country !== 'Global' && !altText.includes(story.country)) {
     altText = `${altText} - ${story.country}`;
   }
-  
+
   // Add photographer credit
   if (story.photographer && story.photographer.name) {
     altText = `${altText} | Photo by ${story.photographer.name}`;
   }
-  
+
   // Ensure the alt text is not too long (max 125 characters)
   if (altText.length > 125) {
     altText = altText.substring(0, 125);
   }
-  
+
   return altText;
 }
 
@@ -180,16 +180,16 @@ export function generateOptimizedImageAlt(story: Story): string {
  */
 export function enhanceStoryForSEO(story: Story): Story {
   // Generate optimized tags if none exist or there are fewer than 5
-  const tags = (!story.tags || story.tags.length < 5) 
-    ? generateOptimizedTags(story) 
+  const tags = (!story.tags || story.tags.length < 5)
+    ? generateOptimizedTags(story)
     : story.tags;
-  
+
   // Generate optimized slug if none exists
   const slug = !story.slug ? generateOptimizedSlug(story) : story.slug;
-  
+
   // Generate optimized excerpt if none exists
   const excerpt = !story.excerpt ? generateOptimizedDescription(story) : story.excerpt;
-  
+
   // Return the enhanced story
   return {
     ...story,
@@ -199,10 +199,12 @@ export function enhanceStoryForSEO(story: Story): Story {
   };
 }
 
-export default {
+const seoEnhancer = {
   generateOptimizedTags,
   generateOptimizedSlug,
   generateOptimizedDescription,
   generateOptimizedImageAlt,
   enhanceStoryForSEO
 };
+
+export default seoEnhancer;

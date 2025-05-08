@@ -20,7 +20,8 @@ const matter = require('gray-matter');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const { TwitterApi } = require('twitter-api-v2');
-const FB = require('fb');
+// Using axios directly for Facebook API instead of the deprecated 'fb' package
+const { createFacebookService } = require('../src/services/facebookService');
 const tumblr = require('tumblr.js');
 
 // LinkedIn API client (using axios directly since there's no official package)
@@ -29,6 +30,42 @@ const LinkedInApi = function(config) {
     posts: {
       create: async (post) => {
         try {
+          // Prepare the post data
+          const postData = {
+            author: `urn:li:person:${process.env.LINKEDIN_PERSON_ID || 'me'}`,
+            lifecycleState: 'PUBLISHED',
+            specificContent: {
+              'com.linkedin.ugc.ShareContent': {
+                shareCommentary: {
+                  text: post.text
+                },
+                shareMediaCategory: 'NONE'
+              }
+            },
+            visibility: {
+              'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
+            }
+          };
+
+          // Add media if available
+          if (post.media && post.media.originalUrl) {
+            postData.specificContent['com.linkedin.ugc.ShareContent'].shareMediaCategory = 'ARTICLE';
+            postData.specificContent['com.linkedin.ugc.ShareContent'].media = [{
+              status: 'READY',
+              description: {
+                text: post.media.description || ''
+              },
+              originalUrl: post.media.originalUrl,
+              title: {
+                text: post.media.title || post.text.substring(0, 50)
+              }
+            }];
+          }
+
+          // Log the post data for debugging
+          console.log('LinkedIn post data:', JSON.stringify(postData, null, 2));
+
+          // Make the API call
           const response = await axios({
             method: 'POST',
             url: 'https://api.linkedin.com/v2/ugcPosts',
@@ -37,26 +74,15 @@ const LinkedInApi = function(config) {
               'Content-Type': 'application/json',
               'X-Restli-Protocol-Version': '2.0.0'
             },
-            data: {
-              author: `urn:li:person:${process.env.LINKEDIN_PERSON_ID || 'me'}`,
-              lifecycleState: 'PUBLISHED',
-              specificContent: {
-                'com.linkedin.ugc.ShareContent': {
-                  shareCommentary: {
-                    text: post.text
-                  },
-                  shareMediaCategory: 'NONE'
-                }
-              },
-              visibility: {
-                'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
-              }
-            }
+            data: postData
           });
 
           return { id: response.data.id };
         } catch (error) {
           console.error('LinkedIn API error:', error.response?.data || error.message);
+          if (error.response && error.response.data) {
+            console.error('LinkedIn API error details:', JSON.stringify(error.response.data, null, 2));
+          }
           throw error;
         }
       }
@@ -66,31 +92,32 @@ const LinkedInApi = function(config) {
   return instance;
 };
 
-// Facebook API client (using the fb package)
+// Facebook API client (using our modern FacebookService)
 const FacebookApi = function(token) {
-  FB.setAccessToken(token);
+  const facebookService = createFacebookService(token);
 
   return {
     posts: {
       create: async (pageId, post) => {
-        return new Promise((resolve, reject) => {
-          FB.api(
-            `/${pageId}/feed`,
-            'POST',
-            {
-              message: post.message,
-              link: post.link
-            },
-            function(response) {
-              if (!response || response.error) {
-                reject(response?.error || new Error('Unknown Facebook API error'));
-                return;
-              }
+        try {
+          // Prepare post parameters
+          const postParams = {
+            message: post.message,
+            link: post.link
+          };
 
-              resolve({ id: response.id });
-            }
-          );
-        });
+          // Add image if available
+          if (post.picture) {
+            postParams.picture = post.picture;
+          }
+
+          // Use our FacebookService to create the post
+          const response = await facebookService.createPost(pageId, postParams);
+          return response;
+        } catch (error) {
+          console.error('Facebook API error details:', error.message);
+          throw error;
+        }
       }
     }
   };
@@ -135,9 +162,9 @@ const TumblrApi = function(config) {
   // Create a Tumblr client
   const client = tumblr.createClient({
     consumer_key: config.consumerKey,
-    consumer_secret: config.consumerSecret,
-    token: config.accessToken,
-    token_secret: config.accessTokenSecret
+    consumer_secret: config.consumerSecret || '',
+    token: config.accessToken || '',
+    token_secret: config.accessTokenSecret || ''
   });
 
   return {
@@ -146,8 +173,25 @@ const TumblrApi = function(config) {
         try {
           // Create a new post on the blog
           const response = await new Promise((resolve, reject) => {
-            client.createTextPost(config.blogName, post, (err, data) => {
+            // Ensure we have a valid blog name
+            const blogName = config.blogName || 'globaltravelreport';
+
+            // Prepare post parameters
+            const postParams = {
+              title: post.title,
+              body: post.body,
+              tags: post.tags || [],
+              format: post.format || 'html',
+              state: post.state || 'published'
+            };
+
+            // Log the post parameters for debugging
+            console.log(`Tumblr post parameters for blog "${blogName}":`, JSON.stringify(postParams, null, 2));
+
+            // Create the post
+            client.createTextPost(blogName, postParams, (err, data) => {
               if (err) {
+                console.error('Tumblr API error details:', err);
                 reject(err);
                 return;
               }
@@ -155,7 +199,7 @@ const TumblrApi = function(config) {
             });
           });
 
-          return { id: response.id_string || response.id };
+          return { id: response.id_string || response.id || 'unknown-id' };
         } catch (error) {
           console.error('Tumblr API error:', error);
           throw error;
@@ -586,16 +630,22 @@ function formatForLinkedIn(story, url, hashtags) {
   // Add call to action
   text += `Read the full story: ${url}`;
 
-  return {
+  // Prepare the post object
+  const post = {
     text,
-    visibility: 'PUBLIC',
-    // Add image if available
-    media: story.imageUrl ? {
+    visibility: 'PUBLIC'
+  };
+
+  // Add image if available
+  if (story.imageUrl) {
+    post.media = {
       title: story.title,
       description: story.excerpt,
       originalUrl: story.imageUrl
-    } : undefined
-  };
+    };
+  }
+
+  return post;
 }
 
 /**
@@ -634,14 +684,22 @@ function formatForTumblr(story, url, hashtags) {
   }
 
   // Add photographer credit if available
-  if (story.photographer) {
+  if (story.photographer && story.photographer.name) {
+    content += `<p><small>Photo by ${story.photographer.name} on Unsplash</small></p>`;
+  } else if (typeof story.photographer === 'string') {
     content += `<p><small>Photo by ${story.photographer} on Unsplash</small></p>`;
+  }
+
+  // Process hashtags to ensure they're strings
+  let processedTags = [];
+  if (hashtags && Array.isArray(hashtags)) {
+    processedTags = hashtags.map(tag => tag.toString());
   }
 
   return {
     title: title,
     body: content,
-    tags: hashtags,
+    tags: processedTags,
     format: 'html',
     state: 'published'
   };
@@ -682,17 +740,42 @@ function generateHashtags(story) {
  */
 async function getRecentStories() {
   try {
+    // Create content directory if it doesn't exist
+    try {
+      await fs.access(CONTENT_DIR);
+    } catch (error) {
+      console.warn(`⚠️ Content directory does not exist: ${CONTENT_DIR}`);
+      console.log(`Creating content directory: ${CONTENT_DIR}`);
+      await fs.mkdir(CONTENT_DIR, { recursive: true });
+      return []; // Return empty array since there are no stories yet
+    }
+
     // Get all story files
     const files = await fs.readdir(CONTENT_DIR);
     const storyFiles = files.filter(file => file.endsWith('.md'));
 
+    if (storyFiles.length === 0) {
+      console.log(`No story files found in ${CONTENT_DIR}`);
+      return [];
+    }
+
     // Load each story
     const stories = [];
     for (const file of storyFiles) {
-      const story = await loadStory(path.join(CONTENT_DIR, file));
-      if (story) {
-        stories.push(story);
+      try {
+        const story = await loadStory(path.join(CONTENT_DIR, file));
+        if (story) {
+          stories.push(story);
+        }
+      } catch (error) {
+        console.warn(`⚠️ Error loading story ${file}: ${error.message}`);
+        // Continue with other stories
       }
+    }
+
+    if (stories.length === 0) {
+      console.log(`No valid stories found in ${CONTENT_DIR}`);
+      return [];
     }
 
     // Log date formats for debugging
@@ -800,6 +883,7 @@ async function getRecentStories() {
     }
   } catch (error) {
     console.error(`❌ Error getting stories: ${error.message}`);
+    await logToFile(`Error getting stories: ${error.message}`);
     return [];
   }
 }
@@ -809,11 +893,45 @@ async function getRecentStories() {
  */
 async function loadStory(filePath) {
   try {
+    // Check if the file exists
+    try {
+      await fs.access(filePath);
+    } catch (error) {
+      console.error(`❌ File does not exist: ${filePath}`);
+      return null;
+    }
+
     // Read the file
-    const fileContent = await fs.readFile(filePath, 'utf8');
+    let fileContent;
+    try {
+      fileContent = await fs.readFile(filePath, 'utf8');
+    } catch (error) {
+      console.error(`❌ Error reading file ${filePath}: ${error.message}`);
+      return null;
+    }
 
     // Parse frontmatter
-    const { data, content } = matter(fileContent);
+    let data, content;
+    try {
+      const parsed = matter(fileContent);
+      data = parsed.data;
+      content = parsed.content;
+    } catch (error) {
+      console.error(`❌ Error parsing frontmatter in ${filePath}: ${error.message}`);
+      return null;
+    }
+
+    // Validate required fields
+    if (!data.title) {
+      console.warn(`⚠️ Story in ${filePath} is missing a title`);
+    }
+
+    // Extract excerpt if not present
+    if (!data.excerpt && content) {
+      // Create an excerpt from the first paragraph of content
+      const firstParagraph = content.split('\n\n')[0];
+      data.excerpt = firstParagraph.replace(/[#*_]/g, '').trim().substring(0, 150) + '...';
+    }
 
     // Return the story object
     return {
@@ -823,6 +941,7 @@ async function loadStory(filePath) {
     };
   } catch (error) {
     console.error(`❌ Error loading story from ${filePath}: ${error.message}`);
+    await logToFile(`Error loading story from ${filePath}: ${error.message}`);
     return null;
   }
 }
@@ -835,6 +954,7 @@ async function markStoryAsPosted(story) {
     // Check if the story has a valid file path
     if (!story.filePath) {
       console.error(`❌ Cannot mark story as posted: No file path provided for "${story.title}"`);
+      await logToFile(`Cannot mark story as posted: No file path provided for "${story.title}"`);
       return;
     }
 
@@ -843,14 +963,31 @@ async function markStoryAsPosted(story) {
       await fs.access(story.filePath);
     } catch (error) {
       console.error(`❌ Cannot mark story as posted: File does not exist: ${story.filePath}`);
+      await logToFile(`Cannot mark story as posted: File does not exist: ${story.filePath}`);
       return;
     }
 
     // Read the file
-    const fileContent = await fs.readFile(story.filePath, 'utf8');
+    let fileContent;
+    try {
+      fileContent = await fs.readFile(story.filePath, 'utf8');
+    } catch (error) {
+      console.error(`❌ Error reading file ${story.filePath}: ${error.message}`);
+      await logToFile(`Error reading file ${story.filePath}: ${error.message}`);
+      return;
+    }
 
     // Parse frontmatter
-    const { data, content } = matter(fileContent);
+    let data, content;
+    try {
+      const parsed = matter(fileContent);
+      data = parsed.data;
+      content = parsed.content;
+    } catch (error) {
+      console.error(`❌ Error parsing frontmatter in ${story.filePath}: ${error.message}`);
+      await logToFile(`Error parsing frontmatter in ${story.filePath}: ${error.message}`);
+      return;
+    }
 
     // Log the current frontmatter for debugging
     console.log(`Current frontmatter for "${story.title}":`);
@@ -866,24 +1003,45 @@ async function markStoryAsPosted(story) {
     }
 
     // Stringify frontmatter
-    const updatedFileContent = matter.stringify(content, data);
+    let updatedFileContent;
+    try {
+      updatedFileContent = matter.stringify(content, data);
+    } catch (error) {
+      console.error(`❌ Error stringifying frontmatter: ${error.message}`);
+      await logToFile(`Error stringifying frontmatter: ${error.message}`);
+      return;
+    }
 
     // Write the file
-    await fs.writeFile(story.filePath, updatedFileContent);
+    try {
+      await fs.writeFile(story.filePath, updatedFileContent);
+    } catch (error) {
+      console.error(`❌ Error writing file ${story.filePath}: ${error.message}`);
+      await logToFile(`Error writing file ${story.filePath}: ${error.message}`);
+      return;
+    }
 
     console.log(`✅ Marked story as posted to social media: ${story.title}`);
+    await logToFile(`Marked story as posted to social media: ${story.title}`);
 
     // Verify the update
-    const verifyContent = await fs.readFile(story.filePath, 'utf8');
-    const verifyData = matter(verifyContent).data;
+    try {
+      const verifyContent = await fs.readFile(story.filePath, 'utf8');
+      const verifyData = matter(verifyContent).data;
 
-    if (verifyData.postedToSocialMedia) {
-      console.log(`✅ Verified story marked as posted: ${story.title}`);
-    } else {
-      console.warn(`⚠️ Failed to verify story marked as posted: ${story.title}`);
+      if (verifyData.postedToSocialMedia) {
+        console.log(`✅ Verified story marked as posted: ${story.title}`);
+      } else {
+        console.warn(`⚠️ Failed to verify story marked as posted: ${story.title}`);
+        await logToFile(`Failed to verify story marked as posted: ${story.title}`);
+      }
+    } catch (error) {
+      console.error(`❌ Error verifying update: ${error.message}`);
+      await logToFile(`Error verifying update: ${error.message}`);
     }
   } catch (error) {
     console.error(`❌ Error marking story as posted: ${error.message}`);
+    await logToFile(`Error marking story as posted: ${error.message}`);
   }
 }
 
@@ -893,16 +1051,38 @@ async function markStoryAsPosted(story) {
 async function logToFile(message) {
   try {
     // Create log directory if it doesn't exist
-    await fs.mkdir(path.dirname(LOG_FILE), { recursive: true });
+    try {
+      await fs.mkdir(path.dirname(LOG_FILE), { recursive: true });
+    } catch (error) {
+      console.error(`❌ Error creating log directory: ${error.message}`);
+      // Try to continue anyway
+    }
 
     // Append to log file
-    await fs.appendFile(
-      LOG_FILE,
-      `[${new Date().toISOString()}] ${message}\n`,
-      'utf8'
-    );
+    try {
+      await fs.appendFile(
+        LOG_FILE,
+        `[${new Date().toISOString()}] ${message}\n`,
+        'utf8'
+      );
+    } catch (error) {
+      console.error(`❌ Error appending to log file: ${error.message}`);
+
+      // Try to write to a fallback log file in the current directory
+      try {
+        const fallbackLogFile = './social-media-poster-fallback.log';
+        await fs.appendFile(
+          fallbackLogFile,
+          `[${new Date().toISOString()}] ${message}\n`,
+          'utf8'
+        );
+        console.log(`✅ Wrote to fallback log file: ${fallbackLogFile}`);
+      } catch (fallbackError) {
+        console.error(`❌ Error writing to fallback log file: ${fallbackError.message}`);
+      }
+    }
   } catch (error) {
-    console.error(`❌ Error writing to log file: ${error.message}`);
+    console.error(`❌ Error in logToFile function: ${error.message}`);
   }
 }
 

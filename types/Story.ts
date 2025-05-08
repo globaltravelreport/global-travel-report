@@ -8,7 +8,7 @@ export interface Story {
   excerpt: string;
   content: string;
   publishedAt: Date | string;
-  updatedAt?: string;
+  updatedAt?: string | Date;
   author: string;
   category: string;
   country: string;
@@ -29,10 +29,30 @@ export interface Story {
   holidayType?: string;
   readingTime?: number;
 
+  // Social media fields
+  postedToSocialMedia?: boolean;
+  postedToSocialMediaAt?: string;
+
+  // Image related fields
+  imageCredit?: string;
+  imageCreditUrl?: string;
+  imageAlt?: string;
+
+  // Processing fields
+  rewritten?: boolean;
+  processedAt?: string;
+  focusKeywords?: string[];
+
+  // Source tracking
+  source?: string;
+  sourceUrl?: string;
+
   // Nested objects
   photographer?: {
     name: string;
     url?: string;
+    username?: string;
+    profileUrl?: string;
   };
   coverImage?: {
     url: string;

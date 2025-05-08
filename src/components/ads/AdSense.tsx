@@ -75,7 +75,7 @@ export function AdSense({
       ),
       style: {
         ...style,
-        position: 'relative',
+        position: 'relative' as const,
       },
       'data-ad-client': 'ca-pub-4005772594728149',
       'data-ad-slot': slot,
@@ -127,7 +127,7 @@ export function AdSense({
 export function AdSenseInArticle({
   className,
   slot = '3940256099',
-}: Omit<AdSenseProps, 'layout' | 'format'>) {
+}: Partial<Omit<AdSenseProps, 'layout' | 'format'>>) {
   return (
     <div className={cn('my-8 relative', className)}>
       <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">
@@ -151,7 +151,7 @@ export function AdSenseInArticle({
 export function AdSenseInFeed({
   className,
   slot = '1154567389',
-}: Omit<AdSenseProps, 'layout' | 'format'>) {
+}: Partial<Omit<AdSenseProps, 'layout' | 'format'>>) {
   return (
     <div className={cn('my-6', className)}>
       <AdSense
@@ -172,7 +172,7 @@ export function AdSenseInFeed({
 export function AdSenseSidebar({
   className,
   slot = '7259870876',
-}: Omit<AdSenseProps, 'format'>) {
+}: Partial<Omit<AdSenseProps, 'format'>>) {
   return (
     <div className={cn('my-6', className)}>
       <AdSense
@@ -194,7 +194,7 @@ export function AdSenseSidebar({
 export function AdSenseLeaderboard({
   className,
   slot = '6487384954',
-}: Omit<AdSenseProps, 'format'>) {
+}: Partial<Omit<AdSenseProps, 'format'>>) {
   return (
     <div className={cn('my-6 mx-auto max-w-[728px] relative', className)}>
       <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">

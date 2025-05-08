@@ -246,7 +246,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   });
 
   // Use the validated image URL and photographer
-  let imgSrc = imageData.imageUrl;
+  const imgSrc = imageData.imageUrl;
   let photographer = imageData.photographer;
 
   // Use React.useEffect to ensure image consistency on mount and updates

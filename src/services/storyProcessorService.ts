@@ -211,8 +211,7 @@ export class StoryProcessorService {
           // Add processing metadata
           enhancedStory = {
             ...enhancedStory,
-            processedAt: new Date().toISOString(),
-            published: true
+            processedAt: new Date().toISOString()
           };
 
           // Add to processed stories array

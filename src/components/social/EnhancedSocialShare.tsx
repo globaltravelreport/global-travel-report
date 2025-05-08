@@ -6,7 +6,6 @@ import {
   Twitter,
   Linkedin,
   Mail as MailIcon,
-  Link as LinkIcon,
   Share2,
   Check,
   Copy
@@ -202,7 +201,12 @@ export function EnhancedSocialShare({
   const trackShare = (platform: string) => {
     // If window and gtag are available, track the share event
     if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', 'share', {
+      // Use a properly typed window with gtag
+      interface WindowWithGtag extends Window {
+        gtag: (command: string, action: string, params: Record<string, string>) => void;
+      }
+
+      (window as WindowWithGtag).gtag('event', 'share', {
         method: platform,
         content_type: 'article',
         item_id: url,
@@ -272,7 +276,7 @@ export function EnhancedSocialShare({
       <PopoverTrigger asChild>
         <Button
           variant={floating ? "default" : "ghost"}
-          size={floating ? "icon" : "sm"}
+          size="sm"
           onClick={() => setIsOpen(true)}
           className={cn(
             "flex items-center gap-2",

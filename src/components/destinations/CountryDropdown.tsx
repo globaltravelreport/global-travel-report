@@ -80,9 +80,15 @@ export function CountryDropdown({ countries }: CountryDropdownProps) {
               <li
                 key={country}
                 onClick={() => handleCountrySelect(country)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleCountrySelect(country);
+                  }
+                }}
                 className="px-4 py-2 cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center gap-2"
                 role="option"
                 aria-selected={selectedCountry === country}
+                tabIndex={0}
               >
                 <MapPin size={16} className="text-blue-600 flex-shrink-0" />
                 <span>{country}</span>
@@ -100,9 +106,15 @@ export function CountryDropdown({ countries }: CountryDropdownProps) {
                   <li
                     key={entry}
                     onClick={() => handleCountrySelect(entry)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        handleCountrySelect(entry);
+                      }
+                    }}
                     className="px-4 py-2 cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center gap-2"
                     role="option"
                     aria-selected={selectedCountry === entry}
+                    tabIndex={0}
                   >
                     <Globe size={16} className="text-gray-500 flex-shrink-0" />
                     <span>{entry}</span>

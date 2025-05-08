@@ -234,7 +234,7 @@ export function getAlternativeImage(photographer: string, excludeUrls: string[] 
   };
 }
 
-export default {
+const imageManager = {
   getImageUrlForPhotographer,
   getPhotographerForImageUrl,
   validateAndCorrectImageData,
@@ -242,3 +242,5 @@ export default {
   getRandomImageForCategory,
   getAlternativeImage
 };
+
+export default imageManager;

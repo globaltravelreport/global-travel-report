@@ -16,6 +16,7 @@ interface UnsplashImage {
     name: string;
     username: string;
     profileUrl: string;
+    url?: string; // Alias for profileUrl for compatibility
   };
   downloadLocation: string;
 }

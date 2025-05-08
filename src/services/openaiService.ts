@@ -223,7 +223,7 @@ Please provide the rewritten article with the same title but improved content.`
         content: rewrittenContent,
         excerpt: this.generateExcerpt(rewrittenContent),
         rewritten: true,
-        rewrittenAt: new Date().toISOString()
+        processedAt: new Date().toISOString()
       };
     } catch (error) {
       console.error('Error rewriting story:', error);
@@ -258,7 +258,7 @@ Please provide the rewritten article with the same title but improved content.`
       content: rewrittenContent,
       excerpt: this.generateExcerpt(rewrittenContent),
       rewritten: true,
-      rewrittenAt: new Date().toISOString()
+      processedAt: new Date().toISOString()
     };
   }
 

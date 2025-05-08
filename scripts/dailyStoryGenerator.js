@@ -1060,7 +1060,15 @@ async function saveStoriesToMarkdown(stories) {
 
       // Store the original date string to ensure it's preserved
       // If the story has a pubDate, use it exactly as is to preserve the format
-      const originalDateString = story.pubDate || pubDate.toISOString();
+      let originalDateString = story.pubDate || pubDate.toISOString();
+
+      // Make sure the date is not in the future
+      const dateObj = new Date(originalDateString);
+      const now = new Date();
+      if (dateObj > now) {
+        console.log(`Future date detected: ${originalDateString}, adjusting to current date`);
+        originalDateString = now.toISOString();
+      }
 
       console.log(`Original date string: ${originalDateString}`);
 
@@ -1081,6 +1089,7 @@ async function saveStoriesToMarkdown(stories) {
       const frontmatter = {
         title: cleanTitle,
         date: originalDateString, // Use the original date string to preserve the exact format
+        publishedAt: originalDateString, // Store the original date string
         slug: slug.replace(/^title-/, ''), // Remove any "title-" prefix from slug
         category: story.category || 'Travel',
         country: story.country || 'Global',
@@ -1088,7 +1097,8 @@ async function saveStoriesToMarkdown(stories) {
         imageUrl: story.imageUrl || '',
         photographer: story.photographer || { name: 'Unsplash', url: 'https://unsplash.com' },
         keywords: story.keywords || ['travel'],
-        author: 'Global Travel Report Editorial Team'
+        author: 'Global Travel Report Editorial Team',
+        postedToSocialMedia: false
       };
 
       // Check if the content starts with the title and remove it to avoid duplication
@@ -1112,16 +1122,18 @@ async function saveStoriesToMarkdown(stories) {
         markdown = `---
 title: ${frontmatter.title}
 date: ${frontmatter.date}
+publishedAt: ${frontmatter.publishedAt || frontmatter.date}
 slug: ${frontmatter.slug}
 category: ${frontmatter.category}
 country: ${frontmatter.country}
 excerpt: ${frontmatter.excerpt.substring(0, 150)}
 imageUrl: ${frontmatter.imageUrl}
-photographer:
-  name: ${frontmatter.photographer.name}
-  url: ${frontmatter.photographer.url}
-keywords: ${frontmatter.keywords.join(', ')}
+photographer: ${typeof frontmatter.photographer === 'object'
+  ? `\n  name: ${frontmatter.photographer.name}\n  url: ${frontmatter.photographer.url}`
+  : frontmatter.photographer}
+keywords: ${Array.isArray(frontmatter.keywords) ? frontmatter.keywords.join(', ') : frontmatter.keywords}
 author: ${frontmatter.author}
+postedToSocialMedia: false
 ---
 
 ${cleanContent}`;

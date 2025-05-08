@@ -1,6 +1,6 @@
 /**
  * Enhanced Schema Generator
- * 
+ *
  * A utility for generating comprehensive schema.org structured data
  * specifically optimized for travel content and search engines.
  */
@@ -13,13 +13,13 @@ import { Story } from '@/types/Story';
  * @param siteUrl The base URL of the site
  * @returns JSON-LD schema object
  */
-export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): any {
-  const publishedDate = story.publishedAt instanceof Date
+export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): Record<string, any> {
+  const publishedDate = typeof story.publishedAt === 'object'
     ? story.publishedAt.toISOString()
     : new Date(story.publishedAt).toISOString();
 
   const updatedDate = story.updatedAt
-    ? (story.updatedAt instanceof Date ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
+    ? (typeof story.updatedAt === 'object' ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
     : publishedDate;
 
   const imageUrl = story.imageUrl?.startsWith('http')
@@ -28,12 +28,12 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
 
   // Extract keywords from tags
   const keywords = story.tags || [];
-  
+
   // Add country and category as keywords if not already included
   if (story.country && !keywords.includes(story.country)) {
     keywords.push(story.country);
   }
-  
+
   if (story.category && !keywords.includes(story.category)) {
     keywords.push(story.category);
   }
@@ -104,7 +104,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
  * @param siteUrl The base URL of the site
  * @returns JSON-LD schema object or null if not applicable
  */
-export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): any | null {
+export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): Record<string, any> | null {
   // Only generate for stories with a specific country (not Global)
   if (!story.country || story.country === 'Global') {
     return null;
@@ -186,28 +186,28 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
  * @param story The story to generate schema for
  * @returns JSON-LD schema object or null if not applicable
  */
-export function generateFAQSchema(story: Story): any | null {
+export function generateFAQSchema(story: Story): Record<string, any> | null {
   // Check if the content has Q&A sections (simple heuristic)
   const content = story.content || '';
   const questionMatches = content.match(/\?[\s\n]+/g);
-  
+
   if (!questionMatches || questionMatches.length < 2) {
     return null; // Not enough questions to consider it an FAQ
   }
-  
+
   // Extract potential questions and answers (simplified approach)
   const lines = content.split('\n');
   const faqs: { question: string; answer: string }[] = [];
-  
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    
+
     // Look for lines ending with question marks
     if (line.endsWith('?') && line.length > 20) {
       // The answer is the next non-empty line
       let answer = '';
       let j = i + 1;
-      
+
       while (j < lines.length) {
         const nextLine = lines[j].trim();
         if (nextLine.length > 0) {
@@ -216,18 +216,18 @@ export function generateFAQSchema(story: Story): any | null {
         }
         j++;
       }
-      
+
       if (answer && answer.length > 20) {
         faqs.push({ question: line, answer });
       }
     }
   }
-  
+
   // Only generate schema if we found at least 2 FAQs
   if (faqs.length < 2) {
     return null;
   }
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -248,29 +248,31 @@ export function generateFAQSchema(story: Story): any | null {
  * @param siteUrl The base URL of the site
  * @returns Array of JSON-LD schema objects
  */
-export function generateAllEnhancedSchemas(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): any[] {
+export function generateAllEnhancedSchemas(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): Record<string, any>[] {
   const schemas = [
     generateEnhancedNewsArticleSchema(story, siteUrl)
   ];
-  
+
   // Add TravelDestination schema if applicable
   const travelDestinationSchema = generateEnhancedTravelDestinationSchema(story, siteUrl);
   if (travelDestinationSchema) {
     schemas.push(travelDestinationSchema);
   }
-  
+
   // Add FAQ schema if applicable
   const faqSchema = generateFAQSchema(story);
   if (faqSchema) {
     schemas.push(faqSchema);
   }
-  
+
   return schemas;
 }
 
-export default {
+const enhancedSchemaGenerator = {
   generateEnhancedNewsArticleSchema,
   generateEnhancedTravelDestinationSchema,
   generateFAQSchema,
   generateAllEnhancedSchemas
 };
+
+export default enhancedSchemaGenerator;

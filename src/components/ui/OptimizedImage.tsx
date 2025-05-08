@@ -94,11 +94,16 @@ export function OptimizedImage({
       return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
     }
 
-    // Log the image URL for debugging
-    console.log('Image URL:', src);
-
     // IMPORTANT: Always use the exact URL provided
     // This ensures we respect the image URLs from the story files
+
+    // For Unsplash images, we can optimize by adding quality and format parameters
+    if (src.includes('unsplash.com') && !src.includes('q=')) {
+      // Add WebP format and quality parameters if not already present
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
+    }
+
     return src;
   }, [src]);
 
@@ -174,20 +179,24 @@ export function StoryCoverImage({
 }: StoryCoverImageProps) {
   // Validate the image URL
   const [validatedSrc, setValidatedSrc] = useState(() => {
-    // Log the image URL for debugging
-    console.log('StoryCoverImage URL:', src);
-
     // IMPORTANT: Always use the exact URL provided if it's valid
     // This ensures we respect the image URLs from the story files
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
       // Return a default image based on the alt text
       if (alt.toLowerCase().includes('cruise')) {
-        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19';
+        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
       } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836';
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=webp&q=80&auto=compress';
       } else {
-        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
       }
+    }
+
+    // For Unsplash images, we can optimize by adding quality and format parameters
+    if (src.includes('unsplash.com') && !src.includes('q=')) {
+      // Add WebP format and quality parameters if not already present
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
     }
 
     // Always use the exact URL provided
@@ -202,11 +211,8 @@ export function StoryCoverImage({
       return;
     }
 
-    // Use a reliable fallback image
-    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080');
-
-    // Log the error for debugging
-    console.error(`Image failed to load: ${src}`);
+    // Use a reliable fallback image with WebP format
+    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress');
   };
 
   // Determine the platform URL and name

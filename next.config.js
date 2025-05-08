@@ -1,18 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable TypeScript checking during build to allow deployment despite errors
+  // Enable TypeScript checking during build to ensure code quality
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+    // We've fixed the TypeScript errors, so we can enable checking
+    ignoreBuildErrors: false,
   },
-  // Disable ESLint during build
+  // Enable ESLint during build
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+    // We've fixed the ESLint errors, so we can enable checking
+    ignoreDuringBuilds: false,
   },
   // Redirects
   async redirects() {
@@ -39,11 +35,24 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'plus.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudfront.net',
+      },
     ],
-    // Disable caching for images
-    minimumCacheTTL: 0,
-    // Force dynamic image optimization
+    // Enable caching for images to improve performance
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+    // Enable image optimization
     unoptimized: false,
+    // Set default image formats
+    formats: ['image/webp', 'image/avif'],
+    // Set default image quality
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   webpack: (config) => {
     config.resolve.alias = {

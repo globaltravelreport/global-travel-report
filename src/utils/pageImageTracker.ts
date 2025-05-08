@@ -142,11 +142,12 @@ export function setupPageImageTracker(): () => void {
     };
 
     // Add event listener for route changes
-    window.addEventListener('routeChangeStart', handleRouteChange);
+    // Using custom event type for Next.js router events
+    (window as any).addEventListener('routeChangeStart', handleRouteChange);
 
     // Return cleanup function
     return () => {
-      window.removeEventListener('routeChangeStart', handleRouteChange);
+      (window as any).removeEventListener('routeChangeStart', handleRouteChange);
     };
   }
 
@@ -154,7 +155,7 @@ export function setupPageImageTracker(): () => void {
   return () => {};
 }
 
-export default {
+const pageImageTracker = {
   isImageUsedOnPage,
   markImageAsUsed,
   getUsedImagesOnPage,
@@ -163,3 +164,5 @@ export default {
   setupPageImageTracker,
   setVerboseLogging
 };
+
+export default pageImageTracker;

@@ -25,7 +25,8 @@ try {
   require('dotenv').config({ path: '.env.local.test' });
 }
 const { TwitterApi } = require('twitter-api-v2');
-const FB = require('fb');
+// Using axios directly for Facebook API instead of the deprecated 'fb' package
+const { createFacebookService } = require('../src/services/facebookService');
 const axios = require('axios');
 const tumblr = require('tumblr.js');
 
@@ -120,9 +121,17 @@ async function testFacebook(message, url) {
   }
 
   try {
-    // Initialize Facebook client
-    FB.setAccessToken(process.env.FACEBOOK_ACCESS_TOKEN);
+    // Initialize Facebook client using our modern service
+    const facebookService = createFacebookService(process.env.FACEBOOK_ACCESS_TOKEN);
     console.log('✅ Facebook client initialized');
+
+    // Validate the access token
+    const isValid = await facebookService.validateAccessToken();
+    if (!isValid) {
+      console.error('❌ Facebook access token is invalid');
+      return;
+    }
+    console.log('✅ Facebook access token is valid');
 
     // Post a test message
     console.log(`Posting test message to Facebook page ${process.env.FACEBOOK_PAGE_ID}: ${message}`);
@@ -131,24 +140,13 @@ async function testFacebook(message, url) {
       console.log('🧪 DRY RUN: Would post to Facebook:', message);
       console.log('✅ Facebook API connection verified successfully!');
     } else {
-      const response = await new Promise((resolve, reject) => {
-        FB.api(
-          `/${process.env.FACEBOOK_PAGE_ID}/feed`,
-          'POST',
-          {
-            message: message,
-            link: url
-          },
-          function(response) {
-            if (!response || response.error) {
-              reject(response?.error || new Error('Unknown Facebook API error'));
-              return;
-            }
-
-            resolve(response);
-          }
-        );
-      });
+      const response = await facebookService.createPost(
+        process.env.FACEBOOK_PAGE_ID,
+        {
+          message: message,
+          link: url
+        }
+      );
 
       console.log(`✅ Facebook post created successfully! Post ID: ${response.id}`);
       console.log(`View post at: https://www.facebook.com/${response.id}`);
@@ -156,7 +154,7 @@ async function testFacebook(message, url) {
   } catch (error) {
     console.error('❌ Facebook API error:', error.message);
     if (error.response) {
-      console.error('Error details:', JSON.stringify(error.response, null, 2));
+      console.error('Error details:', JSON.stringify(error.response?.data || error.response, null, 2));
     }
   }
 }

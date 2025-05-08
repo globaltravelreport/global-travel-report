@@ -2,7 +2,8 @@ import { type Metadata } from 'next';
 import { getAllStories, getStoriesByCategory } from '@/src/utils/stories';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { PopularStories } from '@/components/recommendations/PopularStories';
-import { Suspense, notFound } from 'react';
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import { getCategoryBySlug, getSubcategories } from '@/src/config/categories';
 import Link from 'next/link';
 

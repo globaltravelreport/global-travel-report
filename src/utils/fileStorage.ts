@@ -186,7 +186,7 @@ export async function getAllStories(): Promise<Story[]> {
           const frontmatterLines = frontmatter.split('\n');
           const storyData: Record<string, any> = {};
           let inPhotographerBlock = false;
-          let photographerData: { name?: string; url?: string } = {};
+          const photographerData: { name?: string; url?: string } = {};
 
           for (const line of frontmatterLines) {
             // Check if we're entering the photographer block
@@ -448,7 +448,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
               const frontmatterLines = frontmatter.split('\n');
               const storyData: Record<string, any> = {};
               let inPhotographerBlock = false;
-              let photographerData: { name?: string; url?: string } = {};
+              const photographerData: { name?: string; url?: string } = {};
 
               for (const line of frontmatterLines) {
                 // Check if we're entering the photographer block
@@ -574,6 +574,38 @@ export async function saveStory(story: Story): Promise<void> {
       fs.mkdirSync(articlesDir, { recursive: true });
     }
 
+    // Check if the file already exists to preserve original dates
+    const filePath = path.join(articlesDir, `${story.slug}.md`);
+    let existingDate = null;
+
+    if (fs.existsSync(filePath)) {
+      try {
+        const content = fs.readFileSync(filePath, 'utf8');
+        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+
+        if (frontmatterMatch) {
+          const frontmatter = frontmatterMatch[1];
+          const frontmatterLines = frontmatter.split('\n');
+
+          // Look for date or publishedAt in the frontmatter
+          for (const line of frontmatterLines) {
+            const dateMatch = line.match(/^date:\s*"(.+)"$/);
+            const publishedAtMatch = line.match(/^publishedAt:\s*"(.+)"$/);
+
+            if (dateMatch) {
+              existingDate = dateMatch[1];
+              break;
+            } else if (publishedAtMatch) {
+              existingDate = publishedAtMatch[1];
+              break;
+            }
+          }
+        }
+      } catch (error) {
+        console.error(`Error reading existing story file ${filePath}:`, error);
+      }
+    }
+
     // Ensure the image URL is valid
     const imageUrl = story.imageUrl && story.imageUrl.startsWith('http')
       ? story.imageUrl
@@ -583,7 +615,8 @@ export async function saveStory(story: Story): Promise<void> {
     let frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
-date: "${story.date || safeToISOString(story.publishedAt)}"
+date: "${existingDate || story.date || safeToISOString(story.publishedAt)}"
+publishedAt: "${existingDate || story.date || safeToISOString(story.publishedAt)}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${imageUrl}"
@@ -605,7 +638,6 @@ photographer:
 ${story.content || ''}`;
 
     // Save the story to a file
-    const filePath = path.join(articlesDir, `${story.slug}.md`);
     fs.writeFileSync(filePath, frontmatter);
 
     // Update the in-memory story

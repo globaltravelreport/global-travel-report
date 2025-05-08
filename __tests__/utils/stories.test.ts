@@ -226,7 +226,7 @@ describe('Stories Utility', () => {
         publishedAt: new Date('2024-02-20')
       };
 
-      expect(isStoryArchived(oldStory, 30)).toBe(true);
+      expect(isStoryArchived(oldStory)).toBe(true);
 
       jest.useRealTimers();
     });
@@ -240,7 +240,7 @@ describe('Stories Utility', () => {
         publishedAt: new Date('2024-03-20')
       };
 
-      expect(isStoryArchived(recentStory, 30)).toBe(false);
+      expect(isStoryArchived(recentStory)).toBe(false);
 
       jest.useRealTimers();
     });

@@ -27,14 +27,14 @@ export function PopularStories({ limit = 6, title = "Popular This Week" }: Popul
     const fetchPopularStories = async () => {
       try {
         setLoading(true);
-        
+
         // Get all stories
         const allStories = await getAllStories();
-        
+
         // Get popular stories
         const recommendationService = RecommendationService.getInstance();
         const popular = recommendationService.getPopularStories(allStories, limit);
-        
+
         setPopularStories(popular);
       } catch (error) {
         console.error('Error fetching popular stories:', error);
@@ -42,7 +42,7 @@ export function PopularStories({ limit = 6, title = "Popular This Week" }: Popul
         setLoading(false);
       }
     };
-    
+
     fetchPopularStories();
   }, [limit]);
 
@@ -77,20 +77,24 @@ export function PopularStories({ limit = 6, title = "Popular This Week" }: Popul
         {popularStories.map((story) => (
           <Link key={story.id} href={`/stories/${story.slug}`} className="group">
             <Card className="overflow-hidden h-full transition-all duration-300 hover:shadow-lg">
-              <div className="relative h-48 w-full overflow-hidden">
-                {story.imageUrl ? (
-                  <Image
-                    src={story.imageUrl}
-                    alt={story.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400">No image</span>
-                  </div>
-                )}
+              <div className="relative w-full overflow-hidden">
+                <div className="aspect-[16/9]">
+                  {story.imageUrl ? (
+                    <Image
+                      src={story.imageUrl}
+                      alt={story.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      loading="lazy"
+                      quality={85}
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400">No image</span>
+                    </div>
+                  )}
+                </div>
                 {story.featured && (
                   <div className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
                     Featured

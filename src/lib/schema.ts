@@ -34,12 +34,12 @@ function extractKeywords(story: Story): string[] {
  * @returns JSON-LD schema object for the story
  */
 export function generateNewsArticleSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com') {
-  const publishedDate = story.publishedAt instanceof Date
+  const publishedDate = typeof story.publishedAt === 'object'
     ? story.publishedAt.toISOString()
     : new Date(story.publishedAt).toISOString();
 
   const updatedDate = story.updatedAt
-    ? (story.updatedAt instanceof Date ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
+    ? (typeof story.updatedAt === 'object' ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
     : publishedDate;
 
   const imageUrl = story.imageUrl?.startsWith('http')
@@ -113,12 +113,12 @@ export function generateNewsArticleSchema(story: Story, siteUrl: string = 'https
  * @returns JSON-LD schema object for the story
  */
 export function generateArticleSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com') {
-  const publishedDate = story.publishedAt instanceof Date
+  const publishedDate = typeof story.publishedAt === 'object'
     ? story.publishedAt.toISOString()
     : new Date(story.publishedAt).toISOString();
 
   const updatedDate = story.updatedAt
-    ? (story.updatedAt instanceof Date ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
+    ? (typeof story.updatedAt === 'object' ? story.updatedAt.toISOString() : new Date(story.updatedAt).toISOString())
     : publishedDate;
 
   const imageUrl = story.imageUrl?.startsWith('http')
@@ -261,7 +261,7 @@ export function generateTravelDestinationSchema(story: Story, siteUrl: string = 
  * @param siteUrl - The base URL of the site
  * @returns JSON-LD schema object for FAQs or null if no FAQs
  */
-export function generateFAQSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com') {
+export function generateFAQSchema(story: Story, _siteUrl: string = 'https://www.globaltravelreport.com') {
   // Check if the story has FAQs
   if (!story.faqs || story.faqs.length === 0) {
     return null;
@@ -476,7 +476,7 @@ export function generateAggregateRatingSchema(story: Story, siteUrl: string = 'h
  * @param siteUrl - The base URL of the site
  * @returns Array of JSON-LD schema objects
  */
-export function generateAllSchemas(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): any[] {
+export function generateAllSchemas(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): Record<string, unknown>[] {
   const schemas = [
     generateNewsArticleSchema(story, siteUrl), // Use NewsArticle as primary schema
     generateArticleSchema(story, siteUrl),     // Also include Article for broader compatibility
@@ -486,19 +486,28 @@ export function generateAllSchemas(story: Story, siteUrl: string = 'https://www.
   // Add TravelDestination schema if applicable
   const travelDestinationSchema = generateTravelDestinationSchema(story, siteUrl);
   if (travelDestinationSchema) {
-    schemas.push(travelDestinationSchema);
+    // Ensure it has the required properties for a valid schema
+    if (travelDestinationSchema['@type'] === 'TouristDestination') {
+      schemas.push(travelDestinationSchema as unknown as any);
+    }
   }
 
   // Add FAQ schema if applicable
   const faqSchema = generateFAQSchema(story, siteUrl);
   if (faqSchema) {
-    schemas.push(faqSchema);
+    // Ensure it has the required properties for a valid schema
+    if (faqSchema['@type'] === 'FAQPage' && faqSchema.mainEntity) {
+      schemas.push(faqSchema as unknown as any);
+    }
   }
 
   // Add AggregateRating schema if applicable
   const aggregateRatingSchema = generateAggregateRatingSchema(story, siteUrl);
   if (aggregateRatingSchema) {
-    schemas.push(aggregateRatingSchema);
+    // Ensure it has the required properties for a valid schema
+    if (aggregateRatingSchema['@type'] === 'TravelAgency' && aggregateRatingSchema.aggregateRating) {
+      schemas.push(aggregateRatingSchema as unknown as any);
+    }
   }
 
   return schemas;

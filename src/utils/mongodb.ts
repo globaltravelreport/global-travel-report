@@ -17,9 +17,8 @@ import {
 } from '@/src/utils/fileStorage';
 
 // Re-export the interfaces and functions from fileStorage
+export type { Collection, Db };
 export {
-  Collection,
-  Db,
   connectToMongoDB,
   getStoriesCollection,
   closeMongoDB

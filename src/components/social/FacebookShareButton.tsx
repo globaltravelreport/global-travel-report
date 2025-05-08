@@ -10,6 +10,7 @@ interface FacebookShareButtonProps {
   description?: string;
   imageUrl?: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
 /**
@@ -21,6 +22,7 @@ export function FacebookShareButton({
   description,
   imageUrl,
   className = '',
+  children,
 }: FacebookShareButtonProps) {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -53,8 +55,14 @@ export function FacebookShareButton({
       onClick={handleShare}
       aria-label="Share on Facebook"
     >
-      <FacebookIcon className="h-4 w-4" />
-      <span>Share</span>
+      {children ? (
+        children
+      ) : (
+        <>
+          <FacebookIcon className="h-4 w-4" />
+          <span>Share</span>
+        </>
+      )}
     </Button>
   );
 }
