@@ -6,8 +6,7 @@
  */
 
 import axios from 'axios';
-import errorService from './errorService';
-import { ErrorCategory } from '@/src/types/errors';
+import errorService, { ErrorCategory } from './errorService';
 
 // Facebook Graph API base URL
 const FACEBOOK_API_BASE_URL = 'https://graph.facebook.com/v18.0';
