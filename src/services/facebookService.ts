@@ -1,12 +1,12 @@
 /**
  * Facebook Service
- * 
+ *
  * A modern implementation of Facebook API integration using axios instead of the deprecated 'fb' package.
  * This service handles posting to Facebook pages and other Facebook-related functionality.
  */
 
 import axios from 'axios';
-import { errorService } from './errorService';
+import errorService from './errorService';
 import { ErrorCategory } from '@/src/types/errors';
 
 // Facebook Graph API base URL
@@ -27,7 +27,7 @@ interface FacebookPostResponse {
  */
 export class FacebookService {
   private accessToken: string;
-  
+
   /**
    * Create a new FacebookService instance
    * @param accessToken Facebook access token
@@ -35,7 +35,7 @@ export class FacebookService {
   constructor(accessToken: string) {
     this.accessToken = accessToken;
   }
-  
+
   /**
    * Post a message to a Facebook page
    * @param pageId Facebook page ID
@@ -46,7 +46,7 @@ export class FacebookService {
     try {
       // Log the post parameters for debugging
       console.log(`Facebook post parameters for page "${pageId}":`, JSON.stringify(params, null, 2));
-      
+
       // Make the API call
       const response = await axios.post(
         `${FACEBOOK_API_BASE_URL}/${pageId}/feed`,
@@ -55,7 +55,7 @@ export class FacebookService {
           access_token: this.accessToken
         }
       );
-      
+
       return { id: response.data.id };
     } catch (error) {
       // Log the error
@@ -65,12 +65,12 @@ export class FacebookService {
         ErrorCategory.SOCIAL_MEDIA,
         { action: 'createPost', additionalData: { pageId } }
       );
-      
+
       // Rethrow the error
       throw error;
     }
   }
-  
+
   /**
    * Get information about a Facebook page
    * @param pageId Facebook page ID
@@ -87,7 +87,7 @@ export class FacebookService {
           }
         }
       );
-      
+
       return response.data;
     } catch (error) {
       // Log the error
@@ -97,12 +97,12 @@ export class FacebookService {
         ErrorCategory.SOCIAL_MEDIA,
         { action: 'getPageInfo', additionalData: { pageId } }
       );
-      
+
       // Rethrow the error
       throw error;
     }
   }
-  
+
   /**
    * Check if the access token is valid
    * @returns Promise with a boolean indicating if the token is valid
@@ -118,7 +118,7 @@ export class FacebookService {
           }
         }
       );
-      
+
       return response.data.data.is_valid === true;
     } catch (error) {
       // Log the error
@@ -128,7 +128,7 @@ export class FacebookService {
         ErrorCategory.SOCIAL_MEDIA,
         { action: 'validateAccessToken' }
       );
-      
+
       return false;
     }
   }
