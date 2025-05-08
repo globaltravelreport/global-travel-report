@@ -61,7 +61,7 @@ export class FacebookService {
       errorService.logError(
         `Failed to post to Facebook: ${error instanceof Error ? error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
-        ErrorCategory.SOCIAL_MEDIA,
+        ErrorCategory.API,
         { action: 'createPost', additionalData: { pageId } }
       );
 
@@ -93,7 +93,7 @@ export class FacebookService {
       errorService.logError(
         `Failed to get Facebook page info: ${error instanceof Error ? error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
-        ErrorCategory.SOCIAL_MEDIA,
+        ErrorCategory.API,
         { action: 'getPageInfo', additionalData: { pageId } }
       );
 
@@ -124,7 +124,7 @@ export class FacebookService {
       errorService.logError(
         `Failed to validate Facebook access token: ${error instanceof Error ? error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
-        ErrorCategory.SOCIAL_MEDIA,
+        ErrorCategory.API,
         { action: 'validateAccessToken' }
       );
 
