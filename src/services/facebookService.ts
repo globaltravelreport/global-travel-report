@@ -3,6 +3,7 @@
  *
  * A modern implementation of Facebook API integration using axios instead of the deprecated 'fb' package.
  * This service handles posting to Facebook pages and other Facebook-related functionality.
+ * Uses proper error categories for consistent error handling.
  */
 
 import axios from 'axios';
