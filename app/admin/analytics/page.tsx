@@ -2,12 +2,13 @@
 
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
 import Link from 'next/link';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 /**
  * Admin analytics page
  * @returns The admin analytics page component
  */
-export default function AdminAnalyticsPage() {
+function AdminAnalyticsContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
@@ -24,5 +25,13 @@ export default function AdminAnalyticsPage() {
         <AnalyticsDashboard />
       </div>
     </div>
+  );
+}
+
+export default function AdminAnalyticsPage() {
+  return (
+    <ClientSuspense>
+      <AdminAnalyticsContent />
+    </ClientSuspense>
   );
 }

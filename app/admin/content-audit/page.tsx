@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui/tabs';
 import { Button } from '@/src/components/ui/button';
@@ -68,13 +69,13 @@ interface ContentAuditReport {
   }>;
 }
 
-export default function ContentAuditPage() {
+function ContentAuditContent() {
   const [report, setReport] = useState<ContentAuditReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('summary');
-  
+
   // Load the report from local storage on mount
   useEffect(() => {
     try {
@@ -88,16 +89,16 @@ export default function ContentAuditPage() {
       setLoading(false);
     }
   }, []);
-  
+
   // Handle running the content audit
   const handleRunAudit = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       // Simulate running the audit (in a real implementation, this would call an API)
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       // For demo purposes, generate a sample report
       const sampleReport: ContentAuditReport = {
         generatedAt: new Date().toISOString(),
@@ -138,7 +139,7 @@ export default function ContentAuditPage() {
           const isFresh = i < 42;
           const isRecent = i >= 42 && i < 120;
           const isOutdated = i >= 120;
-          
+
           return {
             slug: `story-${i + 1}`,
             title: `Story ${i + 1}`,
@@ -161,10 +162,10 @@ export default function ContentAuditPage() {
           };
         })
       };
-      
+
       // Store the report in local storage
       localStorage.setItem('content-audit-report', JSON.stringify(sampleReport));
-      
+
       // Update the state
       setReport(sampleReport);
       setLoading(false);
@@ -173,15 +174,15 @@ export default function ContentAuditPage() {
       setLoading(false);
     }
   };
-  
+
   // Filter the detailed analysis based on the search term
-  const filteredAnalysis = report?.detailedAnalysis.filter(story => 
+  const filteredAnalysis = report?.detailedAnalysis.filter(story =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     story.slug.toLowerCase().includes(searchTerm.toLowerCase()) ||
     story.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
     story.country.toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
-  
+
   // Get badge color for freshness status
   const getFreshnessColor = (status: string) => {
     switch (status) {
@@ -195,7 +196,7 @@ export default function ContentAuditPage() {
         return 'bg-gray-500 hover:bg-gray-600';
     }
   };
-  
+
   // Get badge color for score
   const getScoreColor = (score: number) => {
     if (score >= 160) return 'bg-green-500 hover:bg-green-600';
@@ -204,7 +205,7 @@ export default function ContentAuditPage() {
     if (score >= 40) return 'bg-orange-400 hover:bg-orange-500';
     return 'bg-red-500 hover:bg-red-600';
   };
-  
+
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
@@ -218,13 +219,13 @@ export default function ContentAuditPage() {
           </Link>
         </div>
       </div>
-      
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
           {error}
         </div>
       )}
-      
+
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -246,7 +247,7 @@ export default function ContentAuditPage() {
                   <TabsTrigger value="needs-improvement">Needs Improvement</TabsTrigger>
                   <TabsTrigger value="all-stories">All Stories</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="summary" className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                     <Card>
@@ -270,7 +271,7 @@ export default function ContentAuditPage() {
                         </div>
                       </CardContent>
                     </Card>
-                    
+
                     <Card>
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Average Scores</CardTitle>
@@ -292,7 +293,7 @@ export default function ContentAuditPage() {
                         </div>
                       </CardContent>
                     </Card>
-                    
+
                     <Card>
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg">Top Stories</CardTitle>
@@ -312,7 +313,7 @@ export default function ContentAuditPage() {
                     </Card>
                   </div>
                 </TabsContent>
-                
+
                 <TabsContent value="needs-update">
                   <div className="mt-6">
                     <Table>
@@ -345,7 +346,7 @@ export default function ContentAuditPage() {
                     </Table>
                   </div>
                 </TabsContent>
-                
+
                 <TabsContent value="needs-improvement">
                   <div className="mt-6">
                     <Table>
@@ -380,7 +381,7 @@ export default function ContentAuditPage() {
                     </Table>
                   </div>
                 </TabsContent>
-                
+
                 <TabsContent value="all-stories">
                   <div className="mt-6">
                     <div className="mb-4">
@@ -391,7 +392,7 @@ export default function ContentAuditPage() {
                         className="max-w-md"
                       />
                     </div>
-                    
+
                     <Table>
                       <TableHeader>
                         <TableRow>
@@ -434,7 +435,7 @@ export default function ContentAuditPage() {
                         ))}
                       </TableBody>
                     </Table>
-                    
+
                     {filteredAnalysis.length > 50 && (
                       <div className="text-center mt-4 text-gray-500">
                         Showing 50 of {filteredAnalysis.length} results. Refine your search to see more.
@@ -459,5 +460,13 @@ export default function ContentAuditPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ContentAuditPage() {
+  return (
+    <ClientSuspense>
+      <ContentAuditContent />
+    </ClientSuspense>
   );
 }
