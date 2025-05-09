@@ -22,6 +22,11 @@ const nextConfig = {
         destination: '/offers',
         permanent: true,
       },
+      {
+        source: '/stories',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
   reactStrictMode: true,
