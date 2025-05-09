@@ -13,15 +13,17 @@ export function CountryDropdown({ countries }: CountryDropdownProps) {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Filter to only show valid countries in the dropdown
-  // Make sure we're working with actual country names, not headers
+  // Clean up country names and filter to only show valid countries in the dropdown
   const validCountries = countries
     .filter(country => isValidCountry(country) && country.trim() !== '')
+    .map(country => country.replace(/['"]+/g, '')) // Remove quotes
     .sort((a, b) => a.localeCompare(b));
 
   // Filter out any non-country entries that might be headers or invalid data
+  // Also clean up the entries by removing quotes and extra formatting
   const otherEntries = countries
     .filter(country => !isValidCountry(country) && country.trim() !== '' && !country.includes('header'))
+    .map(country => country.replace(/['"]+/g, '')) // Remove quotes
     .sort((a, b) => a.localeCompare(b));
 
   // Close dropdown when clicking outside

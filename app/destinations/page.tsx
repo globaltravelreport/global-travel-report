@@ -35,18 +35,31 @@ async function DestinationsPageContent() {
   // Filter out non-country entries and sort by number of stories (descending)
   const allCountries = Object.keys(storiesByCountry);
 
+  // Clean up country names by removing quotes and extra formatting
+  const cleanedCountries = allCountries.map(country => country.replace(/['"]+/g, ''));
+
   // Separate valid countries from regions/other entries
-  const validCountryEntries = allCountries.filter(country => isValidCountry(country));
-  const otherEntries = allCountries.filter(country => !isValidCountry(country));
+  const validCountryEntries = cleanedCountries.filter(country => isValidCountry(country));
+  const otherEntries = cleanedCountries.filter(country => !isValidCountry(country));
 
   // Sort valid countries by number of stories (descending)
   const sortedValidCountries = validCountryEntries.sort(
-    (a, b) => storiesByCountry[b].length - storiesByCountry[a].length
+    (a, b) => {
+      // Get the original country key to access the stories
+      const countryKeyA = allCountries.find(c => c.replace(/['"]+/g, '') === a) || a;
+      const countryKeyB = allCountries.find(c => c.replace(/['"]+/g, '') === b) || b;
+      return storiesByCountry[countryKeyB].length - storiesByCountry[countryKeyA].length;
+    }
   );
 
   // Sort other entries by number of stories (descending)
   const sortedOtherEntries = otherEntries.sort(
-    (a, b) => storiesByCountry[b].length - storiesByCountry[a].length
+    (a, b) => {
+      // Get the original country key to access the stories
+      const countryKeyA = allCountries.find(c => c.replace(/['"]+/g, '') === a) || a;
+      const countryKeyB = allCountries.find(c => c.replace(/['"]+/g, '') === b) || b;
+      return storiesByCountry[countryKeyB].length - storiesByCountry[countryKeyA].length;
+    }
   );
 
   // Combine the sorted lists, with valid countries first
@@ -120,30 +133,35 @@ async function DestinationsPageContent() {
           </div>
 
           <div className="space-y-16">
-            {sortedCountries.map((country) => (
-              <section
-                key={country}
-                id={`country-${country.toLowerCase().replace(/\s+/g, '-')}`}
-                className="space-y-6 scroll-mt-24"
-              >
-                <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {storiesByCountry[country].slice(0, 6).map((story) => (
-                    <StoryCard key={story.id} story={story} />
-                  ))}
-                </div>
-                {storiesByCountry[country].length > 6 && (
-                  <div className="text-center mt-4">
-                    <a
-                      href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                    >
-                      View all {country} stories
-                    </a>
+            {sortedCountries.map((country) => {
+              // Get the original country key to access the stories
+              const originalCountryKey = allCountries.find(c => c.replace(/['"]+/g, '') === country) || country;
+
+              return (
+                <section
+                  key={country}
+                  id={`country-${country.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="space-y-6 scroll-mt-24"
+                >
+                  <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {storiesByCountry[originalCountryKey].slice(0, 6).map((story) => (
+                      <StoryCard key={story.id} story={story} />
+                    ))}
                   </div>
-                )}
-              </section>
-            ))}
+                  {storiesByCountry[originalCountryKey].length > 6 && (
+                    <div className="text-center mt-4">
+                      <a
+                        href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                      >
+                        View all {country} stories
+                      </a>
+                    </div>
+                  )}
+                </section>
+              );
+            })}
           </div>
         </>
       ) : (
