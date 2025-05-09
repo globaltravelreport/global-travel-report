@@ -4,6 +4,8 @@ import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
 import { isValidCountry } from '@/src/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { DynamicWorldMap } from '@/src/components/maps/DynamicWorldMap';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -91,6 +93,42 @@ export default async function DestinationsPage() {
 
       {sortedCountries.length > 0 ? (
         <>
+          {/* Interactive World Map */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Explore Destinations</h2>
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+              <Suspense fallback={
+                <div className="h-[500px] bg-gray-100 flex items-center justify-center">
+                  <div className="flex flex-col items-center space-y-2">
+                    <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500">Loading interactive map...</p>
+                  </div>
+                </div>
+              }>
+                <DynamicWorldMap
+                  highlightedCountries={sortedValidCountries}
+                  onCountryClick={(country) => {
+                    // This will be handled client-side
+                    const element = document.getElementById(`country-${country.toLowerCase().replace(/\s+/g, '-')}`);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = `/countries/${country.toLowerCase().replace(/\s+/g, '-')}`;
+                    }
+                  }}
+                  height={500}
+                  showLabels={true}
+                  enableZoom={true}
+                  initialZoom={2}
+                  highlightColor="#3b82f6"
+                />
+              </Suspense>
+              <div className="p-4 bg-gray-50 text-sm text-gray-500">
+                Click on a highlighted country to view stories from that destination
+              </div>
+            </div>
+          </div>
+
           {/* Country Dropdown Navigation */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-12 shadow-sm">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Find Stories by Country</h2>

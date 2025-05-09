@@ -86,12 +86,12 @@ export function OptimizedImage({
   const optimizedSrc = React.useMemo(() => {
     // If src is not a string or empty, return a default image
     if (!src || typeof src !== 'string') {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
     }
 
     // If src doesn't start with http, it's invalid
     if (!src.startsWith('http')) {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080';
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
     }
 
     // IMPORTANT: Always use the exact URL provided
@@ -104,8 +104,27 @@ export function OptimizedImage({
       return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
     }
 
+    // For Pexels images, add auto format and quality parameters
+    if (src.includes('pexels.com') && !src.includes('auto=')) {
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}auto=webp&q=${quality}`;
+    }
+
+    // For Cloudinary images, add format and quality parameters
+    if (src.includes('cloudinary.com') && !src.includes('f_auto')) {
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}f_auto,q_${quality}`;
+    }
+
+    // For Imgix images, add format and quality parameters
+    if (src.includes('imgix.net') && !src.includes('fm=')) {
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
+    }
+
+    // For local images, Next.js Image component will handle optimization automatically
     return src;
-  }, [src]);
+  }, [src, quality]);
 
   return (
     <div
@@ -148,7 +167,9 @@ export function OptimizedImage({
           onError={handleError}
           loading={loading}
           placeholder={placeholder}
-          blurDataURL={blurDataURL}
+          blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
+          unoptimized={false}
+          formats={['image/avif', 'image/webp']}
         />
       )}
     </div>

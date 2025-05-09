@@ -5,6 +5,7 @@ import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { Badge } from "@/src/components/ui/badge";
+import { Breadcrumb } from "@/src/components/ui/Breadcrumb";
 import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
@@ -15,6 +16,9 @@ import { generateStoryMeta } from "@/src/utils/meta";
 import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
+import { EnhancedOpenGraph } from "@/src/components/social/EnhancedOpenGraph";
+import { StructuredData } from "@/src/components/seo/StructuredData";
+import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
 
 // Define the params type for Next.js
@@ -149,8 +153,85 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           url={storyUrl}
         />
 
+        {/* Enhanced Open Graph tags for better social sharing */}
+        <EnhancedOpenGraph
+          title={story.title}
+          description={story.excerpt || story.title}
+          url={storyUrl}
+          type="article"
+          images={[
+            {
+              url: story.coverImage,
+              width: 1200,
+              height: 630,
+              alt: story.title
+            }
+          ]}
+          facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
+          article={{
+            publishedTime: story.publishedAt,
+            modifiedTime: story.updatedAt || story.publishedAt,
+            authors: ['Global Travel Report Editorial Team'],
+            section: story.category,
+            tags: story.tags
+          }}
+        />
+
+        {/* Add structured data for SEO */}
+        <StructuredData
+          data={generateAllEnhancedSchemas(story, process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com')}
+          id="story-structured-data"
+        />
+
+        {/* Add BreadcrumbList structured data */}
+        <StructuredData
+          data={{
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Stories",
+                "item": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": story.category,
+                "item": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/categories/${story.category.toLowerCase()}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": story.title,
+                "item": storyUrl
+              }
+            ]
+          }}
+          id="breadcrumb-structured-data"
+        />
+
         <article className="max-w-4xl mx-auto px-4 py-8">
           <Toaster position="top-right" />
+
+          {/* Add visual breadcrumb navigation */}
+          <div className="mb-6">
+            <Breadcrumb
+              items={[
+                { label: 'Stories', href: '/stories' },
+                { label: story.category, href: `/categories/${story.category.toLowerCase()}` },
+                { label: story.title, active: true }
+              ]}
+              className="text-sm"
+            />
+          </div>
 
           <header className="mb-8">
             <div className="flex flex-wrap gap-2 mb-4">

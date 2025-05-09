@@ -160,6 +160,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://unpkg.com" />
+        <link rel="preconnect" href="https://tile.openstreetmap.org" />
 
         {/* Preload Critical Assets */}
         <link rel="preload" href="/logo-gtr.png" as="image" />

@@ -56,6 +56,7 @@ const AFFILIATE_PROVIDERS: Record<string, AffiliateProvider> = {
 
 // Sample affiliate products (to be replaced with API data)
 const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
+  // Saily eSIM Products
   {
     id: 'saily-global-esim',
     name: 'Global eSIM Data Plan',
@@ -64,7 +65,7 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
     provider: 'saily',
     category: 'Connectivity',
-    tags: ['eSIM', 'Data', 'International', 'Travel Essentials'],
+    tags: ['eSIM', 'Data', 'International', 'Travel Essentials', 'Global', 'Adventure', 'Budget', 'Family', 'Solo'],
     price: '$49.99',
     discountPrice: '$29.99',
     discountPercentage: 40,
@@ -79,12 +80,42 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
     provider: 'saily',
     category: 'Connectivity',
-    tags: ['SIM Card', 'Europe', 'Data', 'Roaming'],
+    tags: ['SIM Card', 'Europe', 'Data', 'Roaming', 'France', 'Italy', 'Spain', 'Germany', 'United Kingdom', 'Culture', 'Food & Wine'],
     price: '$39.99',
     discountPrice: '$24.99',
     discountPercentage: 37,
     rating: 4.7
   },
+  {
+    id: 'saily-asia-sim',
+    name: 'Asia Travel SIM Card',
+    description: 'Reliable data coverage across major Asian destinations including Japan, Thailand, and Singapore',
+    imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d',
+    affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
+    provider: 'saily',
+    category: 'Connectivity',
+    tags: ['SIM Card', 'Asia', 'Data', 'Japan', 'Thailand', 'Singapore', 'China', 'Vietnam', 'Indonesia', 'Adventure', 'Culture'],
+    price: '$34.99',
+    discountPrice: '$22.99',
+    discountPercentage: 34,
+    rating: 4.6
+  },
+  {
+    id: 'saily-oceania-sim',
+    name: 'Australia & New Zealand SIM',
+    description: 'Perfect for travelers exploring Australia and New Zealand with extensive coverage',
+    imageUrl: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be',
+    affiliateUrl: 'https://go.saily.site/aff_c?offer_id=101&aff_id=8736',
+    provider: 'saily',
+    category: 'Connectivity',
+    tags: ['SIM Card', 'Oceania', 'Data', 'Australia', 'New Zealand', 'Adventure', 'Sustainable'],
+    price: '$29.99',
+    discountPrice: '$19.99',
+    discountPercentage: 33,
+    rating: 4.5
+  },
+
+  // Nord VPN Products
   {
     id: 'nordvpn-annual',
     name: 'Nord VPN Annual Plan',
@@ -93,12 +124,40 @@ const SAMPLE_AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     affiliateUrl: 'https://go.nordpass.io/aff_c?offer_id=488&aff_id=123038&url_id=9356',
     provider: 'nordvpn',
     category: 'Security',
-    tags: ['VPN', 'Security', 'Privacy', 'Travel Essentials'],
+    tags: ['VPN', 'Security', 'Privacy', 'Travel Essentials', 'Global', 'Adventure', 'Budget', 'Family', 'Solo', 'Business'],
     price: '$143.40',
     discountPrice: '$59.88',
     discountPercentage: 58,
     rating: 4.9,
     featured: true
+  },
+  {
+    id: 'nordvpn-monthly',
+    name: 'Nord VPN Monthly Plan',
+    description: 'Flexible monthly protection for short-term travelers',
+    imageUrl: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7',
+    affiliateUrl: 'https://go.nordpass.io/aff_c?offer_id=488&aff_id=123038&url_id=9356',
+    provider: 'nordvpn',
+    category: 'Security',
+    tags: ['VPN', 'Security', 'Privacy', 'Short Trip', 'Budget', 'Solo'],
+    price: '$11.99',
+    discountPrice: '$11.99',
+    discountPercentage: 0,
+    rating: 4.7
+  },
+  {
+    id: 'nordvpn-family',
+    name: 'Nord VPN Family Plan',
+    description: 'Protect the whole family with multiple device coverage',
+    imageUrl: 'https://images.unsplash.com/photo-1581579438747-104c53d7fbc4',
+    affiliateUrl: 'https://go.nordpass.io/aff_c?offer_id=488&aff_id=123038&url_id=9356',
+    provider: 'nordvpn',
+    category: 'Security',
+    tags: ['VPN', 'Security', 'Privacy', 'Family', 'Multiple Devices'],
+    price: '$179.99',
+    discountPrice: '$89.99',
+    discountPercentage: 50,
+    rating: 4.8
   }
 ];
 
@@ -149,13 +208,58 @@ export class AffiliateService {
   }
 
   /**
-   * Get affiliate products by tags
+   * Get affiliate products by tags with relevance scoring
+   *
+   * This method returns products that match the given tags, sorted by relevance score.
+   * The relevance score is calculated based on how many tags match and their position in the list.
+   *
+   * @param tags - Array of tags to match against
+   * @param limit - Maximum number of products to return
+   * @returns Array of affiliate products sorted by relevance
    */
   public getProductsByTags(tags: string[]): AffiliateProduct[] {
+    if (!tags || tags.length === 0) {
+      return this.getFeaturedProducts();
+    }
+
     const normalizedTags = tags.map(tag => tag.toLowerCase());
-    return this.getAllProducts().filter(product =>
-      product.tags.some(tag => normalizedTags.includes(tag.toLowerCase()))
-    );
+    const allProducts = this.getAllProducts();
+
+    // Calculate relevance score for each product
+    const scoredProducts = allProducts.map(product => {
+      let score = 0;
+      const productTags = product.tags.map(tag => tag.toLowerCase());
+
+      // Calculate score based on tag matches
+      normalizedTags.forEach((tag, index) => {
+        // Tags earlier in the list are more important (category, country)
+        const positionWeight = Math.max(1, 5 - index * 0.5);
+
+        if (productTags.includes(tag)) {
+          score += positionWeight;
+        }
+
+        // Partial matches (e.g., "Japan" in "Asia Japan")
+        productTags.forEach(productTag => {
+          if (productTag.includes(tag) || tag.includes(productTag)) {
+            score += positionWeight * 0.5;
+          }
+        });
+      });
+
+      // Boost score for featured products
+      if (product.featured) {
+        score *= 1.2;
+      }
+
+      return { product, score };
+    });
+
+    // Filter products with a score > 0 and sort by score (descending)
+    return scoredProducts
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(item => item.product);
   }
 
   /**
