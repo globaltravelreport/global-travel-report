@@ -1,7 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DynamicWorldMap, WorldMapProps } from './DynamicWorldMap';
+import dynamic from 'next/dynamic';
+
+// Import the WorldMap component dynamically with no SSR
+const WorldMap = dynamic(() => import('./WorldMap'), { ssr: false });
+
+// Define the props for the WorldMap component
+export interface WorldMapProps {
+  highlightedCountries?: string[];
+  onCountryClick?: (country: string) => void;
+  className?: string;
+  width?: number | string;
+  height?: number | string;
+  enableZoom?: boolean;
+  initialZoom?: number;
+  highlightColor?: string;
+  baseColor?: string;
+  borderColor?: string;
+  showLabels?: boolean;
+}
 
 /**
  * Client component wrapper for the WorldMap component
@@ -10,7 +28,7 @@ import { DynamicWorldMap, WorldMapProps } from './DynamicWorldMap';
  */
 export function ClientWorldMap(props: WorldMapProps) {
   const { onCountryClick, ...restProps } = props;
-  
+
   // Handle country click on the client side
   const handleCountryClick = (country: string) => {
     if (onCountryClick) {
@@ -19,7 +37,7 @@ export function ClientWorldMap(props: WorldMapProps) {
   };
 
   return (
-    <DynamicWorldMap
+    <WorldMap
       {...restProps}
       onCountryClick={handleCountryClick}
     />

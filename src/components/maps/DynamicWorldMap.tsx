@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { clientOnly } from '@/src/utils/dynamic-import';
+import dynamic from 'next/dynamic';
 
 // Define the props for the WorldMap component
-interface WorldMapProps {
+export interface WorldMapProps {
   /**
    * Countries to highlight on the map
    */
@@ -82,9 +82,9 @@ const MapLoading = ({ width, height }: { width?: number | string; height?: numbe
  * This component uses dynamic imports to load the WorldMap component only on the client side,
  * which reduces the initial bundle size and improves performance.
  */
-const DynamicWorldMap = clientOnly<React.ComponentType<WorldMapProps>>(
-  () => import('./WorldMap')
+const DynamicWorldMap = dynamic<WorldMapProps>(
+  () => import('./WorldMap'),
+  { ssr: false, loading: () => <MapLoading /> }
 );
 
 export { DynamicWorldMap };
-export type { WorldMapProps };
