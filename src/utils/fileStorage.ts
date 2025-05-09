@@ -22,12 +22,20 @@ function safeToISOString(dateStr: string | Date | undefined): string {
     return new Date().toISOString();
   }
 
-  // If dateStr is already a string, preserve it exactly as is
+  // If dateStr is already a string, check if it's valid and not in the future
   if (typeof dateStr === 'string') {
-    // Check if it's a valid date string
     try {
       const date = new Date(dateStr);
+      const now = new Date();
+
+      // Check if it's a valid date
       if (!isNaN(date.getTime())) {
+        // Check if the date is in the future
+        if (date > now) {
+          console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
+          return now.toISOString();
+        }
+
         // Return the original string to preserve the exact format
         return dateStr;
       }
@@ -35,8 +43,16 @@ function safeToISOString(dateStr: string | Date | undefined): string {
       console.warn(`Invalid date: ${dateStr}, using safe date string instead`);
     }
   } else if (dateStr instanceof Date) {
-    // If it's a Date object, convert to ISO string
+    // If it's a Date object, check if it's valid and not in the future
     if (!isNaN(dateStr.getTime())) {
+      const now = new Date();
+
+      // Check if the date is in the future
+      if (dateStr > now) {
+        console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
+        return now.toISOString();
+      }
+
       return dateStr.toISOString();
     }
   }

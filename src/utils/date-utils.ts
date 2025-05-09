@@ -198,20 +198,28 @@ export function isArchived(publishDate: Date | string, archiveDays: number = 7):
 
 /**
  * Validate a date string and return a valid date
- * If the date is invalid, returns the current date
- * IMPORTANT: This function preserves the original date even if it's in the future
+ * If the date is invalid or in the future, returns the current date
  * @param dateStr - The date string to validate
  * @returns A valid Date object
  */
 export function validateDate(dateStr: string | Date): Date {
-  // If it's already a Date object, just check if it's valid
+  const now = new Date();
+
+  // If it's already a Date object, check if it's valid and not in the future
   if (dateStr instanceof Date) {
     // Check if the date is valid
     if (isNaN(dateStr.getTime())) {
-      return new Date();
+      console.warn(`Invalid date object, using current date instead`);
+      return now;
     }
 
-    // Always preserve the original date, even if it's in the future
+    // Check if the date is in the future
+    if (dateStr > now) {
+      console.warn(`Future date detected: ${dateStr.toISOString()}, adjusting to current date`);
+      return now;
+    }
+
+    // Return the valid date
     return dateStr;
   }
 
@@ -220,24 +228,53 @@ export function validateDate(dateStr: string | Date): Date {
 
     // Check if the date is valid
     if (isNaN(date.getTime())) {
-      return new Date();
+      console.warn(`Invalid date string: ${dateStr}, using current date instead`);
+      return now;
     }
 
-    // Always preserve the original date, even if it's in the future
+    // Check if the date is in the future
+    if (date > now) {
+      console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
+      return now;
+    }
+
+    // Return the valid date
     return date;
   } catch (error) {
     // If there's any error parsing the date, return the current date
-    return new Date();
+    console.error(`Error processing date: ${dateStr}`, error);
+    return now;
   }
 }
 
 /**
  * Get a safe date string for database storage
- * Ensures the date is valid while preserving the original date
+ * Ensures the date is valid and not in the future
  * @param dateStr - The date string to validate
  * @returns A valid ISO date string
  */
 export function getSafeDateString(dateStr: string | Date): string {
-  const validDate = validateDate(dateStr);
-  return formatDatabaseDate(validDate);
+  try {
+    // Convert to Date object
+    const dateObj = dateStr instanceof Date ? dateStr : new Date(dateStr);
+    const now = new Date();
+
+    // Check if the date is valid
+    if (isNaN(dateObj.getTime())) {
+      console.warn(`Invalid date: ${dateStr}, using current date instead`);
+      return now.toISOString();
+    }
+
+    // Check if the date is in the future
+    if (dateObj > now) {
+      console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
+      return now.toISOString();
+    }
+
+    // Return the valid date
+    return dateObj.toISOString();
+  } catch (error) {
+    console.error(`Error processing date: ${dateStr}`, error);
+    return new Date().toISOString();
+  }
 }
