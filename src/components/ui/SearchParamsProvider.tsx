@@ -6,7 +6,7 @@ import { useSearchParams as useNextSearchParams } from 'next/navigation';
 /**
  * A client component that safely uses useSearchParams
  * This component should be used in place of direct useSearchParams calls
- * 
+ *
  * @param props - Component props
  * @returns A component that safely uses useSearchParams
  */
@@ -17,7 +17,7 @@ export function SearchParamsProvider({
 }) {
   // Use Next.js useSearchParams hook
   const searchParams = useNextSearchParams();
-  
+
   // Only render children when searchParams is available
   if (!searchParams) {
     return null;
@@ -28,7 +28,7 @@ export function SearchParamsProvider({
 
 /**
  * A client component that safely uses useSearchParams and provides the search params to its children
- * 
+ *
  * @param props - Component props
  * @returns A component that safely uses useSearchParams
  */
@@ -41,7 +41,7 @@ export function SafeSearchParamsProvider({
 }) {
   // This component is a client component that safely handles useSearchParams
   const [mounted, setMounted] = useState(false);
-  
+
   // Use useEffect to ensure we're mounted on the client
   useEffect(() => {
     setMounted(true);
@@ -65,28 +65,25 @@ export function SafeSearchParamsProvider({
 /**
  * A hook that safely uses useSearchParams
  * This hook should be used in place of direct useSearchParams calls
- * 
+ *
  * @returns URLSearchParams object or null if not available
  */
 export function useSafeSearchParams(): URLSearchParams | null {
-  // Only run on the client
-  if (typeof window === 'undefined') {
-    return null;
+  // Always call the hook unconditionally to follow React's rules of hooks
+  const nextSearchParams = useNextSearchParams();
+
+  // Handle server-side rendering or cases where the hook returns null
+  if (typeof window === 'undefined' || !nextSearchParams) {
+    // Return an empty URLSearchParams object on the server
+    return new URLSearchParams();
   }
-  
-  try {
-    // Use Next.js useSearchParams hook
-    return useNextSearchParams();
-  } catch (error) {
-    console.error('Error using useSearchParams:', error);
-    // Fallback to window.location.search
-    return new URLSearchParams(window.location.search);
-  }
+
+  return nextSearchParams;
 }
 
 /**
  * A higher-order component (HOC) that wraps a component with SafeSearchParamsProvider
- * 
+ *
  * @param Component - The component to wrap
  * @returns A wrapped component with SafeSearchParamsProvider
  */
