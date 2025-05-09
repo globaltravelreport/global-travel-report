@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
-export default function AdminLoginPage() {
+function AdminLoginContent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +34,7 @@ export default function AdminLoginPage() {
     try {
       // Create base64 encoded credentials
       const credentials = btoa(`${username}:${password}`);
-      
+
       // Make a request to the admin API with the credentials
       const response = await fetch('/admin/api/login', {
         method: 'POST',
@@ -65,13 +66,13 @@ export default function AdminLoginPage() {
             Please sign in to access the admin area
           </p>
         </div>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
             {error}
           </div>
         )}
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -117,5 +118,13 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <ClientSuspense>
+      <AdminLoginContent />
+    </ClientSuspense>
   );
 }
