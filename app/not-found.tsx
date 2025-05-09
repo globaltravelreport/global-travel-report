@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
+import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
 
 export const metadata: Metadata = {
   title: "404 - Page Not Found | Global Travel Report",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   robots: "noindex, follow",
 };
 
-export default function NotFound() {
+function NotFoundContent() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
       <h1 className="text-4xl font-bold mb-4" id="main-content">404 - Page Not Found</h1>
@@ -17,18 +18,18 @@ export default function NotFound() {
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
         <Button asChild>
-          <Link 
+          <Link
             href="/"
             aria-label="Return to homepage"
           >
             Return Home
           </Link>
         </Button>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           asChild
         >
-          <Link 
+          <Link
             href="/stories"
             aria-label="Browse all stories"
           >
@@ -38,4 +39,12 @@ export default function NotFound() {
       </div>
     </div>
   );
-} 
+}
+
+export default function NotFound() {
+  return (
+    <ClientSuspense>
+      <NotFoundContent />
+    </ClientSuspense>
+  );
+}

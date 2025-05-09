@@ -4,10 +4,10 @@ import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
 import { isValidCountry } from '@/src/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { DynamicWorldMap } from '@/src/components/maps/DynamicWorldMap';
 import { Suspense } from 'react';
 import { FAQSchema } from '@/src/components/seo/FAQSchema';
 import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import ClientWorldMap from '@/src/components/maps/ClientWorldMap';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -108,7 +108,7 @@ async function DestinationsPageContent() {
                   </div>
                 </div>
               }>
-                <DynamicWorldMap
+                <ClientWorldMap
                   highlightedCountries={sortedValidCountries}
                   onCountryClick={(country) => {
                     // This will be handled client-side

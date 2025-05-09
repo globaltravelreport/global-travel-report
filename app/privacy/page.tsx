@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 export const metadata: Metadata = {
   title: "Privacy Policy - Global Travel Report",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PrivacyPolicyPage() {
+function PrivacyPolicyContent() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
@@ -24,8 +25,8 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
         <p>
-          At Global Travel Report, we take your privacy seriously. This Privacy Policy explains how we collect, 
-          use, disclose, and safeguard your information when you visit our website. Please read this privacy 
+          At Global Travel Report, we take your privacy seriously. This Privacy Policy explains how we collect,
+          use, disclose, and safeguard your information when you visit our website. Please read this privacy
           policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.
         </p>
 
@@ -50,23 +51,23 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold mb-4 mt-8">Cookies and Tracking</h2>
         <p>
-          We use cookies and similar tracking technologies to track activity on our website and hold certain 
-          information. Cookies are files with a small amount of data that may include an anonymous unique 
-          identifier. You can instruct your browser to refuse all cookies or to indicate when a cookie is 
+          We use cookies and similar tracking technologies to track activity on our website and hold certain
+          information. Cookies are files with a small amount of data that may include an anonymous unique
+          identifier. You can instruct your browser to refuse all cookies or to indicate when a cookie is
           being sent.
         </p>
 
         <h2 className="text-2xl font-semibold mb-4 mt-8">Third-Party Services</h2>
         <p>
-          We may use third-party services such as Google Analytics, reCAPTCHA, and social media platforms. 
-          These services may collect information about you. We encourage you to review the privacy policies 
+          We may use third-party services such as Google Analytics, reCAPTCHA, and social media platforms.
+          These services may collect information about you. We encourage you to review the privacy policies
           of these third-party services.
         </p>
 
         <h2 className="text-2xl font-semibold mb-4 mt-8">Data Security</h2>
         <p>
-          We implement appropriate security measures to protect your personal information. However, no method 
-          of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee 
+          We implement appropriate security measures to protect your personal information. However, no method
+          of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee
           absolute security.
         </p>
 
@@ -82,13 +83,13 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold mb-4 mt-8">Children's Privacy</h2>
         <p>
-          Our website is not intended for children under 13 years of age. We do not knowingly collect 
+          Our website is not intended for children under 13 years of age. We do not knowingly collect
           personal information from children under 13.
         </p>
 
         <h2 className="text-2xl font-semibold mb-4 mt-8">Changes to This Policy</h2>
         <p>
-          We may update our Privacy Policy from time to time. We will notify you of any changes by posting 
+          We may update our Privacy Policy from time to time. We will notify you of any changes by posting
           the new Privacy Policy on this page and updating the "Last updated" date.
         </p>
 
@@ -103,4 +104,12 @@ export default function PrivacyPolicyPage() {
       </div>
     </div>
   );
-} 
+}
+
+export default function PrivacyPolicyPage() {
+  return (
+    <ClientSuspense>
+      <PrivacyPolicyContent />
+    </ClientSuspense>
+  );
+}
