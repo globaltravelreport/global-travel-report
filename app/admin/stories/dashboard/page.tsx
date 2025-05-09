@@ -1,10 +1,13 @@
+'use client';
+
 import { Suspense } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { StoryProcessingStats } from '@/components/admin/StoryProcessingStats'
 import { StoryValidationLog } from '@/components/admin/StoryValidationLog'
 import { StoryPublishingSchedule } from '@/components/admin/StoryPublishingSchedule'
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense'
 
-export default function DashboardPage() {
+function DashboardContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Story Dashboard</h1>
@@ -33,4 +36,12 @@ function LoadingCard({ children }: { children: React.ReactNode }) {
       </CardContent>
     </Card>
   )
-} 
+}
+
+export default function DashboardPage() {
+  return (
+    <ClientSuspense>
+      <DashboardContent />
+    </ClientSuspense>
+  );
+}

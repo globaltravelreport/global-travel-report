@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Story } from '@/types/Story';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
-export default function AdminStoriesPage() {
+function AdminStoriesContent() {
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,25 +18,25 @@ export default function AdminStoriesPage() {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Build the query parameters
       const params = new URLSearchParams();
       params.append('page', currentPage.toString());
       params.append('limit', '10');
-      
+
       if (selectedCategory) {
         params.append('category', selectedCategory);
       }
-      
+
       // Fetch stories from the API
       const response = await fetch(`/api/stories?${params.toString()}`);
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch stories');
       }
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         setStories(data.stories);
         setTotalPages(data.totalPages);
@@ -53,19 +54,19 @@ export default function AdminStoriesPage() {
     try {
       // Fetch all stories to get categories
       const response = await fetch('/api/stories');
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         // Extract unique categories
         const uniqueCategories = Array.from(
           new Set(data.stories.map((story: Story) => story.category))
         ).sort();
-        
+
         setCategories(uniqueCategories as string[]);
       }
     } catch (error) {
@@ -244,5 +245,13 @@ export default function AdminStoriesPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function AdminStoriesPage() {
+  return (
+    <ClientSuspense>
+      <AdminStoriesContent />
+    </ClientSuspense>
   );
 }

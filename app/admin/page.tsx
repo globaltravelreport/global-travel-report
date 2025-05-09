@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PerformanceMonitor } from '@/src/components/admin/PerformanceMonitor';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 interface Stats {
   totalStories: number;
@@ -11,7 +12,7 @@ interface Stats {
   lastPublished: string | null;
 }
 
-export default function AdminDashboard() {
+function AdminDashboardContent() {
   const [stats, setStats] = useState<Stats>({
     totalStories: 0,
     cruiseStories: 0,
@@ -255,5 +256,13 @@ export default function AdminDashboard() {
         </>
       )}
     </div>
+  );
+}
+
+export default function AdminDashboard() {
+  return (
+    <ClientSuspense>
+      <AdminDashboardContent />
+    </ClientSuspense>
   );
 }
