@@ -12,7 +12,7 @@ import WebsiteSchema from '@/components/WebsiteSchema';
 import { CategorySection } from '@/src/components/home/CategorySection';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -274,8 +274,8 @@ async function HomePage() {
 // Export a client component that wraps the server component in a Suspense boundary
 export default function Home() {
   return (
-    <ClientSuspense>
-      <HomePage />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <HomePage />}
+    </SafeSearchParamsProvider>
   );
 }

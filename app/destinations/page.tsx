@@ -6,7 +6,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { FAQSchema } from '@/src/components/seo/FAQSchema';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 import ClientWorldMap from '@/src/components/maps/ClientWorldMap';
 
 export const metadata: Metadata = {
@@ -190,8 +190,8 @@ async function DestinationsPageContent() {
 // Export a client component that wraps the server component in a Suspense boundary
 export default function DestinationsPage() {
   return (
-    <ClientSuspense>
-      <DestinationsPageContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <DestinationsPageContent />}
+    </SafeSearchParamsProvider>
   );
 }

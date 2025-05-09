@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 export const metadata: Metadata = {
   title: 'About Us - Global Travel Report',
@@ -215,8 +215,8 @@ function AboutPageContent() {
 // Export a client component that wraps the server component in a Suspense boundary
 export default function AboutPage() {
   return (
-    <ClientSuspense>
-      <AboutPageContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <AboutPageContent />}
+    </SafeSearchParamsProvider>
   );
 }

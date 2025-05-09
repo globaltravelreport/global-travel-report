@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
-import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
+import { SafeSearchParamsProvider } from "@/src/components/ui/SearchParamsProvider";
 
 export const metadata: Metadata = {
   title: "404 - Page Not Found | Global Travel Report",
@@ -45,8 +45,8 @@ function NotFoundContent() {
 
 export default function NotFound() {
   return (
-    <ClientSuspense>
-      <NotFoundContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <NotFoundContent />}
+    </SafeSearchParamsProvider>
   );
 }
