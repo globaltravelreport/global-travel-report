@@ -99,6 +99,10 @@
     "zod": "3.24.3"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "7.27.1",
+    "@babel/preset-env": "7.27.2",
+    "@babel/preset-react": "7.27.1",
+    "@babel/preset-typescript": "7.27.1",
     "@next/bundle-analyzer": "14.2.28",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
