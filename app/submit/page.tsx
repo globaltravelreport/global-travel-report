@@ -1,11 +1,12 @@
 import { StoryForm } from "@/components/stories/StoryForm";
+import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
 
 export const metadata = {
   title: "Submit Your Story - Global Travel Report",
   description: "Share your travel experiences with the world",
 };
 
-export default function SubmitPage() {
+function SubmitPageContent() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
@@ -18,4 +19,12 @@ export default function SubmitPage() {
       <StoryForm />
     </div>
   );
-} 
+}
+
+export default function SubmitPage() {
+  return (
+    <ClientSuspense>
+      <SubmitPageContent />
+    </ClientSuspense>
+  );
+}

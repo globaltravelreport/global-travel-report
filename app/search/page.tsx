@@ -5,6 +5,7 @@ import { SearchForm } from '@/src/components/search/SearchForm';
 import { StoryCard } from '@/src/components/stories/StoryCard';
 import { Pagination } from '@/src/components/ui/Pagination';
 import { mockCategories, mockCountries, mockTags } from '@/src/mocks/stories';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 // Generate metadata for the search page
 export const metadata: Metadata = {
@@ -35,7 +36,8 @@ import { StorySearchParams } from '@/types/StorySearchParams';
 // Default page size
 const DEFAULT_PAGE_SIZE = 12;
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
+// Server component that will be wrapped in a client component with Suspense
+async function SearchPageContent({ searchParams }: SearchPageProps) {
   // Parse search parameters
   const query = searchParams.q || '';
   const category = searchParams.category || '';
@@ -152,5 +154,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         />
       )}
     </div>
+  );
+}
+
+// Export a client component that wraps the server component in a Suspense boundary
+export default function SearchPage(props: SearchPageProps) {
+  return (
+    <ClientSuspense>
+      <SearchPageContent {...props} />
+    </ClientSuspense>
   );
 }
