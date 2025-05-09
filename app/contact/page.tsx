@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
 
 export const metadata: Metadata = {
   title: "Contact Us - Global Travel Report",
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+// Server component that will be wrapped in a client component with Suspense
+function ContactPageContent() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* Hero Section */}
@@ -112,5 +114,14 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Export a client component that wraps the server component in a Suspense boundary
+export default function ContactPage() {
+  return (
+    <ClientSuspense>
+      <ContactPageContent />
+    </ClientSuspense>
   );
 }

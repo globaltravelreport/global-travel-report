@@ -12,6 +12,7 @@ import WebsiteSchema from '@/components/WebsiteSchema';
 import { CategorySection } from '@/src/components/home/CategorySection';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 export const metadata: Metadata = {
   title: "Global Travel Report - Travel Stories from Around the World",
@@ -32,7 +33,8 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // Revalidate every hour
 
-export default async function Home() {
+// This is a server component that will be wrapped in a client component with Suspense
+async function HomePage() {
   const allStories = await getAllStories();
   const homepageStoriesResult = getHomepageStories(allStories);
   const activeStories = homepageStoriesResult.data;
@@ -266,5 +268,14 @@ export default async function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+// Export a client component that wraps the server component in a Suspense boundary
+export default function Home() {
+  return (
+    <ClientSuspense>
+      <HomePage />
+    </ClientSuspense>
   );
 }

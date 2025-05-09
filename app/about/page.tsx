@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 export const metadata: Metadata = {
   title: 'About Us - Global Travel Report',
@@ -33,7 +34,8 @@ const teamMembers = [
   },
 ];
 
-export default function AboutPage() {
+// Server component that will be wrapped in a client component with Suspense
+function AboutPageContent() {
   return (
     <main className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -207,5 +209,14 @@ export default function AboutPage() {
         </section>
       </div>
     </main>
+  );
+}
+
+// Export a client component that wraps the server component in a Suspense boundary
+export default function AboutPage() {
+  return (
+    <ClientSuspense>
+      <AboutPageContent />
+    </ClientSuspense>
   );
 }

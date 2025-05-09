@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { DynamicWorldMap } from '@/src/components/maps/DynamicWorldMap';
 import { Suspense } from 'react';
 import { FAQSchema } from '@/src/components/seo/FAQSchema';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -17,7 +18,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function DestinationsPage() {
+// Server component that will be wrapped in a client component with Suspense
+async function DestinationsPageContent() {
   const allStories = await getAllStories();
 
   // Group stories by country
@@ -200,5 +202,14 @@ export default async function DestinationsPage() {
         ]}
       />
     </div>
+  );
+}
+
+// Export a client component that wraps the server component in a Suspense boundary
+export default function DestinationsPage() {
+  return (
+    <ClientSuspense>
+      <DestinationsPageContent />
+    </ClientSuspense>
   );
 }
