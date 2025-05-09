@@ -16,11 +16,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/stories" className="text-gray-600 hover:text-gray-900">
-                  Stories
-                </Link>
-              </li>
+
               <li>
                 <Link href="/destinations" className="text-gray-600 hover:text-gray-900">
                   Destinations

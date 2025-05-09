@@ -32,10 +32,10 @@ function NotFoundContent() {
           asChild
         >
           <Link
-            href="/stories"
-            aria-label="Browse all stories"
+            href="/destinations"
+            aria-label="Browse destinations"
           >
-            Browse Stories
+            Browse Destinations
           </Link>
         </Button>
       </div>

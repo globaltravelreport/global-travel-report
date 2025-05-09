@@ -12,22 +12,22 @@ export default function StoryNotFound() {
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Button asChild>
-          <Link 
+          <Link
             href="/"
             aria-label="Return to homepage"
           >
             Return Home
           </Link>
         </Button>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           asChild
         >
-          <Link 
-            href="/stories"
-            aria-label="Browse all stories"
+          <Link
+            href="/destinations"
+            aria-label="Browse destinations"
           >
-            Browse Stories
+            Browse Destinations
           </Link>
         </Button>
       </div>

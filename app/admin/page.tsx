@@ -239,11 +239,11 @@ function AdminDashboardContent() {
                 View Website
               </Link>
               <Link
-                href="/stories"
+                href="/destinations"
                 className="text-blue-600 hover:text-blue-800 hover:underline"
                 target="_blank"
               >
-                All Stories
+                Destinations
               </Link>
               <Link
                 href="/categories/cruises"

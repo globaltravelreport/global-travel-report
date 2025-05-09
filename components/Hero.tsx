@@ -82,9 +82,9 @@ const Hero = () => {
         >
           <div className="absolute -inset-1 bg-gradient-to-r from-[#E6C677] to-[#C9A14A] rounded-full blur-sm opacity-70"></div>
           <Link
-            href="/stories"
+            href="/destinations"
             className="relative bg-gradient-to-r from-[#C9A14A] to-[#B08D3F] hover:from-[#D5B05C] hover:to-[#C9A14A] text-white font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 inline-block shadow-lg hover:shadow-xl"
-            aria-label="Start exploring travel stories"
+            aria-label="Start exploring destinations"
           >
             Start Exploring
           </Link>

@@ -98,17 +98,7 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link
-              href="/stories"
-              className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
-                pathname === '/stories' || pathname.startsWith('/stories/')
-                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
-                  : 'text-white'
-              )}
-            >
-              Stories
-            </Link>
+
             <Link
               href="/destinations"
               className={cn(
@@ -200,18 +190,7 @@ export default function Header() {
               >
                 Home
               </Link>
-              <Link
-                href="/stories"
-                className={cn(
-                  'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
-                  pathname === '/stories' || pathname.startsWith('/stories/')
-                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
-                    : 'text-white'
-                )}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Stories
-              </Link>
+
               <Link
                 href="/destinations"
                 className={cn(
