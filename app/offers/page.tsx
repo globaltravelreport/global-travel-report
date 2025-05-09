@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { AdSenseLeaderboard } from '@/src/components/ads/AdSense';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 // Generate metadata for the offers page
 export const metadata: Metadata = {
@@ -107,8 +107,8 @@ function OffersPageContent() {
 
 export default function OffersPage() {
   return (
-    <ClientSuspense>
-      <OffersPageContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <OffersPageContent />}
+    </SafeSearchParamsProvider>
   );
 }

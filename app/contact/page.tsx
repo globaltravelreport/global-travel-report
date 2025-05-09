@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
-import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
+import { SafeSearchParamsProvider } from "@/src/components/ui/SearchParamsProvider";
 
 export const metadata: Metadata = {
   title: "Contact Us - Global Travel Report",
@@ -120,8 +120,8 @@ function ContactPageContent() {
 // Export a client component that wraps the server component in a Suspense boundary
 export default function ContactPage() {
   return (
-    <ClientSuspense>
-      <ContactPageContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <ContactPageContent />}
+    </SafeSearchParamsProvider>
   );
 }
