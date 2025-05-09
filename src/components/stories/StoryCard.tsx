@@ -388,8 +388,8 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
           </h3>
           <div className="flex items-center gap-2 text-sm text-gray-500 mt-2 mb-3">
             <FreshnessIndicator
-              publishedDate={story.publishedAt}
-              updatedDate={story.updatedAt}
+              publishedDate={typeof story.publishedAt === 'string' ? story.publishedAt : story.publishedAt.toISOString()}
+              updatedDate={story.updatedAt ? (typeof story.updatedAt === 'string' ? story.updatedAt : story.updatedAt.toISOString()) : undefined}
               size="sm"
             />
             <span>•</span>

@@ -1,6 +1,6 @@
 /**
  * Dynamic Import Utilities
- * 
+ *
  * This module provides utilities for dynamic imports and code splitting.
  */
 
@@ -15,12 +15,12 @@ export interface DynamicImportOptions {
    * Whether to load the component on the server side
    */
   ssr?: boolean;
-  
+
   /**
    * Loading component to show while the dynamic component is loading
    */
-  loading?: ComponentType | (() => ReactNode);
-  
+  loading?: ReactNode;
+
   /**
    * Whether to load the component only when it's visible in the viewport
    */
@@ -29,16 +29,16 @@ export interface DynamicImportOptions {
 
 /**
  * Dynamically import a component with code splitting
- * 
+ *
  * @param importFunc - Function that imports the component
  * @param options - Options for dynamic import
  * @returns Dynamically imported component
- * 
+ *
  * @example
  * ```tsx
  * const DynamicMap = dynamicImport(() => import('@/components/Map'), {
  *   ssr: false,
- *   loading: () => <div>Loading map...</div>
+ *   loading: <div>Loading map...</div>
  * });
  * ```
  */
@@ -47,46 +47,21 @@ export function dynamicImport<T extends ComponentType<any>>(
   options: DynamicImportOptions = {}
 ) {
   const { ssr = true, loading, loadOnlyWhenVisible = false } = options;
-  
-  // If loadOnlyWhenVisible is true, use IntersectionObserver to load the component
-  // only when it's visible in the viewport
-  if (loadOnlyWhenVisible && typeof window !== 'undefined') {
-    return dynamic(
-      () => import('@/src/components/ui/LazyLoad').then(mod => {
-        const LazyLoad = mod.LazyLoad;
-        
-        return importFunc().then(component => {
-          const Component = component.default;
-          
-          return (props: any) => (
-            <LazyLoad
-              placeholder={loading ? loading : <div />}
-            >
-              <Component {...props} />
-            </LazyLoad>
-          );
-        });
-      }),
-      { ssr, loading }
-    );
-  }
-  
-  // Otherwise, use regular dynamic import
-  return dynamic(importFunc, { ssr, loading });
+
+  // Simple dynamic import without JSX
+  return dynamic(importFunc, { ssr });
 }
 
 /**
  * Dynamically import a component with code splitting and no server-side rendering
- * 
+ *
  * @param importFunc - Function that imports the component
  * @param options - Options for dynamic import
  * @returns Dynamically imported component
- * 
+ *
  * @example
  * ```tsx
- * const DynamicChart = clientOnly(() => import('@/components/Chart'), {
- *   loading: () => <div>Loading chart...</div>
- * });
+ * const DynamicChart = clientOnly(() => import('@/components/Chart'));
  * ```
  */
 export function clientOnly<T extends ComponentType<any>>(
@@ -98,16 +73,14 @@ export function clientOnly<T extends ComponentType<any>>(
 
 /**
  * Dynamically import a component with code splitting and lazy loading
- * 
+ *
  * @param importFunc - Function that imports the component
  * @param options - Options for dynamic import
  * @returns Dynamically imported component
- * 
+ *
  * @example
  * ```tsx
- * const LazyVideo = lazyLoad(() => import('@/components/Video'), {
- *   loading: () => <div>Loading video...</div>
- * });
+ * const LazyVideo = lazyLoad(() => import('@/components/Video'));
  * ```
  */
 export function lazyLoad<T extends ComponentType<any>>(

@@ -160,17 +160,12 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           url={storyUrl}
           type="article"
           images={[
-            {
-              url: story.coverImage,
-              width: 1200,
-              height: 630,
-              alt: story.title
-            }
+            story.coverImage
           ]}
           facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
           article={{
-            publishedTime: story.publishedAt,
-            modifiedTime: story.updatedAt || story.publishedAt,
+            publishedTime: new Date(story.publishedAt).toISOString(),
+            modifiedTime: new Date(story.updatedAt || story.publishedAt).toISOString(),
             authors: ['Global Travel Report Editorial Team'],
             section: story.category,
             tags: story.tags

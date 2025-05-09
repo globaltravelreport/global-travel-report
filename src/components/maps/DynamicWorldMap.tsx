@@ -9,52 +9,52 @@ interface WorldMapProps {
    * Countries to highlight on the map
    */
   highlightedCountries?: string[];
-  
+
   /**
    * Callback when a country is clicked
    */
   onCountryClick?: (country: string) => void;
-  
+
   /**
    * CSS class name for the container
    */
   className?: string;
-  
+
   /**
    * Width of the map
    */
   width?: number | string;
-  
+
   /**
    * Height of the map
    */
   height?: number | string;
-  
+
   /**
    * Whether to enable zooming
    */
   enableZoom?: boolean;
-  
+
   /**
    * Initial zoom level
    */
   initialZoom?: number;
-  
+
   /**
    * Color for highlighted countries
    */
   highlightColor?: string;
-  
+
   /**
    * Base color for countries
    */
   baseColor?: string;
-  
+
   /**
    * Border color for countries
    */
   borderColor?: string;
-  
+
   /**
    * Whether to show country labels
    */
@@ -78,17 +78,12 @@ const MapLoading = ({ width, height }: { width?: number | string; height?: numbe
 
 /**
  * Dynamically imported WorldMap component
- * 
+ *
  * This component uses dynamic imports to load the WorldMap component only on the client side,
  * which reduces the initial bundle size and improves performance.
  */
 const DynamicWorldMap = clientOnly<React.ComponentType<WorldMapProps>>(
-  () => import('./WorldMap'),
-  {
-    loading: ({ width, height }: { width?: number | string; height?: number | string }) => (
-      <MapLoading width={width} height={height} />
-    ),
-  }
+  () => import('./WorldMap')
 );
 
 export { DynamicWorldMap };

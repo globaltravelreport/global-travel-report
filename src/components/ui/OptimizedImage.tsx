@@ -169,7 +169,6 @@ export function OptimizedImage({
           placeholder={placeholder}
           blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
           unoptimized={false}
-          formats={['image/avif', 'image/webp']}
         />
       )}
     </div>

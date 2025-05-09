@@ -9,7 +9,7 @@ export interface FAQItem {
    * The question
    */
   question: string;
-  
+
   /**
    * The answer to the question
    */
@@ -21,22 +21,22 @@ interface FAQSchemaProps {
    * The list of FAQ items
    */
   items: FAQItem[];
-  
+
   /**
    * The title of the FAQ section
    */
   title?: string;
-  
+
   /**
    * The description of the FAQ section
    */
   description?: string;
-  
+
   /**
    * The CSS class name for the container
    */
   className?: string;
-  
+
   /**
    * The ID for the FAQ section
    */
@@ -45,9 +45,9 @@ interface FAQSchemaProps {
 
 /**
  * FAQ Schema Component
- * 
+ *
  * This component renders a FAQ section with structured data for SEO.
- * 
+ *
  * @example
  * ```tsx
  * <FAQSchema
@@ -93,11 +93,11 @@ export function FAQSchema({
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         {description && <p className="text-gray-600">{description}</p>}
       </div>
-      
-      <Accordion type="single" collapsible className="w-full">
+
+      <Accordion className="w-full">
         {items.map((item, index) => (
-          <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger className="text-left font-medium">
+          <AccordionItem key={index}>
+            <AccordionTrigger>
               {item.question}
             </AccordionTrigger>
             <AccordionContent>
@@ -106,7 +106,7 @@ export function FAQSchema({
           </AccordionItem>
         ))}
       </Accordion>
-      
+
       {/* Add structured data for SEO */}
       <StructuredData data={faqSchema} id="faq-schema" />
     </div>
