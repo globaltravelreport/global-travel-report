@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+// Don't import useSearchParams here - it will be used by child components
 
 /**
  * A client component that wraps its children in a Suspense boundary

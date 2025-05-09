@@ -102,15 +102,6 @@ async function DestinationsPageContent() {
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
               <ClientWorldMap
                 highlightedCountries={sortedValidCountries}
-                onCountryClick={(country) => {
-                  // This will be handled client-side
-                  const element = document.getElementById(`country-${country.toLowerCase().replace(/\s+/g, '-')}`);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    window.location.href = `/countries/${country.toLowerCase().replace(/\s+/g, '-')}`;
-                  }
-                }}
                 height={500}
                 showLabels={true}
                 enableZoom={true}
