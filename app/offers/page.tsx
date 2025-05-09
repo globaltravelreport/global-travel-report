@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { AdSenseLeaderboard } from '@/src/components/ads/AdSense';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
+import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
 
 // Generate metadata for the offers page
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
  * 1. Saily - International SIM cards and eSIMs
  * 2. Nord VPN - Travel security essentials
  */
-export default function OffersPage() {
+function OffersPageContent() {
   // Get affiliate service instance
   const affiliateService = AffiliateService.getInstance();
 
@@ -101,5 +102,13 @@ export default function OffersPage() {
         <AdSenseLeaderboard />
       </div>
     </div>
+  );
+}
+
+export default function OffersPage() {
+  return (
+    <ClientSuspense>
+      <OffersPageContent />
+    </ClientSuspense>
   );
 }
