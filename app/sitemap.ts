@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllStories } from '@/src/utils/stories';
 import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
 import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
+import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
 
 /**
  * Generate a dynamic sitemap based on actual content
@@ -56,8 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Get optimized image data
     const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
 
-    // Use the story's published date as the lastModified date
-    const lastModified = new Date(enhancedStory.publishedAt);
+    // Use the story's published date as the lastModified date, ensuring it's valid
+    const lastModified = validateDate(enhancedStory.publishedAt);
 
     // Calculate priority based on multiple factors for better SEO
     let priority = 0.7; // Default priority

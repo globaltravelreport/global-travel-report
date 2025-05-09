@@ -4,6 +4,7 @@ import { AdSenseInArticle, AdSenseLeaderboard } from '@/src/components/ads/AdSen
 import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
+import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
 import { Badge } from "@/src/components/ui/badge";
 import { Breadcrumb } from "@/src/components/ui/Breadcrumb";
 import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
@@ -74,7 +75,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       title,
       description,
       type: "article",
-      publishedTime: new Date(story.publishedAt).toISOString(),
+      publishedTime: getSafeDateString(story.publishedAt),
       authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
       images: ogImage ? [
@@ -119,7 +120,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       'geo.region': story.country !== 'Global' ? story.country : undefined,
       'og:image:width': '1200',
       'og:image:height': '630',
-      'article:published_time': new Date(story.publishedAt).toISOString(),
+      'article:published_time': getSafeDateString(story.publishedAt),
       'article:publisher': siteUrl,
       'article:author': 'Global Travel Report Editorial Team',
       'article:section': story.category,
@@ -164,8 +165,8 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           ]}
           facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
           article={{
-            publishedTime: new Date(story.publishedAt).toISOString(),
-            modifiedTime: new Date(story.updatedAt || story.publishedAt).toISOString(),
+            publishedTime: getSafeDateString(story.publishedAt),
+            modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt),
             authors: ['Global Travel Report Editorial Team'],
             section: story.category,
             tags: story.tags
@@ -244,7 +245,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-muted-foreground mb-6">
               <div className="mb-4 sm:mb-0">
-                <span>{format(new Date(story.date || story.publishedAt), 'MMMM dd, yyyy')}</span>
+                <span>{format(validateDate(story.date || story.publishedAt), 'MMMM dd, yyyy')}</span>
                 <span className="mx-2">•</span>
                 <span>By Global Travel Report Editorial Team</span>
               </div>
