@@ -46,6 +46,7 @@
     "enhance-seo": "node scripts/robust-seo-enhancer.js",
     "generate-structured-data": "node scripts/generate-structured-data.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
+    "content-audit": "node scripts/content-audit.js",
     "optimize-all": "npm run optimize-images && npm run convert-to-webp && npm run generate-sw && npm run enhance-seo && npm run generate-structured-data && npm run generate-sitemap",
     "build:optimized": "npm run optimize-all && next build"
   },
@@ -59,6 +60,7 @@
     "@radix-ui/react-separator": "1.0.3",
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-toast": "1.2.11",
+    "@sentry/nextjs": "9.17.0",
     "@types/dompurify": "3.0.5",
     "@types/leaflet": "1.9.17",
     "@types/react-google-recaptcha": "2.1.9",

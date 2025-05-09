@@ -8,6 +8,7 @@ import { StoryCoverImage } from '@/src/components/ui/OptimizedImage';
 import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
 import { cn } from '@/src/utils/cn';
+import { FreshnessIndicator } from '@/src/components/ui/FreshnessIndicator';
 import type { Story } from '@/types/Story';
 import { validateAndCorrectImageData, getAlternativeImage } from '@/src/utils/imageManager';
 import { isImageUsedOnPage, markImageAsUsed, getUsedImagesOnPage, setupPageImageTracker } from '@/src/utils/pageImageTracker';
@@ -385,9 +386,15 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
           <h3 className="text-2xl font-semibold leading-tight tracking-tight group-hover:text-primary transition-colors mb-2">
             {story.title}
           </h3>
-          <p className="text-sm text-gray-500 mt-2 mb-3">
-            {formattedDate} • By Global Travel Report Editorial Team
-          </p>
+          <div className="flex items-center gap-2 text-sm text-gray-500 mt-2 mb-3">
+            <FreshnessIndicator
+              publishedDate={story.publishedAt}
+              updatedDate={story.updatedAt}
+              size="sm"
+            />
+            <span>•</span>
+            <span>By Global Travel Report Editorial Team</span>
+          </div>
           <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed">{story.excerpt}</p>
           <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
             {story.tags && story.tags.slice(0, 3).map((tag) => (

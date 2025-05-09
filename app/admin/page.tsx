@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { PerformanceMonitor } from '@/src/components/admin/PerformanceMonitor';
 
 interface Stats {
   totalStories: number;
@@ -202,6 +203,26 @@ export default function AdminDashboard() {
                 View Analytics
               </Link>
             </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">Content Audit</h2>
+              <p className="text-gray-600 mb-4">
+                Analyze content freshness, quality, and SEO optimization. Identify outdated content and
+                opportunities for improvement.
+              </p>
+              <Link
+                href="/admin/content-audit"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block"
+              >
+                Run Content Audit
+              </Link>
+            </div>
+          </div>
+
+          {/* Performance Monitoring */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Performance Monitoring</h2>
+            <PerformanceMonitor />
           </div>
 
           {/* Quick links */}

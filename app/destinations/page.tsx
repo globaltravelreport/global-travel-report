@@ -6,6 +6,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { DynamicWorldMap } from '@/src/components/maps/DynamicWorldMap';
 import { Suspense } from 'react';
+import { FAQSchema } from '@/src/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -170,6 +171,34 @@ export default async function DestinationsPage() {
           </p>
         </div>
       )}
+
+      {/* FAQ Section with Schema */}
+      <FAQSchema
+        title="Frequently Asked Travel Questions"
+        description="Find answers to common questions about international travel, destinations, and planning your next adventure."
+        items={[
+          {
+            question: "What are the most popular travel destinations in 2024?",
+            answer: "The most popular travel destinations in 2024 include Japan, Portugal, Mexico, New Zealand, and Morocco. These destinations offer a mix of cultural experiences, natural beauty, and unique attractions that appeal to a wide range of travelers."
+          },
+          {
+            question: "When is the best time to book international flights?",
+            answer: "The best time to book international flights is typically 2-3 months before your departure date for the best prices. For peak travel seasons (summer, holidays), booking 4-6 months in advance is recommended. Tuesday and Wednesday are often the cheapest days to book flights."
+          },
+          {
+            question: "Do I need travel insurance for international trips?",
+            answer: "Yes, travel insurance is highly recommended for international trips. It provides coverage for medical emergencies, trip cancellations, lost luggage, and other unexpected events. The cost of medical care abroad can be extremely high, making insurance an essential part of travel planning."
+          },
+          {
+            question: "What documents do I need for international travel?",
+            answer: "For international travel, you typically need a passport valid for at least 6 months beyond your return date, any required visas for your destination countries, proof of return or onward travel, and sometimes proof of sufficient funds. Some countries also require proof of vaccinations."
+          },
+          {
+            question: "How can I find authentic local experiences when traveling?",
+            answer: "To find authentic local experiences, try staying in residential neighborhoods rather than tourist areas, eat at restaurants frequented by locals, use public transportation, learn a few phrases in the local language, join walking tours led by residents, and use apps that connect travelers with local guides or experiences."
+          }
+        ]}
+      />
     </div>
   );
 }

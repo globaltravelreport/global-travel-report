@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/src/components/ui/ErrorBoundary'
 import { GlobalErrorHandler } from '@/src/components/ui/GlobalErrorHandler'
 import { BackToTop } from '@/src/components/ui/BackToTop'
 import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics'
+import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker'
 import { CookieConsent } from '@/src/components/ui/CookieConsent'
 import { Toaster } from '@/src/components/ui/toaster'
 import Script from 'next/script'
@@ -310,6 +311,7 @@ export default function RootLayout({
               <BackToTop />
               <CookieConsent />
               <GoogleAnalytics />
+              <WebVitalsTracker />
               <Toaster />
             </GlobalErrorHandler>
           </ErrorBoundary>
