@@ -14,6 +14,7 @@ jest.mock('next/link', () => {
 jest.mock('@/src/components/ui/ResponsiveImage', () => {
   return {
     __esModule: true,
+    // eslint-disable-next-line @next/next/no-img-element
     default: ({ src, alt }: { src: string; alt: string }) => {
       return <img src={src} alt={alt} data-testid="responsive-image" />;
     },
@@ -33,7 +34,7 @@ jest.mock('@/src/components/ui/FreshnessIndicator', () => {
 // Mock the withErrorBoundary HOC
 jest.mock('@/src/components/ui/ErrorBoundary', () => {
   return {
-    withErrorBoundary: (Component: React.ComponentType, options: any) => {
+    withErrorBoundary: (Component: React.ComponentType, _options: unknown) => {
       return Component;
     },
   };
@@ -42,8 +43,8 @@ jest.mock('@/src/components/ui/ErrorBoundary', () => {
 // Mock the date-utils functions
 jest.mock('@/src/utils/date-utils', () => {
   return {
-    formatDisplayDate: (date: string | Date) => 'Formatted Date',
-    getSafeDateString: (date: string | Date) => '2023-05-15T12:00:00Z',
+    formatDisplayDate: (_date: string | Date) => 'Formatted Date',
+    getSafeDateString: (_date: string | Date) => '2023-05-15T12:00:00Z',
   };
 });
 
