@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PerformanceMonitor } from '@/src/components/admin/PerformanceMonitor';
 import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 interface Stats {
   totalStories: number;

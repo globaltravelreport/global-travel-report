@@ -6,6 +6,7 @@ import { StoryProcessingStats } from '@/components/admin/StoryProcessingStats'
 import { StoryValidationLog } from '@/components/admin/StoryValidationLog'
 import { StoryPublishingSchedule } from '@/components/admin/StoryPublishingSchedule'
 import { ClientSuspense } from '@/src/components/ui/ClientSuspense'
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider'
 
 function DashboardContent() {
   return (

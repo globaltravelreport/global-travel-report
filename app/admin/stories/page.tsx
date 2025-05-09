@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Story } from '@/types/Story';
 import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 function AdminStoriesContent() {
   const [stories, setStories] = useState<Story[]>([]);
