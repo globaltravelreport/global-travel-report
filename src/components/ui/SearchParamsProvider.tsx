@@ -91,9 +91,15 @@ export function withSafeSearchParams<P extends object>(
   Component: React.ComponentType<P & { searchParams: URLSearchParams }>
 ): React.FC<P> {
   return function WithSafeSearchParams(props: P) {
+    // Create a wrapper component that uses the hook
+    function ComponentWithSearchParams() {
+      const searchParams = useSafeSearchParams();
+      return <Component {...props} searchParams={searchParams || new URLSearchParams()} />;
+    }
+
     return (
       <SafeSearchParamsProvider>
-        {(searchParams) => <Component {...props} searchParams={searchParams} />}
+        <ComponentWithSearchParams />
       </SafeSearchParamsProvider>
     );
   };
