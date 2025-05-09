@@ -43,13 +43,31 @@
  * @returns A formatted date string
  */
 export function formatDisplayDate(date: Date | string, locale: string = 'en-US'): string {
-  const dateObj = date instanceof Date ? date : new Date(date);
+  // If the date is invalid, return 'Unknown date'
+  if (!date) {
+    return 'Unknown date';
+  }
 
-  return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(dateObj);
+  try {
+    // Convert to Date object if it's a string
+    const dateObj = date instanceof Date ? date : new Date(date);
+
+    // Check if the date is valid
+    if (isNaN(dateObj.getTime())) {
+      console.warn(`Invalid date: ${date}, returning 'Unknown date'`);
+      return 'Unknown date';
+    }
+
+    // Format the date
+    return new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }).format(dateObj);
+  } catch (error) {
+    console.error(`Error formatting date: ${date}`, error);
+    return 'Unknown date';
+  }
 }
 
 /**

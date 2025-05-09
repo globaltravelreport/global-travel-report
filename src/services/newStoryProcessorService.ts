@@ -108,10 +108,10 @@ export class NewStoryProcessorService {
 
     try {
       console.log(`Processing ${count} stories (including ${cruiseCount} cruise stories)...`);
-      
+
       // Path to the script
       const scriptPath = path.join(process.cwd(), 'scripts', 'dailyStoryGenerator.js');
-      
+
       // Check if the script exists
       try {
         await fs.access(scriptPath);
@@ -132,7 +132,7 @@ export class NewStoryProcessorService {
 
       // Parse the results
       const storiesGenerated = stdout.includes('Daily story generation completed successfully');
-      
+
       if (!storiesGenerated) {
         throw new Error('Failed to generate stories');
       }
@@ -142,11 +142,11 @@ export class NewStoryProcessorService {
         const fetchedMatch = stdout.match(/Stories fetched: (\d+)/);
         const rewrittenMatch = stdout.match(/Stories rewritten: (\d+)/);
         const savedMatch = stdout.match(/Stories saved: (\d+)/);
-        
+
         if (fetchedMatch) this.stats.storiesFetched = parseInt(fetchedMatch[1], 10);
         if (rewrittenMatch) this.stats.storiesRewritten = parseInt(rewrittenMatch[1], 10);
         if (savedMatch) this.stats.storiesSaved = parseInt(savedMatch[1], 10);
-        
+
         // Extract error counts if available
         const errorsMatch = stdout.match(/Errors: (\d+)/);
         if (errorsMatch) {
@@ -168,7 +168,7 @@ export class NewStoryProcessorService {
       const contentDir = path.join(process.cwd(), 'content/articles');
       try {
         const files = await fs.readdir(contentDir);
-        
+
         // Get only the most recent files (based on the number of stories saved)
         const recentFiles = files
           .filter(file => file.endsWith('.md'))
@@ -177,18 +177,18 @@ export class NewStoryProcessorService {
             return b.localeCompare(a);
           })
           .slice(0, this.stats.storiesSaved);
-        
+
         // Read each file and parse it
         for (const file of recentFiles) {
           try {
             const content = await fs.readFile(path.join(contentDir, file), 'utf8');
-            
+
             // Parse frontmatter and content
             const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
             if (frontmatterMatch) {
               const frontmatterStr = frontmatterMatch[1];
               const contentStr = frontmatterMatch[2];
-              
+
               // Parse frontmatter
               const frontmatter = {};
               frontmatterStr.split('\n').forEach(line => {
@@ -197,7 +197,7 @@ export class NewStoryProcessorService {
                   frontmatter[key.trim()] = valueParts.join(':').trim();
                 }
               });
-              
+
               // Create a story object
               const story: Story = {
                 id: frontmatter['slug'] || file.replace('.md', ''),
@@ -211,14 +211,15 @@ export class NewStoryProcessorService {
                 tags: frontmatter['keywords'] ? frontmatter['keywords'].split(',').map(k => k.trim()) : [],
                 featured: false,
                 editorsPick: false,
-                publishedAt: frontmatter['date'] ? new Date(frontmatter['date']) : new Date(),
+                // Preserve the exact original date string
+                publishedAt: frontmatter['date'] || new Date().toISOString(),
                 imageUrl: frontmatter['imageUrl'] || '',
                 photographer: {
                   name: frontmatter['photographer.name'] || 'Unsplash',
                   url: frontmatter['photographer.url'] || 'https://unsplash.com'
                 }
               };
-              
+
               processedStories.push(story);
             }
           } catch (error) {

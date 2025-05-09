@@ -22,14 +22,23 @@ function safeToISOString(dateStr: string | Date | undefined): string {
     return new Date().toISOString();
   }
 
-  // Always preserve the original date string if it's valid
-  try {
-    const date = new Date(dateStr);
-    if (!isNaN(date.getTime())) {
-      return date.toISOString();
+  // If dateStr is already a string, preserve it exactly as is
+  if (typeof dateStr === 'string') {
+    // Check if it's a valid date string
+    try {
+      const date = new Date(dateStr);
+      if (!isNaN(date.getTime())) {
+        // Return the original string to preserve the exact format
+        return dateStr;
+      }
+    } catch (error) {
+      console.warn(`Invalid date: ${dateStr}, using safe date string instead`);
     }
-  } catch (error) {
-    console.warn(`Invalid date: ${dateStr}, using safe date string instead`);
+  } else if (dateStr instanceof Date) {
+    // If it's a Date object, convert to ISO string
+    if (!isNaN(dateStr.getTime())) {
+      return dateStr.toISOString();
+    }
   }
 
   return getSafeDateString(dateStr);
@@ -260,7 +269,8 @@ export async function getAllStories(): Promise<Story[]> {
             content: cleanContent,
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
-            publishedAt: safeToISOString(storyData.date),
+            // Preserve the exact original date string for publishedAt
+            publishedAt: storyData.date ? storyData.date : safeToISOString(storyData.date),
             date: storyData.date, // Preserve the original date string
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
