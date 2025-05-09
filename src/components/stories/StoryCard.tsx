@@ -299,7 +299,10 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     try {
       return formatDisplayDate(story.publishedAt);
     } catch (error) {
-      console.error('Error formatting date:', error);
+      // Use silent error handling in production
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error formatting date:', error);
+      }
       return 'Unknown date';
     }
   }, [story.publishedAt]);
@@ -394,6 +397,13 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             />
             <span>•</span>
             <span>By Global Travel Report Editorial Team</span>
+            {/* Display formatted date for debugging in development */}
+            {process.env.NODE_ENV === 'development' && (
+              <>
+                <span>•</span>
+                <span title="Formatted date">{formattedDate}</span>
+              </>
+            )}
           </div>
           <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed">{story.excerpt}</p>
           <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">

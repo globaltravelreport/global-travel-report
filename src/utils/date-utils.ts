@@ -251,30 +251,108 @@ export function validateDate(dateStr: string | Date): Date {
  * Get a safe date string for database storage
  * Ensures the date is valid and not in the future
  * @param dateStr - The date string to validate
+ * @param silent - Whether to suppress console warnings (default: false)
  * @returns A valid ISO date string
  */
-export function getSafeDateString(dateStr: string | Date): string {
+export function getSafeDateString(dateStr: string | Date | undefined, silent: boolean = false): string {
   try {
+    // Handle undefined or null
+    if (!dateStr) {
+      if (!silent) console.warn(`Empty date, using current date instead`);
+      return new Date().toISOString();
+    }
+
     // Convert to Date object
     const dateObj = dateStr instanceof Date ? dateStr : new Date(dateStr);
     const now = new Date();
 
     // Check if the date is valid
     if (isNaN(dateObj.getTime())) {
-      console.warn(`Invalid date: ${dateStr}, using current date instead`);
+      if (!silent) console.warn(`Invalid date: ${dateStr}, using current date instead`);
       return now.toISOString();
     }
 
     // Check if the date is in the future
     if (dateObj > now) {
-      console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
+      if (!silent) console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
       return now.toISOString();
     }
 
     // Return the valid date
     return dateObj.toISOString();
   } catch (error) {
-    console.error(`Error processing date: ${dateStr}`, error);
+    if (!silent) console.error(`Error processing date: ${dateStr}`, error);
     return new Date().toISOString();
+  }
+}
+
+/**
+ * Parse a date string safely, with special handling for common formats
+ * @param dateStr - The date string to parse
+ * @param silent - Whether to suppress console warnings (default: false)
+ * @returns A valid Date object or null if parsing fails
+ */
+export function parseDateSafe(dateStr: string | Date | undefined, silent: boolean = false): Date | null {
+  // Handle undefined or null
+  if (!dateStr) {
+    if (!silent) console.warn(`Empty date provided`);
+    return null;
+  }
+
+  // If it's already a Date object, validate it
+  if (dateStr instanceof Date) {
+    if (isNaN(dateStr.getTime())) {
+      if (!silent) console.warn(`Invalid Date object`);
+      return null;
+    }
+    return dateStr;
+  }
+
+  try {
+    // Try standard date parsing first
+    const date = new Date(dateStr);
+
+    // Check if valid
+    if (!isNaN(date.getTime())) {
+      return date;
+    }
+
+    // Try different formats if standard parsing fails
+
+    // Format: YYYY-MM-DD
+    const isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (isoMatch) {
+      const [, year, month, day] = isoMatch;
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+
+    // Format: DD/MM/YYYY
+    const dmyMatch = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (dmyMatch) {
+      const [, day, month, year] = dmyMatch;
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+
+    // Format: MM/DD/YYYY
+    const mdyMatch = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (mdyMatch) {
+      const [, month, day, year] = mdyMatch;
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+
+    if (!silent) console.warn(`Failed to parse date string: ${dateStr}`);
+    return null;
+  } catch (error) {
+    if (!silent) console.error(`Error parsing date: ${dateStr}`, error);
+    return null;
   }
 }

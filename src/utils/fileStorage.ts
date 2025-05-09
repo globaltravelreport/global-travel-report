@@ -18,45 +18,7 @@ import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
  * @returns A valid ISO date string
  */
 function safeToISOString(dateStr: string | Date | undefined): string {
-  if (!dateStr) {
-    return new Date().toISOString();
-  }
-
-  // If dateStr is already a string, check if it's valid and not in the future
-  if (typeof dateStr === 'string') {
-    try {
-      const date = new Date(dateStr);
-      const now = new Date();
-
-      // Check if it's a valid date
-      if (!isNaN(date.getTime())) {
-        // Check if the date is in the future
-        if (date > now) {
-          console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
-          return now.toISOString();
-        }
-
-        // Return the original string to preserve the exact format
-        return dateStr;
-      }
-    } catch (error) {
-      console.warn(`Invalid date: ${dateStr}, using safe date string instead`);
-    }
-  } else if (dateStr instanceof Date) {
-    // If it's a Date object, check if it's valid and not in the future
-    if (!isNaN(dateStr.getTime())) {
-      const now = new Date();
-
-      // Check if the date is in the future
-      if (dateStr > now) {
-        console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
-        return now.toISOString();
-      }
-
-      return dateStr.toISOString();
-    }
-  }
-
+  // Use our improved date handling function
   return getSafeDateString(dateStr);
 }
 
@@ -285,9 +247,10 @@ export async function getAllStories(): Promise<Story[]> {
             content: cleanContent,
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
-            // Preserve the exact original date string for publishedAt
-            publishedAt: storyData.date ? storyData.date : safeToISOString(storyData.date),
-            date: storyData.date, // Preserve the original date string
+            // Safely handle the date
+            publishedAt: safeToISOString(storyData.date),
+            // Keep the original date string for reference
+            date: storyData.date,
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
             imageUrl: cleanImageUrl,
