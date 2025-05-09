@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 function AdminLoginContent() {
   const [username, setUsername] = useState('');
@@ -123,8 +123,8 @@ function AdminLoginContent() {
 
 export default function AdminLoginPage() {
   return (
-    <ClientSuspense>
-      <AdminLoginContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <AdminLoginContent />}
+    </SafeSearchParamsProvider>
   );
 }

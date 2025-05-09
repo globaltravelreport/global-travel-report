@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui/tabs';
 import { Button } from '@/src/components/ui/button';
@@ -465,8 +465,8 @@ function ContentAuditContent() {
 
 export default function ContentAuditPage() {
   return (
-    <ClientSuspense>
-      <ContentAuditContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <ContentAuditContent />}
+    </SafeSearchParamsProvider>
   );
 }

@@ -2,7 +2,7 @@
 
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
 import Link from 'next/link';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 /**
  * Admin analytics page
@@ -30,8 +30,8 @@ function AdminAnalyticsContent() {
 
 export default function AdminAnalyticsPage() {
   return (
-    <ClientSuspense>
-      <AdminAnalyticsContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <AdminAnalyticsContent />}
+    </SafeSearchParamsProvider>
   );
 }
