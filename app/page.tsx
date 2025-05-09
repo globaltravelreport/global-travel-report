@@ -237,17 +237,7 @@ async function HomePage() {
               </Link>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link
-              href="/destinations"
-              className="inline-flex items-center gap-2 bg-white hover:bg-[#C9A14A]/10 text-[#C9A14A] font-medium py-2.5 px-5 rounded-lg border border-[#C9A14A] transition-all duration-300 hover:shadow-md"
-            >
-              View All Categories
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-              </svg>
-            </Link>
-          </div>
+
         </div>
       </section>
 
