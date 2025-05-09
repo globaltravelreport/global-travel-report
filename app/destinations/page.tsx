@@ -191,7 +191,7 @@ async function DestinationsPageContent() {
 export default function DestinationsPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <DestinationsPageContent />}
+      <DestinationsPageContent />
     </SafeSearchParamsProvider>
   );
 }

@@ -108,7 +108,7 @@ function OffersPageContent() {
 export default function OffersPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <OffersPageContent />}
+      <OffersPageContent />
     </SafeSearchParamsProvider>
   );
 }

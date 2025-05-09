@@ -46,7 +46,7 @@ function NotFoundContent() {
 export default function NotFound() {
   return (
     <SafeSearchParamsProvider>
-      {() => <NotFoundContent />}
+      <NotFoundContent />
     </SafeSearchParamsProvider>
   );
 }

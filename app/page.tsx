@@ -275,7 +275,7 @@ async function HomePage() {
 export default function Home() {
   return (
     <SafeSearchParamsProvider>
-      {() => <HomePage />}
+      <HomePage />
     </SafeSearchParamsProvider>
   );
 }

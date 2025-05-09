@@ -121,7 +121,7 @@ function ContactPageContent() {
 export default function ContactPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <ContactPageContent />}
+      <ContactPageContent />
     </SafeSearchParamsProvider>
   );
 }

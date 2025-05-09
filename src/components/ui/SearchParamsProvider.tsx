@@ -13,7 +13,7 @@ import { useSearchParams as useNextSearchParams } from 'next/navigation';
 export function SearchParamsProvider({
   children
 }: {
-  children: (searchParams: URLSearchParams) => React.ReactNode;
+  children: React.ReactNode;
 }) {
   // Use Next.js useSearchParams hook
   const searchParams = useNextSearchParams();
@@ -23,7 +23,7 @@ export function SearchParamsProvider({
     return null;
   }
 
-  return <>{children(searchParams)}</>;
+  return <>{children}</>;
 }
 
 /**
@@ -36,7 +36,7 @@ export function SafeSearchParamsProvider({
   children,
   fallback = <div>Loading...</div>
 }: {
-  children: (searchParams: URLSearchParams) => React.ReactNode;
+  children: React.ReactNode;
   fallback?: React.ReactNode;
 }) {
   // This component is a client component that safely handles useSearchParams

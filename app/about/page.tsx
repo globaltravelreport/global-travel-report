@@ -216,7 +216,7 @@ function AboutPageContent() {
 export default function AboutPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <AboutPageContent />}
+      <AboutPageContent />
     </SafeSearchParamsProvider>
   );
 }
