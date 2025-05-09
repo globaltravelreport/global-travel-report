@@ -250,8 +250,8 @@ function AdminStoriesContent() {
 
 export default function AdminStoriesPage() {
   return (
-    <ClientSuspense>
+    <SafeSearchParamsProvider>
       <AdminStoriesContent />
-    </ClientSuspense>
+    </SafeSearchParamsProvider>
   );
 }

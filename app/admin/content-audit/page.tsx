@@ -466,7 +466,7 @@ function ContentAuditContent() {
 export default function ContentAuditPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <ContentAuditContent />}
+      <ContentAuditContent />
     </SafeSearchParamsProvider>
   );
 }

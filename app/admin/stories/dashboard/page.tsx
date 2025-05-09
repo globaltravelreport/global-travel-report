@@ -40,8 +40,8 @@ function LoadingCard({ children }: { children: React.ReactNode }) {
 
 export default function DashboardPage() {
   return (
-    <ClientSuspense>
+    <SafeSearchParamsProvider>
       <DashboardContent />
-    </ClientSuspense>
+    </SafeSearchParamsProvider>
   );
 }

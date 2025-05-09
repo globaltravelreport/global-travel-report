@@ -161,7 +161,7 @@ async function SearchPageContent({ searchParams }: SearchPageProps) {
 export default function SearchPage(props: SearchPageProps) {
   return (
     <SafeSearchParamsProvider>
-      {() => <SearchPageContent {...props} />}
+      <SearchPageContent {...props} />
     </SafeSearchParamsProvider>
   );
 }

@@ -261,8 +261,8 @@ function AdminDashboardContent() {
 
 export default function AdminDashboard() {
   return (
-    <ClientSuspense>
+    <SafeSearchParamsProvider>
       <AdminDashboardContent />
-    </ClientSuspense>
+    </SafeSearchParamsProvider>
   );
 }

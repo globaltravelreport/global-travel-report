@@ -31,7 +31,7 @@ function AdminAnalyticsContent() {
 export default function AdminAnalyticsPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <AdminAnalyticsContent />}
+      <AdminAnalyticsContent />
     </SafeSearchParamsProvider>
   );
 }

@@ -124,7 +124,7 @@ function AdminLoginContent() {
 export default function AdminLoginPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <AdminLoginContent />}
+      <AdminLoginContent />
     </SafeSearchParamsProvider>
   );
 }

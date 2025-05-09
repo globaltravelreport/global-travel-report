@@ -108,7 +108,7 @@ function FeedsPageContent() {
 export default function FeedsPage() {
   return (
     <SafeSearchParamsProvider>
-      {() => <FeedsPageContent />}
+      <FeedsPageContent />
     </SafeSearchParamsProvider>
   );
 }
