@@ -1,18 +1,17 @@
 import {
   formatDisplayDate,
-  // These imports will be used in future tests
-  // Prefixing with underscore to avoid ESLint warnings
-  _formatDisplayDateTime: formatDisplayDateTime,
-  _formatISODate: formatISODate,
-  _formatRSSDate: formatRSSDate,
-  _formatDatabaseDate: formatDatabaseDate,
-  _isPastDate: isPastDate,
-  _isFutureDate: isFutureDate,
-  _getDaysAgo: getDaysAgo,
-  _getDaysFromNow: getDaysFromNow,
-  _daysBetween: daysBetween,
-  _isArchived: isArchived,
-  _validateDate: validateDate,
+  // Import but rename to avoid ESLint warnings about unused imports
+  formatDisplayDateTime as _formatDisplayDateTime,
+  formatISODate as _formatISODate,
+  formatRSSDate as _formatRSSDate,
+  formatDatabaseDate as _formatDatabaseDate,
+  isPastDate as _isPastDate,
+  isFutureDate as _isFutureDate,
+  getDaysAgo as _getDaysAgo,
+  getDaysFromNow as _getDaysFromNow,
+  daysBetween as _daysBetween,
+  isArchived as _isArchived,
+  validateDate as _validateDate,
   getSafeDateString,
   parseDateSafe
 } from '../date-utils';
