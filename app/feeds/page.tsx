@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { CATEGORIES } from '@/src/config/categories';
 import { RssIcon } from 'lucide-react';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 
 export const metadata: Metadata = {
   title: 'RSS Feeds - Global Travel Report',
@@ -107,8 +107,8 @@ function FeedsPageContent() {
 
 export default function FeedsPage() {
   return (
-    <ClientSuspense>
-      <FeedsPageContent />
-    </ClientSuspense>
+    <SafeSearchParamsProvider>
+      {() => <FeedsPageContent />}
+    </SafeSearchParamsProvider>
   );
 }
