@@ -10,8 +10,10 @@ import { useSearchParams as useNextSearchParams } from 'next/navigation';
 function SearchParamsContent({ children }: { children: React.ReactNode }) {
   // Use Next.js useSearchParams hook - this must be called directly in a Client Component
   // and cannot be called conditionally
-  const searchParams = useNextSearchParams();
+  useNextSearchParams();
 
+  // We don't need to use the searchParams here, we just need to call the hook
+  // to satisfy Next.js requirements
   return <>{children}</>;
 }
 

@@ -14,6 +14,8 @@ import { Toaster } from '@/src/components/ui/toaster'
 import Script from 'next/script'
 import { ThemeProvider } from '@/src/components/theme-provider'
 import DOMPurify from 'isomorphic-dompurify'
+import { Suspense } from 'react'
+import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -300,19 +302,25 @@ export default function RootLayout({
         >
           <ErrorBoundary>
             <GlobalErrorHandler>
-              <SkipToContent />
-              <div className="flex flex-col min-h-screen">
-                <Header />
-                <main id="main-content" className="flex-grow">
-                  {children}
-                </main>
-                <Footer />
-              </div>
-              <BackToTop />
-              <CookieConsent />
-              <GoogleAnalytics />
-              <WebVitalsTracker />
-              <Toaster />
+              {/* Wrap the entire application in a Suspense boundary and SafeSearchParamsProvider */}
+              {/* This ensures that useSearchParams() is properly handled throughout the app */}
+              <Suspense fallback={<div className="p-4">Loading...</div>}>
+                <SafeSearchParamsProvider>
+                  <SkipToContent />
+                  <div className="flex flex-col min-h-screen">
+                    <Header />
+                    <main id="main-content" className="flex-grow">
+                      {children}
+                    </main>
+                    <Footer />
+                  </div>
+                  <BackToTop />
+                  <CookieConsent />
+                  <GoogleAnalytics />
+                  <WebVitalsTracker />
+                  <Toaster />
+                </SafeSearchParamsProvider>
+              </Suspense>
             </GlobalErrorHandler>
           </ErrorBoundary>
         </ThemeProvider>
