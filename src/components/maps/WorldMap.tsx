@@ -9,52 +9,52 @@ interface WorldMapProps {
    * Countries to highlight on the map
    */
   highlightedCountries?: string[];
-  
+
   /**
    * Callback when a country is clicked
    */
   onCountryClick?: (country: string) => void;
-  
+
   /**
    * CSS class name for the container
    */
   className?: string;
-  
+
   /**
    * Width of the map
    */
   width?: number | string;
-  
+
   /**
    * Height of the map
    */
   height?: number | string;
-  
+
   /**
    * Whether to enable zooming
    */
   enableZoom?: boolean;
-  
+
   /**
    * Initial zoom level
    */
   initialZoom?: number;
-  
+
   /**
    * Color for highlighted countries
    */
   highlightColor?: string;
-  
+
   /**
    * Base color for countries
    */
   baseColor?: string;
-  
+
   /**
    * Border color for countries
    */
   borderColor?: string;
-  
+
   /**
    * Whether to show country labels
    */
@@ -63,10 +63,10 @@ interface WorldMapProps {
 
 /**
  * Interactive World Map Component
- * 
+ *
  * This component renders an interactive world map using Leaflet.js.
  * It allows highlighting countries and handling click events.
- * 
+ *
  * @example
  * ```tsx
  * <WorldMap
@@ -94,22 +94,22 @@ export function WorldMap({
   const [isMapInitialized, setIsMapInitialized] = useState(false);
   const [leaflet, setLeaflet] = useState<any>(null);
   const [geoJSON, setGeoJSON] = useState<any>(null);
-  
+
   // Initialize the map when the component mounts
   useEffect(() => {
     // Only run on the client side
     if (typeof window === 'undefined') return;
-    
+
     // Load Leaflet and GeoJSON data
     const initializeMap = async () => {
       try {
         // Import Leaflet dynamically
         const L = await import('leaflet');
-        
+
         // Import GeoJSON data
         const response = await fetch('/data/world-countries.geo.json');
         const data = await response.json();
-        
+
         setLeaflet(L);
         setGeoJSON(data);
         setIsMapInitialized(true);
@@ -117,16 +117,16 @@ export function WorldMap({
         console.error('Error initializing map:', error);
       }
     };
-    
+
     if (!isMapInitialized) {
       initializeMap();
     }
   }, [isMapInitialized]);
-  
+
   // Set up the map when Leaflet and GeoJSON data are loaded
   useEffect(() => {
     if (!leaflet || !geoJSON || !mapRef.current || !isMapInitialized) return;
-    
+
     // Initialize the map
     const L = leaflet;
     const map = L.map(mapRef.current, {
@@ -140,18 +140,18 @@ export function WorldMap({
       boxZoom: enableZoom,
       keyboard: enableZoom,
     });
-    
+
     // Add the tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
-    
+
     // Add the GeoJSON layer
-    const geojsonLayer = L.geoJSON(geoJSON, {
+    L.geoJSON(geoJSON, {
       style: (feature) => {
         const countryName = feature?.properties?.name;
         const isHighlighted = highlightedCountries.includes(countryName);
-        
+
         return {
           fillColor: isHighlighted ? highlightColor : baseColor,
           weight: 1,
@@ -162,7 +162,7 @@ export function WorldMap({
       },
       onEachFeature: (feature, layer) => {
         const countryName = feature?.properties?.name;
-        
+
         // Add tooltip
         if (showLabels) {
           layer.bindTooltip(countryName, {
@@ -171,13 +171,13 @@ export function WorldMap({
             className: 'country-tooltip',
           });
         }
-        
+
         // Add click handler
         if (onCountryClick) {
           layer.on('click', () => {
             onCountryClick(countryName);
           });
-          
+
           // Change cursor on hover
           layer.on('mouseover', () => {
             layer.getElement()?.setAttribute('style', 'cursor: pointer;');
@@ -185,7 +185,7 @@ export function WorldMap({
         }
       },
     }).addTo(map);
-    
+
     // Clean up when the component unmounts
     return () => {
       map.remove();
@@ -203,7 +203,7 @@ export function WorldMap({
     borderColor,
     showLabels,
   ]);
-  
+
   return (
     <div
       className={cn('relative overflow-hidden rounded-lg', className)}

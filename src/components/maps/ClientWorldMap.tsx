@@ -42,7 +42,7 @@ export function ClientWorldMap(props: Omit<WorldMapProps, 'onCountryClick'> & {
         window.location.href = `/countries/${country.toLowerCase().replace(/\s+/g, '-')}`;
       }
     }
-  }, []);
+  }, [onCountryClick]);
 
   return (
     <WorldMap

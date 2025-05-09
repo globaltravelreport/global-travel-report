@@ -4,7 +4,6 @@ import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
 import { isValidCountry } from '@/src/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { FAQSchema } from '@/src/components/seo/FAQSchema';
 import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 import ClientWorldMap from '@/src/components/maps/ClientWorldMap';
