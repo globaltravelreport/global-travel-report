@@ -46,6 +46,14 @@ jobs:
 
       - name: Verify OpenAI API key
         run: |
+          # Check if we're running in test mode
+          TEST_MODE="${{ github.event.inputs.test_mode || 'false' }}"
+
+          if [ "$TEST_MODE" = "true" ]; then
+            echo "Running in test mode, skipping OpenAI API key verification"
+            exit 0
+          fi
+
           echo "Testing OpenAI API key..."
           # Create a simple test script
           cat > test-openai-key.js << 'EOF'
@@ -114,18 +122,16 @@ jobs:
           # Set default values if not provided
           COUNT="${{ github.event.inputs.count || '8' }}"
           CRUISE_COUNT="${{ github.event.inputs.cruise_count || '2' }}"
-          TEST_MODE="${{ github.event.inputs.test_mode || 'false' }}"
+
+          # Always run in test mode until OpenAI API key is fixed
+          TEST_MODE="true"
 
           # Run the story generator
           echo "Generating $COUNT stories ($CRUISE_COUNT cruise stories)..."
-          echo "Test mode: $TEST_MODE"
+          echo "Test mode: $TEST_MODE (forced to true until API key is fixed)"
 
-          # Run in test mode if specified
-          if [ "$TEST_MODE" = "true" ]; then
-            node scripts/dailyStoryGenerator.js --count=$COUNT --cruise-count=$CRUISE_COUNT --test-mode
-          else
-            node scripts/dailyStoryGenerator.js --count=$COUNT --cruise-count=$CRUISE_COUNT
-          fi
+          # Always run in test mode
+          node scripts/dailyStoryGenerator.js --count=$COUNT --cruise-count=$CRUISE_COUNT --test-mode
 
       - name: Upload generated stories as artifact
         if: success()
