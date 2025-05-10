@@ -1,4 +1,5 @@
 import { getServerSideSitemap } from 'next-sitemap';
+import type { ISitemapField } from 'next-sitemap';
 import { getAllStories } from '@/src/utils/stories';
 import { CATEGORIES } from '@/src/config/categories';
 import { getAllCountries } from '@/src/utils/countries';
@@ -10,18 +11,18 @@ import { getAllCountries } from '@/src/utils/countries';
  */
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
-  
+
   // Get all stories
   const stories = await getAllStories();
-  
+
   // Get all categories
   const categories = CATEGORIES;
-  
+
   // Get all countries
   const countries = getAllCountries();
-  
+
   // Story pages
-  const storyFields = stories.map(story => ({
+  const storyFields: ISitemapField[] = stories.map(story => ({
     loc: `${baseUrl}/stories/${story.slug}`,
     lastmod: new Date(story.updatedAt || story.publishedAt).toISOString(),
     changefreq: 'weekly',
@@ -29,8 +30,8 @@ export async function GET() {
     // Add image data if available
     images: story.imageUrl ? [
       {
-        loc: story.imageUrl.startsWith('http') 
-          ? story.imageUrl 
+        loc: story.imageUrl.startsWith('http')
+          ? story.imageUrl
           : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`,
         title: story.title,
         caption: story.excerpt?.substring(0, 100) || story.title,
@@ -39,30 +40,30 @@ export async function GET() {
       }
     ] : undefined,
   }));
-  
+
   // Category pages
-  const categoryFields = categories.map(category => ({
+  const categoryFields: ISitemapField[] = categories.map(category => ({
     loc: `${baseUrl}/categories/${category.slug}`,
     lastmod: new Date().toISOString(),
     changefreq: 'weekly',
     priority: category.featured ? 0.8 : 0.7,
   }));
-  
+
   // Country pages
-  const countryFields = countries.map(country => ({
+  const countryFields: ISitemapField[] = countries.map(country => ({
     loc: `${baseUrl}/countries/${country.toLowerCase().replace(/\s+/g, '-')}`,
     lastmod: new Date().toISOString(),
     changefreq: 'weekly',
     priority: 0.7,
   }));
-  
+
   // Combine all fields
-  const fields = [
+  const fields: ISitemapField[] = [
     ...storyFields,
     ...categoryFields,
     ...countryFields
   ];
-  
+
   // Return the sitemap
   return getServerSideSitemap(fields);
 }
