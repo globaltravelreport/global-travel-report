@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       title,
       description,
       type: "article",
-      publishedTime: getSafeDateString(story.publishedAt),
+      publishedTime: getSafeDateString(story.publishedAt, false, true),
       authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
       images: ogImage ? [
@@ -120,7 +120,7 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       'geo.region': story.country !== 'Global' ? story.country : undefined,
       'og:image:width': '1200',
       'og:image:height': '630',
-      'article:published_time': getSafeDateString(story.publishedAt),
+      'article:published_time': getSafeDateString(story.publishedAt, false, true),
       'article:publisher': siteUrl,
       'article:author': 'Global Travel Report Editorial Team',
       'article:section': story.category,
@@ -165,8 +165,8 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           ]}
           facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
           article={{
-            publishedTime: getSafeDateString(story.publishedAt),
-            modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt),
+            publishedTime: getSafeDateString(story.publishedAt, false, true),
+            modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt, false, true),
             authors: ['Global Travel Report Editorial Team'],
             section: story.category,
             tags: story.tags
@@ -245,7 +245,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-muted-foreground mb-6">
               <div className="mb-4 sm:mb-0">
-                <span>{format(validateDate(story.date || story.publishedAt), 'MMMM dd, yyyy')}</span>
+                <span>{format(validateDate(story.date || story.publishedAt, true), 'MMMM dd, yyyy')}</span>
                 <span className="mx-2">•</span>
                 <span>By Global Travel Report Editorial Team</span>
               </div>
