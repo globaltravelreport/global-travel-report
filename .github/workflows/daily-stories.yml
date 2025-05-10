@@ -6,6 +6,20 @@ on:
     - cron: '0 4 * * *'
   # Allow manual triggering for testing
   workflow_dispatch:
+    inputs:
+      count:
+        description: 'Number of stories to generate'
+        required: false
+        default: '8'
+      cruise_count:
+        description: 'Number of cruise stories to include'
+        required: false
+        default: '2'
+      test_mode:
+        description: 'Run in test mode (no OpenAI calls)'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   generate-stories:
@@ -62,9 +76,9 @@ jobs:
           # Create logs directory
           mkdir -p logs
 
-          # Run the story generator with 9 stories (7 travel + 2 cruise)
+          # Run the story generator with 8 stories (6 travel + 2 cruise)
           # The script now creates its own log file with the current date
-          node scripts/dailyStoryGenerator.js --count=9 --cruise-count=2
+          node scripts/dailyStoryGenerator.js --count=8 --cruise-count=2
 
           # Get the exit code
           EXIT_CODE=$?

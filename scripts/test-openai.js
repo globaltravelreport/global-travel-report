@@ -17,14 +17,21 @@ async function testOpenAIKey() {
     return false;
   }
 
-  // Check if API key is valid format
-  if (!process.env.OPENAI_API_KEY.startsWith('sk-')) {
-    console.error('❌ OPENAI_API_KEY does not appear to be in the correct format (should start with "sk-")');
-    console.log('Full API key for debugging:', process.env.OPENAI_API_KEY);
+  // Check if API key is valid format (OpenAI keys can start with sk-, org- or sess-)
+  const validPrefixes = ['sk-', 'org-', 'sess-'];
+  const hasValidPrefix = validPrefixes.some(prefix => process.env.OPENAI_API_KEY.startsWith(prefix));
+
+  if (!hasValidPrefix) {
+    console.error('❌ OPENAI_API_KEY does not appear to be in the correct format');
+    console.error('API key should start with one of these prefixes:', validPrefixes.join(', '));
+    // Only show first and last few characters for security
+    console.log('API key prefix:', process.env.OPENAI_API_KEY.substring(0, 5) + '...');
     return false;
   }
 
-  console.log(`API Key: ${process.env.OPENAI_API_KEY.substring(0, 5)}...${process.env.OPENAI_API_KEY.substring(process.env.OPENAI_API_KEY.length - 4)}`);
+  // Log masked API key for debugging
+  const apiKeyLength = process.env.OPENAI_API_KEY.length;
+  console.log(`API Key: ${process.env.OPENAI_API_KEY.substring(0, 5)}...${process.env.OPENAI_API_KEY.substring(apiKeyLength - 4)}`);
   console.log('Environment variables loaded from:', process.env.DOTENV_CONFIG_PATH || '.env.local');
 
   try {
@@ -69,10 +76,10 @@ async function testOpenAIKey() {
       }
 
       // Try with a different model as fallback
-      console.log('Trying with a different model (text-ada-001) as fallback...');
+      console.log('Trying with a different model (gpt-3.5-turbo-instruct) as fallback...');
       try {
         const fallbackCompletion = await openai.completions.create({
-          model: "text-ada-001",
+          model: "gpt-3.5-turbo-instruct",
           prompt: "Hello, this is a test message to verify the API key is working.",
           max_tokens: 50,
         });
