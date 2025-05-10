@@ -22,6 +22,11 @@ const nextConfig = {
         destination: '/offers',
         permanent: true,
       },
+      {
+        source: '/categories',
+        destination: '/category-index',
+        permanent: false,
+      },
       // Redirect HTTP to HTTPS
       {
         source: '/:path*',
