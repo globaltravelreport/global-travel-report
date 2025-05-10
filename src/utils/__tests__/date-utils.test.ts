@@ -65,11 +65,21 @@ describe('Date Utilities', () => {
       expect(getSafeDateString(dateStr)).toBe(expected);
     });
 
-    it('should return current date for future dates', () => {
+    it('should preserve future dates by default', () => {
       const futureDate = new Date();
       futureDate.setFullYear(futureDate.getFullYear() + 1);
 
       const result = getSafeDateString(futureDate);
+
+      // The result should be the future date
+      expect(result).toBe(futureDate.toISOString());
+    });
+
+    it('should return current date for future dates when preserveFutureDates is false', () => {
+      const futureDate = new Date();
+      futureDate.setFullYear(futureDate.getFullYear() + 1);
+
+      const result = getSafeDateString(futureDate, false, false);
       const now = new Date();
 
       // The result should be close to now (within a few seconds)
