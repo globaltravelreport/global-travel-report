@@ -227,7 +227,7 @@ async function HomePage() {
             {getFeaturedCategories().slice(0, 8).map((category) => (
               <Link
                 key={category.slug}
-                href={`/category-index/${category.slug}`}
+                href={`/categories/${category.slug}`}
                 className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition-all duration-300 group hover:translate-y-[-4px] border border-gray-100 overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C9A14A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -240,7 +240,7 @@ async function HomePage() {
 
           <div className="mt-10 text-center">
             <Link
-              href="/category-index"
+              href="/categories-new"
               className="inline-flex items-center px-6 py-3 border border-[#C9A14A] text-base font-medium rounded-md text-[#C9A14A] bg-white hover:bg-[#C9A14A]/10 transition-colors duration-300"
             >
               View All Categories
