@@ -11,27 +11,27 @@ interface FreshnessIndicatorProps {
    * The date the content was published
    */
   publishedDate: string;
-  
+
   /**
    * The date the content was last updated (optional)
    */
   updatedDate?: string;
-  
+
   /**
    * The CSS class name for the container
    */
   className?: string;
-  
+
   /**
    * Whether to show the full date
    */
   showFullDate?: boolean;
-  
+
   /**
    * Whether to show the icon
    */
   showIcon?: boolean;
-  
+
   /**
    * The size of the indicator
    */
@@ -40,10 +40,10 @@ interface FreshnessIndicatorProps {
 
 /**
  * Content Freshness Indicator
- * 
+ *
  * This component displays a visual indicator of how fresh the content is,
  * based on the published and updated dates.
- * 
+ *
  * @example
  * ```tsx
  * <FreshnessIndicator
@@ -63,15 +63,41 @@ export function FreshnessIndicator({
 }: FreshnessIndicatorProps) {
   // Use the updated date if available, otherwise use the published date
   const latestDate = updatedDate || publishedDate;
-  
-  // Parse the date
-  const date = parseISO(latestDate);
+
+  // Parse the date with error handling
+  let date: Date;
+  let isValidDate = true;
+
+  try {
+    date = parseISO(latestDate);
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      isValidDate = false;
+      date = new Date(); // Use current date as fallback
+    }
+  } catch (error) {
+    console.error('Error parsing date:', latestDate);
+    isValidDate = false;
+    date = new Date(); // Use current date as fallback
+  }
+
   const now = new Date();
-  
+
   // Calculate the difference in days
-  const daysDiff = differenceInDays(now, date);
-  const monthsDiff = differenceInMonths(now, date);
-  
+  let daysDiff = 0;
+  let monthsDiff = 0;
+
+  if (isValidDate) {
+    try {
+      daysDiff = differenceInDays(now, date);
+      monthsDiff = differenceInMonths(now, date);
+    } catch (error) {
+      console.error('Error calculating date difference:', error);
+      daysDiff = 0;
+      monthsDiff = 0;
+    }
+  }
+
   // Determine the freshness level
   let freshness: 'fresh' | 'recent' | 'old' = 'fresh';
   if (daysDiff > 180) {
@@ -79,7 +105,7 @@ export function FreshnessIndicator({
   } else if (daysDiff > 30) {
     freshness = 'recent';
   }
-  
+
   // Get the appropriate color and icon based on freshness
   const getColor = () => {
     switch (freshness) {
@@ -91,7 +117,7 @@ export function FreshnessIndicator({
         return 'text-red-600 bg-red-50';
     }
   };
-  
+
   const getIcon = () => {
     switch (freshness) {
       case 'fresh':
@@ -102,9 +128,13 @@ export function FreshnessIndicator({
         return <AlertCircle className="w-4 h-4" />;
     }
   };
-  
+
   // Get the appropriate text based on freshness
   const getFreshnessText = () => {
+    if (!isValidDate) {
+      return 'Unknown date';
+    }
+
     if (daysDiff < 7) {
       return 'New';
     } else if (daysDiff < 30) {
@@ -115,17 +145,23 @@ export function FreshnessIndicator({
       return `${Math.floor(monthsDiff / 12)} years ago`;
     }
   };
-  
+
   // Format the date for display
-  const formattedDate = format(date, 'MMMM d, yyyy');
-  
+  let formattedDate: string;
+  try {
+    formattedDate = isValidDate ? format(date, 'MMMM d, yyyy') : 'Unknown date';
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    formattedDate = 'Unknown date';
+  }
+
   // Determine the size classes
   const sizeClasses = {
     sm: 'text-xs px-1.5 py-0.5',
     md: 'text-sm px-2 py-1',
     lg: 'text-base px-3 py-1.5',
   };
-  
+
   return (
     <TooltipProvider>
       <Tooltip>
@@ -149,11 +185,17 @@ export function FreshnessIndicator({
         <TooltipContent>
           <p>
             {updatedDate ? 'Updated' : 'Published'} on {formattedDate}
-            {updatedDate && publishedDate !== updatedDate && (
+            {updatedDate && publishedDate !== updatedDate && isValidDate && (
               <>
                 <br />
                 <span className="text-xs">
-                  Originally published on {format(parseISO(publishedDate), 'MMMM d, yyyy')}
+                  Originally published on {(() => {
+                    try {
+                      return format(parseISO(publishedDate), 'MMMM d, yyyy');
+                    } catch (error) {
+                      return 'Unknown date';
+                    }
+                  })()}
                 </span>
               </>
             )}
