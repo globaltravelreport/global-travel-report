@@ -15,11 +15,12 @@ import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
 /**
  * Safely convert a date string to an ISO string
  * @param dateStr - The date string to convert
+ * @param preserveFutureDates - Whether to preserve future dates (default: true)
  * @returns A valid ISO date string
  */
-function safeToISOString(dateStr: string | Date | undefined): string {
-  // Use our improved date handling function
-  return getSafeDateString(dateStr);
+function safeToISOString(dateStr: string | Date | undefined, preserveFutureDates: boolean = true): string {
+  // Use our improved date handling function with preserveFutureDates set to true by default
+  return getSafeDateString(dateStr, false, preserveFutureDates);
 }
 
 // In-memory storage for stories
@@ -247,8 +248,8 @@ export async function getAllStories(): Promise<Story[]> {
             content: cleanContent,
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
-            // Safely handle the date
-            publishedAt: safeToISOString(storyData.date),
+            // Safely handle the date - preserve future dates
+            publishedAt: safeToISOString(storyData.date, true),
             // Keep the original date string for reference
             date: storyData.date,
             category: storyData.type || 'Article',
@@ -497,7 +498,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 content: cleanContent,
                 excerpt: storyData.summary || '',
                 author: 'Global Travel Report Editorial Team',
-                publishedAt: safeToISOString(storyData.date),
+                publishedAt: safeToISOString(storyData.date, true),
                 date: storyData.date, // Preserve the original date string
                 category: storyData.type || 'Article',
                 country: storyData.country || 'Global',
@@ -604,8 +605,8 @@ export async function saveStory(story: Story): Promise<void> {
     let frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
-date: "${existingDate || story.date || safeToISOString(story.publishedAt)}"
-publishedAt: "${existingDate || story.date || safeToISOString(story.publishedAt)}"
+date: "${existingDate || story.date || safeToISOString(story.publishedAt, true)}"
+publishedAt: "${existingDate || story.date || safeToISOString(story.publishedAt, true)}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${imageUrl}"
