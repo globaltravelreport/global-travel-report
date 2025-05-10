@@ -3,6 +3,7 @@ import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
 import { getAllStories, saveStory } from '@/src/utils/fileStorage';
+import { getSafeDateString } from '@/src/utils/date-utils';
 
 /**
  * StoryDatabase using simple file-based storage
