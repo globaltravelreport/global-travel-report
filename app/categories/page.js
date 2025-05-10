@@ -1,8 +1,6 @@
+import { redirect } from 'next/navigation';
+
 export default function CategoriesPage() {
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>Categories</h1>
-      <p>This is the categories page.</p>
-    </div>
-  );
+  // Redirect to the main categories page
+  redirect('/category-index');
 }

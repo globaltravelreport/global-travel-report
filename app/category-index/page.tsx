@@ -1,6 +1,5 @@
-import { redirect } from 'next/navigation';
+import CategoriesPage from '../categories';
 
 export default function CategoryIndexPage() {
-  // Redirect to the new categories page
-  redirect('/categories');
+  return <CategoriesPage />;
 }
