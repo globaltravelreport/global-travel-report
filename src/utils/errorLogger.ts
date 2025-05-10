@@ -1,21 +1,16 @@
 /**
  * Error Logger
- * 
+ *
  * A centralized system for logging errors and warnings in the application.
  * This ensures consistent error handling and makes it easier to add
  * error reporting services in the future.
  */
 
-import { AppError, ErrorType, handleError } from './error-handler';
+import { EnhancedAppError, ErrorType, ErrorSeverity, handleError } from './enhanced-error-handler';
 
-// Define log levels
-export enum LogLevel {
-  DEBUG = 'debug',
-  INFO = 'info',
-  WARN = 'warn',
-  ERROR = 'error',
-  FATAL = 'fatal'
-}
+// Use ErrorSeverity from enhanced-error-handler for log levels
+export type LogLevel = ErrorSeverity;
+export const LogLevel = ErrorSeverity;
 
 // Define log entry interface
 export interface LogEntry {
@@ -23,8 +18,11 @@ export interface LogEntry {
   level: LogLevel;
   message: string;
   context?: Record<string, any>;
-  error?: Error | AppError;
+  error?: Error | EnhancedAppError;
   stack?: string;
+  errorId?: string;
+  errorType?: ErrorType;
+  errorCode?: string;
 }
 
 // In-memory log storage for recent logs
@@ -75,18 +73,18 @@ export function configureErrorReporting(enabled: boolean, endpoint?: string): vo
 function formatLogEntry(entry: LogEntry): string {
   const { timestamp, level, message, context, error } = entry;
   let formattedMessage = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
-  
+
   if (context && Object.keys(context).length > 0) {
     formattedMessage += `\nContext: ${JSON.stringify(context, null, 2)}`;
   }
-  
+
   if (error) {
     formattedMessage += `\nError: ${error.message}`;
     if (error.stack) {
       formattedMessage += `\nStack: ${error.stack}`;
     }
   }
-  
+
   return formattedMessage;
 }
 
@@ -96,7 +94,7 @@ function formatLogEntry(entry: LogEntry): string {
  */
 function addToRecentLogs(entry: LogEntry): void {
   recentLogs.unshift(entry);
-  
+
   // Trim the log if it exceeds the maximum size
   if (recentLogs.length > MAX_RECENT_LOGS) {
     recentLogs.length = MAX_RECENT_LOGS;
@@ -111,22 +109,38 @@ async function sendToErrorReportingService(entry: LogEntry): Promise<void> {
   if (!errorReportingEnabled || !errorReportingEndpoint) {
     return;
   }
-  
+
   try {
-    // Only send errors and fatals to the error reporting service
-    if (entry.level !== LogLevel.ERROR && entry.level !== LogLevel.FATAL) {
+    // Only send errors, critical errors, and fatal errors to the reporting service
+    if (
+      entry.level !== LogLevel.ERROR &&
+      entry.level !== LogLevel.CRITICAL &&
+      entry.level !== LogLevel.FATAL
+    ) {
       return;
     }
-    
+
+    // Prepare the error data with additional information
+    const errorData = {
+      ...entry,
+      url: typeof window !== 'undefined' ? window.location.href : '',
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+      appVersion: process.env.NEXT_PUBLIC_APP_VERSION || 'unknown',
+      environment: process.env.NODE_ENV || 'development',
+      sessionId: typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('sessionId') : null,
+    };
+
     // Send the error to the reporting service
     const response = await fetch(errorReportingEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(entry)
+      body: JSON.stringify(errorData),
+      // Use keepalive to ensure the request completes even if the page is unloading
+      keepalive: true
     });
-    
+
     if (!response.ok) {
       console.error(`Failed to send error to reporting service: ${response.status} ${response.statusText}`);
     }
@@ -148,30 +162,33 @@ export function log(level: LogLevel, message: string, context?: Record<string, a
   if (level === LogLevel.DEBUG && !verboseLogging && process.env.NODE_ENV === 'production') {
     return;
   }
-  
-  // Convert error to AppError if provided
-  let appError: AppError | undefined;
+
+  // Convert error to EnhancedAppError if provided
+  let enhancedError: EnhancedAppError | undefined;
   if (error) {
-    appError = handleError(error);
+    enhancedError = handleError(error);
   }
-  
+
   // Create the log entry
   const entry: LogEntry = {
     timestamp: new Date().toISOString(),
     level,
     message,
     context,
-    error: appError,
-    stack: appError?.stack
+    error: enhancedError,
+    stack: enhancedError?.stack,
+    errorId: enhancedError?.id,
+    errorType: enhancedError?.type,
+    errorCode: enhancedError?.code
   };
-  
+
   // Add to recent logs
   addToRecentLogs(entry);
-  
+
   // Log to console if enabled
   if (logToConsole) {
     const formattedMessage = formatLogEntry(entry);
-    
+
     switch (level) {
       case LogLevel.DEBUG:
         console.debug(formattedMessage);
@@ -179,18 +196,19 @@ export function log(level: LogLevel, message: string, context?: Record<string, a
       case LogLevel.INFO:
         console.info(formattedMessage);
         break;
-      case LogLevel.WARN:
+      case LogLevel.WARNING:
         console.warn(formattedMessage);
         break;
       case LogLevel.ERROR:
+      case LogLevel.CRITICAL:
       case LogLevel.FATAL:
         console.error(formattedMessage);
         break;
     }
   }
-  
-  // Send to error reporting service if it's an error or fatal
-  if (level === LogLevel.ERROR || level === LogLevel.FATAL) {
+
+  // Send to error reporting service if it's an error, critical, or fatal
+  if (level === LogLevel.ERROR || level === LogLevel.CRITICAL || level === LogLevel.FATAL) {
     sendToErrorReportingService(entry);
   }
 }
@@ -220,7 +238,7 @@ export function info(message: string, context?: Record<string, any>): void {
  * @param error Optional error object
  */
 export function warn(message: string, context?: Record<string, any>, error?: unknown): void {
-  log(LogLevel.WARN, message, context, error);
+  log(LogLevel.WARNING, message, context, error);
 }
 
 /**
@@ -231,6 +249,16 @@ export function warn(message: string, context?: Record<string, any>, error?: unk
  */
 export function error(message: string, context?: Record<string, any>, error?: unknown): void {
   log(LogLevel.ERROR, message, context, error);
+}
+
+/**
+ * Log a critical message
+ * @param message The message to log
+ * @param context Additional context information
+ * @param error Optional error object
+ */
+export function critical(message: string, context?: Record<string, any>, error?: unknown): void {
+  log(LogLevel.CRITICAL, message, context, error);
 }
 
 /**
@@ -251,17 +279,17 @@ export function fatal(message: string, context?: Record<string, any>, error?: un
  */
 export function getRecentLogs(maxEntries?: number, level?: LogLevel): LogEntry[] {
   let logs = [...recentLogs];
-  
+
   // Filter by level if provided
   if (level) {
     logs = logs.filter(entry => entry.level === level);
   }
-  
+
   // Limit the number of entries if provided
   if (maxEntries && maxEntries > 0) {
     logs = logs.slice(0, maxEntries);
   }
-  
+
   return logs;
 }
 
@@ -272,6 +300,53 @@ export function clearRecentLogs(): void {
   recentLogs.length = 0;
 }
 
+/**
+ * Capture an enhanced app error
+ * @param enhancedError The enhanced app error to capture
+ * @param context Additional context information
+ * @returns The captured error
+ */
+export function captureEnhancedError(enhancedError: EnhancedAppError, context?: Record<string, any>): EnhancedAppError {
+  // Determine the log level based on the error severity
+  let level: LogLevel;
+  switch (enhancedError.severity) {
+    case ErrorSeverity.DEBUG:
+      level = LogLevel.DEBUG;
+      break;
+    case ErrorSeverity.INFO:
+      level = LogLevel.INFO;
+      break;
+    case ErrorSeverity.WARNING:
+      level = LogLevel.WARNING;
+      break;
+    case ErrorSeverity.ERROR:
+      level = LogLevel.ERROR;
+      break;
+    case ErrorSeverity.CRITICAL:
+      level = LogLevel.CRITICAL;
+      break;
+    case ErrorSeverity.FATAL:
+      level = LogLevel.FATAL;
+      break;
+    default:
+      level = LogLevel.ERROR;
+  }
+
+  // Merge contexts
+  const mergedContext = {
+    ...enhancedError.context,
+    ...context,
+  };
+
+  // Log the error
+  log(level, enhancedError.message, mergedContext, enhancedError);
+
+  // Mark as logged
+  enhancedError.logged = true;
+
+  return enhancedError;
+}
+
 export default {
   LogLevel,
   log,
@@ -279,10 +354,12 @@ export default {
   info,
   warn,
   error,
+  critical,
   fatal,
   getRecentLogs,
   clearRecentLogs,
   setVerboseLogging,
   setLogToConsole,
-  configureErrorReporting
+  configureErrorReporting,
+  captureEnhancedError
 };

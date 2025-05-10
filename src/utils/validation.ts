@@ -1,8 +1,178 @@
 /**
- * Validation utilities using Zod
+ * Validation utilities using Zod for runtime type checking
  */
-
 import { z } from 'zod';
+import { createValidationError } from './enhanced-error-handler';
+
+/**
+ * Validate data against a Zod schema
+ *
+ * @param schema - The Zod schema to validate against
+ * @param data - The data to validate
+ * @param errorMessage - Optional custom error message
+ * @returns The validated data
+ * @throws ValidationError if validation fails
+ */
+export function validateWithZod<T>(
+  schema: z.ZodType<T>,
+  data: unknown,
+  errorMessage: string = 'Validation failed'
+): T {
+  try {
+    return schema.parse(data);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      throw createValidationError(
+        errorMessage,
+        {
+          errors: error.errors,
+          formattedErrors: formatZodErrors(error),
+        }
+      );
+    }
+    throw error;
+  }
+}
+
+/**
+ * Validate data against a schema and return the result
+ * @param schema - The Zod schema to validate against
+ * @param data - The data to validate
+ * @returns An object with validation result
+ */
+export function validateData<T>(
+  schema: z.ZodSchema<T>,
+  data: unknown
+): { success: boolean; data?: T; errors?: z.ZodError } {
+  try {
+    const validatedData = schema.parse(data);
+    return { success: true, data: validatedData };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { success: false, errors: error };
+    }
+    throw error;
+  }
+}
+
+/**
+ * Validate data against a Zod schema and return a result object
+ *
+ * @param schema - The Zod schema to validate against
+ * @param data - The data to validate
+ * @returns An object with success status, data, and errors
+ */
+export function validateWithResult<T>(
+  schema: z.ZodType<T>,
+  data: unknown
+): { success: boolean; data?: T; errors?: Record<string, string[]> } {
+  const result = schema.safeParse(data);
+
+  if (result.success) {
+    return { success: true, data: result.data };
+  }
+
+  return {
+    success: false,
+    errors: formatZodErrors(result.error),
+  };
+}
+
+/**
+ * Format Zod errors into a more user-friendly format
+ *
+ * @param error - The Zod error
+ * @returns A record of field names to error messages
+ */
+export function formatZodErrors(error: z.ZodError): Record<string, string[]> {
+  const errors: Record<string, string[]> = {};
+
+  for (const issue of error.errors) {
+    const path = issue.path.join('.');
+    const field = path || 'general';
+
+    if (!errors[field]) {
+      errors[field] = [];
+    }
+
+    errors[field].push(issue.message);
+  }
+
+  return errors;
+}
+
+/**
+ * Get a flat list of error messages from a Zod error
+ *
+ * @param error - The Zod error
+ * @returns An array of error messages
+ */
+export function getZodErrorMessages(error: z.ZodError): string[] {
+  return error.errors.map(issue => issue.message);
+}
+
+/**
+ * Common Zod schemas for reuse
+ */
+export const CommonSchemas = {
+  /**
+   * Schema for a non-empty string
+   */
+  nonEmptyString: z.string().min(1, 'This field cannot be empty'),
+
+  /**
+   * Schema for an email address
+   */
+  email: z.string().email('Invalid email address'),
+
+  /**
+   * Schema for a URL
+   */
+  url: z.string().url('Invalid URL'),
+
+  /**
+   * Schema for a date string
+   */
+  dateString: z.string().refine(
+    (value) => !isNaN(Date.parse(value)),
+    { message: 'Invalid date format' }
+  ),
+
+  /**
+   * Schema for a date object
+   */
+  date: z.date(),
+
+  /**
+   * Schema for a positive number
+   */
+  positiveNumber: z.number().positive('Number must be positive'),
+
+  /**
+   * Schema for a non-negative number
+   */
+  nonNegativeNumber: z.number().min(0, 'Number must be non-negative'),
+
+  /**
+   * Schema for an integer
+   */
+  integer: z.number().int('Number must be an integer'),
+
+  /**
+   * Schema for a positive integer
+   */
+  positiveInteger: z.number().int('Number must be an integer').positive('Number must be positive'),
+
+  /**
+   * Schema for a UUID
+   */
+  uuid: z.string().uuid('Invalid UUID format'),
+
+  /**
+   * Schema for a slug (URL-friendly string)
+   */
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Invalid slug format'),
+};
 
 /**
  * Contact form validation schema
@@ -97,22 +267,22 @@ export const searchQuerySchema = z.object({
 });
 
 /**
- * Validate data against a schema and return the result
- * @param schema - The Zod schema to validate against
- * @param data - The data to validate
- * @returns An object with validation result
+ * Create a schema for a Story object
  */
-export function validateData<T>(
-  schema: z.ZodSchema<T>,
-  data: unknown
-): { success: boolean; data?: T; errors?: z.ZodError } {
-  try {
-    const validatedData = schema.parse(data);
-    return { success: true, data: validatedData };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { success: false, errors: error };
-    }
-    throw error;
-  }
-}
+export const StorySchema = z.object({
+  title: CommonSchemas.nonEmptyString,
+  slug: CommonSchemas.slug,
+  summary: CommonSchemas.nonEmptyString,
+  content: CommonSchemas.nonEmptyString,
+  date: CommonSchemas.dateString,
+  lastModified: CommonSchemas.dateString.optional(),
+  author: CommonSchemas.nonEmptyString.optional(),
+  country: CommonSchemas.nonEmptyString,
+  type: CommonSchemas.nonEmptyString,
+  keywords: z.array(z.string()).optional(),
+  image: CommonSchemas.url.optional(),
+  photographer: z.string().optional(),
+  photographerUrl: CommonSchemas.url.optional(),
+  featured: z.boolean().optional(),
+  editorsPick: z.boolean().optional(),
+});
