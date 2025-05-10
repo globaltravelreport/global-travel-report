@@ -72,7 +72,78 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-size: calc(16px + var(--font-size-adjustment, 0) * 2px);
   }
+
+  /* Improved focus styles for better accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-[#C9A14A] ring-offset-2;
+  }
+
+  /* Skip to content link */
+  .sr-only:focus {
+    @apply not-sr-only fixed top-4 left-4 z-50 px-4 py-2 bg-white text-black rounded shadow-lg;
+  }
+
+  /* Headings with proper hierarchy */
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-6;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-4;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold mb-3;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl lg:text-2xl font-semibold mb-2;
+  }
+
+  h5 {
+    @apply text-base md:text-lg lg:text-xl font-semibold mb-2;
+  }
+
+  h6 {
+    @apply text-sm md:text-base lg:text-lg font-semibold mb-2;
+  }
+
+  /* Improved link styles */
+  a:not([class]) {
+    @apply text-[#C9A14A] hover:text-[#E6C677] underline focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 rounded;
+  }
+
+  /* Improved button styles */
+  button:not([class]) {
+    @apply px-4 py-2 rounded-md bg-[#C9A14A] text-white hover:bg-[#E6C677] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2;
+  }
+}
+
+/* High contrast mode */
+.high-contrast {
+  filter: contrast(1.2);
+}
+
+.high-contrast img,
+.high-contrast video {
+  filter: contrast(1.5) brightness(1.1);
+}
+
+.high-contrast a {
+  text-decoration: underline !important;
+}
+
+.high-contrast button,
+.high-contrast a[role="button"] {
+  border: 2px solid currentColor !important;
+}
+
+/* Reduced motion */
+.reduced-motion * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
 }
 
 /* Hide Stories tab in header */
@@ -83,4 +154,48 @@ a[href="/stories"] {
 /* Hide View All Stories button */
 a[href="/stories"]:not(nav a) {
   display: none !important;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .mobile-optimized {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
+/* Improved tap targets for mobile */
+@media (max-width: 640px) {
+  button,
+  a[role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  a.button,
+  .button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 24px !important;
+    min-width: 24px !important;
+  }
 }

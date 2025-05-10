@@ -16,6 +16,8 @@ import { ThemeProvider } from '@/src/components/theme-provider'
 import DOMPurify from 'isomorphic-dompurify'
 import { Suspense } from 'react'
 import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider'
+import AccessibilityProvider from '@/src/components/ui/AccessibilityProvider'
+import AccessibilityMenu from '@/src/components/ui/AccessibilityMenu'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -143,6 +145,14 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#19273A' },
+  ],
 };
 
 export default function RootLayout({
@@ -151,10 +161,34 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="scroll-smooth"
+      dir="ltr"
+    >
       <head>
         {/* Google AdSense Verification Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-4005772594728149" />
+
+        {/* Accessibility Meta Tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Global Travel Report" />
+        <meta name="apple-mobile-web-app-title" content="Global Travel Report" />
+
+        {/* PWA Meta Tags */}
+        <meta name="theme-color" content="#19273A" />
+        <meta name="msapplication-TileColor" content="#19273A" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-navbutton-color" content="#19273A" />
+
+        {/* Performance Meta Tags */}
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <meta http-equiv="Accept-CH" content="DPR, Width, Viewport-Width" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
         {/* Resource Hints for Performance Optimization */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -169,6 +203,7 @@ export default function RootLayout({
         {/* Preload Critical Assets */}
         <link rel="preload" href="/logo-gtr.png" as="image" />
         <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/images/texture-pattern.png" as="image" type="image/png" />
 
         {/* DNS Prefetch for External Resources */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -306,19 +341,22 @@ export default function RootLayout({
               {/* This ensures that useSearchParams() is properly handled throughout the app */}
               <Suspense fallback={<div className="p-4">Loading...</div>}>
                 <SafeSearchParamsProvider>
-                  <SkipToContent />
-                  <div className="flex flex-col min-h-screen">
-                    <Header />
-                    <main id="main-content" className="flex-grow">
-                      {children}
-                    </main>
-                    <Footer />
-                  </div>
-                  <BackToTop />
-                  <CookieConsent />
-                  <GoogleAnalytics />
-                  <WebVitalsTracker />
-                  <Toaster />
+                  <AccessibilityProvider>
+                    <SkipToContent />
+                    <div className="flex flex-col min-h-screen">
+                      <Header />
+                      <main id="main-content" className="flex-grow">
+                        {children}
+                      </main>
+                      <Footer />
+                    </div>
+                    <BackToTop />
+                    <AccessibilityMenu />
+                    <CookieConsent />
+                    <GoogleAnalytics />
+                    <WebVitalsTracker />
+                    <Toaster />
+                  </AccessibilityProvider>
                 </SafeSearchParamsProvider>
               </Suspense>
             </GlobalErrorHandler>
