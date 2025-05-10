@@ -1,9 +1,12 @@
-// Minimal middleware to get the site back up
+// Empty middleware file
+// This file is intentionally left empty to fix site loading issues
+// We'll restore proper middleware functionality once the site is stable
+
 export function middleware() {
-  // Do nothing
+  // Intentionally empty
 }
 
-// Only run on admin routes to minimize impact
+// No matchers - middleware won't run
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: [],
 };
