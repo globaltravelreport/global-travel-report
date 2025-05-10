@@ -1,5 +1,5 @@
 import { getServerSideSitemap } from 'next-sitemap';
-import type { ISitemapField } from 'next-sitemap';
+import type { ISitemapField, IImageEntry } from 'next-sitemap';
 import { getAllStories } from '@/src/utils/stories';
 import { CATEGORIES } from '@/src/config/categories';
 import { getAllCountries } from '@/src/utils/countries';
@@ -30,14 +30,16 @@ export async function GET() {
     // Add image data if available
     images: story.imageUrl ? [
       {
-        loc: story.imageUrl.startsWith('http')
-          ? story.imageUrl
-          : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`,
+        loc: new URL(
+          story.imageUrl.startsWith('http')
+            ? story.imageUrl
+            : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+        ),
         title: story.title,
         caption: story.excerpt?.substring(0, 100) || story.title,
-        geo_location: story.country !== 'Global' ? story.country : undefined,
-        license: 'https://creativecommons.org/licenses/by/4.0/'
-      }
+        geoLocation: story.country !== 'Global' ? story.country : undefined,
+        license: new URL('https://creativecommons.org/licenses/by/4.0/')
+      } as IImageEntry
     ] : undefined,
   }));
 
