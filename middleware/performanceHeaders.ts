@@ -1,6 +1,6 @@
 /**
  * Performance Headers Middleware
- * 
+ *
  * This middleware adds performance-enhancing HTTP headers to responses:
  * - Cache-Control headers for static assets
  * - Content-Security-Policy for security
@@ -45,17 +45,17 @@ const CACHE_DURATIONS = {
 function getCacheControlHeader(pathname: string): string {
   // Check if it's a static asset
   const assetType = STATIC_ASSETS.find(asset => pathname.endsWith(`.${asset.ext}`));
-  
+
   if (assetType) {
     const maxAge = CACHE_DURATIONS[assetType.type];
     return `public, max-age=${maxAge}, stale-while-revalidate=${maxAge * 2}`;
   }
-  
+
   // For API routes, use no-cache
   if (pathname.startsWith('/api/')) {
     return 'no-store, must-revalidate';
   }
-  
+
   // For normal pages, use a short cache
   return `public, max-age=${CACHE_DURATIONS.page}, stale-while-revalidate=${CACHE_DURATIONS.page * 2}`;
 }
@@ -65,19 +65,19 @@ function getCacheControlHeader(pathname: string): string {
  * @returns CSP header value
  */
 function getCSPHeader(): string {
+  // Return a more permissive CSP for now
   return `
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://connect.facebook.net;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' data: https: blob:;
-    font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net https://www.facebook.com;
-    frame-src 'self' https://www.youtube.com https://www.facebook.com;
-    object-src 'none';
+    default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+    script-src * 'unsafe-inline' 'unsafe-eval';
+    style-src * 'unsafe-inline';
+    img-src * data: blob:;
+    font-src * data:;
+    connect-src *;
+    frame-src *;
+    object-src *;
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'self';
-    block-all-mixed-content;
     upgrade-insecure-requests;
   `.replace(/\s+/g, ' ').trim();
 }
@@ -113,17 +113,17 @@ function getPermissionsPolicyHeader(): string {
 export function performanceHeadersMiddleware(request: NextRequest): NextResponse {
   // Start timing
   const startTime = Date.now();
-  
+
   // Get the pathname
   const { pathname } = request.nextUrl;
-  
+
   // Create the response
   const response = NextResponse.next();
-  
+
   // Add cache control headers
   const cacheControl = getCacheControlHeader(pathname);
   response.headers.set('Cache-Control', cacheControl);
-  
+
   // Add security headers
   response.headers.set('Content-Security-Policy', getCSPHeader());
   response.headers.set('Permissions-Policy', getPermissionsPolicyHeader());
@@ -131,11 +131,11 @@ export function performanceHeadersMiddleware(request: NextRequest): NextResponse
   response.headers.set('X-Frame-Options', 'SAMEORIGIN');
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  
+
   // Add server timing header
   const processingTime = Date.now() - startTime;
   response.headers.set('Server-Timing', `middleware;dur=${processingTime}`);
-  
+
   return response;
 }
 
