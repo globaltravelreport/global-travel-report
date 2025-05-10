@@ -21,6 +21,10 @@ on:
         default: false
         type: boolean
 
+# Set permissions for the GITHUB_TOKEN
+permissions:
+  contents: write
+
 jobs:
   generate-stories:
     runs-on: ubuntu-latest
@@ -165,7 +169,12 @@ jobs:
 
           # Commit and push (bypass pre-commit hooks)
           git commit -m "Auto-generate stories [skip ci]" --no-verify
+
+          # Use token for authentication
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           git push
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Trigger social media posting
         if: success()
