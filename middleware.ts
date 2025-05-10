@@ -3,7 +3,8 @@ import type { NextRequest } from 'next/server';
 import { errorMonitoringMiddleware } from './middleware/errorMonitoring';
 
 // Global flag to disable middleware in case of emergency
-const DISABLE_MIDDLEWARE = process.env.DISABLE_MIDDLEWARE === 'true';
+// Temporarily disable middleware to fix the site
+const DISABLE_MIDDLEWARE = true; // process.env.DISABLE_MIDDLEWARE === 'true';
 
 // Safety timeout for middleware execution (5 seconds)
 const MIDDLEWARE_TIMEOUT = 5000;
