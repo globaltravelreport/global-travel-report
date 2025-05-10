@@ -8,6 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "security-audit": "node scripts/security-audit.js",
+    "security-audit:report": "node scripts/security-audit.js --report",
+    "security-audit:verbose": "node scripts/security-audit.js --verbose",
+    "security-check": "npm audit && npm run security-audit",
+    "security-fix": "npm audit fix && npm run security-audit",
+    "fix-http-urls": "node scripts/fix-http-urls.js",
+    "fix-http-urls:dry": "node scripts/fix-http-urls.js --dry-run",
+    "fix-http-urls:verbose": "node scripts/fix-http-urls.js --verbose",
     "convert-to-functional": "node scripts/convert-to-functional.js",
     "analyze-bundle": "node scripts/analyze-bundle.js",
     "analyze-bundle:prod": "node scripts/analyze-bundle.js --production",
@@ -48,7 +55,8 @@
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "content-audit": "node scripts/content-audit.js",
     "optimize-all": "npm run optimize-images && npm run convert-to-webp && npm run generate-sw && npm run enhance-seo && npm run generate-structured-data && npm run generate-sitemap",
-    "build:optimized": "npm run optimize-all && next build"
+    "build:optimized": "npm run optimize-all && next build",
+    "build:secure": "npm run security-check && npm run build:optimized"
   },
   "dependencies": {
     "@google-analytics/data": "5.1.0",

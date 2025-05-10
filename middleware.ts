@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { errorMonitoringMiddleware } from './middleware/errorMonitoring';
 import { performanceHeadersMiddleware } from './middleware/performanceHeaders';
+import { csrfMiddleware } from './src/middleware/csrf';
+import { applyCSP } from './src/middleware/csp';
 import { error } from './src/utils/errorLogger';
 
 // Create an instance of the error monitoring middleware
@@ -24,6 +26,12 @@ export async function middleware(request: NextRequest) {
       return monitoringResponse;
     }
 
+    // Apply CSRF protection middleware for mutating requests
+    const csrfResponse = csrfMiddleware(request);
+    if (csrfResponse) {
+      return csrfResponse;
+    }
+
     // Check if the request is for the admin area
     if (request.nextUrl.pathname.startsWith('/admin')) {
       // Get the authorization header
@@ -41,8 +49,19 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    // Apply performance headers middleware
-    const response = performanceHeadersMiddleware(request);
+    // Apply performance headers middleware (includes basic security headers)
+    let response = performanceHeadersMiddleware(request);
+
+    // Apply enhanced Content Security Policy with nonce support
+    response = applyCSP(request, response);
+
+    // Add HSTS header for HTTPS enforcement
+    if (process.env.NODE_ENV === 'production') {
+      response.headers.set(
+        'Strict-Transport-Security',
+        'max-age=63072000; includeSubDomains; preload'
+      );
+    }
 
     // Continue with the request
     return response;
