@@ -249,3 +249,11 @@ export function isCommonRegion(name: string): boolean {
     region => region.toLowerCase() === name.toLowerCase()
   );
 }
+
+/**
+ * Get all valid countries
+ * @returns Array of all valid countries
+ */
+export function getAllCountries(): string[] {
+  return validCountries;
+}
