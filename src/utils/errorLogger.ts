@@ -347,7 +347,7 @@ export function captureEnhancedError(enhancedError: EnhancedAppError, context?: 
   return enhancedError;
 }
 
-export default {
+const errorLogger = {
   LogLevel,
   log,
   debug,
@@ -363,3 +363,5 @@ export default {
   configureErrorReporting,
   captureEnhancedError
 };
+
+export default errorLogger;

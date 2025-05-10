@@ -1,6 +1,6 @@
 /**
  * API Error Handler
- * 
+ *
  * A utility for handling errors in API routes consistently.
  * It provides functions for creating error responses and logging errors.
  */
@@ -33,18 +33,18 @@ export function createApiErrorResponse(
 ): NextResponse {
   // Convert the error to an AppError
   const appError = handleError(error);
-  
+
   // Create the error response
   const errorResponse: ApiErrorResponse = {
     error: appError.message,
     code: appError.code
   };
-  
+
   // Add request ID if provided
   if (requestId) {
     errorResponse.requestId = requestId;
   }
-  
+
   // Include details if requested and in development mode
   if (includeDetails && process.env.NODE_ENV === 'development') {
     errorResponse.details = {
@@ -53,7 +53,7 @@ export function createApiErrorResponse(
       details: appError.details
     };
   }
-  
+
   // Log the error
   logError(`API Error: ${appError.message}`, {
     status,
@@ -61,7 +61,7 @@ export function createApiErrorResponse(
     type: appError.type,
     requestId
   }, appError);
-  
+
   // Return the error response
   return NextResponse.json(errorResponse, { status });
 }
@@ -75,10 +75,10 @@ export function createApiErrorResponse(
 export function handleApiError(error: unknown, requestId?: string): NextResponse {
   // Convert the error to an AppError
   const appError = handleError(error);
-  
+
   // Determine the status code based on the error type
   let status = 500;
-  
+
   switch (appError.type) {
     case ErrorType.VALIDATION:
       status = 400; // Bad Request
@@ -98,7 +98,7 @@ export function handleApiError(error: unknown, requestId?: string): NextResponse
     default:
       status = 500; // Internal Server Error
   }
-  
+
   // Create and return the error response
   return createApiErrorResponse(
     appError,
@@ -127,7 +127,7 @@ export function createValidationErrorResponse(
     'VALIDATION_ERROR',
     details
   );
-  
+
   // Create and return the error response
   return createApiErrorResponse(
     validationError,
@@ -156,7 +156,7 @@ export function createNotFoundErrorResponse(
     'NOT_FOUND_ERROR',
     resource ? { resource } : undefined
   );
-  
+
   // Create and return the error response
   return createApiErrorResponse(
     notFoundError,
@@ -182,7 +182,7 @@ export function createAuthenticationErrorResponse(
     ErrorType.AUTHENTICATION,
     'AUTHENTICATION_ERROR'
   );
-  
+
   // Create and return the error response
   return createApiErrorResponse(
     authError,
@@ -192,10 +192,12 @@ export function createAuthenticationErrorResponse(
   );
 }
 
-export default {
+const apiErrorHandler = {
   createApiErrorResponse,
   handleApiError,
   createValidationErrorResponse,
   createNotFoundErrorResponse,
   createAuthenticationErrorResponse
 };
+
+export default apiErrorHandler;

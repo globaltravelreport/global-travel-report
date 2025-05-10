@@ -14,12 +14,12 @@ interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
    * Initial route for the test
    */
   route?: string;
-  
+
   /**
    * Whether to include the theme provider
    */
   withTheme?: boolean;
-  
+
   /**
    * Whether to include the toaster
    */
@@ -28,7 +28,7 @@ interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
 
 /**
  * Custom render function that wraps components with necessary providers
- * 
+ *
  * @param ui - The component to render
  * @param options - Render options
  * @returns The rendered component
@@ -53,7 +53,7 @@ export function renderWithProviders(
     },
     writable: true,
   });
-  
+
   // Create a wrapper with all providers
   function AllProviders({ children }: { children: React.ReactNode }) {
     return (
@@ -77,13 +77,13 @@ export function renderWithProviders(
       </>
     );
   }
-  
+
   return render(ui, { wrapper: AllProviders, ...renderOptions });
 }
 
 /**
  * Mock for the useRouter hook
- * 
+ *
  * @param overrides - Override values for the router
  * @returns A mock router object
  */
@@ -100,7 +100,7 @@ export function mockRouter(overrides: Record<string, any> = {}) {
     asPath: '/',
     ...overrides,
   };
-  
+
   return {
     useRouter: jest.fn().mockReturnValue(router),
   };
@@ -108,17 +108,17 @@ export function mockRouter(overrides: Record<string, any> = {}) {
 
 /**
  * Mock for the useSearchParams hook
- * 
+ *
  * @param params - Search parameters to mock
  * @returns A mock search params object
  */
 export function mockSearchParams(params: Record<string, string> = {}) {
   const searchParams = new URLSearchParams();
-  
+
   Object.entries(params).forEach(([key, value]) => {
     searchParams.set(key, value);
   });
-  
+
   return {
     useSearchParams: jest.fn().mockReturnValue(searchParams),
   };
@@ -126,7 +126,7 @@ export function mockSearchParams(params: Record<string, string> = {}) {
 
 /**
  * Mock for the usePathname hook
- * 
+ *
  * @param pathname - Pathname to mock
  * @returns A mock pathname function
  */
@@ -138,7 +138,7 @@ export function mockPathname(pathname: string = '/') {
 
 /**
  * Create a mock story object for testing
- * 
+ *
  * @param overrides - Override values for the story
  * @returns A mock story object
  */
@@ -165,7 +165,7 @@ export function createMockStory(overrides: Record<string, any> = {}) {
 
 /**
  * Create a mock user object for testing
- * 
+ *
  * @param overrides - Override values for the user
  * @returns A mock user object
  */
@@ -183,7 +183,7 @@ export function createMockUser(overrides: Record<string, any> = {}) {
 
 /**
  * Create a mock comment object for testing
- * 
+ *
  * @param overrides - Override values for the comment
  * @returns A mock comment object
  */
@@ -200,7 +200,7 @@ export function createMockComment(overrides: Record<string, any> = {}) {
 
 /**
  * Wait for a specified amount of time
- * 
+ *
  * @param ms - Milliseconds to wait
  * @returns A promise that resolves after the specified time
  */
@@ -210,7 +210,7 @@ export function wait(ms: number = 0): Promise<void> {
 
 /**
  * Mock the fetch API
- * 
+ *
  * @param response - The response to return
  * @param options - Options for the mock
  * @returns A mock fetch function
@@ -220,7 +220,7 @@ export function mockFetch(
   options: { status?: number; headers?: Record<string, string>; ok?: boolean } = {}
 ) {
   const { status = 200, headers = {}, ok = true } = options;
-  
+
   return jest.fn().mockResolvedValue({
     ok,
     status,
@@ -235,7 +235,7 @@ export function mockFetch(
  */
 export function mockLocalStorage() {
   const store: Record<string, string> = {};
-  
+
   return {
     getItem: jest.fn((key: string) => store[key] || null),
     setItem: jest.fn((key: string, value: string) => {
@@ -263,7 +263,7 @@ export function mockSessionStorage() {
 
 /**
  * Mock the IntersectionObserver API
- * 
+ *
  * @param isIntersecting - Whether the element is intersecting
  * @returns A mock IntersectionObserver class
  */
@@ -272,9 +272,9 @@ export function mockIntersectionObserver(isIntersecting: boolean = true) {
     readonly root: Element | null = null;
     readonly rootMargin: string = '';
     readonly thresholds: ReadonlyArray<number> = [];
-    
+
     constructor(private callback: IntersectionObserverCallback) {}
-    
+
     observe = jest.fn(() => {
       this.callback([
         {
@@ -288,14 +288,14 @@ export function mockIntersectionObserver(isIntersecting: boolean = true) {
         },
       ], this);
     });
-    
+
     unobserve = jest.fn();
     disconnect = jest.fn();
     takeRecords = jest.fn(() => []);
   };
 }
 
-export default {
+const testUtils = {
   renderWithProviders,
   mockRouter,
   mockSearchParams,
@@ -309,3 +309,5 @@ export default {
   mockSessionStorage,
   mockIntersectionObserver,
 };
+
+export default testUtils;

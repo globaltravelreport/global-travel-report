@@ -4,7 +4,7 @@
 
 /**
  * Ensures that a value is not null or undefined
- * 
+ *
  * @param value - The value to check
  * @param errorMessage - Optional error message
  * @returns The non-null value
@@ -22,7 +22,7 @@ export function assertNonNullable<T>(
 
 /**
  * Type guard to check if a value is not null or undefined
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is not null or undefined
  */
@@ -32,7 +32,7 @@ export function isNonNullable<T>(value: T): value is NonNullable<T> {
 
 /**
  * Type guard to check if a value is a string
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a string
  */
@@ -42,7 +42,7 @@ export function isString(value: unknown): value is string {
 
 /**
  * Type guard to check if a value is a number
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a number
  */
@@ -52,7 +52,7 @@ export function isNumber(value: unknown): value is number {
 
 /**
  * Type guard to check if a value is a boolean
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a boolean
  */
@@ -62,7 +62,7 @@ export function isBoolean(value: unknown): value is boolean {
 
 /**
  * Type guard to check if a value is a Date
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a Date
  */
@@ -72,7 +72,7 @@ export function isDate(value: unknown): value is Date {
 
 /**
  * Type guard to check if a value is a valid date string
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a valid date string
  */
@@ -84,7 +84,7 @@ export function isDateString(value: unknown): value is string {
 
 /**
  * Type guard to check if a value is an array
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is an array
  */
@@ -94,7 +94,7 @@ export function isArray<T>(value: unknown): value is Array<T> {
 
 /**
  * Type guard to check if a value is an object
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is an object
  */
@@ -104,31 +104,31 @@ export function isObject(value: unknown): value is Record<string, unknown> {
 
 /**
  * Type guard to check if a value is a function
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a function
  */
-export function isFunction(value: unknown): value is Function {
+export function isFunction(value: unknown): value is ((...args: any[]) => any) {
   return typeof value === 'function';
 }
 
 /**
  * Type guard to check if a value is a promise
- * 
+ *
  * @param value - The value to check
  * @returns True if the value is a promise
  */
 export function isPromise<T = any>(value: unknown): value is Promise<T> {
   return value instanceof Promise || (
-    isObject(value) && 
-    isFunction((value as any).then) && 
+    isObject(value) &&
+    isFunction((value as any).then) &&
     isFunction((value as any).catch)
   );
 }
 
 /**
  * Type guard to check if a value matches a specific type
- * 
+ *
  * @param value - The value to check
  * @param typeGuard - The type guard function
  * @returns True if the value matches the type
@@ -139,7 +139,7 @@ export function is<T>(value: unknown, typeGuard: (value: unknown) => value is T)
 
 /**
  * Type guard to check if all values in an array match a specific type
- * 
+ *
  * @param values - The array to check
  * @param typeGuard - The type guard function
  * @returns True if all values match the type
@@ -150,7 +150,7 @@ export function areAll<T>(values: unknown[], typeGuard: (value: unknown) => valu
 
 /**
  * Safely cast a value to a specific type if it matches a type guard
- * 
+ *
  * @param value - The value to cast
  * @param typeGuard - The type guard function
  * @param defaultValue - The default value to return if the type guard fails
@@ -166,7 +166,7 @@ export function safeCast<T>(
 
 /**
  * Safely access a property of an object
- * 
+ *
  * @param obj - The object to access
  * @param key - The property key
  * @param defaultValue - The default value to return if the property doesn't exist
@@ -244,12 +244,12 @@ export type PartialPick<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
 /**
  * Type for a function parameter
  */
-export type FunctionParameter<T extends Function> = T extends (...args: infer P) => any ? P : never;
+export type FunctionParameter<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
 
 /**
  * Type for a function return type
  */
-export type FunctionReturnType<T extends Function> = T extends (...args: any[]) => infer R ? R : never;
+export type FunctionReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : never;
 
 /**
  * Type for a constructor parameter
@@ -276,7 +276,7 @@ export type RequiredKeys<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, 
  */
 export type ExactKeys<T, K extends keyof T> = Pick<T, K>;
 
-export default {
+const typeUtils = {
   assertNonNullable,
   isNonNullable,
   isString,
@@ -293,3 +293,5 @@ export default {
   safeCast,
   safeGet,
 };
+
+export default typeUtils;

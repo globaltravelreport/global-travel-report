@@ -54,42 +54,42 @@ export class EnhancedAppError extends Error {
    * The type of error
    */
   type: ErrorType;
-  
+
   /**
    * The severity level of the error
    */
   severity: ErrorSeverity;
-  
+
   /**
    * Error code for more specific categorization
    */
   code?: string;
-  
+
   /**
    * Additional error details
    */
   details?: any;
-  
+
   /**
    * Context information about where/when the error occurred
    */
   context?: ErrorContext;
-  
+
   /**
    * The original error that was caught (if applicable)
    */
   originalError?: unknown;
-  
+
   /**
    * Whether the error has been logged
    */
   logged: boolean;
-  
+
   /**
    * Unique ID for the error instance
    */
   id: string;
-  
+
   /**
    * Timestamp when the error was created
    */
@@ -115,10 +115,10 @@ export class EnhancedAppError extends Error {
     originalError?: unknown
   ) {
     super(message);
-    
+
     // Set error name to the class name
     this.name = this.constructor.name;
-    
+
     // Set error properties
     this.type = type;
     this.severity = severity;
@@ -129,7 +129,7 @@ export class EnhancedAppError extends Error {
     this.logged = false;
     this.id = generateErrorId();
     this.timestamp = new Date();
-    
+
     // Capture stack trace
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, this.constructor);
@@ -159,7 +159,7 @@ export class EnhancedAppError extends Error {
       [ErrorSeverity.CRITICAL]: 4,
       [ErrorSeverity.FATAL]: 5,
     };
-    
+
     return (levels[this.severity] || 0) >= (levels[severity] || 0);
   }
 
@@ -363,7 +363,7 @@ export function handleError(
     let type = ErrorType.UNKNOWN;
     let severity = ErrorSeverity.ERROR;
     let code: string | undefined;
-    
+
     // Check for common error patterns
     if (error.name === 'ValidationError' || error.message.includes('validation')) {
       type = ErrorType.VALIDATION;
@@ -380,7 +380,7 @@ export function handleError(
       severity = ErrorSeverity.WARNING;
       code = 'NOT_FOUND_ERROR';
     }
-    
+
     return new EnhancedAppError(
       error.message,
       type,
@@ -418,15 +418,15 @@ export function logError(
 ): EnhancedAppError {
   // Convert to EnhancedAppError if needed
   const enhancedError = handleError(error, context);
-  
+
   // Update severity if provided
   if (severity) {
     enhancedError.severity = severity;
   }
-  
+
   // Mark as logged
   enhancedError.logged = true;
-  
+
   // Log to console in development
   if (process.env.NODE_ENV !== 'production') {
     console.error(
@@ -434,7 +434,7 @@ export function logError(
       enhancedError.getDetailedReport()
     );
   }
-  
+
   // In production, send to error tracking service
   // This would typically be implemented with a service like Sentry
   if (process.env.NODE_ENV === 'production') {
@@ -450,11 +450,11 @@ export function logError(
       );
     });
   }
-  
+
   return enhancedError;
 }
 
-export default {
+const enhancedErrorHandler = {
   EnhancedAppError,
   ErrorType,
   ErrorSeverity,
@@ -466,3 +466,5 @@ export default {
   createNotFoundError,
   createNetworkError,
 };
+
+export default enhancedErrorHandler;

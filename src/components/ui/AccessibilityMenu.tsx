@@ -28,23 +28,25 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
     decreaseFontSize,
     resetFontSize,
   } = useAccessibility();
-  
+
   // Toggle menu
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
   };
-  
+
   // Close menu when Escape key is pressed
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Escape') {
       setIsOpen(false);
     }
   };
-  
+
   return (
-    <div 
+    <div
       className={cn('fixed bottom-4 right-4 z-50', className)}
       onKeyDown={handleKeyDown}
+      role="region"
+      aria-label="Accessibility controls"
     >
       {/* Toggle button */}
       <button
@@ -56,7 +58,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
       >
         <Accessibility className="w-6 h-6" />
       </button>
-      
+
       {/* Menu */}
       <AnimatePresence>
         {isOpen && (
@@ -84,7 +86,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
+
             {/* Options */}
             <div className="p-4 space-y-4">
               {/* Font size */}
@@ -100,7 +102,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                   >
                     <ZoomOut className="w-5 h-5" />
                   </button>
-                  
+
                   <div className="flex items-center">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {fontSizeAdjustment === 0 ? 'Normal' : fontSizeAdjustment > 0 ? `+${fontSizeAdjustment}` : fontSizeAdjustment}
@@ -114,7 +116,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                       <RotateCcw className="w-3 h-3" />
                     </button>
                   </div>
-                  
+
                   <button
                     type="button"
                     className="p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A]"
@@ -126,15 +128,15 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                   </button>
                 </div>
               </div>
-              
+
               {/* High contrast */}
               <div>
                 <button
                   type="button"
                   className={cn(
                     "w-full flex items-center justify-between p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A]",
-                    highContrast 
-                      ? "bg-[#C9A14A]/20 text-gray-900 dark:text-white" 
+                    highContrast
+                      ? "bg-[#C9A14A]/20 text-gray-900 dark:text-white"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   )}
                   onClick={toggleHighContrast}
@@ -155,15 +157,15 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                   </span>
                 </button>
               </div>
-              
+
               {/* Reduced motion */}
               <div>
                 <button
                   type="button"
                   className={cn(
                     "w-full flex items-center justify-between p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A]",
-                    reducedMotion 
-                      ? "bg-[#C9A14A]/20 text-gray-900 dark:text-white" 
+                    reducedMotion
+                      ? "bg-[#C9A14A]/20 text-gray-900 dark:text-white"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   )}
                   onClick={toggleReducedMotion}
@@ -185,7 +187,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
                 </button>
               </div>
             </div>
-            
+
             {/* Footer */}
             <div className="p-4 border-t border-gray-200 dark:border-gray-700">
               <p className="text-xs text-gray-500 dark:text-gray-400">

@@ -529,7 +529,7 @@ export const Navigation = () => {
                 name="q"
                 placeholder="Search for stories, destinations, or travel tips..."
                 className="w-full px-4 py-3 pl-12 bg-[#19273A] text-white border border-[#C9A14A]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A] placeholder-gray-400"
-                autoFocus
+                // Removed autoFocus prop to improve accessibility
               />
               <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
 
