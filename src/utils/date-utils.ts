@@ -226,6 +226,27 @@ export function validateDate(dateStr: string | Date, preserveFutureDates: boolea
     return dateStr;
   }
 
+  // Special handling for dates with year 2025 or later - always consider them valid
+  // This is a temporary fix to handle the specific issue with future dates in the dataset
+  if (typeof dateStr === 'string' && dateStr.includes('202')) {
+    try {
+      // Try to extract the year from the date string
+      const yearMatch = dateStr.match(/20\d\d/);
+      if (yearMatch) {
+        const year = parseInt(yearMatch[0]);
+        // If the year is 2025 or later, and preserveFutureDates is true, consider it valid
+        if (year >= 2025 && preserveFutureDates) {
+          const date = new Date(dateStr);
+          if (!isNaN(date.getTime())) {
+            return date; // Return the future date as is
+          }
+        }
+      }
+    } catch (e) {
+      // If there's an error in the special handling, continue with normal validation
+    }
+  }
+
   try {
     const date = new Date(dateStr);
 
@@ -269,6 +290,27 @@ export function getSafeDateString(
     if (!dateStr) {
       if (!silent) console.warn(`Empty date, using current date instead`);
       return new Date().toISOString();
+    }
+
+    // Special handling for dates with year 2025 or later - always consider them valid
+    // This is a temporary fix to handle the specific issue with future dates in the dataset
+    if (typeof dateStr === 'string' && dateStr.includes('202')) {
+      try {
+        // Try to extract the year from the date string
+        const yearMatch = dateStr.match(/20\d\d/);
+        if (yearMatch) {
+          const year = parseInt(yearMatch[0]);
+          // If the year is 2025 or later, and preserveFutureDates is true, consider it valid
+          if (year >= 2025 && preserveFutureDates) {
+            const date = new Date(dateStr);
+            if (!isNaN(date.getTime())) {
+              return dateStr.toString(); // Return the original string to preserve exact format
+            }
+          }
+        }
+      } catch (e) {
+        // If there's an error in the special handling, continue with normal validation
+      }
     }
 
     // Convert to Date object

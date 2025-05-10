@@ -3,6 +3,7 @@ import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
 import { getAllStories, saveStory } from '@/src/utils/fileStorage';
+import { getSafeDateString } from '@/src/utils/date-utils';
 
 /**
  * StoryDatabase using simple file-based storage
@@ -48,16 +49,47 @@ export class StoryDatabase {
       // Load stories from the file storage system
       this.stories = await getAllStories();
 
+      // Process all stories to ensure dates are valid
+      // We want to preserve future dates, especially those from 2025
+      this.stories = this.stories.map(story => {
+        // For dates that are strings and contain "2025", preserve them exactly as they are
+        if (story.date && typeof story.date === 'string' && story.date.includes('2025')) {
+          return {
+            ...story,
+            // Keep the original date string
+            date: story.date,
+            // Use the original date string for publishedAt as well
+            publishedAt: story.date
+          };
+        }
+
+        // For other dates, use our improved date validation
+        const publishedDate = story.publishedAt ?
+          getSafeDateString(story.publishedAt, true, true) :
+          new Date().toISOString();
+
+        return {
+          ...story,
+          publishedAt: publishedDate,
+          // If date is explicitly set, keep it, otherwise use publishedAt
+          date: story.date || publishedDate
+        };
+      });
+
       if (this.stories.length === 0) {
         // If no stories were found, use mock stories
         this.stories = [...mockStories];
 
         // Add a timestamp to each story to make them appear recent
         const now = new Date();
-        this.stories = this.stories.map((story, index) => ({
-          ...story,
-          publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
-        }));
+        this.stories = this.stories.map((story, index) => {
+          const publishedAt = new Date(now.getTime() - index * 24 * 60 * 60 * 1000); // Each story is one day older
+          return {
+            ...story,
+            publishedAt: publishedAt.toISOString(),
+            date: story.date || publishedAt.toISOString()
+          };
+        });
 
         console.log(`Using ${this.stories.length} mock stories`);
 
