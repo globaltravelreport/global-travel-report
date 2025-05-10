@@ -26,7 +26,7 @@ interface CategoryStructuredDataProps {
 
 /**
  * Component for adding structured data for category pages
- * 
+ *
  * This component generates:
  * 1. CollectionPage schema for the category
  * 2. BreadcrumbList schema for navigation
@@ -99,20 +99,31 @@ export function CategoryStructuredData({
   // Generate ItemList schema for subcategories if any
   const subcategorySchema = subcategories.length > 0 ? {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
+    '@type': 'CollectionPage',
     'name': `${category.name} Subcategories`,
     'description': `Explore subcategories of ${category.name}`,
-    'itemListElement': subcategories.map((subcat, index) => ({
-      '@type': 'ListItem',
-      'position': index + 1,
-      'item': {
-        '@type': 'Thing',
+    'url': `${siteUrl}/categories/${category.slug}`,
+    'mainEntity': {
+      '@type': 'ItemList',
+      'itemListElement': subcategories.map((subcat, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'url': `${siteUrl}/categories/${subcat.slug}`,
         'name': subcat.name,
-        'description': subcat.description,
-        'url': `${siteUrl}/categories/${subcat.slug}`
+        'description': subcat.description
+      })),
+      'numberOfItems': subcategories.length
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'Global Travel Report',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${siteUrl}/logo-gtr.png`,
+        'width': 600,
+        'height': 60
       }
-    })),
-    'numberOfItems': subcategories.length
+    }
   } : null;
 
   // Combine all schemas
@@ -129,10 +140,10 @@ export function CategoryStructuredData({
   return (
     <>
       {schemas.map((schema, index) => (
-        <StructuredData 
+        <StructuredData
           key={`category-schema-${index}`}
-          data={schema} 
-          id={`category-schema-${index}`} 
+          data={schema}
+          id={`category-schema-${index}`}
         />
       ))}
     </>
