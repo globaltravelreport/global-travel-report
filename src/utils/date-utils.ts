@@ -198,14 +198,15 @@ export function isArchived(publishDate: Date | string, archiveDays: number = 7):
 
 /**
  * Validate a date string and return a valid date
- * If the date is invalid or in the future, returns the current date
+ * If the date is invalid, returns the current date
  * @param dateStr - The date string to validate
+ * @param allowFutureDates - Whether to allow future dates (default: true)
  * @returns A valid Date object
  */
-export function validateDate(dateStr: string | Date): Date {
+export function validateDate(dateStr: string | Date, allowFutureDates: boolean = true): Date {
   const now = new Date();
 
-  // If it's already a Date object, check if it's valid and not in the future
+  // If it's already a Date object, check if it's valid
   if (dateStr instanceof Date) {
     // Check if the date is valid
     if (isNaN(dateStr.getTime())) {
@@ -213,8 +214,8 @@ export function validateDate(dateStr: string | Date): Date {
       return now;
     }
 
-    // Check if the date is in the future
-    if (dateStr > now) {
+    // Check if the date is in the future and we don't allow future dates
+    if (!allowFutureDates && dateStr > now) {
       console.warn(`Future date detected: ${dateStr.toISOString()}, adjusting to current date`);
       return now;
     }
@@ -232,8 +233,8 @@ export function validateDate(dateStr: string | Date): Date {
       return now;
     }
 
-    // Check if the date is in the future
-    if (date > now) {
+    // Check if the date is in the future and we don't allow future dates
+    if (!allowFutureDates && date > now) {
       console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
       return now;
     }
@@ -249,12 +250,17 @@ export function validateDate(dateStr: string | Date): Date {
 
 /**
  * Get a safe date string for database storage
- * Ensures the date is valid and not in the future
+ * Ensures the date is valid, but allows future dates
  * @param dateStr - The date string to validate
  * @param silent - Whether to suppress console warnings (default: false)
+ * @param allowFutureDates - Whether to allow future dates (default: true)
  * @returns A valid ISO date string
  */
-export function getSafeDateString(dateStr: string | Date | undefined, silent: boolean = false): string {
+export function getSafeDateString(
+  dateStr: string | Date | undefined,
+  silent: boolean = false,
+  allowFutureDates: boolean = true
+): string {
   try {
     // Handle undefined or null
     if (!dateStr) {
@@ -272,8 +278,8 @@ export function getSafeDateString(dateStr: string | Date | undefined, silent: bo
       return now.toISOString();
     }
 
-    // Check if the date is in the future
-    if (dateObj > now) {
+    // Check if the date is in the future and we don't allow future dates
+    if (!allowFutureDates && dateObj > now) {
       if (!silent) console.warn(`Future date detected: ${dateStr}, adjusting to current date`);
       return now.toISOString();
     }
