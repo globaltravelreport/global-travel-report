@@ -12,21 +12,47 @@ export default function robots(): MetadataRoute.Robots {
       {
         // Rules for Google bots - give them more access for better indexing
         userAgent: "Googlebot",
-        allow: "/",
+        allow: [
+          "/",
+          "/stories/",
+          "/categories/",
+          "/destinations/",
+          "/countries/",
+          "/offers/",
+        ],
         disallow: [
           "/admin/",
           "/api/admin/",
           "/_next/",
           "/private/",
           "/search?*", // Disallow search with parameters to avoid duplicate content
+          "/*.json$", // Disallow JSON files
+          "/api/",
         ],
         // Crawl delay is not respected by Google, but included for completeness
         crawlDelay: 1,
       },
       {
+        // Rules for Google Image bot
+        userAgent: "Googlebot-Image",
+        allow: [
+          "/images/",
+          "/public/images/",
+        ],
+        disallow: [
+          "/_next/",
+          "/api/",
+        ],
+      },
+      {
         // Rules for Bing bots
         userAgent: "Bingbot",
-        allow: "/",
+        allow: [
+          "/",
+          "/stories/",
+          "/categories/",
+          "/destinations/",
+        ],
         disallow: [
           "/admin/",
           "/api/",
@@ -39,7 +65,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         // Rules for all other bots
         userAgent: "*",
-        allow: "/",
+        allow: [
+          "/",
+          "/stories/",
+          "/categories/",
+          "/destinations/",
+        ],
         disallow: [
           "/admin/",
           "/api/",
@@ -47,6 +78,9 @@ export default function robots(): MetadataRoute.Robots {
           "/private/",
           "/search?*",
           "/api/feed/", // Disallow direct access to feed API
+          "/*.json$", // Disallow JSON files
+          "/*.js$", // Disallow JS files
+          "/*.css$", // Disallow CSS files
         ],
         crawlDelay: 3,
       },

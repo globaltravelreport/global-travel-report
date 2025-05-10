@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getCategoryBySlug, getSubcategories } from '@/src/config/categories';
 import Link from 'next/link';
+import { CategoryStructuredData } from '@/src/components/seo/CategoryStructuredData';
 
 // Define the params type for Next.js 15
 type CategoryParams = {
@@ -18,6 +19,7 @@ export async function generateMetadata({
   params: CategoryParams;
 }): Promise<Metadata> {
   const category = getCategoryBySlug(params.category);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   if (!category) {
     return {
@@ -26,9 +28,61 @@ export async function generateMetadata({
     };
   }
 
+  // Get subcategories if any
+  const subcategories = getSubcategories(params.category);
+
+  // Create keywords from category name, description, and keywords
+  const keywordsList = [
+    category.name,
+    ...category.keywords,
+    ...(subcategories.length > 0 ? subcategories.map(sub => sub.name) : []),
+    'travel',
+    'stories',
+    'global travel report'
+  ];
+
   return {
     title: `${category.name} Stories - Global Travel Report`,
     description: category.description || `Read travel stories about ${category.name} from around the world.`,
+    keywords: keywordsList,
+    openGraph: {
+      title: `${category.name} Stories - Global Travel Report`,
+      description: category.description || `Read travel stories about ${category.name} from around the world.`,
+      url: `${siteUrl}/categories/${category.slug}`,
+      type: 'website',
+      siteName: 'Global Travel Report',
+      locale: 'en_AU',
+      images: [
+        {
+          url: `${siteUrl}/images/categories/${category.slug}.jpg`,
+          width: 1200,
+          height: 630,
+          alt: `${category.name} - Global Travel Report`,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} Stories - Global Travel Report`,
+      description: category.description || `Read travel stories about ${category.name} from around the world.`,
+      creator: '@GTravelReport',
+      site: '@GTravelReport',
+      images: [`${siteUrl}/images/categories/${category.slug}.jpg`],
+    },
+    alternates: {
+      canonical: `${siteUrl}/categories/${category.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
   };
 }
 
@@ -61,8 +115,18 @@ export default async function CategoryPage({ params }: { params: CategoryParams 
     );
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
+
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Add structured data for SEO */}
+      <CategoryStructuredData
+        category={categoryInfo}
+        subcategories={subcategories}
+        storyCount={categoryStories.length}
+        siteUrl={siteUrl}
+      />
+
       <div className="flex items-center mb-4">
         <span className="text-4xl mr-3">{categoryInfo.icon}</span>
         <h1 className="text-4xl font-bold">{categoryInfo.name}</h1>

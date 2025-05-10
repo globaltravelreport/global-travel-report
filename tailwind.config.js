@@ -65,12 +65,32 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "fadeIn": {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        "slideInFromTop": {
+          from: { transform: "translateY(-10px)", opacity: 0 },
+          to: { transform: "translateY(0)", opacity: 1 },
+        },
+        "slideInFromBottom": {
+          from: { transform: "translateY(10px)", opacity: 0 },
+          to: { transform: "translateY(0)", opacity: 1 },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0.8 },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fadeIn": "fadeIn 0.3s ease-in-out",
+        "slideInFromTop": "slideInFromTop 0.4s ease-out",
+        "slideInFromBottom": "slideInFromBottom 0.4s ease-out",
+        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} 
+}

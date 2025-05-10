@@ -3,6 +3,7 @@ import { getAllStories } from '@/src/utils/stories';
 import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
 import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
 import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
+import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
 
 /**
  * Generate a dynamic sitemap based on actual content
@@ -38,15 +39,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/search',
     '/privacy-policy',
     '/terms-of-service',
-    '/categories/hotels',
-    '/categories/airlines',
-    '/categories/cruises',
-    '/categories/destinations',
+    '/categories', // Add the main categories page
+    '/destinations',
+    '/offers',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
-    changeFrequency: route === '' || route === '/stories' ? 'daily' as const : 'monthly' as const,
-    priority: route === '' ? 1 : 0.8,
+    changeFrequency: route === '' || route === '/stories' || route === '/categories' ? 'daily' as const : 'monthly' as const,
+    priority: route === '' ? 1 : route === '/categories' ? 0.9 : 0.8,
   }));
 
   // Dynamic routes for stories with proper lastModified dates and image sitemaps
@@ -106,13 +106,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return sitemapEntry;
   });
 
-  // Category routes - dynamically generated from actual stories
-  const categoryRoutes = categories.map((category) => ({
-    url: `${baseUrl}/categories/${category.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
+  // Category routes - use the CATEGORIES constant for all defined categories
+  const categoryRoutes = CATEGORIES.map((category) => {
+    // Featured categories get higher priority
+    const priority = category.featured ? 0.8 : 0.6;
+
+    return {
+      url: `${baseUrl}/categories/${category.slug}`,
+      lastModified: currentDate,
+      changeFrequency: "weekly" as const,
+      priority,
+    };
+  });
 
   // Country routes - dynamically generated from actual stories
   const countryRoutes = countries.map((country) => ({

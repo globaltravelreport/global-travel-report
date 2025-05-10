@@ -310,9 +310,9 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   return (
     <div
       className={cn(
-        "transition-all duration-300 hover:shadow-xl border rounded-lg overflow-hidden group hover:translate-y-[-4px]",
-        story.featured && "border-primary",
-        story.editorsPick && "border-secondary",
+        "transition-all duration-300 bg-white hover:shadow-xl border border-gray-100 rounded-xl overflow-hidden group hover:translate-y-[-4px]",
+        story.featured && "border-[#C9A14A]/30 bg-gradient-to-br from-white to-[#C9A14A]/5",
+        story.editorsPick && "border-blue-300/30 bg-gradient-to-br from-white to-blue-50/30",
         className
       )}
     >
@@ -322,7 +322,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             src={imgSrc}
             alt={story.title}
             priority={story.featured}
-            className="rounded-t-lg transition-transform duration-700 group-hover:scale-110"
+            className="rounded-t-xl transition-transform duration-700 group-hover:scale-110"
             aspectRatio="16/9"
             sizes={{
               sm: '100vw',
@@ -340,7 +340,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             </div>
           )}
           {photographer && (
-            <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl z-10">
+            <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs p-2 rounded-tl z-10 backdrop-blur-sm">
               Photo by{" "}
               {photographer.url ? (
                 <a
@@ -365,55 +365,78 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
               </a>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        </div>
-        <div className="p-5">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {story.featured && (
-              <span className="inline-flex items-center rounded-md bg-primary px-2.5 py-1 text-xs font-medium text-white shadow-sm">Featured</span>
-            )}
-            {story.editorsPick && (
-              <span className="inline-flex items-center rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-white shadow-sm">Editor's Pick</span>
-            )}
-            {story.category && (
+
+          {/* Category badge on image */}
+          {story.category && (
+            <div className="absolute top-3 left-3 z-10">
               <Link href={getCategoryUrl(story.category)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium group-hover:border-primary group-hover:text-primary transition-colors">{story.category}</span>
-              </Link>
-            )}
-            {story.country && (
-              <Link href={getCountryUrl(story.country)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium group-hover:border-primary group-hover:text-primary transition-colors">{story.country}</span>
-              </Link>
-            )}
-          </div>
-          <h3 className="text-2xl font-semibold leading-tight tracking-tight group-hover:text-primary transition-colors mb-2">
-            {story.title}
-          </h3>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mt-2 mb-3">
-            <FreshnessIndicator
-              publishedDate={typeof story.publishedAt === 'string' ? story.publishedAt : story.publishedAt.toISOString()}
-              updatedDate={story.updatedAt ? (typeof story.updatedAt === 'string' ? story.updatedAt : story.updatedAt.toISOString()) : undefined}
-              size="sm"
-            />
-            <span>•</span>
-            <span>By Global Travel Report Editorial Team</span>
-            {/* Display formatted date for debugging in development */}
-            {process.env.NODE_ENV === 'development' && (
-              <>
-                <span>•</span>
-                <span title="Formatted date">{formattedDate}</span>
-              </>
-            )}
-          </div>
-          <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed">{story.excerpt}</p>
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
-            {story.tags && story.tags.slice(0, 3).map((tag) => (
-              <Link key={tag} href={getTagUrl(tag)}>
-                <span className="inline-flex items-center rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium hover:bg-gray-50 hover:text-primary hover:border-primary transition-all">
-                  {tag}
+                <span className="inline-flex items-center rounded-full bg-black/60 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white hover:bg-[#C9A14A]/80 transition-colors">
+                  {story.category}
                 </span>
               </Link>
-            ))}
+            </div>
+          )}
+
+          {/* Featured/Editor's Pick badge on image */}
+          {(story.featured || story.editorsPick) && (
+            <div className="absolute top-3 right-3 z-10">
+              <span className={cn(
+                "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-white backdrop-blur-sm",
+                story.featured ? "bg-[#C9A14A]/80" : "bg-blue-500/80"
+              )}>
+                {story.featured ? "Featured" : "Editor's Pick"}
+              </span>
+            </div>
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-300"></div>
+        </div>
+
+        <div className="p-6">
+          <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-900 group-hover:text-[#C9A14A] transition-colors mb-3 line-clamp-2">
+            {story.title}
+          </h3>
+
+          <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed text-sm">{story.excerpt}</p>
+
+          <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <FreshnessIndicator
+                publishedDate={typeof story.publishedAt === 'string' ? story.publishedAt : story.publishedAt.toISOString()}
+                updatedDate={story.updatedAt ? (typeof story.updatedAt === 'string' ? story.updatedAt : story.updatedAt.toISOString()) : undefined}
+                size="sm"
+              />
+
+              {/* Display formatted date for debugging in development */}
+              {process.env.NODE_ENV === 'development' && (
+                <span title="Formatted date" className="text-xs text-gray-400">{formattedDate}</span>
+              )}
+            </div>
+
+            {story.country && (
+              <Link href={getCountryUrl(story.country)}>
+                <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-800 hover:bg-gray-200 transition-colors">
+                  {story.country}
+                </span>
+              </Link>
+            )}
+          </div>
+
+          {story.tags && story.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-4 mt-4 border-t border-gray-100">
+              {story.tags.slice(0, 3).map((tag) => (
+                <Link key={tag} href={getTagUrl(tag)}>
+                  <span className="inline-flex items-center rounded-full bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-[#C9A14A]/10 hover:text-[#C9A14A] transition-all">
+                    #{tag}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+            <span className="text-xs text-gray-500">By Global Travel Report Editorial Team</span>
+            <span className="text-[#C9A14A] text-sm font-medium group-hover:underline">Read More</span>
           </div>
         </div>
       </Link>
@@ -424,22 +447,42 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
 // Fallback UI for when the StoryCard errors
 const StoryCardFallback = () => (
   <div className={cn(
-    "transition-all border border-gray-200 rounded-lg overflow-hidden"
+    "transition-all border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm"
   )}>
     <div className="w-full" style={{ aspectRatio: '16/9' }}>
-      <div className="w-full h-full bg-gray-200 rounded-t-lg animate-pulse"></div>
+      <div className="w-full h-full bg-gray-200 rounded-t-xl animate-pulse-subtle"></div>
     </div>
-    <div className="p-5">
-      <div className="flex gap-2 mb-3">
-        <div className="h-6 bg-gray-200 rounded w-20 animate-pulse"></div>
-        <div className="h-6 bg-gray-200 rounded w-24 animate-pulse"></div>
+    <div className="p-6">
+      {/* Category badge placeholder */}
+      <div className="absolute top-3 left-3">
+        <div className="h-6 bg-gray-300/50 rounded-full w-24 animate-pulse-subtle"></div>
       </div>
-      <div className="h-7 bg-gray-200 rounded w-3/4 animate-pulse mb-2"></div>
-      <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse mb-3"></div>
-      <div className="h-16 bg-gray-200 rounded animate-pulse mb-4"></div>
-      <div className="pt-2 border-t border-gray-100 flex gap-2">
-        <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
-        <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
+
+      {/* Title placeholder */}
+      <div className="h-7 bg-gray-200 rounded w-full animate-pulse-subtle mb-2"></div>
+      <div className="h-7 bg-gray-200 rounded w-2/3 animate-pulse-subtle mb-4"></div>
+
+      {/* Excerpt placeholder */}
+      <div className="h-4 bg-gray-100 rounded w-full animate-pulse-subtle mb-1"></div>
+      <div className="h-4 bg-gray-100 rounded w-full animate-pulse-subtle mb-4"></div>
+
+      {/* Meta info placeholder */}
+      <div className="flex items-center justify-between mt-4">
+        <div className="h-4 bg-gray-100 rounded w-24 animate-pulse-subtle"></div>
+        <div className="h-6 bg-gray-200 rounded-full w-20 animate-pulse-subtle"></div>
+      </div>
+
+      {/* Tags placeholder */}
+      <div className="flex flex-wrap gap-1.5 pt-4 mt-4 border-t border-gray-100">
+        <div className="h-6 bg-gray-100 rounded-full w-16 animate-pulse-subtle"></div>
+        <div className="h-6 bg-gray-100 rounded-full w-20 animate-pulse-subtle"></div>
+        <div className="h-6 bg-gray-100 rounded-full w-14 animate-pulse-subtle"></div>
+      </div>
+
+      {/* Footer placeholder */}
+      <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+        <div className="h-4 bg-gray-100 rounded w-40 animate-pulse-subtle"></div>
+        <div className="h-4 bg-gray-200 rounded w-16 animate-pulse-subtle"></div>
       </div>
     </div>
   </div>
