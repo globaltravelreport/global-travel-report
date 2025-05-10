@@ -241,6 +241,9 @@ export async function getAllStories(): Promise<Story[]> {
           }
 
           // Create a story object
+          // Always preserve future dates by setting preserveFutureDates to true
+          const publishedDate = safeToISOString(storyData.date, true);
+
           const story: Story = {
             id: file.replace('.md', ''),
             slug: storyData.slug || file.replace('.md', ''),
@@ -249,9 +252,9 @@ export async function getAllStories(): Promise<Story[]> {
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
             // Safely handle the date - preserve future dates
-            publishedAt: safeToISOString(storyData.date, true),
+            publishedAt: publishedDate,
             // Keep the original date string for reference
-            date: storyData.date,
+            date: storyData.date || publishedDate,
             category: storyData.type || 'Article',
             country: storyData.country || 'Global',
             imageUrl: cleanImageUrl,
@@ -491,6 +494,9 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
               // Create a story object
               const fileName = path.basename(filePath, '.md');
+              // Always preserve future dates by setting preserveFutureDates to true
+              const publishedDate = safeToISOString(storyData.date, true);
+
               story = {
                 id: fileName,
                 slug: storyData.slug || fileName,
@@ -498,8 +504,8 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 content: cleanContent,
                 excerpt: storyData.summary || '',
                 author: 'Global Travel Report Editorial Team',
-                publishedAt: safeToISOString(storyData.date, true),
-                date: storyData.date, // Preserve the original date string
+                publishedAt: publishedDate,
+                date: storyData.date || publishedDate, // Preserve the original date string or use published date
                 category: storyData.type || 'Article',
                 country: storyData.country || 'Global',
                 imageUrl: storyData.imageUrl || '',
@@ -602,11 +608,15 @@ export async function saveStory(story: Story): Promise<void> {
       : '';
 
     // Create the frontmatter
+    // Always preserve the original date if it exists, otherwise use the story's date or publishedAt
+    // We always want to preserve future dates, so we set preserveFutureDates to true
+    const dateToUse = existingDate || story.date || safeToISOString(story.publishedAt, true);
+
     let frontmatter = `---
 title: "${story.title}"
 summary: "${story.excerpt || ''}"
-date: "${existingDate || story.date || safeToISOString(story.publishedAt, true)}"
-publishedAt: "${existingDate || story.date || safeToISOString(story.publishedAt, true)}"
+date: "${dateToUse}"
+publishedAt: "${dateToUse}"
 country: "${story.country || 'Global'}"
 type: "${story.category || 'Article'}"
 imageUrl: "${imageUrl}"
