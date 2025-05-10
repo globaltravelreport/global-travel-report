@@ -633,7 +633,7 @@ DO NOT include the word "JSON" or any other text before or after the JSON object
 
       // Set a timeout for the OpenAI call
       const openaiPromise = openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-3.5-turbo", // Use gpt-3.5-turbo instead of gpt-4 for better compatibility
         messages: [
           {
             role: "system",
