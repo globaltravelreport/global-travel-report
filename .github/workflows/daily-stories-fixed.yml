@@ -25,25 +25,25 @@ jobs:
   generate-stories:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    
+
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       CRON_SECRET_KEY: ${{ secrets.CRON_SECRET_KEY }}
-      
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Verify OpenAI API key
         run: |
           echo "Testing OpenAI API key..."
@@ -58,16 +58,16 @@ jobs:
                 console.error('❌ OPENAI_API_KEY is not set');
                 process.exit(1);
               }
-              
+
               // Log masked API key for debugging
               const apiKey = process.env.OPENAI_API_KEY;
               console.log(`API Key: ${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)}`);
-              
+
               // Initialize OpenAI client
               const openai = new OpenAI({
                 apiKey: process.env.OPENAI_API_KEY,
               });
-              
+
               // Test with a simple completion
               const completion = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo",
@@ -77,7 +77,7 @@ jobs:
                 ],
                 max_tokens: 50,
               });
-              
+
               console.log('✅ OpenAI API key is valid');
               console.log('Response:', completion.choices[0].message.content);
               process.exit(0);
@@ -89,10 +89,10 @@ jobs:
 
           testOpenAI();
           EOF
-          
+
           # Run the test script
           node test-openai-key.js
-      
+
       - name: Generate stories
         if: success()
         run: |
@@ -100,48 +100,48 @@ jobs:
           COUNT="${{ github.event.inputs.count || '8' }}"
           CRUISE_COUNT="${{ github.event.inputs.cruise_count || '2' }}"
           TEST_MODE="${{ github.event.inputs.test_mode || 'false' }}"
-          
+
           # Run the story generator
           echo "Generating $COUNT stories ($CRUISE_COUNT cruise stories)..."
           echo "Test mode: $TEST_MODE"
-          
+
           # Run in test mode if specified
           if [ "$TEST_MODE" = "true" ]; then
             node scripts/dailyStoryGenerator.js --count=$COUNT --cruise-count=$CRUISE_COUNT --test-mode
           else
             node scripts/dailyStoryGenerator.js --count=$COUNT --cruise-count=$CRUISE_COUNT
           fi
-      
+
       - name: Upload generated stories as artifact
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: generated-stories
           path: |
             data/generated-stories/*.json
             logs/*.log
           retention-days: 7
-      
+
       - name: Commit and push changes
         if: success()
         run: |
           # Configure Git
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          
+
           # Add generated files
           git add data/generated-stories/*.json
-          
+
           # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          
+
           # Commit and push
           git commit -m "Auto-generate stories [skip ci]"
           git push
-      
+
       - name: Trigger social media posting
         if: success()
         uses: peter-evans/repository-dispatch@v2
