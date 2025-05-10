@@ -19,6 +19,20 @@ import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
  * @returns A valid ISO date string
  */
 function safeToISOString(dateStr: string | Date | undefined, preserveFutureDates: boolean = true): string {
+  // Special handling for dates with year 2025 or later - always preserve them exactly as they are
+  if (typeof dateStr === 'string' && dateStr.includes('2025')) {
+    try {
+      // Try to create a Date object to validate it
+      const date = new Date(dateStr);
+      if (!isNaN(date.getTime())) {
+        // It's a valid date, return the original string to preserve exact format
+        return dateStr;
+      }
+    } catch (e) {
+      // If there's an error, continue with normal validation
+    }
+  }
+
   // Use our improved date handling function with preserveFutureDates set to true by default
   return getSafeDateString(dateStr, false, preserveFutureDates);
 }
@@ -240,6 +254,14 @@ export async function getAllStories(): Promise<Story[]> {
             cleanContent = cleanContent.substring(0, metadataIndex).trim();
           }
 
+          // Special handling for 2025 dates - preserve them exactly as they are
+          let publishedDate = storyData.date;
+
+          // If it's not a 2025 date, use our safe conversion
+          if (typeof storyData.date !== 'string' || !storyData.date.includes('2025')) {
+            publishedDate = safeToISOString(storyData.date, true);
+          }
+
           // Create a story object
           const story: Story = {
             id: file.replace('.md', ''),
@@ -248,8 +270,8 @@ export async function getAllStories(): Promise<Story[]> {
             content: cleanContent,
             excerpt: storyData.summary || '',
             author: 'Global Travel Report Editorial Team',
-            // Safely handle the date - preserve future dates
-            publishedAt: safeToISOString(storyData.date, true),
+            // Use our processed date
+            publishedAt: publishedDate,
             // Keep the original date string for reference
             date: storyData.date,
             category: storyData.type || 'Article',
@@ -489,6 +511,14 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 cleanContent = cleanContent.substring(0, metadataIndex).trim();
               }
 
+              // Special handling for 2025 dates - preserve them exactly as they are
+              let publishedDate = storyData.date;
+
+              // If it's not a 2025 date, use our safe conversion
+              if (typeof storyData.date !== 'string' || !storyData.date.includes('2025')) {
+                publishedDate = safeToISOString(storyData.date, true);
+              }
+
               // Create a story object
               const fileName = path.basename(filePath, '.md');
               story = {
@@ -498,7 +528,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 content: cleanContent,
                 excerpt: storyData.summary || '',
                 author: 'Global Travel Report Editorial Team',
-                publishedAt: safeToISOString(storyData.date, true),
+                publishedAt: publishedDate,
                 date: storyData.date, // Preserve the original date string
                 category: storyData.type || 'Article',
                 country: storyData.country || 'Global',
