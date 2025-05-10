@@ -3,6 +3,7 @@ import { mockStories } from '@/src/mocks/stories';
 import fs from 'fs';
 import path from 'path';
 import { getAllStories, saveStory } from '@/src/utils/fileStorage';
+import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
 
 /**
  * StoryDatabase using simple file-based storage
@@ -48,16 +49,36 @@ export class StoryDatabase {
       // Load stories from the file storage system
       this.stories = await getAllStories();
 
+      // Process all stories to ensure dates are valid
+      this.stories = this.stories.map(story => {
+        // Validate and preserve the dates
+        // We want to keep future dates as they are, so we set preserveFutureDates to true
+        const publishedDate = story.publishedAt ?
+          getSafeDateString(story.publishedAt, true, true) :
+          new Date().toISOString();
+
+        return {
+          ...story,
+          publishedAt: publishedDate,
+          // If date is explicitly set, keep it, otherwise use publishedAt
+          date: story.date || publishedDate
+        };
+      });
+
       if (this.stories.length === 0) {
         // If no stories were found, use mock stories
         this.stories = [...mockStories];
 
         // Add a timestamp to each story to make them appear recent
         const now = new Date();
-        this.stories = this.stories.map((story, index) => ({
-          ...story,
-          publishedAt: new Date(now.getTime() - index * 24 * 60 * 60 * 1000) // Each story is one day older
-        }));
+        this.stories = this.stories.map((story, index) => {
+          const publishedAt = new Date(now.getTime() - index * 24 * 60 * 60 * 1000); // Each story is one day older
+          return {
+            ...story,
+            publishedAt: publishedAt.toISOString(),
+            date: story.date || publishedAt.toISOString()
+          };
+        });
 
         console.log(`Using ${this.stories.length} mock stories`);
 
