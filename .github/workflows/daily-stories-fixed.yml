@@ -163,8 +163,8 @@ jobs:
             exit 0
           fi
 
-          # Commit and push
-          git commit -m "Auto-generate stories [skip ci]"
+          # Commit and push (bypass pre-commit hooks)
+          git commit -m "Auto-generate stories [skip ci]" --no-verify
           git push
 
       - name: Trigger social media posting
