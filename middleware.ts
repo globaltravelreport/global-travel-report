@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // Apply CSRF protection middleware for mutating requests
-    const csrfResponse = csrfMiddleware(request);
+    const csrfResponse = await csrfMiddleware(request);
     if (csrfResponse) {
       return csrfResponse;
     }

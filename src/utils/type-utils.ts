@@ -172,7 +172,7 @@ export function safeCast<T>(
  * @param defaultValue - The default value to return if the property doesn't exist
  * @returns The property value or the default value
  */
-export function safeGet<T, K extends keyof T>(
+export function safeGet<T extends object, K extends keyof T>(
   obj: T | null | undefined,
   key: K,
   defaultValue: T[K]

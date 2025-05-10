@@ -1,8 +1,8 @@
 /**
  * CSRF protection utilities
+ * Using Web Crypto API for Edge Runtime compatibility
  */
 
-import { randomBytes, createHash } from 'crypto';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 
@@ -12,28 +12,43 @@ const CSRF_HEADER_NAME = 'X-CSRF-Token';
 const CSRF_TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
 /**
- * Generate a new CSRF token
+ * Generate a new CSRF token using Web Crypto API
  * @returns A new CSRF token
  */
 export function generateCsrfToken(): string {
-  return randomBytes(32).toString('hex');
+  // Use crypto.getRandomValues for Edge compatibility
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 /**
- * Hash a CSRF token for storage in a cookie
+ * Hash a CSRF token for storage in a cookie using Web Crypto API
  * @param token - The token to hash
  * @returns The hashed token
  */
-export function hashCsrfToken(token: string): string {
-  return createHash('sha256').update(token).digest('hex');
+export async function hashCsrfToken(token: string): Promise<string> {
+  // Convert the token string to an array buffer
+  const encoder = new TextEncoder();
+  const data = encoder.encode(token);
+
+  // Hash the data using SHA-256
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+  // Convert the hash to a hex string
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 /**
  * Set a CSRF token cookie
  * @param token - The token to set
  */
-export function setCsrfCookie(token: string): void {
-  const hashedToken = hashCsrfToken(token);
+export async function setCsrfCookie(token: string): Promise<void> {
+  const hashedToken = await hashCsrfToken(token);
   const cookieStore = cookies();
 
   cookieStore.set({
@@ -61,9 +76,9 @@ export function getCsrfCookie(): string | null {
 /**
  * Validate a CSRF token against the stored cookie
  * @param tokenOrRequest - The CSRF token or Next.js request object
- * @returns Boolean indicating if the token is valid
+ * @returns Promise resolving to a boolean indicating if the token is valid
  */
-export function validateCsrfToken(tokenOrRequest: string | NextRequest): boolean {
+export async function validateCsrfToken(tokenOrRequest: string | NextRequest): Promise<boolean> {
   let csrfToken: string | null;
 
   if (typeof tokenOrRequest === 'string') {
@@ -85,31 +100,31 @@ export function validateCsrfToken(tokenOrRequest: string | NextRequest): boolean
   }
 
   // Hash the token from the request and compare with the cookie
-  const hashedRequestToken = hashCsrfToken(csrfToken);
+  const hashedRequestToken = await hashCsrfToken(csrfToken);
 
   return hashedRequestToken === hashedTokenFromCookie;
 }
 
 /**
  * Create a new CSRF token and set it in a cookie
- * @returns The new CSRF token
+ * @returns Promise resolving to the new CSRF token
  */
-export function createCsrfToken(): string {
+export async function createCsrfToken(): Promise<string> {
   const token = generateCsrfToken();
-  setCsrfCookie(token);
+  await setCsrfCookie(token);
   return token;
 }
 
 /**
  * Get the current CSRF token or create a new one
- * @returns The CSRF token
+ * @returns Promise resolving to the CSRF token
  */
-export function getCsrfToken(): string {
+export async function getCsrfToken(): Promise<string> {
   const existingToken = getCsrfCookie();
 
   if (existingToken) {
     return existingToken;
   }
 
-  return createCsrfToken();
+  return await createCsrfToken();
 }

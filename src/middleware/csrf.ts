@@ -26,9 +26,9 @@ function isProtectedPath(path: string): boolean {
 /**
  * CSRF protection middleware
  * @param request - The Next.js request object
- * @returns The Next.js response object
+ * @returns Promise resolving to the Next.js response object or undefined
  */
-export function csrfMiddleware(request: NextRequest): NextResponse | undefined {
+export async function csrfMiddleware(request: NextRequest): Promise<NextResponse | undefined> {
   // Only check POST, PUT, DELETE requests
   if (
     request.method !== 'POST' &&
@@ -37,27 +37,27 @@ export function csrfMiddleware(request: NextRequest): NextResponse | undefined {
   ) {
     return;
   }
-  
+
   // Check if the path requires CSRF protection
   const path = request.nextUrl.pathname;
-  
+
   if (!isProtectedPath(path)) {
     return;
   }
-  
+
   // Validate the CSRF token
-  const isValidCsrfToken = validateCsrfToken(request);
-  
+  const isValidCsrfToken = await validateCsrfToken(request);
+
   if (!isValidCsrfToken) {
     return NextResponse.json(
-      { 
+      {
         success: false,
-        message: 'Invalid CSRF token. Please refresh the page and try again.' 
+        message: 'Invalid CSRF token. Please refresh the page and try again.'
       },
       { status: 403 }
     );
   }
-  
+
   // Token is valid, continue with the request
   return;
 }
