@@ -2,8 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllStories } from '@/src/utils/stories';
 import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
 import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
-import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
-import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
+import { CATEGORIES } from '@/src/config/categories';
 
 /**
  * Generate a dynamic sitemap based on actual content
@@ -51,63 +50,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic routes for stories with proper lastModified dates and image sitemaps
   const storyRoutes = stories.map((story) => {
-    // Enhance the story with SEO optimizations
-    const enhancedStory = enhanceStoryForSEO(story);
+    try {
+      // Enhance the story with SEO optimizations
+      const enhancedStory = enhanceStoryForSEO(story);
 
-    // Get optimized image data
-    const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
+      // Get optimized image data
+      const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
 
-    // Use the story's published date as the lastModified date, ensuring it's valid
-    const lastModified = validateDate(enhancedStory.publishedAt);
+      // Use the current date as the lastModified date to avoid any date validation issues
+      const lastModified = currentDate;
 
-    // Calculate priority based on multiple factors for better SEO
-    let priority = 0.7; // Default priority
+      // Calculate priority based on multiple factors for better SEO
+      let priority = 0.7; // Default priority
 
-    // Increase priority for featured or editor's pick stories
-    if (enhancedStory.featured) priority += 0.2;
-    if (enhancedStory.editorsPick) priority += 0.1;
+      // Increase priority for featured or editor's pick stories
+      if (enhancedStory.featured) priority += 0.2;
+      if (enhancedStory.editorsPick) priority += 0.1;
 
-    // Increase priority for stories with more tags (indicates more comprehensive content)
-    if (enhancedStory.tags && enhancedStory.tags.length > 5) priority += 0.05;
+      // Increase priority for stories with more tags (indicates more comprehensive content)
+      if (enhancedStory.tags && enhancedStory.tags.length > 5) priority += 0.05;
 
-    // Increase priority for recent stories (within the last 7 days)
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    if (lastModified > oneWeekAgo) priority += 0.1;
+      // Cap priority at 1.0
+      priority = Math.min(priority, 1.0);
 
-    // Cap priority at 1.0
-    priority = Math.min(priority, 1.0);
+      // Create the basic sitemap entry
+      const sitemapEntry: any = {
+        url: `${baseUrl}/stories/${enhancedStory.slug}`,
+        lastModified,
+        changeFrequency: 'weekly' as const,
+        priority,
+      };
 
-    // Create the basic sitemap entry
-    const sitemapEntry: any = {
-      url: `${baseUrl}/stories/${enhancedStory.slug}`,
-      lastModified,
-      changeFrequency: 'weekly' as const,
-      priority,
-    };
+      // Add image data if available with enhanced SEO information
+      if (imageUrl) {
+        const fullImageUrl = imageUrl.startsWith('http')
+          ? imageUrl
+          : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
 
-    // Add image data if available with enhanced SEO information
-    if (imageUrl) {
-      const fullImageUrl = imageUrl.startsWith('http')
-        ? imageUrl
-        : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
+        // Enhanced image sitemap data with additional attributes
+        sitemapEntry.images = [
+          {
+            url: fullImageUrl,
+            title: altText || enhancedStory.title,
+            caption: caption || enhancedStory.excerpt?.substring(0, 100),
+            geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
+            license: 'https://creativecommons.org/licenses/by/4.0/'
+          }
+        ];
+      }
 
-      // Enhanced image sitemap data with additional attributes
-      sitemapEntry.images = [
-        {
-          url: fullImageUrl,
-          title: altText || enhancedStory.title,
-          caption: caption || enhancedStory.excerpt?.substring(0, 100),
-          geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
-          license: 'https://creativecommons.org/licenses/by/4.0/'
-        }
-      ];
-
-      // Note: Content images extraction is disabled until we implement a proper content parser
-      // that can extract images from the story content
+      return sitemapEntry;
+    } catch (error) {
+      // If there's any error processing a story, return a basic entry with current date
+      console.error(`Error processing story for sitemap: ${story.slug}`, error);
+      return {
+        url: `${baseUrl}/stories/${story.slug}`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      };
     }
-
-    return sitemapEntry;
   });
 
   // Category routes - use the CATEGORIES constant for all defined categories

@@ -27,30 +27,42 @@ module.exports = {
       `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/server-sitemap.xml`,
     ],
   },
-  // Add transform function to add image data to sitemap
+  // Simplified transform function to avoid date validation issues
   transform: async (config, path) => {
-    // Basic configuration for all paths
-    const sitemapConfig = {
-      loc: path,
-      changefreq: config.changefreq,
-      priority: config.priority,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-      alternateRefs: config.alternateRefs ?? [],
-    };
+    try {
+      // Basic configuration for all paths
+      const sitemapConfig = {
+        loc: path,
+        changefreq: config.changefreq,
+        priority: config.priority,
+        // Always use current date to avoid date validation issues
+        lastmod: new Date().toISOString(),
+        alternateRefs: config.alternateRefs ?? [],
+      };
 
-    // Add image data for story pages
-    if (path.startsWith('/stories/')) {
-      // This is a placeholder - in a real implementation, you would fetch the actual image data
-      // from your database or API
-      sitemapConfig.images = [
-        {
-          loc: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/images/og-image.jpg`,
-          title: 'Global Travel Report',
-          caption: 'Your trusted source for travel news, guides, and insights',
-        },
-      ];
+      // Add image data for story pages
+      if (path.startsWith('/stories/')) {
+        // This is a placeholder - in a real implementation, you would fetch the actual image data
+        // from your database or API
+        sitemapConfig.images = [
+          {
+            loc: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/images/og-image.jpg`,
+            title: 'Global Travel Report',
+            caption: 'Your trusted source for travel news, guides, and insights',
+          },
+        ];
+      }
+
+      return sitemapConfig;
+    } catch (error) {
+      console.error(`Error in sitemap transform for path: ${path}`, error);
+      // Return a basic config if there's an error
+      return {
+        loc: path,
+        changefreq: 'weekly',
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      };
     }
-
-    return sitemapConfig;
   },
 };
