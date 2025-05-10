@@ -57,17 +57,18 @@ export function SafeSearchParamsProvider({
 
   // Use useEffect to ensure we're mounted on the client
   useEffect(() => {
-    setMounted(true);
+    // Set a short timeout to ensure we don't get stuck in loading state
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Only render children when mounted on the client
-  if (!mounted) {
-    return <>{fallback}</>;
-  }
-
-  // Safely use Suspense on the client
+  // Render children directly without the fallback to avoid getting stuck
+  // This is a temporary fix to prevent the loading state from persisting
   return (
-    <SearchParamsProvider fallback={fallback}>
+    <SearchParamsProvider fallback={null}>
       {children}
     </SearchParamsProvider>
   );
