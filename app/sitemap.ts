@@ -92,15 +92,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? imageUrl
         : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
 
+      // Enhanced image sitemap data with additional attributes
       sitemapEntry.images = [
         {
           url: fullImageUrl,
-          title: altText,
-          caption: caption,
+          title: altText || enhancedStory.title,
+          caption: caption || enhancedStory.excerpt?.substring(0, 100),
           geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
           license: 'https://creativecommons.org/licenses/by/4.0/'
         }
       ];
+
+      // Add additional images from the story content if available
+      // This helps search engines index more images from the story
+      if (enhancedStory.contentImages && enhancedStory.contentImages.length > 0) {
+        enhancedStory.contentImages.forEach(img => {
+          if (img.url && img.url !== fullImageUrl) {
+            const contentImageUrl = img.url.startsWith('http')
+              ? img.url
+              : `${baseUrl}${img.url.startsWith('/') ? img.url : `/${img.url}`}`;
+
+            sitemapEntry.images.push({
+              url: contentImageUrl,
+              title: img.alt || enhancedStory.title,
+              caption: img.caption || enhancedStory.excerpt?.substring(0, 100),
+              geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
+              license: 'https://creativecommons.org/licenses/by/4.0/'
+            });
+          }
+        });
+      }
     }
 
     return sitemapEntry;
