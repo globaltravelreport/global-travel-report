@@ -60,7 +60,34 @@ jobs:
           fi
 
       - name: Post to social media
-        run: node scripts/social-media-poster.js --post-all
+        run: |
+          # Create a debug log file
+          touch logs/social-media-debug.log
+
+          # Check if the social-media-poster.js script exists
+          if [ -f "scripts/social-media-poster.js" ]; then
+            echo "✅ Found social-media-poster.js script" | tee -a logs/social-media-debug.log
+          else
+            echo "❌ Could not find scripts/social-media-poster.js" | tee -a logs/social-media-debug.log
+            ls -la scripts/ | tee -a logs/social-media-debug.log
+            exit 1
+          fi
+
+          # Run with test mode first to see if it works
+          echo "Running social media poster in test mode..." | tee -a logs/social-media-debug.log
+          node scripts/social-media-poster.js --test | tee -a logs/social-media-debug.log
+
+          # Now run the actual posting
+          echo "Running social media poster to post all stories..." | tee -a logs/social-media-debug.log
+          node scripts/social-media-poster.js --post-all | tee -a logs/social-media-debug.log || true
+
+          # Check if the log file was created
+          if [ -f "logs/social-media-poster.log" ]; then
+            echo "✅ Log file was created" | tee -a logs/social-media-debug.log
+            cat logs/social-media-poster.log | tee -a logs/social-media-debug.log
+          else
+            echo "❌ No log file was created" | tee -a logs/social-media-debug.log
+          fi
         env:
           # Twitter API keys
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
@@ -92,5 +119,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: social-media-logs
-          path: logs/social-media-poster.log
+          path: |
+            logs/social-media-poster.log
+            logs/social-media-debug.log
           retention-days: 7
