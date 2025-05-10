@@ -440,7 +440,7 @@ export function logError(
   if (process.env.NODE_ENV === 'production') {
     // Import the error logger dynamically to avoid circular dependencies
     import('./errorLogger').then(({ default: logger }) => {
-      logger.captureError(enhancedError);
+      logger.captureEnhancedError(enhancedError);
     }).catch(err => {
       // Fallback to console if the logger fails
       console.error('Error importing logger:', err);
