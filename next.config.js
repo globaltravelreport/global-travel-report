@@ -22,11 +22,6 @@ const nextConfig = {
         destination: '/offers',
         permanent: true,
       },
-      {
-        source: '/stories',
-        destination: '/',
-        permanent: true,
-      },
       // Redirect HTTP to HTTPS
       {
         source: '/:path*',
