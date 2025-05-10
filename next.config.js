@@ -64,8 +64,18 @@ const nextConfig = {
         ],
       },
       {
-        // Apply cache headers to static assets
-        source: '/:path*.(?:jpg|jpeg|gif|png|webp|svg|ico|css|js|woff|woff2)',
+        // Apply cache headers to static assets - images
+        source: '/:path*.(jpg|jpeg|gif|png|webp|svg|ico)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Apply cache headers to static assets - fonts and scripts
+        source: '/:path*.(css|js|woff|woff2)',
         headers: [
           {
             key: 'Cache-Control',
