@@ -240,7 +240,7 @@ async function HomePage() {
 
           <div className="mt-10 text-center">
             <Link
-              href="/categories-new"
+              href="/categories-main"
               className="inline-flex items-center px-6 py-3 border border-[#C9A14A] text-base font-medium rounded-md text-[#C9A14A] bg-white hover:bg-[#C9A14A]/10 transition-colors duration-300"
             >
               View All Categories

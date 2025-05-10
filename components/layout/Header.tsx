@@ -134,7 +134,7 @@ export function Header() {
               {isCategoryDropdownOpen && (
                 <div className="absolute top-full left-0 w-64 bg-[#19273A] shadow-lg rounded-md mt-2 p-2 z-50">
                   <Link
-                    href="/categories-new"
+                    href="/categories-main"
                     className="block px-4 py-2 text-sm text-white bg-[#1a2b3f] hover:bg-[#243a54] rounded-md mb-2 font-bold"
                     onClick={() => setIsCategoryDropdownOpen(false)}
                   >
@@ -319,7 +319,7 @@ export function Header() {
                 {isCategoryDropdownOpen && (
                   <div className="pl-4 space-y-2">
                     <Link
-                      href="/categories-new"
+                      href="/categories-main"
                       className="block px-4 py-2 text-sm text-white bg-[#1a2b3f] hover:bg-[#243a54] rounded-md mb-2 font-bold"
                       onClick={() => {
                         setIsCategoryDropdownOpen(false);
