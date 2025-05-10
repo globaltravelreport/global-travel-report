@@ -22,16 +22,6 @@ const nextConfig = {
         destination: '/offers',
         permanent: true,
       },
-      {
-        source: '/categories',
-        destination: '/category-index',
-        permanent: false,
-      },
-      {
-        source: '/categories/:category*',
-        destination: '/category-index/:category*',
-        permanent: false,
-      },
       // Redirect HTTP to HTTPS
       {
         source: '/:path*',
