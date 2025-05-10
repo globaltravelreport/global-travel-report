@@ -86,6 +86,13 @@ export function Header() {
               Home
             </Link>
 
+            <Link
+              href="/categories"
+              className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/categories') ? 'font-bold underline' : ''}`}
+            >
+              Categories
+            </Link>
+
             {/* Country Dropdown */}
             <div className="relative">
               <button
@@ -263,6 +270,14 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
+              </Link>
+
+              <Link
+                href="/categories"
+                className={`text-[#C9A14A] hover:text-white transition-colors ${isActive('/categories') ? 'font-bold underline' : ''}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Categories
               </Link>
 
               <div className="space-y-2">
