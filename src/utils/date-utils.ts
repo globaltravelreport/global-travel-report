@@ -201,10 +201,10 @@ export function isArchived(publishDate: Date | string, archiveDays: number = 7):
  * If the date is invalid, returns the current date
  * If the date is in the future, returns the current date by default, but can preserve future dates
  * @param dateStr - The date string to validate
- * @param preserveFutureDates - Whether to preserve future dates (default: false)
+ * @param preserveFutureDates - Whether to preserve future dates (default: true)
  * @returns A valid Date object
  */
-export function validateDate(dateStr: string | Date, preserveFutureDates: boolean = false): Date {
+export function validateDate(dateStr: string | Date, preserveFutureDates: boolean = true): Date {
   const now = new Date();
 
   // If it's already a Date object, check if it's valid
@@ -260,7 +260,7 @@ export function validateDate(dateStr: string | Date, preserveFutureDates: boolea
 export function getSafeDateString(
   dateStr: string | Date | undefined,
   silent: boolean = false,
-  preserveFutureDates: boolean = false
+  preserveFutureDates: boolean = true // Changed default to true to preserve dates
 ): string {
   try {
     // Handle undefined or null
