@@ -42,10 +42,9 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
   };
 
   return (
-    <div
+    <nav
       className={cn('fixed bottom-4 right-4 z-50', className)}
       onKeyDown={handleKeyDown}
-      role="region"
       aria-label="Accessibility controls"
     >
       {/* Toggle button */}
@@ -197,7 +196,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </nav>
   );
 }
 
