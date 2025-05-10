@@ -60,11 +60,11 @@ const nextConfig = {
       },
       {
         // Apply cache headers to static assets - images
-        source: '/:path*.(jpg|jpeg|gif|png|webp|svg|ico)',
+        source: '/:path*.(jpg|jpeg|gif|png|webp|svg|ico|avif)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
           },
         ],
       },
@@ -74,14 +74,24 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+          },
+        ],
+      },
+      {
+        // Apply cache headers to Next.js optimized images
+        source: '/_next/image',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
           },
         ],
       },
     ];
   },
   reactStrictMode: true,
-  // Ensure all images are loaded over HTTPS
+  // Enhanced image configuration for performance
   images: {
     domains: [], // Clear domains for security
     remotePatterns: [
@@ -105,19 +115,34 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.cloudfront.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.imgix.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+      },
     ],
     // Enable caching for images to improve performance
-    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days for better caching
     // Enable image optimization
     unoptimized: false,
-    // Set default image formats
+    // Set default image formats - prioritize WebP and AVIF for better compression
     formats: ['image/webp', 'image/avif'],
-    // Set default image quality
+    // Optimize device sizes for responsive images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     // Add Content Security Policy for images
     dangerouslyAllowSVG: false,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Use custom loader for third-party image services
+    loader: 'custom',
+    loaderFile: './src/utils/imageLoader.ts',
   },
   // Enhance security in webpack configuration
   webpack: (config) => {

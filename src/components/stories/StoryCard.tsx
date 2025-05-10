@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { withErrorBoundary } from '@/src/components/ui/ErrorBoundary';
 import { formatDisplayDate } from '@/src/utils/date-utils';
 import { StoryCoverImage } from '@/src/components/ui/OptimizedImage';
-import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
+import { ResponsiveImageV2 } from '@/src/components/ui/ResponsiveImageV2';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
 import { cn } from '@/src/utils/cn';
 import { FreshnessIndicator } from '@/src/components/ui/FreshnessIndicator';
@@ -318,7 +318,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     >
       <Link href={getStoryUrl(story.slug)} className="block">
         <div className="relative w-full overflow-hidden">
-          <ResponsiveImage
+          <ResponsiveImageV2
             src={imgSrc}
             alt={story.title}
             priority={story.featured}
@@ -332,6 +332,9 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             lazyLoad={!story.featured}
             containerClassName="relative"
             quality={85}
+            enhanceOnHover={true}
+            photographer={photographer}
+            showSkeleton={true}
           />
           {/* Debug info */}
           {process.env.NODE_ENV === 'development' && (
