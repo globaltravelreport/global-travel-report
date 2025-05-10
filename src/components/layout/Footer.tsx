@@ -107,7 +107,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/categories" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -115,7 +115,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories/hotels" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index/hotels" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -123,7 +123,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories/airlines" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index/airlines" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -131,7 +131,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories/cruises" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index/cruises" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -139,7 +139,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories/destinations" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index/destinations" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -147,7 +147,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories/travel-tips" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/category-index/travel-tips" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

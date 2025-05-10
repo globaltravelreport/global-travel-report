@@ -123,9 +123,10 @@ export default function Header() {
               Destinations
             </Link>
             <Link
-              href="/categories"
+              href="/category-index"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
+                pathname === '/category-index' || pathname.startsWith('/category-index/') ||
                 pathname === '/categories' || pathname.startsWith('/categories/')
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -240,9 +241,10 @@ export default function Header() {
                 Destinations
               </Link>
               <Link
-                href="/categories"
+                href="/category-index"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
+                  pathname === '/category-index' || pathname.startsWith('/category-index/') ||
                   pathname === '/categories' || pathname.startsWith('/categories/')
                     ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
                     : 'text-white'
