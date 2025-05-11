@@ -63,6 +63,15 @@ export default function Home() {
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10 bg-[url('/images/texture-pattern.svg')] bg-repeat"></div>
 
+        {/* Hero Image */}
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src="/images/hero/vw-combo.svg"
+            alt="Travel illustration"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         {/* Animated Particles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-24 h-24 rounded-full bg-brand-gold/10 animate-float-slow"></div>
