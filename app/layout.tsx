@@ -1,10 +1,29 @@
 import './globals.css'
+import WebsiteSchema from './components/WebsiteSchema'
+import OrganizationSchema from './components/OrganizationSchema'
 
 export const metadata = {
   title: 'Global Travel Report | Travel Insights & Stories',
   description: 'Your trusted source for global travel insights, destination guides, and inspiring stories from around the world.',
   icons: {
     icon: '/favicon.svg',
+  },
+  openGraph: {
+    title: 'Global Travel Report | Travel Insights & Stories',
+    description: 'Your trusted source for global travel insights, destination guides, and inspiring stories from around the world.',
+    url: 'https://globaltravelreport.com',
+    siteName: 'Global Travel Report',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Global Travel Report | Travel Insights & Stories',
+    description: 'Your trusted source for global travel insights, destination guides, and inspiring stories from around the world.',
+    creator: '@globaltravelreport',
+  },
+  alternates: {
+    canonical: 'https://globaltravelreport.com',
   },
 }
 
@@ -20,6 +39,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <WebsiteSchema />
+        <OrganizationSchema />
+      </head>
       <body>
         <div className="flex flex-col min-h-screen">
           {/* Skip to content link for accessibility */}

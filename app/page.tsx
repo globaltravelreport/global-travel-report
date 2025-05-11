@@ -1,3 +1,60 @@
+// Define sample featured stories
+const FEATURED_STORIES = [
+  {
+    id: 1,
+    title: "Exploring the Hidden Gems of Mediterranean Cruises",
+    excerpt: "Discover the lesser-known ports and experiences that make Mediterranean cruises truly special.",
+    category: "Cruises",
+    imageUrl: "/images/placeholder.svg",
+  },
+  {
+    id: 2,
+    title: "Top 10 Airlines for Long-Haul Comfort in 2023",
+    excerpt: "We review the best airlines for those lengthy international flights, focusing on comfort and service.",
+    category: "Airlines",
+    imageUrl: "/images/placeholder.svg",
+  },
+  {
+    id: 3,
+    title: "Luxury Stays: Boutique Hotels Worth the Splurge",
+    excerpt: "These unique boutique hotels offer experiences that go far beyond the typical luxury accommodation.",
+    category: "Hotels",
+    imageUrl: "/images/placeholder.svg",
+  },
+];
+
+// Define sample latest stories
+const LATEST_STORIES = [
+  {
+    id: 4,
+    title: "A Food Lover's Guide to Tokyo",
+    excerpt: "From street food to Michelin stars, Tokyo offers an unparalleled culinary journey.",
+    category: "Food & Dining",
+    imageUrl: "/images/placeholder.svg",
+  },
+  {
+    id: 5,
+    title: "Sustainable Travel: Eco-Friendly Destinations for 2023",
+    excerpt: "These destinations are leading the way in sustainable tourism practices.",
+    category: "Travel Tips",
+    imageUrl: "/images/placeholder.svg",
+  },
+  {
+    id: 6,
+    title: "Adventure Awaits: Hiking the Inca Trail",
+    excerpt: "Everything you need to know before embarking on this iconic Peruvian trek.",
+    category: "Adventure",
+    imageUrl: "/images/placeholder.svg",
+  },
+  {
+    id: 7,
+    title: "Cultural Immersion: Living with Nomads in Mongolia",
+    excerpt: "Experience the traditional lifestyle of Mongolian nomads in this immersive travel experience.",
+    category: "Culture",
+    imageUrl: "/images/placeholder.svg",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -15,9 +72,6 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
               Your destination for inspiring travel stories, tips, and guides from around the world.
             </p>
-            <p className="text-lg text-gray-400 mb-8">
-              We're working hard to bring you amazing content. Stay tuned!
-            </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
                 href="/about"
@@ -25,17 +79,69 @@ export default function Home() {
               >
                 Learn More
               </a>
-              <span
-                className="px-8 py-3 border-2 border-brand-gold text-brand-gold font-semibold rounded-md animate-pulse"
+              <a
+                href="/categories"
+                className="px-8 py-3 border-2 border-brand-gold text-brand-gold font-semibold rounded-md hover:bg-brand-gold/10 transition-colors duration-300"
               >
-                Coming Soon
-              </span>
+                Explore Categories
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Categories Section (Placeholder) */}
+      {/* Featured Stories Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Featured Stories</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our handpicked selection of the most inspiring travel stories from around the globe
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {FEATURED_STORIES.map((story) => (
+              <div
+                key={story.id}
+                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 border border-gray-100"
+              >
+                <div className="h-48 bg-brand-dark/10 relative">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="mb-2">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold bg-brand-dark/10 text-brand-dark rounded-full">
+                      {story.category}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-brand-dark mb-2 line-clamp-2">
+                    {story.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {story.excerpt}
+                  </p>
+                  <a
+                    href="#"
+                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center"
+                  >
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Section */}
       <section className="py-16 bg-brand-light">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -45,12 +151,12 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Category Grid Placeholder */}
+          {/* Category Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, index) => (
+            {['Cruises', 'Airlines', 'Hotels', 'Destinations'].map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2"
+                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 border border-gray-100"
               >
                 <div className="h-40 bg-brand-dark flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-brand-gold/20 flex items-center justify-center">
@@ -61,9 +167,9 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-brand-dark mb-2">
-                    {index === 0 ? 'Cruises' : index === 1 ? 'Airlines' : index === 2 ? 'Hotels' : 'Destinations'}
+                    {category}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 mb-4">
                     {index === 0
                       ? 'Ocean and river cruise experiences'
                       : index === 1
@@ -73,6 +179,15 @@ export default function Home() {
                           : 'Guides about travel destinations'
                     }
                   </p>
+                  <a
+                    href="/categories"
+                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center"
+                  >
+                    View stories
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
                 </div>
               </div>
             ))}
@@ -80,11 +195,62 @@ export default function Home() {
 
           <div className="text-center mt-10">
             <a
-              href="/about"
+              href="/categories"
               className="inline-block px-6 py-3 bg-brand-dark text-white font-semibold rounded-md hover:bg-opacity-90 transition-colors duration-300"
             >
               View All Categories
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Stories Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Latest Stories</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Stay up to date with our most recent travel insights and adventures
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {LATEST_STORIES.map((story) => (
+              <div
+                key={story.id}
+                className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform duration-300 hover:-translate-y-2 border border-gray-100"
+              >
+                <div className="h-40 bg-brand-dark/10 relative">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="mb-2">
+                    <span className="inline-block px-2 py-1 text-xs font-semibold bg-brand-dark/10 text-brand-dark rounded-full">
+                      {story.category}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-brand-dark mb-2 line-clamp-2">
+                    {story.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                    {story.excerpt}
+                  </p>
+                  <a
+                    href="#"
+                    className="text-sm text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center"
+                  >
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
