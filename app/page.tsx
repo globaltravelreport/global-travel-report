@@ -62,40 +62,41 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <UnsplashHero
-        imageUrl="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
-        photographerName="Jeremy Bishop"
-        photographerUrl="https://unsplash.com/@jeremybishop"
+        imageUrl="https://images.unsplash.com/photo-1506863530036-1efeddceb993"
+        photographerName="Rodrigo Soares"
+        photographerUrl="https://unsplash.com/@rodrigosoares"
+        height="tall"
       >
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-block mb-4">
-            <div className="h-1 w-20 bg-brand-gold mx-auto"></div>
+        <div className="max-w-3xl mx-auto text-center mt-8">
+          <div className="inline-block mb-6">
+            <div className="h-1 w-24 bg-brand-gold mx-auto"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-white">Welcome to </span>
-            <span className="text-brand-gold">Global Travel Report</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
+            <span className="text-white drop-shadow-md">G'day from </span>
+            <span className="text-brand-gold drop-shadow-md">Australia</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-            Your destination for inspiring travel stories, tips, and guides from around the world.
+          <p className="text-xl md:text-2xl text-white mb-10 leading-relaxed max-w-2xl mx-auto font-light drop-shadow-md">
+            Your trusted Australian source for travel insights, destination guides, and inspiring stories from Down Under and around the world.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 mt-12">
             <a
-              href="/about"
-              className="px-8 py-3 bg-brand-gold text-brand-dark font-semibold rounded-md hover:bg-brand-lightGold transition-colors duration-300 shadow-lg group"
+              href="/destinations"
+              className="px-8 py-4 bg-brand-gold text-brand-dark font-bold rounded-md hover:bg-brand-lightGold transition-all duration-300 shadow-lg group transform hover:scale-105"
             >
               <span className="inline-flex items-center">
-                Learn More
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                Explore Destinations
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
             </a>
             <a
               href="/categories"
-              className="px-8 py-3 border-2 border-brand-gold text-brand-gold font-semibold rounded-md hover:bg-brand-gold/10 transition-colors duration-300 group"
+              className="px-8 py-4 border-2 border-white text-white font-bold rounded-md hover:bg-white/10 transition-all duration-300 group transform hover:scale-105"
             >
               <span className="inline-flex items-center">
-                Explore Categories
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                Travel Categories
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
@@ -105,100 +106,123 @@ export default function Home() {
       </UnsplashHero>
 
       {/* Featured Stories Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Featured Stories</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover our handpicked selection of the most inspiring travel stories from around the globe
+      <section className="py-24 md:py-32 bg-white">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="text-center mb-16">
+            <span className="text-brand-gold font-medium tracking-wider uppercase text-sm mb-3 inline-block">Latest Updates</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-6">Featured Stories</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Discover our handpicked selection of the most inspiring travel stories from Australia and around the globe
             </p>
+            <div className="h-0.5 w-24 bg-brand-gold mx-auto mt-8"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16">
             {FEATURED_STORIES.map((story) => (
               <div
                 key={story.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 border border-gray-100"
+                className="bg-white rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg border border-gray-100 group"
               >
-                <div className="h-48 bg-brand-dark/10 relative">
+                <div className="h-56 md:h-64 bg-brand-dark/10 relative overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="mb-2">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold bg-brand-dark/10 text-brand-dark rounded-full">
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-block px-3 py-1.5 text-xs font-semibold bg-brand-gold text-white rounded-full shadow-md">
                       {story.category}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold text-brand-dark mb-2 line-clamp-2">
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-brand-dark mb-3 group-hover:text-brand-gold transition-colors duration-300 leading-tight line-clamp-2">
                     {story.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
+                  <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
                     {story.excerpt}
                   </p>
                   <a
                     href="#"
-                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center"
+                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center transition-all duration-300 border-b border-transparent hover:border-brand-gold pb-1"
                   >
-                    Read more
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    Read Full Story
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-20 text-center">
+            <a
+              href="/stories"
+              className="inline-flex items-center px-8 py-4 bg-brand-dark text-white font-bold rounded-md hover:bg-opacity-90 transition-all duration-300 shadow-md transform hover:translate-y-[-2px]"
+            >
+              View All Stories
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 bg-brand-light">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Explore by Category</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover travel stories organized by your favorite categories
+      <section className="py-24 md:py-32 bg-brand-light relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/texture-pattern.svg')] bg-repeat"></div>
+
+        {/* Gold Accent Line */}
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-brand-gold"></div>
+
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-16">
+            <span className="text-brand-gold font-medium tracking-wider uppercase text-sm mb-3 inline-block">Travel Interests</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-6">Explore by Category</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Discover Australian and international travel stories organized by your favorite categories
             </p>
+            <div className="h-0.5 w-24 bg-brand-gold mx-auto mt-8"></div>
           </div>
 
           {/* Category Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {['Cruises', 'Airlines', 'Hotels', 'Destinations'].map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 border border-gray-100"
+                className="bg-white rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg border border-gray-100 group"
               >
-                <div className="h-40 bg-brand-dark flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-brand-gold/20 flex items-center justify-center">
-                    <span className="text-3xl text-brand-gold">
+                <div className="h-48 bg-gradient-to-br from-brand-dark to-brand-dark/80 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 opacity-20 bg-[url('/images/texture-pattern.svg')] bg-repeat"></div>
+                  <div className="w-20 h-20 rounded-full bg-brand-gold/20 flex items-center justify-center backdrop-blur-sm z-10 transform group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-4xl text-brand-gold">
                       {index === 0 ? '🚢' : index === 1 ? '✈️' : index === 2 ? '🏨' : '🌍'}
                     </span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-brand-dark mb-2">
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-brand-dark mb-3 group-hover:text-brand-gold transition-colors duration-300">
                     {category}
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-6 leading-relaxed">
                     {index === 0
-                      ? 'Ocean and river cruise experiences'
+                      ? 'Ocean and river cruise experiences from Australia and beyond'
                       : index === 1
-                        ? 'Airline reviews and flight experiences'
+                        ? 'Airline reviews and flight experiences for Australian travelers'
                         : index === 2
-                          ? 'Hotel reviews and accommodation tips'
-                          : 'Guides about travel destinations'
+                          ? 'Hotel reviews and accommodation tips for your next getaway'
+                          : 'Guides about travel destinations popular with Australian travelers'
                     }
                   </p>
                   <a
                     href="/categories"
-                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center"
+                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center transition-all duration-300 border-b border-transparent hover:border-brand-gold pb-1"
                   >
-                    View stories
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    View Stories
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
@@ -207,12 +231,15 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-10">
+          <div className="text-center mt-20">
             <a
               href="/categories"
-              className="inline-block px-6 py-3 bg-brand-dark text-white font-semibold rounded-md hover:bg-opacity-90 transition-colors duration-300"
+              className="inline-flex items-center px-8 py-4 bg-brand-dark text-white font-bold rounded-md hover:bg-opacity-90 transition-all duration-300 shadow-md transform hover:translate-y-[-2px]"
             >
               View All Categories
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </a>
           </div>
         </div>
