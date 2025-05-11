@@ -186,9 +186,9 @@ export default function RootLayout({
         <meta name="msapplication-navbutton-color" content="#19273A" />
 
         {/* Performance Meta Tags */}
-        <meta http-equiv="x-dns-prefetch-control" content="on" />
-        <meta http-equiv="Accept-CH" content="DPR, Width, Viewport-Width" />
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta httpEquiv="Accept-CH" content="DPR, Width, Viewport-Width" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
         {/* Resource Hints for Performance Optimization */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
