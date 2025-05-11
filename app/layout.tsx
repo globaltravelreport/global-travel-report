@@ -1,6 +1,7 @@
 import './globals.css'
 import WebsiteSchema from './components/WebsiteSchema'
 import OrganizationSchema from './components/OrganizationSchema'
+import SearchBar from './components/SearchBar'
 
 export const metadata = {
   title: 'Global Travel Report | Travel Insights & Stories',
@@ -66,44 +67,51 @@ export default function RootLayout({
 
               {/* Navigation */}
               <nav className="w-full md:w-auto">
-                <ul className="flex flex-wrap justify-center md:justify-end space-x-1 md:space-x-6">
-                  <li>
-                    <a
-                      href="/"
-                      className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
-                    >
-                      Home
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/categories"
-                      className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
-                    >
-                      Categories
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/about"
-                      className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
-                    >
-                      About
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/contact"
-                      className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
-                    >
-                      Contact
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                  </li>
-                </ul>
+                <div className="flex flex-wrap justify-center md:justify-end items-center">
+                  <ul className="flex flex-wrap justify-center md:justify-end space-x-1 md:space-x-6">
+                    <li>
+                      <a
+                        href="/"
+                        className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
+                      >
+                        Home
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/categories"
+                        className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
+                      >
+                        Categories
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/about"
+                        className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
+                      >
+                        About
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/contact"
+                        className="px-3 py-2 text-sm md:text-base font-medium hover:text-brand-gold transition-colors duration-200 relative group"
+                      >
+                        Contact
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                      </a>
+                    </li>
+                  </ul>
+
+                  {/* Search Bar */}
+                  <div className="ml-4 mt-4 md:mt-0">
+                    <SearchBar />
+                  </div>
+                </div>
               </nav>
             </div>
           </header>
