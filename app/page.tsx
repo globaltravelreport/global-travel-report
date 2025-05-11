@@ -63,8 +63,19 @@ export default function Home() {
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10 bg-[url('/images/texture-pattern.svg')] bg-repeat"></div>
 
+        {/* Animated Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-24 h-24 rounded-full bg-brand-gold/10 animate-float-slow"></div>
+          <div className="absolute top-40 right-20 w-16 h-16 rounded-full bg-brand-gold/5 animate-float-medium"></div>
+          <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full bg-brand-gold/5 animate-float-fast"></div>
+          <div className="absolute top-1/3 right-1/3 w-12 h-12 rounded-full bg-brand-gold/10 animate-float-medium"></div>
+        </div>
+
         <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block mb-4">
+              <div className="h-1 w-20 bg-brand-gold mx-auto"></div>
+            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="text-white">Welcome to </span>
               <span className="text-brand-gold">Global Travel Report</span>
@@ -75,18 +86,35 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
                 href="/about"
-                className="px-8 py-3 bg-brand-gold text-brand-dark font-semibold rounded-md hover:bg-brand-lightGold transition-colors duration-300 shadow-lg"
+                className="px-8 py-3 bg-brand-gold text-brand-dark font-semibold rounded-md hover:bg-brand-lightGold transition-colors duration-300 shadow-lg group"
               >
-                Learn More
+                <span className="inline-flex items-center">
+                  Learn More
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
               </a>
               <a
                 href="/categories"
-                className="px-8 py-3 border-2 border-brand-gold text-brand-gold font-semibold rounded-md hover:bg-brand-gold/10 transition-colors duration-300"
+                className="px-8 py-3 border-2 border-brand-gold text-brand-gold font-semibold rounded-md hover:bg-brand-gold/10 transition-colors duration-300 group"
               >
-                Explore Categories
+                <span className="inline-flex items-center">
+                  Explore Categories
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
               </a>
             </div>
           </div>
+        </div>
+
+        {/* Wave Divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="#f5f5f7" preserveAspectRatio="none">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+          </svg>
         </div>
       </section>
 
