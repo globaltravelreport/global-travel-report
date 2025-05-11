@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Travel Report - Original Emoji Category Icons</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f5f7;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #19273A;
+        }
+        
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #C9A14A;
+            border-radius: 2px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Icon grid */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        /* Category icon styling - Exact styling from your website */
+        .category-icon {
+            background-color: #19273A;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(201, 161, 74, 0.1);
+        }
+        
+        .category-icon:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: rgba(201, 161, 74, 0.3);
+        }
+        
+        .category-icon:hover .icon {
+            transform: scale(1.2);
+        }
+        
+        .category-icon:hover::before {
+            opacity: 1;
+        }
+        
+        .category-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(201, 161, 74, 0.1) 0%, rgba(201, 161, 74, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+            /* Special styling to make emoji look better */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background: rgba(201, 161, 74, 0.1);
+            border-radius: 50%;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .name {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Instructions */
+        .instructions {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .instructions h2 {
+            color: #19273A;
+            text-align: left;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Global Travel Report Original Category Icons</h1>
+        
+        <div class="icon-grid">
+            <div class="category-icon">
+                <div class="icon">🚢</div>
+                <div class="name">Cruises</div>
+                <div class="description">Ocean and river cruise experiences, reviews, and news</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">✈️</div>
+                <div class="name">Airlines</div>
+                <div class="description">Airline reviews, news, and flight experiences</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🏨</div>
+                <div class="name">Hotels</div>
+                <div class="description">Hotel reviews, luxury stays, and accommodation tips</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🌍</div>
+                <div class="name">Destinations</div>
+                <div class="description">Guides and stories about travel destinations worldwide</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">💡</div>
+                <div class="name">Travel Tips</div>
+                <div class="description">Practical advice and tips for travelers</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🍽️</div>
+                <div class="name">Food & Dining</div>
+                <div class="description">Culinary experiences and food-focused travel</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🧗</div>
+                <div class="name">Adventure</div>
+                <div class="description">Thrilling experiences and adventure travel</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🏛️</div>
+                <div class="name">Culture</div>
+                <div class="description">Cultural experiences, history, and heritage travel</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🌲</div>
+                <div class="name">Nature</div>
+                <div class="description">Nature-focused travel and outdoor experiences</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">💎</div>
+                <div class="name">Luxury Travel</div>
+                <div class="description">Premium travel experiences and luxury destinations</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">💰</div>
+                <div class="name">Budget Travel</div>
+                <div class="description">Tips and destinations for traveling on a budget</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">👨‍👩‍👧‍👦</div>
+                <div class="name">Family Travel</div>
+                <div class="description">Travel ideas and tips for families with children</div>
+            </div>
+            
+            <div class="category-icon">
+                <div class="icon">🧳</div>
+                <div class="name">Solo Travel</div>
+                <div class="description">Advice and experiences for solo travelers</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>How to Save These Icons</h2>
+            <ol>
+                <li>Save this HTML file to your laptop (you can right-click and select "Save As" in most browsers).</li>
+                <li>Open the saved file in any web browser to view the icons.</li>
+                <li>To save individual icons as images, you can take screenshots of each icon.</li>
+                <li>These are the exact emoji icons used on your Global Travel Report website, with styling that matches your site's design.</li>
+            </ol>
+        </div>
+        
+        <footer>
+            <p>© Global Travel Report. These icons are styled to match the original website design.</p>
+        </footer>
+    </div>
+</body>
+</html>

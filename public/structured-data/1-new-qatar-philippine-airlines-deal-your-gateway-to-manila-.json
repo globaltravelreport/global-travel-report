@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "New Qatar-Philippine Airlines Deal: Your Gateway to Manila",
+    "description": " Exploring Manila just got easier and more affordable for Aussies, thanks to a new codeshare agreement between Qatar Airways and Philippine Airlines. ...",
+    "image": [
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-18T13:53:24.591Z",
+    "dateModified": "2025-04-18T13:53:24.591Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "New Qatar-Philippine Airlines Deal: Your Gateway to Manila",
+    "description": " Exploring Manila just got easier and more affordable for Aussies, thanks to a new codeshare agreement between Qatar Airways and Philippine Airlines. ...",
+    "url": "https://globaltravelreport.com/1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-",
+    "image": "https://images.unsplash.com/photo-1548574505-5e239809ee19",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Philippines"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Experience",
+        "item": "https://globaltravelreport.com/category/experience"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Philippines",
+        "item": "https://globaltravelreport.com/destination/philippines"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "New Qatar-Philippine Airlines Deal: Your Gateway to Manila",
+        "item": "https://globaltravelreport.com/1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-"
+      }
+    ]
+  }
+]

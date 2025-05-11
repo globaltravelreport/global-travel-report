@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita",
+    "description": "This article provides an insider's guide on how to traverse the diverse regions of Italy on a budget, without compromising on the rich cultural and historical experiences.",
+    "image": [
+      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-27T13:53:24.659Z",
+    "dateModified": "2025-04-27T13:53:24.659Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita",
+    "description": "This article provides an insider's guide on how to traverse the diverse regions of Italy on a budget, without compromising on the rich cultural and historical experiences.",
+    "url": "https://globaltravelreport.com/title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita",
+    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Italy"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Budget Travel",
+        "item": "https://globaltravelreport.com/category/budget-travel"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Italy",
+        "item": "https://globaltravelreport.com/destination/italy"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita",
+        "item": "https://globaltravelreport.com/title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita"
+      }
+    ]
+  }
+]

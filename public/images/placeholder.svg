@@ -1,0 +1,8 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#f0f4f8"/>
+  <g fill="#19273A" opacity="0.1">
+    <path d="M400 150 L550 400 L250 400 Z"/>
+    <circle cx="400" cy="250" r="50"/>
+  </g>
+  <text x="400" y="450" font-family="Arial" font-size="24" text-anchor="middle" fill="#19273A">Global Travel Report</text>
+</svg>

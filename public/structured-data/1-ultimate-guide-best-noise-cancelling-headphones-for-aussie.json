@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers",
+    "description": "  Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any se...",
+    "image": [
+      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-22T13:53:24.618Z",
+    "dateModified": "2025-04-22T13:53:24.618Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-ultimate-guide-best-noise-cancelling-headphones-for-aussie"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers",
+    "description": "  Embarking on international adventures from Australia just got more serene with the latest deals on noise-cancelling headphones, a must-have for any se...",
+    "url": "https://globaltravelreport.com/1-ultimate-guide-best-noise-cancelling-headphones-for-aussie",
+    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Multiple Countries"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "'Budget",
+        "item": "https://globaltravelreport.com/category/'budget"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Multiple Countries",
+        "item": "https://globaltravelreport.com/destination/multiple-countries"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Ultimate Guide: Best Noise-Cancelling Headphones for Aussie Travellers",
+        "item": "https://globaltravelreport.com/1-ultimate-guide-best-noise-cancelling-headphones-for-aussie"
+      }
+    ]
+  }
+]

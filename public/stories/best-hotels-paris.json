@@ -1,0 +1,23 @@
+{
+  "title": "Best Hotels in Paris",
+  "slug": "best-hotels-paris",
+  "metaTitle": "Best Luxury Hotels in Paris - Ultimate Guide",
+  "metaDescription": "Discover the finest luxury hotels in Paris, from historic palaces to boutique gems. Expert reviews and insider tips for your perfect Parisian stay.",
+  "excerpt": "An insider's guide to the most luxurious and elegant hotels in the City of Light.",
+  "category": "Luxury",
+  "country": "France",
+  "body": "Paris, the city of lights and romance, is home to some of the world's most prestigious hotels...",
+  "featured": true,
+  "published": true,
+  "timestamp": "2024-04-22T00:00:00.000Z",
+  "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&h=800&fit=crop&q=80",
+  "imagePhotographer": {
+    "name": "Paris Photographer",
+    "username": "paris_photographer"
+  },
+  "author": "Sophie Laurent",
+  "readTime": 8,
+  "tags": ["luxury", "hotels", "paris", "france"],
+  "isSponsored": false,
+  "editorsPick": true
+} 

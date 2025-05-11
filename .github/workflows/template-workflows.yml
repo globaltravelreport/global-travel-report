@@ -1,0 +1,190 @@
+name: Template-Specific Workflows
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  determine-workflow:
+    runs-on: ubuntu-latest
+    outputs:
+      workflow-type: ${{ steps.set-type.outputs.type }}
+    steps:
+      - uses: actions/checkout@v3
+      
+      - id: set-type
+        name: Determine workflow type
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            let type = 'default';
+            
+            if (body.includes('Bug Description')) type = 'bug';
+            else if (body.includes('Feature Description')) type = 'feature';
+            else if (body.includes('Documentation Type')) type = 'docs';
+            else if (body.includes('Security Issue Type')) type = 'security';
+            else if (body.includes('Refactoring Scope')) type = 'refactor';
+            else if (body.includes('Configuration Type')) type = 'config';
+            
+            core.setOutput('type', type);
+
+  bug-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'bug'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run tests
+        run: |
+          npm install
+          npm test
+          
+      - name: Run regression tests
+        run: npm run test:regression
+        
+      - name: Check for similar issues
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              labels: ['bug']
+            });
+            // Add comment if similar issues found
+            const similarIssues = issues.data.filter(issue => 
+              issue.title.toLowerCase().includes(context.payload.pull_request.title.toLowerCase())
+            );
+            if (similarIssues.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: 'Similar issues found:\n' + similarIssues.map(i => `- #${i.number}: ${i.title}`).join('\n')
+              });
+            }
+
+  feature-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'feature'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run tests
+        run: |
+          npm install
+          npm test
+          
+      - name: Run performance tests
+        run: npm run test:performance
+        
+      - name: Check documentation
+        run: |
+          if ! grep -r "$(git diff --name-only origin/main... | grep '^features/')" docs/; then
+            echo "Warning: New feature might need documentation"
+            exit 1
+          fi
+
+  security-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'security'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run security scan
+        run: |
+          npm install
+          npm audit
+          
+      - name: Run SAST
+        run: npm run security:sast
+        
+      - name: Check for sensitive data
+        run: |
+          if git diff origin/main... | grep -i "password\|secret\|key\|token"; then
+            echo "Warning: Possible sensitive data in changes"
+            exit 1
+          fi
+
+  docs-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'docs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check links
+        run: |
+          npm install markdown-link-check
+          find . -name "*.md" -exec npx markdown-link-check {} \;
+          
+      - name: Run spellcheck
+        run: |
+          npm install cspell
+          npx cspell "**/*.md"
+
+  refactor-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'refactor'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run tests
+        run: |
+          npm install
+          npm test
+          
+      - name: Check code coverage
+        run: npm run test:coverage
+        
+      - name: Run linter
+        run: npm run lint
+        
+      - name: Check bundle size
+        run: npm run build:analyze
+
+  config-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'config'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Validate configs
+        run: |
+          npm install
+          npm run validate:config
+          
+      - name: Test in all environments
+        run: |
+          for env in development staging production; do
+            NODE_ENV=$env npm run test:config
+          done
+        
+      - name: Check for sensitive data
+        run: |
+          if git diff origin/main... | grep -i "password\|secret\|key\|token"; then
+            echo "Warning: Possible sensitive data in changes"
+            exit 1
+          fi
+
+  default-workflow:
+    needs: determine-workflow
+    if: needs.determine-workflow.outputs.workflow-type == 'default'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run basic checks
+        run: |
+          npm install
+          npm test
+          npm run lint
+          npm run build 

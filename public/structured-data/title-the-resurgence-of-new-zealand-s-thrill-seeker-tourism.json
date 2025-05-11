@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Resurgence of New Zealand's Thrill-Seeker Tourism",
+    "description": "New Zealand continues to affirm its position as the world's adventure capital, witnessing a surge in thrill-seekers over the past year. The country's adventure tourism sector has experienced a 15% increase in bookings compared to pre-pandemic levels.",
+    "image": [
+      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-18T13:53:24.666Z",
+    "dateModified": "2025-04-18T13:53:24.666Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "The Resurgence of New Zealand's Thrill-Seeker Tourism",
+    "description": "New Zealand continues to affirm its position as the world's adventure capital, witnessing a surge in thrill-seekers over the past year. The country's adventure tourism sector has experienced a 15% increase in bookings compared to pre-pandemic levels.",
+    "url": "https://globaltravelreport.com/title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism",
+    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "New Zealand"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Adventure",
+        "item": "https://globaltravelreport.com/category/adventure"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "New Zealand",
+        "item": "https://globaltravelreport.com/destination/new-zealand"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "The Resurgence of New Zealand's Thrill-Seeker Tourism",
+        "item": "https://globaltravelreport.com/title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism"
+      }
+    ]
+  }
+]
