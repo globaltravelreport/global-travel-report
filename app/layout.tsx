@@ -52,7 +52,7 @@ export default function RootLayout({
           </a>
 
           {/* Gold line at the top */}
-          <div className="h-2.5 bg-brand-gold w-full"></div>
+          <div className="h-3 bg-brand-gold w-full"></div>
 
           {/* Enhanced Header */}
           <header className="bg-brand-dark text-white py-4 shadow-md">
@@ -162,6 +162,9 @@ export default function RootLayout({
               </nav>
             </div>
           </header>
+
+          {/* Gold line below header */}
+          <div className="h-1.5 bg-brand-gold w-full"></div>
 
           {/* Main Content */}
           <main id="main-content" className="flex-grow">
