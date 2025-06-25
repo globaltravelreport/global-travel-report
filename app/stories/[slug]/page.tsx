@@ -4,22 +4,22 @@ import { AdSenseInArticle, AdSenseLeaderboard } from '@/components/ads/AdSense';
 import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
-import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
+import { getSafeDateString, validateDate } from '@/utils/date-utils';
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
-import { getStoryBySlug } from "@/src/utils/stories";
+import { getStoryBySlug } from "@/utils/stories";
 import { Toaster } from 'sonner';
-import { generateStoryMeta } from "@/src/utils/meta";
+import { generateStoryMeta } from "@/utils/meta";
 import { StoryShareSection } from "@/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/components/social/EnhancedSocialShare";
 import { FacebookMetaTags } from "@/components/social/FacebookMetaTags";
 import { EnhancedOpenGraph } from "@/components/social/EnhancedOpenGraph";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
+import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
 
 // Define the params type for Next.js

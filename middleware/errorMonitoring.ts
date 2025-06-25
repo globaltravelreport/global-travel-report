@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { error, warn, info } from '@/src/utils/errorLogger';
+import { error, warn, info } from '@/utils/errorLogger';
 import { v4 as uuidv4 } from 'uuid';
 
 // Define middleware options

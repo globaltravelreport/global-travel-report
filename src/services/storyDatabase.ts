@@ -1,29 +1,18 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-// Note: fs and path are only available on server-side
-// import fs from 'fs';
-// import path from 'path';
-import { getAllStories, saveStory } from '@/utils/fileStorage';
 import { getSafeDateString } from '@/utils/date-utils';
 
 /**
- * StoryDatabase using simple file-based storage
+ * StoryDatabase using in-memory storage with mock data
  * This provides a straightforward way to store and retrieve stories
  */
 export class StoryDatabase {
   private static instance: StoryDatabase | null = null;
   private stories: Story[] = [];
   private initialized: boolean = false;
-  private storiesDir: string = '';
 
   private constructor() {
-    // Set up the stories directory path
-    // This will be used for server-side operations only
-    if (typeof process !== 'undefined' && process.cwd) {
-      this.storiesDir = path.join(process.cwd(), 'content', 'articles');
-    }
-
-    console.log(`StoryDatabase initialized with simple file storage`);
+    console.log(`StoryDatabase initialized with in-memory storage`);
   }
 
   /**
@@ -47,12 +36,12 @@ export class StoryDatabase {
     }
 
     try {
-      // Load stories from the file storage system
-      this.stories = await getAllStories();
+      // Use mock stories as the primary data source
+      this.stories = [...mockStories];
 
       // Process all stories to ensure dates are valid
       // We want to preserve future dates, especially those from 2025
-      this.stories = this.stories.map(story => {
+      this.stories = this.stories.map((story, index) => {
         // For dates that are strings and contain "2025", preserve them exactly as they are
         if (story.date && typeof story.date === 'string' && story.date.includes('2025')) {
           return {
@@ -77,30 +66,18 @@ export class StoryDatabase {
         };
       });
 
-      if (this.stories.length === 0) {
-        // If no stories were found, use mock stories
-        this.stories = [...mockStories];
+      // Add a timestamp to each story to make them appear recent
+      const now = new Date();
+      this.stories = this.stories.map((story, index) => {
+        const publishedAt = new Date(now.getTime() - index * 24 * 60 * 60 * 1000); // Each story is one day older
+        return {
+          ...story,
+          publishedAt: story.publishedAt || publishedAt.toISOString(),
+          date: story.date || publishedAt.toISOString()
+        };
+      });
 
-        // Add a timestamp to each story to make them appear recent
-        const now = new Date();
-        this.stories = this.stories.map((story, index) => {
-          const publishedAt = new Date(now.getTime() - index * 24 * 60 * 60 * 1000); // Each story is one day older
-          return {
-            ...story,
-            publishedAt: publishedAt.toISOString(),
-            date: story.date || publishedAt.toISOString()
-          };
-        });
-
-        console.log(`Using ${this.stories.length} mock stories`);
-
-        // Save mock stories to the file storage system
-        for (const story of this.stories) {
-          await saveStory(story);
-        }
-      }
-
-      console.log(`Loaded ${this.stories.length} stories`);
+      console.log(`Loaded ${this.stories.length} stories from mock data`);
       this.initialized = true;
     } catch (error) {
       console.error('Error initializing story database:', error);
@@ -200,9 +177,7 @@ export class StoryDatabase {
       this.stories.push(story);
     }
 
-    // Save the story to the file storage system
-    await saveStory(story);
-    console.log(`Saved story "${story.title}" to file storage`);
+    console.log(`Saved story "${story.title}" to in-memory storage`);
 
     return story;
   }
@@ -234,12 +209,7 @@ export class StoryDatabase {
       }
     }
 
-    // Save all stories to the file storage system
-    for (const story of [...newStories, ...updatedStories]) {
-      await saveStory(story);
-    }
-
-    console.log(`Saved ${newStories.length} new and ${updatedStories.length} updated stories to file storage`);
+    console.log(`Saved ${newStories.length} new and ${updatedStories.length} updated stories to in-memory storage`);
 
     return stories;
   }
@@ -263,17 +233,7 @@ export class StoryDatabase {
     // Delete the story from the in-memory array
     this.stories.splice(index, 1);
 
-    // Delete the story from the file storage system
-    if (storySlug) {
-      try {
-        // Import the deleteStory function dynamically to avoid circular dependencies
-        const { deleteStory } = await import('@/utils/fileStorage');
-        await deleteStory(storySlug);
-        console.log(`Deleted story file: ${storySlug}`);
-      } catch (error) {
-        console.error('Error deleting story file:', error);
-      }
-    }
+    console.log(`Deleted story from in-memory storage: ${storySlug}`);
 
     return true;
   }

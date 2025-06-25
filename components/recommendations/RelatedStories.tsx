@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Story } from '@/types/Story';
 import { RecommendationService } from '@/src/services/recommendationService';
-import { getAllStories } from '@/src/utils/stories';
+import { getAllStories } from '@/utils/stories';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage';
 import { LazyLoad } from '@/components/ui/LazyLoad';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface RelatedStoriesProps {
   currentStory: Story;

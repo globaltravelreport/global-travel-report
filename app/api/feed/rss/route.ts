@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllStories } from '@/src/utils/stories';
+import { getAllStories } from '@/utils/stories';
 import { CATEGORIES, getCategoryBySlug } from '@/src/config/categories';
 import DOMPurify from 'isomorphic-dompurify';
 

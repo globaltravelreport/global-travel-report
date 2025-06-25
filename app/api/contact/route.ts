@@ -3,12 +3,12 @@ export const runtime = 'edge';
 
 import { NextRequest } from "next/server";
 import { z } from 'zod';
-import { verifyRecaptcha } from '@/src/utils/recaptcha';
+import { verifyRecaptcha } from '@/utils/recaptcha';
 import { ContactFormRequest } from '@/src/api/types';
-import { contactFormSchema } from '@/src/utils/validation';
-import { createApiResponse, createValidationErrorResponse } from '@/src/utils/api-response';
-import { logError } from '@/src/utils/error-handler';
-import { createApiHandler, createOptionsHandler } from '@/src/utils/api-handler';
+import { contactFormSchema } from '@/utils/validation';
+import { createApiResponse, createValidationErrorResponse } from '@/utils/api-response';
+import { logError } from '@/utils/error-handler';
+import { createApiHandler, createOptionsHandler } from '@/utils/api-handler';
 import config from '@/src/config';
 
 /**

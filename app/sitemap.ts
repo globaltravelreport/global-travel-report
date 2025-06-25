@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
-import { getAllStories } from '@/src/utils/stories';
-import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
-import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
+import { getAllStories } from '@/utils/stories';
+import { enhanceStoryForSEO } from '@/utils/seoEnhancer';
+import { optimizeStoryImageForSeo } from '@/utils/imageSeoOptimizer';
 import { CATEGORIES } from '@/src/config/categories';
 
 /**

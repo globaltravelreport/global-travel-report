@@ -1,8 +1,8 @@
 import { getServerSideSitemap } from 'next-sitemap';
 import type { ISitemapField, IImageEntry } from 'next-sitemap';
-import { getAllStories } from '@/src/utils/stories';
+import { getAllStories } from '@/utils/stories';
 import { CATEGORIES } from '@/src/config/categories';
-import { getAllCountries } from '@/src/utils/countries';
+import { getAllCountries } from '@/utils/countries';
 
 /**
  * Generate a server-side sitemap for the website

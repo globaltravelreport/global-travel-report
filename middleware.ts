@@ -1,12 +1,28 @@
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getSession } from '@/lib/auth';
 
-// Completely disable middleware by default
-export const config = {
-  matcher: [], // Empty matcher means middleware won't run for any routes
-};
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-// Simple pass-through middleware that doesn't do anything
-export function middleware(request: NextRequest) {
+  // Protect admin routes (except login)
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+    try {
+      const session = await getSession();
+      
+      if (!session) {
+        return NextResponse.redirect(new URL('/admin/login', request.url));
+      }
+    } catch (error) {
+      console.error('Middleware auth error:', error);
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
+
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/admin/:path*'],
+};

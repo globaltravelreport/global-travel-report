@@ -1,7 +1,7 @@
-import { getAllStories } from '@/src/utils/stories';
+import { getAllStories } from '@/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
 import { CountryDropdown } from '@/components/destinations/CountryDropdown';
-import { isValidCountry } from '@/src/utils/countries';
+import { isValidCountry } from '@/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { FAQSchema } from '@/components/seo/FAQSchema';

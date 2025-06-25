@@ -1,7 +1,7 @@
 export const runtime = 'edge';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyRecaptcha } from '@/src/utils/recaptcha';
+import { verifyRecaptcha } from '@/utils/recaptcha';
 
 export async function POST(request: NextRequest) {
   try {
