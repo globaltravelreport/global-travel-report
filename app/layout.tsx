@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import Header from '@/src/components/layout/Header';
+import Footer from '@/src/components/layout/Footer';
 import { cn } from '@/utils/cn';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -93,6 +95,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <meta name="theme-color" content="#19273A" />
         <meta name="msapplication-TileColor" content="#19273A" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -145,9 +148,11 @@ export default function RootLayout({
       <body className={cn(inter.className, 'antialiased')}>
         <ErrorBoundary>
           <div className="min-h-screen flex flex-col">
+            <Header />
             <main className="flex-1">
               {children}
             </main>
+            <Footer />
           </div>
           <Toaster />
         </ErrorBoundary>
