@@ -1,227 +1,267 @@
-/**
- * Centralized error handling utilities
- */
+import { NextRequest } from 'next/server';
+
+// Error severity levels
+export enum ErrorSeverity {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
+  CRITICAL = 'critical',
+}
+
+// Error context interface
+interface ErrorContext {
+  context?: string;
+  requestId?: string;
+  userId?: string;
+  method?: string;
+  url?: string;
+  ip?: string;
+  userAgent?: string;
+  timestamp?: number;
+  additionalData?: Record<string, any>;
+}
+
+// Error log entry
+interface ErrorLogEntry {
+  id: string;
+  message: string;
+  stack?: string;
+  severity: ErrorSeverity;
+  context: ErrorContext;
+  timestamp: number;
+  resolved: boolean;
+}
+
+// In-memory error store (in production, use a proper logging service)
+const errorStore: ErrorLogEntry[] = [];
+const MAX_STORED_ERRORS = 1000;
 
 /**
- * Error types for application errors
+ * Generate a unique error ID
  */
-export enum ErrorType {
-  VALIDATION = 'validation',
-  AUTHENTICATION = 'authentication',
-  AUTHORIZATION = 'authorization',
-  NOT_FOUND = 'not_found',
-  API = 'api',
-  NETWORK = 'network',
-  DATABASE = 'database',
-  UNKNOWN = 'unknown',
+function generateErrorId(): string {
+  return `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
 /**
- * Custom application error class
+ * Determine error severity based on error type and context
  */
-export class AppError extends Error {
-  type: ErrorType;
-  code?: string;
-  details?: any;
-
-  constructor(message: string, type: ErrorType = ErrorType.UNKNOWN, code?: string, details?: any) {
-    super(message);
-    this.name = 'AppError';
-    this.type = type;
-    this.code = code;
-    this.details = details;
+function determineErrorSeverity(error: any, context: ErrorContext): ErrorSeverity {
+  // Critical errors
+  if (error.name === 'DatabaseConnectionError' || 
+      error.message?.includes('ECONNREFUSED') ||
+      error.message?.includes('Database') ||
+      context.context?.includes('payment') ||
+      context.context?.includes('auth')) {
+    return ErrorSeverity.CRITICAL;
   }
 
-  /**
-   * Check if the error is a specific type
-   * @param type - The error type to check
-   * @returns Boolean indicating if the error is of the specified type
-   */
-  isType(type: ErrorType): boolean {
-    return this.type === type;
+  // High severity errors
+  if (error.name === 'ValidationError' ||
+      error.status >= 500 ||
+      error.message?.includes('timeout') ||
+      error.message?.includes('network')) {
+    return ErrorSeverity.HIGH;
   }
 
-  /**
-   * Get a user-friendly error message
-   * @returns A user-friendly error message
-   */
-  getUserMessage(): string {
-    switch (this.type) {
-      case ErrorType.VALIDATION:
-        return 'The information you provided is invalid. Please check your inputs and try again.';
-      case ErrorType.AUTHENTICATION:
-        return 'You need to sign in to access this feature.';
-      case ErrorType.AUTHORIZATION:
-        return 'You do not have permission to perform this action.';
-      case ErrorType.NOT_FOUND:
-        return 'The requested resource could not be found.';
-      case ErrorType.API:
-        return 'There was a problem communicating with our services. Please try again later.';
-      case ErrorType.NETWORK:
-        return 'Network error. Please check your internet connection and try again.';
-      case ErrorType.DATABASE:
-        return 'There was a problem with our database. Please try again later.';
-      default:
-        return 'An unexpected error occurred. Please try again later.';
-    }
+  // Medium severity errors
+  if (error.status >= 400 ||
+      error.name === 'NotFoundError' ||
+      error.message?.includes('permission')) {
+    return ErrorSeverity.MEDIUM;
   }
 
-  /**
-   * Get the HTTP status code for the error
-   * @returns The HTTP status code
-   */
-  getStatusCode(): number {
-    switch (this.type) {
-      case ErrorType.VALIDATION:
-        return 400;
-      case ErrorType.AUTHENTICATION:
-        return 401;
-      case ErrorType.AUTHORIZATION:
-        return 403;
-      case ErrorType.NOT_FOUND:
-        return 404;
-      case ErrorType.API:
-      case ErrorType.DATABASE:
-        return 500;
-      case ErrorType.NETWORK:
-        return 503;
-      default:
-        return 500;
-    }
+  // Default to low severity
+  return ErrorSeverity.LOW;
+}
+
+/**
+ * Log error to console with formatting
+ */
+function logToConsole(entry: ErrorLogEntry): void {
+  const { id, message, stack, severity, context, timestamp } = entry;
+  const date = new Date(timestamp).toISOString();
+  
+  const logMessage = [
+    `[${date}] [${severity.toUpperCase()}] [${id}]`,
+    `Message: ${message}`,
+    context.context && `Context: ${context.context}`,
+    context.requestId && `Request ID: ${context.requestId}`,
+    context.method && context.url && `${context.method} ${context.url}`,
+    context.ip && `IP: ${context.ip}`,
+    context.userAgent && `User Agent: ${context.userAgent}`,
+    context.additionalData && `Additional Data: ${JSON.stringify(context.additionalData)}`,
+    stack && `Stack: ${stack}`,
+  ].filter(Boolean).join('\n');
+
+  switch (severity) {
+    case ErrorSeverity.CRITICAL:
+      console.error('🚨 CRITICAL ERROR:', logMessage);
+      break;
+    case ErrorSeverity.HIGH:
+      console.error('❌ HIGH SEVERITY ERROR:', logMessage);
+      break;
+    case ErrorSeverity.MEDIUM:
+      console.warn('⚠️ MEDIUM SEVERITY ERROR:', logMessage);
+      break;
+    case ErrorSeverity.LOW:
+    default:
+      console.log('ℹ️ LOW SEVERITY ERROR:', logMessage);
+      break;
   }
 }
 
 /**
- * Create a validation error
- * @param message - The error message
- * @param details - Additional error details
- * @returns A new AppError with type VALIDATION
+ * Store error in memory (with size limit)
  */
-export function createValidationError(message: string, details?: any): AppError {
-  return new AppError(message, ErrorType.VALIDATION, 'VALIDATION_ERROR', details);
-}
-
-/**
- * Create an authentication error
- * @param message - The error message
- * @returns A new AppError with type AUTHENTICATION
- */
-export function createAuthenticationError(message: string): AppError {
-  return new AppError(message, ErrorType.AUTHENTICATION, 'AUTHENTICATION_ERROR');
-}
-
-/**
- * Create an authorization error
- * @param message - The error message
- * @returns A new AppError with type AUTHORIZATION
- */
-export function createAuthorizationError(message: string): AppError {
-  return new AppError(message, ErrorType.AUTHORIZATION, 'AUTHORIZATION_ERROR');
-}
-
-/**
- * Create a not found error
- * @param message - The error message
- * @param resource - The resource that was not found
- * @returns A new AppError with type NOT_FOUND
- */
-export function createNotFoundError(message: string, resource?: string): AppError {
-  return new AppError(
-    message,
-    ErrorType.NOT_FOUND,
-    'NOT_FOUND_ERROR',
-    resource ? { resource } : undefined
-  );
-}
-
-/**
- * Create an API error
- * @param message - The error message
- * @param details - Additional error details
- * @returns A new AppError with type API
- */
-export function createApiError(message: string, details?: any): AppError {
-  return new AppError(message, ErrorType.API, 'API_ERROR', details);
-}
-
-/**
- * Create a network error
- * @param message - The error message
- * @returns A new AppError with type NETWORK
- */
-export function createNetworkError(message: string): AppError {
-  return new AppError(message, ErrorType.NETWORK, 'NETWORK_ERROR');
-}
-
-/**
- * Create a database error
- * @param message - The error message
- * @param details - Additional error details
- * @returns A new AppError with type DATABASE
- */
-export function createDatabaseError(message: string, details?: any): AppError {
-  return new AppError(message, ErrorType.DATABASE, 'DATABASE_ERROR', details);
-}
-
-/**
- * Handle an error and convert it to an AppError
- * @param error - The error to handle
- * @returns An AppError
- */
-export function handleError(error: unknown): AppError {
-  if (error instanceof AppError) {
-    return error;
+function storeError(entry: ErrorLogEntry): void {
+  errorStore.push(entry);
+  
+  // Remove oldest errors if we exceed the limit
+  if (errorStore.length > MAX_STORED_ERRORS) {
+    errorStore.splice(0, errorStore.length - MAX_STORED_ERRORS);
   }
-
-  if (error instanceof Error) {
-    return new AppError(error.message, ErrorType.UNKNOWN, 'UNKNOWN_ERROR', { originalError: error });
-  }
-
-  return new AppError(
-    typeof error === 'string' ? error : 'An unknown error occurred',
-    ErrorType.UNKNOWN,
-    'UNKNOWN_ERROR',
-    { originalError: error }
-  );
 }
 
 /**
- * Log an error to the centralized error logging system
- * @param error - The error to log
- * @param context - Additional context information
- * @param level - The log level (default: error)
+ * Main error logging function
  */
 export function logError(
-  error: unknown,
-  context?: Record<string, any>,
-  level: 'debug' | 'info' | 'warn' | 'error' | 'fatal' = 'error'
-): void {
-  const appError = handleError(error);
+  error: any,
+  context: ErrorContext = {},
+  severity?: ErrorSeverity
+): string {
+  const errorId = generateErrorId();
+  const timestamp = Date.now();
+  
+  // Extract error information
+  const message = error?.message || error?.toString() || 'Unknown error';
+  const stack = error?.stack;
+  
+  // Determine severity if not provided
+  const finalSeverity = severity || determineErrorSeverity(error, context);
+  
+  // Create error log entry
+  const entry: ErrorLogEntry = {
+    id: errorId,
+    message,
+    stack,
+    severity: finalSeverity,
+    context: {
+      ...context,
+      timestamp,
+    },
+    timestamp,
+    resolved: false,
+  };
 
-  // Import the error logger dynamically to avoid circular dependencies
-  import('./errorLogger').then(({ default: logger }) => {
-    // Log the error with the appropriate level
-    logger.log(
-      logger.LogLevel[level.toUpperCase() as keyof typeof logger.LogLevel],
-      `[${appError.type.toUpperCase()}] ${appError.message}`,
-      {
-        code: appError.code,
-        details: appError.details,
-        ...context
-      },
-      appError
-    );
-  }).catch(err => {
-    // Fallback to console if the logger fails
-    console.error(
-      `[ERROR] [${appError.type.toUpperCase()}] ${appError.message}`,
-      {
-        code: appError.code,
-        details: appError.details,
-        context,
-        stack: appError.stack,
-      }
-    );
-    console.error('Error importing logger:', err);
+  // Log to console
+  logToConsole(entry);
+  
+  // Store in memory
+  storeError(entry);
+  
+  // In production, you would also send to external logging service
+  // sendToExternalLoggingService(entry);
+  
+  return errorId;
+}
+
+/**
+ * Log error from Next.js request context
+ */
+export function logRequestError(
+  error: any,
+  req: NextRequest,
+  additionalContext: Partial<ErrorContext> = {},
+  severity?: ErrorSeverity
+): string {
+  const context: ErrorContext = {
+    method: req.method,
+    url: req.url,
+    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    userAgent: req.headers.get('user-agent') || 'unknown',
+    ...additionalContext,
+  };
+  
+  return logError(error, context, severity);
+}
+
+/**
+ * Get stored errors (for admin/debugging purposes)
+ */
+export function getStoredErrors(limit: number = 100): ErrorLogEntry[] {
+  return errorStore.slice(-limit).reverse(); // Return most recent first
+}
+
+/**
+ * Get errors by severity
+ */
+export function getErrorsBySeverity(severity: ErrorSeverity, limit: number = 100): ErrorLogEntry[] {
+  return errorStore
+    .filter(entry => entry.severity === severity)
+    .slice(-limit)
+    .reverse();
+}
+
+/**
+ * Mark error as resolved
+ */
+export function markErrorAsResolved(errorId: string): boolean {
+  const error = errorStore.find(entry => entry.id === errorId);
+  if (error) {
+    error.resolved = true;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Get error statistics
+ */
+export function getErrorStats(): {
+  total: number;
+  bySeverity: Record<ErrorSeverity, number>;
+  resolved: number;
+  unresolved: number;
+} {
+  const stats = {
+    total: errorStore.length,
+    bySeverity: {
+      [ErrorSeverity.LOW]: 0,
+      [ErrorSeverity.MEDIUM]: 0,
+      [ErrorSeverity.HIGH]: 0,
+      [ErrorSeverity.CRITICAL]: 0,
+    },
+    resolved: 0,
+    unresolved: 0,
+  };
+  
+  errorStore.forEach(entry => {
+    stats.bySeverity[entry.severity]++;
+    if (entry.resolved) {
+      stats.resolved++;
+    } else {
+      stats.unresolved++;
+    }
   });
+  
+  return stats;
+}
+
+/**
+ * Clear old errors (cleanup function)
+ */
+export function clearOldErrors(olderThanMs: number = 7 * 24 * 60 * 60 * 1000): number { // Default: 7 days
+  const cutoffTime = Date.now() - olderThanMs;
+  const initialLength = errorStore.length;
+  
+  // Remove errors older than cutoff time
+  for (let i = errorStore.length - 1; i >= 0; i--) {
+    if (errorStore[i].timestamp < cutoffTime) {
+      errorStore.splice(i, 1);
+    }
+  }
+  
+  return initialLength - errorStore.length; // Return number of errors removed
 }
