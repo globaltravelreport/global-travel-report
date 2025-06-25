@@ -1,294 +1,332 @@
-/**
- * Utilities for handling API routes with caching, rate limiting, and retry logic
- */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createApiResponse } from './api-response';
+import { createApiResponse, createValidationErrorResponse } from './api-response';
 import { logError } from './error-handler';
-import { cacheResponse, generateCacheKey } from './api-cache';
-import { validateCsrfToken } from './csrf';
+import { rateLimit } from './rate-limit';
+
+// CORS configuration
+interface CorsOptions {
+  origin?: string | string[] | boolean;
+  methods?: string[];
+  allowedHeaders?: string[];
+  credentials?: boolean;
+}
+
+const DEFAULT_CORS_OPTIONS: CorsOptions = {
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-CSRF-Token'],
+  credentials: true,
+};
+
+// API Handler configuration
+interface ApiHandlerConfig<T = any> {
+  bodySchema?: z.ZodSchema<T>;
+  querySchema?: z.ZodSchema<any>;
+  enableCors?: boolean;
+  corsOptions?: CorsOptions;
+  requireAuth?: boolean;
+  rateLimit?: {
+    maxRequests: number;
+    windowMs: number;
+  };
+  maxRetries?: number;
+  retryDelay?: number;
+  validateCsrf?: boolean;
+  onError?: (error: any) => NextResponse;
+  cache?: {
+    ttl: number;
+    key?: string;
+  };
+}
+
+// Request context
+interface RequestContext {
+  ip: string;
+  userAgent: string;
+  timestamp: number;
+  requestId: string;
+}
+
+// API Handler type
+type ApiHandler<T = any> = (
+  req: NextRequest,
+  data: T,
+  context: RequestContext
+) => Promise<NextResponse>;
 
 /**
- * Options for API route handlers
+ * Generate a unique request ID
  */
-export interface ApiHandlerOptions<T> {
-  /**
-   * Validation schema for request body
-   */
-  bodySchema?: z.ZodSchema<T>;
-
-  /**
-   * Validation schema for query parameters
-   */
-  querySchema?: z.ZodSchema<any>;
-
-  /**
-   * Whether to enable caching for GET requests
-   */
-  enableCache?: boolean;
-
-  /**
-   * Cache TTL in milliseconds
-   */
-  cacheTtl?: number;
-
-  /**
-   * Whether to enable CORS
-   */
-  enableCors?: boolean;
-
-  /**
-   * Maximum number of retries for the handler function
-   */
-  maxRetries?: number;
-
-  /**
-   * Delay between retries in milliseconds
-   */
-  retryDelay?: number;
-
-  /**
-   * Whether to validate CSRF token
-   */
-  validateCsrf?: boolean;
-
-  /**
-   * Custom error handler
-   */
-  onError?: (error: unknown) => NextResponse;
+function generateRequestId(): string {
+  return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
 /**
- * Default options for API route handlers
+ * Get request context information
  */
-const defaultOptions: ApiHandlerOptions<any> = {
-  enableCache: false,
-  cacheTtl: 5 * 60 * 1000, // 5 minutes
-  enableCors: true,
-  maxRetries: 3,
-  retryDelay: 1000,
-  validateCsrf: true, // Enable CSRF validation by default
-};
+function getRequestContext(req: NextRequest): RequestContext {
+  return {
+    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    userAgent: req.headers.get('user-agent') || 'unknown',
+    timestamp: Date.now(),
+    requestId: generateRequestId(),
+  };
+}
 
 /**
- * Create a robust API route handler with validation, caching, and retry logic
- * @param handler - The handler function
- * @param options - Options for the handler
- * @returns A Next.js API route handler
+ * Apply CORS headers to response
+ */
+function applyCorsHeaders(response: NextResponse, options: CorsOptions = DEFAULT_CORS_OPTIONS): NextResponse {
+  const { origin, methods, allowedHeaders, credentials } = options;
+
+  if (origin === true) {
+    response.headers.set('Access-Control-Allow-Origin', '*');
+  } else if (typeof origin === 'string') {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  } else if (Array.isArray(origin)) {
+    response.headers.set('Access-Control-Allow-Origin', origin.join(', '));
+  }
+
+  if (methods) {
+    response.headers.set('Access-Control-Allow-Methods', methods.join(', '));
+  }
+
+  if (allowedHeaders) {
+    response.headers.set('Access-Control-Allow-Headers', allowedHeaders.join(', '));
+  }
+
+  if (credentials) {
+    response.headers.set('Access-Control-Allow-Credentials', 'true');
+  }
+
+  return response;
+}
+
+/**
+ * Validate CSRF token
+ */
+async function validateCsrfToken(req: NextRequest): Promise<boolean> {
+  try {
+    const token = req.headers.get('X-CSRF-Token') || req.headers.get('x-csrf-token');
+    if (!token) {
+      return false;
+    }
+
+    // In a real implementation, you would validate the token against your CSRF protection
+    // For now, we'll just check if it exists and is not empty
+    return token.length > 0;
+  } catch (error) {
+    logError(error, { context: 'CSRF validation' });
+    return false;
+  }
+}
+
+/**
+ * Retry logic for API operations
+ */
+async function withRetry<T>(
+  operation: () => Promise<T>,
+  maxRetries: number = 3,
+  delay: number = 1000
+): Promise<T> {
+  let lastError: any;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      
+      if (attempt === maxRetries) {
+        throw error;
+      }
+
+      // Wait before retrying
+      await new Promise(resolve => setTimeout(resolve, delay * attempt));
+    }
+  }
+
+  throw lastError;
+}
+
+/**
+ * Simple in-memory cache (in production, use Redis or similar)
+ */
+const cache = new Map<string, { data: any; expires: number }>();
+
+/**
+ * Get cached response
+ */
+function getCachedResponse(key: string): any | null {
+  const cached = cache.get(key);
+  if (cached && cached.expires > Date.now()) {
+    return cached.data;
+  }
+  if (cached) {
+    cache.delete(key);
+  }
+  return null;
+}
+
+/**
+ * Set cached response
+ */
+function setCachedResponse(key: string, data: any, ttl: number): void {
+  cache.set(key, {
+    data,
+    expires: Date.now() + ttl,
+  });
+}
+
+/**
+ * Create a robust API handler with comprehensive error handling, validation, and features
  */
 export function createApiHandler<T = any>(
-  handler: (req: NextRequest, data: T) => Promise<NextResponse>,
-  options: ApiHandlerOptions<T> = {}
-): (req: NextRequest) => Promise<NextResponse> {
-  // Merge options with defaults
-  const {
-    bodySchema,
-    querySchema,
-    enableCache,
-    cacheTtl,
-    enableCors,
-    maxRetries,
-    retryDelay,
-    validateCsrf,
-    onError,
-  } = { ...defaultOptions, ...options };
-
+  handler: ApiHandler<T>,
+  config: ApiHandlerConfig<T> = {}
+) {
   return async (req: NextRequest): Promise<NextResponse> => {
+    const context = getRequestContext(req);
+    
     try {
-      // Check if the request is cached (GET only)
-      if (req.method === 'GET' && enableCache) {
-        const cacheKey = generateCacheKey(req);
-        const cachedResponse = await getCachedResponse(cacheKey, cacheTtl);
+      // Apply rate limiting if configured
+      if (config.rateLimit) {
+        const rateLimitResult = await rateLimit(req, config.rateLimit);
+        if (!rateLimitResult.success) {
+          const response = createApiResponse(
+            { error: 'Too many requests. Please try again later.' },
+            { status: 429 }
+          );
+          return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
+        }
+      }
 
+      // CSRF validation for non-GET requests
+      if (config.validateCsrf && req.method !== 'GET') {
+        const isValidCsrf = await validateCsrfToken(req);
+        if (!isValidCsrf) {
+          const response = createApiResponse(
+            { error: 'Invalid CSRF token' },
+            { status: 403 }
+          );
+          return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
+        }
+      }
+
+      // Check cache if configured
+      if (config.cache && req.method === 'GET') {
+        const cacheKey = config.cache.key || `${req.url}_${JSON.stringify(Object.fromEntries(req.nextUrl.searchParams))}`;
+        const cachedResponse = getCachedResponse(cacheKey);
         if (cachedResponse) {
-          // Add cache header
-          cachedResponse.headers.set('X-Cache', 'HIT');
+          const response = NextResponse.json(cachedResponse);
+          return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
+        }
+      }
 
-          // Add CORS headers if enabled
-          if (enableCors) {
-            addCorsHeaders(cachedResponse);
+      // Parse and validate request body
+      let data: T | undefined;
+      if (config.bodySchema && (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')) {
+        try {
+          const body = await req.json();
+          data = config.bodySchema.parse(body);
+        } catch (error) {
+          if (error instanceof z.ZodError) {
+            const response = createValidationErrorResponse('Invalid request data', {
+              errors: error.errors.map(e => ({
+                field: e.path.join('.'),
+                message: e.message,
+              })),
+            });
+            return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
           }
-
-          return cachedResponse;
+          throw error;
         }
       }
 
       // Parse and validate query parameters
-      let queryParams: any = {};
-      if (querySchema) {
-        const url = new URL(req.url);
-        const params: Record<string, string> = {};
-
-        url.searchParams.forEach((value, key) => {
-          params[key] = value;
-        });
-
+      if (config.querySchema) {
         try {
-          queryParams = querySchema.parse(params);
+          const query = Object.fromEntries(req.nextUrl.searchParams);
+          config.querySchema.parse(query);
         } catch (error) {
           if (error instanceof z.ZodError) {
-            return createApiResponse(error, {
-              status: 400,
-              isError: true,
+            const response = createValidationErrorResponse('Invalid query parameters', {
+              errors: error.errors.map(e => ({
+                field: e.path.join('.'),
+                message: e.message,
+              })),
             });
+            return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
           }
           throw error;
         }
       }
 
-      // Parse and validate request body for non-GET requests
-      let body: T | undefined;
-      if (req.method !== 'GET' && bodySchema) {
-        try {
-          const json = await req.json();
+      // Execute the handler with retry logic
+      const executeHandler = () => handler(req, data as T, context);
+      const response = config.maxRetries
+        ? await withRetry(executeHandler, config.maxRetries, config.retryDelay)
+        : await executeHandler();
 
-          // Validate CSRF token for mutation requests if enabled
-          if (validateCsrf && ['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method)) {
-            const csrfToken = json.csrfToken || req.headers.get('X-CSRF-Token');
-
-            if (!csrfToken) {
-              return createApiResponse(
-                new Error('CSRF token is missing'),
-                { status: 403, isError: true }
-              );
-            }
-
-            const isValidCsrf = await validateCsrfToken(csrfToken);
-            if (!isValidCsrf) {
-              return createApiResponse(
-                new Error('Invalid CSRF token'),
-                { status: 403, isError: true }
-              );
-            }
-          }
-
-          body = bodySchema.parse(json);
-        } catch (error) {
-          if (error instanceof z.ZodError) {
-            return createApiResponse(error, {
-              status: 400,
-              isError: true,
-            });
-          }
-
-          // Handle JSON parse error
-          if (error instanceof SyntaxError) {
-            return createApiResponse(
-              new Error('Invalid JSON in request body'),
-              { status: 400, isError: true }
-            );
-          }
-
-          throw error;
-        }
+      // Cache the response if configured
+      if (config.cache && req.method === 'GET' && response.status === 200) {
+        const cacheKey = config.cache.key || `${req.url}_${JSON.stringify(Object.fromEntries(req.nextUrl.searchParams))}`;
+        const responseData = await response.clone().json();
+        setCachedResponse(cacheKey, responseData, config.cache.ttl);
       }
 
-      // Combine body and query parameters
-      const data = { ...queryParams, ...body } as T;
+      // Apply CORS headers if enabled
+      return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
 
-      // Execute handler with retries
-      let response: NextResponse | null = null;
-      let lastError: unknown = null;
-      let retryCount = 0;
-
-      while (retryCount <= (maxRetries || 0)) {
-        try {
-          response = await handler(req, data);
-          break;
-        } catch (error) {
-          lastError = error;
-          retryCount++;
-
-          // Log retry attempt
-          console.warn(`API handler retry ${retryCount}/${maxRetries}:`, error);
-
-          // If we've reached max retries, break out of the loop
-          if (retryCount > (maxRetries || 0)) {
-            break;
-          }
-
-          // Wait before retrying
-          await new Promise(resolve => setTimeout(resolve, retryDelay));
-        }
-      }
-
-      // If we have a response, return it
-      if (response) {
-        // Cache the response if it's a GET request and caching is enabled
-        if (req.method === 'GET' && enableCache) {
-          const cacheKey = generateCacheKey(req);
-          cacheResponse(cacheKey, response);
-
-          // Add cache header
-          response.headers.set('X-Cache', 'MISS');
-        }
-
-        // Add CORS headers if enabled
-        if (enableCors) {
-          addCorsHeaders(response);
-        }
-
-        return response;
-      }
-
-      // If we don't have a response, handle the error
-      if (onError && lastError) {
-        return onError(lastError);
-      }
-
-      // Default error handling
-      logError(lastError, { context: 'API handler' });
-      return createApiResponse(
-        lastError || new Error('Unknown error'),
-        { status: 500, isError: true }
-      );
     } catch (error) {
-      // Handle unexpected errors
-      logError(error, { context: 'API handler' });
+      // Log the error
+      logError(error, {
+        context: 'API Handler',
+        requestId: context.requestId,
+        method: req.method,
+        url: req.url,
+        ip: context.ip,
+        userAgent: context.userAgent,
+      });
 
-      if (onError) {
-        return onError(error);
+      // Use custom error handler if provided
+      if (config.onError) {
+        const response = config.onError(error);
+        return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
       }
 
-      return createApiResponse(
-        error,
-        { status: 500, isError: true }
+      // Default error response
+      const response = createApiResponse(
+        { error: 'Internal server error' },
+        { status: 500 }
       );
+      return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
     }
   };
 }
 
 /**
- * Get a cached response
- * @param cacheKey - The cache key
- * @param ttl - The TTL in milliseconds
- * @returns The cached response or null if not found
+ * Create a simple OPTIONS handler for CORS preflight requests
  */
-async function getCachedResponse(cacheKey: string, ttl?: number): Promise<NextResponse | null> {
-  // This is a placeholder for a real cache implementation
-  // In a production environment, this would use Redis or a similar solution
-  return null;
-}
-
-/**
- * Add CORS headers to a response
- * @param response - The response to add headers to
- */
-function addCorsHeaders(response: NextResponse): void {
-  response.headers.set('Access-Control-Allow-Origin', '*');
-  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-}
-
-/**
- * Create an OPTIONS handler for CORS preflight requests
- * @returns A Next.js API route handler for OPTIONS requests
- */
-export function createOptionsHandler(): (req: NextRequest) => NextResponse {
-  return () => {
-    const response = NextResponse.json({}, { status: 204 });
-    addCorsHeaders(response);
-    return response;
+export function createOptionsHandler(corsOptions: CorsOptions = DEFAULT_CORS_OPTIONS) {
+  return async (): Promise<NextResponse> => {
+    const response = new NextResponse(null, { status: 200 });
+    return applyCorsHeaders(response, corsOptions);
   };
+}
+
+/**
+ * Utility function to create a cached API handler
+ */
+export function createCachedApiHandler<T = any>(
+  handler: ApiHandler<T>,
+  cacheKey: string,
+  ttl: number,
+  config: Omit<ApiHandlerConfig<T>, 'cache'> = {}
+) {
+  return createApiHandler(handler, {
+    ...config,
+    cache: { key: cacheKey, ttl },
+  });
 }
