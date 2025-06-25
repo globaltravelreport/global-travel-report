@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface ResponsiveContainerProps {
   /**

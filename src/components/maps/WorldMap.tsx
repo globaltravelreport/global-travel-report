@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 
 // Define the props for the WorldMap component
 interface WorldMapProps {

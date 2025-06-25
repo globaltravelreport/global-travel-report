@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
-import { ErrorType } from '@/src/utils/error-handler';
+import { ErrorType } from '@/utils/error-handler';
 
 /**
  * API request state

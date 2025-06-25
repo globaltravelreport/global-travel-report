@@ -172,7 +172,7 @@ export class UnsplashService {
   public async enhanceStoryWithImage(story: Story): Promise<Story> {
     try {
       // Import the enhanced image tracker dynamically to avoid server/client mismatch
-      const { getBestImageForStory } = await import('@/src/utils/enhancedImageTracker');
+      const { getBestImageForStory } = await import('@/utils/enhancedImageTracker');
 
       // Extract keywords from the story
       const keywords = [];
@@ -212,7 +212,7 @@ export class UnsplashService {
       // If the enhanced image tracker fails, try the original image tracker
       try {
         // Import the original image tracker dynamically
-        const { getImageForStory } = await import('@/src/utils/imageTracker');
+        const { getImageForStory } = await import('@/utils/imageTracker');
 
         // Get a unique image and photographer for this story
         const { imageUrl, photographer } = getImageForStory(

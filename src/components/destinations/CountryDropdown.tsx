@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Globe, MapPin } from 'lucide-react';
-import { isValidCountry } from '@/src/utils/countries';
+import { isValidCountry } from '@/utils/countries';
 
 interface CountryDropdownProps {
   countries: string[];

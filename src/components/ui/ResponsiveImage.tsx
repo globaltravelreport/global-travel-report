@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { OptimizedImage } from './OptimizedImage';
 import { LazyLoad } from './LazyLoad';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface ResponsiveImageProps {
   src: string;

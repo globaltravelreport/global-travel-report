@@ -2,7 +2,7 @@
 import type { Story, StoryValidationResult } from '@/types/Story';
 import { storyRewriteConfig } from '@/src/config/storyRewrite';
 import OpenAI from 'openai';
-import { retryOpenAICall, OpenAIError, OpenAIErrorType } from '@/src/utils/openai-error-handler';
+import { retryOpenAICall, OpenAIError, OpenAIErrorType } from '@/utils/openai-error-handler';
 
 // Initialize OpenAI client with API key from environment variables
 const openai = new OpenAI({

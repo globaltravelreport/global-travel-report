@@ -9,9 +9,9 @@
 
 import { useState, useEffect } from 'react';
 import { Story } from '@/types/Story';
-import { enhanceStoryForSEO } from '@/src/utils/seoEnhancer';
-import { optimizeStoryImageForSeo } from '@/src/utils/imageSeoOptimizer';
-import { generateAllEnhancedSchemas } from '@/src/utils/enhancedSchemaGenerator';
+import { enhanceStoryForSEO } from '@/utils/seoEnhancer';
+import { optimizeStoryImageForSeo } from '@/utils/imageSeoOptimizer';
+import { generateAllEnhancedSchemas } from '@/utils/enhancedSchemaGenerator';
 
 interface SeoOptimizationResult {
   enhancedStory: Story;

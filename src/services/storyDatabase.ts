@@ -3,8 +3,8 @@ import { mockStories } from '@/src/mocks/stories';
 // Note: fs and path are only available on server-side
 // import fs from 'fs';
 // import path from 'path';
-import { getAllStories, saveStory } from '@/src/utils/fileStorage';
-import { getSafeDateString } from '@/src/utils/date-utils';
+import { getAllStories, saveStory } from '@/utils/fileStorage';
+import { getSafeDateString } from '@/utils/date-utils';
 
 /**
  * StoryDatabase using simple file-based storage
@@ -267,7 +267,7 @@ export class StoryDatabase {
     if (storySlug) {
       try {
         // Import the deleteStory function dynamically to avoid circular dependencies
-        const { deleteStory } = await import('@/src/utils/fileStorage');
+        const { deleteStory } = await import('@/utils/fileStorage');
         await deleteStory(storySlug);
         console.log(`Deleted story file: ${storySlug}`);
       } catch (error) {

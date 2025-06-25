@@ -41,7 +41,7 @@ jest.mock('@/components/ui/ErrorBoundary', () => {
 });
 
 // Mock the date-utils functions
-jest.mock('@/src/utils/date-utils', () => {
+jest.mock('@/utils/date-utils', () => {
   return {
     formatDisplayDate: (_date: string | Date) => 'Formatted Date',
     getSafeDateString: (_date: string | Date) => '2023-05-15T12:00:00Z',

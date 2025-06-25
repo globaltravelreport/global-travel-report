@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/accordion';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { StorySearchParams } from '@/types/StorySearchParams';
-import { formatDisplayDate } from '@/src/utils/date-utils';
+import { formatDisplayDate } from '@/utils/date-utils';
 import { cn } from '@/src/lib/utils';
 
 interface SearchFormProps {

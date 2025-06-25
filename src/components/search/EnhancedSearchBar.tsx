@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDebounce } from '@/src/hooks/useDebounce';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 import { Story } from '@/types/Story';
 import Link from 'next/link';
 

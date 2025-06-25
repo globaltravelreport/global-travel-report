@@ -13,7 +13,7 @@ import { RSSFeedService } from './rssFeedService';
 import { OpenAIService } from './openaiService';
 import { UnsplashService } from './unsplashService';
 import { StoryDatabase } from './storyDatabase';
-import { generateSlug } from '@/src/utils/slug';
+import { generateSlug } from '@/utils/slug';
 
 interface ProcessingStats {
   totalProcessed: number;

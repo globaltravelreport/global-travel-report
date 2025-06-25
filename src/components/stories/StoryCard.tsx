@@ -3,15 +3,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { withErrorBoundary } from '@/components/ui/ErrorBoundary';
-import { formatDisplayDate } from '@/src/utils/date-utils';
+import { formatDisplayDate } from '@/utils/date-utils';
 import { StoryCoverImage } from '@/components/ui/OptimizedImage';
 import { ResponsiveImageV2 } from '@/components/ui/ResponsiveImageV2';
-import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
-import { cn } from '@/src/utils/cn';
+import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/utils/url';
+import { cn } from '@/utils/cn';
 import { FreshnessIndicator } from '@/components/ui/FreshnessIndicator';
 import type { Story } from '@/types/Story';
-import { validateAndCorrectImageData, getAlternativeImage } from '@/src/utils/imageManager';
-import { isImageUsedOnPage, markImageAsUsed, getUsedImagesOnPage, setupPageImageTracker } from '@/src/utils/pageImageTracker';
+import { validateAndCorrectImageData, getAlternativeImage } from '@/utils/imageManager';
+import { isImageUsedOnPage, markImageAsUsed, getUsedImagesOnPage, setupPageImageTracker } from '@/utils/pageImageTracker';
 
 // Direct mapping between photographers and their images
 const PHOTOGRAPHER_IMAGES: Record<string, string> = {
@@ -259,7 +259,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
         // Only run this check if we have a story slug
         if (story.slug) {
           // Dynamically import the enhanced image tracker
-          const { getBestImageForStory } = await import('@/src/utils/enhancedImageTracker');
+          const { getBestImageForStory } = await import('@/utils/enhancedImageTracker');
 
           // Get the best image for this story
           const bestImage = getBestImageForStory(

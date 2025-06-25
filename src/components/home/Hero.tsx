@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories } from '@/src/utils/stories';
+import { getAllStories } from '@/utils/stories';
 import { Story } from '@/types/Story';
 
 export default function Hero() {

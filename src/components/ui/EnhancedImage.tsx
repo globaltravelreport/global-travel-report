@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 import { useAccessibility } from '@/components/ui/AccessibilityProvider';
 
 interface EnhancedImageProps {

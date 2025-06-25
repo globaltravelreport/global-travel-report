@@ -2,7 +2,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { logError } from '@/src/utils/error-handler';
+import { logError } from '@/utils/error-handler';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
 interface FallbackProps {

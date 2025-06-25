@@ -2,7 +2,7 @@
 import OpenAI from "openai";
 import type { Story } from "@/types/Story";
 import { v4 as uuidv4 } from "uuid";
-import { createChatCompletion, batchOpenAIRequests } from "@/src/utils/openai-optimizer";
+import { createChatCompletion, batchOpenAIRequests } from "@/utils/openai-optimizer";
 import config from "@/src/config";
 
 /**

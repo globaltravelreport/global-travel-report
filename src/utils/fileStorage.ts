@@ -11,7 +11,7 @@ import { mockStories } from '@/src/mocks/stories';
 // Note: fs and path are only available on server-side
 // import fs from 'fs';
 // import path from 'path';
-import { validateDate, getSafeDateString } from '@/src/utils/date-utils';
+import { validateDate, getSafeDateString } from '@/utils/date-utils';
 
 /**
  * Safely convert a date string to an ISO string

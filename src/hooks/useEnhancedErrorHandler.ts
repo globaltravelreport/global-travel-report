@@ -9,7 +9,7 @@ import {
   handleError, 
   logError, 
   ErrorContext 
-} from '@/src/utils/enhanced-error-handler';
+} from '@/utils/enhanced-error-handler';
 
 /**
  * Error state interface

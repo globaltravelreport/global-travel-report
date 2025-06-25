@@ -3,7 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { validateCsrfToken } from '@/src/utils/csrf';
+import { validateCsrfToken } from '@/utils/csrf';
 
 /**
  * Paths that require CSRF protection

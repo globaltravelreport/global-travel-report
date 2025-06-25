@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { getStoredWebVitalsMetrics, clearStoredWebVitalsMetrics } from '@/src/utils/web-vitals';
-import { getStoredErrorLogs, clearStoredErrorLogs, ErrorSeverity } from '@/src/utils/error-logger';
+import { getStoredWebVitalsMetrics, clearStoredWebVitalsMetrics } from '@/utils/web-vitals';
+import { getStoredErrorLogs, clearStoredErrorLogs, ErrorSeverity } from '@/utils/error-logger';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { OptimizedImageV2, Photographer } from './OptimizedImageV2';
-import { cn } from '@/src/utils/cn';
+import { cn } from '@/utils/cn';
 
 interface ResponsiveImageV2Props {
   src: string;

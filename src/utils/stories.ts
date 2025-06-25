@@ -36,14 +36,14 @@ import { format } from 'date-fns';
 import { Story } from '@/types/Story';
 import { StorySearchParams } from '@/types/StorySearchParams';
 import { mockStories } from '@/src/mocks/stories';
-import { memoize, memoizeMultiArg } from '@/src/utils/memoization';
-import { isArchived } from '@/src/utils/date-utils';
+import { memoize, memoizeMultiArg } from '@/utils/memoization';
+import { isArchived } from '@/utils/date-utils';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import {
   paginate,
   PaginationOptions,
   PaginationResult
-} from '@/src/utils/pagination';
+} from '@/utils/pagination';
 
 /**
  * Format a date for display

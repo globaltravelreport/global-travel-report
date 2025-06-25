@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { reportWebVitals } from '@/src/utils/web-vitals';
+import { reportWebVitals } from '@/utils/web-vitals';
 
 /**
  * Web Vitals Tracker Component

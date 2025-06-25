@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from 'react';
-import { AppError, ErrorType, handleError, logError } from '@/src/utils/error-handler';
+import { AppError, ErrorType, handleError, logError } from '@/utils/error-handler';
 
 /**
  * Interface for error state
