@@ -2,13 +2,11 @@
 
 import { AnalyticsData } from '@/src/lib/analytics';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  BarChart, 
-  Users, 
-  Clock, 
-  ArrowUpRight,
-  ArrowDownRight
-} from 'lucide-react';
+import { BarChart } from 'lucide-react';
+import { Users } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { ArrowDownRight } from 'lucide-react';
 
 interface OverviewStatsProps {
   data: AnalyticsData;

@@ -42,9 +42,9 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
   };
 
   return (
-    <nav
+    <div
       className={cn('fixed bottom-4 right-4 z-50', className)}
-      onKeyDown={handleKeyDown}
+      role="navigation"
       aria-label="Accessibility controls"
     >
       {/* Toggle button */}
@@ -52,6 +52,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
         type="button"
         className="bg-[#19273A] text-[#C9A14A] p-3 rounded-full shadow-lg hover:bg-[#2A3F5F] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
         onClick={toggleMenu}
+        onKeyDown={handleKeyDown}
         aria-expanded={isOpen}
         aria-label="Accessibility options"
       >
@@ -196,7 +197,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </div>
   );
 }
 

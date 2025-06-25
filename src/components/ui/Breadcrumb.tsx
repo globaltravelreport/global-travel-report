@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight, Home } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import { Home } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 
 export interface BreadcrumbItem {

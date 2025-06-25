@@ -4,7 +4,7 @@ const nextConfig = {
   // Enable experimental features
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', 'date-fns'],
+    optimizePackageImports: ['date-fns'],
   },
 
   // Image optimization
@@ -139,10 +139,9 @@ const nextConfig = {
       };
     }
 
-    // Tree shaking for lucide-react
+    // Optimize imports
     config.resolve.alias = {
       ...config.resolve.alias,
-      'lucide-react': 'lucide-react/dist/esm/icons',
     };
 
     return config;
