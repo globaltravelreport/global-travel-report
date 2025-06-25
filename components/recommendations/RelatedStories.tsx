@@ -7,8 +7,8 @@ import { RecommendationService } from '@/src/services/recommendationService';
 import { getAllStories } from '@/src/utils/stories';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ResponsiveImage } from '@/src/components/ui/ResponsiveImage';
-import { LazyLoad } from '@/src/components/ui/LazyLoad';
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage';
+import { LazyLoad } from '@/components/ui/LazyLoad';
 import { cn } from '@/src/utils/cn';
 
 interface RelatedStoriesProps {

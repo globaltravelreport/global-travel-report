@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@/src/components/ui/button';
-import { FacebookIcon } from '@/src/components/ui/icons';
+import { Button } from '@/components/ui/button';
+import { FacebookIcon } from '@/components/ui/icons';
 
 interface FacebookShareButtonProps {
   url: string;

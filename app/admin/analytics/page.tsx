@@ -2,7 +2,7 @@
 
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
 import Link from 'next/link';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 /**
  * Admin analytics page

@@ -1,26 +1,26 @@
 import { notFound } from "next/navigation";
-import { NewsletterSignup } from "@/src/components/ui/NewsletterSignup";
-import { AdSenseInArticle, AdSenseLeaderboard } from '@/src/components/ads/AdSense';
+import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
+import { AdSenseInArticle, AdSenseLeaderboard } from '@/components/ads/AdSense';
 import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { getSafeDateString, validateDate } from '@/src/utils/date-utils';
-import { Badge } from "@/src/components/ui/badge";
-import { Breadcrumb } from "@/src/components/ui/Breadcrumb";
-import { ResponsiveImage } from "@/src/components/ui/ResponsiveImage";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
 import { getStoryBySlug } from "@/src/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/src/utils/meta";
-import { StoryShareSection } from "@/src/components/stories/StoryShareSection";
-import { EnhancedSocialShare } from "@/src/components/social/EnhancedSocialShare";
-import { FacebookMetaTags } from "@/src/components/social/FacebookMetaTags";
-import { EnhancedOpenGraph } from "@/src/components/social/EnhancedOpenGraph";
-import { StructuredData } from "@/src/components/seo/StructuredData";
+import { StoryShareSection } from "@/components/stories/StoryShareSection";
+import { EnhancedSocialShare } from "@/components/social/EnhancedSocialShare";
+import { FacebookMetaTags } from "@/components/social/FacebookMetaTags";
+import { EnhancedOpenGraph } from "@/components/social/EnhancedOpenGraph";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/src/utils/enhancedSchemaGenerator";
-import { ContextualAffiliateRecommendations } from "@/src/components/affiliates/ContextualAffiliateRecommendations";
+import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
 
 // Define the params type for Next.js
 type StoryParams = {

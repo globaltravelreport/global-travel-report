@@ -1,12 +1,12 @@
 import { getAllStories } from '@/src/utils/stories';
-import { StoryCard } from '@/src/components/stories/StoryCard';
-import { CountryDropdown } from '@/src/components/destinations/CountryDropdown';
+import { StoryCard } from '@/components/stories/StoryCard';
+import { CountryDropdown } from '@/components/destinations/CountryDropdown';
 import { isValidCountry } from '@/src/utils/countries';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { FAQSchema } from '@/src/components/seo/FAQSchema';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
-import ClientWorldMap from '@/src/components/maps/ClientWorldMap';
+import { FAQSchema } from '@/components/seo/FAQSchema';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
+import ClientWorldMap from '@/components/maps/ClientWorldMap';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',

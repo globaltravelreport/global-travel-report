@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 function AdminLoginContent() {
   const [username, setUsername] = useState('');

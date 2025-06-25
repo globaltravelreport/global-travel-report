@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { CATEGORIES } from '@/src/config/categories';
-import { CategoriesIndexStructuredData } from '@/src/components/seo/CategoriesIndexStructuredData';
+import { CategoriesIndexStructuredData } from '@/components/seo/CategoriesIndexStructuredData';
 
 export const metadata: Metadata = {
   title: 'Categories - Global Travel Report',

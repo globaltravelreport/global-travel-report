@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { CATEGORIES } from '@/src/config/categories';
 import { RssIcon } from 'lucide-react';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 export const metadata: Metadata = {
   title: 'RSS Feeds - Global Travel Report',

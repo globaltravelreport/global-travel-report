@@ -1,5 +1,5 @@
 import { StoryForm } from "@/components/stories/StoryForm";
-import { ClientSuspense } from "@/src/components/ui/ClientSuspense";
+import { ClientSuspense } from "@/components/ui/ClientSuspense";
 
 export const metadata = {
   title: "Submit Your Story - Global Travel Report",

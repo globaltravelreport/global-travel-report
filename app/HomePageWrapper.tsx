@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { ClientSuspense } from '@/components/ui/ClientSuspense';
 import HomePage from './page';
 
 /**

@@ -1,7 +1,8 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
-import fs from 'fs';
-import path from 'path';
+// Note: fs and path are only available on server-side
+// import fs from 'fs';
+// import path from 'path';
 import { getAllStories, saveStory } from '@/src/utils/fileStorage';
 import { getSafeDateString } from '@/src/utils/date-utils';
 

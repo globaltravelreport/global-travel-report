@@ -3,28 +3,28 @@
 import React, { useState, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, X, Filter, Calendar } from 'lucide-react';
-import { Button } from '@/src/components/ui/button';
-import { Input } from '@/src/components/ui/input';
-import { Label } from '@/src/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/src/components/ui/select';
+} from '@/components/ui/select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/src/components/ui/popover';
+} from '@/components/ui/popover';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/src/components/ui/accordion';
-import { Calendar as CalendarComponent } from '@/src/components/ui/calendar';
+} from '@/components/ui/accordion';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { StorySearchParams } from '@/types/StorySearchParams';
 import { formatDisplayDate } from '@/src/utils/date-utils';
 import { cn } from '@/src/lib/utils';

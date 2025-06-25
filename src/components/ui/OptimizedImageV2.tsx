@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/src/utils/cn';
-import { useAccessibility } from '@/src/components/ui/AccessibilityProvider';
+import { useAccessibility } from '@/components/ui/AccessibilityProvider';
 
 export interface Photographer {
   name: string;

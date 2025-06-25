@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
-import { SafeSearchParamsProvider } from "@/src/components/ui/SearchParamsProvider";
+import { SafeSearchParamsProvider } from "@/components/ui/SearchParamsProvider";
 
 export const metadata: Metadata = {
   title: "404 - Page Not Found | Global Travel Report",

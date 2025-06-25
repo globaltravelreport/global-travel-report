@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { EnhancedSocialShare } from '@/src/components/social/EnhancedSocialShare';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/src/components/ui/card';
+import { EnhancedSocialShare } from '@/components/social/EnhancedSocialShare';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Story } from '@/types/Story';
-import { Separator } from '@/src/components/ui/separator';
-import { Button } from '@/src/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { Copy, Rss, Mail } from 'lucide-react';
 import { toast } from 'sonner';
-import { FacebookShareButton } from '@/src/components/social/FacebookShareButton';
+import { FacebookShareButton } from '@/components/social/FacebookShareButton';
 
 interface StoryShareSectionProps {
   /**

@@ -80,7 +80,12 @@ NEXT_PUBLIC_SITE_DESCRIPTION="Travel stories, guides, and insights from around t
 # RSS Feeds
 RSS_FEED_URLS=https://www.lonelyplanet.com/blog/feed/,https://www.nationalgeographic.com/travel/feeds/travel-rss/,https://www.travelandleisure.com/rss/all.xml
 
-# Email Configuration (for contact form and newsletter)
+# MailerLite Configuration (for newsletter)
+MAILERLITE_API_KEY=your_mailerlite_api_key_here
+MAILERLITE_API_URL=https://connect.mailerlite.com/api
+# MAILERLITE_DEFAULT_GROUP_ID=your_group_id_here  # Optional: specific group ID
+
+# Email Configuration (for contact form)
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
 EMAIL_USER=your_email_user

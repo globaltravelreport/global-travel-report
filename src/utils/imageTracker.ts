@@ -7,8 +7,13 @@
  * 3. Images are context-relevant to the story content
  */
 
-import fs from 'fs';
-import path from 'path';
+// Only import these modules on the server side
+let fs: any, path: any;
+
+if (typeof window === 'undefined') {
+  fs = require('fs');
+  path = require('path');
+}
 import matter from 'gray-matter';
 
 // Define interfaces
@@ -31,10 +36,10 @@ interface ImageTrackerData {
 }
 
 // Define the path to the image tracker data file
-const IMAGE_TRACKER_FILE = path.join(process.cwd(), 'data/imageTracker.json');
+const IMAGE_TRACKER_FILE = typeof window === 'undefined' ? path?.join(process.cwd(), 'data/imageTracker.json') : '';
 
 // Define the directory where story files are stored
-const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles');
+const ARTICLES_DIRECTORY = typeof window === 'undefined' ? path?.join(process.cwd(), 'content/articles') : '';
 
 // Define the category-specific photographers with their images
 const CATEGORY_PHOTOGRAPHERS: Record<string, Array<{ name: string, url: string, imageUrl: string }>> = {
@@ -81,14 +86,16 @@ const CATEGORY_PHOTOGRAPHERS: Record<string, Array<{ name: string, url: string, 
  */
 export function initializeImageTracker(): ImageTrackerData {
   try {
-    // Create the data directory if it doesn't exist
-    const dataDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+    // Create the data directory if it doesn't exist (server-side only)
+    if (typeof window === 'undefined' && path && fs) {
+      const dataDir = path.join(process.cwd(), 'data');
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
     }
 
-    // Check if the tracker file exists
-    if (fs.existsSync(IMAGE_TRACKER_FILE)) {
+    // Check if the tracker file exists (server-side only)
+    if (typeof window === 'undefined' && fs && fs.existsSync(IMAGE_TRACKER_FILE)) {
       // Load existing data
       const data = JSON.parse(fs.readFileSync(IMAGE_TRACKER_FILE, 'utf8'));
       return data;
@@ -119,8 +126,10 @@ export function initializeImageTracker(): ImageTrackerData {
       }
     }
 
-    // Save the new tracker
-    fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
+    // Save the new tracker (server-side only)
+    if (typeof window === 'undefined' && fs) {
+      fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
+    }
     return newTracker;
   } catch (error) {
     console.error('Error initializing image tracker:', error);
@@ -174,8 +183,10 @@ export function getImageForStory(storySlug: string, category: string): { imageUr
           tracker.usedImageUrls.push(imageUrl);
         }
         
-        // Save the updated tracker
-        fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+        // Save the updated tracker (server-side only)
+        if (typeof window === 'undefined' && fs) {
+          fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+        }
         
         return {
           imageUrl,
@@ -207,8 +218,10 @@ export function getImageForStory(storySlug: string, category: string): { imageUr
     // Mark this image as used for this story
     tracker.images[leastUsedImage].usedInStories.push(storySlug);
     
-    // Save the updated tracker
-    fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+    // Save the updated tracker (server-side only)
+    if (typeof window === 'undefined' && fs) {
+      fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+    }
     
     return {
       imageUrl: leastUsedImage,

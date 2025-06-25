@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, Search } from 'lucide-react';
 import Image from 'next/image';
 import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
-import { EnhancedSearchBar } from '@/src/components/search/EnhancedSearchBar';
+import { EnhancedSearchBar } from '@/components/search/EnhancedSearchBar';
 import { Story } from '@/types/Story';
 
 const countries = [

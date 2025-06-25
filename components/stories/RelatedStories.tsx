@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryCard } from '@/src/components/stories/StoryCard';
+import { StoryCard } from '@/components/stories/StoryCard';
 import type { Story } from '@/types/Story';
 
 interface RelatedStoriesProps {

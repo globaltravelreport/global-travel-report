@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ClientSuspense } from '@/src/components/ui/ClientSuspense';
+import { ClientSuspense } from '@/components/ui/ClientSuspense';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Global Travel Report',

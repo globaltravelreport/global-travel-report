@@ -1,11 +1,11 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { getAllStories, searchStories } from '@/src/utils/stories';
-import { SearchForm } from '@/src/components/search/SearchForm';
-import { StoryCard } from '@/src/components/stories/StoryCard';
-import { Pagination } from '@/src/components/ui/Pagination';
+import { SearchForm } from '@/components/search/SearchForm';
+import { StoryCard } from '@/components/stories/StoryCard';
+import { Pagination } from '@/components/ui/Pagination';
 import { mockCategories, mockCountries, mockTags } from '@/src/mocks/stories';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 // Generate metadata for the search page
 export const metadata: Metadata = {

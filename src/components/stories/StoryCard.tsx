@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { withErrorBoundary } from '@/src/components/ui/ErrorBoundary';
+import { withErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { formatDisplayDate } from '@/src/utils/date-utils';
-import { StoryCoverImage } from '@/src/components/ui/OptimizedImage';
-import { ResponsiveImageV2 } from '@/src/components/ui/ResponsiveImageV2';
+import { StoryCoverImage } from '@/components/ui/OptimizedImage';
+import { ResponsiveImageV2 } from '@/components/ui/ResponsiveImageV2';
 import { getStoryUrl, getCategoryUrl, getCountryUrl, getTagUrl } from '@/src/utils/url';
 import { cn } from '@/src/utils/cn';
-import { FreshnessIndicator } from '@/src/components/ui/FreshnessIndicator';
+import { FreshnessIndicator } from '@/components/ui/FreshnessIndicator';
 import type { Story } from '@/types/Story';
 import { validateAndCorrectImageData, getAlternativeImage } from '@/src/utils/imageManager';
 import { isImageUsedOnPage, markImageAsUsed, getUsedImagesOnPage, setupPageImageTracker } from '@/src/utils/pageImageTracker';

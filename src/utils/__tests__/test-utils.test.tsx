@@ -16,7 +16,7 @@ import {
 } from '../test-utils';
 
 // Mock the ThemeProvider and Toaster components
-jest.mock('@/src/components/theme-provider', () => ({
+jest.mock('@/components/theme-provider', () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="theme-provider">{children}</div>,
 }));
 

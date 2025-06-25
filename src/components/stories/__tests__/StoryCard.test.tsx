@@ -11,7 +11,7 @@ jest.mock('next/link', () => {
 });
 
 // Mock the ResponsiveImage component
-jest.mock('@/src/components/ui/ResponsiveImage', () => {
+jest.mock('@/components/ui/ResponsiveImage', () => {
   return {
     __esModule: true,
     // eslint-disable-next-line @next/next/no-img-element
@@ -22,7 +22,7 @@ jest.mock('@/src/components/ui/ResponsiveImage', () => {
 });
 
 // Mock the FreshnessIndicator component
-jest.mock('@/src/components/ui/FreshnessIndicator', () => {
+jest.mock('@/components/ui/FreshnessIndicator', () => {
   return {
     __esModule: true,
     default: ({ publishedDate }: { publishedDate: string }) => {
@@ -32,7 +32,7 @@ jest.mock('@/src/components/ui/FreshnessIndicator', () => {
 });
 
 // Mock the withErrorBoundary HOC
-jest.mock('@/src/components/ui/ErrorBoundary', () => {
+jest.mock('@/components/ui/ErrorBoundary', () => {
   return {
     withErrorBoundary: (Component: React.ComponentType, _options: unknown) => {
       return Component;

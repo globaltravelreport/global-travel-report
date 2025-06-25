@@ -8,9 +8,14 @@
  * 4. No duplicate images are used across stories
  */
 
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// Only import these modules on the server side
+let fs: any, path: any, matter: any;
+
+if (typeof window === 'undefined') {
+  fs = require('fs');
+  path = require('path');
+  matter = require('gray-matter');
+}
 import { validateAndCorrectImageData } from './imageManager';
 
 // Define interfaces
@@ -35,10 +40,10 @@ interface ImageTrackerData {
 }
 
 // Define the path to the image tracker data file
-const IMAGE_TRACKER_FILE = path.join(process.cwd(), 'data/enhancedImageTracker.json');
+const IMAGE_TRACKER_FILE = typeof window === 'undefined' ? path?.join(process.cwd(), 'data/enhancedImageTracker.json') : '';
 
 // Define the directory where story files are stored
-const ARTICLES_DIRECTORY = path.join(process.cwd(), 'content/articles');
+const ARTICLES_DIRECTORY = typeof window === 'undefined' ? path?.join(process.cwd(), 'content/articles') : '';
 
 // Define the expanded category-specific photographers with their images and keywords
 const CATEGORY_IMAGES: Record<string, Array<{
@@ -121,14 +126,16 @@ const CATEGORY_IMAGES: Record<string, Array<{
  */
 export function initializeEnhancedImageTracker(): ImageTrackerData {
   try {
-    // Create the data directory if it doesn't exist
-    const dataDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+    // Create the data directory if it doesn't exist (server-side only)
+    if (typeof window === 'undefined' && path && fs) {
+      const dataDir = path.join(process.cwd(), 'data');
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
     }
 
-    // Check if the tracker file exists
-    if (fs.existsSync(IMAGE_TRACKER_FILE)) {
+    // Check if the tracker file exists (server-side only)
+    if (typeof window === 'undefined' && fs && fs.existsSync(IMAGE_TRACKER_FILE)) {
       // Load existing data
       const data = JSON.parse(fs.readFileSync(IMAGE_TRACKER_FILE, 'utf8'));
       return data;
@@ -161,8 +168,10 @@ export function initializeEnhancedImageTracker(): ImageTrackerData {
       }
     }
 
-    // Save the new tracker
-    fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
+    // Save the new tracker (server-side only)
+    if (typeof window === 'undefined' && fs) {
+      fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
+    }
     return newTracker;
   } catch (error) {
     console.error('Error initializing enhanced image tracker:', error);
@@ -291,8 +300,10 @@ export function getBestImageForStory(
     // Map this story to the selected image
     tracker.storyToImage[storySlug] = imageUrl;
 
-    // Save the updated tracker
-    fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+    // Save the updated tracker (server-side only)
+    if (typeof window === 'undefined' && fs) {
+      fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
+    }
 
     return {
       imageUrl,

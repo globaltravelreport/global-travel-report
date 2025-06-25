@@ -1,5 +1,5 @@
 import React from 'react';
-import { StructuredData } from '@/src/components/seo/StructuredData';
+import { StructuredData } from '@/components/seo/StructuredData';
 import { Category } from '@/src/config/categories';
 
 interface CategoryStructuredDataProps {

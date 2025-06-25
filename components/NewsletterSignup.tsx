@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from "react";
@@ -7,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/src/utils/cn";
-import { Mail, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, CheckCircle2, AlertCircle, User } from "lucide-react";
 
 interface NewsletterSignupProps {
   className?: string;
@@ -24,31 +25,64 @@ export const NewsletterSignup = ({
 }: NewsletterSignupProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [frequency, setFrequency] = useState('weekly');
-  const [emailError, setEmailError] = useState('');
+  const [honeypot, setHoneypot] = useState(''); // Honeypot field
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const { toast } = useToast();
 
-  // Validate email
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(email);
+  // Validate form fields
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
 
-    if (!isValid) {
-      setEmailError('Please enter a valid email address');
-    } else {
-      setEmailError('');
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = 'Please enter a valid email address';
     }
 
-    return isValid;
+    // First name validation
+    if (!firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    } else if (firstName.trim().length < 2) {
+      newErrors.firstName = 'First name must be at least 2 characters';
+    }
+
+    // Last name validation
+    if (!lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    } else if (lastName.trim().length < 2) {
+      newErrors.lastName = 'Last name must be at least 2 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Handle email change
+  // Handle input changes
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (emailError) {
-      validateEmail(e.target.value);
+    if (errors.email) {
+      setErrors(prev => ({ ...prev, email: '' }));
+    }
+  };
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+    if (errors.firstName) {
+      setErrors(prev => ({ ...prev, firstName: '' }));
+    }
+  };
+
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
+    if (errors.lastName) {
+      setErrors(prev => ({ ...prev, lastName: '' }));
     }
   };
 
@@ -56,8 +90,8 @@ export const NewsletterSignup = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Validate email before submission
-    if (!validateEmail(email)) {
+    // Validate form before submission
+    if (!validateForm()) {
       return;
     }
 
@@ -71,13 +105,27 @@ export const NewsletterSignup = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
+          email: email.trim(),
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
           frequency,
+          honeypot, // Include honeypot field
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to subscribe');
+        if (response.status === 409) {
+          toast({
+            title: 'Already subscribed',
+            description: 'This email is already subscribed to our newsletter.',
+            icon: <AlertCircle className="h-5 w-5 text-orange-500" />
+          });
+        } else {
+          throw new Error(data.error || 'Failed to subscribe');
+        }
+        return;
       }
 
       // Show success state
@@ -85,16 +133,20 @@ export const NewsletterSignup = ({
 
       toast({
         title: 'Successfully subscribed!',
-        description: `You'll receive our ${frequency} newsletter at ${email}`,
+        description: `Welcome ${firstName}! Please check your email for a confirmation link.`,
         icon: <CheckCircle2 className="h-5 w-5 text-green-500" />
       });
 
       // Reset form
       setEmail('');
+      setFirstName('');
+      setLastName('');
+      setHoneypot('');
       if (formRef.current) {
         formRef.current.reset();
       }
     } catch (error) {
+      console.error('Newsletter subscription error:', error);
       toast({
         title: 'Subscription failed',
         description: 'There was a problem subscribing to the newsletter. Please try again.',
@@ -109,31 +161,75 @@ export const NewsletterSignup = ({
   if (variant === 'inline') {
     return (
       <div className={cn("bg-gray-50 p-6 rounded-lg", className)} role="region" aria-label="Newsletter subscription">
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col gap-4">
+          <div>
             <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
             <p className="text-sm text-gray-600">{description}</p>
           </div>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 flex-1">
-            <div className="flex-1 relative">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+            {/* Honeypot field - hidden from users */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <Input
+                  type="text"
+                  name="firstName"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                  placeholder="First name"
+                  className={cn(errors.firstName && "border-red-500 focus:ring-red-500")}
+                  aria-invalid={!!errors.firstName}
+                  required
+                />
+                {errors.firstName && (
+                  <p className="text-xs text-red-500 mt-1">{errors.firstName}</p>
+                )}
+              </div>
+
+              <div>
+                <Input
+                  type="text"
+                  name="lastName"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                  placeholder="Last name"
+                  className={cn(errors.lastName && "border-red-500 focus:ring-red-500")}
+                  aria-invalid={!!errors.lastName}
+                  required
+                />
+                {errors.lastName && (
+                  <p className="text-xs text-red-500 mt-1">{errors.lastName}</p>
+                )}
+              </div>
+            </div>
+
+            <div>
               <Input
                 type="email"
                 name="email"
                 value={email}
                 onChange={handleEmailChange}
                 placeholder="Enter your email"
-                className={cn(emailError && "border-red-500 focus:ring-red-500")}
-                aria-invalid={!!emailError}
-                aria-describedby={emailError ? "email-error" : undefined}
+                className={cn(errors.email && "border-red-500 focus:ring-red-500")}
+                aria-invalid={!!errors.email}
                 required
               />
-              {emailError && (
-                <p id="email-error" className="text-xs text-red-500 mt-1 absolute">{emailError}</p>
+              {errors.email && (
+                <p className="text-xs text-red-500 mt-1">{errors.email}</p>
               )}
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap">
+            <Button type="submit" disabled={isSubmitting} className="w-full">
               {isSubmitting ? (
                 <>
                   <span className="animate-spin mr-2">⟳</span>
@@ -149,7 +245,7 @@ export const NewsletterSignup = ({
         {isSuccess && (
           <div className="mt-4 p-3 bg-green-50 text-green-700 rounded-md flex items-center gap-2">
             <CheckCircle2 className="h-5 w-5" />
-            <span>Thank you for subscribing!</span>
+            <span>Thank you for subscribing! Please check your email for confirmation.</span>
           </div>
         )}
       </div>
@@ -159,25 +255,50 @@ export const NewsletterSignup = ({
   if (variant === 'minimal') {
     return (
       <div className={cn("", className)} role="region" aria-label="Newsletter subscription">
-        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-          <div className="flex-1 relative">
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+          {/* Honeypot field - hidden from users */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          <div className="grid grid-cols-2 gap-2">
             <Input
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Enter your email"
-              className={cn(emailError && "border-red-500 focus:ring-red-500")}
-              aria-invalid={!!emailError}
-              aria-describedby={emailError ? "email-error-minimal" : undefined}
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={handleFirstNameChange}
+              placeholder="First name"
+              className={cn("text-sm", errors.firstName && "border-red-500")}
               required
             />
-            {emailError && (
-              <p id="email-error-minimal" className="text-xs text-red-500 mt-1 absolute">{emailError}</p>
-            )}
+            <Input
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={handleLastNameChange}
+              placeholder="Last name"
+              className={cn("text-sm", errors.lastName && "border-red-500")}
+              required
+            />
           </div>
 
-          <Button type="submit" disabled={isSubmitting} size="sm">
+          <Input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            className={cn("text-sm", errors.email && "border-red-500")}
+            required
+          />
+
+          <Button type="submit" disabled={isSubmitting} size="sm" className="w-full">
             {isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </Button>
         </form>
@@ -185,7 +306,7 @@ export const NewsletterSignup = ({
         {isSuccess && (
           <div className="mt-2 text-xs text-green-600 flex items-center gap-1">
             <CheckCircle2 className="h-3 w-3" />
-            <span>Subscribed!</span>
+            <span>Subscribed! Check your email.</span>
           </div>
         )}
       </div>
@@ -265,6 +386,71 @@ export const NewsletterSignup = ({
 
           {/* Form */}
           <form ref={formRef} onSubmit={handleSubmit} className="md:col-span-3 bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 shadow-lg">
+            {/* Honeypot field - hidden from users */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div>
+                <Label htmlFor="firstName" className="block text-sm font-medium mb-2 text-[#C9A14A]">
+                  First Name
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="firstName"
+                    type="text"
+                    name="firstName"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    placeholder="John"
+                    className={cn(
+                      "bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#C9A14A] focus:ring-[#C9A14A] pl-10",
+                      errors.firstName && "border-red-400 focus:border-red-400 focus:ring-red-400"
+                    )}
+                    aria-invalid={!!errors.firstName}
+                    required
+                  />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+                {errors.firstName && (
+                  <p className="text-xs text-red-400 mt-1">{errors.firstName}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="lastName" className="block text-sm font-medium mb-2 text-[#C9A14A]">
+                  Last Name
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="lastName"
+                    type="text"
+                    name="lastName"
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    placeholder="Doe"
+                    className={cn(
+                      "bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#C9A14A] focus:ring-[#C9A14A] pl-10",
+                      errors.lastName && "border-red-400 focus:border-red-400 focus:ring-red-400"
+                    )}
+                    aria-invalid={!!errors.lastName}
+                    required
+                  />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+                {errors.lastName && (
+                  <p className="text-xs text-red-400 mt-1">{errors.lastName}</p>
+                )}
+              </div>
+            </div>
+
             <div className="mb-6 relative">
               <Label htmlFor="email" className="block text-sm font-medium mb-2 text-[#C9A14A]">
                 Email address
@@ -279,16 +465,15 @@ export const NewsletterSignup = ({
                   placeholder="you@example.com"
                   className={cn(
                     "bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#C9A14A] focus:ring-[#C9A14A] pl-10",
-                    emailError && "border-red-400 focus:border-red-400 focus:ring-red-400"
+                    errors.email && "border-red-400 focus:border-red-400 focus:ring-red-400"
                   )}
-                  aria-invalid={!!emailError}
-                  aria-describedby={emailError ? "email-error-default" : undefined}
+                  aria-invalid={!!errors.email}
                   required
                 />
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
-              {emailError && (
-                <p id="email-error-default" className="text-xs text-red-400 mt-1">{emailError}</p>
+              {errors.email && (
+                <p className="text-xs text-red-400 mt-1">{errors.email}</p>
               )}
             </div>
 
@@ -369,7 +554,7 @@ export const NewsletterSignup = ({
             </Button>
 
             <p className="text-xs text-gray-400 mt-4 text-center">
-              We respect your privacy. Unsubscribe at any time.
+              We respect your privacy. Unsubscribe at any time. By subscribing, you agree to receive our newsletter.
             </p>
           </form>
         </div>
@@ -379,7 +564,7 @@ export const NewsletterSignup = ({
             <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-green-400" />
             <div>
               <h3 className="font-medium text-green-300 mb-1">Successfully Subscribed!</h3>
-              <p>Thank you for subscribing! You'll receive our {frequency} newsletter at <span className="text-white font-medium">{email}</span>.</p>
+              <p>Thank you {firstName} for subscribing! You'll receive our {frequency} newsletter at <span className="text-white font-medium">{email}</span>. Please check your email for a confirmation link.</p>
             </div>
           </div>
         )}

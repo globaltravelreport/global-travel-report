@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { SkipToContent } from '@/src/components/ui/SkipToContent';
+import { SkipToContent } from '@/components/ui/SkipToContent';
 
 interface AccessibilityContextType {
   /**

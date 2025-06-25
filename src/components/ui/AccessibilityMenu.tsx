@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Accessibility, X, ZoomIn, ZoomOut, RotateCcw, Eye, EyeOff, MousePointer } from 'lucide-react';
-import { useAccessibility } from '@/src/components/ui/AccessibilityProvider';
+import { useAccessibility } from '@/components/ui/AccessibilityProvider';
 import { cn } from '@/src/utils/cn';
 
 interface AccessibilityMenuProps {

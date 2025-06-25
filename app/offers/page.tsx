@@ -1,9 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { AdSenseLeaderboard } from '@/src/components/ads/AdSense';
+import { AdSenseLeaderboard } from '@/components/ads/AdSense';
 import { AffiliateService } from '@/src/services/affiliateService';
-import { AffiliateSection } from '@/src/components/affiliates/AffiliateSection';
-import { SafeSearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { AffiliateSection } from '@/components/affiliates/AffiliateSection';
+import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 // Generate metadata for the offers page
 export const metadata: Metadata = {

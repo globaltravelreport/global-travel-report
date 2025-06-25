@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { OptimizedImage } from '@/src/components/ui/OptimizedImage';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 
 const Hero = () => {
   const { scrollY } = useScroll();

@@ -1,192 +1,184 @@
-/** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable TypeScript checking during build to ensure code quality
-  typescript: {
-    // We've fixed the TypeScript errors, so we can enable checking
-    ignoreBuildErrors: false,
+  // Enable experimental features
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', 'date-fns'],
   },
-  // Temporarily disable ESLint during build to avoid blocking deployment
-  eslint: {
-    // We'll fix the ESLint errors separately
-    ignoreDuringBuilds: true,
+
+  // Image optimization
+  images: {
+    domains: [
+      'images.unsplash.com',
+      'unsplash.com',
+      'source.unsplash.com',
+      'picsum.photos',
+      'via.placeholder.com',
+    ],
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
-  // Redirects
-  async redirects() {
-    return [
-      {
-        source: '/resources',
-        destination: '/offers',
-        permanent: true,
-      },
-      // Redirect HTTP to HTTPS
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'header',
-            key: 'x-forwarded-proto',
-            value: 'http',
-          },
-        ],
-        permanent: true,
-        destination: 'https://:host/:path*',
-      },
-    ];
-  },
+
   // Security headers
   async headers() {
     return [
       {
-        // Apply these headers to all routes
-        source: '/:path*',
+        source: '/(.*)',
         headers: [
           {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
+            key: 'X-Frame-Options',
+            value: 'DENY',
           },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
           {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
-        ],
-      },
-      {
-        // Apply cache headers to static assets - images
-        source: '/:path*.(jpg|jpeg|gif|png|webp|svg|ico|avif)',
-        headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: blob: https://images.unsplash.com https://unsplash.com https://source.unsplash.com https://picsum.photos https://i.ytimg.com/vi/NVg0GfEtGQA/maxresdefault.jpg https://www.google-analytics.com",
+              "font-src 'self' https://fonts.gstatic.com",
+              "connect-src 'self' https://api.unsplash.com https://www.google-analytics.com https://vitals.vercel-insights.com",
+              "frame-src 'self' https://www.google.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests",
+            ].join('; '),
           },
         ],
       },
       {
-        // Apply cache headers to static assets - fonts and scripts
-        source: '/:path*.(css|js|woff|woff2)',
+        source: '/api/(.*)',
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.NODE_ENV === 'production' 
+              ? 'https://globaltravelreport.com' 
+              : '*',
           },
-        ],
-      },
-      {
-        // Apply cache headers to Next.js optimized images
-        source: '/_next/image',
-        headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization, X-Requested-With',
+          },
+          {
+            key: 'Access-Control-Max-Age',
+            value: '86400',
           },
         ],
       },
     ];
   },
-  reactStrictMode: true,
-  // Enhanced image configuration for performance
-  images: {
-    domains: [], // Clear domains for security
-    remotePatterns: [
-      {
-        protocol: 'https', // Only allow HTTPS
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'source.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'plus.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.pexels.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.cloudfront.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.imgix.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.pixabay.com',
-      },
-    ],
-    // Enable caching for images to improve performance
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days for better caching
-    // Enable image optimization
-    unoptimized: false,
-    // Set default image formats - prioritize WebP and AVIF for better compression
-    formats: ['image/webp', 'image/avif'],
-    // Optimize device sizes for responsive images
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Add Content Security Policy for images
-    dangerouslyAllowSVG: false,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Use custom loader for third-party image services
-    loader: 'custom',
-    loaderFile: './src/utils/imageLoader.ts',
-  },
-  // Enhance security in webpack configuration
-  webpack: (config) => {
+
+  // Compression and optimization
+  compress: true,
+  poweredByHeader: false,
+  
+  // Bundle analyzer (only in development)
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config, { isServer }) => {
+      if (!isServer) {
+        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+            reportFilename: '../bundle-analyzer-report.html',
+          })
+        );
+      }
+      return config;
+    },
+  }),
+
+  // Webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Production optimizations
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              enforce: true,
+            },
+          },
+        },
+      };
+    }
+
+    // Tree shaking for lucide-react
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, 'src'),
-    };
-
-    // Ignore problematic modules
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      path: false,
-      http: false,
-      https: false,
-      timers: false,
-      string_decoder: false,
-      crypto: false,
-      stream: false,
-      os: false,
-      zlib: false,
-    };
-
-    // Ignore specific modules that cause issues
-    config.module = {
-      ...config.module,
-      exprContextCritical: false,
-      rules: [
-        ...config.module.rules,
-        {
-          test: /node_modules[\\\/](rss-parser|xml2js|sax)/,
-          use: 'null-loader',
-        },
-      ],
+      'lucide-react': 'lucide-react/dist/esm/icons',
     };
 
     return config;
   },
-  // Exclude problematic API routes from the build
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  // Output directory for the build
-  output: 'standalone',
-  // Disable powered by header for security
-  poweredByHeader: false,
-}
 
-module.exports = withBundleAnalyzer(nextConfig)
+  // Environment variables
+  env: {
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com',
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
+  },
+
+  // Redirects for SEO
+  async redirects() {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/index',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
+
+  // Output configuration for static export if needed
+  output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
+
+  // Logging
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+};
+
+module.exports = nextConfig;

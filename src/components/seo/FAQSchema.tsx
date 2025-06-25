@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/src/components/ui/accordion';
-import { StructuredData } from '@/src/components/seo/StructuredData';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { StructuredData } from '@/components/seo/StructuredData';
 
 export interface FAQItem {
   /**

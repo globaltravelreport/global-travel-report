@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { StoryCard } from '@/src/components/stories/StoryCard';
+import { StoryCard } from '@/components/stories/StoryCard';
 import { Story } from '@/types/Story';
 import { Category } from '@/src/config/categories';
 

@@ -11,12 +11,12 @@ import {
   Check
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
-import { Button } from '@/src/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/src/components/ui/popover';
+} from '@/components/ui/popover';
 
 interface SocialShareProps {
   /**

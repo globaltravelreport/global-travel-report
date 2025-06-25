@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from 'react';
-import { useGlobalError } from '@/src/components/ui/GlobalErrorHandler';
+import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
 import { ErrorType } from '@/src/utils/error-handler';
 
 /**

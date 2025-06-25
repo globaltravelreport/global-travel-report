@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { differenceInDays, differenceInMonths, format, parseISO } from 'date-fns';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/src/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/src/utils/cn';
 import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
 
