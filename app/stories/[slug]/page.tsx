@@ -1,3 +1,4 @@
+
 import { notFound } from "next/navigation";
 import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
 import { AdSenseInArticle, AdSenseLeaderboard } from '@/components/ads/AdSense';
@@ -30,14 +31,15 @@ type StoryParams = {
 // Set revalidation time to ensure content is fresh
 export const revalidate = 3600; // Revalidate every hour
 
-export async function generateMetadata({ params }: { params: StoryParams }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<StoryParams> }): Promise<Metadata> {
+  const { slug } = await params;
   // Try to get the story by slug
-  let story = await getStoryBySlug(params.slug);
+  let story = await getStoryBySlug(slug);
 
   // If not found, try to get from mock stories as a fallback
   if (!story) {
     const { mockStories } = await import('@/src/mocks/stories');
-    story = mockStories.find(s => s.slug === params.slug) || null;
+    story = mockStories.find(s => s.slug === slug) || null;
   }
 
   if (!story) {
@@ -129,15 +131,16 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   };
 }
 
-export default async function StoryPage({ params }: { params: StoryParams }) {
+export default async function StoryPage({ params }: { params: Promise<StoryParams> }) {
   try {
+    const { slug } = await params;
     // Try to get the story by slug
-    let story = await getStoryBySlug(params.slug);
+    let story = await getStoryBySlug(slug);
 
     // If not found, try to get from mock stories as a fallback
     if (!story) {
       const { mockStories } = await import('@/src/mocks/stories');
-      story = mockStories.find(s => s.slug === params.slug) || null;
+      story = mockStories.find(s => s.slug === slug) || null;
     }
 
     if (!story) {
@@ -343,8 +346,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 title="Travel Recommendations"
               />
             )}
-
-
 
             <AdSenseInArticle />
           </div>

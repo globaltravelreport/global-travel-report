@@ -28,6 +28,7 @@ export enum ErrorSeverity {
   DEBUG = 'debug',
   INFO = 'info',
   WARNING = 'warning',
+  MEDIUM = 'medium',
   ERROR = 'error',
   CRITICAL = 'critical',
   FATAL = 'fatal',
@@ -468,3 +469,6 @@ const enhancedErrorHandler = {
 };
 
 export default enhancedErrorHandler;
+
+// Export AppError as both named and default for compatibility
+export { EnhancedAppError as AppError };

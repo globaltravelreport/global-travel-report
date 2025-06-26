@@ -46,7 +46,7 @@ export function createApiResponse<T = any>(
     success: !isError,
     timestamp: new Date().toISOString(),
     ...(requestId && { requestId }),
-    ...(isError ? data : { data }),
+    ...(isError ? (data as any) : { data }),
   };
 
   // Set default headers

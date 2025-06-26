@@ -7,10 +7,9 @@
  */
 
 import { Story } from '@/types/Story';
+import fs from 'fs';
+import path from 'path';
 import { mockStories } from '@/src/mocks/stories';
-// Note: fs and path are only available on server-side
-// import fs from 'fs';
-// import path from 'path';
 import { validateDate, getSafeDateString } from '@/utils/date-utils';
 
 /**

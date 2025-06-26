@@ -1,49 +1,64 @@
+
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getAllStories } from '@/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { getStoriesByCountry, getAllStories } from '@/utils/stories';
-import { Story } from '@/types/Story';
-import type { Metadata } from 'next';
+import { mockCountries } from '@/src/mocks/stories';
 
-// Define the params type for Next.js 15
-type CountryParams = {
+interface CountryParams {
   country: string;
-};
+}
 
-export async function generateMetadata({ params }: { params: CountryParams }): Promise<Metadata> {
-  const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
+interface CountryPageProps {
+  params: Promise<CountryParams>;
+}
+
+export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
+  const { country } = await params;
+  const countryData = mockCountries.find(c => c.slug === country);
+  
+  if (!countryData) {
+    return {
+      title: 'Country Not Found',
+    };
+  }
 
   return {
-    title: `${country} Travel Stories - Global Travel Report`,
-    description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
-    openGraph: {
-      title: `${country} Travel Stories - Global Travel Report`,
-      description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
-      type: 'website',
-      locale: 'en_US',
-      siteName: 'Global Travel Report',
-    },
+    title: `${countryData.name} Travel Stories | Global Travel Report`,
+    description: `Explore travel stories and experiences from ${countryData.name}.`,
   };
 }
 
-export default async function CountryPage({ params }: { params: CountryParams }) {
-  const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
-  const allStories = await getAllStories();
-  const storiesResult = getStoriesByCountry(allStories, country);
-  const stories = storiesResult.data;
-
-  if (stories.length === 0) {
+export default async function CountryPage({ params }: CountryPageProps) {
+  const { country } = await params;
+  const countryData = mockCountries.find(c => c.slug === country);
+  
+  if (!countryData) {
     notFound();
   }
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">Travel Stories from {country}</h1>
+  const allStories = await getAllStories();
+  const stories = allStories.filter(story => story.country === countryData.name);
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {stories.map((story: Story) => (
-          <StoryCard key={story.id} story={story} />
-        ))}
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-4">Travel Stories from {countryData.name}</h1>
+        <p className="text-lg text-gray-600">Discover amazing travel experiences and stories from {countryData.name}.</p>
       </div>
+      
+      {stories.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stories.map(story => (
+            <StoryCard key={story.id} story={story} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-lg text-gray-600">No stories found for {countryData.name} yet.</p>
+          <p className="mt-2 text-gray-500">Check back soon for new content!</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Metadata } from 'next';
 import { getAllStories, searchStories } from '@/utils/stories';
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 // Define search page props
 interface SearchPageProps {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     category?: string;
     country?: string;
@@ -27,7 +28,7 @@ interface SearchPageProps {
     editors_pick?: string;
     page?: string;
     limit?: string;
-  };
+  }>;
 }
 
 // Import the StorySearchParams interface
@@ -37,7 +38,7 @@ import { StorySearchParams } from '@/types/StorySearchParams';
 const DEFAULT_PAGE_SIZE = 12;
 
 // Server component that will be wrapped in a client component with Suspense
-async function SearchPageContent({ searchParams }: SearchPageProps) {
+async function SearchPageContent({ searchParams }: { searchParams: Awaited<SearchPageProps['searchParams']> }) {
   // Parse search parameters
   const query = searchParams.q || '';
   const category = searchParams.category || '';
@@ -158,10 +159,11 @@ async function SearchPageContent({ searchParams }: SearchPageProps) {
 }
 
 // Export a client component that wraps the server component in a Suspense boundary
-export default function SearchPage(props: SearchPageProps) {
+export default async function SearchPage(props: SearchPageProps) {
+  const searchParams = await props.searchParams;
   return (
     <SafeSearchParamsProvider>
-      <SearchPageContent {...props} />
+      <SearchPageContent searchParams={searchParams} />
     </SafeSearchParamsProvider>
   );
 }

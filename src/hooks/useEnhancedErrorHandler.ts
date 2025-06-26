@@ -41,11 +41,13 @@ export function useEnhancedErrorHandler() {
       error.message,
       ErrorType.UNKNOWN,
       ErrorSeverity.MEDIUM,
+      undefined, // code
+      undefined, // details
       context
     );
 
     // Log the error
-    await logError(appError);
+    logError(appError);
 
     // Update state
     setErrorState(prev => ({

@@ -239,7 +239,7 @@ export default function StoryUploadPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-                <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
+                <Select onValueChange={(value: string) => handleInputChange('country', value)} defaultValue={formData.country}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
@@ -255,7 +255,7 @@ export default function StoryUploadPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
-                <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
+                <Select onValueChange={(value: string) => handleInputChange('category', value)} defaultValue={formData.category}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>

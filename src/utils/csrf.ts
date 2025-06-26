@@ -49,7 +49,7 @@ export async function hashCsrfToken(token: string): Promise<string> {
  */
 export async function setCsrfCookie(token: string): Promise<void> {
   const hashedToken = await hashCsrfToken(token);
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   cookieStore.set({
     name: CSRF_COOKIE_NAME,
@@ -66,8 +66,8 @@ export async function setCsrfCookie(token: string): Promise<void> {
  * Get the CSRF token from the cookie
  * @returns The CSRF token from the cookie, or null if not found
  */
-export function getCsrfCookie(): string | null {
-  const cookieStore = cookies();
+export async function getCsrfCookie(): Promise<string | null> {
+  const cookieStore = await cookies();
   const csrfCookie = cookieStore.get(CSRF_COOKIE_NAME);
 
   return csrfCookie?.value || null;
@@ -93,7 +93,7 @@ export async function validateCsrfToken(tokenOrRequest: string | NextRequest): P
   }
 
   // Get the hashed token from the cookie
-  const hashedTokenFromCookie = getCsrfCookie();
+  const hashedTokenFromCookie = await getCsrfCookie();
 
   if (!hashedTokenFromCookie) {
     return false;

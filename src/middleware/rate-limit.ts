@@ -81,7 +81,7 @@ function getRateLimitConfig(path: string): RateLimitConfig {
 function getRequestIdentifier(request: NextRequest, path: string): string {
   // Use IP address as the identifier
   // In a production environment, you might want to use a more sophisticated approach
-  const ip = request.ip || 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || request.headers.get('x-real-ip') || 'unknown';
 
   // Include the path to have separate rate limits for different endpoints
   return `${ip}:${path}`;

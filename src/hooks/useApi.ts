@@ -113,7 +113,7 @@ export function useApi<T = any>() {
     setState({ data: null, loading: false, error: errorMessage });
     
     // Show global error notification
-    showError(errorMessage, ErrorType.NETWORK);
+    showError(new Error(errorMessage));
     
     return null;
   }, [showError]);

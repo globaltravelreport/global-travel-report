@@ -283,7 +283,7 @@ describe('Test Utilities', () => {
       const IntersectionObserver = mockIntersectionObserver();
       const callback = jest.fn();
       
-      const observer = new IntersectionObserver(callback);
+      const observer = new (IntersectionObserver as any)(callback);
       observer.observe({} as Element);
       
       expect(callback).toHaveBeenCalled();
@@ -295,7 +295,7 @@ describe('Test Utilities', () => {
       const callback = jest.fn();
       
       const observer = new IntersectionObserver(callback);
-      observer.observe({} as Element);
+      observer.observe();
       
       expect(callback).toHaveBeenCalled();
       expect(callback.mock.calls[0][0][0].isIntersecting).toBe(false);

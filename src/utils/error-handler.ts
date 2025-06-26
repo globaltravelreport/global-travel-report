@@ -18,6 +18,8 @@ interface ErrorContext {
   ip?: string;
   userAgent?: string;
   timestamp?: number;
+  email?: string;
+  frequency?: string;
   additionalData?: Record<string, any>;
 }
 
@@ -179,7 +181,7 @@ export function logRequestError(
   const context: ErrorContext = {
     method: req.method,
     url: req.url,
-    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    ip: req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
     userAgent: req.headers.get('user-agent') || 'unknown',
     ...additionalContext,
   };
@@ -264,4 +266,40 @@ export function clearOldErrors(olderThanMs: number = 7 * 24 * 60 * 60 * 1000): n
   }
   
   return initialLength - errorStore.length; // Return number of errors removed
+}
+
+// Additional exports for compatibility
+export class AppError extends Error {
+  public readonly type: ErrorType;
+  public readonly severity: ErrorSeverity;
+  public readonly context?: ErrorContext;
+
+  constructor(
+    message: string,
+    type: ErrorType = ErrorType.UNKNOWN,
+    severity: ErrorSeverity = ErrorSeverity.MEDIUM,
+    context?: ErrorContext
+  ) {
+    super(message);
+    this.name = 'AppError';
+    this.type = type;
+    this.severity = severity;
+    this.context = context;
+  }
+}
+
+export enum ErrorType {
+  VALIDATION = 'validation',
+  AUTHENTICATION = 'authentication',
+  AUTHORIZATION = 'authorization',
+  NOT_FOUND = 'not_found',
+  RATE_LIMIT = 'rate_limit',
+  EXTERNAL_API = 'external_api',
+  DATABASE = 'database',
+  NETWORK = 'network',
+  UNKNOWN = 'unknown',
+}
+
+export function handleError(error: any, context?: ErrorContext): string {
+  return logError(error, context);
 }

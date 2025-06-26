@@ -14,7 +14,7 @@ class Logger {
   private formatMessage(message: string, data?: LogData): string {
     const timestamp = new Date().toISOString()
     const requestId = data?.request?.headers.get('x-request-id') || 'unknown'
-    const ip = data?.request?.ip || data?.request?.headers.get('x-forwarded-for') || 'unknown'
+    const ip = data?.request?.headers.get('x-forwarded-for') || data?.request?.headers.get('x-real-ip') || 'unknown'
     
     let formattedMessage = `[${timestamp}] [${requestId}] [${ip}] ${message}`
     

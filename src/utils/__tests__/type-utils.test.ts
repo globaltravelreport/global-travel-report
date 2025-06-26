@@ -266,7 +266,7 @@ describe('Type Utilities', () => {
     });
     
     it('should return the default value if the object does not have the property', () => {
-      expect(safeGet({}, 'foo', 'default')).toBe('default');
+      expect(safeGet({} as any, 'foo', 'default')).toBe('default');
     });
   });
 });

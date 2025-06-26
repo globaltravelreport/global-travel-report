@@ -31,7 +31,10 @@ export function useErrorHandler() {
    * @param context - Additional context information
    */
   const handleErrorWithState = useCallback((error: unknown, context?: Record<string, any>) => {
-    const appError = handleError(error);
+    const appError = error instanceof AppError ? error : new AppError(
+      error instanceof Error ? error.message : 'An error occurred',
+      ErrorType.UNKNOWN
+    );
     
     // Log the error
     logError(appError, context);
@@ -39,9 +42,9 @@ export function useErrorHandler() {
     // Update error state
     setError({
       hasError: true,
-      message: appError.getUserMessage(),
+      message: appError.message,
       type: appError.type,
-      details: appError.details,
+      details: appError.message,
     });
     
     return appError;
@@ -90,7 +93,7 @@ export function useErrorHandler() {
     isAuthenticationError: error.type === ErrorType.AUTHENTICATION,
     isAuthorizationError: error.type === ErrorType.AUTHORIZATION,
     isNotFoundError: error.type === ErrorType.NOT_FOUND,
-    isApiError: error.type === ErrorType.API,
+    isApiError: error.type === ErrorType.EXTERNAL_API,
     isNetworkError: error.type === ErrorType.NETWORK,
     isDatabaseError: error.type === ErrorType.DATABASE,
   };

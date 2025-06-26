@@ -51,7 +51,7 @@ export function setSessionCookie(response: NextResponse, session: AdminSession):
  */
 export async function getSession(): Promise<AdminSession | null> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
     
     if (!sessionCookie?.value) {

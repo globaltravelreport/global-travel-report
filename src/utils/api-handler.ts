@@ -67,7 +67,7 @@ function generateRequestId(): string {
  */
 function getRequestContext(req: NextRequest): RequestContext {
   return {
-    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    ip: req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
     userAgent: req.headers.get('user-agent') || 'unknown',
     timestamp: Date.now(),
     requestId: generateRequestId(),

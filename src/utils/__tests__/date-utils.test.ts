@@ -46,10 +46,8 @@ describe('Date Utilities', () => {
     });
 
     it('should handle null or undefined', () => {
-      // @ts-expect-error - Testing with null
-      expect(formatDisplayDate(null)).toBe('Unknown date');
-      // @ts-expect-error - Testing with undefined
-      expect(formatDisplayDate(undefined)).toBe('Unknown date');
+      expect(formatDisplayDate(null as any)).toBe('Unknown date');
+      expect(formatDisplayDate(undefined as any)).toBe('Unknown date');
     });
   });
 
@@ -98,8 +96,7 @@ describe('Date Utilities', () => {
 
     it('should handle null or undefined', () => {
       const result1 = getSafeDateString(undefined);
-      // @ts-expect-error - Testing with null
-      const result2 = getSafeDateString(null);
+      const result2 = getSafeDateString(null as any);
       const now = new Date();
 
       // The results should be close to now (within a few seconds)
@@ -148,8 +145,7 @@ describe('Date Utilities', () => {
 
     it('should handle null or undefined', () => {
       expect(parseDateSafe(undefined)).toBeNull();
-      // @ts-expect-error - Testing with null
-      expect(parseDateSafe(null)).toBeNull();
+      expect(parseDateSafe(null as any)).toBeNull();
     });
   });
 

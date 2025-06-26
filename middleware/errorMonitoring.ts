@@ -152,7 +152,7 @@ export function errorMonitoringMiddleware(options: ErrorMonitoringOptions = {}) 
         method: request.method,
         url: request.nextUrl.toString(),
         userAgent: request.headers.get('user-agent') || 'unknown',
-        ip: request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+        ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
       }, err);
       
       // Increment error count for alerting

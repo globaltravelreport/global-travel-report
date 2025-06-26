@@ -28,8 +28,7 @@ export async function rateLimit(
   const { maxRequests, windowMs } = options;
   
   // Get client IP address
-  const ip = req.ip || 
-    req.headers.get('x-forwarded-for')?.split(',')[0] || 
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 
     req.headers.get('x-real-ip') || 
     'unknown';
   
@@ -38,7 +37,7 @@ export async function rateLimit(
   
   // Clean up expired entries periodically
   if (Math.random() < 0.01) { // 1% chance to clean up
-    for (const [k, v] of rateLimitStore.entries()) {
+    for (const [k, v] of Array.from(rateLimitStore.entries())) {
       if (v.resetTime < now) {
         rateLimitStore.delete(k);
       }

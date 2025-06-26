@@ -32,12 +32,15 @@ export function createApiErrorResponse(
   requestId?: string
 ): NextResponse {
   // Convert the error to an AppError
-  const appError = handleError(error);
+  const appError = error instanceof AppError ? error : new AppError(
+    error instanceof Error ? error.message : 'An error occurred',
+    ErrorType.UNKNOWN
+  );
 
   // Create the error response
   const errorResponse: ApiErrorResponse = {
     error: appError.message,
-    code: appError.code
+    code: appError.type
   };
 
   // Add request ID if provided
@@ -50,14 +53,14 @@ export function createApiErrorResponse(
     errorResponse.details = {
       stack: appError.stack,
       type: appError.type,
-      details: appError.details
+      details: appError.message
     };
   }
 
   // Log the error
   logError(`API Error: ${appError.message}`, {
     status,
-    code: appError.code,
+    code: appError.type,
     type: appError.type,
     requestId
   }, appError);
@@ -74,7 +77,10 @@ export function createApiErrorResponse(
  */
 export function handleApiError(error: unknown, requestId?: string): NextResponse {
   // Convert the error to an AppError
-  const appError = handleError(error);
+  const appError = error instanceof AppError ? error : new AppError(
+    error instanceof Error ? error.message : 'An error occurred',
+    ErrorType.UNKNOWN
+  );
 
   // Determine the status code based on the error type
   let status = 500;
@@ -123,9 +129,7 @@ export function createValidationErrorResponse(
   // Create a validation error
   const validationError = new AppError(
     message,
-    ErrorType.VALIDATION,
-    'VALIDATION_ERROR',
-    details
+    ErrorType.VALIDATION
   );
 
   // Create and return the error response
@@ -152,9 +156,7 @@ export function createNotFoundErrorResponse(
   // Create a not found error
   const notFoundError = new AppError(
     message,
-    ErrorType.NOT_FOUND,
-    'NOT_FOUND_ERROR',
-    resource ? { resource } : undefined
+    ErrorType.NOT_FOUND
   );
 
   // Create and return the error response
@@ -179,8 +181,7 @@ export function createAuthenticationErrorResponse(
   // Create an authentication error
   const authError = new AppError(
     message,
-    ErrorType.AUTHENTICATION,
-    'AUTHENTICATION_ERROR'
+    ErrorType.AUTHENTICATION
   );
 
   // Create and return the error response
