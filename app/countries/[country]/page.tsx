@@ -3,19 +3,15 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllStories } from '@/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { mockCountries } from '@/src/mocks/stories';
-
-interface CountryParams {
-  country: string;
-}
+import { COUNTRIES, getCountryBySlug } from '@/src/config/countries';
 
 interface CountryPageProps {
-  params: Promise<CountryParams>;
+  params: Promise<{ country: string }>;
 }
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   const { country } = await params;
-  const countryData = mockCountries.find(c => c.slug === country);
+  const countryData = getCountryBySlug(country);
   
   if (!countryData) {
     return {
@@ -31,7 +27,7 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
 
 export default async function CountryPage({ params }: CountryPageProps) {
   const { country } = await params;
-  const countryData = mockCountries.find(c => c.slug === country);
+  const countryData = getCountryBySlug(country);
   
   if (!countryData) {
     notFound();

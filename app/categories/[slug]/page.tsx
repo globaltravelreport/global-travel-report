@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllStories } from '@/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { mockCategories } from '@/src/mocks/stories';
+import { CATEGORIES, getCategoryBySlug } from '@/src/config/categories';
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -11,7 +11,7 @@ interface CategoryPageProps {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = mockCategories.find(cat => cat.slug === slug);
+  const category = getCategoryBySlug(slug);
   
   if (!category) {
     return {
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
-  const category = mockCategories.find(cat => cat.slug === slug);
+  const category = getCategoryBySlug(slug);
   
   if (!category) {
     notFound();
