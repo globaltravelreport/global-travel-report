@@ -1,3 +1,7 @@
+// Polyfill for server-side rendering
+if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined') {
+  globalThis.self = globalThis;
+}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -116,19 +120,6 @@ const nextConfig = {
 
   // Webpack optimizations
   webpack: (config, { dev, isServer, webpack }) => {
-    // Add polyfills for server-side rendering
-    if (isServer) {
-      // Define global polyfills directly in webpack
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'globalThis.self': 'globalThis',
-          'globalThis.window': 'globalThis',
-          'globalThis.document': '{}',
-          'globalThis.navigator': '{}',
-        })
-      );
-    }
-
     // Production optimizations
     if (!dev) {
       config.optimization = {
