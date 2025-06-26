@@ -130,6 +130,11 @@ const nextConfig = {
         tls: false,
       };
       
+      // Exclude service worker files from server bundle
+      config.externals = config.externals || [];
+      config.externals.push(/^sw-register\.js$/);
+      config.externals.push(/^sw\.js$/);
+      
       // Define browser globals for server-side
       config.plugins.push(
         new webpack.DefinePlugin({
@@ -137,9 +142,16 @@ const nextConfig = {
           'typeof document': JSON.stringify('undefined'),
           'typeof navigator': JSON.stringify('undefined'),
           'typeof self': JSON.stringify('undefined'),
+          'self': JSON.stringify({}),
         })
       );
     }
+    
+    // Ignore service worker files in all builds
+    config.module.rules.push({
+      test: /sw-register\.js$|sw\.js$/,
+      use: 'ignore-loader'
+    });
 
     // Production optimizations
     if (!dev) {
