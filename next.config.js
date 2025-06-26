@@ -141,31 +141,19 @@ const nextConfig = {
         tls: false,
       };
       
-      // Exclude service worker files from server bundle
+      // Exclude problematic modules from server bundle
       config.externals = config.externals || [];
-      config.externals.push(/^sw-register\.js$/);
-      config.externals.push(/^sw\.js$/);
-      
-      // Define browser globals for server-side
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'typeof window': JSON.stringify('object'),
-          'typeof document': JSON.stringify('object'),
-          'typeof navigator': JSON.stringify('object'),
-          'typeof self': JSON.stringify('object'),
-          'self': 'globalThis',
-          'window': 'globalThis',
-          'document': '{}',
-          'navigator': '{}',
-        })
-      );
+      config.externals.push('fast-levenshtein');
     }
     
-    // Ignore service worker files in all builds
-    config.module.rules.push({
-      test: /sw-register\.js$|sw\.js$/,
-      use: 'ignore-loader'
-    });
+    // Global polyfills for both client and server
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        'self': 'globalThis',
+      })
+    );
+    
+
 
     // Production optimizations
     if (!dev) {
