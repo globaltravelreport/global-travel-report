@@ -102,9 +102,21 @@ export function SelectItem({ children, value }: SelectItemProps) {
   const context = React.useContext(SelectContext);
   if (!context) throw new Error('SelectItem must be used within Select');
 
+  const handleClick = () => context.onValueChange?.(value);
+  
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
     <div
-      onClick={() => context.onValueChange?.(value)}
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
     >
       {children}
