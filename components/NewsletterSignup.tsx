@@ -8,7 +8,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/utils/cn";
-import { Mail, CheckCircle2, AlertCircle, User } from "lucide-react";
+import { Mail } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import { AlertCircle } from "lucide-react";
+import { User } from "lucide-react";
 
 interface NewsletterSignupProps {
   className?: string;

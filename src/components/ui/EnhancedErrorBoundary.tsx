@@ -3,7 +3,9 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { logError } from '@/utils/error-handler';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 interface FallbackProps {
   error: Error;

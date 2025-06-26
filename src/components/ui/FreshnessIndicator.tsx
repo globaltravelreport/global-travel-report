@@ -4,7 +4,9 @@ import React from 'react';
 import { differenceInDays, differenceInMonths, format, parseISO } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/utils/cn';
-import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 interface FreshnessIndicatorProps {
   /**
