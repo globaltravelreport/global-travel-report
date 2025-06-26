@@ -120,13 +120,25 @@ const nextConfig = {
 
   // Webpack optimizations
   webpack: (config, { dev, isServer, webpack }) => {
-    // Exclude problematic packages from server bundle
+    // Fix server-side rendering issues
     if (isServer) {
-      config.externals = config.externals || [];
-      config.externals.push({
-        'framer-motion': 'framer-motion',
-        'leaflet': 'leaflet',
-      });
+      // Add fallback for browser globals
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+      
+      // Define browser globals for server-side
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          'typeof window': JSON.stringify('undefined'),
+          'typeof document': JSON.stringify('undefined'),
+          'typeof navigator': JSON.stringify('undefined'),
+          'typeof self': JSON.stringify('undefined'),
+        })
+      );
     }
 
     // Production optimizations
