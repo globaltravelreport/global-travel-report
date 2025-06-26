@@ -56,15 +56,17 @@ export function StructuredData({ slug, data, type }: StructuredDataProps) {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            fetch('/structured-data/${slug}.json')
-              .then(response => response.json())
-              .then(data => {
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.textContent = JSON.stringify(data);
-                document.head.appendChild(script);
-              })
-              .catch(error => console.error('Error loading structured data:', error));
+            if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+              fetch('/structured-data/${slug}.json')
+                .then(response => response.json())
+                .then(data => {
+                  const script = document.createElement('script');
+                  script.type = 'application/ld+json';
+                  script.textContent = JSON.stringify(data);
+                  document.head.appendChild(script);
+                })
+                .catch(error => console.error('Error loading structured data:', error));
+            }
           `,
         }}
       />

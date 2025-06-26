@@ -1,6 +1,6 @@
 
-import { redirect } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
+// import { redirect } from 'next/navigation';
+// import { isAuthenticated } from '@/lib/auth';
 import AdminHeader from '@/components/admin/AdminHeader';
 
 export default async function AdminLayout({

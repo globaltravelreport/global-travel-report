@@ -51,13 +51,17 @@ export function ShareButtons({
   
   // Handle copy to clipboard
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(fullUrl)
-      .then(() => {
-        toast.success('Link copied to clipboard!');
-      })
-      .catch(() => {
-        toast.error('Failed to copy link');
-      });
+    if (typeof window !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(fullUrl)
+        .then(() => {
+          toast.success('Link copied to clipboard!');
+        })
+        .catch(() => {
+          toast.error('Failed to copy link');
+        });
+    } else {
+      toast.error('Clipboard not available');
+    }
   };
 
   return (

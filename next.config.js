@@ -115,7 +115,25 @@ const nextConfig = {
   }),
 
   // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config, { dev, isServer, webpack }) => {
+    // Add polyfills for server-side rendering
+    if (isServer) {
+      // Add global polyfill to the beginning of all server entries
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        
+        // Add polyfill to all server entries
+        Object.keys(entries).forEach(key => {
+          if (Array.isArray(entries[key])) {
+            entries[key].unshift('./app/globals.js');
+          }
+        });
+        
+        return entries;
+      };
+    }
+
     // Production optimizations
     if (!dev) {
       config.optimization = {
