@@ -239,7 +239,8 @@ export default function StoryUploadPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-                <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
+                <<Select defaultValue={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
+>
                   <SelectTrigger>
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
