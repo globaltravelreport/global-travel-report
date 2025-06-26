@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Savouring Lisbon: The Ideal Three-Day Travel Guide ",
+    "description": "A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.",
+    "image": [
+      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-12T13:53:24.664Z",
+    "dateModified": "2025-04-12T13:53:24.664Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-savouring-lisbon-the-ideal-three-day-travel-guide"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Savouring Lisbon: The Ideal Three-Day Travel Guide ",
+    "description": "A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.",
+    "url": "https://globaltravelreport.com/title-savouring-lisbon-the-ideal-three-day-travel-guide",
+    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Portugal"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Destination",
+        "item": "https://globaltravelreport.com/category/destination"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Portugal",
+        "item": "https://globaltravelreport.com/destination/portugal"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Savouring Lisbon: The Ideal Three-Day Travel Guide ",
+        "item": "https://globaltravelreport.com/title-savouring-lisbon-the-ideal-three-day-travel-guide"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "url": "http://localhost:3000/articles/river-cruising-2025",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "url": "http://localhost:3000/articles/bali-hidden-gems",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "url": "http://localhost:3000/articles/sustainable-travel-tips",
+    "status": 404,
+    "ok": false
+  },
+  {
+    "url": "http://localhost:3000/articles/solo-female-travel-guide",
+    "status": 404,
+    "ok": false
+  }
+]

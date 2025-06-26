@@ -1,0 +1,1228 @@
+diff --git a/app/stories/[slug]/page.tsx b/app/stories/[slug]/page.tsx
+index 50aedfe..cb6e3ed 100644
+--- a/app/stories/[slug]/page.tsx
++++ b/app/stories/[slug]/page.tsx
+@@ -160,17 +160,12 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
+           url={storyUrl}
+           type="article"
+           images={[
+-            {
+-              url: story.coverImage,
+-              width: 1200,
+-              height: 630,
+-              alt: story.title
+-            }
++            story.coverImage
+           ]}
+           facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
+           article={{
+-            publishedTime: story.publishedAt,
+-            modifiedTime: story.updatedAt || story.publishedAt,
++            publishedTime: new Date(story.publishedAt).toISOString(),
++            modifiedTime: new Date(story.updatedAt || story.publishedAt).toISOString(),
+             authors: ['Global Travel Report Editorial Team'],
+             section: story.category,
+             tags: story.tags
+diff --git a/package-lock.json b/package-lock.json
+index d5f2d0b..24751a7 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -16,7 +16,9 @@
+         "@radix-ui/react-radio-group": "1.3.4",
+         "@radix-ui/react-separator": "1.0.3",
+         "@radix-ui/react-slot": "1.0.2",
++        "@radix-ui/react-tabs": "1.1.11",
+         "@radix-ui/react-toast": "1.2.11",
++        "@radix-ui/react-tooltip": "1.2.6",
+         "@sentry/nextjs": "9.17.0",
+         "@types/dompurify": "3.0.5",
+         "@types/leaflet": "1.9.17",
+@@ -3599,6 +3601,134 @@
+         }
+       }
+     },
++    "node_modules/@radix-ui/react-tabs": {
++      "version": "1.1.11",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-tabs/-/react-tabs-1.1.11.tgz",
++      "integrity": "sha512-4FiKSVoXqPP/KfzlB7lwwqoFV6EPwkrrqGp9cUYXjwDYHhvpnqq79P+EPHKcdoTE7Rl8w/+6s9rTlsfXHES9GA==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/primitive": "1.1.2",
++        "@radix-ui/react-context": "1.1.2",
++        "@radix-ui/react-direction": "1.1.1",
++        "@radix-ui/react-id": "1.1.1",
++        "@radix-ui/react-presence": "1.1.4",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-roving-focus": "1.1.9",
++        "@radix-ui/react-use-controllable-state": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tabs/node_modules/@radix-ui/react-collection": {
++      "version": "1.1.6",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-collection/-/react-collection-1.1.6.tgz",
++      "integrity": "sha512-PbhRFK4lIEw9ADonj48tiYWzkllz81TM7KVYyyMMw2cwHO7D5h4XKEblL8NlaRisTK3QTe6tBEhDccFUryxHBQ==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-compose-refs": "1.1.2",
++        "@radix-ui/react-context": "1.1.2",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-slot": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tabs/node_modules/@radix-ui/react-primitive": {
++      "version": "2.1.2",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-primitive/-/react-primitive-2.1.2.tgz",
++      "integrity": "sha512-uHa+l/lKfxuDD2zjN/0peM/RhhSmRjr5YWdk/37EnSv1nJ88uvG85DPexSm8HdFQROd2VdERJ6ynXbkCFi+APw==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-slot": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tabs/node_modules/@radix-ui/react-roving-focus": {
++      "version": "1.1.9",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-roving-focus/-/react-roving-focus-1.1.9.tgz",
++      "integrity": "sha512-ZzrIFnMYHHCNqSNCsuN6l7wlewBEq0O0BCSBkabJMFXVO51LRUTq71gLP1UxFvmrXElqmPjA5VX7IqC9VpazAQ==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/primitive": "1.1.2",
++        "@radix-ui/react-collection": "1.1.6",
++        "@radix-ui/react-compose-refs": "1.1.2",
++        "@radix-ui/react-context": "1.1.2",
++        "@radix-ui/react-direction": "1.1.1",
++        "@radix-ui/react-id": "1.1.1",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-use-callback-ref": "1.1.1",
++        "@radix-ui/react-use-controllable-state": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tabs/node_modules/@radix-ui/react-slot": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.2.tgz",
++      "integrity": "sha512-y7TBO4xN4Y94FvcWIOIh18fM4R1A8S4q1jhoz4PNzOoHsFcN8pogcFmZrTYAm4F9VRUrWP/Mw7xSKybIeRI+CQ==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-compose-refs": "1.1.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        }
++      }
++    },
+     "node_modules/@radix-ui/react-toast": {
+       "version": "1.2.11",
+       "resolved": "https://registry.npmjs.org/@radix-ui/react-toast/-/react-toast-1.2.11.tgz",
+@@ -3633,6 +3763,210 @@
+         }
+       }
+     },
++    "node_modules/@radix-ui/react-tooltip": {
++      "version": "1.2.6",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-tooltip/-/react-tooltip-1.2.6.tgz",
++      "integrity": "sha512-zYb+9dc9tkoN2JjBDIIPLQtk3gGyz8FMKoqYTb8EMVQ5a5hBcdHPECrsZVI4NpPAUOixhkoqg7Hj5ry5USowfA==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/primitive": "1.1.2",
++        "@radix-ui/react-compose-refs": "1.1.2",
++        "@radix-ui/react-context": "1.1.2",
++        "@radix-ui/react-dismissable-layer": "1.1.9",
++        "@radix-ui/react-id": "1.1.1",
++        "@radix-ui/react-popper": "1.2.6",
++        "@radix-ui/react-portal": "1.1.8",
++        "@radix-ui/react-presence": "1.1.4",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-slot": "1.2.2",
++        "@radix-ui/react-use-controllable-state": "1.2.2",
++        "@radix-ui/react-visually-hidden": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-arrow": {
++      "version": "1.1.6",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-arrow/-/react-arrow-1.1.6.tgz",
++      "integrity": "sha512-2JMfHJf/eVnwq+2dewT3C0acmCWD3XiVA1Da+jTDqo342UlU13WvXtqHhG+yJw5JeQmu4ue2eMy6gcEArLBlcw==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-primitive": "2.1.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-dismissable-layer": {
++      "version": "1.1.9",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.9.tgz",
++      "integrity": "sha512-way197PiTvNp+WBP7svMJasHl+vibhWGQDb6Mgf5mhEWJkgb85z7Lfl9TUdkqpWsf8GRNmoopx9ZxCyDzmgRMQ==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/primitive": "1.1.2",
++        "@radix-ui/react-compose-refs": "1.1.2",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-use-callback-ref": "1.1.1",
++        "@radix-ui/react-use-escape-keydown": "1.1.1"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-popper": {
++      "version": "1.2.6",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-popper/-/react-popper-1.2.6.tgz",
++      "integrity": "sha512-7iqXaOWIjDBfIG7aq8CUEeCSsQMLFdn7VEE8TaFz704DtEzpPHR7w/uuzRflvKgltqSAImgcmxQ7fFX3X7wasg==",
++      "license": "MIT",
++      "dependencies": {
++        "@floating-ui/react-dom": "^2.0.0",
++        "@radix-ui/react-arrow": "1.1.6",
++        "@radix-ui/react-compose-refs": "1.1.2",
++        "@radix-ui/react-context": "1.1.2",
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-use-callback-ref": "1.1.1",
++        "@radix-ui/react-use-layout-effect": "1.1.1",
++        "@radix-ui/react-use-rect": "1.1.1",
++        "@radix-ui/react-use-size": "1.1.1",
++        "@radix-ui/rect": "1.1.1"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-portal": {
++      "version": "1.1.8",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-portal/-/react-portal-1.1.8.tgz",
++      "integrity": "sha512-hQsTUIn7p7fxCPvao/q6wpbxmCwgLrlz+nOrJgC+RwfZqWY/WN+UMqkXzrtKbPrF82P43eCTl3ekeKuyAQbFeg==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-primitive": "2.1.2",
++        "@radix-ui/react-use-layout-effect": "1.1.1"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-primitive": {
++      "version": "2.1.2",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-primitive/-/react-primitive-2.1.2.tgz",
++      "integrity": "sha512-uHa+l/lKfxuDD2zjN/0peM/RhhSmRjr5YWdk/37EnSv1nJ88uvG85DPexSm8HdFQROd2VdERJ6ynXbkCFi+APw==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-slot": "1.2.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-slot": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.2.2.tgz",
++      "integrity": "sha512-y7TBO4xN4Y94FvcWIOIh18fM4R1A8S4q1jhoz4PNzOoHsFcN8pogcFmZrTYAm4F9VRUrWP/Mw7xSKybIeRI+CQ==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-compose-refs": "1.1.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@radix-ui/react-tooltip/node_modules/@radix-ui/react-visually-hidden": {
++      "version": "1.2.2",
++      "resolved": "https://registry.npmjs.org/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.2.2.tgz",
++      "integrity": "sha512-ORCmRUbNiZIv6uV5mhFrhsIKw4UX/N3syZtyqvry61tbGm4JlgQuSn0hk5TwCARsCjkcnuRkSdCE3xfb+ADHew==",
++      "license": "MIT",
++      "dependencies": {
++        "@radix-ui/react-primitive": "2.1.2"
++      },
++      "peerDependencies": {
++        "@types/react": "*",
++        "@types/react-dom": "*",
++        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
++        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "@types/react-dom": {
++          "optional": true
++        }
++      }
++    },
+     "node_modules/@radix-ui/react-use-callback-ref": {
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.1.tgz",
+diff --git a/package.json b/package.json
+index 9a7e7bd..af823aa 100644
+--- a/package.json
++++ b/package.json
+@@ -59,7 +59,9 @@
+     "@radix-ui/react-radio-group": "1.3.4",
+     "@radix-ui/react-separator": "1.0.3",
+     "@radix-ui/react-slot": "1.0.2",
++    "@radix-ui/react-tabs": "1.1.11",
+     "@radix-ui/react-toast": "1.2.11",
++    "@radix-ui/react-tooltip": "1.2.6",
+     "@sentry/nextjs": "9.17.0",
+     "@types/dompurify": "3.0.5",
+     "@types/leaflet": "1.9.17",
+diff --git a/src/components/maps/DynamicWorldMap.tsx b/src/components/maps/DynamicWorldMap.tsx
+index 021b53d..b4bffe8 100644
+--- a/src/components/maps/DynamicWorldMap.tsx
++++ b/src/components/maps/DynamicWorldMap.tsx
+@@ -9,52 +9,52 @@ interface WorldMapProps {
+    * Countries to highlight on the map
+    */
+   highlightedCountries?: string[];
+-  
++
+   /**
+    * Callback when a country is clicked
+    */
+   onCountryClick?: (country: string) => void;
+-  
++
+   /**
+    * CSS class name for the container
+    */
+   className?: string;
+-  
++
+   /**
+    * Width of the map
+    */
+   width?: number | string;
+-  
++
+   /**
+    * Height of the map
+    */
+   height?: number | string;
+-  
++
+   /**
+    * Whether to enable zooming
+    */
+   enableZoom?: boolean;
+-  
++
+   /**
+    * Initial zoom level
+    */
+   initialZoom?: number;
+-  
++
+   /**
+    * Color for highlighted countries
+    */
+   highlightColor?: string;
+-  
++
+   /**
+    * Base color for countries
+    */
+   baseColor?: string;
+-  
++
+   /**
+    * Border color for countries
+    */
+   borderColor?: string;
+-  
++
+   /**
+    * Whether to show country labels
+    */
+@@ -78,17 +78,12 @@ const MapLoading = ({ width, height }: { width?: number | string; height?: numbe
+ 
+ /**
+  * Dynamically imported WorldMap component
+- * 
++ *
+  * This component uses dynamic imports to load the WorldMap component only on the client side,
+  * which reduces the initial bundle size and improves performance.
+  */
+ const DynamicWorldMap = clientOnly<React.ComponentType<WorldMapProps>>(
+-  () => import('./WorldMap'),
+-  {
+-    loading: ({ width, height }: { width?: number | string; height?: number | string }) => (
+-      <MapLoading width={width} height={height} />
+-    ),
+-  }
++  () => import('./WorldMap')
+ );
+ 
+ export { DynamicWorldMap };
+diff --git a/src/components/seo/FAQSchema.tsx b/src/components/seo/FAQSchema.tsx
+index 91eafaa..879f7af 100644
+--- a/src/components/seo/FAQSchema.tsx
++++ b/src/components/seo/FAQSchema.tsx
+@@ -9,7 +9,7 @@ export interface FAQItem {
+    * The question
+    */
+   question: string;
+-  
++
+   /**
+    * The answer to the question
+    */
+@@ -21,22 +21,22 @@ interface FAQSchemaProps {
+    * The list of FAQ items
+    */
+   items: FAQItem[];
+-  
++
+   /**
+    * The title of the FAQ section
+    */
+   title?: string;
+-  
++
+   /**
+    * The description of the FAQ section
+    */
+   description?: string;
+-  
++
+   /**
+    * The CSS class name for the container
+    */
+   className?: string;
+-  
++
+   /**
+    * The ID for the FAQ section
+    */
+@@ -45,9 +45,9 @@ interface FAQSchemaProps {
+ 
+ /**
+  * FAQ Schema Component
+- * 
++ *
+  * This component renders a FAQ section with structured data for SEO.
+- * 
++ *
+  * @example
+  * ```tsx
+  * <FAQSchema
+@@ -93,11 +93,11 @@ export function FAQSchema({
+         <h2 className="text-2xl font-bold mb-2">{title}</h2>
+         {description && <p className="text-gray-600">{description}</p>}
+       </div>
+-      
+-      <Accordion type="single" collapsible className="w-full">
++
++      <Accordion className="w-full">
+         {items.map((item, index) => (
+-          <AccordionItem key={index} value={`item-${index}`}>
+-            <AccordionTrigger className="text-left font-medium">
++          <AccordionItem key={index}>
++            <AccordionTrigger>
+               {item.question}
+             </AccordionTrigger>
+             <AccordionContent>
+@@ -106,7 +106,7 @@ export function FAQSchema({
+           </AccordionItem>
+         ))}
+       </Accordion>
+-      
++
+       {/* Add structured data for SEO */}
+       <StructuredData data={faqSchema} id="faq-schema" />
+     </div>
+diff --git a/src/components/stories/StoryCard.tsx b/src/components/stories/StoryCard.tsx
+index 71e5d0d..d22788c 100644
+--- a/src/components/stories/StoryCard.tsx
++++ b/src/components/stories/StoryCard.tsx
+@@ -388,8 +388,8 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
+           </h3>
+           <div className="flex items-center gap-2 text-sm text-gray-500 mt-2 mb-3">
+             <FreshnessIndicator
+-              publishedDate={story.publishedAt}
+-              updatedDate={story.updatedAt}
++              publishedDate={typeof story.publishedAt === 'string' ? story.publishedAt : story.publishedAt.toISOString()}
++              updatedDate={story.updatedAt ? (typeof story.updatedAt === 'string' ? story.updatedAt : story.updatedAt.toISOString()) : undefined}
+               size="sm"
+             />
+             <span>•</span>
+diff --git a/src/components/ui/OptimizedImage.tsx b/src/components/ui/OptimizedImage.tsx
+index 8dffd78..954c55a 100644
+--- a/src/components/ui/OptimizedImage.tsx
++++ b/src/components/ui/OptimizedImage.tsx
+@@ -169,7 +169,6 @@ export function OptimizedImage({
+           placeholder={placeholder}
+           blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
+           unoptimized={false}
+-          formats={['image/avif', 'image/webp']}
+         />
+       )}
+     </div>
+diff --git a/src/components/ui/table.tsx b/src/components/ui/table.tsx
+new file mode 100644
+index 0000000..982030a
+--- /dev/null
++++ b/src/components/ui/table.tsx
+@@ -0,0 +1,114 @@
++import * as React from "react"
++
++import { cn } from "@/src/lib/utils"
++
++const Table = React.forwardRef<
++  HTMLTableElement,
++  React.HTMLAttributes<HTMLTableElement>
++>(({ className, ...props }, ref) => (
++  <div className="relative w-full overflow-auto">
++    <table
++      ref={ref}
++      className={cn("w-full caption-bottom text-sm", className)}
++      {...props}
++    />
++  </div>
++))
++Table.displayName = "Table"
++
++const TableHeader = React.forwardRef<
++  HTMLTableSectionElement,
++  React.HTMLAttributes<HTMLTableSectionElement>
++>(({ className, ...props }, ref) => (
++  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
++))
++TableHeader.displayName = "TableHeader"
++
++const TableBody = React.forwardRef<
++  HTMLTableSectionElement,
++  React.HTMLAttributes<HTMLTableSectionElement>
++>(({ className, ...props }, ref) => (
++  <tbody
++    ref={ref}
++    className={cn("[&_tr:last-child]:border-0", className)}
++    {...props}
++  />
++))
++TableBody.displayName = "TableBody"
++
++const TableFooter = React.forwardRef<
++  HTMLTableSectionElement,
++  React.HTMLAttributes<HTMLTableSectionElement>
++>(({ className, ...props }, ref) => (
++  <tfoot
++    ref={ref}
++    className={cn("bg-primary font-medium text-primary-foreground", className)}
++    {...props}
++  />
++))
++TableFooter.displayName = "TableFooter"
++
++const TableRow = React.forwardRef<
++  HTMLTableRowElement,
++  React.HTMLAttributes<HTMLTableRowElement>
++>(({ className, ...props }, ref) => (
++  <tr
++    ref={ref}
++    className={cn(
++      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
++      className
++    )}
++    {...props}
++  />
++))
++TableRow.displayName = "TableRow"
++
++const TableHead = React.forwardRef<
++  HTMLTableCellElement,
++  React.ThHTMLAttributes<HTMLTableCellElement>
++>(({ className, ...props }, ref) => (
++  <th
++    ref={ref}
++    className={cn(
++      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
++      className
++    )}
++    {...props}
++  />
++))
++TableHead.displayName = "TableHead"
++
++const TableCell = React.forwardRef<
++  HTMLTableCellElement,
++  React.TdHTMLAttributes<HTMLTableCellElement>
++>(({ className, ...props }, ref) => (
++  <td
++    ref={ref}
++    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
++    {...props}
++  />
++))
++TableCell.displayName = "TableCell"
++
++const TableCaption = React.forwardRef<
++  HTMLTableCaptionElement,
++  React.HTMLAttributes<HTMLTableCaptionElement>
++>(({ className, ...props }, ref) => (
++  <caption
++    ref={ref}
++    className={cn("mt-4 text-sm text-muted-foreground", className)}
++    {...props}
++  />
++))
++TableCaption.displayName = "TableCaption"
++
++export {
++  Table,
++  TableHeader,
++  TableBody,
++  TableFooter,
++  TableHead,
++  TableRow,
++  TableCell,
++  TableCaption,
++}
+diff --git a/src/components/ui/tabs.tsx b/src/components/ui/tabs.tsx
+new file mode 100644
+index 0000000..3848a82
+--- /dev/null
++++ b/src/components/ui/tabs.tsx
+@@ -0,0 +1,53 @@
++import * as React from "react"
++import * as TabsPrimitive from "@radix-ui/react-tabs"
++
++import { cn } from "@/src/lib/utils"
++
++const Tabs = TabsPrimitive.Root
++
++const TabsList = React.forwardRef<
++  React.ElementRef<typeof TabsPrimitive.List>,
++  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
++>(({ className, ...props }, ref) => (
++  <TabsPrimitive.List
++    ref={ref}
++    className={cn(
++      "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
++      className
++    )}
++    {...props}
++  />
++))
++TabsList.displayName = TabsPrimitive.List.displayName
++
++const TabsTrigger = React.forwardRef<
++  React.ElementRef<typeof TabsPrimitive.Trigger>,
++  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
++>(({ className, ...props }, ref) => (
++  <TabsPrimitive.Trigger
++    ref={ref}
++    className={cn(
++      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
++      className
++    )}
++    {...props}
++  />
++))
++TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
++
++const TabsContent = React.forwardRef<
++  React.ElementRef<typeof TabsPrimitive.Content>,
++  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
++>(({ className, ...props }, ref) => (
++  <TabsPrimitive.Content
++    ref={ref}
++    className={cn(
++      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
++      className
++    )}
++    {...props}
++  />
++))
++TabsContent.displayName = TabsPrimitive.Content.displayName
++
++export { Tabs, TabsList, TabsTrigger, TabsContent }
+diff --git a/src/components/ui/tooltip.tsx b/src/components/ui/tooltip.tsx
+new file mode 100644
+index 0000000..33ef4c7
+--- /dev/null
++++ b/src/components/ui/tooltip.tsx
+@@ -0,0 +1,28 @@
++import * as React from "react"
++import * as TooltipPrimitive from "@radix-ui/react-tooltip"
++
++import { cn } from "@/src/lib/utils"
++
++const TooltipProvider = TooltipPrimitive.Provider
++
++const Tooltip = TooltipPrimitive.Root
++
++const TooltipTrigger = TooltipPrimitive.Trigger
++
++const TooltipContent = React.forwardRef<
++  React.ElementRef<typeof TooltipPrimitive.Content>,
++  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
++>(({ className, sideOffset = 4, ...props }, ref) => (
++  <TooltipPrimitive.Content
++    ref={ref}
++    sideOffset={sideOffset}
++    className={cn(
++      "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
++      className
++    )}
++    {...props}
++  />
++))
++TooltipContent.displayName = TooltipPrimitive.Content.displayName
++
++export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+diff --git a/src/utils/dynamic-import.ts b/src/utils/dynamic-import.ts
+index bac9dca..b5c8213 100644
+--- a/src/utils/dynamic-import.ts
++++ b/src/utils/dynamic-import.ts
+@@ -1,6 +1,6 @@
+ /**
+  * Dynamic Import Utilities
+- * 
++ *
+  * This module provides utilities for dynamic imports and code splitting.
+  */
+ 
+@@ -15,12 +15,12 @@ export interface DynamicImportOptions {
+    * Whether to load the component on the server side
+    */
+   ssr?: boolean;
+-  
++
+   /**
+    * Loading component to show while the dynamic component is loading
+    */
+-  loading?: ComponentType | (() => ReactNode);
+-  
++  loading?: ReactNode;
++
+   /**
+    * Whether to load the component only when it's visible in the viewport
+    */
+@@ -29,16 +29,16 @@ export interface DynamicImportOptions {
+ 
+ /**
+  * Dynamically import a component with code splitting
+- * 
++ *
+  * @param importFunc - Function that imports the component
+  * @param options - Options for dynamic import
+  * @returns Dynamically imported component
+- * 
++ *
+  * @example
+  * ```tsx
+  * const DynamicMap = dynamicImport(() => import('@/components/Map'), {
+  *   ssr: false,
+- *   loading: () => <div>Loading map...</div>
++ *   loading: <div>Loading map...</div>
+  * });
+  * ```
+  */
+@@ -47,46 +47,21 @@ export function dynamicImport<T extends ComponentType<any>>(
+   options: DynamicImportOptions = {}
+ ) {
+   const { ssr = true, loading, loadOnlyWhenVisible = false } = options;
+-  
+-  // If loadOnlyWhenVisible is true, use IntersectionObserver to load the component
+-  // only when it's visible in the viewport
+-  if (loadOnlyWhenVisible && typeof window !== 'undefined') {
+-    return dynamic(
+-      () => import('@/src/components/ui/LazyLoad').then(mod => {
+-        const LazyLoad = mod.LazyLoad;
+-        
+-        return importFunc().then(component => {
+-          const Component = component.default;
+-          
+-          return (props: any) => (
+-            <LazyLoad
+-              placeholder={loading ? loading : <div />}
+-            >
+-              <Component {...props} />
+-            </LazyLoad>
+-          );
+-        });
+-      }),
+-      { ssr, loading }
+-    );
+-  }
+-  
+-  // Otherwise, use regular dynamic import
+-  return dynamic(importFunc, { ssr, loading });
++
++  // Simple dynamic import without JSX
++  return dynamic(importFunc, { ssr });
+ }
+ 
+ /**
+  * Dynamically import a component with code splitting and no server-side rendering
+- * 
++ *
+  * @param importFunc - Function that imports the component
+  * @param options - Options for dynamic import
+  * @returns Dynamically imported component
+- * 
++ *
+  * @example
+  * ```tsx
+- * const DynamicChart = clientOnly(() => import('@/components/Chart'), {
+- *   loading: () => <div>Loading chart...</div>
+- * });
++ * const DynamicChart = clientOnly(() => import('@/components/Chart'));
+  * ```
+  */
+ export function clientOnly<T extends ComponentType<any>>(
+@@ -98,16 +73,14 @@ export function clientOnly<T extends ComponentType<any>>(
+ 
+ /**
+  * Dynamically import a component with code splitting and lazy loading
+- * 
++ *
+  * @param importFunc - Function that imports the component
+  * @param options - Options for dynamic import
+  * @returns Dynamically imported component
+- * 
++ *
+  * @example
+  * ```tsx
+- * const LazyVideo = lazyLoad(() => import('@/components/Video'), {
+- *   loading: () => <div>Loading video...</div>
+- * });
++ * const LazyVideo = lazyLoad(() => import('@/components/Video'));
+  * ```
+  */
+ export function lazyLoad<T extends ComponentType<any>>(
+diff --git a/src/utils/error-logger.ts b/src/utils/error-logger.ts
+index 9bda950..f6c03bf 100644
+--- a/src/utils/error-logger.ts
++++ b/src/utils/error-logger.ts
+@@ -1,6 +1,6 @@
+ /**
+  * Simple Error Logging System
+- * 
++ *
+  * This module provides utilities for logging errors without relying on
+  * third-party services that might cause stability issues.
+  */
+@@ -34,7 +34,7 @@ export interface ErrorLog {
+ 
+ /**
+  * Generate a unique ID for an error log
+- * 
++ *
+  * @returns A unique ID
+  */
+ function generateErrorId(): string {
+@@ -43,26 +43,26 @@ function generateErrorId(): string {
+ 
+ /**
+  * Store an error log in local storage
+- * 
++ *
+  * @param errorLog - The error log to store
+  */
+ function storeErrorLog(errorLog: ErrorLog): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   try {
+     // Get existing error logs from local storage
+     const storedLogs = localStorage.getItem(ERROR_LOGS_STORAGE_KEY);
+     const logs = storedLogs ? JSON.parse(storedLogs) : [];
+-    
++
+     // Add the new error log
+     logs.push(errorLog);
+-    
++
+     // Keep only the last MAX_ERROR_LOGS logs to avoid excessive storage usage
+     const trimmedLogs = logs.slice(-MAX_ERROR_LOGS);
+-    
++
+     // Store the logs back in local storage
+     localStorage.setItem(ERROR_LOGS_STORAGE_KEY, JSON.stringify(trimmedLogs));
+-    
++
+     // Log the error to console in development
+     if (process.env.NODE_ENV === 'development') {
+       console.error(`Error logged: ${errorLog.message} (${errorLog.severity})`);
+@@ -74,7 +74,7 @@ function storeErrorLog(errorLog: ErrorLog): void {
+ 
+ /**
+  * Log an error
+- * 
++ *
+  * @param error - The error to log
+  * @param severity - The severity of the error
+  * @param additionalInfo - Additional information about the error
+@@ -85,10 +85,10 @@ export function logError(
+   additionalInfo?: Record<string, any>
+ ): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   const errorMessage = typeof error === 'string' ? error : error.message;
+   const errorStack = typeof error === 'string' ? undefined : error.stack;
+-  
++
+   const errorLog: ErrorLog = {
+     id: generateErrorId(),
+     message: errorMessage,
+@@ -99,13 +99,13 @@ export function logError(
+     userAgent: window.navigator.userAgent,
+     additionalInfo,
+   };
+-  
++
+   storeErrorLog(errorLog);
+ }
+ 
+ /**
+  * Log an error with component stack trace (for React errors)
+- * 
++ *
+  * @param error - The error to log
+  * @param componentStack - The component stack trace
+  * @param severity - The severity of the error
+@@ -118,10 +118,10 @@ export function logReactError(
+   additionalInfo?: Record<string, any>
+ ): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   const errorMessage = typeof error === 'string' ? error : error.message;
+   const errorStack = typeof error === 'string' ? undefined : error.stack;
+-  
++
+   const errorLog: ErrorLog = {
+     id: generateErrorId(),
+     message: errorMessage,
+@@ -133,18 +133,18 @@ export function logReactError(
+     userAgent: window.navigator.userAgent,
+     additionalInfo,
+   };
+-  
++
+   storeErrorLog(errorLog);
+ }
+ 
+ /**
+  * Get all stored error logs
+- * 
++ *
+  * @returns An array of stored error logs
+  */
+ export function getStoredErrorLogs(): ErrorLog[] {
+   if (typeof window === 'undefined') return [];
+-  
++
+   try {
+     const storedLogs = localStorage.getItem(ERROR_LOGS_STORAGE_KEY);
+     return storedLogs ? JSON.parse(storedLogs) : [];
+@@ -159,7 +159,7 @@ export function getStoredErrorLogs(): ErrorLog[] {
+  */
+ export function clearStoredErrorLogs(): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   try {
+     localStorage.removeItem(ERROR_LOGS_STORAGE_KEY);
+   } catch (error) {
+@@ -172,9 +172,9 @@ export function clearStoredErrorLogs(): void {
+  */
+ export function setupGlobalErrorHandler(): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   const originalOnError = window.onerror;
+-  
++
+   window.onerror = (message, source, lineno, colno, error) => {
+     // Log the error
+     logError(
+@@ -182,31 +182,31 @@ export function setupGlobalErrorHandler(): void {
+       ErrorSeverity.ERROR,
+       { source, lineno, colno }
+     );
+-    
++
+     // Call the original handler if it exists
+     if (originalOnError) {
+       return originalOnError(message, source, lineno, colno, error);
+     }
+-    
++
+     // Return false to allow the default browser error handling
+     return false;
+   };
+-  
++
+   const originalUnhandledRejection = window.onunhandledrejection;
+-  
++
+   window.onunhandledrejection = (event) => {
+     // Log the unhandled promise rejection
+     const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+-    
++
+     logError(
+       error,
+       ErrorSeverity.ERROR,
+       { type: 'unhandledrejection' }
+     );
+-    
++
+     // Call the original handler if it exists
+     if (originalUnhandledRejection) {
+-      return originalUnhandledRejection(event);
++      return originalUnhandledRejection.call(window, event);
+     }
+   };
+ }
+diff --git a/src/utils/web-vitals.ts b/src/utils/web-vitals.ts
+index cd95f96..81ad60a 100644
+--- a/src/utils/web-vitals.ts
++++ b/src/utils/web-vitals.ts
+@@ -1,6 +1,6 @@
+ /**
+  * Web Vitals Tracking Utility
+- * 
++ *
+  * This module provides utilities for tracking Core Web Vitals metrics
+  * without relying on third-party services.
+  */
+@@ -22,7 +22,7 @@ const WEB_VITALS_STORAGE_KEY = 'gtr_web_vitals';
+ 
+ /**
+  * Get the rating for a Web Vitals metric
+- * 
++ *
+  * @param name - The name of the metric
+  * @param value - The value of the metric
+  * @returns The rating of the metric
+@@ -48,17 +48,17 @@ function getMetricRating(name: string, value: number): 'good' | 'needs-improveme
+ 
+ /**
+  * Store Web Vitals metrics in local storage
+- * 
++ *
+  * @param metric - The Web Vitals metric to store
+  */
+ function storeWebVitalsMetric(metric: WebVitalsMetric): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   try {
+     // Get existing metrics from local storage
+     const storedMetrics = localStorage.getItem(WEB_VITALS_STORAGE_KEY);
+     const metrics = storedMetrics ? JSON.parse(storedMetrics) : [];
+-    
++
+     // Add the new metric
+     metrics.push({
+       ...metric,
+@@ -66,13 +66,13 @@ function storeWebVitalsMetric(metric: WebVitalsMetric): void {
+       url: window.location.href,
+       userAgent: window.navigator.userAgent,
+     });
+-    
++
+     // Keep only the last 50 metrics to avoid excessive storage usage
+     const trimmedMetrics = metrics.slice(-50);
+-    
++
+     // Store the metrics back in local storage
+     localStorage.setItem(WEB_VITALS_STORAGE_KEY, JSON.stringify(trimmedMetrics));
+-    
++
+     // Log the metric to console in development
+     if (process.env.NODE_ENV === 'development') {
+       console.log(`Web Vitals: ${metric.name} = ${metric.value} (${metric.rating})`);
+@@ -84,12 +84,12 @@ function storeWebVitalsMetric(metric: WebVitalsMetric): void {
+ 
+ /**
+  * Get all stored Web Vitals metrics
+- * 
++ *
+  * @returns An array of stored Web Vitals metrics
+  */
+ export function getStoredWebVitalsMetrics(): any[] {
+   if (typeof window === 'undefined') return [];
+-  
++
+   try {
+     const storedMetrics = localStorage.getItem(WEB_VITALS_STORAGE_KEY);
+     return storedMetrics ? JSON.parse(storedMetrics) : [];
+@@ -104,7 +104,7 @@ export function getStoredWebVitalsMetrics(): any[] {
+  */
+ export function clearStoredWebVitalsMetrics(): void {
+   if (typeof window === 'undefined') return;
+-  
++
+   try {
+     localStorage.removeItem(WEB_VITALS_STORAGE_KEY);
+   } catch (error) {
+@@ -114,25 +114,27 @@ export function clearStoredWebVitalsMetrics(): void {
+ 
+ /**
+  * Report Web Vitals metrics
+- * 
++ *
+  * This function is used with Next.js's reportWebVitals function
+  * to track Core Web Vitals metrics.
+- * 
++ *
+  * @param metric - The Web Vitals metric to report
+  */
+ export function reportWebVitals(metric: NextWebVitalsMetric): void {
+-  const { id, name, value, delta } = metric;
+-  
++  const { id, name, value } = metric;
++  // delta is not available in NextWebVitalsMetric type, so we use any to access it
++  const delta = (metric as any).delta;
++
+   // Get the rating for the metric
+   const rating = getMetricRating(name, value);
+-  
++
+   // Store the metric
+   storeWebVitalsMetric({
+     id,
+     name,
+     value,
+     rating,
+-    delta,
++    delta: delta || 0,
+     navigationType: (performance as any).getEntriesByType?.('navigation')?.[0]?.type || '',
+   });
+ }

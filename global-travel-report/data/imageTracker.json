@@ -1,0 +1,357 @@
+{
+  "images": {
+    "https://images.unsplash.com/photo-1488085061387-422e29b40080": {
+      "url": "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+      "photographer": {
+        "name": "Jakob Owens",
+        "url": "https://unsplash.com/@jakobowens1"
+      },
+      "category": "Travel",
+      "usedInStories": [
+        "1-asias-latest-museums-a-must-visit-for-aussie-explorers",
+        "1-asias-newest-museums-a-guide-for-aussie-explorers",
+        "1-asias-newest-museums-a-must-visit-for-aussie-travellers",
+        "1-asias-newest-museums-a-must-visit-for-aussies",
+        "1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2",
+        "1-direct-flights-to-doha-your-gateway-to-the-middle-east",
+        "1-direct-manila-doha-flights-your-gateway-to-adventure",
+        "1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202",
+        "1-discover-copenhagen-direct-flights-from-china-eastern-airl",
+        "1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025",
+        "1-discover-iraklio-greeces-cruise-gem-for-aussies",
+        "1-discover-manila-your-ultimate-guide-to-flying-from-austral",
+        "1-discover-pragues-luxury-a-perfect-getaway-for-aussies",
+        "1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2",
+        "1-dubai-travel-guide-for-aussies-navigating-new-norms",
+        "1-explore-asias-newest-museums-a-guide-for-aussie-explorers",
+        "1-explore-asias-newest-museums-a-guide-for-aussie-travellers",
+        "1-explore-asias-newest-museums-a-guide-for-aussies",
+        "1-explore-doha-direct-flights-from-manila-with-philippine-ai",
+        "1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025",
+        "1-explore-iraklio-a-cruise-gem-for-australian-adventurers",
+        "1-explore-manila-new-qatar-airways-codeshare-flights-for-aus",
+        "1-explore-manila-with-direct-flights-from-doha-a-guide-for-a",
+        "1-explore-manila-with-qatar-airways-a-guide-for-aussies",
+        "1-explore-manila-with-qatar-airways-your-australian-gateway",
+        "1-exploring-asias-newest-museums-a-guide-for-aussies-2",
+        "1-exploring-scotland-by-sea-a-cruise-adventure-from-australi",
+        "1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a",
+        "1-global-getaways-a-guide-for-aussies-to-world-travel-2",
+        "1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo",
+        "1-new-direct-flights-from-copenhagen-to-boost-aussie-travels",
+        "1-new-qatar-philippine-airlines-deal-your-gateway-to-manila",
+        "1-pakistan-airspace-closure-affects-aussie-travellers-know-m",
+        "1-pakistan-airspace-closure-what-aussies-need-to-know",
+        "1-scotlands-cruise-boom-a-130m-lift-aussie-guide",
+        "1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies",
+        "1-scotlands-cruise-boom-a-130m-windfall-aussie-guide",
+        "1-seo-optimized-title-unlock-thailand-subsidized-flights-tip",
+        "1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra",
+        "1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl",
+        "1-thailands-new-flight-deals-spark-interest-for-aussie-touri",
+        "1-top-5-hidden-gems-abroad-for-aussie-explorers-in-2025",
+        "1-top-5-hidden-gems-for-aussie-globetrotters-in-2025",
+        "1-top-5-hidden-gems-for-aussie-travellers-in-2025",
+        "1-top-5-underrated-gems-for-aussie-explorers-in-2025",
+        "1-top-noise-cancelling-headphones-for-aussie-globetrotters",
+        "1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu",
+        "1-top-noise-cancelling-headphones-for-aussie-travellers-ulti",
+        "1-top-noise-cancelling-headsets-for-aussie-travellers-best-b",
+        "1-uk-travel-guide-for-aussies-best-deals-tips-2023",
+        "1-uk-travel-guide-for-aussies-must-know-tips-tricks",
+        "1-uk-travel-guide-for-aussies-tips-best-times-to-visit",
+        "1-uk-travel-guide-for-aussies-tips-must-knows-for-2023",
+        "1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi",
+        "1-uk-travel-guide-tips-for-aussies-planning-their-british-es",
+        "1-uk-travel-guide-tips-insights-for-aussie-explorers",
+        "1-uk-travel-guide-tips-tricks-for-aussies-abroad-2",
+        "1-ultimate-guide-best-noise-cancelling-headphones-for-aussie",
+        "australias-maritime-tourism-charting-a-course-towards-spectacular-growth",
+        "australias-maritime-tourism-sailing-towards-unprecedented-growth",
+        "explore-the-whitsundays-by-sail",
+        "hidden-gems-of-southeast-asia",
+        "southeast-asia-the-new-favorite-of-australian-travelers",
+        "southeast-asia-the-new-favourite-playground-for-australian-tourists",
+        "the-land-of-the-rising-sun-australias-top-holiday-destination",
+        "the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan",
+        "asias-latest-museums-a-must-see-for-aussie-explorers",
+        "best-noise-cancelling-headphones-for-aussie-travellers",
+        "china-eastern-airlines-launches-copenhagen-routes",
+        "explore-heraklion-your-next-cruise-destination-from-australi",
+        "explore-the-shanghai-cruise-culture-tourism-festival",
+        "exploring-ascotts-innovative-hospitality-strategy",
+        "exploring-the-surge-in-cruise-tourism-trends-and-future-insi",
+        "fly-direct-manila-to-doha-with-philippine-airlines-qatar-air",
+        "fly-direct-to-copenhagen-from-australia-with-china-eastern",
+        "hidden-gems-top-international-destinations-for-aussies-in-20",
+        "iraklio-port-a-new-hub-for-cruise-tourism-in-greece",
+        "story-2025-05-02-208",
+        "title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita",
+        "title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller",
+        "top-noise-cancelling-headphones-for-travelers",
+        "uk-tourism-concerns-industry-claims-government-impact",
+        "uk-travel-woes-what-aussies-need-to-know",
+        "wildlife-adventures-outearn-illegal-trade-globally"
+      ]
+    },
+    "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1": {
+      "url": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+      "photographer": {
+        "name": "Asoggetti",
+        "url": "https://unsplash.com/@asoggetti"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1503220317375-aaad61436b1b": {
+      "url": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+      "photographer": {
+        "name": "Jaromir Kavan",
+        "url": "https://unsplash.com/@jerrykavan"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1530521954074-e64f6810b32d": {
+      "url": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
+      "photographer": {
+        "name": "Dino Reichmuth",
+        "url": "https://unsplash.com/@dinoreichmuth"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470": {
+      "url": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+      "photographer": {
+        "name": "Sylvain Mauroux",
+        "url": "https://unsplash.com/@sylvainmauroux"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1548574505-5e239809ee19": {
+      "url": "https://images.unsplash.com/photo-1548574505-5e239809ee19",
+      "photographer": {
+        "name": "Alonso Reyes",
+        "url": "https://unsplash.com/@alonsoreyes"
+      },
+      "category": "Cruise",
+      "usedInStories": [
+        "title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes"
+      ]
+    },
+    "https://images.unsplash.com/photo-1599640842225-85d111c60e6b": {
+      "url": "https://images.unsplash.com/photo-1599640842225-85d111c60e6b",
+      "photographer": {
+        "name": "Josiah Farrow",
+        "url": "https://unsplash.com/@josiahfarrow"
+      },
+      "category": "Cruise",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1548690312-e3b507d8c110": {
+      "url": "https://images.unsplash.com/photo-1548690312-e3b507d8c110",
+      "photographer": {
+        "name": "Vidar Nordli-Mathisen",
+        "url": "https://unsplash.com/@vidarnm"
+      },
+      "category": "Cruise",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1551632811-561732d1e306": {
+      "url": "https://images.unsplash.com/photo-1551632811-561732d1e306",
+      "photographer": {
+        "name": "Flo Maderebner",
+        "url": "https://unsplash.com/@flomaderebner"
+      },
+      "category": "Adventure",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1493707553966-283afac8c358": {
+      "url": "https://images.unsplash.com/photo-1493707553966-283afac8c358",
+      "photographer": {
+        "name": "Anthony Tran",
+        "url": "https://unsplash.com/@anthonytran"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1577083552431-6e5fd01988a5": {
+      "url": "https://images.unsplash.com/photo-1577083552431-6e5fd01988a5",
+      "photographer": {
+        "name": "Jingda Chen",
+        "url": "https://unsplash.com/@jingda"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1566438480900-0609be27a4be": {
+      "url": "https://images.unsplash.com/photo-1566438480900-0609be27a4be",
+      "photographer": {
+        "name": "Esteban Castle",
+        "url": "https://unsplash.com/@estebancastle"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1518998053901-5348d3961a04": {
+      "url": "https://images.unsplash.com/photo-1518998053901-5348d3961a04",
+      "photographer": {
+        "name": "Jezael Melgoza",
+        "url": "https://unsplash.com/@jezar"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1504674900247-0877df9cc836": {
+      "url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+      "photographer": {
+        "name": "Brooke Lark",
+        "url": "https://unsplash.com/@brookelark"
+      },
+      "category": "Food & Wine",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3": {
+      "url": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3",
+      "photographer": {
+        "name": "Kelsey Knight",
+        "url": "https://unsplash.com/@kelseyannvere"
+      },
+      "category": "Food & Wine",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1508672019048-805c876b67e2": {
+      "url": "https://images.unsplash.com/photo-1508672019048-805c876b67e2",
+      "photographer": {
+        "name": "Simon Migaj",
+        "url": "https://unsplash.com/@simonmigaj"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1530789253388-582c481c54b0": {
+      "url": "https://images.unsplash.com/photo-1530789253388-582c481c54b0",
+      "photographer": {
+        "name": "Sime Basioli",
+        "url": "https://unsplash.com/@basecore"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800": {
+      "url": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+      "photographer": {
+        "name": "Braden Jarvis",
+        "url": "https://unsplash.com/@jarvisphoto"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a": {
+      "url": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a",
+      "photographer": {
+        "name": "Arto Marttinen",
+        "url": "https://unsplash.com/@wandervisions"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1528127269322-539801943592": {
+      "url": "https://images.unsplash.com/photo-1528127269322-539801943592",
+      "photographer": {
+        "name": "Emile Guillemot",
+        "url": "https://unsplash.com/@emilegt"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1526772662000-3f88f10405ff": {
+      "url": "https://images.unsplash.com/photo-1526772662000-3f88f10405ff",
+      "photographer": {
+        "name": "Thomas Tucker",
+        "url": "https://unsplash.com/@tents_and_tread"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1528164344705-47542687000d": {
+      "url": "https://images.unsplash.com/photo-1528164344705-47542687000d",
+      "photographer": {
+        "name": "Davide Cantelli",
+        "url": "https://unsplash.com/@cant89"
+      },
+      "category": "Travel",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1551913902-c92207136625": {
+      "url": "https://images.unsplash.com/photo-1551913902-c92207136625",
+      "photographer": {
+        "name": "Raimond Klavins",
+        "url": "https://unsplash.com/@raimondklavins"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1552084117-56a987666449": {
+      "url": "https://images.unsplash.com/photo-1552084117-56a987666449",
+      "photographer": {
+        "name": "Heidi Kaden",
+        "url": "https://unsplash.com/@heidikaden"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1581889470536-467bdbe30cd0": {
+      "url": "https://images.unsplash.com/photo-1581889470536-467bdbe30cd0",
+      "photographer": {
+        "name": "Shifaaz Shamoon",
+        "url": "https://unsplash.com/@sotti"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    },
+    "https://images.unsplash.com/photo-1533105079780-92b9be482077": {
+      "url": "https://images.unsplash.com/photo-1533105079780-92b9be482077",
+      "photographer": {
+        "name": "Dario Bronnimann",
+        "url": "https://unsplash.com/@darby"
+      },
+      "category": "Culture",
+      "usedInStories": []
+    }
+  },
+  "photographerToImage": {
+    "Jakob Owens": "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+    "Asoggetti": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+    "Jaromir Kavan": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+    "Dino Reichmuth": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
+    "Sylvain Mauroux": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "Alonso Reyes": "https://images.unsplash.com/photo-1548574505-5e239809ee19",
+    "Josiah Farrow": "https://images.unsplash.com/photo-1599640842225-85d111c60e6b",
+    "Vidar Nordli-Mathisen": "https://images.unsplash.com/photo-1548690312-e3b507d8c110",
+    "Flo Maderebner": "https://images.unsplash.com/photo-1551632811-561732d1e306",
+    "Anthony Tran": "https://images.unsplash.com/photo-1493707553966-283afac8c358",
+    "Jingda Chen": "https://images.unsplash.com/photo-1577083552431-6e5fd01988a5",
+    "Esteban Castle": "https://images.unsplash.com/photo-1566438480900-0609be27a4be",
+    "Jezael Melgoza": "https://images.unsplash.com/photo-1518998053901-5348d3961a04",
+    "Brooke Lark": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+    "Kelsey Knight": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3",
+    "Simon Migaj": "https://images.unsplash.com/photo-1508672019048-805c876b67e2",
+    "Sime Basioli": "https://images.unsplash.com/photo-1530789253388-582c481c54b0",
+    "Braden Jarvis": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "Arto Marttinen": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a",
+    "Emile Guillemot": "https://images.unsplash.com/photo-1528127269322-539801943592",
+    "Thomas Tucker": "https://images.unsplash.com/photo-1526772662000-3f88f10405ff",
+    "Davide Cantelli": "https://images.unsplash.com/photo-1528164344705-47542687000d",
+    "Raimond Klavins": "https://images.unsplash.com/photo-1551913902-c92207136625",
+    "Heidi Kaden": "https://images.unsplash.com/photo-1552084117-56a987666449",
+    "Shifaaz Shamoon": "https://images.unsplash.com/photo-1581889470536-467bdbe30cd0",
+    "Dario Bronnimann": "https://images.unsplash.com/photo-1533105079780-92b9be482077"
+  },
+  "usedImageUrls": [
+    "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+    "https://images.unsplash.com/photo-1548574505-5e239809ee19"
+  ]
+}

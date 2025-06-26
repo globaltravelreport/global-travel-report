@@ -1,0 +1,56 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Top Noise-Cancelling Headphones for Aussie Globetrotters",
+    "description": " As Australian wanderlusts gear up for their next international escape, knowing the best noise-cancelling headphones to bring along can transform the ...",
+    "image": [
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-07T13:53:24.598Z",
+    "dateModified": "2025-04-07T13:53:24.598Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-top-noise-cancelling-headphones-for-aussie-globetrotters"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Airline",
+        "item": "https://globaltravelreport.com/category/airline"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Top Noise-Cancelling Headphones for Aussie Globetrotters",
+        "item": "https://globaltravelreport.com/1-top-noise-cancelling-headphones-for-aussie-globetrotters"
+      }
+    ]
+  }
+]
