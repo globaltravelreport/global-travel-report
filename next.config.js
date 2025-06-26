@@ -1,6 +1,17 @@
-// Polyfill for server-side rendering
-if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined') {
-  globalThis.self = globalThis;
+// Comprehensive polyfill for server-side rendering
+if (typeof globalThis !== 'undefined') {
+  if (typeof globalThis.self === 'undefined') {
+    globalThis.self = globalThis;
+  }
+  if (typeof globalThis.window === 'undefined') {
+    globalThis.window = globalThis;
+  }
+  if (typeof globalThis.document === 'undefined') {
+    globalThis.document = {};
+  }
+  if (typeof globalThis.navigator === 'undefined') {
+    globalThis.navigator = {};
+  }
 }
 
 /** @type {import('next').NextConfig} */
@@ -138,11 +149,14 @@ const nextConfig = {
       // Define browser globals for server-side
       config.plugins.push(
         new webpack.DefinePlugin({
-          'typeof window': JSON.stringify('undefined'),
-          'typeof document': JSON.stringify('undefined'),
-          'typeof navigator': JSON.stringify('undefined'),
-          'typeof self': JSON.stringify('undefined'),
-          'self': JSON.stringify({}),
+          'typeof window': JSON.stringify('object'),
+          'typeof document': JSON.stringify('object'),
+          'typeof navigator': JSON.stringify('object'),
+          'typeof self': JSON.stringify('object'),
+          'self': 'globalThis',
+          'window': 'globalThis',
+          'document': '{}',
+          'navigator': '{}',
         })
       );
     }
