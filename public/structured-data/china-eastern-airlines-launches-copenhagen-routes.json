@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "China Eastern Airlines Launches Copenhagen Routes",
+    "description": "  China Eastern Airlines has announced the introduction of new flight routes connecting major cities to Copenhagen, marking a significant expansion in t...",
+    "image": [
+      "https://images.unsplash.com/photo-1488085061387-422e29b40080"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-06T13:53:24.625Z",
+    "dateModified": "2025-04-06T13:53:24.625Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/china-eastern-airlines-launches-copenhagen-routes"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "China Eastern Airlines Launches Copenhagen Routes",
+    "description": "  China Eastern Airlines has announced the introduction of new flight routes connecting major cities to Copenhagen, marking a significant expansion in t...",
+    "url": "https://globaltravelreport.com/china-eastern-airlines-launches-copenhagen-routes",
+    "image": "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Denmark"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Travel Tips",
+        "item": "https://globaltravelreport.com/category/travel-tips"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Denmark",
+        "item": "https://globaltravelreport.com/destination/denmark"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "China Eastern Airlines Launches Copenhagen Routes",
+        "item": "https://globaltravelreport.com/china-eastern-airlines-launches-copenhagen-routes"
+      }
+    ]
+  }
+]

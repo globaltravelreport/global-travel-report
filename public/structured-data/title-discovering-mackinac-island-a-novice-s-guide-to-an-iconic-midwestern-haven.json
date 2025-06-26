@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Discovering Mackinac Island: A Novice's Guide to an Iconic Midwestern Haven",
+    "description": "An engaging and informative guide for first-time visitors to Mackinac Island - a charming, car-free destination rich in history and natural beauty in Northern Michigan.",
+    "image": [
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-26T13:53:24.646Z",
+    "dateModified": "2025-04-26T13:53:24.646Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Discovering Mackinac Island: A Novice's Guide to an Iconic Midwestern Haven",
+    "description": "An engaging and informative guide for first-time visitors to Mackinac Island - a charming, car-free destination rich in history and natural beauty in Northern Michigan.",
+    "url": "https://globaltravelreport.com/title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven",
+    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "United States"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Destination",
+        "item": "https://globaltravelreport.com/category/destination"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "United States",
+        "item": "https://globaltravelreport.com/destination/united-states"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Discovering Mackinac Island: A Novice's Guide to an Iconic Midwestern Haven",
+        "item": "https://globaltravelreport.com/title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven"
+      }
+    ]
+  }
+]
