@@ -120,6 +120,15 @@ const nextConfig = {
 
   // Webpack optimizations
   webpack: (config, { dev, isServer, webpack }) => {
+    // Exclude problematic packages from server bundle
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push({
+        'framer-motion': 'framer-motion',
+        'leaflet': 'leaflet',
+      });
+    }
+
     // Production optimizations
     if (!dev) {
       config.optimization = {
