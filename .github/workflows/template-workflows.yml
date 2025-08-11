@@ -10,7 +10,7 @@ jobs:
     outputs:
       workflow-type: ${{ steps.set-type.outputs.type }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - id: set-type
         name: Determine workflow type
@@ -35,7 +35,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'bug'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Run tests
         run: |
@@ -73,7 +73,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'feature'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Run tests
         run: |
@@ -95,7 +95,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'security'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Run security scan
         run: |
@@ -117,7 +117,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'docs'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Check links
         run: |
@@ -134,7 +134,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'refactor'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Run tests
         run: |
@@ -155,7 +155,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'config'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Validate configs
         run: |
@@ -180,7 +180,7 @@ jobs:
     if: needs.determine-workflow.outputs.workflow-type == 'default'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       
       - name: Run basic checks
         run: |
