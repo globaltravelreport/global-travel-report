@@ -20,6 +20,8 @@ interface OptimizedImageProps {
   objectPosition?: string;
   loading?: 'lazy' | 'eager';
   unoptimized?: boolean;
+  placeholder?: 'blur' | 'empty';
+  blurDataURL?: string;
 }
 
 /**
@@ -43,6 +45,8 @@ export default function OptimizedImage({
   objectPosition = 'center',
   loading = 'lazy',
   unoptimized = false,
+  placeholder = 'empty',
+  blurDataURL,
 }: OptimizedImageProps) {
   // Initialize with the provided src so SSR renders an actual image URL.
   // This avoids opacity-0 on first paint when priority is true (e.g., home hero).
@@ -193,6 +197,8 @@ export default function OptimizedImage({
         quality={quality}
         sizes={sizes}
         unoptimized={unoptimized}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
         className={`transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         } ${hasError ? 'opacity-50' : ''}`}
