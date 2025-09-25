@@ -43,10 +43,6 @@ export function NewsletterSignup({
     } catch (error) {
       setStatus('error');
       toast({
-<<<<<<< HEAD
-=======
-        variant: 'destructive',
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
         title: 'Error',
         description: 'Failed to subscribe. Please try again.'
       });
@@ -95,11 +91,7 @@ export function NewsletterSignup({
             <span className="flex items-center justify-center">
               <svg
                 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-<<<<<<< HEAD
                 xmlns="https://www.w3.org/2000/svg"
-=======
-                xmlns="http://www.w3.org/2000/svg"
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                 fill="none"
                 viewBox="0 0 24 24"
               >

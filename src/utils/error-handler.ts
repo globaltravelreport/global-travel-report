@@ -10,10 +10,6 @@ export enum ErrorSeverity {
 
 // Error context interface
 interface ErrorContext {
-<<<<<<< HEAD
-  [key: string]: any;
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   context?: string;
   requestId?: string;
   userId?: string;
@@ -52,7 +48,7 @@ function generateErrorId(): string {
  */
 function determineErrorSeverity(error: any, context: ErrorContext): ErrorSeverity {
   // Critical errors
-  if (error.name === 'DatabaseConnectionError' || 
+  if (error.name === 'DatabaseConnectionError' ||
       error.message?.includes('ECONNREFUSED') ||
       error.message?.includes('Database') ||
       context.context?.includes('payment') ||
@@ -85,7 +81,7 @@ function determineErrorSeverity(error: any, context: ErrorContext): ErrorSeverit
 function logToConsole(entry: ErrorLogEntry): void {
   const { id, message, stack, severity, context, timestamp } = entry;
   const date = new Date(timestamp).toISOString();
-  
+
   const logMessage = [
     `[${date}] [${severity.toUpperCase()}] [${id}]`,
     `Message: ${message}`,
@@ -120,7 +116,7 @@ function logToConsole(entry: ErrorLogEntry): void {
  */
 function storeError(entry: ErrorLogEntry): void {
   errorStore.push(entry);
-  
+
   // Remove oldest errors if we exceed the limit
   if (errorStore.length > MAX_STORED_ERRORS) {
     errorStore.splice(0, errorStore.length - MAX_STORED_ERRORS);
@@ -137,14 +133,14 @@ export function logError(
 ): string {
   const errorId = generateErrorId();
   const timestamp = Date.now();
-  
+
   // Extract error information
   const message = error?.message || error?.toString() || 'Unknown error';
   const stack = error?.stack;
-  
+
   // Determine severity if not provided
   const finalSeverity = severity || determineErrorSeverity(error, context);
-  
+
   // Create error log entry
   const entry: ErrorLogEntry = {
     id: errorId,
@@ -161,13 +157,13 @@ export function logError(
 
   // Log to console
   logToConsole(entry);
-  
+
   // Store in memory
   storeError(entry);
-  
+
   // In production, you would also send to external logging service
   // sendToExternalLoggingService(entry);
-  
+
   return errorId;
 }
 
@@ -187,7 +183,7 @@ export function logRequestError(
     userAgent: req.headers.get('user-agent') || 'unknown',
     ...additionalContext,
   };
-  
+
   return logError(error, context, severity);
 }
 
@@ -240,7 +236,7 @@ export function getErrorStats(): {
     resolved: 0,
     unresolved: 0,
   };
-  
+
   errorStore.forEach(entry => {
     stats.bySeverity[entry.severity]++;
     if (entry.resolved) {
@@ -249,7 +245,7 @@ export function getErrorStats(): {
       stats.unresolved++;
     }
   });
-  
+
   return stats;
 }
 
@@ -259,13 +255,13 @@ export function getErrorStats(): {
 export function clearOldErrors(olderThanMs: number = 7 * 24 * 60 * 60 * 1000): number { // Default: 7 days
   const cutoffTime = Date.now() - olderThanMs;
   const initialLength = errorStore.length;
-  
+
   // Remove errors older than cutoff time
   for (let i = errorStore.length - 1; i >= 0; i--) {
     if (errorStore[i].timestamp < cutoffTime) {
       errorStore.splice(i, 1);
     }
   }
-  
+
   return initialLength - errorStore.length; // Return number of errors removed
 }

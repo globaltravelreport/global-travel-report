@@ -167,11 +167,7 @@ export function OptimizedImage({
           onError={handleError}
           loading={loading}
           placeholder={placeholder}
-<<<<<<< HEAD
           blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
-=======
-          blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
           unoptimized={false}
         />
       )}

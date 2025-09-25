@@ -6,15 +6,11 @@ interface IconProps {
 
 export function FacebookIcon({ className = '' }: IconProps) {
   return (
-    <svg 
-<<<<<<< HEAD
-      xmlns="https://www.w3.org/2000/svg" 
-=======
-      xmlns="http://www.w3.org/2000/svg" 
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
     >
@@ -25,15 +21,11 @@ export function FacebookIcon({ className = '' }: IconProps) {
 
 export function TwitterIcon({ className = '' }: IconProps) {
   return (
-    <svg 
-<<<<<<< HEAD
-      xmlns="https://www.w3.org/2000/svg" 
-=======
-      xmlns="http://www.w3.org/2000/svg" 
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
     >
@@ -44,15 +36,11 @@ export function TwitterIcon({ className = '' }: IconProps) {
 
 export function LinkedInIcon({ className = '' }: IconProps) {
   return (
-    <svg 
-<<<<<<< HEAD
-      xmlns="https://www.w3.org/2000/svg" 
-=======
-      xmlns="http://www.w3.org/2000/svg" 
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
     >
@@ -63,15 +51,11 @@ export function LinkedInIcon({ className = '' }: IconProps) {
 
 export function WhatsAppIcon({ className = '' }: IconProps) {
   return (
-    <svg 
-<<<<<<< HEAD
-      xmlns="https://www.w3.org/2000/svg" 
-=======
-      xmlns="http://www.w3.org/2000/svg" 
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
     >
@@ -82,15 +66,11 @@ export function WhatsAppIcon({ className = '' }: IconProps) {
 
 export function PinterestIcon({ className = '' }: IconProps) {
   return (
-    <svg 
-<<<<<<< HEAD
-      xmlns="https://www.w3.org/2000/svg" 
-=======
-      xmlns="http://www.w3.org/2000/svg" 
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
     >

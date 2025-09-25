@@ -25,7 +25,7 @@ export function imageLoader({ src, width, quality = 75 }: ImageLoaderParams): st
     // Check if the URL already has parameters
     const hasParams = src.includes('?');
     const separator = hasParams ? '&' : '?';
-    
+
     // Add width, format and quality parameters
     return `${src}${separator}w=${width}&fm=webp&q=${quality}&auto=compress`;
   }
@@ -35,7 +35,7 @@ export function imageLoader({ src, width, quality = 75 }: ImageLoaderParams): st
     // Check if the URL already has parameters
     const hasParams = src.includes('?');
     const separator = hasParams ? '&' : '?';
-    
+
     // Add auto format and quality parameters
     // Pexels uses 'auto=compress' for automatic format selection
     return `${src}${separator}auto=compress&cs=tinysrgb&w=${width}&dpr=2&q=${quality}`;
@@ -45,14 +45,14 @@ export function imageLoader({ src, width, quality = 75 }: ImageLoaderParams): st
   if (src.includes('cloudinary.com')) {
     // Cloudinary URLs are typically structured as:
     // https://res.cloudinary.com/[cloud_name]/image/upload/[transformations]/[public_id].[extension]
-    
+
     // Check if the URL already has transformations
     if (src.includes('/image/upload/')) {
       // Insert transformations after '/image/upload/'
       const parts = src.split('/image/upload/');
       return `${parts[0]}/image/upload/f_auto,q_${quality},w_${width}/${parts[1]}`;
     }
-    
+
     // If URL structure is different, add as query parameters
     const hasParams = src.includes('?');
     const separator = hasParams ? '&' : '?';
@@ -64,7 +64,7 @@ export function imageLoader({ src, width, quality = 75 }: ImageLoaderParams): st
     // Check if the URL already has parameters
     const hasParams = src.includes('?');
     const separator = hasParams ? '&' : '?';
-    
+
     // Add format, width and quality parameters
     return `${src}${separator}fm=webp&w=${width}&q=${quality}&auto=compress`;
   }
@@ -82,7 +82,7 @@ export function getImageSizes(layout: 'full' | 'half' | 'third' | 'quarter' | 'c
   if (layout === 'custom' && customSizes) {
     return customSizes;
   }
-  
+
   switch (layout) {
     case 'full':
       return '(max-width: 768px) 100vw, 100vw';
@@ -106,11 +106,7 @@ export function getImageSizes(layout: 'full' | 'half' | 'third' | 'quarter' | 'c
  */
 export function generateBlurDataURL(color = '#f3f4f6', width = 400, height = 300): string {
   // Create a simple SVG placeholder with the specified color
-<<<<<<< HEAD
   return `data:image/svg+xml;charset=utf-8,<svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"><rect width="${width}" height="${height}" fill="${encodeURIComponent(color)}"/></svg>`;
-=======
-  return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"><rect width="${width}" height="${height}" fill="${encodeURIComponent(color)}"/></svg>`;
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 }
 
 /**
@@ -120,7 +116,7 @@ export function generateBlurDataURL(color = '#f3f4f6', width = 400, height = 300
  */
 export function getFallbackImage(category: string = ''): string {
   const lowerCategory = category.toLowerCase();
-  
+
   if (lowerCategory.includes('cruise') || lowerCategory.includes('ship')) {
     return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
   } else if (lowerCategory.includes('food') || lowerCategory.includes('dining')) {

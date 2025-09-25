@@ -39,23 +39,15 @@ export function createApiResponse<T = any>(
   options: ResponseOptions = {}
 ): NextResponse {
   const { status = 200, headers = {}, requestId } = options;
-  
+
   const isError = typeof data === 'object' && data !== null && 'error' in data;
-  
-<<<<<<< HEAD
+
   const response = {
-=======
-  const response: ApiResponse<T> = {
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     success: !isError,
     timestamp: new Date().toISOString(),
     ...(requestId && { requestId }),
     ...(isError ? data : { data }),
-<<<<<<< HEAD
   } as ApiResponse<T>;
-=======
-  };
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
   // Set default headers
   const responseHeaders = {
@@ -81,7 +73,7 @@ export function createValidationErrorResponse(
   options: ResponseOptions = {}
 ): NextResponse {
   const { status = 400, headers = {}, requestId } = options;
-  
+
   const response: ValidationErrorResponse = {
     success: false,
     error: 'Validation Error',
@@ -113,10 +105,6 @@ export function createSuccessResponse<T = any>(
   message?: string,
   options: ResponseOptions = {}
 ): NextResponse {
-<<<<<<< HEAD
-  // Keep message out of top-level to satisfy ApiResponse<T>
-  return createApiResponse(data, options);
-=======
   return createApiResponse(
     {
       ...data,
@@ -124,7 +112,6 @@ export function createSuccessResponse<T = any>(
     },
     options
   );
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 }
 
 /**
@@ -136,7 +123,7 @@ export function createErrorResponse(
   options: ResponseOptions = {}
 ): NextResponse {
   const { status = 500 } = options;
-  
+
   return createApiResponse(
     {
       error,

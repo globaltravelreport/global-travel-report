@@ -1,4 +1,3 @@
-
 import { NextRequest } from 'next/server';
 
 interface RateLimitOptions {
@@ -26,49 +25,41 @@ export async function rateLimit(
   options: RateLimitOptions
 ): Promise<RateLimitResult> {
   const { maxRequests, windowMs } = options;
-  
+
   // Get client IP address
-  const ip = req.ip || 
-    req.headers.get('x-forwarded-for')?.split(',')[0] || 
-    req.headers.get('x-real-ip') || 
+  const ip = req.ip ||
+    req.headers.get('x-forwarded-for')?.split(',')[0] ||
+    req.headers.get('x-real-ip') ||
     'unknown';
-  
+
   const now = Date.now();
   const key = `rate_limit:${ip}`;
-  
+
   // Clean up expired entries periodically
   if (Math.random() < 0.01) { // 1% chance to clean up
-<<<<<<< HEAD
-    rateLimitStore.forEach((v, k) => {
-      if (v.resetTime < now) {
-        rateLimitStore.delete(k);
-      }
-    });
-=======
     for (const [k, v] of rateLimitStore.entries()) {
       if (v.resetTime < now) {
         rateLimitStore.delete(k);
       }
     }
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   }
-  
+
   const current = rateLimitStore.get(key);
-  
+
   if (!current || current.resetTime < now) {
     // First request or window expired
     rateLimitStore.set(key, {
       count: 1,
       resetTime: now + windowMs
     });
-    
+
     return {
       success: true,
       remaining: maxRequests - 1,
       resetTime: now + windowMs
     };
   }
-  
+
   if (current.count >= maxRequests) {
     // Rate limit exceeded
     return {
@@ -77,11 +68,11 @@ export async function rateLimit(
       resetTime: current.resetTime
     };
   }
-  
+
   // Increment count
   current.count++;
   rateLimitStore.set(key, current);
-  
+
   return {
     success: true,
     remaining: maxRequests - current.count,

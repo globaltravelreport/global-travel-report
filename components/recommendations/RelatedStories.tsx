@@ -95,11 +95,7 @@ export function RelatedStories({ currentStory, limit = 4 }: RelatedStoriesProps)
           className="text-sm text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
         >
           View all destinations
-<<<<<<< HEAD
           <svg xmlns="https://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-=======
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
             <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
           </svg>
         </Link>

@@ -6,11 +6,7 @@
  */
 
 import { NextResponse } from 'next/server';
-<<<<<<< HEAD
 import { EnhancedAppError as AppError, ErrorType, ErrorSeverity, handleError } from './enhanced-error-handler';
-=======
-import { AppError, ErrorType, handleError } from './error-handler';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 import { error as logError } from './errorLogger';
 
 // Define API error response interface
@@ -128,10 +124,7 @@ export function createValidationErrorResponse(
   const validationError = new AppError(
     message,
     ErrorType.VALIDATION,
-<<<<<<< HEAD
     ErrorSeverity.WARNING,
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     'VALIDATION_ERROR',
     details
   );
@@ -161,10 +154,7 @@ export function createNotFoundErrorResponse(
   const notFoundError = new AppError(
     message,
     ErrorType.NOT_FOUND,
-<<<<<<< HEAD
     ErrorSeverity.WARNING,
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     'NOT_FOUND_ERROR',
     resource ? { resource } : undefined
   );
@@ -192,10 +182,7 @@ export function createAuthenticationErrorResponse(
   const authError = new AppError(
     message,
     ErrorType.AUTHENTICATION,
-<<<<<<< HEAD
     ErrorSeverity.ERROR,
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     'AUTHENTICATION_ERROR'
   );
 

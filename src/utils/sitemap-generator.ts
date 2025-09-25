@@ -18,11 +18,7 @@ interface SitemapURL {
  */
 function generateSitemapXML(urls: SitemapURL[]): string {
   const xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>';
-<<<<<<< HEAD
   const sitemapStart = '<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">';
-=======
-  const sitemapStart = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   const sitemapEnd = '</urlset>';
 
   const urlsXML = urls.map(({ url, lastmod, changefreq, priority }) => {
@@ -55,11 +51,7 @@ function generateSitemapXML(urls: SitemapURL[]): string {
  */
 function generateSitemapIndexXML(sitemaps: { url: string; lastmod?: string }[]): string {
   const xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>';
-<<<<<<< HEAD
   const sitemapStart = '<sitemapindex xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">';
-=======
-  const sitemapStart = '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   const sitemapEnd = '</sitemapindex>';
 
   const sitemapsXML = sitemaps.map(({ url, lastmod }) => {
