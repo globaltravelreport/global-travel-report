@@ -88,8 +88,8 @@ function isValidAuthHeader(authHeader: string | null): boolean {
 
   // Check if the username and password are valid
   // In a real application, you would check against a database or environment variables
-  const validUsername = process.env.ADMIN_USERNAME || 'admin';
-  const validPassword = process.env.ADMIN_PASSWORD || 'GlobalTravelReport2024';
+  const validUsername = process.env.ADMIN_USERNAME;
+  const validPassword = process.env.ADMIN_PASSWORD;
 
   return username === validUsername && password === validPassword;
 }

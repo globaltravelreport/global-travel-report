@@ -10,7 +10,7 @@ import { retryOpenAICall } from './openai-error-handler';
 let openaiClient: OpenAI | null = null;
 function getOpenAIClient(): OpenAI {
   if (openaiClient) return openaiClient;
-  const apiKey = process.env.OPENAI_API_KEY || '';
+  const apiKey = process.env.OPENAI_API_KEY;
   // Do not throw during module import (e.g., build time). Any missing apiKey
   // will only surface when a request actually tries to call the API.
   openaiClient = new OpenAI({ apiKey });

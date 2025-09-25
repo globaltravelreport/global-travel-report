@@ -36,7 +36,7 @@ export function AnalyticsDashboard() {
       setError(null);
 
       // Create base64 encoded credentials
-      const credentials = btoa(`${process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin'}:${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'GlobalTravelReport2024'}`);
+      const credentials = btoa(`${process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin'}:${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'password'}`);
       
       // Fetch analytics data from the API
       const response = await fetch(

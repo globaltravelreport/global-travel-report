@@ -17,7 +17,7 @@ import pageImageTracker from '@/utils/pageImageTracker';
 
 // Initialize Unsplash API client
 const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_ACCESS_KEY || '',
+  accessKey: process.env.UNSPLASH_ACCESS_KEY,
 });
 
 // Cache for Unsplash API requests

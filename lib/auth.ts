@@ -2,10 +2,10 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'Global2025!';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SESSION_COOKIE_NAME = 'admin-session';
-const SESSION_SECRET = 'global-travel-admin-secret-2025';
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 export interface AdminSession {
   username: string;

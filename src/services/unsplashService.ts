@@ -31,7 +31,7 @@ export class UnsplashService {
   private lastResetHour: number;
 
   private constructor() {
-    this.accessKey = process.env.UNSPLASH_ACCESS_KEY || '';
+    this.accessKey = process.env.UNSPLASH_ACCESS_KEY;
     this.maxRetries = 3;
     this.retryDelay = 1000;
     this.requestsPerHour = 50; // Unsplash free tier limit
