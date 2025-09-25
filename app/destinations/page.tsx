@@ -89,7 +89,7 @@ async function DestinationsPageContent() {
           >
             Jeremy Bishop
           </a> on <a
-            href="https://unsplash.com/photos/8xznAGy4HcY"
+            href="https://unsplash.com"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-200"

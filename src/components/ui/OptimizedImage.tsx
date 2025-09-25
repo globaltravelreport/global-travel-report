@@ -1,14 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { cn } from '@/utils/cn';
-
-export interface Photographer {
-  name: string;
-  url?: string;
-  platform?: 'Unsplash' | 'Pexels' | 'Other';
-}
+import Image, { ImageProps } from 'next/image';
+import { useState, useEffect } from 'react';
 
 interface OptimizedImageProps {
   src: string;
@@ -16,163 +9,193 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   fill?: boolean;
+  className?: string;
   priority?: boolean;
   quality?: number;
-  className?: string;
-  style?: React.CSSProperties;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
-  objectPosition?: string;
-  onLoad?: () => void;
-  onError?: () => void;
   sizes?: string;
-  loading?: 'eager' | 'lazy';
-  placeholder?: 'blur' | 'empty';
-  blurDataURL?: string;
+  fallbackSrc?: string;
+  onError?: () => void;
+  onLoad?: () => void;
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  objectPosition?: string;
+  loading?: 'lazy' | 'eager';
 }
 
 /**
- * OptimizedImage component with WebP support and performance optimizations
+ * OptimizedImage component with fallback handling for broken Unsplash images
+ * Automatically converts Unsplash URLs to stable CDN format and provides fallback
  */
-export function OptimizedImage({
+export default function OptimizedImage({
   src,
   alt,
-  width,
-  height,
+  width = 800,
+  height = 600,
   fill = false,
+  className = '',
   priority = false,
   quality = 80,
-  className = '',
-  style,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  fallbackSrc,
+  onError,
+  onLoad,
   objectFit = 'cover',
   objectPosition = 'center',
-  onLoad,
-  onError,
-  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   loading = 'lazy',
-  placeholder = 'empty',
-  blurDataURL,
 }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(false);
+  const [imageSrc, setImageSrc] = useState<string>('');
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Generate a placeholder color based on the alt text for consistent placeholders
-  const generatePlaceholderColor = (text: string): string => {
-    let hash = 0;
-    for (let i = 0; i < text.length; i++) {
-      hash = text.charCodeAt(i) + ((hash << 5) - hash);
+  // Default fallback image
+  const defaultFallback = '/images/placeholder.jpg';
+
+  // Convert Unsplash URLs to stable CDN format
+  const convertToStableUrl = (url: string): string => {
+    // If it's already a stable images.unsplash.com URL, return as is
+    if (url.includes('images.unsplash.com/photo-')) {
+      return `${url}?auto=format&q=${quality}&w=${width}`;
     }
-    const hue = hash % 360;
-    return `hsl(${hue}, 70%, 80%)`;
+
+    // If it's an unsplash.com page URL, try to extract photo ID
+    if (url.includes('unsplash.com/photo/')) {
+      const photoMatch = url.match(/unsplash\.com\/photo\/([^/?]+)/);
+      if (photoMatch && photoMatch[1]) {
+        return `https://images.unsplash.com/photo-${photoMatch[1]}?auto=format&q=${quality}&w=${width}`;
+      }
+    }
+
+    // If it's a source.unsplash.com URL (deprecated), convert to images.unsplash.com
+    if (url.includes('source.unsplash.com')) {
+      const sourceMatch = url.match(/source\.unsplash\.com\/([^/?]+)/);
+      if (sourceMatch && sourceMatch[1]) {
+        return `https://images.unsplash.com/photo-${sourceMatch[1]}?auto=format&q=${quality}&w=${width}`;
+      }
+    }
+
+    // Handle template URLs that might be broken
+    if (url.includes('photo-${') || (url.includes('photo-') && url.includes('${'))) {
+      // This is likely a template string, return a fallback
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800';
+    }
+
+    // Handle malformed template URLs
+    if (url.includes('photo-${photoId}') || url.includes('photo-${photoMatch[1]}') || url.includes('photo-${sourceMatch[1]}')) {
+      // This is likely a template string, return a fallback
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800';
+    }
+
+    // Return original URL if no conversion needed
+    return url;
   };
 
-  const placeholderColor = generatePlaceholderColor(alt);
+  // Set up the image source with fallback logic
+  useEffect(() => {
+    let processedSrc = src;
 
-  // Handle image loading
-  const handleLoad = () => {
-    setIsLoaded(true);
-    if (onLoad) onLoad();
-  };
+    // Convert to stable URL format
+    processedSrc = convertToStableUrl(processedSrc);
 
-  // Handle image error
+    // Set the image source
+    setImageSrc(processedSrc);
+    setHasError(false);
+    setIsLoading(true);
+  }, [src, quality, width]);
+
   const handleError = () => {
-    setError(true);
-    if (onError) onError();
+    setHasError(true);
+    setIsLoading(false);
+
+    // Try fallback source if provided
+    if (fallbackSrc && imageSrc !== fallbackSrc) {
+      setImageSrc(fallbackSrc);
+      setHasError(false);
+      setIsLoading(true);
+      return;
+    }
+
+    // Use default fallback
+    if (imageSrc !== defaultFallback) {
+      setImageSrc(defaultFallback);
+      setHasError(false);
+      setIsLoading(true);
+      return;
+    }
+
+    // All fallbacks failed
+    setHasError(true);
+    setIsLoading(false);
+    onError?.();
   };
 
-  // Determine if the image is from Unsplash or another source
-  const isUnsplashImage = typeof src === 'string' && src.includes('unsplash.com');
+  const handleLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+    onLoad?.();
+  };
 
-  // Validate and optimize image URLs
-  const optimizedSrc = React.useMemo(() => {
-    // If src is not a string or empty, return a default image
-    if (!src || typeof src !== 'string') {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
-    }
-
-    // If src doesn't start with http, it's invalid
-    if (!src.startsWith('http')) {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
-    }
-
-    // IMPORTANT: Always use the exact URL provided
-    // This ensures we respect the image URLs from the story files
-
-    // For Unsplash images, we can optimize by adding quality and format parameters
-    if (src.includes('unsplash.com') && !src.includes('q=')) {
-      // Add WebP format and quality parameters if not already present
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
-    }
-
-    // For Pexels images, add auto format and quality parameters
-    if (src.includes('pexels.com') && !src.includes('auto=')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}auto=webp&q=${quality}`;
-    }
-
-    // For Cloudinary images, add format and quality parameters
-    if (src.includes('cloudinary.com') && !src.includes('f_auto')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}f_auto,q_${quality}`;
-    }
-
-    // For Imgix images, add format and quality parameters
-    if (src.includes('imgix.net') && !src.includes('fm=')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
-    }
-
-    // For local images, Next.js Image component will handle optimization automatically
-    return src;
-  }, [src, quality]);
+  if (!imageSrc) {
+    return (
+      <div
+        className={`bg-gray-200 flex items-center justify-center ${className}`}
+        style={{ width, height }}
+      >
+        <div className="text-gray-400 text-sm">Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden",
-        !fill && "inline-block",
-        className
-      )}
-      style={{
-        width: fill ? '100%' : width,
-        height: fill ? '100%' : height,
-        backgroundColor: !isLoaded ? placeholderColor : 'transparent',
-        ...style
-      }}
-    >
-      {error ? (
-        <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
-          <span>Image not available</span>
+    <div className={`relative ${className}`}>
+      {isLoading && (
+        <div
+          className="absolute inset-0 bg-gray-200 flex items-center justify-center z-10"
+          style={{ width, height }}
+        >
+          <div className="text-gray-400 text-sm">Loading...</div>
         </div>
-      ) : (
-        <Image
-          src={optimizedSrc}
-          alt={alt}
-          width={fill ? undefined : width}
-          height={fill ? undefined : height}
-          fill={fill}
-          priority={priority}
-          quality={quality}
-          className={cn(
-            "transition-opacity duration-300",
-            !isLoaded && "opacity-0",
-            isLoaded && "opacity-100"
-          )}
-          style={{
-            objectFit,
-            objectPosition
-          }}
-          sizes={sizes}
-          onLoad={handleLoad}
-          onError={handleError}
-          loading={loading}
-          placeholder={placeholder}
-          blurDataURL={blurDataURL || `data:image/svg+xml;charset=utf-8,<svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`}
-          unoptimized={false}
-        />
+      )}
+
+      <Image
+        src={imageSrc}
+        alt={alt}
+        width={fill ? undefined : width}
+        height={fill ? undefined : height}
+        fill={fill}
+        priority={priority}
+        quality={quality}
+        sizes={sizes}
+        className={`transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        } ${hasError ? 'opacity-50' : ''}`}
+        onError={handleError}
+        onLoad={handleLoad}
+        style={fill ? { objectFit, objectPosition } : {
+          width: '100%',
+          height: 'auto',
+          objectFit,
+          objectPosition,
+        }}
+      />
+
+      {hasError && (
+        <div
+          className="absolute inset-0 bg-gray-100 flex items-center justify-center"
+          style={{ width, height }}
+        >
+          <div className="text-center text-gray-500">
+            <div className="text-sm">Image unavailable</div>
+            <div className="text-xs mt-1">Using fallback</div>
+          </div>
+        </div>
       )}
     </div>
   );
+}
+
+export interface Photographer {
+  name: string;
+  url?: string;
+  platform?: 'Unsplash' | 'Pexels' | 'Other';
 }
 
 interface StoryCoverImageProps {
@@ -197,26 +220,25 @@ export function StoryCoverImage({
   showAttribution = false,
   quality = 80,
 }: StoryCoverImageProps) {
-  // Validate the image URL
   const [validatedSrc, setValidatedSrc] = useState(() => {
     // IMPORTANT: Always use the exact URL provided if it's valid
     // This ensures we respect the image URLs from the story files
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
       // Return a default image based on the alt text
       if (alt.toLowerCase().includes('cruise')) {
-        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=800';
       } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=800';
       } else {
-        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800';
       }
     }
 
     // For Unsplash images, we can optimize by adding quality and format parameters
     if (src.includes('unsplash.com') && !src.includes('q=')) {
-      // Add WebP format and quality parameters if not already present
+      // Add format and quality parameters if not already present
       const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}fm=webp&q=${quality}&auto=compress`;
+      return `${src}${separator}auto=format&q=${quality}&w=800`;
     }
 
     // Always use the exact URL provided
@@ -231,8 +253,8 @@ export function StoryCoverImage({
       return;
     }
 
-    // Use a reliable fallback image with WebP format
-    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress');
+    // Use a reliable fallback image
+    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800');
   };
 
   // Determine the platform URL and name

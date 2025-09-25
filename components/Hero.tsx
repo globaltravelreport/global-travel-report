@@ -4,19 +4,75 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { OptimizedImage } from '@/components/ui/OptimizedImage';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 
-const Hero = () => {
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+  primaryCtaText?: string;
+  primaryCtaHref?: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
+  images?: Array<{
+    url: string;
+    photographer: string;
+    photographerUrl: string;
+    photoUrl: string;
+  }>;
+  defaultImage?: string;
+  defaultPhotographer?: {
+    name: string;
+    url: string;
+    photoUrl: string;
+  };
+}
+
+const Hero = ({
+  title = "Discover Your Next Adventure",
+  subtitle = "Explore travel stories, tips, and inspiration from around the world",
+  primaryCtaText = "Explore Destinations",
+  primaryCtaHref = "/destinations",
+  secondaryCtaText = "Browse Categories",
+  secondaryCtaHref = "/categories",
+  images = [
+    {
+      url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90",
+      photographer: "Jeremy Bishop",
+      photographerUrl: "https://unsplash.com/@jeremybishop",
+      photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=90",
+      photographer: "Asoggetti",
+      photographerUrl: "https://unsplash.com/@asoggetti",
+      photoUrl: "https://unsplash.com/photos/3U7HcqkIGNM"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=90",
+      photographer: "Dino Reichmuth",
+      photographerUrl: "https://unsplash.com/@dinoreichmuth",
+      photoUrl: "https://unsplash.com/photos/A5rCN8626Ck"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=90",
+      photographer: "Sylvain Mauroux",
+      photographerUrl: "https://unsplash.com/@sylvainmauroux",
+      photoUrl: "https://unsplash.com/photos/VzFM_SD8kUw"
+    }
+  ],
+  defaultImage = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90",
+  defaultPhotographer = {
+    name: "Jeremy Bishop",
+    url: "https://unsplash.com/@jeremybishop",
+    photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
+  }
+}: HeroProps) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const [heroImage, setHeroImage] = useState("https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90");
-  const [photographer, setPhotographer] = useState({
-    name: "Jeremy Bishop",
-    url: "https://unsplash.com/@jeremybishop",
-    photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
-  });
+  const [heroImage, setHeroImage] = useState(defaultImage);
+  const [photographer, setPhotographer] = useState(defaultPhotographer);
 
   // Rotate through a selection of high-quality travel images
   useEffect(() => {
@@ -150,9 +206,15 @@ const Hero = () => {
         >
           <h1 className="text-5xl md:text-7xl font-black text-center mb-2 tracking-tight leading-tight"
               style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)' }}>
-            Discover Your Next <br className="hidden md:block" />
+            {title.split(' ').map((word, index, array) => (
+              <React.Fragment key={index}>
+                {word}
+                {index === array.length - 2 && <br className="hidden md:block" />}
+                {index < array.length - 1 && ' '}
+              </React.Fragment>
+            ))}
             <span className="relative inline-block">
-              <span className="relative z-10">Adventure</span>
+              <span className="relative z-10">{title.split(' ').slice(-1)}</span>
               <span className="absolute bottom-2 left-0 w-full h-4 bg-[#C9A14A]/30 -z-10 transform -rotate-1"></span>
             </span>
           </h1>
@@ -165,7 +227,7 @@ const Hero = () => {
           className="text-xl md:text-2xl text-center mb-12 max-w-2xl font-medium leading-relaxed"
           style={{ textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)' }}
         >
-          Explore travel stories, tips, and inspiration from around the world
+          {subtitle}
         </motion.p>
 
         {/* Call to action buttons */}
@@ -183,11 +245,11 @@ const Hero = () => {
           >
             <div className="absolute -inset-1 bg-gradient-to-r from-[#E6C677] to-[#C9A14A] rounded-full blur-sm opacity-70"></div>
             <Link
-              href="/destinations"
+              href={primaryCtaHref}
               className="relative bg-gradient-to-r from-[#C9A14A] to-[#B08D3F] hover:from-[#D5B05C] hover:to-[#C9A14A] text-white font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 inline-block shadow-lg hover:shadow-xl"
-              aria-label="Start exploring destinations"
+              aria-label={`Start exploring ${primaryCtaText.toLowerCase()}`}
             >
-              Explore Destinations
+              {primaryCtaText}
             </Link>
           </motion.div>
 
@@ -197,11 +259,11 @@ const Hero = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link
-              href="/categories"
+              href={secondaryCtaHref}
               className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 inline-block shadow-lg hover:shadow-xl"
-              aria-label="Browse categories"
+              aria-label={`Browse ${secondaryCtaText.toLowerCase()}`}
             >
-              Browse Categories
+              {secondaryCtaText}
             </Link>
           </motion.div>
         </motion.div>

@@ -29,6 +29,8 @@ jobs:
       run: npm run typecheck
     - name: Run build
       run: npm run build
+    - name: Check image URLs
+      run: npm run check:images
     - name: Generate security report
       if: always()
       run: |

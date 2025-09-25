@@ -1,23 +1,16 @@
+import Hero from '@/components/Hero';
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-      {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 py-12 sm:py-24">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-700 mb-4 sm:mb-6 drop-shadow">
-          Welcome to Global Travel Report
-        </h1>
-        <p className="text-lg sm:text-xl text-blue-900 mb-6 sm:mb-8 max-w-2xl leading-relaxed">
-          Your destination for inspiring travel stories, tips, and guides from around the world.
-          <br className="hidden sm:block" />
-          <span className="block sm:inline"> We're working hard to bring you amazing content. Stay tuned!</span>
-        </p>
-        <span className="inline-block bg-blue-200 text-blue-800 px-4 sm:px-6 py-2 rounded-full font-semibold text-base sm:text-lg mb-6 sm:mb-8 animate-pulse">
-          Coming Soon
-        </span>
-        <a href="/about" className="text-blue-600 underline hover:text-blue-800 font-medium text-base sm:text-lg">
-          Learn more about us
-        </a>
-      </div>
+    <div className="min-h-screen">
+      <Hero
+        title="Global Travel Report"
+        subtitle="Your destination for inspiring travel stories, tips, and guides from around the world. We're working hard to bring you amazing content. Stay tuned!"
+        primaryCtaText="Explore Destinations"
+        primaryCtaHref="/destinations"
+        secondaryCtaText="Browse Categories"
+        secondaryCtaHref="/categories"
+      />
 
       {/* Quick Links Section */}
       <div className="max-w-4xl mx-auto px-4 pb-12 sm:pb-24">
