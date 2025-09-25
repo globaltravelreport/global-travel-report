@@ -89,3 +89,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 };
 
 export default OptimizedImage;
+
+// Backwards-compatible named export expected by StoryCard and others
+export const StoryCoverImage = OptimizedImage;
