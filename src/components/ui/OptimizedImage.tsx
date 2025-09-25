@@ -125,6 +125,15 @@ export default function OptimizedImage({
     setHasError(true);
     setIsLoading(false);
     onError?.();
+
+    // Optional logging for broken images in production
+    if (process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_IMAGE_ERROR_LOGGING === 'true') {
+      console.warn(`[OptimizedImage] Image failed to load: ${src}`, {
+        fallbackSrc,
+        alt,
+        timestamp: new Date().toISOString()
+      });
+    }
   };
 
   const handleLoad = () => {

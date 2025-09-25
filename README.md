@@ -140,9 +140,80 @@ For production environments, make sure to set these variables in your hosting pl
 - `npm run build` - Build the application for production
 - `npm run start` - Start the production server
 - `npm run lint` - Run ESLint to check for code issues
-- `npm test` - Run Jest tests
+- `npm run test` - Run Jest tests
 - `npm run security-audit` - Run security audit on the codebase
 - `npm run convert-to-functional` - Convert class components to functional components
+- `npm run check:images` - Validate all external image URLs and report broken links
+
+## Image Validation System
+
+The project includes a comprehensive image validation system that automatically checks all external image URLs at build time.
+
+### Running Image Validation Locally
+
+To check for broken image URLs locally:
+
+```bash
+npm run check:images
+```
+
+This will:
+- Scan all TypeScript, JavaScript, and Markdown files for external image URLs
+- Test each URL to ensure it's accessible
+- Categorize failures (broken, timeout, server errors, client errors)
+- Provide detailed reporting with file paths and error types
+- Return different exit codes based on severity:
+  - `0`: All images working correctly
+  - `1`: Critical errors found (broken images in production pages)
+  - `0`: Non-critical issues found (build can proceed)
+
+### Image Validation in CI/CD
+
+The image validation runs automatically as part of the CI pipeline:
+
+- **Critical Errors**: Broken URLs in production pages will fail the build
+- **Non-Critical Issues**: Broken URLs in test files, markdown, or redirects will not block deployment
+- **Redirects**: 3xx status codes are treated as working URLs (they redirect properly)
+
+### Adding Fallback Images
+
+To add a fallback image for broken URLs:
+
+1. Add your image to `public/images/` directory
+2. Update the `defaultFallback` path in `src/components/ui/OptimizedImage.tsx`:
+
+```typescript
+const defaultFallback = '/images/your-fallback-image.jpg';
+```
+
+### Updating Hero Images
+
+To update the hero banner images:
+
+1. Edit the `images` array in `components/Hero.tsx`
+2. Each image object should include:
+   - `url`: The Unsplash image URL
+   - `photographer`: Photographer name
+   - `photographerUrl`: Photographer's Unsplash profile URL
+   - `photoUrl`: Direct link to the photo on Unsplash
+
+Example:
+```typescript
+{
+  url: "https://images.unsplash.com/photo-1234567890?auto=format&q=90",
+  photographer: "John Doe",
+  photographerUrl: "https://unsplash.com/@johndoe",
+  photoUrl: "https://unsplash.com/photos/abcdef123456"
+}
+```
+
+### Production Image Error Logging
+
+To enable logging of broken images in production:
+
+1. Set the environment variable: `NEXT_PUBLIC_IMAGE_ERROR_LOGGING=true`
+2. Broken images will be logged to the browser console with details
+3. This helps identify image issues in production without affecting users
 
 ## Deployment
 
