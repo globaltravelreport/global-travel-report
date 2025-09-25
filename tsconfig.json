@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-<<<<<<< HEAD
     "target": "ES2020",
-=======
-    "target": "es5",
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     "lib": [
       "dom",
       "dom.iterable",
@@ -15,27 +11,20 @@
     "strict": false,
     "noEmit": true,
     "incremental": true,
-<<<<<<< HEAD
     "downlevelIteration": true,
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-<<<<<<< HEAD
     "baseUrl": ".",
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-<<<<<<< HEAD
       "@/*": ["src/*"],
       "@/src/*": ["src/*"],
       "@/components/*": ["components/*", "src/components/*"],
@@ -44,13 +33,6 @@
       "@/utils/*": ["utils/*", "src/utils/*"],
       "@/app/*": ["app/*"],
       "@/config/*": ["src/config/*"]
-=======
-      "@/*": ["./src/*", "./*"],
-      "@/components/*": ["./src/components/*", "./components/*"],
-      "@/lib/*": ["./src/lib/*", "./lib/*"],
-      "@/app/*": ["./app/*"],
-      "@/config/*": ["./src/config/*"]
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     },
     "useUnknownInCatchVariables": false,
     "noImplicitAny": false,
@@ -66,12 +48,8 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
-<<<<<<< HEAD
     "node_modules",
     "**/__tests__/**",
     "**/__mocks__/**"
-=======
-    "node_modules"
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   ]
 }
