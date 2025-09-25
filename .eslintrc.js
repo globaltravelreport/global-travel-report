@@ -47,7 +47,10 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     '@typescript-eslint/no-non-null-assertion': 'off', // Changed from warn to off for build
     '@typescript-eslint/ban-ts-comment': 'off', // Added to allow ts-ignore comments
+<<<<<<< HEAD
     '@typescript-eslint/no-require-imports': 'off',
+=======
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
     // React
     'react/prop-types': 'off',
@@ -82,11 +85,14 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
       },
     },
+<<<<<<< HEAD
     {
       files: ['scripts/**/*.{ts,js}', 'src/utils/**/*.{ts,js}', 'utils/**/*.{ts,js}', 'tailwind.config.ts'],
       rules: {
         '@typescript-eslint/no-require-imports': 'off',
       },
     },
+=======
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   ],
 };

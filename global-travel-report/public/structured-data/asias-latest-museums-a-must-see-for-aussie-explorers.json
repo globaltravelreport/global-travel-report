@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Asia's Latest Museums: A Must-See for Aussie Explorers",
+    "description": " As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...",
+    "image": [
+      "https://images.unsplash.com/photo-1503220317375-aaad61436b1b"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-21T13:53:24.624Z",
+    "dateModified": "2025-04-21T13:53:24.624Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/asias-latest-museums-a-must-see-for-aussie-explorers"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Asia's Latest Museums: A Must-See for Aussie Explorers",
+    "description": " As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...",
+    "url": "https://globaltravelreport.com/asias-latest-museums-a-must-see-for-aussie-explorers",
+    "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "'Japan, Singapore'"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "'Culture",
+        "item": "https://globaltravelreport.com/category/'culture"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "'Japan, Singapore'",
+        "item": "https://globaltravelreport.com/destination/'japan,-singapore'"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Asia's Latest Museums: A Must-See for Aussie Explorers",
+        "item": "https://globaltravelreport.com/asias-latest-museums-a-must-see-for-aussie-explorers"
+      }
+    ]
+  }
+]

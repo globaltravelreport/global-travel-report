@@ -3,6 +3,7 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+<<<<<<< HEAD
 interface PaginationMeta {
   page: number;
   limit: number;
@@ -17,11 +18,15 @@ interface LinkPaginationProps {
 }
 
 interface ControlledPaginationProps {
+=======
+interface PaginationProps {
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 }
 
+<<<<<<< HEAD
 type PaginationProps = LinkPaginationProps | ControlledPaginationProps;
 
 function isLinkProps(props: PaginationProps): props is LinkPaginationProps {
@@ -31,6 +36,13 @@ function isLinkProps(props: PaginationProps): props is LinkPaginationProps {
 export const Pagination: React.FC<PaginationProps> = (props) => {
   const currentPage = isLinkProps(props) ? props.meta.page : props.currentPage;
   const totalPages = isLinkProps(props) ? props.meta.totalPages : props.totalPages;
+=======
+export const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const maxVisiblePages = 5;
 
@@ -50,6 +62,7 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
     return pages.slice(start - 1, end);
   };
 
+<<<<<<< HEAD
   const buildHref = (page: number) => {
     if (!isLinkProps(props)) return '#';
     const params = new URLSearchParams({ ...(props.additionalParams || {}), page: String(page), limit: String(props.meta.limit) });
@@ -136,6 +149,42 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
           <ChevronRight className="w-5 h-5" />
         </button>
       )}
+=======
+  return (
+    <nav className="flex items-center justify-center space-x-2 mt-8" aria-label="Pagination">
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label="Previous page"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+
+      {getVisiblePages().map((page) => (
+        <button
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={`px-4 py-2 rounded-md ${
+            currentPage === page
+              ? 'bg-[#C9A14A] text-white'
+              : 'hover:bg-gray-100'
+          }`}
+          aria-current={currentPage === page ? 'page' : undefined}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className="p-2 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label="Next page"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     </nav>
   );
 }; 

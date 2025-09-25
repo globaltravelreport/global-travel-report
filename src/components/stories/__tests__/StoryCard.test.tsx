@@ -6,7 +6,11 @@ import { Story } from '@/types/Story';
 // Mock the next/link component
 jest.mock('next/link', () => {
   return ({ children, href }: { children: React.ReactNode; href: string }) => {
+<<<<<<< HEAD
     return <span data-href={href}>{children}</span>;
+=======
+    return <a href={href}>{children}</a>;
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   };
 });
 
@@ -21,6 +25,7 @@ jest.mock('@/components/ui/ResponsiveImage', () => {
   };
 });
 
+<<<<<<< HEAD
 // Mock the ResponsiveImageV2 component used by StoryCard
 jest.mock('@/components/ui/ResponsiveImageV2', () => {
   return {
@@ -35,6 +40,8 @@ jest.mock('@/components/ui/ResponsiveImageV2', () => {
   };
 });
 
+=======
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 // Mock the FreshnessIndicator component
 jest.mock('@/components/ui/FreshnessIndicator', () => {
   return {
@@ -42,9 +49,12 @@ jest.mock('@/components/ui/FreshnessIndicator', () => {
     default: ({ publishedDate }: { publishedDate: string }) => {
       return <span data-testid="freshness-indicator">{publishedDate}</span>;
     },
+<<<<<<< HEAD
     FreshnessIndicator: ({ publishedDate }: { publishedDate: string }) => {
       return <span data-testid="freshness-indicator">{publishedDate}</span>;
     },
+=======
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   };
 });
 
@@ -109,14 +119,24 @@ describe('StoryCard Component', () => {
 
   it('renders the tags', () => {
     render(<StoryCard story={sampleStory} />);
+<<<<<<< HEAD
     expect(screen.getByText(/#\s*travel/i)).toBeInTheDocument();
     expect(screen.getByText(/#\s*japan/i)).toBeInTheDocument();
     expect(screen.getByText(/#\s*adventure/i)).toBeInTheDocument();
+=======
+    expect(screen.getByText('travel')).toBeInTheDocument();
+    expect(screen.getByText('japan')).toBeInTheDocument();
+    expect(screen.getByText('adventure')).toBeInTheDocument();
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   });
 
   it('renders the photographer credit', () => {
     render(<StoryCard story={sampleStory} />);
     expect(screen.getByText('Test Photographer')).toBeInTheDocument();
+<<<<<<< HEAD
+=======
+    expect(screen.getByText('on')).toBeInTheDocument();
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     expect(screen.getByText('Unsplash')).toBeInTheDocument();
   });
 
@@ -134,10 +154,16 @@ describe('StoryCard Component', () => {
 
   it('renders the responsive image with correct props', () => {
     render(<StoryCard story={sampleStory} />);
+<<<<<<< HEAD
     const image = screen.getByTestId('responsive-image') as HTMLImageElement;
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('alt', 'Test Story');
     expect(image.getAttribute('src')).toMatch(/^https?:\/\//);
+=======
+    const image = screen.getByTestId('responsive-image');
+    expect(image).toHaveAttribute('src', 'https://example.com/image.jpg');
+    expect(image).toHaveAttribute('alt', 'Test Story');
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   });
 
   it('renders the freshness indicator', () => {

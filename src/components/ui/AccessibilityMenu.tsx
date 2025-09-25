@@ -1,6 +1,10 @@
 'use client';
 
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 import { motion, AnimatePresence } from 'framer-motion';
 import { Accessibility, X, ZoomIn, ZoomOut, RotateCcw, Eye, EyeOff, MousePointer } from 'lucide-react';
 import { useAccessibility } from '@/components/ui/AccessibilityProvider';
@@ -34,6 +38,7 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
     setIsOpen(prev => !prev);
   };
 
+<<<<<<< HEAD
   // Close menu when Escape key is pressed (listen on document when open)
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -48,10 +53,22 @@ export function AccessibilityMenu({ className }: AccessibilityMenuProps) {
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen]);
+=======
+  // Close menu when Escape key is pressed
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setIsOpen(false);
+    }
+  };
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
   return (
     <nav
       className={cn('fixed bottom-4 right-4 z-50', className)}
+<<<<<<< HEAD
+=======
+      onKeyDown={handleKeyDown}
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       aria-label="Accessibility controls"
     >
       {/* Toggle button */}

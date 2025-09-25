@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { 
+<<<<<<< HEAD
   EnhancedAppError as AppError, 
   ErrorType, 
   ErrorSeverity, 
@@ -9,6 +10,15 @@ import {
   ErrorContext 
 } from '@/utils/enhanced-error-handler';
 import { logError as logErrorBasic } from '@/utils/error-handler';
+=======
+  AppError, 
+  ErrorType, 
+  ErrorSeverity, 
+  handleError, 
+  logError, 
+  ErrorContext 
+} from '@/utils/enhanced-error-handler';
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
 /**
  * Error state interface
@@ -40,14 +50,22 @@ export function useEnhancedErrorHandler() {
     const appError = error instanceof AppError ? error : new AppError(
       error.message,
       ErrorType.UNKNOWN,
+<<<<<<< HEAD
       ErrorSeverity.ERROR,
       undefined,
       undefined,
+=======
+      ErrorSeverity.MEDIUM,
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       context
     );
 
     // Log the error
+<<<<<<< HEAD
     logErrorBasic(appError);
+=======
+    await logError(appError);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
     // Update state
     setErrorState(prev => ({

@@ -136,7 +136,11 @@ export function OptimizedImageV2({
     if (blurDataURL) return blurDataURL;
     
     // Create a simple SVG placeholder with the generated color
+<<<<<<< HEAD
     return `data:image/svg+xml;charset=utf-8,<svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`;
+=======
+    return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="${encodeURIComponent(placeholderColor)}"/></svg>`;
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   }, [blurDataURL, placeholderColor]);
 
   // Determine container style based on aspect ratio

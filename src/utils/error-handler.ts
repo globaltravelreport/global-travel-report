@@ -10,7 +10,10 @@ export enum ErrorSeverity {
 
 // Error context interface
 interface ErrorContext {
+<<<<<<< HEAD
   [key: string]: any;
+=======
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   context?: string;
   requestId?: string;
   userId?: string;

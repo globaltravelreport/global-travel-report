@@ -106,7 +106,11 @@ export function getImageSizes(layout: 'full' | 'half' | 'third' | 'quarter' | 'c
  */
 export function generateBlurDataURL(color = '#f3f4f6', width = 400, height = 300): string {
   // Create a simple SVG placeholder with the specified color
+<<<<<<< HEAD
   return `data:image/svg+xml;charset=utf-8,<svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"><rect width="${width}" height="${height}" fill="${encodeURIComponent(color)}"/></svg>`;
+=======
+  return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"><rect width="${width}" height="${height}" fill="${encodeURIComponent(color)}"/></svg>`;
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 }
 
 /**

@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Best Hotels in Paris",
+    "slug": "best-hotels-paris",
+    "category": "Luxury",
+    "country": "France",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["luxury", "hotels", "paris", "france"]
+  },
+  {
+    "title": "Best Travel Credit Cards",
+    "slug": "best-travel-credit-cards",
+    "category": "Travel Tips",
+    "country": "Global",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["credit cards", "travel tips", "finance"]
+  },
+  {
+    "title": "First Class Train Journeys",
+    "slug": "first-class-train-journeys",
+    "category": "Luxury",
+    "country": "Global",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["luxury", "trains", "rail travel"]
+  },
+  {
+    "title": "Luxury Resorts in the Maldives",
+    "slug": "luxury-resorts-maldives",
+    "category": "Luxury",
+    "country": "Maldives",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["luxury", "resorts", "maldives", "beach"]
+  },
+  {
+    "title": "Safari Lodges in Africa",
+    "slug": "safari-lodges-africa",
+    "category": "Adventure",
+    "country": "Africa",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["safari", "africa", "wildlife", "adventure"]
+  },
+  {
+    "title": "Tokyo Street Scene",
+    "slug": "tokyo-street-scene",
+    "category": "Culture",
+    "country": "Japan",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["japan", "tokyo", "culture", "street photography"]
+  },
+  {
+    "title": "Top Airlines Business Class",
+    "slug": "top-airlines-business-class",
+    "category": "Luxury",
+    "country": "Global",
+    "timestamp": "2024-04-22T00:00:00.000Z",
+    "featured": true,
+    "published": true,
+    "tags": ["luxury", "airlines", "business class", "travel"]
+  }
+] 

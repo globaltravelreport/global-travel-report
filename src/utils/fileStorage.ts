@@ -9,11 +9,16 @@
 import { Story } from '@/types/Story';
 import { mockStories } from '@/src/mocks/stories';
 // Note: fs and path are only available on server-side
+<<<<<<< HEAD
 // Use require conditionally to avoid bundling issues on the client
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs: any = typeof window === 'undefined' ? require('fs') : null;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path: any = typeof window === 'undefined' ? require('path') : null;
+=======
+// import fs from 'fs';
+// import path from 'path';
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 import { validateDate, getSafeDateString } from '@/utils/date-utils';
 
 /**
@@ -46,7 +51,11 @@ const storiesData = [...mockStories];
 
 // Get the content directory path
 const getContentDir = () => {
+<<<<<<< HEAD
   if (typeof process !== 'undefined' && process.cwd && path) {
+=======
+  if (typeof process !== 'undefined' && process.cwd) {
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     return path.join(process.cwd(), 'content');
   }
   return '';
@@ -55,7 +64,11 @@ const getContentDir = () => {
 // Get the articles directory path
 const getArticlesDir = () => {
   const contentDir = getContentDir();
+<<<<<<< HEAD
   if (contentDir && path) {
+=======
+  if (contentDir) {
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     return path.join(contentDir, 'articles');
   }
   return '';

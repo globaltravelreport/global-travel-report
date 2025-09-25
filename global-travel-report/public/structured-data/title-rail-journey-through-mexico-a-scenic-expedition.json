@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Rail Journey Through Mexico: A Scenic Expedition",
+    "description": "Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.",
+    "image": [
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-09T13:53:24.659Z",
+    "dateModified": "2025-04-09T13:53:24.659Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-rail-journey-through-mexico-a-scenic-expedition"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Rail Journey Through Mexico: A Scenic Expedition",
+    "description": "Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.",
+    "url": "https://globaltravelreport.com/title-rail-journey-through-mexico-a-scenic-expedition",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Mexico"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Adventure",
+        "item": "https://globaltravelreport.com/category/adventure"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Mexico",
+        "item": "https://globaltravelreport.com/destination/mexico"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Rail Journey Through Mexico: A Scenic Expedition",
+        "item": "https://globaltravelreport.com/title-rail-journey-through-mexico-a-scenic-expedition"
+      }
+    ]
+  }
+]

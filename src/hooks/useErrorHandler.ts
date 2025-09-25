@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useCallback } from 'react';
+<<<<<<< HEAD
 import { EnhancedAppError as AppError, ErrorType, handleError } from '@/utils/enhanced-error-handler';
 import { logError } from '@/utils/error-handler';
+=======
+import { AppError, ErrorType, handleError, logError } from '@/utils/error-handler';
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
 /**
  * Interface for error state

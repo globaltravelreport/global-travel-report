@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["syd1"],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://globaltravelreport.com"
+  },
+  "crons": [
+    {
+      "path": "/api/cron/dailyStories",
+      "schedule": "0 4 * * *"
+    }
+  ]
+}

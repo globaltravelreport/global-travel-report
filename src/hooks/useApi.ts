@@ -2,7 +2,11 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
+<<<<<<< HEAD
 import { ErrorType } from '@/utils/enhanced-error-handler';
+=======
+import { ErrorType } from '@/utils/error-handler';
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
 /**
  * API request state
@@ -113,7 +117,11 @@ export function useApi<T = any>() {
     setState({ data: null, loading: false, error: errorMessage });
     
     // Show global error notification
+<<<<<<< HEAD
     showError(new Error(errorMessage));
+=======
+    showError(errorMessage, ErrorType.NETWORK);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     
     return null;
   }, [showError]);

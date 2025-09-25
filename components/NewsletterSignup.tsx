@@ -122,7 +122,12 @@ export const NewsletterSignup = ({
         if (response.status === 409) {
           toast({
             title: 'Already subscribed',
+<<<<<<< HEAD
             description: 'This email is already subscribed to our newsletter.'
+=======
+            description: 'This email is already subscribed to our newsletter.',
+            icon: <AlertCircle className="h-5 w-5 text-orange-500" />
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
           });
         } else {
           throw new Error(data.error || 'Failed to subscribe');
@@ -135,7 +140,12 @@ export const NewsletterSignup = ({
 
       toast({
         title: 'Successfully subscribed!',
+<<<<<<< HEAD
         description: `Welcome ${firstName}! Please check your email for a confirmation link.`
+=======
+        description: `Welcome ${firstName}! Please check your email for a confirmation link.`,
+        icon: <CheckCircle2 className="h-5 w-5 text-green-500" />
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       });
 
       // Reset form
@@ -150,7 +160,12 @@ export const NewsletterSignup = ({
       console.error('Newsletter subscription error:', error);
       toast({
         title: 'Subscription failed',
+<<<<<<< HEAD
         description: 'There was a problem subscribing to the newsletter. Please try again.'
+=======
+        description: 'There was a problem subscribing to the newsletter. Please try again.',
+        icon: <AlertCircle className="h-5 w-5 text-red-500" />
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       });
     } finally {
       setIsSubmitting(false);
@@ -349,7 +364,11 @@ export const NewsletterSignup = ({
           <div className="md:col-span-2 space-y-6 hidden md:block">
             <div className="flex items-start gap-3">
               <div className="bg-[#C9A14A]/10 p-2 rounded-full mt-0.5">
+<<<<<<< HEAD
                 <svg xmlns="https://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+=======
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -361,7 +380,11 @@ export const NewsletterSignup = ({
 
             <div className="flex items-start gap-3">
               <div className="bg-[#C9A14A]/10 p-2 rounded-full mt-0.5">
+<<<<<<< HEAD
                 <svg xmlns="https://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+=======
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -373,7 +396,11 @@ export const NewsletterSignup = ({
 
             <div className="flex items-start gap-3">
               <div className="bg-[#C9A14A]/10 p-2 rounded-full mt-0.5">
+<<<<<<< HEAD
                 <svg xmlns="https://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+=======
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#C9A14A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
               </div>
@@ -537,7 +564,11 @@ export const NewsletterSignup = ({
             >
               {isSubmitting ? (
                 <>
+<<<<<<< HEAD
                   <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-[#19273A]" xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+=======
+                  <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-[#19273A]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
@@ -546,7 +577,11 @@ export const NewsletterSignup = ({
               ) : (
                 <>
                   Subscribe to Newsletter
+<<<<<<< HEAD
                   <svg className="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
+=======
+                  <svg className="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
                 </>

@@ -11,7 +11,11 @@ export async function GET() {
 
     // Generate sitemap XML
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+=======
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   <!-- Static pages -->
   <url>
     <loc>${baseUrl}</loc>

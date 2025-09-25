@@ -42,12 +42,20 @@ export function createApiResponse<T = any>(
   
   const isError = typeof data === 'object' && data !== null && 'error' in data;
   
+<<<<<<< HEAD
   const response = {
+=======
+  const response: ApiResponse<T> = {
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     success: !isError,
     timestamp: new Date().toISOString(),
     ...(requestId && { requestId }),
     ...(isError ? data : { data }),
+<<<<<<< HEAD
   } as ApiResponse<T>;
+=======
+  };
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
   // Set default headers
   const responseHeaders = {
@@ -105,8 +113,18 @@ export function createSuccessResponse<T = any>(
   message?: string,
   options: ResponseOptions = {}
 ): NextResponse {
+<<<<<<< HEAD
   // Keep message out of top-level to satisfy ApiResponse<T>
   return createApiResponse(data, options);
+=======
+  return createApiResponse(
+    {
+      ...data,
+      ...(message && { message }),
+    },
+    options
+  );
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 }
 
 /**

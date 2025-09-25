@@ -69,11 +69,19 @@ describe('Test Utilities', () => {
     it('should return a mock router object', () => {
       const router = mockRouter();
       
+<<<<<<< HEAD
 expect(typeof router.useRouter).toBe('function');
       
       const mockRouterInstance = router.useRouter();
 expect(typeof mockRouterInstance.push).toBe('function');
 expect(typeof mockRouterInstance.replace).toBe('function');
+=======
+      expect(router.useRouter).toBeInstanceOf(Function);
+      
+      const mockRouterInstance = router.useRouter();
+      expect(mockRouterInstance.push).toBeInstanceOf(Function);
+      expect(mockRouterInstance.replace).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       expect(mockRouterInstance.pathname).toBe('/');
     });
     
@@ -90,7 +98,11 @@ expect(typeof mockRouterInstance.replace).toBe('function');
     it('should return a mock search params object', () => {
       const searchParams = mockSearchParams();
       
+<<<<<<< HEAD
 expect(typeof searchParams.useSearchParams).toBe('function');
+=======
+      expect(searchParams.useSearchParams).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       
       const mockSearchParamsInstance = searchParams.useSearchParams();
       expect(mockSearchParamsInstance).toBeInstanceOf(URLSearchParams);
@@ -109,7 +121,11 @@ expect(typeof searchParams.useSearchParams).toBe('function');
     it('should return a mock pathname function', () => {
       const pathname = mockPathname();
       
+<<<<<<< HEAD
 expect(typeof pathname.usePathname).toBe('function');
+=======
+      expect(pathname.usePathname).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       expect(pathname.usePathname()).toBe('/');
     });
     
@@ -196,7 +212,11 @@ expect(typeof pathname.usePathname).toBe('function');
     it('should return a mock fetch function', () => {
       const fetch = mockFetch({ data: 'test' });
       
+<<<<<<< HEAD
 expect(typeof fetch).toBe('function');
+=======
+      expect(fetch).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     });
     
     it('should resolve with the provided response', async () => {
@@ -227,10 +247,17 @@ expect(typeof fetch).toBe('function');
     it('should return a mock localStorage object', () => {
       const localStorage = mockLocalStorage();
       
+<<<<<<< HEAD
 expect(typeof localStorage.getItem).toBe('function');
 expect(typeof localStorage.setItem).toBe('function');
 expect(typeof localStorage.removeItem).toBe('function');
 expect(typeof localStorage.clear).toBe('function');
+=======
+      expect(localStorage.getItem).toBeInstanceOf(Function);
+      expect(localStorage.setItem).toBeInstanceOf(Function);
+      expect(localStorage.removeItem).toBeInstanceOf(Function);
+      expect(localStorage.clear).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     });
     
     it('should store and retrieve values', () => {
@@ -260,10 +287,17 @@ expect(typeof localStorage.clear).toBe('function');
     it('should return a mock sessionStorage object', () => {
       const sessionStorage = mockSessionStorage();
       
+<<<<<<< HEAD
 expect(typeof sessionStorage.getItem).toBe('function');
 expect(typeof sessionStorage.setItem).toBe('function');
 expect(typeof sessionStorage.removeItem).toBe('function');
 expect(typeof sessionStorage.clear).toBe('function');
+=======
+      expect(sessionStorage.getItem).toBeInstanceOf(Function);
+      expect(sessionStorage.setItem).toBeInstanceOf(Function);
+      expect(sessionStorage.removeItem).toBeInstanceOf(Function);
+      expect(sessionStorage.clear).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     });
   });
   
@@ -274,9 +308,15 @@ expect(typeof sessionStorage.clear).toBe('function');
       expect(IntersectionObserver).toBeInstanceOf(Function);
       
       const observer = new IntersectionObserver(() => {});
+<<<<<<< HEAD
 expect(typeof observer.observe).toBe('function');
 expect(typeof observer.unobserve).toBe('function');
 expect(typeof observer.disconnect).toBe('function');
+=======
+      expect(observer.observe).toBeInstanceOf(Function);
+      expect(observer.unobserve).toBeInstanceOf(Function);
+      expect(observer.disconnect).toBeInstanceOf(Function);
+>>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
     });
     
     it('should call the callback with isIntersecting=true by default', () => {
