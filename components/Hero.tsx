@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import OptimizedImage from '@/components/ui/OptimizedImage';
@@ -25,6 +24,7 @@ interface HeroProps {
     url: string;
     photoUrl: string;
   };
+  enableRotation?: boolean;
 }
 
 const Hero = ({
@@ -65,7 +65,8 @@ const Hero = ({
     name: "Jeremy Bishop",
     url: "https://unsplash.com/@jeremybishop",
     photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
-  }
+  },
+  enableRotation = true
 }: HeroProps) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
@@ -74,38 +75,15 @@ const Hero = ({
   const [heroImage, setHeroImage] = useState(defaultImage);
   const [photographer, setPhotographer] = useState(defaultPhotographer);
 
-  // Rotate through a selection of high-quality travel images
+  // Rotate through a selection of travel images (optional)
   useEffect(() => {
-    const heroImages = [
-      {
-        url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90",
-        photographer: "Jeremy Bishop",
-        photographerUrl: "https://unsplash.com/@jeremybishop",
-        photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=90",
-        photographer: "Asoggetti",
-        photographerUrl: "https://unsplash.com/@asoggetti",
-        photoUrl: "https://unsplash.com/photos/3U7HcqkIGNM"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=90",
-        photographer: "Dino Reichmuth",
-        photographerUrl: "https://unsplash.com/@dinoreichmuth",
-        photoUrl: "https://unsplash.com/photos/A5rCN8626Ck"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=90",
-        photographer: "Sylvain Mauroux",
-        photographerUrl: "https://unsplash.com/@sylvainmauroux",
-        photoUrl: "https://unsplash.com/photos/VzFM_SD8kUw"
-      }
-    ];
+    if (!enableRotation) return;
 
-    // Get a random image from the array
-    const randomIndex = Math.floor(Math.random() * heroImages.length);
-    const selectedImage = heroImages[randomIndex];
+    const pool = images && images.length ? images : [];
+    if (pool.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    const selectedImage = pool[randomIndex];
 
     setHeroImage(selectedImage.url);
     setPhotographer({
@@ -113,7 +91,7 @@ const Hero = ({
       url: selectedImage.photographerUrl,
       photoUrl: selectedImage.photoUrl
     });
-  }, []);
+  }, [enableRotation, images]);
 
   return (
     <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
@@ -134,6 +112,7 @@ const Hero = ({
           objectPosition="center"
           loading="eager"
           fallbackSrc="/images/fallback.jpg"
+          unoptimized={true}
         />
 
         {/* Gradient overlay with more sophisticated layering */}
@@ -286,5 +265,5 @@ const Hero = ({
   );
 };
 
-// Export as a dynamic component with SSR enabled for better SEO
-export default dynamic(() => Promise.resolve(Hero), { ssr: true });
+// Export directly (client component)
+export default Hero;

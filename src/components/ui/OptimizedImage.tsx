@@ -19,6 +19,7 @@ interface OptimizedImageProps {
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   objectPosition?: string;
   loading?: 'lazy' | 'eager';
+  unoptimized?: boolean;
 }
 
 /**
@@ -41,26 +42,44 @@ export default function OptimizedImage({
   objectFit = 'cover',
   objectPosition = 'center',
   loading = 'lazy',
+  unoptimized = false,
 }: OptimizedImageProps) {
-  const [imageSrc, setImageSrc] = useState<string>('');
+  // Initialize with the provided src so SSR renders an actual image URL.
+  // This avoids opacity-0 on first paint when priority is true (e.g., home hero).
+  const [imageSrc, setImageSrc] = useState<string>(src || '');
   const [hasError, setHasError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(!priority ? true : false);
 
   // Default fallback image
   const defaultFallback = '/images/fallback.jpg';
 
   // Convert Unsplash URLs to stable CDN format
   const convertToStableUrl = (url: string): string => {
-    // If it's already a stable images.unsplash.com URL, return as is
+    const targetWidth = fill ? 2400 : width;
+
+    // helper to ensure required params without duplicating '?'
+    const ensureParams = (base: string) => {
+      let out = base;
+      const hasQuery = out.includes('?');
+      if (!hasQuery) {
+        return `${out}?auto=format&q=${quality}&w=${targetWidth}`;
+      }
+      if (!/[?&]auto=/.test(out)) out += `&auto=format`;
+      if (!/[?&]q=/.test(out)) out += `&q=${quality}`;
+      if (!/[?&]w=/.test(out)) out += `&w=${targetWidth}`;
+      return out;
+    };
+
+    // If it's already a stable images.unsplash.com URL, normalize params
     if (url.includes('images.unsplash.com/photo-')) {
-      return `${url}?auto=format&q=${quality}&w=${width}`;
+      return ensureParams(url);
     }
 
     // If it's an unsplash.com page URL, try to extract photo ID
     if (url.includes('unsplash.com/photo/')) {
       const photoMatch = url.match(/unsplash\.com\/photo\/([^/?]+)/);
       if (photoMatch && photoMatch[1]) {
-        return `https://images.unsplash.com/photo-${photoMatch[1]}?auto=format&q=${quality}&w=${width}`;
+        return `https://images.unsplash.com/photo-${photoMatch[1]}?auto=format&q=${quality}&w=${targetWidth}`;
       }
     }
 
@@ -68,20 +87,20 @@ export default function OptimizedImage({
     if (url.includes('source.unsplash.com')) {
       const sourceMatch = url.match(/source\.unsplash\.com\/([^/?]+)/);
       if (sourceMatch && sourceMatch[1]) {
-        return `https://images.unsplash.com/photo-${sourceMatch[1]}?auto=format&q=${quality}&w=${width}`;
+        return `https://images.unsplash.com/photo-${sourceMatch[1]}?auto=format&q=${quality}&w=${targetWidth}`;
       }
     }
 
     // Handle template URLs that might be broken
     if (url.includes('photo-${') || (url.includes('photo-') && url.includes('${'))) {
       // This is likely a template string, return a fallback
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800';
+      return `https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=${targetWidth}`;
     }
 
     // Handle malformed template URLs
     if (url.includes('photo-${photoId}') || url.includes('photo-${photoMatch[1]}') || url.includes('photo-${sourceMatch[1]}')) {
       // This is likely a template string, return a fallback
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=800';
+      return `https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=${targetWidth}`;
     }
 
     // Return original URL if no conversion needed
@@ -154,7 +173,7 @@ export default function OptimizedImage({
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`${fill ? 'relative w-full h-full' : 'relative'} ${className}`}>
       {isLoading && (
         <div
           className="absolute inset-0 bg-gray-200 flex items-center justify-center z-10"
@@ -173,11 +192,18 @@ export default function OptimizedImage({
         priority={priority}
         quality={quality}
         sizes={sizes}
+        unoptimized={unoptimized}
         className={`transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         } ${hasError ? 'opacity-50' : ''}`}
         onError={handleError}
         onLoad={handleLoad}
+        onLoadingComplete={() => {
+          // Ensure image becomes visible even if native onLoad doesn't fire in some browsers
+          setIsLoading(false);
+          setHasError(false);
+          onLoad?.();
+        }}
         style={fill ? { objectFit, objectPosition } : {
           width: '100%',
           height: 'auto',

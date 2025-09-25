@@ -10,6 +10,13 @@ export default function Home() {
         primaryCtaHref="/destinations"
         secondaryCtaText="Browse Categories"
         secondaryCtaHref="/categories"
+        defaultImage="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+        defaultPhotographer={{
+          name: "Jeremy Bishop",
+          url: "https://unsplash.com/@jeremybishop",
+          photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
+        }}
+        enableRotation={false}
       />
 
       {/* Quick Links Section */}
