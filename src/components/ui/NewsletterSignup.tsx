@@ -43,7 +43,6 @@ export function NewsletterSignup({
     } catch (error) {
       setStatus('error');
       toast({
-        variant: 'destructive',
         title: 'Error',
         description: 'Failed to subscribe. Please try again.'
       });

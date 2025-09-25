@@ -244,9 +244,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem>All categories</SelectItem>
+                          <SelectItem value="">All categories</SelectItem>
                           {categories.map((category) => (
-                            <SelectItem key={category}>
+                            <SelectItem key={category} value={category}>
                               {category}
                             </SelectItem>
                           ))}
@@ -266,9 +266,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select country" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem>All countries</SelectItem>
+                          <SelectItem value="">All countries</SelectItem>
                           {countries.map((country) => (
-                            <SelectItem key={country}>
+                            <SelectItem key={country} value={country}>
                               {country}
                             </SelectItem>
                           ))}
@@ -288,9 +288,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select tag" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem>All tags</SelectItem>
+                          <SelectItem value="">All tags</SelectItem>
                           {tags.map((tag) => (
-                            <SelectItem key={tag}>
+                            <SelectItem key={tag} value={tag}>
                               {tag}
                             </SelectItem>
                           ))}
@@ -310,9 +310,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select author" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem>All authors</SelectItem>
+                          <SelectItem value="">All authors</SelectItem>
                           {authors.map((author) => (
-                            <SelectItem key={author}>
+                            <SelectItem key={author} value={author}>
                               {author}
                             </SelectItem>
                           ))}

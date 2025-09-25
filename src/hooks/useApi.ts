@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
-import { ErrorType } from '@/utils/error-handler';
+import { ErrorType } from '@/utils/enhanced-error-handler';
 
 /**
  * API request state
@@ -113,7 +113,7 @@ export function useApi<T = any>() {
     setState({ data: null, loading: false, error: errorMessage });
     
     // Show global error notification
-    showError(errorMessage, ErrorType.NETWORK);
+    showError(new Error(errorMessage));
     
     return null;
   }, [showError]);

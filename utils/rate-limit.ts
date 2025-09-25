@@ -101,11 +101,11 @@ function getClientIP(req: NextRequest): string {
  * Clean up expired entries from the rate limit store
  */
 function cleanupExpiredEntries(now: number): void {
-  for (const [key, value] of rateLimitStore.entries()) {
+  rateLimitStore.forEach((value, key) => {
     if (now > value.resetTime) {
       rateLimitStore.delete(key);
     }
-  }
+  });
 }
 
 /**

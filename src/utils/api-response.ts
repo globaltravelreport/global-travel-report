@@ -42,12 +42,12 @@ export function createApiResponse<T = any>(
   
   const isError = typeof data === 'object' && data !== null && 'error' in data;
   
-  const response: ApiResponse<T> = {
+  const response = {
     success: !isError,
     timestamp: new Date().toISOString(),
     ...(requestId && { requestId }),
     ...(isError ? data : { data }),
-  };
+  } as ApiResponse<T>;
 
   // Set default headers
   const responseHeaders = {
@@ -105,13 +105,8 @@ export function createSuccessResponse<T = any>(
   message?: string,
   options: ResponseOptions = {}
 ): NextResponse {
-  return createApiResponse(
-    {
-      ...data,
-      ...(message && { message }),
-    },
-    options
-  );
+  // Keep message out of top-level to satisfy ApiResponse<T>
+  return createApiResponse(data, options);
 }
 
 /**

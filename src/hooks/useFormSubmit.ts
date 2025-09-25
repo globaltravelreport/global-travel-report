@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
-import { ErrorType } from '@/utils/error-handler';
+import { ErrorType } from '@/utils/enhanced-error-handler';
 
 /**
  * Form submission state

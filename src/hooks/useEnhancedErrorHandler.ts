@@ -2,13 +2,13 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { 
-  AppError, 
+  EnhancedAppError as AppError, 
   ErrorType, 
   ErrorSeverity, 
   handleError, 
-  logError, 
   ErrorContext 
 } from '@/utils/enhanced-error-handler';
+import { logError as logErrorBasic } from '@/utils/error-handler';
 
 /**
  * Error state interface
@@ -40,12 +40,14 @@ export function useEnhancedErrorHandler() {
     const appError = error instanceof AppError ? error : new AppError(
       error.message,
       ErrorType.UNKNOWN,
-      ErrorSeverity.MEDIUM,
+      ErrorSeverity.ERROR,
+      undefined,
+      undefined,
       context
     );
 
     // Log the error
-    await logError(appError);
+    logErrorBasic(appError);
 
     // Update state
     setErrorState(prev => ({

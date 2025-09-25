@@ -6,7 +6,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { AppError, ErrorType, handleError } from './error-handler';
+import { EnhancedAppError as AppError, ErrorType, ErrorSeverity, handleError } from './enhanced-error-handler';
 import { error as logError } from './errorLogger';
 
 // Define API error response interface
@@ -124,6 +124,7 @@ export function createValidationErrorResponse(
   const validationError = new AppError(
     message,
     ErrorType.VALIDATION,
+    ErrorSeverity.WARNING,
     'VALIDATION_ERROR',
     details
   );
@@ -153,6 +154,7 @@ export function createNotFoundErrorResponse(
   const notFoundError = new AppError(
     message,
     ErrorType.NOT_FOUND,
+    ErrorSeverity.WARNING,
     'NOT_FOUND_ERROR',
     resource ? { resource } : undefined
   );
@@ -180,6 +182,7 @@ export function createAuthenticationErrorResponse(
   const authError = new AppError(
     message,
     ErrorType.AUTHENTICATION,
+    ErrorSeverity.ERROR,
     'AUTHENTICATION_ERROR'
   );
 

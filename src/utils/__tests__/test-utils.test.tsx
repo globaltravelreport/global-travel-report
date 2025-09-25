@@ -69,11 +69,11 @@ describe('Test Utilities', () => {
     it('should return a mock router object', () => {
       const router = mockRouter();
       
-      expect(router.useRouter).toBeInstanceOf(Function);
+expect(typeof router.useRouter).toBe('function');
       
       const mockRouterInstance = router.useRouter();
-      expect(mockRouterInstance.push).toBeInstanceOf(Function);
-      expect(mockRouterInstance.replace).toBeInstanceOf(Function);
+expect(typeof mockRouterInstance.push).toBe('function');
+expect(typeof mockRouterInstance.replace).toBe('function');
       expect(mockRouterInstance.pathname).toBe('/');
     });
     
@@ -90,7 +90,7 @@ describe('Test Utilities', () => {
     it('should return a mock search params object', () => {
       const searchParams = mockSearchParams();
       
-      expect(searchParams.useSearchParams).toBeInstanceOf(Function);
+expect(typeof searchParams.useSearchParams).toBe('function');
       
       const mockSearchParamsInstance = searchParams.useSearchParams();
       expect(mockSearchParamsInstance).toBeInstanceOf(URLSearchParams);
@@ -109,7 +109,7 @@ describe('Test Utilities', () => {
     it('should return a mock pathname function', () => {
       const pathname = mockPathname();
       
-      expect(pathname.usePathname).toBeInstanceOf(Function);
+expect(typeof pathname.usePathname).toBe('function');
       expect(pathname.usePathname()).toBe('/');
     });
     
@@ -196,7 +196,7 @@ describe('Test Utilities', () => {
     it('should return a mock fetch function', () => {
       const fetch = mockFetch({ data: 'test' });
       
-      expect(fetch).toBeInstanceOf(Function);
+expect(typeof fetch).toBe('function');
     });
     
     it('should resolve with the provided response', async () => {
@@ -227,10 +227,10 @@ describe('Test Utilities', () => {
     it('should return a mock localStorage object', () => {
       const localStorage = mockLocalStorage();
       
-      expect(localStorage.getItem).toBeInstanceOf(Function);
-      expect(localStorage.setItem).toBeInstanceOf(Function);
-      expect(localStorage.removeItem).toBeInstanceOf(Function);
-      expect(localStorage.clear).toBeInstanceOf(Function);
+expect(typeof localStorage.getItem).toBe('function');
+expect(typeof localStorage.setItem).toBe('function');
+expect(typeof localStorage.removeItem).toBe('function');
+expect(typeof localStorage.clear).toBe('function');
     });
     
     it('should store and retrieve values', () => {
@@ -260,10 +260,10 @@ describe('Test Utilities', () => {
     it('should return a mock sessionStorage object', () => {
       const sessionStorage = mockSessionStorage();
       
-      expect(sessionStorage.getItem).toBeInstanceOf(Function);
-      expect(sessionStorage.setItem).toBeInstanceOf(Function);
-      expect(sessionStorage.removeItem).toBeInstanceOf(Function);
-      expect(sessionStorage.clear).toBeInstanceOf(Function);
+expect(typeof sessionStorage.getItem).toBe('function');
+expect(typeof sessionStorage.setItem).toBe('function');
+expect(typeof sessionStorage.removeItem).toBe('function');
+expect(typeof sessionStorage.clear).toBe('function');
     });
   });
   
@@ -274,9 +274,9 @@ describe('Test Utilities', () => {
       expect(IntersectionObserver).toBeInstanceOf(Function);
       
       const observer = new IntersectionObserver(() => {});
-      expect(observer.observe).toBeInstanceOf(Function);
-      expect(observer.unobserve).toBeInstanceOf(Function);
-      expect(observer.disconnect).toBeInstanceOf(Function);
+expect(typeof observer.observe).toBe('function');
+expect(typeof observer.unobserve).toBe('function');
+expect(typeof observer.disconnect).toBe('function');
     });
     
     it('should call the callback with isIntersecting=true by default', () => {

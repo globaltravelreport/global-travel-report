@@ -122,8 +122,7 @@ export const NewsletterSignup = ({
         if (response.status === 409) {
           toast({
             title: 'Already subscribed',
-            description: 'This email is already subscribed to our newsletter.',
-            icon: <AlertCircle className="h-5 w-5 text-orange-500" />
+            description: 'This email is already subscribed to our newsletter.'
           });
         } else {
           throw new Error(data.error || 'Failed to subscribe');
@@ -136,8 +135,7 @@ export const NewsletterSignup = ({
 
       toast({
         title: 'Successfully subscribed!',
-        description: `Welcome ${firstName}! Please check your email for a confirmation link.`,
-        icon: <CheckCircle2 className="h-5 w-5 text-green-500" />
+        description: `Welcome ${firstName}! Please check your email for a confirmation link.`
       });
 
       // Reset form
@@ -152,8 +150,7 @@ export const NewsletterSignup = ({
       console.error('Newsletter subscription error:', error);
       toast({
         title: 'Subscription failed',
-        description: 'There was a problem subscribing to the newsletter. Please try again.',
-        icon: <AlertCircle className="h-5 w-5 text-red-500" />
+        description: 'There was a problem subscribing to the newsletter. Please try again.'
       });
     } finally {
       setIsSubmitting(false);

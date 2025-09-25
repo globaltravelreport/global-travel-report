@@ -20,20 +20,16 @@ export function Toaster() {
         title,
         description,
         action,
-        icon,
         ...props
       }) {
         return (
           <Toast key={id} {...props}>
-            <div className="flex gap-3">
-              {icon && <div className="flex-shrink-0">{icon}</div>}
-              <div className="grid gap-1">
+            <div className="grid gap-1">
                 {title && <ToastTitle>{title}</ToastTitle>}
                 {description && (
                   <ToastDescription>{description}</ToastDescription>
                 )}
               </div>
-            </div>
             {action}
             <ToastClose />
           </Toast>

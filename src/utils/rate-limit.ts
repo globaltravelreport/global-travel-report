@@ -38,11 +38,11 @@ export async function rateLimit(
   
   // Clean up expired entries periodically
   if (Math.random() < 0.01) { // 1% chance to clean up
-    for (const [k, v] of rateLimitStore.entries()) {
+    rateLimitStore.forEach((v, k) => {
       if (v.resetTime < now) {
         rateLimitStore.delete(k);
       }
-    }
+    });
   }
   
   const current = rateLimitStore.get(key);

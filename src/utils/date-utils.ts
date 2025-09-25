@@ -308,12 +308,12 @@ export function getSafeDateString(
           if (yearMatch) {
             const year = parseInt(yearMatch[0]);
             // If the year is 2023 or later, consider it valid
-            if (year >= 2023) {
-              const date = new Date(dateStr);
-              if (!isNaN(date.getTime())) {
-                return dateStr; // Return the original string to preserve exact format
+              if (year >= 2023) {
+                const date = new Date(dateStr);
+                if (!isNaN(date.getTime())) {
+                  return date.toISOString();
+                }
               }
-            }
           }
         } catch (e) {
           // If there's an error in the special handling, continue with normal validation
