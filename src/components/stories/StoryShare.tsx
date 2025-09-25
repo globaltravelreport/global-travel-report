@@ -434,14 +434,10 @@ export function useShare() {
 
   const share = async (data: ShareData) => {
     if (navigator.share) {
-      try {
-        await navigator.share(data);
-      } catch (error) {
-        throw error;
-      }
-    } else {
-      throw new Error('Web Share API not supported');
+      await navigator.share(data);
+      return;
     }
+    throw new Error('Web Share API not supported');
   };
 
   return { isSupported, share };

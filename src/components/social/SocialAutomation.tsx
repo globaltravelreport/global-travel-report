@@ -421,8 +421,9 @@ export function SocialAutomation({
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Content</label>
+              <label htmlFor="schedule-content" className="block text-sm font-medium mb-2">Content</label>
               <textarea
+                id="schedule-content"
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
                 className="w-full p-3 border rounded resize-none"
@@ -435,8 +436,8 @@ export function SocialAutomation({
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Platforms</label>
-              <div className="flex flex-wrap gap-2">
+              <div id="schedule-platforms" className="block text-sm font-medium mb-2">Platforms</div>
+              <div className="flex flex-wrap gap-2" role="group" aria-labelledby="schedule-platforms">
                 {platforms.map((platform) => (
                   <button
                     key={platform.id}
@@ -464,8 +465,9 @@ export function SocialAutomation({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Schedule Time</label>
+                <label htmlFor="schedule-time" className="block text-sm font-medium mb-2">Schedule Time</label>
                 <input
+                  id="schedule-time"
                   type="datetime-local"
                   value={scheduledTime}
                   onChange={(e) => setScheduledTime(e.target.value)}
@@ -474,8 +476,9 @@ export function SocialAutomation({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Image URL (optional)</label>
+                <label htmlFor="image-url" className="block text-sm font-medium mb-2">Image URL (optional)</label>
                 <input
+                  id="image-url"
                   type="url"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
@@ -486,8 +489,8 @@ export function SocialAutomation({
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Hashtags</label>
-              <div className="flex flex-wrap gap-2 mb-2">
+              <div id="schedule-hashtags" className="block text-sm font-medium mb-2">Hashtags</div>
+              <div className="flex flex-wrap gap-2 mb-2" role="group" aria-labelledby="schedule-hashtags">
                 {hashtags.map((tag, index) => (
                   <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
                     #{tag}

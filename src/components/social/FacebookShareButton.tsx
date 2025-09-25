@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { FacebookIcon } from '@/components/ui/icons';
+import { Icon } from '@/components/ui/icons';
 
 interface FacebookShareButtonProps {
   url: string;
@@ -59,7 +59,7 @@ export function FacebookShareButton({
         children
       ) : (
         <>
-          <FacebookIcon className="h-4 w-4" />
+          <Icon name="facebook" className="h-4 w-4" />
           <span>Share</span>
         </>
       )}

@@ -212,10 +212,11 @@ export function NewsletterSignup({
           className="space-y-3 pt-3 border-t border-gray-200"
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="newsletter-frequency" className="block text-sm font-medium text-gray-700 mb-2">
               Newsletter Frequency
             </label>
             <select
+              id="newsletter-frequency"
               value={formData.frequency}
               onChange={(e) => handleInputChange('frequency', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -227,21 +228,25 @@ export function NewsletterSignup({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div id="content-preferences-label" className="block text-sm font-medium text-gray-700 mb-2">
               Content Preferences
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {Object.entries(formData.preferences || {}).map(([key, value]) => (
-                <label key={key} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={value}
-                    onChange={(e) => handlePreferenceChange(key as keyof NonNullable<NewsletterFormData['preferences']>, e.target.checked)}
-                    className="mr-2"
-                  />
-                  <span className="text-sm capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                </label>
-              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-2" role="group" aria-labelledby="content-preferences-label">
+              {Object.entries(formData.preferences || {}).map(([key, value]) => {
+                const id = `pref-${key}`;
+                return (
+                  <label key={key} htmlFor={id} className="flex items-center">
+                    <input
+                      id={id}
+                      type="checkbox"
+                      checked={value}
+                      onChange={(e) => handlePreferenceChange(key as keyof NonNullable<NewsletterFormData['preferences']>, e.target.checked)}
+                      className="mr-2"
+                    />
+                    <span className="text-sm capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+                  </label>
+                );
+              })}
             </div>
           </div>
         </motion.div>
@@ -291,7 +296,18 @@ export function NewsletterSignup({
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={closeModal} />
+                <button
+                  type="button"
+                  className="absolute inset-0 bg-gray-500 opacity-75"
+                  aria-label="Close newsletter modal"
+                  onClick={closeModal}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      closeModal();
+                    }
+                  }}
+                />
               </div>
 
               <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">

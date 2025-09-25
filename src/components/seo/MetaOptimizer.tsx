@@ -49,7 +49,7 @@ export function useTitleOptimizer(initialTitle: string, targetKeywords: string[]
       const optimalLength = 60;
       const titleLength = title.length;
 
-      let optimizedTitle = title;
+      const optimizedTitle = title;
       let titleScore = 0;
 
       // Length scoring
@@ -107,7 +107,7 @@ export function useDescriptionOptimizer(initialDescription: string, targetKeywor
       const optimalLength = 160;
       const descLength = desc.length;
 
-      let optimizedDesc = desc;
+      const optimizedDesc = desc;
       let descScore = 0;
 
       // Length scoring

@@ -252,9 +252,18 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
 
       {isOpen && (
         <>
-          <div
+          <button
+            type="button"
             className="fixed inset-0 z-40"
+            aria-label="Close accessibility menu"
             onClick={() => setIsOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setIsOpen(false);
+              }
+            }}
+            tabIndex={0}
           />
           <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border z-50">
             <div className="p-4">
@@ -272,7 +281,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
 
               <div className="space-y-4">
                 {/* Reduced Motion */}
-                <label className="flex items-center justify-between">
+                <div className="flex items-center justify-between" role="group" aria-label="Reduced Motion">
                   <div>
                     <div className="font-medium">Reduced Motion</div>
                     <div className="text-sm text-gray-600">Minimize animations and transitions</div>
@@ -287,10 +296,10 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                       settings.reducedMotion ? 'translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
-                </label>
+                </div>
 
                 {/* High Contrast */}
-                <label className="flex items-center justify-between">
+                <div className="flex items-center justify-between" role="group" aria-label="High Contrast">
                   <div>
                     <div className="font-medium">High Contrast</div>
                     <div className="text-sm text-gray-600">Increase contrast for better visibility</div>
@@ -305,10 +314,10 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                       settings.highContrast ? 'translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
-                </label>
+                </div>
 
                 {/* Large Text */}
-                <label className="flex items-center justify-between">
+                <div className="flex items-center justify-between" role="group" aria-label="Large Text">
                   <div>
                     <div className="font-medium">Large Text</div>
                     <div className="text-sm text-gray-600">Increase text size by 20%</div>
@@ -323,12 +332,13 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                       settings.largeText ? 'translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
-                </label>
+                </div>
 
                 {/* Font Size */}
                 <div>
-                  <label className="block text-sm font-medium mb-2">Font Size</label>
+                  <label htmlFor="access-font-size" className="block text-sm font-medium mb-2">Font Size</label>
                   <select
+                    id="access-font-size"
                     value={settings.fontSize}
                     onChange={(e) => updateSetting('fontSize', e.target.value)}
                     className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -341,7 +351,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                 </div>
 
                 {/* Color Blind Support */}
-                <label className="flex items-center justify-between">
+                <div className="flex items-center justify-between" role="group" aria-label="Color Blind Support">
                   <div>
                     <div className="font-medium">Color Blind Support</div>
                     <div className="text-sm text-gray-600">Adjust colors for better accessibility</div>
@@ -356,7 +366,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                       settings.colorBlind ? 'translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
-                </label>
+                </div>
 
                 {/* Reset Button */}
                 <button

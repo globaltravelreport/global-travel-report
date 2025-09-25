@@ -254,9 +254,17 @@ export function ShareWidgets({
 
       {/* Backdrop for floating variant */}
       {variant === 'floating' && isVisible && (
-        <div
+        <button
+          type="button"
           className="fixed inset-0 z-40"
+          aria-label="Close share options"
           onClick={() => setIsVisible(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setIsVisible(false);
+            }
+          }}
         />
       )}
     </div>

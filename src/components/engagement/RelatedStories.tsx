@@ -125,8 +125,8 @@ export function RelatedStories({
       setLoading(true);
 
       // Filter out current story
-      let filtered = sampleStories.filter(story => story.id !== currentStoryId);
-
+      const filtered = sampleStories.filter(story => story.id !== currentStoryId);
+ 
       // Score stories based on relevance
       const scored = filtered.map(story => {
         let score = 0;
