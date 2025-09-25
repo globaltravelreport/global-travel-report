@@ -1,0 +1,49 @@
+# Node / Next / Build artifacts
+node_modules
+.next
+dist
+out
+coverage
+build
+
+# Environment and secrets
+.env*
+
+# Logs and caches
+logs
+*.log
+.cache/
+.npm/
+
+# OS / IDE junk
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Project-specific ignores
+cookies.txt
+deploy-log.txt
+package-lock 2.json
+package-lock 3.json
+*.backup
+*.save
+
+# Legacy entries retained
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+/coverage
+/.next/
+/out/
+/build
+.env*.local
+public/uploads/*

@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways",
+    "description": " Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines' direct flights from Manila to Doha, now in codeshare par...",
+    "image": [
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-12T13:53:24.628Z",
+    "dateModified": "2025-04-12T13:53:24.628Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/fly-direct-manila-to-doha-with-philippine-airlines-qatar-air"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways",
+    "description": " Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines' direct flights from Manila to Doha, now in codeshare par...",
+    "url": "https://globaltravelreport.com/fly-direct-manila-to-doha-with-philippine-airlines-qatar-air",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Qatar"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "'Culture",
+        "item": "https://globaltravelreport.com/category/'culture"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Qatar",
+        "item": "https://globaltravelreport.com/destination/qatar"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways",
+        "item": "https://globaltravelreport.com/fly-direct-manila-to-doha-with-philippine-airlines-qatar-air"
+      }
+    ]
+  }
+]

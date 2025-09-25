@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Exploring Scotland by Sea: A Cruise Adventure from Australia",
+    "description": "Australia to Scotland cruises, Scotland travel guide, Australian travelers, AUD price comparisons, visa requirements Australia, travel tips Scotland",
+    "image": [
+      "https://images.unsplash.com/photo-1503220317375-aaad61436b1b"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2023-05-03T23:02:45.829Z",
+    "dateModified": "2023-05-03T23:02:45.829Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-exploring-scotland-by-sea-a-cruise-adventure-from-australi"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Exploring Scotland by Sea: A Cruise Adventure from Australia",
+    "description": "Australia to Scotland cruises, Scotland travel guide, Australian travelers, AUD price comparisons, visa requirements Australia, travel tips Scotland",
+    "url": "https://globaltravelreport.com/1-exploring-scotland-by-sea-a-cruise-adventure-from-australi",
+    "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Scotland"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cruise",
+        "item": "https://globaltravelreport.com/category/cruise"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Scotland",
+        "item": "https://globaltravelreport.com/destination/scotland"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Exploring Scotland by Sea: A Cruise Adventure from Australia",
+        "item": "https://globaltravelreport.com/1-exploring-scotland-by-sea-a-cruise-adventure-from-australi"
+      }
+    ]
+  }
+]
