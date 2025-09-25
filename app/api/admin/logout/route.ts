@@ -2,7 +2,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { clearSession } from '@/lib/auth';
 
-export async function POST(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const runtime = 'nodejs';
+
+export async function POST(_request: NextRequest) {
   try {
     const response = NextResponse.json({ success: true });
     clearSession(response);

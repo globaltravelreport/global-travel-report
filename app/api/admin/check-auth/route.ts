@@ -2,10 +2,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthenticated } from '@/lib/auth';
 
-export async function GET(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const runtime = 'nodejs';
+
+export async function GET(_request: NextRequest) {
   try {
     const authenticated = await isAuthenticated();
-    
+
     if (authenticated) {
       return NextResponse.json({ authenticated: true });
     } else {

@@ -9,7 +9,9 @@ import { cn } from '@/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '@/src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker';
 import AITravelAssistantMount from '@/src/components/experimental/AITravelAssistantMount';
-
+import { Suspense } from 'react';
+import { SearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+ 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -155,7 +157,11 @@ export default function RootLayout({
             <div className="min-h-screen flex flex-col">
               <Header />
               <main id="main-content" className="flex-1">
-                {children}
+                <Suspense fallback={null}>
+                  <SearchParamsProvider fallback={null}>
+                    {children}
+                  </SearchParamsProvider>
+                </Suspense>
               </main>
               <Footer />
             </div>
