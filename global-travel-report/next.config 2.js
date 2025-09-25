@@ -3,7 +3,8 @@
 const nextConfig = {
   // Enable experimental features
   experimental: {
-    optimizeCss: true
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', 'date-fns'],
   },
 
   // Image optimization
@@ -113,8 +114,37 @@ const nextConfig = {
     },
   }),
 
-  // Keep webpack configuration minimal to avoid SSR runtime issues
-  webpack: (config) => {
+  // Webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Production optimizations
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              enforce: true,
+            },
+          },
+        },
+      };
+    }
+
+    // Tree shaking for lucide-react
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'lucide-react': 'lucide-react/dist/esm/icons',
+    };
+
     return config;
   },
 

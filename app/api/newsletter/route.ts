@@ -144,10 +144,9 @@ export const POST = createApiHandler<NewsletterRequest>(
       }
 
       // Log error but don't expose internal details to user
-      logError(error, { 
+      logError(error, {
         context: 'Newsletter subscription',
-        email: sanitizedEmail,
-        frequency 
+        additionalData: { email: sanitizedEmail, frequency }
       });
 
       throw new Error('Failed to subscribe to newsletter. Please try again later.');

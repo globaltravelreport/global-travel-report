@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { getAllStories, searchStories } from '@/utils/stories';
 import { SearchForm } from '@/components/search/SearchForm';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { Pagination } from '@/components/ui/Pagination';
+import { Pagination } from '@/src/components/ui/Pagination';
 import { mockCategories, mockCountries, mockTags } from '@/src/mocks/stories';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 

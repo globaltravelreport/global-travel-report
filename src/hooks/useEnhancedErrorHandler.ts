@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import {
-  AppError,
+  EnhancedAppError,
   ErrorType,
   ErrorSeverity,
   handleError,
@@ -14,7 +14,7 @@ import {
  * Error state interface
  */
 interface ErrorState {
-  error: AppError | null;
+  error: EnhancedAppError | null;
   isLoading: boolean;
   retryCount: number;
 }
@@ -33,19 +33,25 @@ export function useEnhancedErrorHandler() {
    * Handle error with enhanced context and retry logic
    */
   const handleErrorWithContext = useCallback(async (
-    error: Error | AppError,
+    error: Error | EnhancedAppError,
     context?: ErrorContext,
     maxRetries: number = 3
   ) => {
-    const appError = error instanceof AppError ? error : new AppError(
-      error.message,
-      ErrorType.UNKNOWN,
-      ErrorSeverity.ERROR,
-      context
-    );
+    const appError =
+      error instanceof EnhancedAppError
+        ? error
+        : new EnhancedAppError(
+            (error as Error).message,
+            ErrorType.UNKNOWN,
+            ErrorSeverity.ERROR,
+            undefined,
+            undefined,
+            context,
+            error
+          );
 
     // Log the error
-    await logError(appError);
+    logError(appError);
 
     // Update state
     setErrorState(prev => ({
@@ -55,7 +61,7 @@ export function useEnhancedErrorHandler() {
     }));
 
     // Handle the error (this might trigger notifications, etc.)
-    await handleError(appError);
+    handleError(appError);
 
     return appError;
   }, []);

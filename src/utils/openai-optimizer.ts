@@ -6,10 +6,16 @@ import { createHash } from 'crypto';
 import OpenAI from 'openai';
 import { retryOpenAICall } from './openai-error-handler';
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy-initialize OpenAI client to avoid build-time failures when env is missing
+let openaiClient: OpenAI | null = null;
+function getOpenAIClient(): OpenAI {
+  if (openaiClient) return openaiClient;
+  const apiKey = process.env.OPENAI_API_KEY || '';
+  // Do not throw during module import (e.g., build time). Any missing apiKey
+  // will only surface when a request actually tries to call the API.
+  openaiClient = new OpenAI({ apiKey });
+  return openaiClient;
+}
 
 // In-memory cache for OpenAI responses
 const responseCache = new Map<string, { response: unknown; timestamp: number }>();
@@ -86,7 +92,7 @@ export async function createChatCompletion(
 
   // Make API call with retries
   const response = await retryOpenAICall(
-    () => openai.chat.completions.create(params),
+    () => getOpenAIClient().chat.completions.create(params),
     maxRetries,
     retryDelay
   );

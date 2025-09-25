@@ -10,11 +10,6 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     // Server-side instrumentation
-    // Some third-party libraries expect `self` to exist (browser global).
-    // Define it on the server to prevent "ReferenceError: self is not defined".
-    if (!(globalThis as any).self) {
-      (globalThis as any).self = globalThis;
-    }
   }
 
   if (typeof window !== 'undefined') {
