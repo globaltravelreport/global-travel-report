@@ -247,7 +247,6 @@ export function PerformanceOptimizer({ onOptimizationComplete }: PerformanceOpti
     }
 
     setOptimizationProgress(0);
-    let savings = 0;
 
     // Remove unused code
     await removeUnusedCode();

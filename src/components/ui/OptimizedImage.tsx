@@ -70,6 +70,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       <div className={cn('relative', className)}>
         <Image
           {...imageProps}
+          alt={alt}
           fill
           style={{ objectFit: 'cover' }}
         />
@@ -80,6 +81,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   return (
     <Image
       {...imageProps}
+      alt={alt}
       width={width}
       height={height}
     />
