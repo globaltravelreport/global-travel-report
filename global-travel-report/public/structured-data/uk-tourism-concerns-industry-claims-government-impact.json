@@ -5,7 +5,7 @@
     "headline": "UK Tourism Concerns: Industry Claims Government Impact",
     "description": "The UK travel industry has voiced concerns over government policies affecting tourism growth and international appeal.",
     "image": [
-      "https://images.unsplash.com/photo-1530789253388-582c481c54b0"
+      "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Tourism Concerns: Industry Claims Government Impact",
     "description": "The UK travel industry has voiced concerns over government policies affecting tourism growth and international appeal.",
     "url": "https://globaltravelreport.com/uk-tourism-concerns-industry-claims-government-impact",
-    "image": "https://images.unsplash.com/photo-1530789253388-582c481c54b0",
+    "image": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

@@ -3,20 +3,22 @@ import Hero from '@/components/Hero';
 export default function Home() {
   return (
     <div className="min-h-screen">
+      {/* Hero Section (reused component to match Destinations style and credit) */}
       <Hero
         title="Global Travel Report"
-        subtitle="Your destination for inspiring travel stories, tips, and guides from around the world. We're working hard to bring you amazing content. Stay tuned!"
+        subtitle="Your destination for inspiring travel stories, tips, and guides from around the world."
+        alt="Global Travel Report hero image with iconic travel scenery"
         primaryCtaText="Explore Destinations"
         primaryCtaHref="/destinations"
         secondaryCtaText="Browse Categories"
         secondaryCtaHref="/categories"
-        defaultImage="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+        enableRotation={false}
+        defaultImage="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
         defaultPhotographer={{
           name: "Jeremy Bishop",
           url: "https://unsplash.com/@jeremybishop",
           photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
         }}
-        enableRotation={false}
       />
 
       {/* Quick Links Section */}

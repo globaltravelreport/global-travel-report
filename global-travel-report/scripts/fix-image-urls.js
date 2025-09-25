@@ -17,22 +17,22 @@ const ARTICLES_DIR = path.join(process.cwd(), 'content/articles');
 
 // Direct mapping between photographers and their images
 const PHOTOGRAPHER_IMAGES = {
-  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
-  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
-  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-  'Josiah Farrow': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b',
-  'Vidar Nordli-Mathisen': 'https://images.unsplash.com/photo-1548690312-e3b507d8c110',
-  'Flo Maderebner': 'https://images.unsplash.com/photo-1551632811-561732d1e306',
-  'Anthony Tran': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
-  'Jingda Chen': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
-  'Esteban Castle': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
-  'Jezael Melgoza': 'https://images.unsplash.com/photo-1518998053901-5348d3961a04',
-  'Brooke Lark': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-  'Kelsey Knight': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3',
-  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2'
+  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
+  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400',
+  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&q=80&w=2400',
+  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400',
+  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400',
+  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
+  'Josiah Farrow': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&q=80&w=2400',
+  'Vidar Nordli-Mathisen': 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?auto=format&q=80&w=2400',
+  'Flo Maderebner': 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&q=80&w=2400',
+  'Anthony Tran': 'https://images.unsplash.com/photo-1493707553966-283afac8c358?auto=format&q=80&w=2400',
+  'Jingda Chen': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5?auto=format&q=80&w=2400',
+  'Esteban Castle': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?auto=format&q=80&w=2400',
+  'Jezael Melgoza': 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&q=80&w=2400',
+  'Brooke Lark': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400',
+  'Kelsey Knight': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&q=80&w=2400',
+  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&q=80&w=2400'
 };
 
 // Category-specific photographers

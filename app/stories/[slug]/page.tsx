@@ -22,6 +22,9 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
 
+import PopularTags from "@/src/components/ui/PopularTags";
+import CommentSystem from "@/src/components/ui/CommentSystem";
+
 // Define the params type for Next.js
 type StoryParams = {
   slug: string;
@@ -387,15 +390,29 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             <AdSenseLeaderboard />
           </div>
 
-          <RelatedStories currentStory={story} limit={4} />
+          {/* Related and category stories with popular tags sidebar */}
+          <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 space-y-8">
+              <RelatedStories currentStory={story} limit={4} />
+              <CategoryStories category={story.category} excludeStoryId={story.id} limit={4} />
+            </div>
 
-          <CategoryStories category={story.category} excludeStoryId={story.id} limit={4} />
+            <aside aria-label="Popular tags and topics" className="order-first md:order-none">
+              <PopularTags className="md:sticky md:top-24" variant="default" showCounts={false} />
+            </aside>
+          </section>
 
+          {/* Newsletter signup */}
           <div className="mt-12">
             <NewsletterSignup
               title="Get More Travel Stories Like This"
               description="Subscribe to our newsletter and receive the latest travel stories, tips, and inspiration directly to your inbox."
             />
+          </div>
+
+          {/* Comments */}
+          <div className="mt-12" aria-label="Comments section">
+            <CommentSystem storyId={story.id} />
           </div>
         </article>
       </div>

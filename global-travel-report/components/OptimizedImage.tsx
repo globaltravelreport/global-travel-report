@@ -79,7 +79,7 @@ export function OptimizedImage({
     params.set('fit', 'crop');
     params.set('crop', 'entropy');
     
-    return `https://images.unsplash.com/photo-${photoId}?${params.toString()}`;
+    return `https://images.unsplash.com/photo-${photoId}?auto=format&q=80&w=2400)}`;
   };
 
   // Generate blur data URL for Unsplash images

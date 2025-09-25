@@ -5,7 +5,7 @@
     "headline": "Explore the Shanghai Cruise Culture & Tourism Festival",
     "description": "  Shanghai's Cruise Culture and Tourism Festival is set to enchant travelers with its unique blend of cultural festivities and breathtaking sea voyages....",
     "image": [
-      "https://images.unsplash.com/photo-1528127269322-539801943592"
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Explore the Shanghai Cruise Culture & Tourism Festival",
     "description": "  Shanghai's Cruise Culture and Tourism Festival is set to enchant travelers with its unique blend of cultural festivities and breathtaking sea voyages....",
     "url": "https://globaltravelreport.com/explore-the-shanghai-cruise-culture-tourism-festival",
-    "image": "https://images.unsplash.com/photo-1528127269322-539801943592",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "China"

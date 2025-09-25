@@ -5,7 +5,7 @@
     "headline": "Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita",
     "description": "This article provides an insider's guide on how to traverse the diverse regions of Italy on a budget, without compromising on the rich cultural and historical experiences.",
     "image": [
-      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd"
+      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Savouring Italy: A Budget-Friendly Guide to Uncovering La Bella Vita",
     "description": "This article provides an insider's guide on how to traverse the diverse regions of Italy on a budget, without compromising on the rich cultural and historical experiences.",
     "url": "https://globaltravelreport.com/title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita",
-    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd",
+    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Italy"

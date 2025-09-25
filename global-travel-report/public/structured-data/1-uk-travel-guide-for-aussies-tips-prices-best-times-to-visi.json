@@ -5,7 +5,7 @@
     "headline": "UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit",
     "description": "### Your Ultimate Guide to Exploring the UK from Australia...",
     "image": [
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Travel Guide for Aussies: Tips, Prices & Best Times to Visit",
     "description": "### Your Ultimate Guide to Exploring the UK from Australia...",
     "url": "https://globaltravelreport.com/1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi",
-    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

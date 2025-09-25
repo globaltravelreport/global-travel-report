@@ -2,178 +2,253 @@
 
 import { useEffect } from 'react';
 
-interface BaseSchemaProps {
-  url: string;
-  name: string;
-  description: string;
-  image?: string;
+interface BaseSchema {
+  '@context': string;
+  '@type': string;
+  [key: string]: any;
 }
 
-interface ArticleSchemaProps extends BaseSchemaProps {
-  headline: string;
-  author: {
-    name: string;
-    url?: string;
-  };
-  datePublished: string;
-  dateModified?: string;
-  publisher: {
-    name: string;
-    logo: string;
-  };
-  articleSection?: string;
-  keywords?: string[];
-}
-
-interface OrganizationSchemaProps {
+interface OrganizationSchema extends BaseSchema {
+  '@type': 'Organization';
   name: string;
   url: string;
   logo: string;
-  description: string;
-  sameAs: string[];
+  description?: string;
+  sameAs?: string[];
   contactPoint?: {
-    telephone?: string;
-    email?: string;
+    '@type': 'ContactPoint';
     contactType: string;
+    email?: string;
+    telephone?: string;
   };
 }
 
-interface BreadcrumbSchemaProps {
-  items: Array<{
+interface ArticleSchema extends BaseSchema {
+  '@type': 'Article';
+  headline: string;
+  description: string;
+  image: string | string[];
+  datePublished: string;
+  dateModified?: string;
+  author: {
+    '@type': 'Person' | 'Organization';
+    name: string;
+    url?: string;
+  };
+  publisher: {
+    '@type': 'Organization';
+    name: string;
+    logo: {
+      '@type': 'ImageObject';
+      url: string;
+    };
+  };
+  mainEntityOfPage: {
+    '@type': 'WebPage';
+    '@id': string;
+  };
+  articleSection?: string;
+  keywords?: string;
+  wordCount?: number;
+  timeRequired?: string;
+  speakable?: {
+    '@type': 'SpeakableSpecification';
+    cssSelector: string[];
+  };
+}
+
+interface BreadcrumbSchema extends BaseSchema {
+  '@type': 'BreadcrumbList';
+  itemListElement: {
+    '@type': 'ListItem';
+    position: number;
     name: string;
     item: string;
-  }>;
+  }[];
 }
 
-interface FAQSchemaProps {
-  questions: Array<{
-    question: string;
-    answer: string;
-  }>;
+interface FAQSchema extends BaseSchema {
+  '@type': 'FAQPage';
+  mainEntity: {
+    '@type': 'Question';
+    name: string;
+    acceptedAnswer: {
+      '@type': 'Answer';
+      text: string;
+    };
+  }[];
 }
 
-interface EventSchemaProps extends BaseSchemaProps {
+interface EventSchema extends BaseSchema {
+  '@type': 'Event';
+  name: string;
+  description: string;
   startDate: string;
   endDate?: string;
   location: {
+    '@type': 'Place';
     name: string;
     address: {
-      streetAddress: string;
+      '@type': 'PostalAddress';
+      streetAddress?: string;
       addressLocality: string;
-      addressRegion: string;
-      postalCode: string;
+      addressRegion?: string;
+      postalCode?: string;
       addressCountry: string;
     };
   };
+  image?: string | string[];
   offers?: {
+    '@type': 'Offer';
     price: string;
-    currency: string;
+    priceCurrency: string;
     availability: string;
-    url: string;
+    validFrom?: string;
   };
 }
 
-// Article Schema Component
-export function ArticleSchema({
-  url,
-  name,
-  description,
-  image,
-  headline,
-  author,
-  datePublished,
-  dateModified,
-  publisher,
-  articleSection,
-  keywords = [],
-}: ArticleSchemaProps) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline,
-    description,
-    image: image ? [image] : undefined,
-    datePublished,
-    dateModified: dateModified || datePublished,
-    author: {
-      '@type': 'Person',
-      name: author.name,
-      url: author.url,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: publisher.name,
-      logo: {
-        '@type': 'ImageObject',
-        url: publisher.logo,
-      },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
-    },
-    articleSection,
-    keywords: keywords.join(', '),
-    url,
-    name,
-  };
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
+interface ProductSchema extends BaseSchema {
+  '@type': 'Product';
+  name: string;
+  description: string;
+  image: string | string[];
+  offers: {
+    '@type': 'Offer';
+    price: string;
+    priceCurrency: string;
+    availability: string;
+    validFrom?: string;
+    seller: {
+      '@type': 'Organization';
+      name: string;
     };
-  }, [schema]);
-
-  return null;
+  };
+  aggregateRating?: {
+    '@type': 'AggregateRating';
+    ratingValue: number;
+    reviewCount: number;
+  };
+  brand?: {
+    '@type': 'Brand';
+    name: string;
+  };
 }
 
-// Organization Schema Component
-export function OrganizationSchema({
-  name,
-  url,
-  logo,
-  description,
-  sameAs,
-  contactPoint,
-}: OrganizationSchemaProps) {
-  const schema = {
+interface LocalBusinessSchema extends BaseSchema {
+  '@type': 'LocalBusiness' | 'TravelAgency';
+  name: string;
+  description: string;
+  url: string;
+  telephone?: string;
+  email?: string;
+  address: {
+    '@type': 'PostalAddress';
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo?: {
+    '@type': 'GeoCoordinates';
+    latitude: number;
+    longitude: number;
+  };
+  openingHoursSpecification?: {
+    '@type': 'OpeningHoursSpecification';
+    dayOfWeek: string[];
+    opens: string;
+    closes: string;
+  }[];
+  priceRange?: string;
+  image?: string | string[];
+}
+
+interface WebsiteSchema extends BaseSchema {
+  '@type': 'WebSite';
+  name: string;
+  url: string;
+  description?: string;
+  potentialAction?: {
+    '@type': 'SearchAction';
+    target: string;
+    'query-input': string;
+  };
+}
+
+interface SchemaMarkupProps {
+  schemas: BaseSchema[];
+  className?: string;
+}
+
+export function SchemaMarkup({ schemas, className = '' }: SchemaMarkupProps) {
+  useEffect(() => {
+    // Remove existing schema markup
+    const existingSchemas = document.querySelectorAll('script[type="application/ld+json"]');
+    existingSchemas.forEach(script => {
+      if (script.getAttribute('data-schema-source') === 'react-component') {
+        script.remove();
+      }
+    });
+
+    // Add new schema markup
+    schemas.forEach((schema, index) => {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-schema-source', 'react-component');
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+    });
+
+    // Cleanup function
+    return () => {
+      const scripts = document.querySelectorAll('script[data-schema-source="react-component"]');
+      scripts.forEach(script => script.remove());
+    };
+  }, [schemas]);
+
+  return (
+    <div className={className}>
+      {/* This component doesn't render anything visible, just manages schema markup */}
+    </div>
+  );
+}
+
+// Pre-configured schema generators
+export const SchemaGenerators = {
+  organization: (data: {
+    name: string;
+    url: string;
+    logo: string;
+    description?: string;
+    sameAs?: string[];
+    contactPoint?: OrganizationSchema['contactPoint'];
+  }): OrganizationSchema => ({
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name,
-    url,
-    logo,
-    description,
-    sameAs,
-    ...(contactPoint && {
-      contactPoint: {
-        '@type': 'ContactPoint',
-        ...contactPoint,
-      },
-    }),
-  };
+    ...data,
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
+  article: (data: {
+    headline: string;
+    description: string;
+    image: string | string[];
+    datePublished: string;
+    dateModified?: string;
+    author: ArticleSchema['author'];
+    publisher: ArticleSchema['publisher'];
+    mainEntityOfPage: ArticleSchema['mainEntityOfPage'];
+    articleSection?: string;
+    keywords?: string;
+    wordCount?: number;
+    timeRequired?: string;
+  }): ArticleSchema => ({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    ...data,
+  }),
 
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Breadcrumb Schema Component
-export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
-  const schema = {
+  breadcrumbs: (items: { name: string; item: string }[]): BreadcrumbSchema => ({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, index) => ({
@@ -182,345 +257,154 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
       name: item.name,
       item: item.item,
     })),
-  };
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// FAQ Schema Component
-export function FAQSchema({ questions }: FAQSchemaProps) {
-  const schema = {
+  faq: (questions: { question: string; answer: string }[]): FAQSchema => ({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: questions.map((faq) => ({
+    mainEntity: questions.map(q => ({
       '@type': 'Question',
-      name: faq.question,
+      name: q.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.answer,
+        text: q.answer,
       },
     })),
-  };
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Event Schema Component
-export function EventSchema({
-  url,
-  name,
-  description,
-  image,
-  startDate,
-  endDate,
-  location,
-  offers,
-}: EventSchemaProps) {
-  const schema = {
+  event: (data: {
+    name: string;
+    description: string;
+    startDate: string;
+    endDate?: string;
+    location: EventSchema['location'];
+    image?: string | string[];
+    offers?: EventSchema['offers'];
+  }): EventSchema => ({
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name,
-    description,
-    image: image ? [image] : undefined,
-    startDate,
-    endDate,
-    url,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: {
-      '@type': 'Place',
-      name: location.name,
-      address: {
-        '@type': 'PostalAddress',
-        ...location.address,
-      },
-    },
-    ...(offers && { offers: {
-      '@type': 'Offer',
-      ...offers,
-    }}),
-  };
+    ...data,
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Product Schema Component
-interface ProductSchemaProps {
-  name: string;
-  description: string;
-  image: string[];
-  brand: string;
-  category: string;
-  offers: {
-    price: string;
-    currency: string;
-    availability: string;
-    url: string;
-  };
-  aggregateRating?: {
-    ratingValue: number;
-    reviewCount: number;
-  };
-  review?: Array<{
-    author: string;
-    rating: number;
-    reviewBody: string;
-    datePublished: string;
-  }>;
-}
-
-export function ProductSchema({
-  name,
-  description,
-  image,
-  brand,
-  category,
-  offers,
-  aggregateRating,
-  review,
-}: ProductSchemaProps) {
-  const schema = {
+  product: (data: {
+    name: string;
+    description: string;
+    image: string | string[];
+    offers: ProductSchema['offers'];
+    aggregateRating?: ProductSchema['aggregateRating'];
+    brand?: ProductSchema['brand'];
+  }): ProductSchema => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name,
-    description,
-    image,
-    brand: {
-      '@type': 'Brand',
-      name: brand,
-    },
-    category,
-    offers: {
-      '@type': 'Offer',
-      ...offers,
-    },
-    ...(aggregateRating && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ...aggregateRating,
-      },
-    }),
-    ...(review && {
-      review: review.map(r => ({
-        '@type': 'Review',
-        ...r,
-      })),
-    }),
-  };
+    ...data,
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Local Business Schema Component
-interface LocalBusinessSchemaProps {
-  name: string;
-  description: string;
-  url: string;
-  image?: string;
-  address: {
-    streetAddress: string;
-    addressLocality: string;
-    addressRegion: string;
-    postalCode: string;
-    addressCountry: string;
-  };
-  telephone?: string;
-  email?: string;
-  priceRange?: string;
-  openingHours?: string[];
-  sameAs?: string[];
-}
-
-export function LocalBusinessSchema({
-  name,
-  description,
-  url,
-  image,
-  address,
-  telephone,
-  email,
-  priceRange,
-  openingHours,
-  sameAs = [],
-}: LocalBusinessSchemaProps) {
-  const schema = {
+  localBusiness: (data: {
+    name: string;
+    description: string;
+    url: string;
+    telephone?: string;
+    email?: string;
+    address: LocalBusinessSchema['address'];
+    geo?: LocalBusinessSchema['geo'];
+    openingHoursSpecification?: LocalBusinessSchema['openingHoursSpecification'];
+    priceRange?: string;
+    image?: string | string[];
+  }): LocalBusinessSchema => ({
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name,
-    description,
-    url,
-    ...(image && { image }),
-    address: {
-      '@type': 'PostalAddress',
-      ...address,
-    },
-    ...(telephone && { telephone }),
-    ...(email && { email }),
-    ...(priceRange && { priceRange }),
-    ...(openingHours && {
-      openingHours: openingHours.map((hours: any) => ({
-        '@type': 'OpeningHoursSpecification',
-        ...hours,
-      })),
-    }),
-    ...(sameAs.length > 0 && { sameAs }),
-  };
+    ...data,
+  }),
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Website Schema Component
-interface WebsiteSchemaProps {
-  name: string;
-  url: string;
-  description: string;
-  author: {
+  website: (data: {
     name: string;
-    url?: string;
-  };
-  publisher?: {
-    name: string;
-    logo: string;
-  };
-  potentialAction?: {
-    target: string;
-    queryInput: string;
-  };
-}
-
-export function WebsiteSchema({
-  name,
-  url,
-  description,
-  author,
-  publisher,
-  potentialAction,
-}: WebsiteSchemaProps) {
-  const schema = {
+    url: string;
+    description?: string;
+    potentialAction?: WebsiteSchema['potentialAction'];
+  }): WebsiteSchema => ({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name,
-    url,
-    description,
-    author: {
-      '@type': 'Person',
-      name: author.name,
-      ...(author.url && { url: author.url }),
+    ...data,
+  }),
+};
+
+// Travel-specific schema generators
+export const TravelSchemas = {
+  travelAgency: (data: {
+    name: string;
+    description: string;
+    url: string;
+    telephone?: string;
+    email?: string;
+    address: LocalBusinessSchema['address'];
+    priceRange?: string;
+  }): LocalBusinessSchema => ({
+    '@context': 'https://schema.org',
+    '@type': 'TravelAgency',
+    ...data,
+  }),
+
+  destination: (data: {
+    name: string;
+    description: string;
+    image: string | string[];
+    address: {
+      addressLocality: string;
+      addressRegion?: string;
+      addressCountry: string;
+    };
+    geo?: {
+      latitude: number;
+      longitude: number;
+    };
+  }): BaseSchema => ({
+    '@context': 'https://schema.org',
+    '@type': 'Place',
+    name: data.name,
+    description: data.description,
+    image: data.image,
+    address: {
+      '@type': 'PostalAddress',
+      ...data.address,
     },
-    ...(publisher && {
-      publisher: {
-        '@type': 'Organization',
-        name: publisher.name,
-        logo: {
-          '@type': 'ImageObject',
-          url: publisher.logo,
-        },
+    ...(data.geo && { geo: { '@type': 'GeoCoordinates', ...data.geo } }),
+  }),
+
+  travelArticle: (data: {
+    headline: string;
+    description: string;
+    image: string | string[];
+    datePublished: string;
+    author: ArticleSchema['author'];
+    publisher: ArticleSchema['publisher'];
+    mainEntityOfPage: ArticleSchema['mainEntityOfPage'];
+    destinations?: string[];
+    travelType?: string;
+  }): ArticleSchema => ({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: data.headline,
+    description: data.description,
+    image: data.image,
+    datePublished: data.datePublished,
+    author: data.author,
+    publisher: data.publisher,
+    mainEntityOfPage: data.mainEntityOfPage,
+    articleSection: 'Travel',
+    keywords: data.destinations?.join(', '),
+    ...(data.travelType && { articleSection: `Travel/${data.travelType}` }),
+  }),
+
+  travelFAQ: (questions: { question: string; answer: string }[]): FAQSchema => ({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: questions.map(q => ({
+      '@type': 'Question',
+      name: q.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: q.answer,
       },
-    }),
-    ...(potentialAction && {
-      potentialAction: {
-        '@type': 'SearchAction',
-        ...potentialAction,
-      },
-    }),
-  };
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [schema]);
-
-  return null;
-}
-
-// Combined Schema Manager Component
-interface SchemaManagerProps {
-  schemas: Array<{
-    type: 'article' | 'organization' | 'breadcrumb' | 'faq' | 'event' | 'product' | 'localBusiness' | 'website';
-    props: any;
-  }>;
-}
-
-export function SchemaManager({ schemas }: SchemaManagerProps) {
-  useEffect(() => {
-    // Remove existing schema scripts
-    const existingSchemas = document.querySelectorAll('script[type="application/ld+json"]');
-    existingSchemas.forEach(script => script.remove());
-
-    // Add new schemas
-    schemas.forEach(schema => {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(schema.props);
-      document.head.appendChild(script);
-    });
-
-    return () => {
-      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
-      scripts.forEach(script => script.remove());
-    };
-  }, [schemas]);
-
-  return null;
-}
+    })),
+  }),
+};

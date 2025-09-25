@@ -5,7 +5,7 @@
     "headline": "Explore Iraklio: A Cruise Gem for Australian Adventurers",
     "description": " Greece beckons Australian travelers with its crystal-clear waters, fascinating history, and delectable cuisine. At the heart of this allure is Irakli...",
     "image": [
-      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a"
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Explore Iraklio: A Cruise Gem for Australian Adventurers",
     "description": " Greece beckons Australian travelers with its crystal-clear waters, fascinating history, and delectable cuisine. At the heart of this allure is Irakli...",
     "url": "https://globaltravelreport.com/1-explore-iraklio-a-cruise-gem-for-australian-adventurers",
-    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a",
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Greece"

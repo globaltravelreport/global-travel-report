@@ -5,7 +5,7 @@
     "headline": "UK Travel Woes: What Aussies Need to Know",
     "description": "  In a startling move that has raised eyebrows across continents, allegations have surfaced accusing the government of hampering the UK's tourism indust...",
     "image": [
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Travel Woes: What Aussies Need to Know",
     "description": "  In a startling move that has raised eyebrows across continents, allegations have surfaced accusing the government of hampering the UK's tourism indust...",
     "url": "https://globaltravelreport.com/uk-travel-woes-what-aussies-need-to-know",
-    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

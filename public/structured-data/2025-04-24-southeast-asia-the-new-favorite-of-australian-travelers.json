@@ -5,7 +5,7 @@
     "headline": "Southeast Asia: The New Favorite of Australian Travelers",
     "description": " In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as th...",
     "image": [
-      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff"
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Southeast Asia: The New Favorite of Australian Travelers",
     "description": " In the travel sphere, Australia's compass is pointing firmly towards Southeast Asia. According to recent data, the region has claimed the crown as th...",
     "url": "https://globaltravelreport.com/2025-04-24-southeast-asia-the-new-favorite-of-australian-travelers",
-    "image": "https://images.unsplash.com/photo-1526772662000-3f88f10405ff",
+    "image": "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Australia"

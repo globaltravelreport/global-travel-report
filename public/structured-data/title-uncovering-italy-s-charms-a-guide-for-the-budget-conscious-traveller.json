@@ -5,7 +5,7 @@
     "headline": "Uncovering Italy",
     "description": "This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.",
     "image": [
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Uncovering Italy",
     "description": "This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.",
     "url": "https://globaltravelreport.com/title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller",
-    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Italy"

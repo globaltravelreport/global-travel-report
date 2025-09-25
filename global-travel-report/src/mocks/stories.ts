@@ -17,7 +17,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&q=80&w=2400',
     photographer: {
       name: 'Paris Photographer',
       url: 'https://unsplash.com/@paris'
@@ -36,7 +36,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&q=80&w=2400',
     photographer: {
       name: 'Paris Photographer',
       url: 'https://unsplash.com/@parisphoto'
@@ -58,7 +58,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1540339832862-474599807836?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&q=80&w=2400',
     photographer: {
       name: 'Aviation Photographer',
       url: 'https://unsplash.com/@aviationphoto'
@@ -80,7 +80,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&q=80&w=2400',
     photographer: {
       name: 'Wildlife Photographer',
       url: 'https://unsplash.com/@wildlifephoto'
@@ -102,7 +102,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1553773077-91673524aafa?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1553773077-91673524aafa?auto=format&q=80&w=2400',
     photographer: {
       name: 'Rail Photographer',
       url: 'https://unsplash.com/@railphoto'
@@ -124,7 +124,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: new Date(),
-    imageUrl: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&q=80&w=2400',
     photographer: {
       name: 'Island Photographer',
       url: 'https://unsplash.com/@islandphoto'

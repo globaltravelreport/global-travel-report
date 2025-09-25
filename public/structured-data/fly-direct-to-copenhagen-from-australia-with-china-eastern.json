@@ -5,7 +5,7 @@
     "headline": "Fly Direct to Copenhagen from Australia with China Eastern",
     "description": "  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...",
     "image": [
-      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd"
+      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Fly Direct to Copenhagen from Australia with China Eastern",
     "description": "  In a move that's sure to excite Australian globetrotters, China Eastern Airlines is expanding its wings with new flights to Copenhagen. This addition ...",
     "url": "https://globaltravelreport.com/fly-direct-to-copenhagen-from-australia-with-china-eastern",
-    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd",
+    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Denmark"

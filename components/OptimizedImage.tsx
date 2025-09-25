@@ -57,14 +57,14 @@ export function OptimizedImage({
     // Extract the base URL and photo ID
     const unsplashRegex = /https:\/\/images\.unsplash\.com\/photo-([^?]+)/;
     const match = url.match(unsplashRegex);
-    
+
     if (!match) {
       return url;
     }
 
     const photoId = match[1];
     const params = new URLSearchParams();
-    
+
     // Add optimization parameters
     if (targetWidth) {
       params.set('w', targetWidth.toString());
@@ -72,13 +72,14 @@ export function OptimizedImage({
     if (targetHeight) {
       params.set('h', targetHeight.toString());
     }
-    
+
     // Set quality and format
     params.set('q', quality.toString());
     params.set('fm', 'webp');
+    params.set('auto', 'compress');
     params.set('fit', 'crop');
     params.set('crop', 'entropy');
-    
+
     return `https://images.unsplash.com/photo-${photoId}?${params.toString()}`;
   };
 

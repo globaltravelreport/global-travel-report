@@ -5,7 +5,7 @@
     "headline": "A Gastronomic Globe-trot: Savouring the World One Bite at a Time",
     "description": "This article explores the rise of culinary tourism, focusing on how travellers are planning their journeys around gastronomic experiences, with a spotlight on Japan, Italy, and Thailand.",
     "image": [
-      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843"
+      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "A Gastronomic Globe-trot: Savouring the World One Bite at a Time",
     "description": "This article explores the rise of culinary tourism, focusing on how travellers are planning their journeys around gastronomic experiences, with a spotlight on Japan, Italy, and Thailand.",
     "url": "https://globaltravelreport.com/title-a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time",
-    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843",
+    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Japan, Italy, Thailand"

@@ -60,7 +60,7 @@ export function ResponsiveImage({
     }
 
     // If no valid src is provided, use a default image
-    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080'; // Default image
+    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400'; // Default image
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -93,7 +93,7 @@ export function ResponsiveImage({
       if (onError) onError();
     } else {
       // Use a reliable fallback image
-      setImageSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080');
+      setImageSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400');
     }
   };
 

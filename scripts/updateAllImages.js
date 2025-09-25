@@ -27,189 +27,189 @@ const getContentDir = () => {
 const categoryImages = {
   'Travel': [
     {
-      url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400',
       photographer: 'Sime Basioli',
       photographerUrl: 'https://unsplash.com/@simebasioli'
     },
     {
-      url: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400',
       photographer: 'Dino Reichmuth',
       photographerUrl: 'https://unsplash.com/@dinoreichmuth'
     },
     {
-      url: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=2031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
       photographer: 'Jakob Owens',
       photographerUrl: 'https://unsplash.com/@jakobowens1'
     },
     {
-      url: 'https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&q=80&w=2400',
       photographer: 'Aron Visuals',
       photographerUrl: 'https://unsplash.com/@aronvisuals'
     },
     {
-      url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400',
       photographer: 'Tom Grimbert',
       photographerUrl: 'https://unsplash.com/@tomgrimbert'
     }
   ],
   'Culture': [
     {
-      url: 'https://images.unsplash.com/photo-1551009175-15bdf9dcb580?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&q=80&w=2400',
       photographer: 'Duy Pham',
       photographerUrl: 'https://unsplash.com/@miinyuii'
     },
     {
-      url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&q=80&w=2400',
       photographer: 'Erol Ahmed',
       photographerUrl: 'https://unsplash.com/@erol'
     },
     {
-      url: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&q=80&w=2400',
       photographer: 'Clem Onojeghuo',
       photographerUrl: 'https://unsplash.com/@clemono'
     },
     {
-      url: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&q=80&w=2400',
       photographer: 'Heidi Kaden',
       photographerUrl: 'https://unsplash.com/@heidikaden'
     },
     {
-      url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&q=80&w=2400',
       photographer: 'Benjamin Hung',
       photographerUrl: 'https://unsplash.com/@benjaminhung'
     }
   ],
   'Adventure': [
     {
-      url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&q=80&w=2400',
       photographer: 'Priscilla Du Preez',
       photographerUrl: 'https://unsplash.com/@priscilladupreez'
     },
     {
-      url: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400',
       photographer: 'Dino Reichmuth',
       photographerUrl: 'https://unsplash.com/@dinoreichmuth'
     },
     {
-      url: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&q=80&w=2400',
       photographer: 'Fancycrave',
       photographerUrl: 'https://unsplash.com/@fancycrave'
     },
     {
-      url: 'https://images.unsplash.com/photo-1528543606781-2f6e6857f318?q=80&w=2001&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1528543606781-2f6e6857f318?auto=format&q=80&w=2400',
       photographer: 'Simon Migaj',
       photographerUrl: 'https://unsplash.com/@simonmigaj'
     },
     {
-      url: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&q=80&w=2400',
       photographer: 'Philipp Kammerer',
       photographerUrl: 'https://unsplash.com/@philippkammerer'
     }
   ],
   'Cruise': [
     {
-      url: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
       photographer: 'Alonso Reyes',
       photographerUrl: 'https://unsplash.com/@alonsoreyes'
     },
     {
-      url: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&q=80&w=2400',
       photographer: 'Zoltan Tasi',
       photographerUrl: 'https://unsplash.com/@zoltantasi'
     },
     {
-      url: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=2052&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&q=80&w=2400',
       photographer: 'Vidar Nordli-Mathisen',
       photographerUrl: 'https://unsplash.com/@vidarnm'
     },
     {
-      url: 'https://images.unsplash.com/photo-1566375638555-42af19337dd4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1566375638555-42af19337dd4?auto=format&q=80&w=2400',
       photographer: 'Alonso Reyes',
       photographerUrl: 'https://unsplash.com/@alonsoreyes'
     },
     {
-      url: 'https://images.unsplash.com/photo-1559599746-8823b38544c6?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1559599746-8823b38544c6?auto=format&q=80&w=2400',
       photographer: 'Alonso Reyes',
       photographerUrl: 'https://unsplash.com/@alonsoreyes'
     }
   ],
   'Airline': [
     {
-      url: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400',
       photographer: 'Suhyeon Choi',
       photographerUrl: 'https://unsplash.com/@choisyeon'
     },
     {
-      url: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&q=80&w=2400',
       photographer: 'Ross Parmly',
       photographerUrl: 'https://unsplash.com/@rparmly'
     },
     {
-      url: 'https://images.unsplash.com/photo-1540339832862-474599807836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&q=80&w=2400',
       photographer: 'Ashim D\'Silva',
       photographerUrl: 'https://unsplash.com/@randomlies'
     },
     {
-      url: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&q=80&w=2400',
       photographer: 'Suhyeon Choi',
       photographerUrl: 'https://unsplash.com/@choisyeon'
     },
     {
-      url: 'https://images.unsplash.com/photo-1521727857535-28d2047619b7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1521727857535-28d2047619b7?auto=format&q=80&w=2400',
       photographer: 'Ashim D\'Silva',
       photographerUrl: 'https://unsplash.com/@randomlies'
     }
   ],
   'Technology': [
     {
-      url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&q=80&w=2400',
       photographer: 'C D-X',
       photographerUrl: 'https://unsplash.com/@cdx2'
     },
     {
-      url: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&q=80&w=2400',
       photographer: 'Kiran CK',
       photographerUrl: 'https://unsplash.com/@ckiran'
     },
     {
-      url: 'https://images.unsplash.com/photo-1606318313647-17f8f822cf34?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1606318313647-17f8f822cf34?auto=format&q=80&w=2400',
       photographer: 'Onur Binay',
       photographerUrl: 'https://unsplash.com/@onurbinay'
     },
     {
-      url: 'https://images.unsplash.com/photo-1520390138845-fd2d229dd553?q=80&w=2089&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1520390138845-fd2d229dd553?auto=format&q=80&w=2400',
       photographer: 'Tomasz Gawłowski',
       photographerUrl: 'https://unsplash.com/@gawlowski'
     },
     {
-      url: 'https://images.unsplash.com/photo-1563770660941-10a63a9ed3ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1563770660941-10a63a9ed3ea?auto=format&q=80&w=2400',
       photographer: 'Harpal Singh',
       photographerUrl: 'https://unsplash.com/@aquatium'
     }
   ],
   'Food': [
     {
-      url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400',
       photographer: 'Brooke Lark',
       photographerUrl: 'https://unsplash.com/@brookelark'
     },
     {
-      url: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&q=80&w=2400',
       photographer: 'Dan Gold',
       photographerUrl: 'https://unsplash.com/@danielcgold'
     },
     {
-      url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&q=80&w=2400',
       photographer: 'Vitalii Chernopyskyi',
       photographerUrl: 'https://unsplash.com/@vitaliichernopyskyi'
     },
     {
-      url: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&q=80&w=2400',
       photographer: 'Brooke Lark',
       photographerUrl: 'https://unsplash.com/@brookelark'
     },
     {
-      url: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      url: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&q=80&w=2400',
       photographer: 'Brooke Lark',
       photographerUrl: 'https://unsplash.com/@brookelark'
     }

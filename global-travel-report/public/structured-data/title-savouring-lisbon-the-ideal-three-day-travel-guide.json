@@ -5,7 +5,7 @@
     "headline": "Savouring Lisbon: The Ideal Three-Day Travel Guide ",
     "description": "A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.",
     "image": [
-      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45"
+      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Savouring Lisbon: The Ideal Three-Day Travel Guide ",
     "description": "A captivating three-day guide to Lisbon, blending the city's main attractions with unexpected delights and gastronomic experiences.",
     "url": "https://globaltravelreport.com/title-savouring-lisbon-the-ideal-three-day-travel-guide",
-    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45",
+    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Portugal"

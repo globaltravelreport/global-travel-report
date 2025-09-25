@@ -5,7 +5,7 @@
     "headline": "UK Travel Guide: Tips & Insights for Aussie Explorers",
     "description": " Rewritten article...",
     "image": [
-      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45"
+      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Travel Guide: Tips & Insights for Aussie Explorers",
     "description": " Rewritten article...",
     "url": "https://globaltravelreport.com/1-uk-travel-guide-tips-insights-for-aussie-explorers",
-    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45",
+    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

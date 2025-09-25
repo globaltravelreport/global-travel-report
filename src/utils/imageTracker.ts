@@ -44,40 +44,40 @@ const ARTICLES_DIRECTORY = typeof window === 'undefined' ? path?.join(process.cw
 // Define the category-specific photographers with their images
 const CATEGORY_PHOTOGRAPHERS: Record<string, Array<{ name: string, url: string, imageUrl: string }>> = {
   'Travel': [
-    { name: 'Jakob Owens', url: 'https://unsplash.com/@jakobowens1', imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080' },
-    { name: 'Asoggetti', url: 'https://unsplash.com/@asoggetti', imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1' },
-    { name: 'Jaromir Kavan', url: 'https://unsplash.com/@jerrykavan', imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b' },
-    { name: 'Dino Reichmuth', url: 'https://unsplash.com/@dinoreichmuth', imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d' },
-    { name: 'Sylvain Mauroux', url: 'https://unsplash.com/@sylvainmauroux', imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470' },
-    { name: 'Sime Basioli', url: 'https://unsplash.com/@basecore', imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0' },
-    { name: 'Braden Jarvis', url: 'https://unsplash.com/@jarvisphoto', imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800' },
-    { name: 'Simon Migaj', url: 'https://unsplash.com/@simonmigaj', imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2' },
-    { name: 'Arto Marttinen', url: 'https://unsplash.com/@wandervisions', imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a' },
-    { name: 'Emile Guillemot', url: 'https://unsplash.com/@emilegt', imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592' },
-    { name: 'Thomas Tucker', url: 'https://unsplash.com/@tents_and_tread', imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff' },
-    { name: 'Davide Cantelli', url: 'https://unsplash.com/@cant89', imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d' }
+    { name: 'Jakob Owens', url: 'https://unsplash.com/@jakobowens1', imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400' },
+    { name: 'Asoggetti', url: 'https://unsplash.com/@asoggetti', imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400' },
+    { name: 'Jaromir Kavan', url: 'https://unsplash.com/@jerrykavan', imageUrl: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&q=80&w=2400' },
+    { name: 'Dino Reichmuth', url: 'https://unsplash.com/@dinoreichmuth', imageUrl: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400' },
+    { name: 'Sylvain Mauroux', url: 'https://unsplash.com/@sylvainmauroux', imageUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400' },
+    { name: 'Sime Basioli', url: 'https://unsplash.com/@basecore', imageUrl: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&q=80&w=2400' },
+    { name: 'Braden Jarvis', url: 'https://unsplash.com/@jarvisphoto', imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400' },
+    { name: 'Simon Migaj', url: 'https://unsplash.com/@simonmigaj', imageUrl: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&q=80&w=2400' },
+    { name: 'Arto Marttinen', url: 'https://unsplash.com/@wandervisions', imageUrl: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400' },
+    { name: 'Emile Guillemot', url: 'https://unsplash.com/@emilegt', imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400' },
+    { name: 'Thomas Tucker', url: 'https://unsplash.com/@tents_and_tread', imageUrl: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&q=80&w=2400' },
+    { name: 'Davide Cantelli', url: 'https://unsplash.com/@cant89', imageUrl: 'https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&q=80&w=2400' }
   ],
   'Cruise': [
-    { name: 'Alonso Reyes', url: 'https://unsplash.com/@alonsoreyes', imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19' },
-    { name: 'Josiah Farrow', url: 'https://unsplash.com/@josiahfarrow', imageUrl: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b' },
-    { name: 'Vidar Nordli-Mathisen', url: 'https://unsplash.com/@vidarnm', imageUrl: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110' }
+    { name: 'Alonso Reyes', url: 'https://unsplash.com/@alonsoreyes', imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400' },
+    { name: 'Josiah Farrow', url: 'https://unsplash.com/@josiahfarrow', imageUrl: 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&q=80&w=2400' },
+    { name: 'Vidar Nordli-Mathisen', url: 'https://unsplash.com/@vidarnm', imageUrl: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?auto=format&q=80&w=2400' }
   ],
   'Culture': [
-    { name: 'Anthony Tran', url: 'https://unsplash.com/@anthonytran', imageUrl: 'https://images.unsplash.com/photo-1493707553966-283afac8c358' },
-    { name: 'Jingda Chen', url: 'https://unsplash.com/@jingda', imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5' },
-    { name: 'Esteban Castle', url: 'https://unsplash.com/@estebancastle', imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be' },
-    { name: 'Jezael Melgoza', url: 'https://unsplash.com/@jezar', imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04' },
-    { name: 'Raimond Klavins', url: 'https://unsplash.com/@raimondklavins', imageUrl: 'https://images.unsplash.com/photo-1551913902-c92207136625' },
-    { name: 'Heidi Kaden', url: 'https://unsplash.com/@heidikaden', imageUrl: 'https://images.unsplash.com/photo-1552084117-56a987666449' },
-    { name: 'Shifaaz Shamoon', url: 'https://unsplash.com/@sotti', imageUrl: 'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0' },
-    { name: 'Dario Bronnimann', url: 'https://unsplash.com/@darby', imageUrl: 'https://images.unsplash.com/photo-1533105079780-92b9be482077' }
+    { name: 'Anthony Tran', url: 'https://unsplash.com/@anthonytran', imageUrl: 'https://images.unsplash.com/photo-1493707553966-283afac8c358?auto=format&q=80&w=2400' },
+    { name: 'Jingda Chen', url: 'https://unsplash.com/@jingda', imageUrl: 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5?auto=format&q=80&w=2400' },
+    { name: 'Esteban Castle', url: 'https://unsplash.com/@estebancastle', imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?auto=format&q=80&w=2400' },
+    { name: 'Jezael Melgoza', url: 'https://unsplash.com/@jezar', imageUrl: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&q=80&w=2400' },
+    { name: 'Raimond Klavins', url: 'https://unsplash.com/@raimondklavins', imageUrl: 'https://images.unsplash.com/photo-1551913902-c92207136625?auto=format&q=80&w=2400' },
+    { name: 'Heidi Kaden', url: 'https://unsplash.com/@heidikaden', imageUrl: 'https://images.unsplash.com/photo-1552084117-56a987666449?auto=format&q=80&w=2400' },
+    { name: 'Shifaaz Shamoon', url: 'https://unsplash.com/@sotti', imageUrl: 'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0?auto=format&q=80&w=2400' },
+    { name: 'Dario Bronnimann', url: 'https://unsplash.com/@darby', imageUrl: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&q=80&w=2400' }
   ],
   'Food & Wine': [
-    { name: 'Brooke Lark', url: 'https://unsplash.com/@brookelark', imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836' },
-    { name: 'Kelsey Knight', url: 'https://unsplash.com/@kelseyannvere', imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3' }
+    { name: 'Brooke Lark', url: 'https://unsplash.com/@brookelark', imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400' },
+    { name: 'Kelsey Knight', url: 'https://unsplash.com/@kelseyannvere', imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&q=80&w=2400' }
   ],
   'Adventure': [
-    { name: 'Flo Maderebner', url: 'https://unsplash.com/@flomaderebner', imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306' }
+    { name: 'Flo Maderebner', url: 'https://unsplash.com/@flomaderebner', imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&q=80&w=2400' }
   ]
 };
 
@@ -234,7 +234,7 @@ export function getImageForStory(storySlug: string, category: string): { imageUr
     console.error('Error getting image for story:', error);
     // Return a default image
     return {
-      imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
+      imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
       photographer: {
         name: 'Jakob Owens',
         url: 'https://unsplash.com/@jakobowens1'

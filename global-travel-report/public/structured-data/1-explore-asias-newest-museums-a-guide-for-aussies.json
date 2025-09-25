@@ -5,7 +5,7 @@
     "headline": "Explore Asia",
     "description": "Rewritten article:...",
     "image": [
-      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843"
+      "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Explore Asia",
     "description": "Rewritten article:...",
     "url": "https://globaltravelreport.com/1-explore-asias-newest-museums-a-guide-for-aussies",
-    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843",
+    "image": "https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Asia (Various)"

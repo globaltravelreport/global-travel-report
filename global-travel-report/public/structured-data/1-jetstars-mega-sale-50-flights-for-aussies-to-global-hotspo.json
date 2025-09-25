@@ -5,7 +5,7 @@
     "headline": "Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots",
     "description": "### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...",
     "image": [
-      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d"
+      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots",
     "description": "### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...",
     "url": "https://globaltravelreport.com/1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo",
-    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
+    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Multiple countries"

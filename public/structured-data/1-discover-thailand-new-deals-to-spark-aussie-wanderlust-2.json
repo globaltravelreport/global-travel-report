@@ -5,7 +5,7 @@
     "headline": "Discover Thailand: New Deals to Spark Aussie Wanderlust",
     "description": "Thailand travel for Australians, flight deals to Thailand, Australian to Thailand visa, travel tips for Australians, best time to visit Thailand",
     "image": [
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Discover Thailand: New Deals to Spark Aussie Wanderlust",
     "description": "Thailand travel for Australians, flight deals to Thailand, Australian to Thailand visa, travel tips for Australians, best time to visit Thailand",
     "url": "https://globaltravelreport.com/1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2",
-    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Thailand"

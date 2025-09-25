@@ -5,7 +5,7 @@
     "headline": "China Eastern Airlines Launches Copenhagen Routes",
     "description": "  China Eastern Airlines has announced the introduction of new flight routes connecting major cities to Copenhagen, marking a significant expansion in t...",
     "image": [
-      "https://images.unsplash.com/photo-1488085061387-422e29b40080"
+      "https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "China Eastern Airlines Launches Copenhagen Routes",
     "description": "  China Eastern Airlines has announced the introduction of new flight routes connecting major cities to Copenhagen, marking a significant expansion in t...",
     "url": "https://globaltravelreport.com/china-eastern-airlines-launches-copenhagen-routes",
-    "image": "https://images.unsplash.com/photo-1488085061387-422e29b40080",
+    "image": "https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Denmark"

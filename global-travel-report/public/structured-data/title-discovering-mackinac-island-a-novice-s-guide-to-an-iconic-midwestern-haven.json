@@ -5,7 +5,7 @@
     "headline": "Discovering Mackinac Island: A Novice's Guide to an Iconic Midwestern Haven",
     "description": "An engaging and informative guide for first-time visitors to Mackinac Island - a charming, car-free destination rich in history and natural beauty in Northern Michigan.",
     "image": [
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Discovering Mackinac Island: A Novice's Guide to an Iconic Midwestern Haven",
     "description": "An engaging and informative guide for first-time visitors to Mackinac Island - a charming, car-free destination rich in history and natural beauty in Northern Michigan.",
     "url": "https://globaltravelreport.com/title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven",
-    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
+    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United States"

@@ -10,7 +10,7 @@
   "featured": true,
   "published": true,
   "timestamp": "2024-04-22T00:00:00.000Z",
-  "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&h=800&fit=crop&q=80",
+  "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&q=80&w=2400",
   "imagePhotographer": {
     "name": "Paris Photographer",
     "username": "paris_photographer"

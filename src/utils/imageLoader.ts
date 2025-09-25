@@ -118,26 +118,26 @@ export function getFallbackImage(category: string = ''): string {
   const lowerCategory = category.toLowerCase();
 
   if (lowerCategory.includes('cruise') || lowerCategory.includes('ship')) {
-    return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('food') || lowerCategory.includes('dining')) {
-    return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('hotel') || lowerCategory.includes('resort')) {
-    return 'https://images.unsplash.com/photo-1566073771259-6a8506099945?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('airline') || lowerCategory.includes('flight')) {
-    return 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('beach') || lowerCategory.includes('ocean')) {
-    return 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('mountain') || lowerCategory.includes('hiking')) {
-    return 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('city') || lowerCategory.includes('urban')) {
-    return 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('adventure') || lowerCategory.includes('outdoor')) {
-    return 'https://images.unsplash.com/photo-1528543606781-2f6e6857f318?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1528543606781-2f6e6857f318?auto=format&q=80&w=2400';
   } else if (lowerCategory.includes('culture') || lowerCategory.includes('history')) {
-    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&q=80&w=2400';
   } else {
     // Default travel image
-    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400';
   }
 }
 

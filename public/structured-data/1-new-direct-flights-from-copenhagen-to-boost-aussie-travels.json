@@ -5,7 +5,7 @@
     "headline": "New Direct Flights from Copenhagen to Boost Aussie Travels",
     "description": " Explore Copenhagen with New Direct Flights Perfect for Australian Travellers...",
     "image": [
-      "https://images.unsplash.com/photo-1528127269322-539801943592"
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "New Direct Flights from Copenhagen to Boost Aussie Travels",
     "description": " Explore Copenhagen with New Direct Flights Perfect for Australian Travellers...",
     "url": "https://globaltravelreport.com/1-new-direct-flights-from-copenhagen-to-boost-aussie-travels",
-    "image": "https://images.unsplash.com/photo-1528127269322-539801943592",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Denmark"

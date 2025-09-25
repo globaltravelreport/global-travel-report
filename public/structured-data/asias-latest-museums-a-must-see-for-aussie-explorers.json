@@ -5,7 +5,7 @@
     "headline": "Asia's Latest Museums: A Must-See for Aussie Explorers",
     "description": " As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...",
     "image": [
-      "https://images.unsplash.com/photo-1503220317375-aaad61436b1b"
+      "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Asia's Latest Museums: A Must-See for Aussie Explorers",
     "description": " As Australian wanderlust continues to grow, two new museums in Asia are sparking interest among cultural enthusiasts and art lovers. These destinatio...",
     "url": "https://globaltravelreport.com/asias-latest-museums-a-must-see-for-aussie-explorers",
-    "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b",
+    "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "'Japan, Singapore'"

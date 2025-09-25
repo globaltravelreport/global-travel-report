@@ -5,7 +5,7 @@
     "headline": "UK Travel Guide for Aussies: Best Deals & Tips",
     "description": "The Ultimate UK Travel Guide for Australian Adventurers...",
     "image": [
-      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d"
+      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Travel Guide for Aussies: Best Deals & Tips",
     "description": "The Ultimate UK Travel Guide for Australian Adventurers...",
     "url": "https://globaltravelreport.com/1-uk-travel-guide-for-aussies-best-deals-tips-2023",
-    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
+    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

@@ -114,7 +114,7 @@ const fixImageUrls = (dryRun = false) => {
       }
 
       // Fix the image URL
-      const fixedImageUrl = `https://images.unsplash.com/${imageUrl.split('/').pop()}`;
+      const fixedImageUrl = `https://images.unsplash.com/${imageUrl.split(?auto=format&q=80&w=2400'/').pop()}`;
 
       console.log(`Fixing image URL in ${path.basename(filePath)}`);
       console.log(`  Old: ${imageUrl}`);

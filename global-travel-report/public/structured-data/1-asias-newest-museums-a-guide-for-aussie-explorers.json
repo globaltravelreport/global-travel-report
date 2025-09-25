@@ -5,7 +5,7 @@
     "headline": "Asia's Newest Museums: A Guide for Aussie Explorers",
     "description": "### Asia's Newest Museums: A Guide for Aussie Explorers...",
     "image": [
-      "https://images.unsplash.com/photo-1528164344705-47542687000d"
+      "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Asia's Newest Museums: A Guide for Aussie Explorers",
     "description": "### Asia's Newest Museums: A Guide for Aussie Explorers...",
     "url": "https://globaltravelreport.com/1-asias-newest-museums-a-guide-for-aussie-explorers",
-    "image": "https://images.unsplash.com/photo-1528164344705-47542687000d",
+    "image": "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Asia"

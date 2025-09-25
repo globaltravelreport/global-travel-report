@@ -5,7 +5,7 @@
     "headline": "Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways",
     "description": " Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines' direct flights from Manila to Doha, now in codeshare par...",
     "image": [
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Fly Direct: Manila to Doha with Philippine Airlines & Qatar Airways",
     "description": " Australian adventurers seeking new horizons have reason to rejoice with Philippine Airlines' direct flights from Manila to Doha, now in codeshare par...",
     "url": "https://globaltravelreport.com/fly-direct-manila-to-doha-with-philippine-airlines-qatar-air",
-    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Qatar"

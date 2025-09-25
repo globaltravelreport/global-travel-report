@@ -8,6 +8,7 @@ import OptimizedImage from '@/components/ui/OptimizedImage';
 interface HeroProps {
   title?: string;
   subtitle?: string;
+  alt?: string;
   primaryCtaText?: string;
   primaryCtaHref?: string;
   secondaryCtaText?: string;
@@ -30,37 +31,38 @@ interface HeroProps {
 const Hero = ({
   title = "Discover Your Next Adventure",
   subtitle = "Explore travel stories, tips, and inspiration from around the world",
+  alt = "Beautiful travel destination showcasing global travel experiences",
   primaryCtaText = "Explore Destinations",
   primaryCtaHref = "/destinations",
   secondaryCtaText = "Browse Categories",
   secondaryCtaHref = "/categories",
   images = [
     {
-      url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90",
+      url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400",
       photographer: "Jeremy Bishop",
       photographerUrl: "https://unsplash.com/@jeremybishop",
       photoUrl: "https://unsplash.com/photos/8xznAGy4HcY"
     },
     {
-      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=90",
+      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400",
       photographer: "Asoggetti",
       photographerUrl: "https://unsplash.com/@asoggetti",
       photoUrl: "https://unsplash.com/photos/3U7HcqkIGNM"
     },
     {
-      url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=90",
+      url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
       photographer: "Dino Reichmuth",
       photographerUrl: "https://unsplash.com/@dinoreichmuth",
       photoUrl: "https://unsplash.com/photos/A5rCN8626Ck"
     },
     {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=90",
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400",
       photographer: "Sylvain Mauroux",
       photographerUrl: "https://unsplash.com/@sylvainmauroux",
       photoUrl: "https://unsplash.com/photos/VzFM_SD8kUw"
     }
   ],
-  defaultImage = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=90",
+  defaultImage = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400",
   defaultPhotographer = {
     name: "Jeremy Bishop",
     url: "https://unsplash.com/@jeremybishop",
@@ -102,7 +104,7 @@ const Hero = ({
       >
         <OptimizedImage
           src={heroImage}
-          alt="Beautiful travel destination showcasing global travel experiences"
+          alt={alt || "Beautiful travel destination showcasing global travel experiences"}
           fill
           className="object-cover"
           priority={true}

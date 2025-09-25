@@ -6,6 +6,9 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import Header from '@/src/components/layout/Header';
 import Footer from '@/src/components/layout/Footer';
 import { cn } from '@/utils/cn';
+import { AccessibilityProvider, SkipToContent } from '@/src/components/accessibility/AccessibilityProvider';
+import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker';
+import AITravelAssistantMount from '@/src/components/experimental/AITravelAssistantMount';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -146,16 +149,21 @@ export default function RootLayout({
         />
       </head>
       <body className={cn(inter.className, 'antialiased')}>
-        <ErrorBoundary>
-          <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
-        </ErrorBoundary>
+        <AccessibilityProvider>
+          <SkipToContent />
+          <ErrorBoundary>
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <Toaster />
+          </ErrorBoundary>
+          <AITravelAssistantMount />
+          <WebVitalsTracker />
+        </AccessibilityProvider>
       </body>
     </html>
   );

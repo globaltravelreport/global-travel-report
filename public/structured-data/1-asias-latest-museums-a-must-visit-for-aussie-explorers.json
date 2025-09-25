@@ -5,7 +5,7 @@
     "headline": "Asia's Latest Museums: A Must-Visit for Aussie Explorers",
     "description": "Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...",
     "image": [
-      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a"
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Asia's Latest Museums: A Must-Visit for Aussie Explorers",
     "description": "Exploring Asia's Newest Cultural Gems: A Guide for Australian Travelers...",
     "url": "https://globaltravelreport.com/1-asias-latest-museums-a-must-visit-for-aussie-explorers",
-    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a",
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Multiple countries in Asia"

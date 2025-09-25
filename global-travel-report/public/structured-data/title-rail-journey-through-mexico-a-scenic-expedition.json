@@ -5,7 +5,7 @@
     "headline": "Rail Journey Through Mexico: A Scenic Expedition",
     "description": "Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.",
     "image": [
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Rail Journey Through Mexico: A Scenic Expedition",
     "description": "Explore Mexico's expanding rail network, offering travellers an immersive journey through the country's diverse landscapes and rich culture.",
     "url": "https://globaltravelreport.com/title-rail-journey-through-mexico-a-scenic-expedition",
-    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Mexico"

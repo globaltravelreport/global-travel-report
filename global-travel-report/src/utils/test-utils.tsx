@@ -154,7 +154,7 @@ export function createMockStory(overrides: Record<string, any> = {}) {
     country: 'Australia',
     type: 'Travel News',
     keywords: ['test', 'story'],
-    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
+    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400',
     photographer: 'Test Photographer',
     photographerUrl: 'https://unsplash.com/@testphotographer',
     featured: false,

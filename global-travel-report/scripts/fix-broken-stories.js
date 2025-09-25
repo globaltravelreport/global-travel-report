@@ -281,11 +281,11 @@ function fixFrontmatterIssues(data, filename) {
     
     // Ensure URL is valid
     if (!fixed.imageUrl.startsWith('http')) {
-      fixed.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828';
+      fixed.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400';
       stats.fixedIssues.imageUrl++;
     }
   } else {
-    fixed.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828';
+    fixed.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400';
     stats.fixedIssues.imageUrl++;
   }
   
@@ -401,7 +401,7 @@ function createNewFrontmatter(content, filename) {
     date: new Date().toISOString(),
     country: 'Global',
     type: 'Travel',
-    imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828',
+    imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400',
     slug,
     photographer: {
       name: 'Unsplash Photographer',

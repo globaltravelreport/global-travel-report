@@ -5,7 +5,7 @@
     "headline": "Journey Through the Wild: Top 12 Trails of Patagonia",
     "description": "An engaging exploration of the top 12 trails in the vast wilderness of Patagonia, offering a thrilling blend of adventure and natural beauty.",
     "image": [
-      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d"
+      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Journey Through the Wild: Top 12 Trails of Patagonia",
     "description": "An engaging exploration of the top 12 trails in the vast wilderness of Patagonia, offering a thrilling blend of adventure and natural beauty.",
     "url": "https://globaltravelreport.com/title-journey-through-the-wild-top-12-trails-of-patagonia",
-    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
+    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Patagonia"

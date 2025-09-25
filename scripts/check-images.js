@@ -15,7 +15,6 @@ const CONCURRENT_REQUESTS = 10;
 const REQUEST_TIMEOUT = 10000; // 10 seconds
 const ALLOWED_DOMAINS = [
   'images.unsplash.com',
-  'unsplash.com',
   'source.unsplash.com',
   'picsum.photos',
   'via.placeholder.com'
@@ -44,16 +43,26 @@ function isAllowedDomain(url) {
 
 // Function to check if URL is a valid image URL
 function isImageUrl(url) {
-  // Skip template strings that contain ${} syntax
-  if (url.includes('${') || url.includes('photo-${') || url.includes('photo-') && url.includes('${')) {
+  try {
+    // Skip template strings that contain ${} syntax
+    if (url.includes('${')) return false;
+
+    const u = new URL(url);
+    const host = u.hostname;
+    const urlPath = u.pathname.toLowerCase();
+
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif'];
+    const hasExt = imageExtensions.some(ext => urlPath.endsWith(ext));
+
+    const isUnsplashImageHost =
+      host === 'images.unsplash.com' || host === 'source.unsplash.com';
+    const isPlaceholderHost =
+      host === 'picsum.photos' || host === 'via.placeholder.com';
+
+    return hasExt || isUnsplashImageHost || isPlaceholderHost;
+  } catch {
     return false;
   }
-
-  const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif'];
-  const urlPath = new URL(url).pathname.toLowerCase();
-  return imageExtensions.some(ext => urlPath.endsWith(ext)) ||
-         url.includes('unsplash.com') ||
-         url.includes('picsum.photos');
 }
 
 // Function to make HTTP request with timeout
@@ -136,10 +145,34 @@ async function scanDirectory(dirPath, fileExtensions = ['.js', '.jsx', '.ts', '.
       const itemPath = path.join(currentPath, item);
       const stat = fs.statSync(itemPath);
 
-      // Skip backup directories and script directories that aren't part of production
-      if (stat.isDirectory() && !item.startsWith('.') && item !== 'node_modules' && item !== '.next' && !item.includes('backup') && item !== 'scripts' && item !== 'automation' && item !== 'global-travel-report') {
+      // Skip backup, build, and non-production directories
+      if (
+        stat.isDirectory() &&
+        !item.startsWith('.') &&
+        item !== 'node_modules' &&
+        item !== '.next' &&
+        !item.includes('backup') &&
+        item !== 'scripts' &&
+        item !== 'automation' &&
+        item !== 'global-travel-report' &&
+        item !== '__tests__' &&
+        item !== 'mocks'
+      ) {
         await scanDir(itemPath);
-      } else if (stat.isFile() && fileExtensions.some(ext => item.endsWith(ext)) && !item.includes('backup') && !itemPath.includes('scripts/') && !itemPath.includes('automation/') && !itemPath.includes('global-travel-report/')) {
+      } else if (
+        stat.isFile() &&
+        fileExtensions.some(ext => item.endsWith(ext)) &&
+        !item.includes('backup') &&
+        !itemPath.includes('scripts/') &&
+        !itemPath.includes('automation/') &&
+        !itemPath.includes('global-travel-report/') &&
+        !itemPath.includes('/__tests__/') &&
+        !itemPath.includes('/mocks/') &&
+        !itemPath.includes('/src/utils/') &&
+        // Exclude structured data JSON and repo docs from validation
+        !itemPath.includes('/public/structured-data/') &&
+        !itemPath.endsWith('/README.md')
+      ) {
         const fileUrls = await scanFile(itemPath);
         urls.push(...fileUrls);
       }

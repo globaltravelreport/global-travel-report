@@ -5,7 +5,7 @@
     "headline": "Scotland's Cruise Boom: A £130m Lift & Aussie Guide",
     "description": "### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...",
     "image": [
-      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd"
+      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Scotland's Cruise Boom: A £130m Lift & Aussie Guide",
     "description": "### Scotland's Cruise Boom: A £130m Lift & Aussie Guide...",
     "url": "https://globaltravelreport.com/1-scotlands-cruise-boom-a-130m-lift-aussie-guide",
-    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd",
+    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Scotland"

@@ -111,17 +111,17 @@ export function ResponsiveImageV2({
     const lowerAlt = altText.toLowerCase();
     
     if (lowerAlt.includes('cruise') || lowerAlt.includes('ship')) {
-      return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400';
     } else if (lowerAlt.includes('food') || lowerAlt.includes('dining') || lowerAlt.includes('restaurant')) {
-      return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400';
     } else if (lowerAlt.includes('hotel') || lowerAlt.includes('resort')) {
-      return 'https://images.unsplash.com/photo-1566073771259-6a8506099945?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=2400';
     } else if (lowerAlt.includes('beach') || lowerAlt.includes('ocean')) {
-      return 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400';
     } else if (lowerAlt.includes('mountain') || lowerAlt.includes('hiking')) {
-      return 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&q=80&w=2400';
     } else {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400';
     }
   };
 

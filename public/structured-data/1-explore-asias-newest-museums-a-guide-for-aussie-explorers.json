@@ -5,7 +5,7 @@
     "headline": "Explore Asia's Newest Museums: A Guide for Aussie Explorers",
     "description": "  Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...",
     "image": [
-      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45"
+      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Explore Asia's Newest Museums: A Guide for Aussie Explorers",
     "description": "  Asia's cultural landscape is ever-evolving, and for Australians keen on soaking up new artistic and historical insights, two new museums have opened t...",
     "url": "https://globaltravelreport.com/1-explore-asias-newest-museums-a-guide-for-aussie-explorers",
-    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45",
+    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Asia"

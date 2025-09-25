@@ -1,64 +1,64 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface LazyImageProps {
   src: string;
   alt: string;
   width?: number;
   height?: number;
-  fill?: boolean;
   className?: string;
   priority?: boolean;
   quality?: number;
-  sizes?: string;
   placeholder?: 'blur' | 'empty';
   blurDataURL?: string;
   onLoad?: () => void;
   onError?: () => void;
-  fallbackSrc?: string;
-  unoptimized?: boolean;
-  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
-  objectPosition?: string;
+  sizes?: string;
+  fill?: boolean;
+  style?: React.CSSProperties;
 }
 
-export default function LazyImage({
+export function LazyImage({
   src,
   alt,
   width,
   height,
-  fill = false,
   className = '',
   priority = false,
   quality = 75,
-  sizes,
   placeholder = 'empty',
   blurDataURL,
   onLoad,
   onError,
-  fallbackSrc = '/images/fallback.jpg',
-  unoptimized = false,
-  objectFit = 'cover',
-  objectPosition = 'center',
+  sizes,
+  fill = false,
+  style,
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
   const imgRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Intersection Observer for lazy loading
   useEffect(() => {
-    if (priority || !imgRef.current) return;
+    if (priority) {
+      setIsInView(true);
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
+    if (!imgRef.current) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observerRef.current?.disconnect();
+          }
+        });
       },
       {
         rootMargin: '50px', // Start loading 50px before the image comes into view
@@ -66,166 +66,203 @@ export default function LazyImage({
       }
     );
 
-    observer.observe(imgRef.current);
+    observerRef.current.observe(imgRef.current);
 
-    return () => observer.disconnect();
+    return () => {
+      observerRef.current?.disconnect();
+    };
   }, [priority]);
-
-  // Preload critical images
-  useEffect(() => {
-    if (priority && imgRef.current) {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = src;
-      document.head.appendChild(link);
-
-      return () => {
-        document.head.removeChild(link);
-      };
-    }
-  }, [src, priority]);
 
   const handleLoad = () => {
     setIsLoaded(true);
-    setHasError(false);
     onLoad?.();
   };
 
   const handleError = () => {
     setHasError(true);
-    if (fallbackSrc && imageSrc !== fallbackSrc) {
-      setImageSrc(fallbackSrc);
-      setHasError(false);
-    }
     onError?.();
   };
 
-  // Don't render anything if not in view and not priority
-  if (!isInView && !priority) {
+  if (hasError) {
     return (
       <div
         ref={imgRef}
-        className={`bg-gray-200 animate-pulse ${className}`}
-        style={{
-          width: fill ? '100%' : width,
-          height: fill ? '100%' : height,
-          minHeight: fill ? '200px' : undefined,
-        }}
-      />
+        className={`bg-gray-200 flex items-center justify-center ${className}`}
+        style={{ width, height, ...style }}
+      >
+        <div className="text-gray-400 text-center">
+          <svg className="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+          </svg>
+          <p className="text-sm">Image failed to load</p>
+        </div>
+      </div>
     );
   }
 
-  const imageProps = {
-    src: imageSrc,
-    alt,
-    fill,
-    width,
-    height,
-    quality,
-    sizes,
-    placeholder,
-    blurDataURL,
-    onLoad: handleLoad,
-    onError: handleError,
-    unoptimized,
-    style: {
-      objectFit,
-      objectPosition,
-    },
-  };
-
   return (
-    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
-      {/* Loading placeholder */}
-      {!isLoaded && !hasError && (
+    <div ref={imgRef} className={`relative overflow-hidden ${className}`} style={style}>
+      {isInView && (
         <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: isLoaded ? 0 : 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-gray-200 flex items-center justify-center"
+          className="relative"
         >
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            quality={quality}
+            priority={priority}
+            placeholder={placeholder}
+            blurDataURL={blurDataURL}
+            onLoad={handleLoad}
+            onError={handleError}
+            sizes={sizes}
+            fill={fill}
+            className={`transition-opacity duration-300 ${
+              isLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
         </motion.div>
       )}
 
-      {/* Main image */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{
-          opacity: isLoaded ? 1 : 0,
-          scale: isLoaded ? 1 : 1.05
-        }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="w-full h-full"
-      >
-        <Image
-          {...imageProps}
-          className={`transition-all duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-      </motion.div>
-
-      {/* Error fallback */}
-      {hasError && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="absolute inset-0 bg-gray-100 flex items-center justify-center"
-        >
-          <div className="text-center text-gray-500">
-            <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      {/* Loading placeholder */}
+      {!isLoaded && isInView && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="text-gray-400">
+            <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
             </svg>
-            <p className="text-sm">Image unavailable</p>
           </div>
-        </motion.div>
+        </div>
+      )}
+
+      {/* Intersection trigger area */}
+      {!isInView && !priority && (
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-400 text-sm">Loading...</div>
+        </div>
       )}
     </div>
   );
 }
 
-// Optimized version for hero images and above-the-fold content
-export function LazyHeroImage(props: LazyImageProps) {
-  return <LazyImage {...props} priority={true} quality={90} />;
+// Optimized image component with fallback
+interface OptimizedImageProps extends Omit<LazyImageProps, 'onError'> {
+  fallbackSrc?: string;
+  fallbackAlt?: string;
 }
 
-// Optimized version for story cards and lists
-export function LazyCardImage(props: LazyImageProps) {
+export function OptimizedImage({
+  fallbackSrc = '/images/fallback.jpg',
+  fallbackAlt = 'Image not available',
+  ...props
+}: OptimizedImageProps) {
+  const [currentSrc, setCurrentSrc] = useState(props.src);
+  const [currentAlt, setCurrentAlt] = useState(props.alt);
+
+  const handleError = () => {
+    if (currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc);
+      setCurrentAlt(fallbackAlt);
+    }
+  };
+
   return (
     <LazyImage
       {...props}
-      quality={80}
-      placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bvPY8U4jQB5aAcw/9k="
+      src={currentSrc}
+      alt={currentAlt}
+      onError={handleError}
     />
   );
 }
 
-// Hook for intersection observer logic (can be reused)
-export function useIntersectionObserver(
-  ref: React.RefObject<Element>,
-  options: IntersectionObserverInit = {}
-) {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+// Background image component with lazy loading
+interface LazyBackgroundImageProps {
+  src: string;
+  children: React.ReactNode;
+  className?: string;
+  placeholder?: string;
+  onLoad?: () => void;
+}
+
+export function LazyBackgroundImage({
+  src,
+  children,
+  className = '',
+  placeholder = 'linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)',
+  onLoad,
+}: LazyBackgroundImageProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!containerRef.current) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsIntersecting(entry.isIntersecting),
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observerRef.current?.disconnect();
+          }
+        });
+      },
       {
+        rootMargin: '100px',
         threshold: 0.1,
-        rootMargin: '50px',
-        ...options,
       }
     );
 
-    observer.observe(ref.current);
+    observerRef.current.observe(containerRef.current);
 
-    return () => observer.disconnect();
-  }, [ref, options]);
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, []);
 
-  return isIntersecting;
+  useEffect(() => {
+    if (!isInView || isLoaded) return;
+
+    const img = new window.Image();
+    img.onload = () => {
+      setIsLoaded(true);
+      onLoad?.();
+    };
+    img.src = src;
+  }, [isInView, isLoaded, src, onLoad]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`relative overflow-hidden ${className}`}
+      style={{
+        backgroundImage: isLoaded ? `url(${src})` : placeholder,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        transition: 'background-image 0.3s ease-in-out',
+      }}
+    >
+      {children}
+    </div>
+  );
 }

@@ -56,7 +56,7 @@ export class RSSFeedService {
         featured: true,
         editorsPick: true,
         publishedAt: new Date().toISOString(),
-        imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
       },
       {
         id: uuidv4(),
@@ -71,7 +71,7 @@ export class RSSFeedService {
         featured: true,
         editorsPick: false,
         publishedAt: new Date().toISOString(),
-        imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=2400',
       },
     ];
   }

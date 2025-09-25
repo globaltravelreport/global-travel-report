@@ -49,7 +49,7 @@ export class StoryRewriter implements IStoryRewriter {
       featured: false,
       editorsPick: false,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&q=80&w=2400',
     };
   }
 

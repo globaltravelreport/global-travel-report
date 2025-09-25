@@ -70,7 +70,7 @@ async function DestinationsPageContent() {
       {/* Hero Section */}
       <div className="relative h-[300px] mb-12 rounded-lg overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
           alt="Explore travel destinations around the world"
           fill
           className="object-cover"

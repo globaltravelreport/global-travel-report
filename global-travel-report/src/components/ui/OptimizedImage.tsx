@@ -86,12 +86,12 @@ export function OptimizedImage({
   const optimizedSrc = React.useMemo(() => {
     // If src is not a string or empty, return a default image
     if (!src || typeof src !== 'string') {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400';
     }
 
     // If src doesn't start with http, it's invalid
     if (!src.startsWith('http')) {
-      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+      return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400';
     }
 
     // IMPORTANT: Always use the exact URL provided
@@ -204,11 +204,11 @@ export function StoryCoverImage({
     if (!src || (typeof src === 'string' && !src.startsWith('http'))) {
       // Return a default image based on the alt text
       if (alt.toLowerCase().includes('cruise')) {
-        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400';
       } else if (alt.toLowerCase().includes('food') || alt.toLowerCase().includes('wine')) {
-        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400';
       } else {
-        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress';
+        return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400';
       }
     }
 
@@ -232,7 +232,7 @@ export function StoryCoverImage({
     }
 
     // Use a reliable fallback image with WebP format
-    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?fm=webp&q=80&auto=compress');
+    setValidatedSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400');
   };
 
   // Determine the platform URL and name

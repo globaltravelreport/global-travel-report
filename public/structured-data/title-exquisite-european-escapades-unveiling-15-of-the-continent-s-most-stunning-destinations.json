@@ -5,7 +5,7 @@
     "headline": "Exquisite European Escapades: Unveiling 15 of the Continent's Most Stunning Destinations",
     "description": "Unveiling 15 of Europe's most stunning destinations, this article takes readers on a journey through the continent's diverse landscapes, from Switzerland's Swiss National Park to Italy's Stromboli.",
     "image": [
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Exquisite European Escapades: Unveiling 15 of the Continent's Most Stunning Destinations",
     "description": "Unveiling 15 of Europe's most stunning destinations, this article takes readers on a journey through the continent's diverse landscapes, from Switzerland's Swiss National Park to Italy's Stromboli.",
     "url": "https://globaltravelreport.com/title-exquisite-european-escapades-unveiling-15-of-the-continent-s-most-stunning-destinations",
-    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Europe"

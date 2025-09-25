@@ -14,38 +14,38 @@ export interface UnsplashImage {
 // Definitive mapping of photographers to their image URLs
 const PHOTOGRAPHER_IMAGE_MAP: Record<string, string> = {
   // Original photographers
-  'Arto Marttinen': 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a',
-  'Davide Cantelli': 'https://images.unsplash.com/photo-1528164344705-47542687000d',
-  'Thomas Tucker': 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff',
-  'Sime Basioli': 'https://images.unsplash.com/photo-1530789253388-582c481c54b0',
-  'Braden Jarvis': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
-  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
-  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
-  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
-  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
-  'Emile Guillemot': 'https://images.unsplash.com/photo-1528127269322-539801943592',
-  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-  'Luca Bravo': 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
-  'Cristina Gottardi': 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd',
-  'Willian West': 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45',
-  'Shifaaz Shamoon': 'https://images.unsplash.com/photo-1540202404-a2f29016b523',
-  'Dan Gold': 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843',
-  'Ishan Seefromthesky': 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32',
-  'Caleb Jones': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+  'Arto Marttinen': 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400',
+  'Davide Cantelli': 'https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&q=80&w=2400',
+  'Thomas Tucker': 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&q=80&w=2400',
+  'Sime Basioli': 'https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&q=80&w=2400',
+  'Braden Jarvis': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400',
+  'Simon Migaj': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&q=80&w=2400',
+  'Jaromir Kavan': 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&q=80&w=2400',
+  'Sylvain Mauroux': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&q=80&w=2400',
+  'Jakob Owens': 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
+  'Dino Reichmuth': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400',
+  'Emile Guillemot': 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400',
+  'Alonso Reyes': 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
+  'Asoggetti': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400',
+  'Luca Bravo': 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&q=80&w=2400',
+  'Cristina Gottardi': 'https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400',
+  'Willian West': 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400',
+  'Shifaaz Shamoon': 'https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&q=80&w=2400',
+  'Dan Gold': 'https://images.unsplash.com/photo-1565073624497-7e91b5cc3843?auto=format&q=80&w=2400',
+  'Ishan Seefromthesky': 'https://images.unsplash.com/photo-1544644181-1484b3fdfc32?auto=format&q=80&w=2400',
+  'Caleb Jones': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400',
 
   // Additional photographers from build logs
-  'Test Mode': 'https://images.unsplash.com/photo-1488085061387-422e29b40080'
+  'Test Mode': 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400'
 };
 
 // Additional photographers to use if needed
 const ADDITIONAL_PHOTOGRAPHERS: UnsplashImage[] = [
-  { photographer: 'Roberto Nickson', url: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0' },
-  { photographer: 'Colton Duke', url: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd' },
-  { photographer: 'Zach Betten', url: 'https://images.unsplash.com/photo-1467377791767-c929b5dc9a23' },
-  { photographer: 'Yoel Peterson', url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4' },
-  { photographer: 'Kalen Emsley', url: 'https://images.unsplash.com/photo-1500534623283-312aade485b7' }
+  { photographer: 'Roberto Nickson', url: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?auto=format&q=80&w=2400' },
+  { photographer: 'Colton Duke', url: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&q=80&w=2400' },
+  { photographer: 'Zach Betten', url: 'https://images.unsplash.com/photo-1467377791767-c929b5dc9a23?auto=format&q=80&w=2400' },
+  { photographer: 'Yoel Peterson', url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&q=80&w=2400' },
+  { photographer: 'Kalen Emsley', url: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&q=80&w=2400' }
 ];
 
 // All available images

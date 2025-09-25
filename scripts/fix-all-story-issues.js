@@ -53,20 +53,20 @@ function getRandomRecentDate() {
  */
 function getDefaultImage(category) {
   const categoryImages = {
-    'Travel': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1',
-    'Adventure': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d',
-    'Cruise': 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
-    'Airline': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05',
-    'Destination': 'https://images.unsplash.com/photo-1488085061387-422e29b40080',
-    'Culture': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be',
-    'Food': 'https://images.unsplash.com/photo-1493707553966-283afac8c358',
-    'Hotel': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd',
-    'Luxury': 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b',
-    'Budget': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1',
-    'Family': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5',
-    'Solo': 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9',
-    'Beach': 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a',
-    'Mountain': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b'
+    'Travel': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400',
+    'Adventure': 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400',
+    'Cruise': 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
+    'Airline': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400',
+    'Destination': 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
+    'Culture': 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?auto=format&q=80&w=2400',
+    'Food': 'https://images.unsplash.com/photo-1493707553966-283afac8c358?auto=format&q=80&w=2400',
+    'Hotel': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&q=80&w=2400',
+    'Luxury': 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&q=80&w=2400',
+    'Budget': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&q=80&w=2400',
+    'Family': 'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5?auto=format&q=80&w=2400',
+    'Solo': 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&q=80&w=2400',
+    'Beach': 'https://images.unsplash.com/photo-1548690396-1fae5d6a3f8a?auto=format&q=80&w=2400',
+    'Mountain': 'https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&q=80&w=2400'
   };
 
   return categoryImages[category] || categoryImages['Travel'];

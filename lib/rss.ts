@@ -24,7 +24,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: true,
       editorsPick: true,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
     },
     {
       id: 'cruise-story-2',
@@ -39,7 +39,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: false,
       editorsPick: true,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1531176175280-c0214c0b1444?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1531176175280-c0214c0b1444?auto=format&q=80&w=2400',
     },
 
     // Other travel stories
@@ -56,7 +56,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: true,
       editorsPick: false,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=2400',
     },
     {
       id: 'travel-story-2',
@@ -71,7 +71,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: false,
       editorsPick: true,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&q=80&w=2400',
     },
     {
       id: 'travel-story-3',
@@ -86,7 +86,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: false,
       editorsPick: false,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&q=80&w=2400',
     },
     {
       id: 'travel-story-4',
@@ -101,7 +101,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
       featured: false,
       editorsPick: false,
       publishedAt: new Date().toISOString(),
-      imageUrl: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&q=80&w=2400',
     },
   ];
 

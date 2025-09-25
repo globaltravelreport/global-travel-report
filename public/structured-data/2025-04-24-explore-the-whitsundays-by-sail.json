@@ -5,7 +5,7 @@
     "headline": "Explore the Whitsundays by Sail",
     "description": "Discover Australia's best sailing experiences",
     "image": [
-      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a"
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Explore the Whitsundays by Sail",
     "description": "Discover Australia's best sailing experiences",
     "url": "https://globaltravelreport.com/2025-04-24-explore-the-whitsundays-by-sail",
-    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a",
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Australia"

@@ -5,7 +5,7 @@
     "headline": "UK Travel Guide: Tips for Aussies Planning Their British Escape",
     "description": "A Guide for Australians Travelling to the UK: Everything You Need to Know...",
     "image": [
-      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd"
+      "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "UK Travel Guide: Tips for Aussies Planning Their British Escape",
     "description": "A Guide for Australians Travelling to the UK: Everything You Need to Know...",
     "url": "https://globaltravelreport.com/1-uk-travel-guide-tips-for-aussies-planning-their-british-es",
-    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd",
+    "image": "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "United Kingdom"

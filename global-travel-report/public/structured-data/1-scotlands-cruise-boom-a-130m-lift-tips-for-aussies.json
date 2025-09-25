@@ -5,7 +5,7 @@
     "headline": "Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies",
     "description": "  Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian ...",
     "image": [
-      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45"
+      "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400"
     ],
     "author": {
       "@type": "Organization",
@@ -35,7 +35,7 @@
     "name": "Scotland’s Cruise Boom: A £130m Lift & Tips for Aussies",
     "description": "  Scotland has recently emerged as a crowd-puller in the cruise tourism sector, offering a substantial £130m injection into its economy. For Australian ...",
     "url": "https://globaltravelreport.com/1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies",
-    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45",
+    "image": "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?auto=format&q=80&w=2400",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Scotland"

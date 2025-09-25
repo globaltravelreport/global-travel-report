@@ -2,7 +2,7 @@ import { getAllStories } from '@/utils/stories';
 import { StoryCard } from '@/components/stories/StoryCard';
 import { CountryDropdown } from '@/components/destinations/CountryDropdown';
 import { isValidCountry } from '@/utils/countries';
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import type { Metadata } from 'next';
 import { FAQSchema } from '@/components/seo/FAQSchema';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
@@ -69,12 +69,17 @@ async function DestinationsPageContent() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Hero Section */}
       <div className="relative h-[300px] mb-12 rounded-lg overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+        <OptimizedImage
+          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
           alt="Explore travel destinations around the world"
           fill
           className="object-cover"
-          priority
+          priority={true}
+          sizes="100vw"
+          quality={90}
+          loading="eager"
+          fallbackSrc="/images/fallback.jpg"
+          unoptimized={true}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="absolute inset-0 flex items-center justify-center">

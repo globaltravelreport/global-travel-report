@@ -349,7 +349,7 @@ async function generateDailyStories() {
             excerpt: story.content.substring(0, 150) + '...',
             keywords: ['travel'],
             rewritten: false,
-            imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828',
+            imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400',
             photographer: {
               name: 'Test Mode',
               url: 'https://unsplash.com'
@@ -804,49 +804,49 @@ function parseOpenAIResponse(response, originalStory) {
  */
 const DEFAULT_IMAGES = {
   Travel: {
-    imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828',
+    imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400',
     photographer: {
       name: 'The Lazy Artist Gallery',
       url: 'https://unsplash.com/@thelazycreative'
     }
   },
   Cruise: {
-    imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19',
+    imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
     photographer: {
       name: 'Alonso Reyes',
       url: 'https://unsplash.com/@alonsoreyes'
     }
   },
   Adventure: {
-    imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306',
+    imageUrl: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&q=80&w=2400',
     photographer: {
       name: 'Dino Reichmuth',
       url: 'https://unsplash.com/@dinoreichmuth'
     }
   },
   Culture: {
-    imageUrl: 'https://images.unsplash.com/photo-1535139262971-c51845709a48',
+    imageUrl: 'https://images.unsplash.com/photo-1535139262971-c51845709a48?auto=format&q=80&w=2400',
     photographer: {
       name: 'Kit Suman',
       url: 'https://unsplash.com/@kitsuman'
     }
   },
   Destination: {
-    imageUrl: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b',
+    imageUrl: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&q=80&w=2400',
     photographer: {
       name: 'John Fowler',
       url: 'https://unsplash.com/@wildhoney'
     }
   },
   Airline: {
-    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05',
+    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400',
     photographer: {
       name: 'Suhyeon Choi',
       url: 'https://unsplash.com/@choisyeon'
     }
   },
   Food: {
-    imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+    imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&q=80&w=2400',
     photographer: {
       name: 'Brooke Lark',
       url: 'https://unsplash.com/@brookelark'
