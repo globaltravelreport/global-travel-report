@@ -119,7 +119,7 @@ const Hero = ({
   }, []);
 
   return (
-    <section className="relative min-h-[70vh] md:min-h-[80vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0"
@@ -127,19 +127,20 @@ const Hero = ({
       >
         <OptimizedImage
           src={heroImage}
-          alt="Beautiful travel destination"
+          alt="Beautiful travel destination showcasing global travel experiences"
           fill
           className="object-cover"
           priority={true}
           sizes="100vw"
           quality={90}
           objectFit="cover"
+          objectPosition="center"
           loading="eager"
         />
 
         {/* Gradient overlay with more sophisticated layering */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#19273A]/80 via-transparent to-[#19273A]/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#19273A]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#19273A]/60 via-transparent to-[#19273A]/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#19273A]/40 to-transparent" />
 
         {/* Subtle pattern overlay for texture */}
         <div className="absolute inset-0 bg-[url('/images/noise-pattern.png')] opacity-5"></div>

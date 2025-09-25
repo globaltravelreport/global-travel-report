@@ -47,7 +47,7 @@ export default function OptimizedImage({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Default fallback image
-  const defaultFallback = '/images/placeholder.jpg';
+  const defaultFallback = '/images/fallback.jpg';
 
   // Convert Unsplash URLs to stable CDN format
   const convertToStableUrl = (url: string): string => {
