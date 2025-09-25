@@ -168,7 +168,9 @@ export default function RootLayout({
             <Toaster />
           </ErrorBoundary>
           <AITravelAssistantMount />
-          <WebVitalsTracker />
+          <Suspense fallback={null}>
+            <WebVitalsTracker />
+          </Suspense>
         </AccessibilityProvider>
       </body>
     </html>
