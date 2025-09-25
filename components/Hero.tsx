@@ -103,19 +103,16 @@ const Hero = ({
       }
     ];
 
-    // Only change the image if this is a client-side render and not during SSR
-    if (typeof window !== 'undefined') {
-      // Get a random image from the array
-      const randomIndex = Math.floor(Math.random() * heroImages.length);
-      const selectedImage = heroImages[randomIndex];
+    // Get a random image from the array
+    const randomIndex = Math.floor(Math.random() * heroImages.length);
+    const selectedImage = heroImages[randomIndex];
 
-      setHeroImage(selectedImage.url);
-      setPhotographer({
-        name: selectedImage.photographer,
-        url: selectedImage.photographerUrl,
-        photoUrl: selectedImage.photoUrl
-      });
-    }
+    setHeroImage(selectedImage.url);
+    setPhotographer({
+      name: selectedImage.photographer,
+      url: selectedImage.photographerUrl,
+      photoUrl: selectedImage.photoUrl
+    });
   }, []);
 
   return (
@@ -136,6 +133,7 @@ const Hero = ({
           objectFit="cover"
           objectPosition="center"
           loading="eager"
+          fallbackSrc="/images/fallback.jpg"
         />
 
         {/* Gradient overlay with more sophisticated layering */}
@@ -288,5 +286,5 @@ const Hero = ({
   );
 };
 
-// Export as a dynamic component with no SSR
-export default dynamic(() => Promise.resolve(Hero), { ssr: false });
+// Export as a dynamic component with SSR enabled for better SEO
+export default dynamic(() => Promise.resolve(Hero), { ssr: true });
