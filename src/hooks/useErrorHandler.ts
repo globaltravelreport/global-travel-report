@@ -1,12 +1,7 @@
 "use client";
 
 import { useState, useCallback } from 'react';
-<<<<<<< HEAD
-import { EnhancedAppError as AppError, ErrorType, handleError } from '@/utils/enhanced-error-handler';
-import { logError } from '@/utils/error-handler';
-=======
-import { AppError, ErrorType, handleError, logError } from '@/utils/error-handler';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
+import { EnhancedAppError as AppError, ErrorType, handleError, logError } from '@/utils/enhanced-error-handler';
 
 /**
  * Interface for error state
@@ -29,7 +24,7 @@ export function useErrorHandler() {
     type: ErrorType.UNKNOWN,
     details: undefined,
   });
-  
+
   /**
    * Handle an error
    * @param error - The error to handle
@@ -37,10 +32,10 @@ export function useErrorHandler() {
    */
   const handleErrorWithState = useCallback((error: unknown, context?: Record<string, any>) => {
     const appError = handleError(error);
-    
+
     // Log the error
     logError(appError, context);
-    
+
     // Update error state
     setError({
       hasError: true,
@@ -48,10 +43,10 @@ export function useErrorHandler() {
       type: appError.type,
       details: appError.details,
     });
-    
+
     return appError;
   }, []);
-  
+
   /**
    * Clear the error state
    */
@@ -63,7 +58,7 @@ export function useErrorHandler() {
       details: undefined,
     });
   }, []);
-  
+
   /**
    * Wrap an async function with error handling
    * @param fn - The async function to wrap
@@ -85,7 +80,7 @@ export function useErrorHandler() {
     },
     [clearError, handleErrorWithState]
   );
-  
+
   return {
     error,
     handleError: handleErrorWithState,

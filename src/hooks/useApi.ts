@@ -2,11 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useGlobalError } from '@/components/ui/GlobalErrorHandler';
-<<<<<<< HEAD
 import { ErrorType } from '@/utils/enhanced-error-handler';
-=======
-import { ErrorType } from '@/utils/error-handler';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 
 /**
  * API request state
@@ -37,18 +33,18 @@ export function useApi<T = any>() {
     loading: false,
     error: null
   });
-  
+
   const { showError } = useGlobalError();
-  
+
   // Simple cache for GET requests
   const cache = new Map<string, { data: T; timestamp: number }>();
   const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-  
+
   /**
    * Make an API request
    */
   const request = useCallback(async (
-    url: string, 
+    url: string,
     options: ApiOptions = {}
   ): Promise<T | null> => {
     const {
@@ -58,7 +54,7 @@ export function useApi<T = any>() {
       cache: useCache = method === 'GET',
       retries = 3
     } = options;
-    
+
     // Check cache for GET requests
     if (useCache && method === 'GET') {
       const cached = cache.get(url);
@@ -67,11 +63,11 @@ export function useApi<T = any>() {
         return cached.data;
       }
     }
-    
+
     setState(prev => ({ ...prev, loading: true, error: null }));
-    
+
     let lastError: Error | null = null;
-    
+
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         const response = await fetch(url, {
@@ -82,99 +78,95 @@ export function useApi<T = any>() {
           },
           body: body ? JSON.stringify(body) : undefined
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        
+
         const data = await response.json();
-        
+
         // Cache successful GET requests
         if (useCache && method === 'GET') {
           cache.set(url, { data, timestamp: Date.now() });
         }
-        
+
         setState({ data, loading: false, error: null });
         return data;
-        
+
       } catch (error) {
         lastError = error as Error;
-        
+
         // Don't retry on client errors (4xx)
         if (error instanceof Error && error.message.includes('HTTP 4')) {
           break;
         }
-        
+
         // Wait before retrying (exponential backoff)
         if (attempt < retries) {
           await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
         }
       }
     }
-    
+
     // All retries failed
     const errorMessage = lastError?.message || 'Request failed';
     setState({ data: null, loading: false, error: errorMessage });
-    
+
     // Show global error notification
-<<<<<<< HEAD
     showError(new Error(errorMessage));
-=======
-    showError(errorMessage, ErrorType.NETWORK);
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
-    
+
     return null;
   }, [showError]);
-  
+
   /**
    * GET request shorthand
    */
   const get = useCallback((url: string, options?: Omit<ApiOptions, 'method'>) => {
     return request(url, { ...options, method: 'GET' });
   }, [request]);
-  
+
   /**
    * POST request shorthand
    */
   const post = useCallback((url: string, body?: any, options?: Omit<ApiOptions, 'method' | 'body'>) => {
     return request(url, { ...options, method: 'POST', body });
   }, [request]);
-  
+
   /**
    * PUT request shorthand
    */
   const put = useCallback((url: string, body?: any, options?: Omit<ApiOptions, 'method' | 'body'>) => {
     return request(url, { ...options, method: 'PUT', body });
   }, [request]);
-  
+
   /**
    * DELETE request shorthand
    */
   const del = useCallback((url: string, options?: Omit<ApiOptions, 'method'>) => {
     return request(url, { ...options, method: 'DELETE' });
   }, [request]);
-  
+
   /**
    * Clear cache
    */
   const clearCache = useCallback(() => {
     cache.clear();
   }, []);
-  
+
   /**
    * Reset state
    */
   const reset = useCallback(() => {
     setState({ data: null, loading: false, error: null });
   }, []);
-  
+
   // Cleanup cache on unmount
   useEffect(() => {
     return () => {
       cache.clear();
     };
   }, []);
-  
+
   return {
     ...state,
     request,

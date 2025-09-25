@@ -216,11 +216,7 @@ const Hero = () => {
             y: { delay: 1.5, duration: 2, repeat: Infinity }
           }}
         >
-<<<<<<< HEAD
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
-=======
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
             <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </motion.div>

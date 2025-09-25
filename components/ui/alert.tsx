@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -36,22 +35,14 @@ Alert.displayName = "Alert"
 const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
-<<<<<<< HEAD
 >(({ className, children, ...props }, ref) => (
-=======
->(({ className, ...props }, ref) => (
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
   <h5
     ref={ref}
     className={cn("mb-1 font-medium leading-none tracking-tight", className)}
     {...props}
-<<<<<<< HEAD
   >
     {children}
   </h5>
-=======
-  />
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 ))
 AlertTitle.displayName = "AlertTitle"
 

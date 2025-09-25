@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -239,12 +238,7 @@ export default function StoryUploadPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-<<<<<<< HEAD
                 <Select defaultValue={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
-=======
-                <<Select defaultValue={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
->
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                   <SelectTrigger>
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>

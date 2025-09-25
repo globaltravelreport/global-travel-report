@@ -176,11 +176,7 @@ export class EnhancedAppError extends Error {
       case ErrorType.AUTHORIZATION:
         return 'You do not have permission to perform this action.';
       case ErrorType.NOT_FOUND:
-<<<<<<< HEAD
-        return 'The requested resource was not found.';
-=======
         return 'The requested resource could not be found.';
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       case ErrorType.API:
         return 'There was a problem communicating with our services. Please try again later.';
       case ErrorType.NETWORK:
@@ -236,24 +232,6 @@ function generateErrorId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
 }
 
-<<<<<<< HEAD
-export type AppError = EnhancedAppError;
-
-/** Determine error type from a generic error */
-function inferErrorType(err: Error): ErrorType {
-  const msg = `${err.name} ${err.message}`.toLowerCase();
-  if (msg.includes('validation')) return ErrorType.VALIDATION;
-  if (msg.includes('auth')) return ErrorType.AUTHENTICATION;
-  if (msg.includes('permission') || msg.includes('forbidden')) return ErrorType.AUTHORIZATION;
-  if (msg.includes('not found') || msg.includes('404')) return ErrorType.NOT_FOUND;
-  if (msg.includes('network')) return ErrorType.NETWORK;
-  if (msg.includes('timeout')) return ErrorType.TIMEOUT;
-  return ErrorType.UNKNOWN;
-}
-
-
-=======
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 /**
  * Create a validation error
  * @param message - The error message
@@ -386,22 +364,6 @@ export function handleError(
     let severity = ErrorSeverity.ERROR;
     let code: string | undefined;
 
-<<<<<<< HEAD
-    const msgLower = `${error.name} ${error.message}`.toLowerCase();
-
-    // Check for common error patterns (case-insensitive)
-    if (msgLower.includes('validation')) {
-      type = ErrorType.VALIDATION;
-      severity = ErrorSeverity.WARNING;
-      code = 'VALIDATION_ERROR';
-    } else if (msgLower.includes('network')) {
-      type = ErrorType.NETWORK;
-      code = 'NETWORK_ERROR';
-    } else if (msgLower.includes('timeout')) {
-      type = ErrorType.TIMEOUT;
-      code = 'TIMEOUT_ERROR';
-    } else if (msgLower.includes('not found') || msgLower.includes('404')) {
-=======
     // Check for common error patterns
     if (error.name === 'ValidationError' || error.message.includes('validation')) {
       type = ErrorType.VALIDATION;
@@ -414,7 +376,6 @@ export function handleError(
       type = ErrorType.TIMEOUT;
       code = 'TIMEOUT_ERROR';
     } else if (error.name === 'NotFoundError' || error.message.includes('not found')) {
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
       type = ErrorType.NOT_FOUND;
       severity = ErrorSeverity.WARNING;
       code = 'NOT_FOUND_ERROR';

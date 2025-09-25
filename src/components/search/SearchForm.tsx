@@ -244,15 +244,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
-<<<<<<< HEAD
                           <SelectItem value="">All categories</SelectItem>
                           {categories.map((category) => (
                             <SelectItem key={category} value={category}>
-=======
-                          <SelectItem>All categories</SelectItem>
-                          {categories.map((category) => (
-                            <SelectItem key={category}>
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                               {category}
                             </SelectItem>
                           ))}
@@ -272,15 +266,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select country" />
                         </SelectTrigger>
                         <SelectContent>
-<<<<<<< HEAD
                           <SelectItem value="">All countries</SelectItem>
                           {countries.map((country) => (
                             <SelectItem key={country} value={country}>
-=======
-                          <SelectItem>All countries</SelectItem>
-                          {countries.map((country) => (
-                            <SelectItem key={country}>
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                               {country}
                             </SelectItem>
                           ))}
@@ -300,15 +288,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select tag" />
                         </SelectTrigger>
                         <SelectContent>
-<<<<<<< HEAD
                           <SelectItem value="">All tags</SelectItem>
                           {tags.map((tag) => (
                             <SelectItem key={tag} value={tag}>
-=======
-                          <SelectItem>All tags</SelectItem>
-                          {tags.map((tag) => (
-                            <SelectItem key={tag}>
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                               {tag}
                             </SelectItem>
                           ))}
@@ -328,15 +310,9 @@ export function SearchForm({
                           <SelectValue placeholder="Select author" />
                         </SelectTrigger>
                         <SelectContent>
-<<<<<<< HEAD
                           <SelectItem value="">All authors</SelectItem>
                           {authors.map((author) => (
                             <SelectItem key={author} value={author}>
-=======
-                          <SelectItem>All authors</SelectItem>
-                          {authors.map((author) => (
-                            <SelectItem key={author}>
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
                               {author}
                             </SelectItem>
                           ))}

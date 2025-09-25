@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-# Node / Next / Build artifacts
-node_modules
-.next
-dist
-out
-coverage
-build
-
-# Environment and secrets
-.env*
-
-# Logs and caches
-logs
-*.log
-.cache/
-.npm/
-
-# OS / IDE junk
-.DS_Store
-=======
 # dependencies
 /node_modules
 /.pnp
@@ -56,39 +35,11 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 .idea/
 .vscode/
 *.swp
 *.swo
 
-<<<<<<< HEAD
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
-
-# Vercel
-.vercel
-
-# Project-specific ignores
-cookies.txt
-deploy-log.txt
-package-lock 2.json
-package-lock 3.json
-*.backup
-*.save
-
-# Legacy entries retained
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-/coverage
-/.next/
-/out/
-/build
-.env*.local
-public/uploads/*
-=======
 # Logs
 logs
 *.log
@@ -103,5 +54,11 @@ temp/
 
 # Uploaded files
 public/uploads/*
-.env*
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
+
+# Project-specific ignores
+cookies.txt
+deploy-log.txt
+package-lock 2.json
+package-lock 3.json
+*.backup
+*.save

@@ -8,16 +8,6 @@ const CACHE_CONTROL = 'public, max-age=3600, s-maxage=7200, stale-while-revalida
 
 // Define RSS feed namespaces for enhanced functionality
 const RSS_NAMESPACES = {
-<<<<<<< HEAD
-  atom: 'https://www.w3.org/2005/Atom',
-  content: 'https://purl.org/rss/1.0/modules/content/',
-  dc: 'https://purl.org/dc/elements/1.1/',
-  media: 'https://search.yahoo.com/mrss/',
-  sy: 'https://purl.org/rss/1.0/modules/syndication/',
-  slash: 'https://purl.org/rss/1.0/modules/slash/',
-  georss: 'https://www.georss.org/georss',
-  wfw: 'https://wellformedweb.org/CommentAPI/'
-=======
   atom: 'http://www.w3.org/2005/Atom',
   content: 'http://purl.org/rss/1.0/modules/content/',
   dc: 'http://purl.org/dc/elements/1.1/',
@@ -26,7 +16,6 @@ const RSS_NAMESPACES = {
   slash: 'http://purl.org/rss/1.0/modules/slash/',
   georss: 'http://www.georss.org/georss',
   wfw: 'http://wellformedweb.org/CommentAPI/'
->>>>>>> b700c9036c47c406994d24ce88e371e4e905cffe
 };
 
 /**
@@ -36,11 +25,11 @@ const RSS_NAMESPACES = {
  */
 function escapeXml(text: string): string {
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, ''');
 }
 
 /**
