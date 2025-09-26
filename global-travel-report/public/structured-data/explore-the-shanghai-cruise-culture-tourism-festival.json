@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Explore the Shanghai Cruise Culture & Tourism Festival",
+    "description": "  Shanghai's Cruise Culture and Tourism Festival is set to enchant travelers with its unique blend of cultural festivities and breathtaking sea voyages....",
+    "image": [
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-28T13:53:24.626Z",
+    "dateModified": "2025-04-28T13:53:24.626Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/explore-the-shanghai-cruise-culture-tourism-festival"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Explore the Shanghai Cruise Culture & Tourism Festival",
+    "description": "  Shanghai's Cruise Culture and Tourism Festival is set to enchant travelers with its unique blend of cultural festivities and breathtaking sea voyages....",
+    "url": "https://globaltravelreport.com/explore-the-shanghai-cruise-culture-tourism-festival",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "China"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cultural Festivals",
+        "item": "https://globaltravelreport.com/category/cultural-festivals"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "China",
+        "item": "https://globaltravelreport.com/destination/china"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Explore the Shanghai Cruise Culture & Tourism Festival",
+        "item": "https://globaltravelreport.com/explore-the-shanghai-cruise-culture-tourism-festival"
+      }
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Top Noise-Cancelling Headphones for Travelers",
+    "description": "  When planning your next getaway, don't overlook one of the most essential travel accessories—a good pair of noise-cancelling headphones. With the abil...",
+    "image": [
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-15T13:53:24.671Z",
+    "dateModified": "2025-04-15T13:53:24.671Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/top-noise-cancelling-headphones-for-travelers"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Travel Tips",
+        "item": "https://globaltravelreport.com/category/travel-tips"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Top Noise-Cancelling Headphones for Travelers",
+        "item": "https://globaltravelreport.com/top-noise-cancelling-headphones-for-travelers"
+      }
+    ]
+  }
+]

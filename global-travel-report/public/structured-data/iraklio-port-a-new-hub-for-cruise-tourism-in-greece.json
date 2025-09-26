@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Iraklio Port: A New Hub for Cruise Tourism in Greece",
+    "description": " Iraklio, the capital of Crete, is steering towards becoming a significant hub for cruise tourism in the Mediterranean. With its strategic location an...",
+    "image": [
+      "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-04T13:53:24.630Z",
+    "dateModified": "2025-04-04T13:53:24.630Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/iraklio-port-a-new-hub-for-cruise-tourism-in-greece"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Iraklio Port: A New Hub for Cruise Tourism in Greece",
+    "description": " Iraklio, the capital of Crete, is steering towards becoming a significant hub for cruise tourism in the Mediterranean. With its strategic location an...",
+    "url": "https://globaltravelreport.com/iraklio-port-a-new-hub-for-cruise-tourism-in-greece",
+    "image": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Greece"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cruise",
+        "item": "https://globaltravelreport.com/category/cruise"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Greece",
+        "item": "https://globaltravelreport.com/destination/greece"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Iraklio Port: A New Hub for Cruise Tourism in Greece",
+        "item": "https://globaltravelreport.com/iraklio-port-a-new-hub-for-cruise-tourism-in-greece"
+      }
+    ]
+  }
+]

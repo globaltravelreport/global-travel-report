@@ -1,0 +1,222 @@
+name: Daily Story Generation
+
+on:
+  schedule:
+    # Run at 2 PM Sydney time (04:00 UTC)
+    - cron: '0 4 * * *'
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'Number of stories to generate'
+        required: false
+        default: '8'
+      cruise_count:
+        description: 'Number of cruise stories to include'
+        required: false
+        default: '2'
+      test_mode:
+        description: 'Run in test mode (no OpenAI calls)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  generate-stories:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get all commits
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Global Travel Report Bot"
+          git config --global user.email "editorial@globaltravelreport.com"
+
+      - name: Test OpenAI API key
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Create logs directory
+          mkdir -p logs
+
+          # Test the OpenAI API key
+          echo "===== Testing OpenAI API Key =====" > logs/openai-test.log
+          node scripts/test-openai.js >> logs/openai-test.log 2>&1
+
+          # Check if the test was successful
+          if [ $? -eq 0 ]; then
+            echo "✅ OpenAI API key test passed"
+          else
+            echo "❌ OpenAI API key test failed"
+            cat logs/openai-test.log
+            exit 1
+          fi
+
+      - name: Generate daily stories
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          CRON_SECRET_KEY: ${{ secrets.CRON_SECRET_KEY }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          # Create logs directory
+          mkdir -p logs
+
+          # Run the story generator with 8 stories (6 travel + 2 cruise)
+          # The script now creates its own log file with the current date
+          node scripts/dailyStoryGenerator.js --count=8 --cruise-count=2
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          # Check if the script ran successfully
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Story generation completed successfully"
+          else
+            echo "❌ Story generation failed with exit code $EXIT_CODE"
+            # Display the last 50 lines of the log file
+            echo "Last 50 lines of log file:"
+            tail -n 50 $LOG_FILE
+            exit 1
+          fi
+
+      - name: Commit and push changes
+        run: |
+          # Check if there are any changes to commit
+          if [[ -n $(git status -s content/articles/) ]]; then
+            echo "===== Committing and pushing changes to GitHub =====" >> logs/daily-story-generator.log
+
+            # Add new story files
+            git add content/articles/
+
+            # Commit with today's date
+            git commit -m "Add daily stories for $(date +%Y-%m-%d)" --no-verify
+
+            # Push to the repository
+            git push
+
+            echo "✅ Changes pushed to GitHub successfully" >> logs/daily-story-generator.log
+          else
+            echo "No new stories to commit" >> logs/daily-story-generator.log
+          fi
+
+      - name: Revalidate website
+        env:
+          CRON_SECRET_KEY: ${{ secrets.CRON_SECRET_KEY }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Revalidating website =====" >> $LOG_FILE
+
+          # Run the revalidation script
+          node scripts/revalidate-website.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Check if the revalidation was successful
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Website revalidation completed successfully" >> $LOG_FILE
+            echo "✅ Website revalidation completed successfully"
+          else
+            echo "❌ Website revalidation failed with exit code $EXIT_CODE" >> $LOG_FILE
+            echo "❌ Website revalidation failed with exit code $EXIT_CODE"
+          fi
+
+          echo "===== Daily Story Generator Finished at $(date) =====" >> $LOG_FILE
+
+      - name: Post to social media
+        env:
+          # Social media API keys - these are optional, the script will skip platforms with missing keys
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          MEDIUM_ACCESS_TOKEN: ${{ secrets.MEDIUM_ACCESS_TOKEN }}
+          TUMBLR_API_KEY: ${{ secrets.TUMBLR_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Posting to social media =====" >> $LOG_FILE
+
+          # Create logs directory for social media poster
+          mkdir -p logs
+
+          # Run the social media poster script
+          node scripts/social-media-poster.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Check if the social media posting was successful
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Social media posting completed successfully" >> $LOG_FILE
+            echo "✅ Social media posting completed successfully"
+          else
+            echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)" >> $LOG_FILE
+            echo "⚠️ Social media posting completed with some issues (exit code: $EXIT_CODE)"
+            # This is not a critical error, so we don't exit with an error code
+          fi
+
+      - name: Monitor daily story generation
+        env:
+          ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+          NEXT_PUBLIC_SITE_URL: 'https://www.globaltravelreport.com'
+        run: |
+          # Get today's date for the log file
+          TODAY=$(date +%Y-%m-%d)
+          LOG_FILE="logs/daily-story-generator-${TODAY}.log"
+
+          echo "===== Monitoring daily story generation =====" >> $LOG_FILE
+
+          # Run the monitoring script
+          node scripts/monitor-daily-stories.js >> $LOG_FILE 2>&1
+
+          # Get the exit code
+          EXIT_CODE=$?
+
+          # Check if the monitoring was successful
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Daily story generation monitoring completed successfully" >> $LOG_FILE
+            echo "✅ Daily story generation monitoring completed successfully"
+          else
+            echo "⚠️ Daily story generation monitoring detected issues (exit code: $EXIT_CODE)" >> $LOG_FILE
+            echo "⚠️ Daily story generation monitoring detected issues (exit code: $EXIT_CODE)"
+            # This is not a critical error, so we don't exit with an error code
+          fi
+
+      - name: Upload logs as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: daily-story-logs
+          path: logs/*.log
+          retention-days: 7

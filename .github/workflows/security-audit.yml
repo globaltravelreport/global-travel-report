@@ -1,0 +1,110 @@
+name: Security Audit
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly on Sunday at midnight
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'middleware.ts'
+      - 'middleware/**'
+      - 'src/middleware/**'
+      - 'next.config.js'
+
+jobs:
+  security-audit:
+    name: Run Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run npm audit
+        run: npm audit --json > npm-audit.json || true
+      
+      - name: Run custom security audit
+        run: npm run security-audit:report
+      
+      - name: Upload security reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            npm-audit.json
+            security-audit-report.md
+      
+      - name: Check for high severity vulnerabilities
+        run: |
+          if grep -q '"severity":"high"' npm-audit.json || grep -q '"severity":"critical"' npm-audit.json; then
+            echo "High or critical severity vulnerabilities found!"
+            exit 1
+          fi
+          
+          if grep -q "### High Severity" security-audit-report.md; then
+            echo "High severity issues found in custom security audit!"
+            exit 1
+          fi
+  
+  dependency-review:
+    name: Review Dependencies
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: high
+          deny-licenses: 'GPL-3.0, AGPL-3.0'
+  
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript, typescript
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+  
+  notify:
+    name: Notify on Failure
+    needs: [security-audit, dependency-review, codeql-analysis]
+    if: failure()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Send notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: security-alerts
+          SLACK_COLOR: danger
+          SLACK_TITLE: Security Audit Failed
+          SLACK_MESSAGE: 'Security issues found in the Global Travel Report website. Please check the GitHub Actions workflow for details.'
+          SLACK_FOOTER: 'Global Travel Report Security Audit'

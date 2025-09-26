@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Uncovering Italy",
+    "description": "This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.",
+    "image": [
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-10T13:53:24.669Z",
+    "dateModified": "2025-04-10T13:53:24.669Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Uncovering Italy",
+    "description": "This article offers practical tips and insider advice to help budget-conscious travellers plan an affordable journey through the captivating regions of Italy.",
+    "url": "https://globaltravelreport.com/title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Italy"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Budget Travel",
+        "item": "https://globaltravelreport.com/category/budget-travel"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Italy",
+        "item": "https://globaltravelreport.com/destination/italy"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Uncovering Italy",
+        "item": "https://globaltravelreport.com/title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller"
+      }
+    ]
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["src/*"],
+      "@/src/*": ["src/*"],
+      "@/components/*": ["components/*", "src/components/*"],
+      "@/lib/*": ["lib/*", "src/lib/*"],
+      "@/types/*": ["types/*", "src/types/*"],
+      "@/utils/*": ["utils/*", "src/utils/*"],
+      "@/app/*": ["app/*"],
+      "@/config/*": ["src/config/*"]
+    },
+    "useUnknownInCatchVariables": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "coverage",
+    "global-travel-report",
+    "global-travel-report/**",
+    "**/__tests__/**",
+    "**/__mocks__/**",
+    "scripts/**/*.ts"
+  ]
+}

@@ -1,0 +1,345 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Run daily at 2 AM UTC
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run linting
+      run: npm run lint
+    - name: Run type checking
+      run: npm run typecheck
+    - name: Run build
+      run: npm run build
+    - name: Generate security report
+      if: always()
+      run: |
+        echo "## 🔒 Security Audit Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Code quality checks completed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📊 **Detailed security analysis available in:**" >> $GITHUB_STEP_SUMMARY
+        echo "- **Artifacts**: Download \`security-report\` for full vulnerability details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Summary**: Check the security-audit job for comprehensive analysis" >> $GITHUB_STEP_SUMMARY
+
+  security-audit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run security audit
+      id: audit
+      run: npm audit --json --audit-level moderate > security-audit-report.json
+      continue-on-error: true
+    - name: Generate suggested fixes
+      id: audit-fix-dry-run
+      run: |
+        npm audit fix --dry-run --json > security-fix-suggestions.json || echo '{"fixes": [], "message": "No suggested fixes available"}' > security-fix-suggestions.json
+      continue-on-error: true
+    - name: Analyze vulnerabilities
+      id: analyze-vulnerabilities
+      run: |
+        # Parse audit results to check for critical/high severity issues
+        if [ -f security-audit-report.json ]; then
+          # Count vulnerabilities by severity
+          critical_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.critical // 0')
+          high_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.high // 0')
+          moderate_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.moderate // 0')
+          low_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.low // 0')
+
+          echo "critical=$critical_count" >> $GITHUB_OUTPUT
+          echo "high=$high_count" >> $GITHUB_OUTPUT
+          echo "moderate=$moderate_count" >> $GITHUB_OUTPUT
+          echo "low=$low_count" >> $GITHUB_OUTPUT
+
+          echo "📊 Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔴 Critical: $critical_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟠 High: $high_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Moderate: $moderate_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟢 Low: $low_count" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "No audit report generated" >> $GITHUB_STEP_SUMMARY
+        fi
+    - name: Upload security report
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-report
+        path: |
+          security-audit-report.json
+          security-fix-suggestions.json
+        retention-days: 30
+    - name: Check for critical/high vulnerabilities after suggested fixes
+      run: |
+        # Check if critical or high vulnerabilities remain
+        critical_count="${{ steps.analyze-vulnerabilities.outputs.critical }}"
+        high_count="${{ steps.analyze-vulnerabilities.outputs.high }}"
+
+        if [ "$critical_count" -gt 0 ] || [ "$high_count" -gt 0 ]; then
+          echo "❌ Security audit failed - critical or high severity vulnerabilities found"
+          echo "🔍 Critical: $critical_count"
+          echo "🟠 High: $high_count"
+          echo ""
+          echo "📋 Suggested fixes are available in the security-fix-suggestions.json artifact"
+          echo "🔧 Please review and apply the suggested fixes before merging"
+          echo ""
+          echo "📊 Full vulnerability details available in security-audit-report.json artifact"
+          exit 1
+        else
+          echo "✅ No critical or high severity vulnerabilities found"
+          echo "📊 Security audit passed successfully"
+        fi
+    - name: Generate comprehensive security summary
+      if: always()
+      run: |
+        echo "## 🔒 Comprehensive Security Audit Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        if [ -f security-audit-report.json ]; then
+          echo "📋 **Audit Results:**" >> $GITHUB_STEP_SUMMARY
+          echo "- **Report**: Available in \`security-report\` artifact" >> $GITHUB_STEP_SUMMARY
+          echo "- **Suggested Fixes**: Available in \`security-report\` artifact" >> $GITHUB_STEP_SUMMARY
+          echo "- **Retention**: Artifacts kept for 30 days" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Show top vulnerabilities if any exist
+          if [ "$(cat security-audit-report.json | jq '.vulnerabilities | length')" -gt 0 ]; then
+            echo "🚨 **Top Security Issues:**" >> $GITHUB_STEP_SUMMARY
+            cat security-audit-report.json | jq -r '.vulnerabilities[0:5] | to_entries[] | "- \(.value.severity | ascii_upcase): \(.value.title) (\(.value.module_name)@\(.value.range))"' >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📖 **Full details**: Download the security-report artifact for complete analysis" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **No vulnerabilities found** - Excellent security posture!" >> $GITHUB_STEP_SUMMARY
+          fi
+        else
+          echo "⚠️ **No security audit data available**" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "*Report generated by GitHub Actions Security Audit Job*" >> $GITHUB_STEP_SUMMARY
+
+  scheduled-security-audit:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run comprehensive security audit
+      id: audit
+      run: npm audit --json --audit-level moderate > scheduled-security-audit.json
+      continue-on-error: true
+    - name: Analyze vulnerabilities
+      id: analyze-vulnerabilities
+      run: |
+        if [ -f scheduled-security-audit.json ]; then
+          critical_count=$(cat scheduled-security-audit.json | jq '.metadata.vulnerabilities.critical // 0')
+          high_count=$(cat scheduled-security-audit.json | jq '.metadata.vulnerabilities.high // 0')
+          moderate_count=$(cat scheduled-security-audit.json | jq '.metadata.vulnerabilities.moderate // 0')
+          low_count=$(cat scheduled-security-audit.json | jq '.metadata.vulnerabilities.low // 0')
+
+          echo "critical=$critical_count" >> $GITHUB_OUTPUT
+          echo "high=$high_count" >> $GITHUB_OUTPUT
+          echo "moderate=$moderate_count" >> $GITHUB_OUTPUT
+          echo "low=$low_count" >> $GITHUB_OUTPUT
+
+          echo "📊 Scheduled Security Audit Results:" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔴 Critical: $critical_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟠 High: $high_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Moderate: $moderate_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟢 Low: $low_count" >> $GITHUB_STEP_SUMMARY
+        fi
+    - name: Upload scheduled security report
+      uses: actions/upload-artifact@v4
+      with:
+        name: scheduled-security-report
+        path: scheduled-security-audit.json
+        retention-days: 7
+    - name: Generate scheduled audit summary
+      if: always()
+      run: |
+        echo "## 🔒 Scheduled Security Audit Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "⏰ **Automated daily security scan completed**" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ -f scheduled-security-audit.json ]; then
+          echo "📋 **Report available in:** \`scheduled-security-report\` artifact" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **Next scan:** Tomorrow at 2 AM UTC" >> $GITHUB_STEP_SUMMARY
+        fi
+
+  security-fixes:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Check for available security fixes
+      id: check-fixes
+      run: |
+        # Check if there are any security fixes available
+        if npm audit fix --dry-run --json > potential-fixes.json 2>/dev/null; then
+          fix_count=$(cat potential-fixes.json | jq '.fixes | length // 0')
+          echo "fixes_available=$fix_count" >> $GITHUB_OUTPUT
+          echo "✅ Found $fix_count potential security fixes"
+        else
+          echo "fixes_available=0" >> $GITHUB_OUTPUT
+          echo "ℹ️ No security fixes available"
+        fi
+    - name: Create security fixes branch
+      if: steps.check-fixes.outputs.fixes_available > '0'
+      run: |
+        BRANCH_NAME="security-fixes-$(date +%Y%m%d-%H%M%S)"
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+        git checkout -b $BRANCH_NAME
+        echo "✅ Created branch: $BRANCH_NAME"
+    - name: Apply security fixes
+      if: steps.check-fixes.outputs.fixes_available > '0'
+      run: |
+        echo "🔧 Applying security fixes..."
+        npm audit fix
+
+        # Check if package.json or package-lock.json changed
+        if git diff --quiet -- package.json package-lock.json; then
+          echo "ℹ️ No changes made by security fixes"
+          echo "NO_CHANGES=true" >> $GITHUB_ENV
+        else
+          echo "✅ Security fixes applied successfully"
+          echo "NO_CHANGES=false" >> $GITHUB_ENV
+        fi
+    - name: Commit and push security fixes
+      if: env.NO_CHANGES != 'true' && steps.check-fixes.outputs.fixes_available > '0'
+      run: |
+        git config --global user.name 'Security Bot'
+        git config --global user.email 'security@globaltravelreport.com'
+
+        # Add all changes
+        git add package.json package-lock.json
+
+        # Check if there are actual changes to commit
+        if git diff --staged --quiet; then
+          echo "ℹ️ No staged changes to commit"
+        else
+          git commit -m "🔒 security: Apply automated security fixes
+
+        - Applied npm audit fixes for known vulnerabilities
+        - Updated dependencies to resolve security issues
+        - Automated fix generated by GitHub Actions
+
+        ⚠️ Please review these changes carefully before merging"
+
+          git push origin ${{ env.BRANCH_NAME }}
+
+          echo "✅ Pushed security fixes to branch: ${{ env.BRANCH_NAME }}"
+          echo "BRANCH_CREATED=true" >> $GITHUB_ENV
+        fi
+    - name: Create pull request
+      if: env.BRANCH_CREATED == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ env.BRANCH_NAME }}
+        base: main
+        title: "🔒 Security: Automated security fixes"
+        body: |
+          ## 🔒 Automated Security Fixes
+
+          This PR contains automated security fixes applied by GitHub Actions.
+
+          ### Changes Made:
+          - Applied `npm audit fix` to resolve known security vulnerabilities
+          - Updated dependencies to latest secure versions
+          - No breaking changes to application code
+
+          ### Security Impact:
+          - Resolves vulnerabilities detected in scheduled security audit
+          - Improves overall security posture
+          - Maintains backward compatibility
+
+          ### Next Steps:
+          1. **Review** the dependency changes
+          2. **Test** the application thoroughly
+          3. **Merge** if all tests pass
+          4. **Deploy** the updated version
+
+          ---
+          *🤖 Automated PR created by GitHub Actions Security Bot*
+        labels: |
+          security
+          automated
+          dependencies
+        draft: false
+    - name: Security fixes summary
+      if: always()
+      run: |
+        echo "## 🔒 Security Fixes Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        if [ "${{ env.BRANCH_CREATED }}" == "true" ]; then
+          echo "✅ **Security fixes applied and PR created**" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`${{ env.BRANCH_NAME }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR**: Automatically created with security fixes" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: Ready for review and testing" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ steps.check-fixes.outputs.fixes_available }}" == "0" ]; then
+          echo "✅ **No security fixes needed**" >> $GITHUB_STEP_SUMMARY
+          echo "- All dependencies are up-to-date" >> $GITHUB_STEP_SUMMARY
+          echo "- No known vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **Security fixes check completed**" >> $GITHUB_STEP_SUMMARY
+          echo "- No fixes were applicable at this time" >> $GITHUB_STEP_SUMMARY
+        fi

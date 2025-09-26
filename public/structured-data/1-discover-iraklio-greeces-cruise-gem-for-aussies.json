@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Discover Iraklio: Greece's Cruise Gem for Aussies",
+    "description": "Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...",
+    "image": [
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-30T13:53:24.576Z",
+    "dateModified": "2025-04-30T13:53:24.576Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-discover-iraklio-greeces-cruise-gem-for-aussies"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Discover Iraklio: Greece's Cruise Gem for Aussies",
+    "description": "Embarking on a Grecian Odyssey: A Guide for Australian Travelers to Iraklio...",
+    "url": "https://globaltravelreport.com/1-discover-iraklio-greeces-cruise-gem-for-aussies",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Greece"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "'Culture",
+        "item": "https://globaltravelreport.com/category/'culture"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Greece",
+        "item": "https://globaltravelreport.com/destination/greece"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Discover Iraklio: Greece's Cruise Gem for Aussies",
+        "item": "https://globaltravelreport.com/1-discover-iraklio-greeces-cruise-gem-for-aussies"
+      }
+    ]
+  }
+]

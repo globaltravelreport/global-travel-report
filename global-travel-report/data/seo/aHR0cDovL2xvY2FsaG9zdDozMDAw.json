@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:3000",
+  "title": "Global Travel Report",
+  "metaDescription": "Your trusted source for travel news, reviews, tips and exclusive deals.",
+  "h1Count": 1,
+  "h2Count": 1,
+  "imageCount": 9,
+  "imagesWithoutAlt": 0,
+  "wordCount": 943,
+  "lighthouse": {
+    "performance": 0,
+    "accessibility": 0,
+    "seo": 0
+  },
+  "aiFeedback": "AI analysis disabled"
+}

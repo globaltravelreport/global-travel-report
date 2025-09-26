@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes",
+    "description": "A request by a Carnival Cruise Line passenger for the return of individual boxed cereals has been declined, citing practicality and local laws at ports of call as reasons.",
+    "image": [
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-05-01T13:53:24.639Z",
+    "dateModified": "2025-05-01T13:53:24.639Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes",
+    "description": "A request by a Carnival Cruise Line passenger for the return of individual boxed cereals has been declined, citing practicality and local laws at ports of call as reasons.",
+    "url": "https://globaltravelreport.com/title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes",
+    "image": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "International"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cruise",
+        "item": "https://globaltravelreport.com/category/cruise"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "International",
+        "item": "https://globaltravelreport.com/destination/international"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Carnival Cruise Line Declines to Reintroduce Individual Cereal Boxes",
+        "item": "https://globaltravelreport.com/title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes"
+      }
+    ]
+  }
+]

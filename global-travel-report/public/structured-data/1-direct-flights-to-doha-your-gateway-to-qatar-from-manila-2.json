@@ -1,0 +1,56 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Direct Flights to Doha: Your Gateway to Qatar from Manila",
+    "description": " Philippine Airlines, Qatar Airways, direct flights Manila Doha, Australian travelers to Qatar, AUD flight deals, best time to visit Qatar, Australian...",
+    "image": [
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-26T13:53:24.571Z",
+    "dateModified": "2025-04-26T13:53:24.571Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Destination",
+        "item": "https://globaltravelreport.com/category/destination"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Direct Flights to Doha: Your Gateway to Qatar from Manila",
+        "item": "https://globaltravelreport.com/1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2"
+      }
+    ]
+  }
+]
