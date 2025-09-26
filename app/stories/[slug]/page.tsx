@@ -57,12 +57,12 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   const optimizedImageUrl = story.imageUrl;
   const optimizedAltText = story.title;
 
-  // Generate Open Graph image URL
+  // Generate Open Graph image URL - ensure it's JPEG for Facebook compatibility
   const ogImage = optimizedImageUrl
     ? optimizedImageUrl.startsWith('http')
-      ? optimizedImageUrl
-      : `${process.env.NEXT_PUBLIC_SITE_URL}${optimizedImageUrl.startsWith('/') ? optimizedImageUrl : `/${optimizedImageUrl}`}`
-    : `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-image.jpg`;
+      ? optimizedImageUrl.replace(/\.webp$/i, '.jpg') // Convert WebP to JPEG if possible
+      : `${process.env.NEXT_PUBLIC_SITE_URL}${optimizedImageUrl.startsWith('/') ? optimizedImageUrl : `/${optimizedImageUrl}`}`.replace(/\.webp$/i, '.jpg')
+    : `${process.env.NEXT_PUBLIC_SITE_URL}/images/news-hero.jpg`;
 
   // Construct the canonical URL for this story
   const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;

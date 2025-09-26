@@ -37,8 +37,10 @@ export function FacebookShareButton({
         href: url,
       });
     } else {
-      // Fallback if FB SDK is not loaded
-      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+      // Fallback if FB SDK is not loaded - include image for better preview
+      const shareUrl = imageUrl
+        ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&picture=${encodeURIComponent(imageUrl)}`
+        : `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
       window.open(shareUrl, '_blank', 'width=600,height=400');
     }
   };
