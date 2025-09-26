@@ -1,0 +1,11 @@
+{
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "globaltravelreport/global-travel-report": {
+          "permissions": "write-all"
+        }
+      }
+    }
+  }
+}
