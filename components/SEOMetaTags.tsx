@@ -34,7 +34,7 @@ export default function SEOMetaTags({
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const currentUrl = canonicalUrl || `${siteUrl}${router.asPath}`;
-  const defaultImage = `${siteUrl}/images/og-default.jpg`;
+  const defaultImage = `${siteUrl}/images/og-image.jpg`;
   const imageUrl = ogImage || defaultImage;
   
   return (

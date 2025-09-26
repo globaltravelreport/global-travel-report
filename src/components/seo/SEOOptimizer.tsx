@@ -64,14 +64,14 @@ export function SEOOptimizer({
     // Update Open Graph tags
     updateMetaTag('property', 'og:title', data.title);
     updateMetaTag('property', 'og:description', data.description);
-    updateMetaTag('property', 'og:image', data.ogImage || '/images/og-default.jpg');
+    updateMetaTag('property', 'og:image', data.ogImage || '/images/og-image.jpg');
     updateMetaTag('property', 'og:type', data.ogType || 'website');
 
     // Update Twitter Card tags
     updateMetaTag('name', 'twitter:card', data.twitterCard || 'summary_large_image');
     updateMetaTag('name', 'twitter:title', data.title);
     updateMetaTag('name', 'twitter:description', data.description);
-    updateMetaTag('name', 'twitter:image', data.ogImage || '/images/og-default.jpg');
+    updateMetaTag('name', 'twitter:image', data.ogImage || '/images/og-image.jpg');
 
     // Update keywords
     if (data.keywords && data.keywords.length > 0) {
@@ -192,12 +192,12 @@ export function SEOOptimizer({
         {data.canonical && <link rel="canonical" href={data.canonical} />}
         <meta property="og:title" content={data.title} />
         <meta property="og:description" content={data.description} />
-        <meta property="og:image" content={data.ogImage || '/images/og-default.jpg'} />
+        <meta property="og:image" content={data.ogImage || '/images/og-image.jpg'} />
         <meta property="og:type" content={data.ogType || 'website'} />
         <meta name="twitter:card" content={data.twitterCard || 'summary_large_image'} />
         <meta name="twitter:title" content={data.title} />
         <meta name="twitter:description" content={data.description} />
-        <meta name="twitter:image" content={data.ogImage || '/images/og-default.jpg'} />
+        <meta name="twitter:image" content={data.ogImage || '/images/og-image.jpg'} />
         {data.keywords && data.keywords.length > 0 && (
           <meta name="keywords" content={data.keywords.join(', ')} />
         )}

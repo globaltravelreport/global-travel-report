@@ -24,7 +24,7 @@ export function SEOHead({
   title = 'Global Travel Report - Your Ultimate Travel Companion',
   description = 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
   keywords = ['travel', 'destinations', 'travel tips', 'travel guide', 'adventure', 'vacation'],
-  image = '/images/og-default.jpg',
+  image = '/images/og-image.jpg',
   article,
   noIndex = false,
   canonicalUrl,
