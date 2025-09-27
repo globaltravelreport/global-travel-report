@@ -1,8 +1,13 @@
 'use client';
 
-import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
+
+const DynamicCharts = dynamic(
+  () => import('@/components/analytics/AnalyticsDashboard'),
+  { ssr: false, loading: () => <div className="h-80 animate-pulse rounded bg-gray-100" /> }
+);
 
 /**
  * Admin analytics page
@@ -22,7 +27,7 @@ function AdminAnalyticsContent() {
       </div>
 
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <AnalyticsDashboard />
+        <DynamicCharts />
       </div>
     </div>
   );

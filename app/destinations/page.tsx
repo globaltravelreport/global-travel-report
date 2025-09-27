@@ -6,7 +6,9 @@ import OptimizedImage from '@/components/ui/OptimizedImage';
 import type { Metadata } from 'next';
 import { FAQSchema } from '@/components/seo/FAQSchema';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
-import ClientWorldMap from '@/components/maps/ClientWorldMap';
+import dynamic from 'next/dynamic';
+
+const DynamicMap = dynamic(() => import('@/components/maps/ClientWorldMap'), { ssr: false, loading: () => <div className="h-[500px] bg-gray-50" /> });
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -153,7 +155,7 @@ async function DestinationsPageContent() {
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Explore Destinations</h2>
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <ClientWorldMap
+              <DynamicMap
                 highlightedCountries={sortedValidCountries}
                 height={500}
                 showLabels={true}

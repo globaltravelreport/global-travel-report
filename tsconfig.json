@@ -32,7 +32,8 @@
       "@/utils/*": ["src/utils/*"],
       "@/app/*": ["app/*"],
       "@/config/*": ["src/config/*"],
-      "@/hooks/*": ["src/hooks/*"]
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"]
     },
     "useUnknownInCatchVariables": false,
     "noImplicitAny": false,
