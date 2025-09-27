@@ -84,7 +84,7 @@ async function DestinationsPageContent() {
       {/* Hero Section */}
       <div className="relative h-[300px] mb-12 rounded-lg overflow-hidden">
         <OptimizedImage
-          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&q=80&w=2400"
+          src="/images/destinations-hero.jpg"
           alt="Explore travel destinations around the world"
           fill
           className="object-cover"
@@ -93,7 +93,7 @@ async function DestinationsPageContent() {
           quality={90}
           loading="eager"
           fallbackSrc="/images/fallback.jpg"
-          unoptimized={true}
+          unoptimized={false}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="absolute inset-0 flex items-center justify-center">
