@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
+import { Metadata } from 'next';
 
 export default function StoriesIndexClient() {
   const [stories, setStories] = useState<Story[]>([]);
@@ -35,9 +36,13 @@ export default function StoriesIndexClient() {
     );
   }
 
-  // Get hero stories (featured or editor's pick)
-  const heroStories = stories.filter(story => story.editorsPick || story.featured).slice(0, 2);
-  const regularStories = stories.filter(story => !story.editorsPick && !story.featured);
+  // Get hero stories (featured or editor's pick) - only real content
+  const heroStories = stories
+    .filter(story => (story.editorsPick || story.featured) && story.content && story.content.length > 100)
+    .slice(0, 2);
+  const regularStories = stories
+    .filter(story => !story.editorsPick && !story.featured && story.content && story.content.length > 100)
+    .slice(0, 6); // Limit to 6 for performance
 
   return (
     <div className="min-h-screen bg-white">

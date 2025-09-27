@@ -66,7 +66,9 @@
     "test:e2e": "playwright test --headed",
     "analyze:performance": "npm run lighthouse:mobile && npm run lighthouse:desktop",
     "check:metadata": "node scripts/check-metadata.js",
-    "validate:social": "node scripts/validate-social-previews.js"
+    "validate:social": "node scripts/validate-social-previews.js",
+    "fetch:offers": "node scripts/fetch-affiliate-offers.js",
+    "refresh:offers": "npm run fetch:offers"
   },
   "dependencies": {
     "@google-analytics/data": "5.2.0",

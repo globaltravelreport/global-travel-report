@@ -11,9 +11,14 @@ import ClientWorldMap from '@/components/maps/ClientWorldMap';
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
   description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/destinations`,
+  },
   openGraph: {
     title: 'Destinations - Global Travel Report',
     description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/destinations`,
+    siteName: 'Global Travel Report',
     images: [
       {
         url: '/images/destinations-hero.jpg',
@@ -22,13 +27,30 @@ export const metadata: Metadata = {
         alt: 'Explore travel destinations around the world',
       },
     ],
+    type: 'website',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@globaltravelreport',
+    creator: '@globaltravelreport',
     title: 'Destinations - Global Travel Report',
     description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
     images: ['/images/destinations-hero.jpg'],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  category: 'travel',
+  keywords: ['travel destinations', 'travel guides', 'destination guides', 'travel tips', 'world travel', 'travel planning'],
 };
 
 // Server component that will be wrapped in a client component with Suspense

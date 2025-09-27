@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
+import { StoryDatabase } from '@/src/services/storyDatabase';
+import { useState, useEffect } from 'react';
+import { Story } from '@/types/Story';
 
 const CATEGORY_IMAGES: Record<string, string> = {
   'cruises': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1200&h=600',
@@ -21,7 +24,32 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 export default function CategoryGrid() {
+  const [stories, setStories] = useState<Story[]>([]);
+  const [loading, setLoading] = useState(true);
   const featuredCategories = getFeaturedCategories();
+
+  useEffect(() => {
+    const loadStories = async () => {
+      try {
+        const storyDb = StoryDatabase.getInstance();
+        const allStories = await storyDb.getAllStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error('Error loading stories for category grid:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadStories();
+  }, []);
+
+  // Get story count for each category
+  const getCategoryStoryCount = (categorySlug: string) => {
+    return stories.filter(story =>
+      story.category && story.category.toLowerCase() === categorySlug.toLowerCase()
+    ).length;
+  };
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -76,6 +104,13 @@ export default function CategoryGrid() {
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {category.description}
                 </p>
+
+                {/* Story Count */}
+                <div className="mb-4">
+                  <span className="inline-flex items-center px-3 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
+                    {getCategoryStoryCount(category.slug)} {getCategoryStoryCount(category.slug) === 1 ? 'Story' : 'Stories'}
+                  </span>
+                </div>
 
                 {/* Category Keywords */}
                 <div className="flex flex-wrap gap-2">
