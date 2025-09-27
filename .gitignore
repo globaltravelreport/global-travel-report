@@ -62,3 +62,7 @@ package-lock 2.json
 package-lock 3.json
 *.backup
 *.save
+
+# Ignore dependency folders
+**/node_modules/
+node_modules/
