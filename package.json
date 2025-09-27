@@ -57,7 +57,16 @@
     "content-audit": "node scripts/content-audit.js",
     "optimize-all": "npm run optimize-images && npm run convert-to-webp && npm run generate-sw && npm run enhance-seo && npm run generate-structured-data && npm run generate-sitemap",
     "build:optimized": "npm run optimize-all && next build",
-    "build:secure": "npm run security-check && npm run build:optimized"
+    "build:secure": "npm run security-check && npm run build:optimized",
+    "verify:affiliates": "node scripts/verify-affiliates.js",
+    "lighthouse": "lhci autorun",
+    "lighthouse:mobile": "lighthouse https://globaltravelreport.com --chrome-flags='--headless' --output=json --output-path=./lighthouse-mobile.json",
+    "lighthouse:desktop": "lighthouse https://globaltravelreport.com --chrome-flags='--headless' --preset=desktop --output=json --output-path=./lighthouse-desktop.json",
+    "test:regression": "playwright test",
+    "test:e2e": "playwright test --headed",
+    "analyze:performance": "npm run lighthouse:mobile && npm run lighthouse:desktop",
+    "check:metadata": "node scripts/check-metadata.js",
+    "validate:social": "node scripts/validate-social-previews.js"
   },
   "dependencies": {
     "@google-analytics/data": "5.2.0",

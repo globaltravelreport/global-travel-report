@@ -55,6 +55,9 @@ export const metadata: Metadata = {
     description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
     images: ['/og/home-1200x630.jpg'],
   },
+  facebook: {
+    appId: process.env.FACEBOOK_APP_ID || '1122233334445556',
+  },
   robots: {
     index: true,
     follow: true,
@@ -93,6 +96,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

@@ -11,20 +11,68 @@ type CategoryPageProps = {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = params;
-  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+
   // Find the category in the config
   const categoryData = CATEGORIES.find(cat => cat.slug === slug);
-  
+
   if (!categoryData) {
     return {
       title: 'Category Not Found - Global Travel Report',
       description: 'The requested category could not be found.',
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
-  
+
+  const categoryUrl = `${baseUrl}/categories/${slug}`;
+  const categoryImage = `https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1200&h=600`;
+
   return {
     title: `${categoryData.name} - Global Travel Report`,
     description: categoryData.description || `Explore travel stories about ${categoryData.name}. Find the latest news, tips, and insights.`,
+    alternates: {
+      canonical: categoryUrl,
+    },
+    openGraph: {
+      title: `${categoryData.name} - Global Travel Report`,
+      description: categoryData.description || `Explore travel stories about ${categoryData.name}. Find the latest news, tips, and insights.`,
+      url: categoryUrl,
+      siteName: 'Global Travel Report',
+      images: [
+        {
+          url: categoryImage,
+          width: 1200,
+          height: 630,
+          alt: `${categoryData.name} - Travel Stories and Guides`,
+        },
+      ],
+      type: 'website',
+      locale: 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryData.name} - Global Travel Report`,
+      description: categoryData.description || `Explore travel stories about ${categoryData.name}. Find the latest news, tips, and insights.`,
+      images: [categoryImage],
+      site: '@globaltravelreport',
+      creator: '@globaltravelreport',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    category: 'travel',
+    keywords: [...categoryData.keywords, 'travel', 'tourism', categoryData.name.toLowerCase()],
   };
 }
 

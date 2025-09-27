@@ -70,17 +70,24 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   // Get the base site URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+
   return {
     title,
     description,
     keywords: story.tags.join(', '),
+    alternates: {
+      canonical: storyUrl,
+    },
     openGraph: {
       title,
       description,
       type: "article",
       publishedTime: getSafeDateString(story.publishedAt, false, true),
+      modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt, false, true),
       authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
+      siteName: 'Global Travel Report',
       images: ogImage ? [
         {
           url: ogImage,
@@ -89,7 +96,6 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
           alt: optimizedAltText,
         },
       ] : [],
-      siteName: 'Global Travel Report',
       tags: story.tags,
       locale: 'en_AU',
       countryName: story.country,
@@ -99,11 +105,8 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       title,
       description,
       images: ogImage ? [ogImage] : [],
-      creator: "@GTravelReport",
-      site: "@GTravelReport",
-    },
-    alternates: {
-      canonical: storyUrl,
+      creator: "@globaltravelreport",
+      site: "@globaltravelreport",
     },
     robots: {
       index: true,

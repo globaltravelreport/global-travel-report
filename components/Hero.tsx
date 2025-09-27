@@ -104,7 +104,7 @@ const Hero = ({
       >
         <OptimizedImage
           src={heroImage}
-          alt=""
+          alt="Decorative background image showcasing travel scenery"
           fill
           className="object-cover"
           priority={true}
