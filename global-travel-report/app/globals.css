@@ -146,15 +146,6 @@
   transition-duration: 0.001ms !important;
 }
 
-/* Hide Stories tab in header */
-a[href="/stories"] {
-  display: none !important;
-}
-
-/* Hide View All Stories button */
-a[href="/stories"]:not(nav a) {
-  display: none !important;
-}
 
 /* Mobile optimizations */
 @media (max-width: 640px) {

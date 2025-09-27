@@ -14,6 +14,20 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Destinations - Global Travel Report',
     description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
+    images: [
+      {
+        url: '/images/destinations-hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Explore travel destinations around the world',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Destinations - Global Travel Report',
+    description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
+    images: ['/images/destinations-hero.jpg'],
   },
 };
 
