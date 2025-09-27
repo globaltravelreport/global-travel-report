@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Header from '@/src/components/layout/Header';
 import Footer from '@/src/components/layout/Footer';
+import AffiliatePartners from '@/src/components/affiliates/AffiliatePartners';
 import { cn } from '@/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '@/src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker';
@@ -163,6 +164,7 @@ export default function RootLayout({
                   </SearchParamsProvider>
                 </Suspense>
               </main>
+              <AffiliatePartners />
               <Footer />
             </div>
             <Toaster />
