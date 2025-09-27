@@ -141,9 +141,11 @@ export function getFallbackImage(category: string = ''): string {
   }
 }
 
-export default {
+const imageUtils = {
   imageLoader,
   getImageSizes,
   generateBlurDataURL,
   getFallbackImage
 };
+
+export default imageUtils;

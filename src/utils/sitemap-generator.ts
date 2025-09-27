@@ -178,7 +178,9 @@ export async function generateSitemapIndex(baseUrl: string, outputPath: string):
   }
 }
 
-export default {
+const sitemapGenerator = {
   generateSitemap,
   generateSitemapIndex
 };
+
+export default sitemapGenerator;

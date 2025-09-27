@@ -5,11 +5,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import DOMPurify from "isomorphic-dompurify";
 
-declare global {
-  interface Window {
-    gtag: (command: string, ...args: (string | object)[]) => void;
-  }
-}
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
