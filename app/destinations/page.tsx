@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
   description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/destinations`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/destinations`,
   },
   openGraph: {
     title: 'Destinations - Global Travel Report',
     description: 'Explore travel destinations from around the world. Find travel guides, tips, and stories for your next adventure.',
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/destinations`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/destinations`,
     siteName: 'Global Travel Report',
     images: [
       {

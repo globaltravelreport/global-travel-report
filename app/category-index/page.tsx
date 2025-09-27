@@ -4,9 +4,14 @@ import CategoryGrid from '@/src/components/CategoryGrid';
 export const metadata: Metadata = {
   title: 'Travel Categories - Global Travel Report',
   description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/category-index`,
+  },
   openGraph: {
     title: 'Travel Categories - Global Travel Report',
     description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/category-index`,
+    siteName: 'Global Travel Report',
     images: [
       {
         url: '/og/home-1200x630.jpg',
@@ -15,13 +20,30 @@ export const metadata: Metadata = {
         alt: 'Travel Categories - Global Travel Report',
       },
     ],
+    type: 'website',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@globaltravelreport',
+    creator: '@globaltravelreport',
     title: 'Travel Categories - Global Travel Report',
     description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
     images: ['/og/home-1200x630.jpg'],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  category: 'travel',
+  keywords: ['travel categories', 'travel guides', 'destination guides', 'travel tips', 'travel inspiration', 'travel blog'],
 };
 
 export default function CategoryIndexPage() {

@@ -268,18 +268,18 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
                   onClick={() => handleAffiliateClick(partner.name, partner.url)}
                 >
                   {/* Partner Logo */}
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 flex-shrink-0">
+                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                     <Image
                       src={partner.logo}
                       alt={`${partner.name} logo`}
                       fill
-                      className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                      sizes="(max-width: 640px) 64px, 80px"
+                      className="object-contain transition-all duration-300"
+                      sizes="(max-width: 640px) 96px, 112px"
                       loading="lazy"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = getAffiliateLogoFallback(partner.name);
-                        target.className = target.className.replace(/filter\s+grayscale[^0]*group-hover:grayscale-0/g, 'opacity-50');
+                        target.className = target.className.replace(/transition-all[^0]*duration-300/g, 'opacity-50 transition-opacity duration-300');
                       }}
                     />
                   </div>

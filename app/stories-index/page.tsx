@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Travel Stories - Global Travel Report',
   description: 'Discover inspiring travel stories, destination guides, and insider tips from around the world. Explore our collection of engaging travel content with stunning visuals and expert insights.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/stories-index`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/stories-index`,
   },
   openGraph: {
     title: 'Travel Stories - Global Travel Report',
     description: 'Discover inspiring travel stories, destination guides, and insider tips from around the world. Explore our collection of engaging travel content with stunning visuals and expert insights.',
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/stories-index`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/stories-index`,
     siteName: 'Global Travel Report',
     images: [
       {

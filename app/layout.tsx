@@ -17,7 +17,7 @@ import { SearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'),
   title: {
     default: 'Global Travel Report - Your Ultimate Travel Companion',
     template: '%s | Global Travel Report',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com',
+    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     title: 'Global Travel Report - Your Ultimate Travel Companion',
     description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
     images: ['/og/home-1200x630.jpg'],
   },
-  facebook: process.env.FACEBOOK_APP_ID ? {
-    appId: process.env.FACEBOOK_APP_ID,
-  } : undefined,
+  facebook: {
+    appId: '173706196043626',
+  },
   robots: {
     index: true,
     follow: true,
@@ -76,9 +76,9 @@ export const metadata: Metadata = {
     yahoo: process.env.YAHOO_VERIFICATION,
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com',
+    canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     languages: {
-      'en-US': process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com',
+      'en-US': process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     },
   },
   category: 'travel',
@@ -89,15 +89,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
   
   return (
     <html lang="en" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         {/* Google Analytics - Production Only */}
