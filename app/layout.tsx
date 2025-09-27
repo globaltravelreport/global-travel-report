@@ -140,11 +140,101 @@ export default function RootLayout({
               '@type': 'WebSite',
               name: 'Global Travel Report',
               url: baseUrl,
-              description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world.',
+              description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: `${baseUrl}/search?q={search_term_string}`,
                 'query-input': 'required name=search_term_string'
+              }
+            })
+          }}
+        />
+
+        {/* Enhanced structured data for affiliate partnerships */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Global Travel Report',
+              url: baseUrl,
+              logo: `${baseUrl}/images/logo.png`,
+              description: 'Your ultimate travel companion for discovering amazing destinations and travel tips.',
+              foundingDate: '2024',
+              knowsAbout: [
+                'Travel',
+                'Tourism',
+                'Travel Tips',
+                'Destinations',
+                'Travel Guides',
+                'Adventure Travel',
+                'Cultural Tourism'
+              ],
+              areaServed: 'Worldwide',
+              affiliatePartner: [
+                {
+                  '@type': 'Organization',
+                  name: 'Trip.com',
+                  url: 'https://trip.tpk.mx/qhlnnQh8'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Welcome Pickups',
+                  url: 'https://tpk.mx/NGGoA86T'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Yesim',
+                  url: 'https://yesim.tpk.mx/RyZzDsxA'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'EKTA',
+                  url: 'https://ektatraveling.tpk.mx/IUGS6Ovk'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Kiwitaxi',
+                  url: 'https://kiwitaxi.tpk.mx/NGL3ovB3'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Airalo',
+                  url: 'https://airalo.tpk.mx/M99krJZy'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'GetRentacar.com',
+                  url: 'https://getrentacar.tpk.mx/I3FuOWfB'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Surfshark VPN',
+                  url: 'https://get.surfshark.net/aff_c?offer_id=926&aff_id=39802'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Surfshark One',
+                  url: 'https://get.surfshark.net/aff_c?offer_id=1249&aff_id=39802'
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'Wise',
+                  url: 'https://wise.com/invite/ihpc/rodneyowenp'
+                }
+              ],
+              sameAs: [
+                'https://twitter.com/globaltravelreport',
+                'https://facebook.com/globaltravelreport',
+                'https://instagram.com/globaltravelreport',
+              ],
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+1-555-0123',
+                contactType: 'customer service',
+                availableLanguage: 'English',
+                email: 'contact@globaltravelreport.com'
               }
             })
           }}

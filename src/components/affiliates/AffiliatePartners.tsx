@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { affiliatePartners, getAffiliateLogoFallback, AffiliatePartner } from '@/src/data/affiliatePartners';
 
@@ -28,15 +28,38 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>({});
   const [isLoading, setIsLoading] = useState(enableVerification);
   const [hasError, setHasError] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const maxRetries = 3;
 
   // Filter and limit partners
   const displayPartners = maxPartners
     ? affiliatePartners.slice(0, maxPartners)
     : affiliatePartners;
 
-  // Verify affiliate links
-  const verifyLinks = useCallback(async () => {
-    if (!enableVerification) {
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Verify affiliate links with retry logic
+  const verifyLinks = useCallback(async (attemptNumber = 1) => {
+    if (!enableVerification || !isVisible) {
       setIsLoading(false);
       return;
     }
@@ -46,32 +69,58 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
       setHasError(false);
 
       const urls = displayPartners.map(partner => partner.url);
-      const response = await fetch(`/api/affiliates/verify?urls=${encodeURIComponent(urls.join(','))}`);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+
+      const response = await fetch(`/api/affiliates/verify?urls=${encodeURIComponent(urls.join(','))}`, {
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`Verification failed: ${response.status}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
 
       if (data.success) {
         setVerificationStatus(data.results);
+        setRetryCount(0); // Reset retry count on success
       } else {
-        throw new Error(data.error || 'Verification failed');
+        throw new Error(data.error || 'Verification API returned error');
       }
     } catch (error) {
-      console.error('Affiliate verification error:', error);
+      console.error(`Affiliate verification attempt ${attemptNumber} failed:`, error);
+
+      if (attemptNumber < maxRetries) {
+        // Exponential backoff retry
+        const delay = Math.min(1000 * Math.pow(2, attemptNumber - 1), 5000);
+        setTimeout(() => {
+          setRetryCount(attemptNumber);
+          verifyLinks(attemptNumber + 1);
+        }, delay);
+        return;
+      }
+
+      // Max retries reached
       setHasError(true);
+      setRetryCount(0);
+
       // Set all as valid on error to avoid hiding partners
       const fallbackStatus: VerificationStatus = {};
       displayPartners.forEach(partner => {
-        fallbackStatus[partner.url] = { isValid: true, responseTime: 0 };
+        fallbackStatus[partner.url] = {
+          isValid: true,
+          responseTime: 0,
+          error: error instanceof Error ? error.message : 'Verification failed'
+        };
       });
       setVerificationStatus(fallbackStatus);
     } finally {
       setIsLoading(false);
     }
-  }, [displayPartners, enableVerification]);
+  }, [displayPartners, enableVerification, isVisible, maxRetries]);
 
   // Initial verification
   useEffect(() => {
@@ -90,8 +139,27 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
     return status ? status.isValid : true; // Show by default if not verified yet
   };
 
+  // Track affiliate link clicks for analytics
+  const handleAffiliateClick = (partnerName: string, url: string) => {
+    // Track the click event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click', {
+        event_category: 'affiliate',
+        event_label: partnerName,
+        value: 1
+      });
+    }
+
+    // Log for debugging (remove in production)
+    console.log(`Affiliate click tracked: ${partnerName} -> ${url}`);
+
+    // Open link in new tab
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section
+      ref={sectionRef}
       className={`bg-gradient-to-b from-gray-50 to-white border-t border-gray-200 ${className}`}
       aria-labelledby="affiliate-partners-heading"
     >
@@ -110,21 +178,51 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
           </div>
         )}
 
-        {/* Loading State */}
+        {/* Enhanced Loading State */}
         {isLoading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A14A]"></div>
-            <span className="ml-3 text-gray-600">Verifying partner links...</span>
+          <div className="flex flex-col justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A14A] mb-3"></div>
+            <span className="text-gray-600">
+              {retryCount > 0
+                ? `Verifying partner links (attempt ${retryCount + 1}/${maxRetries})...`
+                : 'Verifying partner links...'
+              }
+            </span>
+            {retryCount > 0 && (
+              <button
+                onClick={() => verifyLinks(1)}
+                className="mt-3 text-sm text-[#C9A14A] hover:text-[#B89038] underline focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 rounded"
+                aria-label="Retry link verification"
+              >
+                Retry verification
+              </button>
+            )}
           </div>
         )}
 
-        {/* Error State */}
+        {/* Enhanced Error State */}
         {hasError && (
           <div className="text-center py-8">
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-md mx-auto">
-              <p className="text-yellow-800 text-sm">
-                ⚠️ Some partner links may be temporarily unavailable. Partners will appear as they become available.
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-lg mx-auto">
+              <div className="flex items-center justify-center mb-3">
+                <svg className="w-6 h-6 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <h3 className="text-lg font-medium text-yellow-800">Verification Temporarily Unavailable</h3>
+              </div>
+              <p className="text-yellow-700 text-sm mb-4">
+                Partner links are being displayed with limited verification. All services remain fully functional.
               </p>
+              <button
+                onClick={() => verifyLinks(1)}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-colors"
+                aria-label="Retry link verification"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Retry Verification
+              </button>
             </div>
           </div>
         )}
@@ -147,8 +245,8 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
                   href={partner.url}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="group block relative bg-white rounded-xl border border-gray-200 hover:border-[#C9A14A]/30 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 p-6 h-full flex flex-col items-center justify-center text-center"
-                  aria-label={`Visit ${partner.name} - ${partner.description}`}
+                  className="group block relative bg-white rounded-xl border border-gray-200 hover:border-[#C9A14A]/30 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-[#C9A14A] focus-visible:ring-offset-2 p-6 h-full flex flex-col items-center justify-center text-center"
+                  aria-label={`Visit ${partner.name} - ${partner.description}. Opens in new tab.`}
                   onError={(e) => {
                     // Fallback to placeholder if logo fails to load
                     const target = e.target as HTMLImageElement;
@@ -156,6 +254,14 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
                       target.src = getAffiliateLogoFallback(partner.name);
                     }
                   }}
+                  onKeyDown={(e) => {
+                    // Enhanced keyboard navigation
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleAffiliateClick(partner.name, partner.url);
+                    }
+                  }}
+                  onClick={() => handleAffiliateClick(partner.name, partner.url)}
                 >
                   {/* Partner Logo */}
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 flex-shrink-0">
