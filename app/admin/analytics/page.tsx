@@ -3,9 +3,10 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const DynamicCharts = dynamic(
-  () => import('@/components/analytics/AnalyticsDashboard'),
+  () => import('@/components/analytics/AnalyticsDashboard').then((mod) => mod.AnalyticsDashboard),
   { ssr: false, loading: () => <div className="h-80 animate-pulse rounded bg-gray-100" /> }
 );
 
@@ -14,6 +15,7 @@ const DynamicCharts = dynamic(
  * @returns The admin analytics page component
  */
 function AdminAnalyticsContent() {
+  const [chartsRef, entry] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px' });
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
@@ -26,8 +28,8 @@ function AdminAnalyticsContent() {
         </Link>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <DynamicCharts />
+      <div ref={chartsRef} className="bg-white p-6 rounded-lg shadow-md min-h-80">
+        {entry?.isIntersecting ? <DynamicCharts /> : <div className="h-80 animate-pulse rounded bg-gray-100" />}
       </div>
     </div>
   );

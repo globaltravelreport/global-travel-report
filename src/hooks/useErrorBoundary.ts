@@ -1,9 +1,11 @@
+'use client';
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
   ErrorBoundaryState,
   ErrorBoundaryOptions,
   FallbackProps
-} from '@/types/error-boundary';
+} from '../types/error-boundary';
 
 export function useErrorBoundary({
   onError,

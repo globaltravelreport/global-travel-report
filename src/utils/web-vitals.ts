@@ -113,6 +113,18 @@ export function clearStoredWebVitalsMetrics(): void {
 }
 
 /**
+ * Send Web Vitals metric to service worker
+ *
+ * @param metric - The Web Vitals metric to send
+ */
+function sendToServiceWorker(metric: WebVitalsMetric) {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    navigator.serviceWorker.controller?.postMessage({ type: 'WEB_VITAL', payload: metric });
+  } catch {}
+}
+
+/**
  * Report Web Vitals metrics
  *
  * This function is used with Next.js's reportWebVitals function
@@ -122,21 +134,26 @@ export function clearStoredWebVitalsMetrics(): void {
  */
 export function reportWebVitals(metric: NextWebVitalsMetric): void {
   const { id, name, value } = metric;
-  // delta is not available in NextWebVitalsMetric type, so we use any to access it
   const delta = (metric as any).delta;
-
-  // Get the rating for the metric
   const rating = getMetricRating(name, value);
-
-  // Store the metric
-  storeWebVitalsMetric({
+  const metricObj: WebVitalsMetric = {
     id,
     name,
     value,
     rating,
     delta: delta || 0,
     navigationType: (performance as any).getEntriesByType?.('navigation')?.[0]?.type || '',
-  });
+  };
+  storeWebVitalsMetric(metricObj);
+  sendToServiceWorker(metricObj);
+  // Budget checks
+  if (
+    (name === 'LCP' && value > 2500) ||
+    (name === 'CLS' && value > 0.1) ||
+    (name === 'INP' && value > 200)
+  ) {
+    console.warn(`[Web Vitals] ${name} exceeded budget:`, value);
+  }
 }
 
 export default reportWebVitals;

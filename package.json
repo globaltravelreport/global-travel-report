@@ -73,7 +73,10 @@
     "check:metadata": "node scripts/check-metadata.js",
     "validate:social": "node scripts/validate-social-previews.js",
     "fetch:offers": "node scripts/fetch-affiliate-offers.js",
-    "refresh:offers": "npm run fetch:offers"
+    "refresh:offers": "npm run fetch:offers",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:open": "cross-env ANALYZE=true next build && open .next/analyze/client.html",
+    "analyze:server": "cross-env ANALYZE=true next build && open .next/analyze/server.html"
   },
   "dependencies": {
     "@google-analytics/data": "5.2.0",

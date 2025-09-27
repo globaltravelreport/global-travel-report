@@ -7,8 +7,32 @@ import type { Metadata } from 'next';
 import { FAQSchema } from '@/components/seo/FAQSchema';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 import dynamic from 'next/dynamic';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const DynamicMap = dynamic(() => import('@/components/maps/ClientWorldMap'), { ssr: false, loading: () => <div className="h-[500px] bg-gray-50" /> });
+
+function MapSection({ sortedValidCountries }) {
+  const [ref, entry] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px' });
+  return (
+    <div ref={ref} className="relative min-h-[500px]">
+      {entry?.isIntersecting ? (
+        <DynamicMap
+          highlightedCountries={sortedValidCountries}
+          height={500}
+          showLabels={true}
+          enableZoom={true}
+          initialZoom={2}
+          highlightColor="#3b82f6"
+        />
+      ) : (
+        <div className="h-[500px] bg-gray-50" />
+      )}
+      <div className="p-4 bg-gray-50 text-sm text-gray-500">
+        Click on a highlighted country to view stories from that destination
+      </div>
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -155,17 +179,7 @@ async function DestinationsPageContent() {
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Explore Destinations</h2>
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <DynamicMap
-                highlightedCountries={sortedValidCountries}
-                height={500}
-                showLabels={true}
-                enableZoom={true}
-                initialZoom={2}
-                highlightColor="#3b82f6"
-              />
-              <div className="p-4 bg-gray-50 text-sm text-gray-500">
-                Click on a highlighted country to view stories from that destination
-              </div>
+              <MapSection sortedValidCountries={sortedValidCountries} />
             </div>
           </div>
 

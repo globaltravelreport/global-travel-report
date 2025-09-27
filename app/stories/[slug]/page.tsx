@@ -16,11 +16,10 @@ import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/utils/meta";
 import { StoryShareSection } from "@/components/stories/StoryShareSection";
 import { EnhancedSocialShare } from "@/components/social/EnhancedSocialShare";
-import { FacebookMetaTags } from "@/components/social/FacebookMetaTags";
-import { EnhancedOpenGraph } from "@/components/social/EnhancedOpenGraph";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
+import { generateFacebookImage, generateFacebookMeta } from "@/utils/facebook-optimizer";
 
 import PopularTags from "@/src/components/ui/PopularTags";
 import CommentSystem from "@/src/components/ui/CommentSystem";
@@ -53,16 +52,18 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   // Generate optimized meta title and description
   const { title, description } = generateStoryMeta(story);
 
-  // Basic image data
+  // Generate Facebook-optimized metadata
+  const facebookMeta = generateFacebookMeta({
+    title,
+    description,
+    imageUrl: story.imageUrl,
+    url: storyUrl,
+    type: 'article',
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'
+  });
+
   const optimizedImageUrl = story.imageUrl;
   const optimizedAltText = story.title;
-
-  // Generate Open Graph image URL - ensure it's JPEG for Facebook compatibility
-  const ogImage = optimizedImageUrl
-    ? optimizedImageUrl.startsWith('http')
-      ? optimizedImageUrl.replace(/\.webp$/i, '.jpg') // Convert WebP to JPEG if possible
-      : `${process.env.NEXT_PUBLIC_SITE_URL}${optimizedImageUrl.startsWith('/') ? optimizedImageUrl : `/${optimizedImageUrl}`}`.replace(/\.webp$/i, '.jpg')
-    : `${process.env.NEXT_PUBLIC_SITE_URL}/images/news-hero.jpg`;
 
   // Construct the canonical URL for this story
   const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;
@@ -80,17 +81,17 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       canonical: storyUrl,
     },
     openGraph: {
-      title,
-      description,
+      title: facebookMeta.title,
+      description: facebookMeta.optimizedDescription,
       type: "article",
       publishedTime: getSafeDateString(story.publishedAt, false, true),
       modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt, false, true),
       authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
       siteName: 'Global Travel Report',
-      images: ogImage ? [
+      images: facebookMeta.image ? [
         {
-          url: ogImage,
+          url: facebookMeta.image,
           width: 1200,
           height: 630,
           alt: optimizedAltText,
@@ -102,9 +103,9 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
-      images: ogImage ? [ogImage] : [],
+      title: facebookMeta.title,
+      description: facebookMeta.optimizedDescription,
+      images: facebookMeta.image ? [facebookMeta.image] : [],
       creator: "@globaltravelreport",
       site: "@globaltravelreport",
     },
@@ -155,29 +156,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
     return (
       <div>
-        <FacebookMetaTags
-          appId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
-          url={storyUrl}
-        />
-
-        {/* Enhanced Open Graph tags for better social sharing */}
-        <EnhancedOpenGraph
-          title={story.title}
-          description={story.excerpt || story.title}
-          url={storyUrl}
-          type="article"
-          images={[
-            story.coverImage
-          ]}
-          facebookAppId={process.env.FACEBOOK_APP_ID || '1122233334445556'}
-          article={{
-            publishedTime: getSafeDateString(story.publishedAt, false, true),
-            modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt, false, true),
-            authors: ['Global Travel Report Editorial Team'],
-            section: story.category,
-            tags: story.tags
-          }}
-        />
 
         {/* Add structured data for SEO */}
         <StructuredData

@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+'use client';
 
-export function useIntersectionObserver({ root = null, rootMargin = '0px', threshold = 0, freezeOnceVisible = true } = {}) {
+import { useEffect, useRef, useState, RefObject } from 'react';
+
+export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>({ root = null, rootMargin = '0px', threshold = 0, freezeOnceVisible = true } = {}): readonly [RefObject<T>, IntersectionObserverEntry | null] {
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<T>(null);
   const frozen = entry?.isIntersecting && freezeOnceVisible;
 
   useEffect(() => {
@@ -12,5 +14,6 @@ export function useIntersectionObserver({ root = null, rootMargin = '0px', thres
     return () => observer.disconnect();
   }, [root, rootMargin, threshold, frozen]);
 
-  return [ref, entry] as const;
+  // TypeScript workaround: cast to RefObject<T>
+  return [ref as RefObject<T>, entry] as const;
 }

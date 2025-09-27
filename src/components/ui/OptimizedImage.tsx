@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { getBlurDataURL, getResponsiveSizes } from '@/utils/image-optimization';
+import reportWebVitals from '@/utils/web-vitals';
 
 interface OptimizedImageProps {
   src: string;
@@ -35,19 +38,40 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [imageSrc, setImageSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [ioRef, entry] = useIntersectionObserver({ rootMargin: '200px' });
+  const isVisible = priority || entry?.isIntersecting;
+
+  // Blur placeholder logic
+  const blurDataURL = props.blurDataURL || getBlurDataURL(src);
+  const showBlur = !loaded && !!blurDataURL;
+
+  // Responsive sizes
+  const responsiveSizes = sizes || (width ? getResponsiveSizes(width) : '100vw');
 
   const handleError = () => {
-    if (!hasError) {
+    if (retryCount < 2) {
+      setRetryCount(retryCount + 1);
+      setImageSrc(src + (src.includes('?') ? '&' : '?') + 'retry=' + (retryCount + 1));
+    } else if (!hasError) {
       setHasError(true);
       setImageSrc(fallbackSrc);
       onError?.();
     }
   };
 
+  const handleLoadingComplete = (result: any) => {
+    setLoaded(true);
+    if (priority && typeof window !== 'undefined') {
+      reportWebVitals({ name: 'LCP', value: performance.now(), id: src, delta: 0, navigationType: 'navigate' } as any);
+    }
+  };
+
   // If it's an Unsplash URL, ensure it has stable parameters
   const optimizedSrc = React.useMemo(() => {
     if (imageSrc.includes('images.unsplash.com') && !imageSrc.includes('?auto=format&q=80&w=')) {
-      // Add stable parameters to Unsplash URLs
       const separator = imageSrc.includes('?') ? '&' : '?';
       return `${imageSrc}${separator}auto=format&q=80&w=${width || 2400}`;
     }
@@ -57,34 +81,48 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const imageProps = {
     src: optimizedSrc,
     alt,
-    className: cn('transition-opacity duration-300', className),
+    className: cn('transition-opacity duration-300', className, showBlur ? 'opacity-0' : 'opacity-100'),
     priority,
     quality,
-    sizes: sizes || (fill ? '100vw' : undefined),
+    sizes: responsiveSizes,
     onError: handleError,
+    onLoadingComplete: handleLoadingComplete,
+    placeholder: blurDataURL ? ('blur' as const) : undefined,
+    blurDataURL,
     ...props
   };
 
   if (fill) {
     return (
-      <div className={cn('relative w-full h-full')}>
-        <Image
-          {...imageProps}
-          alt={alt}
-          fill
-          style={{ objectFit: 'cover' }}
-        />
+      <div ref={el => { containerRef.current = el; ioRef.current = el; }} className={cn('relative w-full h-full')}>
+        {isVisible ? (
+          <Image
+            {...imageProps}
+            alt={alt}
+            fill
+            style={{ objectFit: 'cover', opacity: loaded ? 1 : 0.5, transition: 'opacity 0.3s' }}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-100 animate-pulse" />
+        )}
       </div>
     );
   }
 
   return (
-    <Image
-      {...imageProps}
-      alt={alt}
-      width={width}
-      height={height}
-    />
+    <div ref={el => { containerRef.current = el; ioRef.current = el; }} style={{ width, height }}>
+      {isVisible ? (
+        <Image
+          {...imageProps}
+          alt={alt}
+          width={width}
+          height={height}
+          style={{ opacity: loaded ? 1 : 0.5, transition: 'opacity 0.3s' }}
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-100 animate-pulse" style={{ width, height }} />
+      )}
+    </div>
   );
 };
 

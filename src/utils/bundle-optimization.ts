@@ -1,3 +1,5 @@
+import dynamic from 'next/dynamic';
+
 export function dynamicImportWithLoading(importFn, loading) {
   return dynamic(importFn, { ssr: false, loading });
 }

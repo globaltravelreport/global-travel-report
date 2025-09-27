@@ -13,6 +13,7 @@ import AITravelAssistantMount from '../src/components/experimental/AITravelAssis
 import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
+import SWMount from './SWMount';
  
 const inter = Inter({ subsets: ['latin'] });
 
@@ -250,6 +251,7 @@ export default function RootLayout({
         />
       </head>
       <body className={cn(inter.className, 'antialiased')}>
+        <SWMount />
         <AccessibilityProvider>
           <SkipToContent />
           <ErrorBoundary>

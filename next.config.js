@@ -1,9 +1,27 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withBundleAnalyzer({
   // Enable experimental features
   experimental: {
-    optimizeCss: true
+    optimizeCss: true,
+    optimizePackageImports: [
+      'date-fns',
+      '@radix-ui/react-*',
+      'lucide-react',
+      'react-icons',
+    ],
+  },
+  modularizeImports: {
+    'date-fns': {
+      transform: 'date-fns/{{member}}',
+    },
+    'lodash': {
+      transform: 'lodash/{{member}}',
+    },
+    'react-icons': {
+      transform: 'react-icons/{{member}}',
+    },
   },
 
   // Image optimization
@@ -95,26 +113,30 @@ const nextConfig = {
   // Compression and optimization
   compress: true,
   poweredByHeader: false,
-  
-  // Bundle analyzer (only in development)
-  ...(process.env.ANALYZE === 'true' && {
-    webpack: (config, { isServer }) => {
-      if (!isServer) {
-        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-        config.plugins.push(
-          new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            openAnalyzer: false,
-            reportFilename: '../bundle-analyzer-report.html',
-          })
-        );
-      }
-      return config;
-    },
-  }),
-
-  // Keep webpack configuration minimal to avoid SSR runtime issues
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        recharts: {
+          test: /[\\/]node_modules[\\/]recharts[\\/]/,
+          name: 'recharts',
+          chunks: 'all',
+          priority: 20,
+        },
+        leaflet: {
+          test: /[\\/]node_modules[\\/]leaflet[\\/]/,
+          name: 'leaflet',
+          chunks: 'all',
+          priority: 20,
+        },
+        framerMotion: {
+          test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+          name: 'framer-motion',
+          chunks: 'all',
+          priority: 20,
+        },
+      };
+    }
     return config;
   },
 
@@ -149,6 +171,6 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-};
+});
 
 module.exports = nextConfig;

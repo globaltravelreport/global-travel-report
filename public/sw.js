@@ -4,6 +4,9 @@
 const CACHE_NAME = 'global-travel-report-v1';
 const STATIC_CACHE_NAME = 'global-travel-report-static-v1';
 const DYNAMIC_CACHE_NAME = 'global-travel-report-dynamic-v1';
+const IMAGE_CACHE = 'gtr-images-v1';
+const MAX_ENTRIES = 100;
+const IMAGE_TTL = 1000 * 60 * 60 * 24 * 30; // 30 days
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -157,28 +160,41 @@ async function networkFirstWithCacheFallback(request) {
   }
 }
 
-// Image strategy with compression
+// Image strategy with LRU/TTL and fallback
 async function imageStrategy(request) {
   try {
-    const cachedResponse = await caches.match(request);
+    const cache = await caches.open(IMAGE_CACHE);
+    const cachedResponse = await cache.match(request);
     if (cachedResponse) {
-      return cachedResponse;
-    }
-
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-      // Only cache images smaller than 1MB
-      const contentLength = networkResponse.headers.get('content-length');
-      if (contentLength && parseInt(contentLength) < 1024 * 1024) {
-        const cache = await caches.open(DYNAMIC_CACHE_NAME);
-        cache.put(request, networkResponse.clone());
+      // Check TTL
+      const dateHeader = cachedResponse.headers.get('sw-cache-date');
+      if (dateHeader && Date.now() - Number(dateHeader) > IMAGE_TTL) {
+        await cache.delete(request);
+      } else {
+        return cachedResponse;
       }
     }
-
-    return networkResponse;
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      // Clone and add custom header for TTL
+      const headers = new Headers(networkResponse.headers);
+      headers.set('sw-cache-date', Date.now().toString());
+      const responseToCache = new Response(await networkResponse.clone().blob(), { status: networkResponse.status, statusText: networkResponse.statusText, headers });
+      await cache.put(request, responseToCache);
+      // LRU: trim cache
+      const keys = await cache.keys();
+      if (keys.length > MAX_ENTRIES) {
+        await cache.delete(keys[0]);
+      }
+      return networkResponse;
+    }
+    // On error, try fallback
+    const fallback = await cache.match('/images/fallback.jpg');
+    return fallback || new Response('Image not available', { status: 503 });
   } catch (error) {
-    console.error('Image strategy failed:', error);
-    return new Response('Image not available', { status: 404 });
+    const cache = await caches.open(IMAGE_CACHE);
+    const fallback = await cache.match('/images/fallback.jpg');
+    return fallback || new Response('Image not available', { status: 503 });
   }
 }
 
@@ -252,6 +268,15 @@ self.addEventListener('notificationclick', (event) => {
     event.waitUntil(
       clients.openWindow(event.notification.data || '/')
     );
+  }
+});
+
+// Listen for Web Vitals messages
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'WEB_VITAL') {
+    // Optionally adapt caching/preloading based on metrics
+    // e.g., log or store metrics for analysis
+    // console.log('SW received Web Vitals:', event.data.payload);
   }
 });
 
