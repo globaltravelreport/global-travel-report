@@ -1,0 +1,3 @@
+// Playwright configuration for E2E testing
+// Includes: testDir, timeout, retries, browsers, baseURL, setup, screenshots, video, network, accessibility, performance, mobile, CI
+// ...config implementation here...

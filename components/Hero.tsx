@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import OptimizedImage from '@/components/ui/OptimizedImage';
+import OptimizedImage from './OptimizedImage';
 import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicLayoutEffect';
 
 interface HeroProps {

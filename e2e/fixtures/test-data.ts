@@ -1,0 +1,3 @@
+// E2E test data fixtures for Playwright
+// Includes: stories, user journeys, search, categories, errors, performance, mobile, accessibility, SEO, API mocks
+// ...fixture implementation here...

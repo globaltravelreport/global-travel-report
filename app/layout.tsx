@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import Header from '@/src/components/layout/Header';
-import Footer from '@/src/components/layout/Footer';
-import AffiliatePartners from '@/src/components/affiliates/AffiliatePartners';
-import { cn } from '@/utils/cn';
-import { AccessibilityProvider, SkipToContent } from '@/src/components/accessibility/AccessibilityProvider';
-import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker';
-import AITravelAssistantMount from '@/src/components/experimental/AITravelAssistantMount';
-import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics';
+import { Toaster } from '../src/components/ui/toaster';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import Header from '../src/components/layout/Header';
+import Footer from '../src/components/layout/Footer';
+import AffiliatePartners from '../src/components/affiliates/AffiliatePartners';
+import { cn } from '../src/utils/cn';
+import { AccessibilityProvider, SkipToContent } from '../src/components/accessibility/AccessibilityProvider';
+import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
+import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
+import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 import { Suspense } from 'react';
-import { SearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
+import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
  
 const inter = Inter({ subsets: ['latin'] });
 

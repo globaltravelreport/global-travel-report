@@ -1,0 +1,3 @@
+// E2E tests for search functionality using Playwright
+// Covers: search, filters, results, pagination, empty state, performance, mobile, accessibility, URL state, error handling
+// ...test implementation here...

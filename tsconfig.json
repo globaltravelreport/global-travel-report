@@ -28,11 +28,11 @@
       "@/*": ["src/*"],
       "@/src/*": ["src/*"],
       "@/components/*": ["src/components/*", "components/*"],
-      "@/lib/*": ["src/lib/*"],
       "@/types/*": ["types/*", "src/types/*"],
       "@/utils/*": ["src/utils/*"],
       "@/app/*": ["app/*"],
-      "@/config/*": ["src/config/*"]
+      "@/config/*": ["src/config/*"],
+      "@/hooks/*": ["src/hooks/*"]
     },
     "useUnknownInCatchVariables": false,
     "noImplicitAny": false,
