@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com',
     siteName: 'Global Travel Report',
     title: 'Global Travel Report - Your Ultimate Travel Companion',
-    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world.',
+    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/images/og-image.jpg`,
+        url: '/og/home-1200x630.jpg',
         width: 1200,
         height: 630,
-        alt: 'Global Travel Report',
+        alt: 'Global Travel Report - Your Ultimate Travel Companion',
       },
     ],
   },
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Global Travel Report - Your Ultimate Travel Companion',
-    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world.',
-    images: [`${process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com'}/images/og-image.jpg`],
+    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
+    images: ['/og/home-1200x630.jpg'],
   },
   robots: {
     index: true,

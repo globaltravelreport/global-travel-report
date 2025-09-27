@@ -203,7 +203,7 @@ const Hero = ({
                 {index === array.length - 2 && <br className="hidden md:block" />}
                 {index < array.length - 1 && ' '}
               </React.Fragment>
-            ))}
+            )).slice(0, -1)}
             <span className="relative inline-block">
               <span className="relative z-10">{title.split(' ').slice(-1)}</span>
               <span className="absolute bottom-2 left-0 w-full h-4 bg-[#C9A14A]/30 -z-10 transform -rotate-1"></span>
