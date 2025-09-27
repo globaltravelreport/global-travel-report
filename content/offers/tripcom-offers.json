@@ -1,0 +1,38 @@
+{
+  "partner": "Trip.com",
+  "partnerKey": "tripcom",
+  "logo": "https://logos-world.net/wp-content/uploads/2021/08/Trip-com-Logo.png",
+  "baseUrl": "https://trip.tpk.mx/qhlnnQh8",
+  "offers": [
+    {
+      "title": "Up to 70% Off Hotels Worldwide",
+      "description": "Exclusive discount on over 1.2 million hotels and accommodations worldwide. Book now and save on your next adventure.",
+      "affiliate_url": "https://trip.tpk.mx/qhlnnQh8",
+      "price": "Up to 70% OFF",
+      "currency": "USD",
+      "category": "accommodation",
+      "partner": "Trip.com",
+      "partner_logo": "https://logos-world.net/wp-content/uploads/2021/08/Trip-com-Logo.png",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    },
+    {
+      "title": "Flights from $49 - International Destinations",
+      "description": "Find amazing flight deals to destinations worldwide. Compare prices and book with confidence.",
+      "affiliate_url": "https://trip.tpk.mx/qhlnnQh8",
+      "price": "From $49",
+      "currency": "USD",
+      "category": "transportation",
+      "partner": "Trip.com",
+      "partner_logo": "https://logos-world.net/wp-content/uploads/2021/08/Trip-com-Logo.png",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    }
+  ],
+  "lastUpdated": "2024-09-27",
+  "totalOffers": 2
+}

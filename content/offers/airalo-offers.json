@@ -1,0 +1,24 @@
+{
+  "partner": "Airalo",
+  "partnerKey": "airalo",
+  "logo": "https://airalo.com/images/logo.svg",
+  "baseUrl": "https://airalo.tpk.mx/M99krJZy",
+  "offers": [
+    {
+      "title": "Global eSIM - Connect in 200+ Countries",
+      "description": "World's largest eSIM marketplace. Instant connectivity, local rates, no roaming charges. Perfect for international travelers.",
+      "affiliate_url": "https://airalo.tpk.mx/M99krJZy",
+      "price": "From $4.50",
+      "currency": "USD",
+      "category": "connectivity",
+      "partner": "Airalo",
+      "partner_logo": "https://airalo.com/images/logo.svg",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    }
+  ],
+  "lastUpdated": "2024-09-27",
+  "totalOffers": 1
+}

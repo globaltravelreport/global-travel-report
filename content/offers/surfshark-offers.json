@@ -1,0 +1,38 @@
+{
+  "partner": "Surfshark VPN",
+  "partnerKey": "surfshark",
+  "logo": "https://assets.surfshark.com/logos/primary-logo.svg",
+  "baseUrl": "https://get.surfshark.net/aff_c?offer_id=926&aff_id=39802",
+  "offers": [
+    {
+      "title": "VPN Protection for Travelers - 86% OFF + 3 Months FREE",
+      "description": "Stay secure on public Wi-Fi, access geo-restricted content, and protect your privacy while traveling abroad.",
+      "affiliate_url": "https://get.surfshark.net/aff_c?offer_id=926&aff_id=39802",
+      "price": "86% OFF",
+      "currency": "USD",
+      "category": "security",
+      "partner": "Surfshark VPN",
+      "partner_logo": "https://assets.surfshark.com/logos/primary-logo.svg",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    },
+    {
+      "title": "Surfshark One - Complete Digital Protection",
+      "description": "All-in-one privacy suite with VPN, antivirus, breach monitoring, and secure search for travelers.",
+      "affiliate_url": "https://get.surfshark.net/aff_c?offer_id=1249&aff_id=39802",
+      "price": "Up to 86% OFF",
+      "currency": "USD",
+      "category": "security",
+      "partner": "Surfshark One",
+      "partner_logo": "https://assets.surfshark.com/logos/primary-logo.svg",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    }
+  ],
+  "lastUpdated": "2024-09-27",
+  "totalOffers": 2
+}

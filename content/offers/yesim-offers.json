@@ -1,0 +1,24 @@
+{
+  "partner": "Yesim",
+  "partnerKey": "yesim",
+  "logo": "https://yesim.app/images/logo.svg",
+  "baseUrl": "https://yesim.tpk.mx/RyZzDsxA",
+  "offers": [
+    {
+      "title": "eSIM Data Plans - Stay Connected Worldwide",
+      "description": "Virtual SIM cards for 100+ countries. No roaming fees, easy setup, and reliable mobile data for travelers.",
+      "affiliate_url": "https://yesim.tpk.mx/RyZzDsxA",
+      "price": "From $4.90",
+      "currency": "USD",
+      "category": "connectivity",
+      "partner": "Yesim",
+      "partner_logo": "https://yesim.app/images/logo.svg",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    }
+  ],
+  "lastUpdated": "2024-09-27",
+  "totalOffers": 1
+}

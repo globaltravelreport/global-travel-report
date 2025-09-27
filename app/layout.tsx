@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
     images: ['/og/home-1200x630.jpg'],
   },
-  facebook: {
+  facebook: process.env.FACEBOOK_APP_ID ? {
     appId: process.env.FACEBOOK_APP_ID,
-  },
+  } : undefined,
   robots: {
     index: true,
     follow: true,
