@@ -1,0 +1,1091 @@
+{
+  "lastUpdated": "2025-05-04T11:46:59.611Z",
+  "stories": [
+    {
+      "file": "1-asias-latest-museums-a-must-visit-for-aussie-explorers.md",
+      "slug": "1-asias-latest-museums-a-must-visit-for-aussie-explorers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-asias-latest-museums-a-must-visit-for-aussie-explorers.json"
+    },
+    {
+      "file": "1-asias-newest-museums-a-guide-for-aussie-explorers.md",
+      "slug": "1-asias-newest-museums-a-guide-for-aussie-explorers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-asias-newest-museums-a-guide-for-aussie-explorers.json"
+    },
+    {
+      "file": "1-asias-newest-museums-a-must-visit-for-aussie-travellers.md",
+      "slug": "1-asias-newest-museums-a-must-visit-for-aussie-travellers",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-asias-newest-museums-a-must-visit-for-aussie-travellers.json"
+    },
+    {
+      "file": "1-asias-newest-museums-a-must-visit-for-aussies.md",
+      "slug": "1-asias-newest-museums-a-must-visit-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-asias-newest-museums-a-must-visit-for-aussies.json"
+    },
+    {
+      "file": "1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2.md",
+      "slug": "1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-direct-flights-to-doha-your-gateway-to-qatar-from-manila-2.json"
+    },
+    {
+      "file": "1-direct-flights-to-doha-your-gateway-to-the-middle-east.md",
+      "slug": "1-direct-flights-to-doha-your-gateway-to-the-middle-east",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-direct-flights-to-doha-your-gateway-to-the-middle-east.json"
+    },
+    {
+      "file": "1-direct-manila-doha-flights-your-gateway-to-adventure.md",
+      "slug": "1-direct-manila-doha-flights-your-gateway-to-adventure",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-direct-manila-doha-flights-your-gateway-to-adventure.json"
+    },
+    {
+      "file": "1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202.md",
+      "slug": "1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-5-hidden-gems-perfect-for-aussie-explorers-in-202.json"
+    },
+    {
+      "file": "1-discover-copenhagen-direct-flights-from-china-eastern-airl.md",
+      "slug": "1-discover-copenhagen-direct-flights-from-china-eastern-airl",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-copenhagen-direct-flights-from-china-eastern-airl.json"
+    },
+    {
+      "file": "1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025.md",
+      "slug": "1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-hidden-gems-5-must-see-places-for-aussies-in-2025.json"
+    },
+    {
+      "file": "1-discover-iraklio-greeces-cruise-gem-for-aussies.md",
+      "slug": "1-discover-iraklio-greeces-cruise-gem-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-iraklio-greeces-cruise-gem-for-aussies.json"
+    },
+    {
+      "file": "1-discover-manila-your-ultimate-guide-to-flying-from-austral.md",
+      "slug": "1-discover-manila-your-ultimate-guide-to-flying-from-austral",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-manila-your-ultimate-guide-to-flying-from-austral.json"
+    },
+    {
+      "file": "1-discover-pragues-luxury-a-perfect-getaway-for-aussies.md",
+      "slug": "1-discover-pragues-luxury-a-perfect-getaway-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-pragues-luxury-a-perfect-getaway-for-aussies.json"
+    },
+    {
+      "file": "1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2.md",
+      "slug": "1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-discover-thailand-new-deals-to-spark-aussie-wanderlust-2.json"
+    },
+    {
+      "file": "1-dubai-travel-guide-for-aussies-navigating-new-norms.md",
+      "slug": "1-dubai-travel-guide-for-aussies-navigating-new-norms",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-dubai-travel-guide-for-aussies-navigating-new-norms.json"
+    },
+    {
+      "file": "1-explore-asias-newest-museums-a-guide-for-aussie-explorers.md",
+      "slug": "1-explore-asias-newest-museums-a-guide-for-aussie-explorers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-asias-newest-museums-a-guide-for-aussie-explorers.json"
+    },
+    {
+      "file": "1-explore-asias-newest-museums-a-guide-for-aussie-travellers.md",
+      "slug": "1-explore-asias-newest-museums-a-guide-for-aussie-travellers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-asias-newest-museums-a-guide-for-aussie-travellers.json"
+    },
+    {
+      "file": "1-explore-asias-newest-museums-a-guide-for-aussies.md",
+      "slug": "1-explore-asias-newest-museums-a-guide-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-asias-newest-museums-a-guide-for-aussies.json"
+    },
+    {
+      "file": "1-explore-doha-direct-flights-from-manila-with-philippine-ai.md",
+      "slug": "1-explore-doha-direct-flights-from-manila-with-philippine-ai",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-doha-direct-flights-from-manila-with-philippine-ai.json"
+    },
+    {
+      "file": "1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025.md",
+      "slug": "1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-hidden-gems-5-must-visit-spots-for-aussies-in-2025.json"
+    },
+    {
+      "file": "1-explore-iraklio-a-cruise-gem-for-australian-adventurers.md",
+      "slug": "1-explore-iraklio-a-cruise-gem-for-australian-adventurers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-iraklio-a-cruise-gem-for-australian-adventurers.json"
+    },
+    {
+      "file": "1-explore-manila-new-qatar-airways-codeshare-flights-for-aus.md",
+      "slug": "1-explore-manila-new-qatar-airways-codeshare-flights-for-aus",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-manila-new-qatar-airways-codeshare-flights-for-aus.json"
+    },
+    {
+      "file": "1-explore-manila-with-direct-flights-from-doha-a-guide-for-a.md",
+      "slug": "1-explore-manila-with-direct-flights-from-doha-a-guide-for-a",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-manila-with-direct-flights-from-doha-a-guide-for-a.json"
+    },
+    {
+      "file": "1-explore-manila-with-qatar-airways-a-guide-for-aussies.md",
+      "slug": "1-explore-manila-with-qatar-airways-a-guide-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-manila-with-qatar-airways-a-guide-for-aussies.json"
+    },
+    {
+      "file": "1-explore-manila-with-qatar-airways-your-australian-gateway.md",
+      "slug": "1-explore-manila-with-qatar-airways-your-australian-gateway",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-explore-manila-with-qatar-airways-your-australian-gateway.json"
+    },
+    {
+      "file": "1-exploring-asias-newest-museums-a-guide-for-aussies-2.md",
+      "slug": "1-exploring-asias-newest-museums-a-guide-for-aussies-2",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-exploring-asias-newest-museums-a-guide-for-aussies-2.json"
+    },
+    {
+      "file": "1-exploring-scotland-by-sea-a-cruise-adventure-from-australi.md",
+      "slug": "1-exploring-scotland-by-sea-a-cruise-adventure-from-australi",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-exploring-scotland-by-sea-a-cruise-adventure-from-australi.json"
+    },
+    {
+      "file": "1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a.md",
+      "slug": "1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-fly-direct-manila-to-doha-with-philippine-airlines-qatar-a.json"
+    },
+    {
+      "file": "1-global-getaways-a-guide-for-aussies-to-world-travel-2.md",
+      "slug": "1-global-getaways-a-guide-for-aussies-to-world-travel-2",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-global-getaways-a-guide-for-aussies-to-world-travel-2.json"
+    },
+    {
+      "file": "1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo.md",
+      "slug": "1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo.json"
+    },
+    {
+      "file": "1-new-direct-flights-from-copenhagen-to-boost-aussie-travels.md",
+      "slug": "1-new-direct-flights-from-copenhagen-to-boost-aussie-travels",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-new-direct-flights-from-copenhagen-to-boost-aussie-travels.json"
+    },
+    {
+      "file": "1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-.md",
+      "slug": "1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-new-qatar-philippine-airlines-deal-your-gateway-to-manila-.json"
+    },
+    {
+      "file": "1-pakistan-airspace-closure-affects-aussie-travellers-know-m.md",
+      "slug": "1-pakistan-airspace-closure-affects-aussie-travellers-know-m",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-pakistan-airspace-closure-affects-aussie-travellers-know-m.json"
+    },
+    {
+      "file": "1-pakistan-airspace-closure-what-aussies-need-to-know.md",
+      "slug": "1-pakistan-airspace-closure-what-aussies-need-to-know",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-pakistan-airspace-closure-what-aussies-need-to-know.json"
+    },
+    {
+      "file": "1-scotlands-cruise-boom-a-130m-lift-aussie-guide.md",
+      "slug": "1-scotlands-cruise-boom-a-130m-lift-aussie-guide",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-scotlands-cruise-boom-a-130m-lift-aussie-guide.json"
+    },
+    {
+      "file": "1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies.md",
+      "slug": "1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-scotlands-cruise-boom-a-130m-lift-tips-for-aussies.json"
+    },
+    {
+      "file": "1-scotlands-cruise-boom-a-130m-windfall-aussie-guide.md",
+      "slug": "1-scotlands-cruise-boom-a-130m-windfall-aussie-guide",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-scotlands-cruise-boom-a-130m-windfall-aussie-guide.json"
+    },
+    {
+      "file": "1-seo-optimized-title-unlock-thailand-subsidized-flights-tip.md",
+      "slug": "1-seo-optimized-title-unlock-thailand-subsidized-flights-tip",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-seo-optimized-title-unlock-thailand-subsidized-flights-tip.json"
+    },
+    {
+      "file": "1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra.md",
+      "slug": "1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-star-voyager-thailands-new-luxury-cruise-awaits-aussie-tra.json"
+    },
+    {
+      "file": "1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl.md",
+      "slug": "1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-star-voyager-thailands-new-luxury-liner-awaits-aussie-expl.json"
+    },
+    {
+      "file": "1-thailands-new-flight-deals-spark-interest-for-aussie-touri.md",
+      "slug": "1-thailands-new-flight-deals-spark-interest-for-aussie-touri",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-thailands-new-flight-deals-spark-interest-for-aussie-touri.json"
+    },
+    {
+      "file": "1-top-5-hidden-gems-abroad-for-aussie-explorers-in-2025.md",
+      "slug": "1-top-5-hidden-gems-abroad-for-aussie-explorers-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-5-hidden-gems-abroad-for-aussie-explorers-in-2025.json"
+    },
+    {
+      "file": "1-top-5-hidden-gems-for-aussie-globetrotters-in-2025.md",
+      "slug": "1-top-5-hidden-gems-for-aussie-globetrotters-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-5-hidden-gems-for-aussie-globetrotters-in-2025.json"
+    },
+    {
+      "file": "1-top-5-hidden-gems-for-aussie-travellers-in-2025.md",
+      "slug": "1-top-5-hidden-gems-for-aussie-travellers-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-5-hidden-gems-for-aussie-travellers-in-2025.json"
+    },
+    {
+      "file": "1-top-5-underrated-gems-for-aussie-explorers-in-2025.md",
+      "slug": "1-top-5-underrated-gems-for-aussie-explorers-in-2025",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-5-underrated-gems-for-aussie-explorers-in-2025.json"
+    },
+    {
+      "file": "1-top-noise-cancelling-headphones-for-aussie-globetrotters.md",
+      "slug": "1-top-noise-cancelling-headphones-for-aussie-globetrotters",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-noise-cancelling-headphones-for-aussie-globetrotters.json"
+    },
+    {
+      "file": "1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu.md",
+      "slug": "1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-noise-cancelling-headphones-for-aussie-travellers-a-mu.json"
+    },
+    {
+      "file": "1-top-noise-cancelling-headphones-for-aussie-travellers-ulti.md",
+      "slug": "1-top-noise-cancelling-headphones-for-aussie-travellers-ulti",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-top-noise-cancelling-headphones-for-aussie-travellers-ulti.json"
+    },
+    {
+      "file": "1-top-noise-cancelling-headsets-for-aussie-travellers-best-b.md",
+      "slug": "1-top-noise-cancelling-headsets-for-aussie-travellers-best-b",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-top-noise-cancelling-headsets-for-aussie-travellers-best-b.json"
+    },
+    {
+      "file": "1-uk-travel-guide-for-aussies-best-deals-tips-2023.md",
+      "slug": "1-uk-travel-guide-for-aussies-best-deals-tips-2023",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-for-aussies-best-deals-tips-2023.json"
+    },
+    {
+      "file": "1-uk-travel-guide-for-aussies-must-know-tips-tricks.md",
+      "slug": "1-uk-travel-guide-for-aussies-must-know-tips-tricks",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-for-aussies-must-know-tips-tricks.json"
+    },
+    {
+      "file": "1-uk-travel-guide-for-aussies-tips-best-times-to-visit.md",
+      "slug": "1-uk-travel-guide-for-aussies-tips-best-times-to-visit",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-for-aussies-tips-best-times-to-visit.json"
+    },
+    {
+      "file": "1-uk-travel-guide-for-aussies-tips-must-knows-for-2023.md",
+      "slug": "1-uk-travel-guide-for-aussies-tips-must-knows-for-2023",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-for-aussies-tips-must-knows-for-2023.json"
+    },
+    {
+      "file": "1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi.md",
+      "slug": "1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-for-aussies-tips-prices-best-times-to-visi.json"
+    },
+    {
+      "file": "1-uk-travel-guide-tips-for-aussies-planning-their-british-es.md",
+      "slug": "1-uk-travel-guide-tips-for-aussies-planning-their-british-es",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-tips-for-aussies-planning-their-british-es.json"
+    },
+    {
+      "file": "1-uk-travel-guide-tips-insights-for-aussie-explorers.md",
+      "slug": "1-uk-travel-guide-tips-insights-for-aussie-explorers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-tips-insights-for-aussie-explorers.json"
+    },
+    {
+      "file": "1-uk-travel-guide-tips-tricks-for-aussies-abroad-2.md",
+      "slug": "1-uk-travel-guide-tips-tricks-for-aussies-abroad-2",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-uk-travel-guide-tips-tricks-for-aussies-abroad-2.json"
+    },
+    {
+      "file": "1-ultimate-guide-best-noise-cancelling-headphones-for-aussie.md",
+      "slug": "1-ultimate-guide-best-noise-cancelling-headphones-for-aussie",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/1-ultimate-guide-best-noise-cancelling-headphones-for-aussie.json"
+    },
+    {
+      "file": "2025-04-24-australias-maritime-tourism-charting-a-course-towards-spectacular-growth.md",
+      "slug": "2025-04-24-australias-maritime-tourism-charting-a-course-towards-spectacular-growth",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-australias-maritime-tourism-charting-a-course-towards-spectacular-growth.json"
+    },
+    {
+      "file": "2025-04-24-australias-maritime-tourism-sailing-towards-unprecedented-growth.md",
+      "slug": "2025-04-24-australias-maritime-tourism-sailing-towards-unprecedented-growth",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-australias-maritime-tourism-sailing-towards-unprecedented-growth.json"
+    },
+    {
+      "file": "2025-04-24-explore-the-whitsundays-by-sail.md",
+      "slug": "2025-04-24-explore-the-whitsundays-by-sail",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-explore-the-whitsundays-by-sail.json"
+    },
+    {
+      "file": "2025-04-24-hidden-gems-of-southeast-asia.md",
+      "slug": "2025-04-24-hidden-gems-of-southeast-asia",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-hidden-gems-of-southeast-asia.json"
+    },
+    {
+      "file": "2025-04-24-southeast-asia-the-new-favorite-of-australian-travelers.md",
+      "slug": "2025-04-24-southeast-asia-the-new-favorite-of-australian-travelers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-southeast-asia-the-new-favorite-of-australian-travelers.json"
+    },
+    {
+      "file": "2025-04-24-southeast-asia-the-new-favourite-playground-for-australian-tourists.md",
+      "slug": "2025-04-24-southeast-asia-the-new-favourite-playground-for-australian-tourists",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-southeast-asia-the-new-favourite-playground-for-australian-tourists.json"
+    },
+    {
+      "file": "2025-04-24-the-land-of-the-rising-sun-australias-top-holiday-destination.md",
+      "slug": "2025-04-24-the-land-of-the-rising-sun-australias-top-holiday-destination",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-the-land-of-the-rising-sun-australias-top-holiday-destination.json"
+    },
+    {
+      "file": "2025-04-24-the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan.md",
+      "slug": "2025-04-24-the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/2025-04-24-the-land-of-the-rising-sun-beckons-why-australians-cant-get-enough-of-japan.json"
+    },
+    {
+      "file": "asias-latest-museums-a-must-see-for-aussie-explorers.md",
+      "slug": "asias-latest-museums-a-must-see-for-aussie-explorers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/asias-latest-museums-a-must-see-for-aussie-explorers.json"
+    },
+    {
+      "file": "best-noise-cancelling-headphones-for-aussie-travellers.md",
+      "slug": "best-noise-cancelling-headphones-for-aussie-travellers",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/best-noise-cancelling-headphones-for-aussie-travellers.json"
+    },
+    {
+      "file": "china-eastern-airlines-launches-copenhagen-routes.md",
+      "slug": "china-eastern-airlines-launches-copenhagen-routes",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/china-eastern-airlines-launches-copenhagen-routes.json"
+    },
+    {
+      "file": "explore-heraklion-your-next-cruise-destination-from-australi.md",
+      "slug": "explore-heraklion-your-next-cruise-destination-from-australi",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/explore-heraklion-your-next-cruise-destination-from-australi.json"
+    },
+    {
+      "file": "explore-the-shanghai-cruise-culture-tourism-festival.md",
+      "slug": "explore-the-shanghai-cruise-culture-tourism-festival",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/explore-the-shanghai-cruise-culture-tourism-festival.json"
+    },
+    {
+      "file": "exploring-ascotts-innovative-hospitality-strategy.md",
+      "slug": "exploring-ascotts-innovative-hospitality-strategy",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/exploring-ascotts-innovative-hospitality-strategy.json"
+    },
+    {
+      "file": "exploring-the-surge-in-cruise-tourism-trends-and-future-insi.md",
+      "slug": "exploring-the-surge-in-cruise-tourism-trends-and-future-insi",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/exploring-the-surge-in-cruise-tourism-trends-and-future-insi.json"
+    },
+    {
+      "file": "fly-direct-manila-to-doha-with-philippine-airlines-qatar-air.md",
+      "slug": "fly-direct-manila-to-doha-with-philippine-airlines-qatar-air",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/fly-direct-manila-to-doha-with-philippine-airlines-qatar-air.json"
+    },
+    {
+      "file": "fly-direct-to-copenhagen-from-australia-with-china-eastern.md",
+      "slug": "fly-direct-to-copenhagen-from-australia-with-china-eastern",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/fly-direct-to-copenhagen-from-australia-with-china-eastern.json"
+    },
+    {
+      "file": "hidden-gems-top-international-destinations-for-aussies-in-20.md",
+      "slug": "hidden-gems-top-international-destinations-for-aussies-in-20",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/hidden-gems-top-international-destinations-for-aussies-in-20.json"
+    },
+    {
+      "file": "iraklio-port-a-new-hub-for-cruise-tourism-in-greece.md",
+      "slug": "iraklio-port-a-new-hub-for-cruise-tourism-in-greece",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/iraklio-port-a-new-hub-for-cruise-tourism-in-greece.json"
+    },
+    {
+      "file": "my-daily-drop-pro-review-1746345265357.md",
+      "slug": "my-daily-drop-pro-review-1746345265357",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/my-daily-drop-pro-review-1746345265357.json"
+    },
+    {
+      "file": "my-daily-drop-pro-review-1746346087483.md",
+      "slug": "my-daily-drop-pro-review-1746346087483",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/my-daily-drop-pro-review.json"
+    },
+    {
+      "file": "my-daily-drop-pro-review-1746346087484.md",
+      "slug": "my-daily-drop-pro-review-1746346087484",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/my-daily-drop-pro-review.json"
+    },
+    {
+      "file": "my-daily-drop-pro-review.md",
+      "slug": "my-daily-drop-pro-review",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/my-daily-drop-pro-review.json"
+    },
+    {
+      "file": "title-a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time.md",
+      "slug": "title-a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-a-gastronomic-globe-trot-savouring-the-world-one-bite-at-a-time.json"
+    },
+    {
+      "file": "title-a-gastronomic-odyssey-roaming-the-globe-through-its-plates.md",
+      "slug": "title-a-gastronomic-odyssey-roaming-the-globe-through-its-plates",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-a-gastronomic-odyssey-roaming-the-globe-through-its-plates.json"
+    },
+    {
+      "file": "title-a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising.md",
+      "slug": "title-a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-a-surge-in-seafaring-the-latest-headlines-from-the-world-of-luxury-cruising.json"
+    },
+    {
+      "file": "title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes.md",
+      "slug": "title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-carnival-cruise-line-declines-to-reintroduce-individual-cereal-boxes.json"
+    },
+    {
+      "file": "title-cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion.md",
+      "slug": "title-cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-cayman-islands-puts-a-hold-on-cruise-infrastructure-expansion.json"
+    },
+    {
+      "file": "title-cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability.md",
+      "slug": "title-cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-cayman-islands-rejects-expansion-of-cruise-infrastructure-a-triumph-for-sustainability.json"
+    },
+    {
+      "file": "title-cruise-conundrum-cayman-islands-says-no-to-cruise-infrastructure-expansion.md",
+      "slug": "title-cruise-conundrum-cayman-islands-says-no-to-cruise-infrastructure-expansion",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-cruise-conundrum-cayman-islands-says-no-to-cruise-infrastructure-expansion.json"
+    },
+    {
+      "file": "title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven.md",
+      "slug": "title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-discovering-mackinac-island-a-novice-s-guide-to-an-iconic-midwestern-haven.json"
+    },
+    {
+      "file": "title-embracing-green-horizons-the-future-of-sustainable-travel-in-2025.md",
+      "slug": "title-embracing-green-horizons-the-future-of-sustainable-travel-in-2025",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-embracing-green-horizons-the-future-of-sustainable-travel-in-2025.json"
+    },
+    {
+      "file": "title-emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad.md",
+      "slug": "title-emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-emerging-destinations-a-guide-to-the-top-cities-for-the-digital-nomad.json"
+    },
+    {
+      "file": "title-exquisite-european-escapades-unveiling-15-of-the-continent-s-most-stunning-destinations.md",
+      "slug": "title-exquisite-european-escapades-unveiling-15-of-the-continent-s-most-stunning-destinations",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-exquisite-european-escapades-unveiling-15-of-the-continent-s-most-stunning-destinations.json"
+    },
+    {
+      "file": "title-italy-uncovered-savouring-the-splendours-of-the-peninsula-on-a-budget.md",
+      "slug": "title-italy-uncovered-savouring-the-splendours-of-the-peninsula-on-a-budget",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-italy-uncovered-savouring-the-splendours-of-the-peninsula-on-a-budget.json"
+    },
+    {
+      "file": "title-journey-through-the-wild-top-12-trails-of-patagonia.md",
+      "slug": "title-journey-through-the-wild-top-12-trails-of-patagonia",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-journey-through-the-wild-top-12-trails-of-patagonia.json"
+    },
+    {
+      "file": "title-navigating-the-high-seas-a-weekly-cruise-line-overview.md",
+      "slug": "title-navigating-the-high-seas-a-weekly-cruise-line-overview",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-navigating-the-high-seas-a-weekly-cruise-line-overview.json"
+    },
+    {
+      "file": "title-navigating-the-seas-unfolding-the-latest-developments-in-the-cruise-industry.md",
+      "slug": "title-navigating-the-seas-unfolding-the-latest-developments-in-the-cruise-industry",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-navigating-the-seas-unfolding-the-latest-developments-in-the-cruise-industry.json"
+    },
+    {
+      "file": "title-new-zealand-the-rising-star-of-adventure-tourism.md",
+      "slug": "title-new-zealand-the-rising-star-of-adventure-tourism",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-new-zealand-the-rising-star-of-adventure-tourism.json"
+    },
+    {
+      "file": "title-rail-journey-through-mexico-a-scenic-expedition.md",
+      "slug": "title-rail-journey-through-mexico-a-scenic-expedition",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-rail-journey-through-mexico-a-scenic-expedition.json"
+    },
+    {
+      "file": "title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita.md",
+      "slug": "title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-savouring-italy-a-budget-friendly-guide-to-uncovering-la-bella-vita.json"
+    },
+    {
+      "file": "title-savouring-lisbon-the-ideal-three-day-travel-guide.md",
+      "slug": "title-savouring-lisbon-the-ideal-three-day-travel-guide",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-savouring-lisbon-the-ideal-three-day-travel-guide.json"
+    },
+    {
+      "file": "title-the-green-transformation-predictions-for-sustainable-tourism-in-2025.md",
+      "slug": "title-the-green-transformation-predictions-for-sustainable-tourism-in-2025",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-the-green-transformation-predictions-for-sustainable-tourism-in-2025.json"
+    },
+    {
+      "file": "title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism.md",
+      "slug": "title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-the-resurgence-of-new-zealand-s-thrill-seeker-tourism.json"
+    },
+    {
+      "file": "title-trailblazing-cities-for-global-telecommuters-embracing-the-digital-nomad-revolution.md",
+      "slug": "title-trailblazing-cities-for-global-telecommuters-embracing-the-digital-nomad-revolution",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-trailblazing-cities-for-global-telecommuters-embracing-the-digital-nomad-revolution.json"
+    },
+    {
+      "file": "title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller.md",
+      "slug": "title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-uncovering-italy-s-charms-a-guide-for-the-budget-conscious-traveller.json"
+    },
+    {
+      "file": "title-unearthing-the-undiscovered-treasures-of-southeast-asia.md",
+      "slug": "title-unearthing-the-undiscovered-treasures-of-southeast-asia",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-unearthing-the-undiscovered-treasures-of-southeast-asia.json"
+    },
+    {
+      "file": "title-unfolding-the-mysteries-of-southeast-asia-a-journey-beyond-the-ordinary.md",
+      "slug": "title-unfolding-the-mysteries-of-southeast-asia-a-journey-beyond-the-ordinary",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/title-unfolding-the-mysteries-of-southeast-asia-a-journey-beyond-the-ordinary.json"
+    },
+    {
+      "file": "top-noise-cancelling-headphones-for-travelers.md",
+      "slug": "top-noise-cancelling-headphones-for-travelers",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/top-noise-cancelling-headphones-for-travelers.json"
+    },
+    {
+      "file": "uk-tourism-concerns-industry-claims-government-impact.md",
+      "slug": "uk-tourism-concerns-industry-claims-government-impact",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/uk-tourism-concerns-industry-claims-government-impact.json"
+    },
+    {
+      "file": "uk-travel-woes-what-aussies-need-to-know.md",
+      "slug": "uk-travel-woes-what-aussies-need-to-know",
+      "schemas": [
+        "Article",
+        "TouristAttraction",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/uk-travel-woes-what-aussies-need-to-know.json"
+    },
+    {
+      "file": "wildlife-adventures-outearn-illegal-trade-globally.md",
+      "slug": "wildlife-adventures-outearn-illegal-trade-globally",
+      "schemas": [
+        "Article",
+        "BreadcrumbList"
+      ],
+      "path": "public/structured-data/wildlife-adventures-outearn-illegal-trade-globally.json"
+    }
+  ]
+}

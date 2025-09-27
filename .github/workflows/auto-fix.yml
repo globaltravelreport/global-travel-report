@@ -1,0 +1,341 @@
+name: Auto-fix and Bot Execution
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+  schedule:
+    - cron: '0 3 * * *'  # Run daily at 3 AM UTC (after CI security audit)
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install dependencies
+        run: pnpm install
+          
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install dependencies
+        run: pnpm install
+        
+      - name: Run linter
+        run: pnpm run lint
+        
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install dependencies
+        run: pnpm install
+        
+      - name: Run tests
+        run: pnpm test
+        
+  auto-fix:
+    needs: [security, lint, test]
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'schedule')
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for better change detection
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+          
+      - name: Install dependencies
+        run: pnpm install
+        
+      # Install additional dependencies needed for bots
+      - name: Install Puppeteer dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+        
+      - name: Run SEO Bot
+        run: pnpm run seo-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Run Error Bot
+        run: pnpm run error-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Run Screenshot Bot
+        run: pnpm run screenshot-bot
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          SCREENSHOT_PAGES: ${{ secrets.SCREENSHOT_PAGES }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          
+      - name: Check for safe auto-fix opportunities
+        id: check-safe-fixes
+        run: |
+          # Only check for safe operations: formatting and dependency updates
+          echo "Checking for safe auto-fix opportunities..."
+
+          # Check if Prettier can fix formatting issues
+          if npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}" > /dev/null 2>&1; then
+            echo "formatting_needed=true" >> $GITHUB_OUTPUT
+            echo "✅ Formatting fixes available"
+          else
+            echo "formatting_needed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No formatting fixes needed"
+          fi
+
+          # Check for outdated dependencies (safe updates only)
+          if npm outdated --json > outdated-deps.json 2>/dev/null; then
+            dep_count=$(cat outdated-deps.json | jq 'length // 0')
+            if [ "$dep_count" -gt 0 ]; then
+              echo "deps_available=$dep_count" >> $GITHUB_OUTPUT
+              echo "✅ $dep_count dependency updates available"
+            else
+              echo "deps_available=0" >> $GITHUB_OUTPUT
+              echo "ℹ️ No dependency updates available"
+            fi
+          else
+            echo "deps_available=0" >> $GITHUB_OUTPUT
+            echo "ℹ️ No dependency updates available"
+          fi
+
+      - name: Create auto-fix branch
+        if: steps.check-safe-fixes.outputs.formatting_needed == 'true' || steps.check-safe-fixes.outputs.deps_available > '0'
+        run: |
+          BRANCH_NAME="auto-fix-$(date +%Y%m%d-%H%M%S)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          git checkout -b $BRANCH_NAME
+          echo "✅ Created auto-fix branch: $BRANCH_NAME"
+
+      - name: Apply formatting fixes
+        if: steps.check-safe-fixes.outputs.formatting_needed == 'true'
+        run: |
+          echo "🎨 Applying Prettier formatting fixes..."
+          npx prettier --write "**/*.{ts,tsx,js,jsx,json,md}"
+          echo "✅ Formatting fixes applied"
+
+      - name: Update dependencies (patch/minor only)
+        if: steps.check-safe-fixes.outputs.deps_available > '0'
+        run: |
+          echo "📦 Updating dependencies with safe updates..."
+          # Only apply patch and minor updates (safe)
+          npm update --save
+          echo "✅ Safe dependency updates applied"
+
+      - name: Check for changes
+        id: check-changes
+        if: steps.check-safe-fixes.outputs.formatting_needed == 'true' || steps.check-safe-fixes.outputs.deps_available > '0'
+        run: |
+          if git diff --quiet; then
+            echo "changes_made=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No changes were made"
+          else
+            echo "changes_made=true" >> $GITHUB_OUTPUT
+            echo "✅ Changes detected"
+          fi
+
+      - name: Commit and push auto-fixes
+        if: steps.check-changes.outputs.changes_made == 'true'
+        run: |
+          git config --global user.name 'Auto-fix Bot'
+          git config --global user.email 'auto-fix@globaltravelreport.com'
+
+          # Add only safe changes
+          git add "**/*.{ts,tsx,js,jsx,json,md}" package.json package-lock.json
+
+          if git diff --staged --quiet; then
+            echo "ℹ️ No staged changes to commit"
+          else
+            git commit -m "🤖 auto-fix: Apply safe automated fixes
+
+            - Applied Prettier formatting fixes
+            - Updated dependencies with safe patch/minor versions
+            - No breaking changes or code modifications
+
+            ⚠️ Please review these changes before merging"
+
+            git push origin ${{ env.BRANCH_NAME }}
+
+            echo "✅ Pushed auto-fixes to branch: ${{ env.BRANCH_NAME }}"
+            echo "BRANCH_CREATED=true" >> $GITHUB_ENV
+          fi
+
+      - name: Create pull request for auto-fixes
+        if: env.BRANCH_CREATED == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH_NAME }}
+          base: main
+          title: "🤖 Auto-fix: Safe formatting and dependency updates"
+          body: |
+            ## 🤖 Safe Auto-fix Pull Request
+
+            This PR contains only safe, automated fixes that don't modify application logic.
+
+            ### Changes Made:
+            - **Formatting**: Applied Prettier formatting rules
+            - **Dependencies**: Updated to latest patch/minor versions (safe updates only)
+            - **No code changes**: Only formatting and dependency updates
+
+            ### Safety:
+            - ✅ No breaking changes
+            - ✅ No application logic modifications
+            - ✅ Only safe dependency updates (patch/minor versions)
+            - ✅ Purely cosmetic and maintenance updates
+
+            ### Next Steps:
+            1. **Review** the formatting and dependency changes
+            2. **Test** the application to ensure no regressions
+            3. **Merge** if all tests pass
+            4. **Deploy** the updated version
+
+            ---
+            *🤖 Automated PR created by GitHub Actions Auto-fix Bot*
+          labels: |
+            auto-fix
+            formatting
+            dependencies
+          draft: false
+
+      - name: Auto-fix summary
+        if: always()
+        run: |
+          echo "## 🤖 Auto-fix Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ env.BRANCH_CREATED }}" == "true" ]; then
+            echo "✅ **Safe auto-fixes applied and PR created**" >> $GITHUB_STEP_SUMMARY
+            echo "- **Branch**: \`${{ env.BRANCH_NAME }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **Changes**: Formatting and safe dependency updates only" >> $GITHUB_STEP_SUMMARY
+            echo "- **Safety**: No application logic changes" >> $GITHUB_STEP_SUMMARY
+            echo "- **Status**: Ready for review and testing" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.check-safe-fixes.outputs.formatting_needed }}" == "false" ] && [ "${{ steps.check-safe-fixes.outputs.deps_available }}" == "0" ]; then
+            echo "✅ **No auto-fixes needed**" >> $GITHUB_STEP_SUMMARY
+            echo "- All code is properly formatted" >> $GITHUB_STEP_SUMMARY
+            echo "- All dependencies are up-to-date" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ **Auto-fix check completed**" >> $GITHUB_STEP_SUMMARY
+            echo "- No safe fixes were applicable at this time" >> $GITHUB_STEP_SUMMARY
+          fi

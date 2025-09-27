@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Journey Through the Wild: Top 12 Trails of Patagonia",
+    "description": "An engaging exploration of the top 12 trails in the vast wilderness of Patagonia, offering a thrilling blend of adventure and natural beauty.",
+    "image": [
+      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-15T13:53:24.654Z",
+    "dateModified": "2025-04-15T13:53:24.654Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/title-journey-through-the-wild-top-12-trails-of-patagonia"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Journey Through the Wild: Top 12 Trails of Patagonia",
+    "description": "An engaging exploration of the top 12 trails in the vast wilderness of Patagonia, offering a thrilling blend of adventure and natural beauty.",
+    "url": "https://globaltravelreport.com/title-journey-through-the-wild-top-12-trails-of-patagonia",
+    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Patagonia"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Adventure",
+        "item": "https://globaltravelreport.com/category/adventure"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Patagonia",
+        "item": "https://globaltravelreport.com/destination/patagonia"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Journey Through the Wild: Top 12 Trails of Patagonia",
+        "item": "https://globaltravelreport.com/title-journey-through-the-wild-top-12-trails-of-patagonia"
+      }
+    ]
+  }
+]

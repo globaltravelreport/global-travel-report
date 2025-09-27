@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots",
+    "description": "### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...",
+    "image": [
+      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-04T13:53:24.590Z",
+    "dateModified": "2025-04-04T13:53:24.590Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots",
+    "description": "### Jetstar's Mega Sale: Unmissable Deals for Australian Globetrotters...",
+    "url": "https://globaltravelreport.com/1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo",
+    "image": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Multiple countries"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Experience",
+        "item": "https://globaltravelreport.com/category/experience"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Multiple countries",
+        "item": "https://globaltravelreport.com/destination/multiple-countries"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Jetstar's Mega Sale: $50 Flights for Aussies to Global Hotspots",
+        "item": "https://globaltravelreport.com/1-jetstars-mega-sale-50-flights-for-aussies-to-global-hotspo"
+      }
+    ]
+  }
+]

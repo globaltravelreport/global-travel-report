@@ -1,0 +1,74 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Scotland's Cruise Boom: A £130M Windfall & Aussie Guide",
+    "description": "Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...",
+    "image": [
+      "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-04T13:53:24.594Z",
+    "dateModified": "2025-04-04T13:53:24.594Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/1-scotlands-cruise-boom-a-130m-windfall-aussie-guide"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Scotland's Cruise Boom: A £130M Windfall & Aussie Guide",
+    "description": "Scotland's Cruise Sector: A Lucrative Adventure Awaiting Aussie Explorers...",
+    "url": "https://globaltravelreport.com/1-scotlands-cruise-boom-a-130m-windfall-aussie-guide",
+    "image": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&q=80&w=2400",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Scotland"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "'Luxury",
+        "item": "https://globaltravelreport.com/category/'luxury"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Scotland",
+        "item": "https://globaltravelreport.com/destination/scotland"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Scotland's Cruise Boom: A £130M Windfall & Aussie Guide",
+        "item": "https://globaltravelreport.com/1-scotlands-cruise-boom-a-130m-windfall-aussie-guide"
+      }
+    ]
+  }
+]

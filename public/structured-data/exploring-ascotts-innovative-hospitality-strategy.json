@@ -1,0 +1,56 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Exploring Ascott's Innovative Hospitality Strategy",
+    "description": "  Ascott, a leading international lodging owner-operator, is pioneering a multi-typology strategy to meet the evolving demands of travelers. This approa...",
+    "image": [
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Global Travel Report Editorial Team",
+      "url": "https://globaltravelreport.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Global Travel Report",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://globaltravelreport.com/logo-gtr.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "datePublished": "2025-04-28T13:53:24.627Z",
+    "dateModified": "2025-04-28T13:53:24.627Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://globaltravelreport.com/exploring-ascotts-innovative-hospitality-strategy"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://globaltravelreport.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Accommodation Review",
+        "item": "https://globaltravelreport.com/category/accommodation-review"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Exploring Ascott's Innovative Hospitality Strategy",
+        "item": "https://globaltravelreport.com/exploring-ascotts-innovative-hospitality-strategy"
+      }
+    ]
+  }
+]
