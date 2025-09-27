@@ -1,0 +1,6 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="40" rx="8" fill="#0066CC"/>
+  <text x="60" y="25" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Wise</text>
+  <path d="M15 10 L25 10 L20 20 L25 30 L15 30 L20 20 Z" fill="white" opacity="0.8"/>
+  <path d="M95 10 L105 10 L100 20 L105 30 L95 30 L100 20 Z" fill="white" opacity="0.8"/>
+</svg>

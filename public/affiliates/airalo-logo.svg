@@ -1,0 +1,6 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="40" rx="8" fill="#3B82F6"/>
+  <text x="60" y="25" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Airalo</text>
+  <path d="M12 16 Q20 12 28 16 Q20 20 12 16" fill="white" opacity="0.9"/>
+  <path d="M92 16 Q100 12 108 16 Q100 20 92 16" fill="white" opacity="0.9"/>
+</svg>
