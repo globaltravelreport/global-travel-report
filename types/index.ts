@@ -22,7 +22,7 @@ export interface Story {
 // Extend Window interface for Google Analytics
 declare global {
   interface Window {
-    gtag: (command: string, ...args: any[]) => void;
+    gtag: (...args: any[]) => void;
     dataLayer: any[];
   }
 }
