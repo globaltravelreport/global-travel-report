@@ -41,9 +41,9 @@ export async function GET(request: NextRequest) {
           return;
         }
 
-        // Set a reasonable timeout for the request
+        // Set a shorter timeout for better UX
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
 
         const response = await fetch(url, {
           method: 'HEAD', // Use HEAD to minimize data transfer

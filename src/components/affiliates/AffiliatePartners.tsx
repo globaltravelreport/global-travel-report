@@ -23,7 +23,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   className = '',
   maxPartners,
   showHeader = true,
-  enableVerification = true
+  enableVerification = false
 }) => {
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>({});
   const [isLoading, setIsLoading] = useState(enableVerification);
@@ -31,7 +31,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const maxRetries = 3;
+  const maxRetries = 2;
 
   // Filter and limit partners
   const displayPartners = maxPartners
@@ -70,7 +70,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
 
       const urls = displayPartners.map(partner => partner.url);
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
 
       const response = await fetch(`/api/affiliates/verify?urls=${encodeURIComponent(urls.join(','))}`, {
         signal: controller.signal
