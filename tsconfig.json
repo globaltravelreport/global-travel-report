@@ -27,10 +27,10 @@
     "paths": {
       "@/*": ["src/*"],
       "@/src/*": ["src/*"],
-      "@/components/*": ["components/*", "src/components/*"],
-      "@/lib/*": ["lib/*", "src/lib/*"],
+      "@/components/*": ["src/components/*", "components/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/types/*": ["types/*", "src/types/*"],
-      "@/utils/*": ["utils/*", "src/utils/*"],
+      "@/utils/*": ["src/utils/*"],
       "@/app/*": ["app/*"],
       "@/config/*": ["src/config/*"]
     },
@@ -52,8 +52,6 @@
     ".next",
     "dist",
     "coverage",
-    "global-travel-report",
-    "global-travel-report/**",
     "**/__tests__/**",
     "**/__mocks__/**",
     "scripts/**/*.ts"

@@ -1,0 +1,24 @@
+{
+  "partner": "AMEX Platinum",
+  "partnerKey": "amex",
+  "logo": "https://logos-world.net/wp-content/uploads/2020/09/American-Express-Logo.png",
+  "baseUrl": "https://americanexpress.com/en-au/referral/platinum?ref=rODNEP5E1w&CPID=999999537",
+  "offers": [
+    {
+      "title": "AMEX Platinum Card - Premium Travel Benefits",
+      "description": "Unlock exclusive travel benefits, airport lounge access, and premium rewards with the AMEX Platinum Card. Perfect for frequent travelers.",
+      "affiliate_url": "https://americanexpress.com/en-au/referral/platinum?ref=rODNEP5E1w&CPID=999999537",
+      "price": "Premium Benefits",
+      "currency": "AUD",
+      "category": "finance",
+      "partner": "AMEX Platinum",
+      "partner_logo": "https://logos-world.net/wp-content/uploads/2020/09/American-Express-Logo.png",
+      "validFrom": "2024-01-01",
+      "validUntil": "2024-12-31",
+      "lastUpdated": "2024-09-27",
+      "source": "affiliate"
+    }
+  ],
+  "lastUpdated": "2024-09-27",
+  "totalOffers": 1
+}

@@ -76,6 +76,20 @@ export const affiliatePartners: AffiliatePartner[] = [
     logo: '/affiliates/wise-logo.svg',
     alt: 'Wise - International money transfers',
     description: 'Fast and low-cost international money transfers'
+  },
+  {
+    name: 'AMEX Platinum',
+    url: 'https://americanexpress.com/en-au/referral/platinum?ref=rODNEP5E1w&CPID=999999537',
+    logo: '/affiliates/amex-platinum-logo.svg',
+    alt: 'American Express Platinum Card - Premium credit card',
+    description: 'Premium credit card with travel benefits and rewards'
+  },
+  {
+    name: 'UP Card',
+    url: 'https://hook.up.me/rodneyp',
+    logo: '/affiliates/up-card-logo.svg',
+    alt: 'UP Card - Smart banking and spending',
+    description: 'Smart banking with spending insights and savings'
   }
 ];
 

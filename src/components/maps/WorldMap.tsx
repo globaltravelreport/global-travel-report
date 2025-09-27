@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { cn } from '@/utils/cn';
 
 // Define the props for the WorldMap component
@@ -94,38 +94,40 @@ export function WorldMap({
   const [isMapInitialized, setIsMapInitialized] = useState(false);
   const [leaflet, setLeaflet] = useState<any>(null);
   const [geoJSON, setGeoJSON] = useState<any>(null);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-  // Initialize the map when the component mounts
+  // Function to load the map on demand
+  const loadMap = async () => {
+    if (isMapLoaded || typeof window === 'undefined') return;
+
+    try {
+      // Import Leaflet dynamically
+      const L = await import('leaflet');
+
+      // Import GeoJSON data
+      const response = await fetch('/data/world-countries.geo.json');
+      const data = await response.json();
+
+      setLeaflet(L);
+      setGeoJSON(data);
+      setIsMapLoaded(true);
+    } catch (error) {
+      console.error('Error loading map:', error);
+    }
+  };
+
+  // Initialize the map when the component mounts (but don't load heavy assets yet)
   useEffect(() => {
     // Only run on the client side
     if (typeof window === 'undefined') return;
 
-    // Load Leaflet and GeoJSON data
-    const initializeMap = async () => {
-      try {
-        // Import Leaflet dynamically
-        const L = await import('leaflet');
-
-        // Import GeoJSON data
-        const response = await fetch('/data/world-countries.geo.json');
-        const data = await response.json();
-
-        setLeaflet(L);
-        setGeoJSON(data);
-        setIsMapInitialized(true);
-      } catch (error) {
-        console.error('Error initializing map:', error);
-      }
-    };
-
-    if (!isMapInitialized) {
-      initializeMap();
-    }
-  }, [isMapInitialized]);
+    // Set initialized state but don't load heavy assets yet
+    setIsMapInitialized(true);
+  }, []);
 
   // Set up the map when Leaflet and GeoJSON data are loaded
   useEffect(() => {
-    if (!leaflet || !geoJSON || !mapRef.current || !isMapInitialized) return;
+    if (!leaflet || !geoJSON || !mapRef.current || !isMapLoaded) return;
 
     // Initialize the map
     const L = leaflet;
@@ -209,11 +211,34 @@ export function WorldMap({
       className={cn('relative overflow-hidden rounded-lg', className)}
       style={{ width, height }}
     >
-      <div ref={mapRef} className="w-full h-full" />
-      {!isMapInitialized && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <div className="animate-pulse text-gray-500">Loading map...</div>
+      {!isMapLoaded ? (
+        // Static placeholder with load button
+        <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center">
+          <div className="text-center mb-4">
+            <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Interactive World Map</h3>
+            <p className="text-gray-600 mb-4">Click to explore destinations and view stories by country</p>
+          </div>
+          <button
+            onClick={loadMap}
+            className="px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
+          >
+            Load Interactive Map
+          </button>
         </div>
+      ) : (
+        // Interactive map
+        <>
+          <div ref={mapRef} className="w-full h-full" />
+          {!leaflet && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A14A]"></div>
+              <span className="ml-3 text-gray-600">Loading map...</span>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

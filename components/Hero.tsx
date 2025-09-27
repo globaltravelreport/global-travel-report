@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import OptimizedImage from '@/components/ui/OptimizedImage';
+import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicLayoutEffect';
 
 interface HeroProps {
   title?: string;
@@ -70,16 +71,24 @@ const Hero = ({
   },
   enableRotation = true
 }: HeroProps) => {
+  // Initialize with static values to prevent hydration mismatches
+  const [heroImage, setHeroImage] = useState(defaultImage);
+  const [photographer, setPhotographer] = useState(defaultPhotographer);
+  const [isClient, setIsClient] = useState(false);
+
+  // Use isomorphic layout effect to prevent hydration warnings
+  useIsomorphicLayoutEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Only enable scroll-based transforms on client
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const [heroImage, setHeroImage] = useState(defaultImage);
-  const [photographer, setPhotographer] = useState(defaultPhotographer);
-
   // Rotate through a selection of travel images (optional)
   useEffect(() => {
-    if (!enableRotation) return;
+    if (!enableRotation || !isClient) return;
 
     const pool = images && images.length ? images : [];
     if (pool.length === 0) return;
@@ -93,7 +102,7 @@ const Hero = ({
       url: selectedImage.photographerUrl,
       photoUrl: selectedImage.photoUrl
     });
-  }, [enableRotation, images]);
+  }, [enableRotation, images, isClient]);
 
   return (
     <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
@@ -101,6 +110,7 @@ const Hero = ({
       <motion.div
         className="absolute inset-0"
         style={{ y }}
+        suppressHydrationWarning
       >
         <OptimizedImage
           src={heroImage}
@@ -161,39 +171,45 @@ const Hero = ({
       <motion.div
         className="relative h-full flex flex-col items-center justify-center text-white px-4 pt-16 pb-24"
         style={{ opacity }}
+        suppressHydrationWarning
       >
-        {/* Decorative elements */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-[#C9A14A]/10 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        />
+        {/* Decorative elements - only animate on client */}
+        {isClient && (
+          <>
+            <motion.div
+              className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-[#C9A14A]/10 blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
 
-        <motion.div
-          className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-[#C9A14A]/10 blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 1
-          }}
-        />
+            <motion.div
+              className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-[#C9A14A]/10 blur-3xl"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.2, 0.4, 0.2]
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: 1
+              }}
+            />
+          </>
+        )}
 
         {/* Main heading with enhanced styling */}
         <motion.div
           initial={false}
           className="relative"
+          suppressHydrationWarning
         >
           <h1 className="text-5xl md:text-7xl font-black text-center mb-2 tracking-tight leading-tight"
               style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)' }}>
@@ -215,6 +231,7 @@ const Hero = ({
           initial={false}
           className="text-xl md:text-2xl text-center mb-12 max-w-2xl font-medium leading-relaxed"
           style={{ textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)' }}
+          suppressHydrationWarning
         >
           {subtitle}
         </motion.p>
@@ -223,6 +240,7 @@ const Hero = ({
         <motion.div
           initial={false}
           className="flex flex-col sm:flex-row gap-4 items-center"
+          suppressHydrationWarning
         >
           {/* Primary CTA */}
           <motion.div
@@ -255,20 +273,22 @@ const Hero = ({
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{
-            opacity: { delay: 1.5, duration: 1 },
-            y: { delay: 1.5, duration: 2, repeat: Infinity }
-          }}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </motion.div>
+        {/* Scroll indicator - only animate on client */}
+        {isClient && (
+          <motion.div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{
+              opacity: { delay: 1.5, duration: 1 },
+              y: { delay: 1.5, duration: 2, repeat: Infinity }
+            }}
+          >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        )}
       </motion.div>
     </section>
   );

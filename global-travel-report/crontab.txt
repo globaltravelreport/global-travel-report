@@ -1,5 +1,0 @@
-# Crontab for Global Travel Report
-# Run the daily story generator at 2 PM Sydney time every day
-0 14 * * * /Users/rodneypattison/Desktop/global-travel-report/scripts/run-daily-stories.sh
-
-# Empty line at the end
