@@ -1,22 +1,72 @@
-'use client'
+'use client';
 
-import Script from 'next/script'
+import { useEffect } from 'react';
 
-export function GoogleAnalytics() {
-  return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-        `}
-      </Script>
-    </>
-  )
-} 
+
+interface GoogleAnalyticsProps {
+  gaId: string;
+}
+
+export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
+  useEffect(() => {
+    // Load Google Analytics script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    document.head.appendChild(script);
+
+    // Initialize gtag
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(...args) {
+      window.dataLayer.push(args);
+    };
+
+    window.gtag('js', new Date());
+    window.gtag('config', gaId, {
+      page_title: document.title,
+      page_location: window.location.href,
+      send_page_view: true
+    });
+
+    // Cleanup function
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [gaId]);
+
+  return null;
+}
+
+// Utility functions for tracking
+export function trackEvent(eventName: string, parameters: Record<string, any> = {}) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
+  }
+}
+
+export function trackPageView(pagePath: string, pageTitle?: string) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+      page_title: pageTitle || document.title,
+      page_location: window.location.origin + pagePath
+    });
+  }
+}
+
+export function trackAffiliateClick(partnerName: string, url: string) {
+  trackEvent('affiliate_click', {
+    event_category: 'affiliate',
+    event_label: partnerName,
+    affiliate_url: url,
+    value: 1
+  });
+}
+
+export function trackStoryEngagement(storySlug: string, action: string) {
+  trackEvent('story_engagement', {
+    event_category: 'content',
+    event_label: storySlug,
+    engagement_action: action,
+    value: 1
+  });
+}

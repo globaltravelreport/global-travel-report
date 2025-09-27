@@ -17,4 +17,12 @@ export interface Story {
   tags: string[];
   isSponsored: boolean;
   editorsPick: boolean;
-} 
+}
+
+// Extend Window interface for Google Analytics
+declare global {
+  interface Window {
+    gtag: (command: string, ...args: any[]) => void;
+    dataLayer: any[];
+  }
+}

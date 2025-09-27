@@ -10,6 +10,7 @@ import { cn } from '@/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '@/src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '@/src/components/analytics/WebVitalsTracker';
 import AITravelAssistantMount from '@/src/components/experimental/AITravelAssistantMount';
+import { GoogleAnalytics } from '@/src/components/analytics/GoogleAnalytics';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '@/src/components/ui/SearchParamsProvider';
  
@@ -101,22 +102,7 @@ export default function RootLayout({
 
         {/* Google Analytics - Production Only */}
         {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                    page_title: document.title,
-                    page_location: window.location.href
-                  });
-                `
-              }}
-            />
-          </>
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

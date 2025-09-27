@@ -104,9 +104,9 @@ export default function PartnersPage() {
                         rel="noopener noreferrer sponsored"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
                         onClick={() => {
-                          // Track partner page clicks
-                          if (typeof window !== 'undefined' && (window as any).gtag) {
-                            (window as any).gtag('event', 'partner_page_click', {
+                          // Track partner page clicks with Google Analytics
+                          if (typeof window !== 'undefined' && window.gtag) {
+                            window.gtag('event', 'partner_page_click', {
                               event_category: 'affiliate',
                               event_label: partner.name,
                               value: 1

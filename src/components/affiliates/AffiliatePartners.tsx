@@ -141,17 +141,21 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
 
   // Track affiliate link clicks for analytics
   const handleAffiliateClick = (partnerName: string, url: string) => {
-    // Track the click event
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click', {
-        event_category: 'affiliate',
-        event_label: partnerName,
-        value: 1
-      });
-    }
+    // Track the click event using our analytics utility
+    if (typeof window !== 'undefined') {
+      // Log for debugging (remove in production)
+      console.log(`Affiliate click tracked: ${partnerName} -> ${url}`);
 
-    // Log for debugging (remove in production)
-    console.log(`Affiliate click tracked: ${partnerName} -> ${url}`);
+      // Track with Google Analytics if available
+      if (window.gtag) {
+        window.gtag('event', 'affiliate_click', {
+          event_category: 'affiliate',
+          event_label: partnerName,
+          affiliate_url: url,
+          value: 1
+        });
+      }
+    }
 
     // Open link in new tab
     window.open(url, '_blank', 'noopener,noreferrer');
