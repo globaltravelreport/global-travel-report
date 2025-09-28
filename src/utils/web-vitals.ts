@@ -121,7 +121,10 @@ function sendToServiceWorker(metric: WebVitalsMetric) {
   if (!('serviceWorker' in navigator)) return;
   try {
     navigator.serviceWorker.controller?.postMessage({ type: 'WEB_VITAL', payload: metric });
-  } catch {}
+  } catch (error) {
+    // Silently handle service worker communication errors
+    console.debug('Service worker not available for Web Vitals reporting');
+  }
 }
 
 /**

@@ -33,7 +33,7 @@ export function generateFacebookImage({
   // Handle external URLs (Unsplash, etc.)
   if (originalImageUrl.startsWith('http')) {
     // Try to convert WebP to JPEG for better Facebook compatibility
-    let optimizedUrl = originalImageUrl.replace(/\.webp$/i, '.jpg');
+    const optimizedUrl = originalImageUrl.replace(/\.webp$/i, '.jpg');
 
     // If it's still WebP after conversion attempt, use fallback
     if (optimizedUrl.endsWith('.webp') || optimizedUrl.includes('webp')) {
@@ -45,7 +45,7 @@ export function generateFacebookImage({
 
   // Handle internal URLs
   const fullImageUrl = `${siteUrl}${originalImageUrl.startsWith('/') ? originalImageUrl : `/${originalImageUrl}`}`;
-  let optimizedUrl = fullImageUrl.replace(/\.webp$/i, '.jpg');
+  const optimizedUrl = fullImageUrl.replace(/\.webp$/i, '.jpg');
 
   // If conversion didn't work or still WebP, use fallback
   if (optimizedUrl.endsWith('.webp') || optimizedUrl.includes('webp')) {
