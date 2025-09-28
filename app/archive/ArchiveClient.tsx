@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories, getArchivedStories, getStoriesByMonth, getArchiveStats } from '@/src/utils/stories';
-import { Story } from '@/types/Story';
+import { getAllStories, getArchivedStories, getStoriesByMonth, getArchiveStats } from '../../src/utils/stories.ts';
+import { Story } from '../../types/Story.ts';
 
 type DateRange = '7' | '30' | '180' | '365' | 'all';
 
@@ -24,9 +24,18 @@ export default function ArchiveClient() {
   useEffect(() => {
     const loadStories = async () => {
       try {
+        setLoading(true);
         const allStories = await getAllStories();
-        setStories(allStories);
-        setFilteredStories(allStories);
+
+        // Validate that we got stories and they have the expected structure
+        if (Array.isArray(allStories) && allStories.length > 0) {
+          setStories(allStories);
+          setFilteredStories(allStories);
+        } else {
+          console.warn('No stories found or invalid data structure');
+          setStories([]);
+          setFilteredStories([]);
+        }
       } catch (error) {
         console.error('Error loading stories:', error);
         setStories([]);
@@ -42,7 +51,7 @@ export default function ArchiveClient() {
   useEffect(() => {
     let filtered = stories;
 
-    // Filter by date range
+    // Filter by date range - show stories older than the selected range (archived stories)
     if (dateRange !== 'all') {
       const days = parseInt(dateRange);
       const cutoffDate = new Date();
@@ -50,32 +59,34 @@ export default function ArchiveClient() {
 
       filtered = filtered.filter(story => {
         const storyDate = new Date(story.publishedAt || '');
-        return storyDate < cutoffDate;
+        // Only include stories older than the cutoff date (archived stories)
+        return !isNaN(storyDate.getTime()) && storyDate < cutoffDate;
       });
     }
 
     // Filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(story =>
-        story.category?.toLowerCase() === selectedCategory.toLowerCase()
+        story.category && story.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
     // Filter by country
     if (selectedCountry !== 'all') {
       filtered = filtered.filter(story =>
-        story.country?.toLowerCase() === selectedCountry.toLowerCase()
+        story.country && story.country.toLowerCase() === selectedCountry.toLowerCase()
       );
     }
 
     // Filter by search query
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+      const query = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(story =>
-        story.title.toLowerCase().includes(query) ||
-        story.excerpt.toLowerCase().includes(query) ||
-        story.content.toLowerCase().includes(query) ||
-        story.tags?.some(tag => tag.toLowerCase().includes(query))
+        (story.title && story.title.toLowerCase().includes(query)) ||
+        (story.excerpt && story.excerpt.toLowerCase().includes(query)) ||
+        (story.content && story.content.toLowerCase().includes(query)) ||
+        (story.tags && story.tags.some(tag => tag.toLowerCase().includes(query))) ||
+        (story.author && story.author.toLowerCase().includes(query))
       );
     }
 
@@ -259,7 +270,7 @@ export default function ArchiveClient() {
                   <div className="p-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {stories.map((story) => (
-                        <article key={story.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <article key={`monthly-${story.id}`} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                           <Link href={`/stories/${story.slug}`}>
                             <div className="relative h-32 overflow-hidden">
                               <Image
