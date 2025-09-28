@@ -39,7 +39,18 @@ export function DialogTrigger({ children, asChild }: DialogTriggerProps) {
   const context = useDialogContext();
 
   return (
-    <div onClick={() => context.setIsOpen(true)}>
+    <div
+      onClick={() => context.setIsOpen(true)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          context.setIsOpen(true);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      style={{ cursor: 'pointer' }}
+    >
       {children}
     </div>
   );
@@ -56,6 +67,15 @@ export function DialogContent({ children, className = '' }: DialogContentProps) 
       <div
         className="fixed inset-0 bg-black/50"
         onClick={() => context.setIsOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            context.setIsOpen(false);
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Close dialog"
+        style={{ cursor: 'pointer' }}
       />
 
       {/* Dialog */}

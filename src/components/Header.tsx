@@ -179,6 +179,20 @@ export default function Header() {
             >
               All Stories
             </Link>
+
+            {/* Admin Link (only show if user has admin access) */}
+            {pathname.startsWith('/admin') && (
+              <Link
+                href="/admin"
+                className={`px-3 py-2 text-sm font-medium transition-colors ${
+                  pathname.startsWith('/admin')
+                    ? 'text-[#C9A14A] border-b-2 border-[#C9A14A]'
+                    : 'text-gray-700 hover:text-[#C9A14A]'
+                }`}
+              >
+                Admin
+              </Link>
+            )}
           </nav>
 
           {/* Search and Mobile Menu Button */}
@@ -324,6 +338,15 @@ export default function Header() {
               className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md"
             >
               Search
+            </Link>
+
+            <Link
+              href="/admin"
+              className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                pathname.startsWith('/admin') ? 'bg-[#C9A14A] text-white' : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Admin
             </Link>
           </div>
         </div>
