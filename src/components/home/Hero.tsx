@@ -12,9 +12,13 @@ export default function Hero() {
   useEffect(() => {
     const loadFeaturedStory = async () => {
       try {
+        console.log('Hero: Loading stories...');
         const stories = await getAllStories();
+        console.log('Hero: Loaded stories:', stories.length, stories.map(s => ({ id: s.id, title: s.title, featured: s.featured })));
         const featured = stories.find(story => story.featured);
-        setFeaturedStory(featured || stories[0]);
+        const storyToUse = featured || stories[0];
+        console.log('Hero: Selected story:', storyToUse?.title || 'None');
+        setFeaturedStory(storyToUse);
       } catch (error) {
         console.error('Error loading featured story:', error);
         // Set a fallback story or handle the error state

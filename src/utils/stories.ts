@@ -123,10 +123,10 @@ export async function getAllStories(): Promise<Story[]> {
  * @returns Paginated array of stories for the homepage
  */
 export const getHomepageStories = memoize(
-  (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
-    // First filter and sort the stories
-    const filteredStories = Array.isArray(stories) ? stories
-      .filter(story => !isStoryArchived(story))
+   (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
+     // First filter and sort the stories
+     const filteredStories = Array.isArray(stories) ? stories
+       .filter(story => !isStoryArchived(story, 365)) // Use 365 days instead of default 7
       .sort((a, b) => {
         const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
         const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
@@ -158,10 +158,10 @@ export const getHomepageStories = memoize(
  * @returns Paginated array of archived stories
  */
 export const getArchivedStories = memoize(
-  (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
-    // First filter and sort the stories
-    const filteredStories = Array.isArray(stories) ? stories
-      .filter(story => isStoryArchived(story))
+   (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
+     // First filter and sort the stories
+     const filteredStories = Array.isArray(stories) ? stories
+       .filter(story => isStoryArchived(story, 365)) // Use 365 days instead of default 7
       .sort((a, b) => {
         const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
         const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);

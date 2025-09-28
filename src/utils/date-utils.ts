@@ -186,10 +186,10 @@ export function daysBetween(date1: Date | string, date2: Date | string = new Dat
 /**
  * Check if a story is archived (older than a specified number of days)
  * @param publishDate - The publish date of the story
- * @param archiveDays - Number of days after which a story is considered archived (default: 7)
+ * @param archiveDays - Number of days after which a story is considered archived (default: 365)
  * @returns Boolean indicating if the story is archived
  */
-export function isArchived(publishDate: Date | string, archiveDays: number = 7): boolean {
+export function isArchived(publishDate: Date | string, archiveDays: number = 365): boolean {
   const dateObj = publishDate instanceof Date ? publishDate : new Date(publishDate);
   const archiveDate = getDaysAgo(archiveDays);
 

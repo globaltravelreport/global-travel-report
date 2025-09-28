@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import StoriesIndexClient from './StoriesIndexClient.tsx';
 
+// Force dynamic rendering to ensure stories are loaded at runtime
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Travel Stories - Global Travel Report',
   description: 'Discover inspiring travel stories, destination guides, and insider tips from around the world. Explore our collection of engaging travel content with stunning visuals and expert insights.',

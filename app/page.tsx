@@ -2,6 +2,9 @@ import Hero from '@/src/components/home/Hero';
 import StoriesSection from '@/src/components/home/StoriesSection';
 import type { Metadata } from 'next';
 
+// Force dynamic rendering to ensure stories are loaded at runtime
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Global Travel Report - Your Ultimate Travel Companion',
   description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
