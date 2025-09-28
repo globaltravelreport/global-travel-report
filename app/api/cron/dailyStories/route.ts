@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ContentAutomationService } from '@/src/services/contentAutomationService';
 
+// Force dynamic rendering for this route since it uses request headers
+export const dynamic = 'force-dynamic';
+
 /**
  * Daily Stories Cron Job API
  * GET /api/cron/dailyStories
