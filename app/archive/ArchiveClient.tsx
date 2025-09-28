@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories, getArchivedStories, getStoriesByMonth, getArchiveStats } from '../../src/utils/stories.ts';
+import { getAllStories, getStoriesByMonth } from '../../src/utils/stories.ts';
 import { Story } from '../../types/Story.ts';
 
 type DateRange = '7' | '30' | '180' | '365' | 'all';
@@ -167,10 +167,11 @@ export default function ArchiveClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Date Range Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="dateRange" className="block text-sm font-medium text-gray-700 mb-2">
                   Date Range
                 </label>
                 <select
+                  id="dateRange"
                   value={dateRange}
                   onChange={(e) => setDateRange(e.target.value as DateRange)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent"
@@ -185,10 +186,11 @@ export default function ArchiveClient() {
 
               {/* Category Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
                   Category
                 </label>
                 <select
+                  id="category"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent"
@@ -202,10 +204,11 @@ export default function ArchiveClient() {
 
               {/* Country Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
                   Country
                 </label>
                 <select
+                  id="country"
                   value={selectedCountry}
                   onChange={(e) => setSelectedCountry(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent"
@@ -219,10 +222,11 @@ export default function ArchiveClient() {
 
               {/* Search */}
               <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
                   Search Archive
                 </label>
                 <input
+                  id="search"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
