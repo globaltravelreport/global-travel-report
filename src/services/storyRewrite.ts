@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
-import OpenAI from "openai";
-import type { Story } from "@/types/Story";
+import type { Story } from "../../types/Story";
 import { v4 as uuidv4 } from "uuid";
-import { createChatCompletion, batchOpenAIRequests } from "@/utils/openai-optimizer";
-import config from "@/src/config";
+import { generateStoryContent } from "../services/aiService";
 
 /**
  * Interface for rewrite options
@@ -89,28 +87,16 @@ export class StoryRewriter {
    * @private
    */
   private async rewriteNewContent(originalContent: string, category: string): Promise<Story> {
-    // Use optimized OpenAI API with caching and retries
-    // Hardcoded values since config doesn't have OpenAI settings
-    const completion = await createChatCompletion({
-      model: "gpt-4", // Default model
-      messages: [
-        {
-          role: "system",
-          content: "You are a travel story rewriter. Your task is to rewrite travel stories in a more engaging and professional way while maintaining the original content and facts."
-        },
-        {
-          role: "user",
-          content: originalContent
-        }
-      ]
-    }, {
-      enableCache: true,
-      cacheTtl: 24 * 60 * 60 * 1000, // 24 hours
-      maxRetries: 3, // Default max retries
-      retryDelay: 1000 // Default retry delay
-    });
+    // Use the unified AI service for content generation
+    const prompt = `Rewrite the following article in the style of a professional Australian travel journalist, using Australian English (no slang). The article should be engaging, informative, and detailed, presenting facts in a polished, unbiased manner, as if written for a national travel magazine.
 
-    const rewrittenContent = completion.choices[0]?.message?.content || originalContent;
+Title: ${category} Travel Guide
+Content: ${originalContent}
+
+Please maintain the same key information and facts, but rewrite it in a more engaging and professional style.`;
+
+    const result = await generateStoryContent(prompt);
+    const rewrittenContent = result.content || originalContent;
 
     // Generate a unique ID
     const id = uuidv4();

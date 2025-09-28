@@ -1,13 +1,7 @@
 /* eslint-disable no-console */
-import type { Story, StoryValidationResult } from '@/types/Story';
-import { storyRewriteConfig } from '@/src/config/storyRewrite';
-import OpenAI from 'openai';
-import { retryOpenAICall, OpenAIError, OpenAIErrorType } from '@/utils/openai-error-handler';
-
-// Initialize OpenAI client with API key from environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+import type { Story, StoryValidationResult } from '../../types/Story';
+import { storyRewriteConfig } from '../config/storyRewrite';
+import { generateStoryContent } from '../services/aiService';
 
 /**
  * Custom error class for story validation errors
@@ -82,22 +76,19 @@ export class StoryValidator {
       };
     } catch (error) {
       // Handle different types of errors
-      if (error instanceof OpenAIError) {
-        switch (error.type) {
-          case OpenAIErrorType.QUOTA_EXCEEDED:
-            issues.push('API quota exceeded. Please try again later.');
-            break;
-          case OpenAIErrorType.RATE_LIMIT:
-            issues.push('API rate limit reached. Please try again later.');
-            break;
-          case OpenAIErrorType.AUTHENTICATION:
-            issues.push('API authentication failed. Please check your API key.');
-            break;
-          default:
-            issues.push(`API error: ${error.message}`);
-        }
-      } else if (error instanceof StoryValidationError) {
+      if (error instanceof StoryValidationError) {
         issues.push(error.message);
+      } else if (error instanceof Error) {
+        // Check if it's an API key error
+        if (error.message.includes('Missing OPENAI_API_KEY') || error.message.includes('Missing GOOGLE_API_KEY')) {
+          issues.push('API configuration error. Please check your environment variables.');
+        } else if (error.message.includes('API quota exceeded') || error.message.includes('rate limit')) {
+          issues.push('API quota exceeded. Please try again later.');
+        } else if (error.message.includes('API authentication failed')) {
+          issues.push('API authentication failed. Please check your API key.');
+        } else {
+          issues.push(`API error: ${error.message}`);
+        }
       } else {
         issues.push('An unexpected error occurred during validation');
         console.error('Validation error:', error);
@@ -144,33 +135,26 @@ export class StoryValidator {
    */
   private async checkContentSafety(story: Story): Promise<boolean> {
     try {
-      // Use retry utility for OpenAI API calls
-      const completion = await retryOpenAICall(
-        () => openai.chat.completions.create({
-          model: "gpt-4",
-          messages: [
-            {
-              role: "system",
-              content: "You are a content safety validator. Check if the content is safe and appropriate."
-            },
-            {
-              role: "user",
-              content: JSON.stringify({
-                title: story.title,
-                content: story.content,
-                excerpt: story.excerpt
-              })
-            }
-          ]
-        }),
-        this.maxRetries,
-        this.initialRetryDelay
-      );
+      const prompt = `Analyze the following travel story content for safety and appropriateness. Return a JSON response with "isSafe" (boolean) and "issues" (array of strings).
 
-      const responseText = completion.choices[0]?.message?.content || '{"isSafe": false, "issues": ["Failed to validate content"]}';
+Story to analyze:
+Title: ${story.title}
+Content: ${story.content}
+Excerpt: ${story.excerpt}
+
+Check for:
+- Inappropriate language or content
+- Hate speech or discriminatory content
+- Harmful or dangerous advice
+- Spam or promotional content
+- Plagiarism concerns
+
+Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
+
+      const result = await generateStoryContent(prompt);
 
       try {
-        const response = JSON.parse(responseText);
+        const response = JSON.parse(result.content);
 
         if (!response.isSafe) {
           console.warn('Content safety issues:', response.issues);
@@ -254,34 +238,27 @@ export class StoryValidator {
    */
   private async checkFactualAccuracy(story: Story): Promise<boolean> {
     try {
-      // Use retry utility for OpenAI API calls
-      const completion = await retryOpenAICall(
-        () => openai.chat.completions.create({
-          model: "gpt-4",
-          messages: [
-            {
-              role: "system",
-              content: "You are a fact checker. Verify the accuracy of the travel information provided."
-            },
-            {
-              role: "user",
-              content: JSON.stringify({
-                title: story.title,
-                content: story.content,
-                country: story.country,
-                category: story.category
-              })
-            }
-          ]
-        }),
-        this.maxRetries,
-        this.initialRetryDelay
-      );
+      const prompt = `Fact-check the following travel story for accuracy. Return a JSON response with "isAccurate" (boolean) and "issues" (array of strings).
 
-      const responseText = completion.choices[0]?.message?.content || '{"isAccurate": false, "issues": ["Failed to verify facts"]}';
+Story to fact-check:
+Title: ${story.title}
+Content: ${story.content}
+Country: ${story.country}
+Category: ${story.category}
+
+Check for:
+- Factual inaccuracies in travel information
+- Incorrect geographical details
+- Wrong historical facts
+- Misleading information about destinations
+- Incorrect cultural references
+
+Return format: {"isAccurate": true/false, "issues": ["issue1", "issue2"]}`;
+
+      const result = await generateStoryContent(prompt);
 
       try {
-        const response = JSON.parse(responseText);
+        const response = JSON.parse(result.content);
 
         if (!response.isAccurate) {
           console.warn('Factual accuracy issues:', response.issues);
