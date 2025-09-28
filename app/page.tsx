@@ -6,14 +6,14 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Global Travel Report - Your Ultimate Travel Companion',
-  description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
+  title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
+  description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
   alternates: {
     canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
   },
   openGraph: {
-    title: 'Global Travel Report - Your Ultimate Travel Companion',
-    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
+    title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
+    description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: '/og/home-1200x630.jpg',
         width: 1200,
         height: 630,
-        alt: 'Global Travel Report - Your Ultimate Travel Companion',
+        alt: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
       },
     ],
     type: 'website',
@@ -31,9 +31,13 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
-    title: 'Global Travel Report - Your Ultimate Travel Companion',
-    description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
+    title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
+    description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
     images: ['/og/home-1200x630.jpg'],
+  },
+  // LinkedIn uses Open Graph tags but we can add LinkedIn-specific optimization
+  other: {
+    'linkedin:owner': 'https://www.linkedin.com/company/globaltravelreport',
   },
   robots: {
     index: true,

@@ -214,14 +214,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {/* Travel Styles Filter */}
               {travelStyles.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="travel-style-filter" className="block text-sm font-medium text-gray-700 mb-2">
                     Travel Style
                   </label>
-                  <div className="space-y-2">
+                  <div className="space-y-2" id="travel-style-filter">
                     {travelStyles.slice(0, 5).map((style) => (
                       <label key={style} className="flex items-center">
                         <input
                           type="checkbox"
+                          id={`travel-style-${style.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
                           onChange={(e) => {
                             // Filter functionality would be implemented here
@@ -238,14 +239,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {/* Destinations Filter */}
               {countries.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="destinations-filter" className="block text-sm font-medium text-gray-700 mb-2">
                     Destinations
                   </label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                  <div className="space-y-2 max-h-32 overflow-y-auto" id="destinations-filter">
                     {countries.slice(0, 6).map((country) => (
                       <label key={country} className="flex items-center">
                         <input
                           type="checkbox"
+                          id={`destination-${country.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
                           onChange={(e) => {
                             console.log(`Filter by destination: ${country}`);
@@ -261,14 +263,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {/* Tags Filter */}
               {popularTags.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="topics-filter" className="block text-sm font-medium text-gray-700 mb-2">
                     Topics
                   </label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                  <div className="space-y-2 max-h-32 overflow-y-auto" id="topics-filter">
                     {popularTags.slice(0, 6).map((tag) => (
                       <label key={tag} className="flex items-center">
                         <input
                           type="checkbox"
+                          id={`topic-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
                           onChange={(e) => {
                             console.log(`Filter by tag: ${tag}`);
