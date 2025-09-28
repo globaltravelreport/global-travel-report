@@ -15,8 +15,21 @@ export default function Hero() {
         console.log('Hero: Loading stories...');
         const stories = await getAllStories();
         console.log('Hero: Loaded stories:', stories.length, stories.map(s => ({ id: s.id, title: s.title, featured: s.featured })));
-        const featured = stories.find(story => story.featured);
-        const storyToUse = featured || (stories.length > 0 ? stories[0] : null);
+
+        // Filter for recent stories (last 30 days) for homepage
+        const recentStories = stories.filter(story => {
+          const thirtyDaysAgo = new Date();
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+          const storyDate = new Date(story.publishedAt || '');
+          return storyDate >= thirtyDaysAgo;
+        });
+
+        console.log('Hero: Recent stories count:', recentStories.length);
+
+        // First try to find a featured story from recent stories
+        const featured = recentStories.find(story => story.featured);
+        const storyToUse = featured || (recentStories.length > 0 ? recentStories[0] : null);
+
         console.log('Hero: Selected story:', storyToUse?.title || 'None');
         setFeaturedStory(storyToUse);
       } catch (error) {

@@ -57,11 +57,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Get optimized image data
       const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
 
-      // Use the current date as the lastModified date to avoid any date validation issues
-      const lastModified = currentDate;
+      // Calculate story age for priority adjustment
+      const storyDate = new Date(enhancedStory.publishedAt || currentDate);
+      const daysSincePublished = Math.floor((currentDate.getTime() - storyDate.getTime()) / (1000 * 60 * 60 * 24));
+      const isRecent = daysSincePublished <= 30;
+      const isArchived = daysSincePublished > 30;
+
+      // Use actual published date for lastModified, but ensure it's not in the future
+      const publishedDate = storyDate > currentDate ? currentDate : storyDate;
+      const lastModified = enhancedStory.updatedAt
+        ? new Date(enhancedStory.updatedAt) > currentDate ? currentDate : new Date(enhancedStory.updatedAt)
+        : publishedDate;
 
       // Calculate priority based on multiple factors for better SEO
       let priority = 0.7; // Default priority
+
+      // Recent stories get higher priority
+      if (isRecent) {
+        priority = 0.9; // High priority for recent content
+      } else if (isArchived && daysSincePublished <= 365) {
+        priority = 0.6; // Medium priority for archived content (still indexable)
+      } else if (isArchived && daysSincePublished > 365) {
+        priority = 0.4; // Lower priority for very old content but still indexable
+      }
 
       // Increase priority for featured or editor's pick stories
       if (enhancedStory.featured) priority += 0.2;
@@ -73,11 +91,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Cap priority at 1.0
       priority = Math.min(priority, 1.0);
 
+      // Set appropriate change frequency based on story age
+      let changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' = 'weekly';
+
+      if (isRecent) {
+        changeFrequency = 'daily'; // Recent stories may get updates
+      } else if (isArchived && daysSincePublished <= 180) {
+        changeFrequency = 'weekly'; // Recent archive content
+      } else if (isArchived && daysSincePublished <= 365) {
+        changeFrequency = 'monthly'; // Older archive content
+      } else {
+        changeFrequency = 'yearly'; // Very old content, rarely changes
+      }
+
       // Create the basic sitemap entry
       const sitemapEntry: any = {
         url: `${baseUrl}/stories/${enhancedStory.slug}`,
         lastModified,
-        changeFrequency: 'weekly' as const,
+        changeFrequency,
         priority,
       };
 

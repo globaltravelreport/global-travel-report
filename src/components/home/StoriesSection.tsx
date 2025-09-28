@@ -122,6 +122,22 @@ export default function StoriesSection() {
                     )}
                   </div>
                 )}
+
+                {/* Archived Badge for older stories */}
+                {(() => {
+                  const thirtyDaysAgo = new Date();
+                  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                  const storyDate = new Date(story.publishedAt || '');
+                  const isArchived = storyDate < thirtyDaysAgo;
+
+                  return isArchived ? (
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-white">
+                        Archived
+                      </span>
+                    </div>
+                  ) : null;
+                })()}
               </div>
 
               {/* Content */}

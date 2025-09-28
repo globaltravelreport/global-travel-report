@@ -231,7 +231,18 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-muted-foreground mb-6">
               <div className="mb-4 sm:mb-0">
-                <span>{format(validateDate(story.date || story.publishedAt, true), 'MMMM dd, yyyy')}</span>
+                <div className="flex flex-col space-y-1">
+                  <div>
+                    <span className="font-medium">Published: </span>
+                    <span>{format(validateDate(story.date || story.publishedAt, true), 'MMMM dd, yyyy')}</span>
+                  </div>
+                  {story.updatedAt && new Date(story.updatedAt).getTime() !== new Date(story.publishedAt).getTime() && (
+                    <div>
+                      <span className="font-medium text-orange-600">Last updated: </span>
+                      <span className="text-orange-600">{format(validateDate(story.updatedAt, true), 'MMMM dd, yyyy')}</span>
+                    </div>
+                  )}
+                </div>
                 <span className="mx-2">•</span>
                 <span>By Global Travel Report Editorial Team</span>
               </div>

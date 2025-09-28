@@ -3,51 +3,80 @@
 import { useEffect } from 'react';
 
 interface FacebookMetaTagsProps {
-  appId: string;
-  url?: string;
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+  type?: 'website' | 'article';
+  appId?: string;
 }
 
 /**
- * Component that adds Facebook meta tags directly to the document head
- * This is a client-side component that will run after hydration
+ * Enhanced Facebook Open Graph component that prevents duplication
+ * and ensures clean, optimized meta tags for Facebook sharing
  */
-export function FacebookMetaTags({ appId, url }: FacebookMetaTagsProps) {
+export function FacebookMetaTags({
+  title,
+  description,
+  image,
+  url,
+  type = 'article',
+  appId
+}: FacebookMetaTagsProps) {
   useEffect(() => {
-    // Check if the meta tags already exist
-    const existingAppIdTag = document.querySelector('meta[property="fb:app_id"]');
-    const existingUrlTag = document.querySelector('meta[property="og:url"]');
+    // Helper function to safely set or update meta tags
+    const setMetaTag = (property: string, content: string, attribute: string = 'property') => {
+      // Try to find existing tag
+      let tag = document.querySelector(`meta[${attribute}="${property}"]`);
 
-    // If the app ID tag doesn't exist, create it
-    if (!existingAppIdTag) {
-      const appIdTag = document.createElement('meta');
-      appIdTag.setAttribute('property', 'fb:app_id');
-      appIdTag.setAttribute('content', appId);
-      document.head.appendChild(appIdTag);
-    }
-
-    // If the URL is provided and the og:url tag doesn't exist, create it
-    if (url && !existingUrlTag) {
-      const urlTag = document.createElement('meta');
-      urlTag.setAttribute('property', 'og:url');
-      urlTag.setAttribute('content', url);
-      document.head.appendChild(urlTag);
-    }
-
-    // Cleanup function to remove the tags when the component unmounts
-    return () => {
-      // Only remove tags that we added
-      const appIdTag = document.querySelector('meta[property="fb:app_id"]');
-      const urlTag = document.querySelector('meta[property="og:url"]');
-
-      if (appIdTag && !existingAppIdTag) {
-        document.head.removeChild(appIdTag);
-      }
-
-      if (urlTag && !existingUrlTag && url) {
-        document.head.removeChild(urlTag);
+      if (tag) {
+        // Update existing tag
+        tag.setAttribute('content', content);
+      } else {
+        // Create new tag
+        tag = document.createElement('meta');
+        tag.setAttribute(attribute, property);
+        tag.setAttribute('content', content);
+        document.head.appendChild(tag);
       }
     };
-  }, [appId, url]);
+
+    // Helper function to remove meta tag if it exists
+    const removeMetaTag = (property: string, attribute: string = 'property') => {
+      const tag = document.querySelector(`meta[${attribute}="${property}"]`);
+      if (tag) {
+        document.head.removeChild(tag);
+      }
+    };
+
+    // Set core Open Graph tags (these should override any existing ones for consistency)
+    setMetaTag('og:title', title);
+    setMetaTag('og:description', description);
+    setMetaTag('og:image', image);
+    setMetaTag('og:url', url);
+    setMetaTag('og:type', type);
+    setMetaTag('og:site_name', 'Global Travel Report');
+
+    // Set optional Facebook-specific tags
+    if (appId) {
+      setMetaTag('fb:app_id', appId);
+    }
+
+    // Set image dimensions for better Facebook preview
+    if (image.includes('1200') && image.includes('630')) {
+      setMetaTag('og:image:width', '1200');
+      setMetaTag('og:image:height', '630');
+    }
+
+    // Set image alt text if title is available
+    setMetaTag('og:image:alt', title);
+
+    // Cleanup function
+    return () => {
+      // Note: We don't remove tags on cleanup to avoid conflicts with server-side rendered tags
+      // The server-side tags should take precedence and remain
+    };
+  }, [title, description, image, url, type, appId]);
 
   // This component doesn't render anything
   return null;

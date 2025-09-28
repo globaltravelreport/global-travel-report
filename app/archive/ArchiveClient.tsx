@@ -121,6 +121,25 @@ export default function ArchiveClient() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumb Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <nav aria-label="Breadcrumb" className="flex items-center text-sm text-gray-600 mb-8">
+          <ol className="flex items-center">
+            <li>
+              <a href="/" className="hover:text-[#C9A14A] transition-colors">Home</a>
+            </li>
+            <li className="flex items-center mx-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </li>
+            <li>
+              <span className="text-gray-900 font-medium">Archive</span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+
       {/* Header */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
