@@ -1,10 +1,5 @@
 'use client';
 
-import React from 'react';
-import { affiliatePartners } from '@/src/data/affiliatePartners';
-import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
-import { createTrackedAffiliateLink, getCurrentPageContext } from '@/src/lib/enhancedAffiliateTracking';
-
 interface Deal {
   id: string;
   title: string;
@@ -22,8 +17,6 @@ interface Deal {
 }
 
 export function DealsPageClient() {
-  const pageContext = getCurrentPageContext();
-
   // Mock deals data - in production this would come from an API
   const deals: Deal[] = [
     {
@@ -77,23 +70,8 @@ export function DealsPageClient() {
   const regularDeals = deals.filter(deal => !deal.featured);
 
   const handleDealClick = (deal: Deal) => {
-    const trackedLink = createTrackedAffiliateLink(
-      deal.affiliateId,
-      deal.affiliateUrl,
-      {
-        ...pageContext,
-        storyId: deal.id,
-        storyCategory: deal.category
-      }
-    );
-
-    // Track the click
-    if (trackedLink.onClick) {
-      trackedLink.onClick({} as React.MouseEvent);
-    }
-
-    // Redirect to the affiliate link
-    window.open(trackedLink.url, '_blank');
+    // Simple click handling - redirect to the affiliate link
+    window.open(deal.affiliateUrl, '_blank');
   };
 
   return (
@@ -114,8 +92,6 @@ export function DealsPageClient() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Affiliate Disclosure */}
-        <AffiliateDisclosure variant="banner" />
 
         {/* Featured Deals */}
         {featuredDeals.length > 0 && (

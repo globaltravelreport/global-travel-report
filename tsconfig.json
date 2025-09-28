@@ -40,7 +40,8 @@
     "strictNullChecks": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "allowImportingTsExtensions": true
   },
   "include": [
     "next-env.d.ts",

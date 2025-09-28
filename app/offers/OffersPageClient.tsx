@@ -30,10 +30,10 @@ interface PartnerOffers {
 }
 
 interface OffersPageClientProps {
-  partnerOffers: PartnerOffers[];
+  partnerOffers?: PartnerOffers[];
 }
 
-export default function OffersPageClient({ partnerOffers }: OffersPageClientProps) {
+export default function OffersPageClient({ partnerOffers = [] }: OffersPageClientProps) {
   const allOffers = partnerOffers.flatMap(partner => partner.offers);
 
   // Category configuration for better organization

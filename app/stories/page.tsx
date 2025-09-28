@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import StoriesIndexClient from '@/src/components/StoriesIndexClient';
+import StoriesIndexClient from './StoriesIndexClient.tsx';
 
 export const metadata: Metadata = {
   title: 'Travel Stories - Global Travel Report',

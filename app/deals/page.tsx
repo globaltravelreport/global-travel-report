@@ -5,11 +5,7 @@
  * and special offers with enhanced tracking and monetization.
  */
 
-import React from 'react';
 import { Metadata } from 'next';
-import { affiliatePartners } from '@/src/data/affiliatePartners';
-import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
-import { createTrackedAffiliateLink, getCurrentPageContext } from '@/src/lib/enhancedAffiliateTracking';
 import { DealsPageClient } from './DealsPageClient';
 
 export const metadata: Metadata = {
