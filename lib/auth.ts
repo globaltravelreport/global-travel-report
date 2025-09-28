@@ -75,8 +75,10 @@ export async function getSession(): Promise<AdminSession | null> {
 /**
  * Clear session cookie
  */
-export function clearSession(response: NextResponse): void {
-  response.cookies.delete(SESSION_COOKIE_NAME);
+export function clearSession(response?: NextResponse): void {
+  if (response) {
+    response.cookies.delete(SESSION_COOKIE_NAME);
+  }
 }
 
 /**
