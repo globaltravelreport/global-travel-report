@@ -59,50 +59,40 @@ export default function PartnersPage() {
                 {category}
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {categoryPartners.map((partner) => (
-                  <div key={partner.name} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                  <div key={partner.name} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group hover:-translate-y-1">
                     {/* Partner Header */}
-                    <div className="relative h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-                      <div className="relative w-24 h-24">
+                    <div className="relative h-24 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+                      <div className="relative w-full h-full max-w-[120px] max-h-[60px]">
                         <Image
                           src={partner.logo}
                           alt={`${partner.name} logo`}
                           fill
-                          className="object-contain"
-                          sizes="96px"
+                          className="object-contain transition-transform duration-300 group-hover:scale-105"
+                          sizes="120px"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.src = getAffiliateLogoFallback(partner.name);
+                            target.style.objectFit = 'contain';
                           }}
                         />
                       </div>
                     </div>
 
                     {/* Partner Content */}
-                    <div className="p-6">
-                      <h4 className="text-xl font-bold text-gray-900 mb-3">{partner.name}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    <div className="p-4">
+                      <h4 className="text-lg font-bold text-gray-900 mb-2 text-center">{partner.name}</h4>
+                      <p className="text-gray-600 text-xs leading-relaxed mb-3 text-center line-clamp-2">
                         {partner.description}
                       </p>
-
-                      {/* Partner Benefits */}
-                      <div className="mb-6">
-                        <h5 className="text-sm font-semibold text-gray-900 mb-2">Why We Recommend Them:</h5>
-                        <ul className="text-sm text-gray-600 space-y-1">
-                          <li>• Trusted by millions of travelers worldwide</li>
-                          <li>• Exceptional customer service and support</li>
-                          <li>• Competitive pricing and exclusive deals</li>
-                          <li>• Innovative solutions for modern travelers</li>
-                        </ul>
-                      </div>
 
                       {/* CTA Button */}
                       <a
                         href={partner.url}
                         target="_blank"
                         rel="noopener noreferrer sponsored"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
+                        className="inline-flex items-center justify-center w-full px-3 py-2 bg-[#C9A14A] hover:bg-[#B89038] text-white text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 hover:shadow-md"
                         onClick={() => {
                           // Track partner page clicks with Google Analytics
                           if (typeof window !== 'undefined' && window.gtag) {
@@ -114,8 +104,8 @@ export default function PartnersPage() {
                           }
                         }}
                       >
-                        Visit {partner.name}
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        Visit Partner
+                        <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </a>

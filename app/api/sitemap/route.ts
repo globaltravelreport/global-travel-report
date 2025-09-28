@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllStories } from '@/utils/stories';
+import { getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 
 export const dynamic = 'force-dynamic';

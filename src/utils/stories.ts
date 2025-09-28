@@ -43,7 +43,7 @@ import {
   paginate,
   PaginationOptions,
   PaginationResult
-} from '@/utils/pagination';
+} from '@/src/utils/pagination';
 
 /**
  * Format a date for display

@@ -5,11 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
-import { Metadata } from 'next';
 
 export default function StoriesIndexClient() {
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const storiesPerPage = 9;
 
   useEffect(() => {
     const loadStories = async () => {
@@ -19,6 +20,7 @@ export default function StoriesIndexClient() {
         setStories(allStories);
       } catch (error) {
         console.error('Error loading stories:', error);
+        setStories([]);
       } finally {
         setLoading(false);
       }
@@ -36,13 +38,51 @@ export default function StoriesIndexClient() {
     );
   }
 
+  if (stories.length === 0) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">No Stories Available</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              We're currently working on adding new travel stories to our collection.
+              Please check back soon for inspiring content from around the world.
+            </p>
+            <div className="space-y-4">
+              <p className="text-gray-500">
+                In the meantime, you can:
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/submit"
+                  className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200"
+                >
+                  Submit Your Story
+                </a>
+                <a
+                  href="/destinations"
+                  className="inline-flex items-center px-6 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-colors duration-200"
+                >
+                  Explore Destinations
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Get hero stories (featured or editor's pick) - only real content
   const heroStories = stories
     .filter(story => (story.editorsPick || story.featured) && story.content && story.content.length > 100)
     .slice(0, 2);
-  const regularStories = stories
-    .filter(story => !story.editorsPick && !story.featured && story.content && story.content.length > 100)
-    .slice(0, 6); // Limit to 6 for performance
+
+  // Get regular stories with pagination
+  const allRegularStories = stories.filter(story => !story.editorsPick && !story.featured && story.content && story.content.length > 100);
+  const totalPages = Math.ceil(allRegularStories.length / storiesPerPage);
+  const startIndex = (currentPage - 1) * storiesPerPage;
+  const paginatedStories = allRegularStories.slice(startIndex, startIndex + storiesPerPage);
 
   return (
     <div className="min-h-screen bg-white">
@@ -134,9 +174,9 @@ export default function StoriesIndexClient() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {regularStories.map((story, index) => (
-            <article key={story.id} className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {paginatedStories.map((story) => (
+            <article key={story.id} className="group card hover:shadow-xl overflow-hidden">
               <Link href={`/stories/${story.slug}`}>
                 {/* Story Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -187,6 +227,45 @@ export default function StoriesIndexClient() {
             </article>
           ))}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-12 flex justify-center">
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Previous
+              </button>
+
+              <div className="flex items-center space-x-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`px-3 py-2 text-sm font-medium border ${
+                      pageNum === currentPage
+                        ? 'text-blue-600 bg-blue-50 border-blue-300'
+                        : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Newsletter Signup CTA */}

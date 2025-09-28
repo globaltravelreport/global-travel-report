@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { StoryCard } from '@/components/stories/StoryCard';
-import { getStoriesByCountry, getAllStories } from '@/utils/stories';
+import { getStoriesByCountry, getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 import type { Metadata } from 'next';
 

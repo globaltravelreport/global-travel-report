@@ -95,7 +95,14 @@ export const affiliatePartners: AffiliatePartner[] = [
 
 // Fallback placeholder for missing logos
 export const getAffiliateLogoFallback = (partnerName: string): string => {
-  return `/affiliates/placeholder.svg`;
+  return `data:image/svg+xml;base64,${btoa(`
+    <svg width="120" height="60" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="60" fill="#f3f4f6"/>
+      <text x="60" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">
+        ${partnerName}
+      </text>
+    </svg>
+  `)}`;
 };
 
 // Cache key for verification results

@@ -1,6 +1,6 @@
 import { getServerSideSitemap } from 'next-sitemap';
 import type { ISitemapField, IImageEntry } from 'next-sitemap';
-import { getAllStories } from '@/utils/stories';
+import { getAllStories } from '@/src/utils/stories';
 import { CATEGORIES } from '@/src/config/categories';
 import { getAllCountries } from '@/utils/countries';
 

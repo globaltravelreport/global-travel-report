@@ -1,4 +1,4 @@
-import { getAllStories } from '@/utils/stories';
+import { getAllStories } from '@/src/utils/stories';
 
 // Simple server-side story card component to avoid client-side rendering issues
 function SimpleStoryCard({ story }: { story: any }) {

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Story } from '@/types/Story';
 import { RecommendationService } from '@/src/services/recommendationService';
-import { getAllStories } from '@/utils/stories';
+import { getAllStories } from '@/src/utils/stories';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage';

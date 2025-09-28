@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories } from '@/utils/stories';
+import { getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 
 export default function Hero() {
@@ -11,9 +11,15 @@ export default function Hero() {
 
   useEffect(() => {
     const loadFeaturedStory = async () => {
-      const stories = await getAllStories();
-      const featured = stories.find(story => story.featured);
-      setFeaturedStory(featured || stories[0]);
+      try {
+        const stories = await getAllStories();
+        const featured = stories.find(story => story.featured);
+        setFeaturedStory(featured || stories[0]);
+      } catch (error) {
+        console.error('Error loading featured story:', error);
+        // Set a fallback story or handle the error state
+        setFeaturedStory(null);
+      }
     };
 
     loadFeaturedStory();
@@ -21,9 +27,30 @@ export default function Hero() {
 
   if (!featuredStory) {
     return (
-      <div className="relative h-[600px] bg-gray-100 animate-pulse">
+      <div className="relative h-[600px] bg-gradient-to-b from-gray-100 to-gray-200">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-2xl text-gray-400">Loading...</div>
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-600 mb-4">
+              Global Travel Report
+            </h1>
+            <p className="text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
+              Your destination for inspiring travel stories, tips, and guides from around the world.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <a
+                href="/destinations"
+                className="bg-gradient-to-r from-[#C9A14A] to-[#B08D3F] hover:from-[#D5B05C] hover:to-[#C9A14A] text-white font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 shadow-lg hover:shadow-xl"
+              >
+                Explore Destinations
+              </a>
+              <a
+                href="/categories"
+                className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-gray-700 border border-gray-300 font-bold py-4 px-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 shadow-lg hover:shadow-xl"
+              >
+                Browse Categories
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     );
