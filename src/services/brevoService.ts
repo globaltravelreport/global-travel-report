@@ -343,4 +343,70 @@ export class BrevoService {
   }
 }
 
+/**
+ * Send notification email for new story submission
+ */
+export async function sendSubmissionNotification(submission: {
+  name: string;
+  email: string;
+  title: string;
+  content: string;
+  category: string;
+  country: string;
+  tags: string[];
+}): Promise<BrevoApiResponse> {
+  try {
+    const brevoService = BrevoService.getInstance();
+
+    // Email to editor
+    const editorEmailResult = await brevoService.sendEmail(
+      'editor@globaltravelreport.com',
+      1, // Template ID for submission notification
+      {
+        submitterName: submission.name,
+        submitterEmail: submission.email,
+        storyTitle: submission.title,
+        storyContent: submission.content.substring(0, 500) + (submission.content.length > 500 ? '...' : ''),
+        storyCategory: submission.category,
+        storyCountry: submission.country,
+        storyTags: submission.tags.join(', '),
+        submissionDate: new Date().toLocaleDateString(),
+      }
+    );
+
+    if (!editorEmailResult.success) {
+      console.error('Failed to send editor notification:', editorEmailResult.error);
+    }
+
+    // Thank you email to submitter
+    const submitterEmailResult = await brevoService.sendEmail(
+      submission.email,
+      2, // Template ID for thank you email
+      {
+        submitterName: submission.name,
+        storyTitle: submission.title,
+        reviewTimeline: '2-3 business days',
+      }
+    );
+
+    if (!submitterEmailResult.success) {
+      console.error('Failed to send submitter thank you email:', submitterEmailResult.error);
+    }
+
+    return {
+      success: editorEmailResult.success && submitterEmailResult.success,
+      data: {
+        editorEmail: editorEmailResult,
+        submitterEmail: submitterEmailResult,
+      },
+    };
+  } catch (error) {
+    console.error('Error sending submission notification:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+}
+
 export default BrevoService;

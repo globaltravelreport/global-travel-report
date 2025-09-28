@@ -1,4 +1,5 @@
 import { Story } from '../../types/Story';
+import { UserSubmission } from '../../types/UserSubmission';
 import { mockStories } from '../mocks/stories';
 import { getSafeDateString } from '../utils/date-utils';
 
@@ -9,6 +10,7 @@ import { getSafeDateString } from '../utils/date-utils';
 export class StoryDatabase {
   private static instance: StoryDatabase | null = null;
   private stories: Story[] = [];
+  private submissions: UserSubmission[] = [];
   private initialized: boolean = false;
 
   private constructor() {
@@ -456,5 +458,155 @@ export class StoryDatabase {
      totalStories,
      storageOptimized: archivedCount > 0
    };
+ }
+
+ /**
+  * Store a user submission
+  * @param submission - The user submission to store
+  * @returns The stored submission
+  */
+ public async storeSubmission(submission: UserSubmission): Promise<UserSubmission> {
+   await this.initialize();
+
+   // Check if submission already exists
+   const existingIndex = this.submissions.findIndex(s => s.id === submission.id);
+
+   if (existingIndex !== -1) {
+     // Update existing submission
+     this.submissions[existingIndex] = submission;
+   } else {
+     // Add new submission
+     this.submissions.push(submission);
+   }
+
+   console.log(`Stored submission "${submission.title}" by ${submission.name}`);
+   return submission;
+ }
+
+ /**
+  * Get all user submissions
+  * @param status - Optional status filter ('pending', 'approved', 'rejected')
+  * @returns Array of user submissions
+  */
+ public async getAllSubmissions(status?: 'pending' | 'approved' | 'rejected'): Promise<UserSubmission[]> {
+   await this.initialize();
+
+   if (status) {
+     return this.submissions.filter(submission => submission.status === status);
+   }
+
+   return [...this.submissions];
+ }
+
+ /**
+  * Get a user submission by ID
+  * @param id - The ID of the submission to get
+  * @returns The submission with the specified ID, or null if not found
+  */
+ public async getSubmissionById(id: string): Promise<UserSubmission | null> {
+   await this.initialize();
+   return this.submissions.find(submission => submission.id === id) || null;
+ }
+
+ /**
+  * Update submission status
+  * @param id - The ID of the submission to update
+  * @param updates - The status updates to apply
+  * @returns The updated submission, or null if not found
+  */
+ public async updateSubmissionStatus(
+   id: string,
+   updates: { status: 'approved' | 'rejected'; reviewedBy?: string; rejectionReason?: string; approvedStoryId?: string }
+ ): Promise<UserSubmission | null> {
+   await this.initialize();
+
+   const submissionIndex = this.submissions.findIndex(s => s.id === id);
+   if (submissionIndex === -1) {
+     return null;
+   }
+
+   // Update the submission
+   this.submissions[submissionIndex] = {
+     ...this.submissions[submissionIndex],
+     ...updates,
+     updatedAt: new Date().toISOString(),
+     reviewedAt: new Date().toISOString(),
+   };
+
+   console.log(`Updated submission "${this.submissions[submissionIndex].title}" status to ${updates.status}`);
+   return this.submissions[submissionIndex];
+ }
+
+ /**
+  * Get submission statistics
+  * @returns Statistics about user submissions
+  */
+ public async getSubmissionStats(): Promise<{
+   total: number;
+   pending: number;
+   approved: number;
+   rejected: number;
+ }> {
+   await this.initialize();
+
+   const total = this.submissions.length;
+   const pending = this.submissions.filter(s => s.status === 'pending').length;
+   const approved = this.submissions.filter(s => s.status === 'approved').length;
+   const rejected = this.submissions.filter(s => s.status === 'rejected').length;
+
+   return { total, pending, approved, rejected };
+ }
+
+ /**
+  * Convert approved submission to published story
+  * @param submissionId - The ID of the submission to convert
+  * @param storyData - Additional story data for publishing
+  * @returns The created story, or null if submission not found
+  */
+ public async approveSubmissionToStory(
+   submissionId: string,
+   storyData: Partial<Story>
+ ): Promise<Story | null> {
+   await this.initialize();
+
+   const submission = await this.getSubmissionById(submissionId);
+   if (!submission || submission.status !== 'pending') {
+     return null;
+   }
+
+   // Create a new story from the submission
+   const story: Story = {
+     id: `story_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+     slug: submission.title
+       .toLowerCase()
+       .replace(/[^a-z0-9\s-]/g, '')
+       .replace(/\s+/g, '-')
+       .replace(/-+/g, '-')
+       .trim(),
+     title: submission.title,
+     excerpt: submission.content.substring(0, 200) + (submission.content.length > 200 ? '...' : ''),
+     content: submission.content,
+     publishedAt: new Date().toISOString(),
+     author: submission.name,
+     category: submission.category,
+     country: submission.country,
+     tags: submission.tags,
+     featured: false,
+     editorsPick: false,
+     imageUrl: storyData.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600',
+     ...storyData,
+   };
+
+   // Update submission status
+   await this.updateSubmissionStatus(submissionId, {
+     status: 'approved',
+     approvedStoryId: story.id,
+   });
+
+   // Add story to main collection
+   await this.addStory(story);
+
+   console.log(`Converted submission "${submission.title}" to published story "${story.title}"`);
+   return story;
  }
 }

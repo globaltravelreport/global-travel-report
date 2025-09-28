@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input'
 import { ReCaptcha } from '@/components/ui/ReCaptcha'
 
 interface StoryFormData {
+  name: string
+  email: string
   title: string
   content: string
   category: string
@@ -15,6 +17,8 @@ interface StoryFormData {
 
 export function StoryForm() {
   const [formData, setFormData] = useState<StoryFormData>({
+    name: '',
+    email: '',
     title: '',
     content: '',
     category: '',
@@ -37,7 +41,7 @@ export function StoryForm() {
     }
 
     try {
-      const response = await fetch('/api/stories', {
+      const response = await fetch('/api/submissions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,11 +50,14 @@ export function StoryForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to submit story')
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to submit story')
       }
 
       setStatus('success')
       setFormData({
+        name: '',
+        email: '',
         title: '',
         content: '',
         category: '',
@@ -67,8 +74,38 @@ export function StoryForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          Your Name
+        </label>
+        <Input
+          id="name"
+          type="text"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          required
+          className="w-full"
+          aria-invalid={status === 'error' ? 'true' : 'false'}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          Email Address
+        </label>
+        <Input
+          id="email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
+          className="w-full"
+          aria-invalid={status === 'error' ? 'true' : 'false'}
+        />
+      </div>
+
+      <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-          Title
+          Story Title
         </label>
         <Input
           id="title"
@@ -165,9 +202,14 @@ export function StoryForm() {
       </Button>
 
       {status === 'success' && (
-        <p className="text-sm text-green-600">
-          Thanks for your submission! Our team will review it shortly.
-        </p>
+        <div className="text-center p-4 bg-green-50 border border-green-200 rounded-lg">
+          <p className="text-sm text-green-800 font-medium">
+            Thanks for sharing your story with Global Travel Report!
+          </p>
+          <p className="text-sm text-green-600 mt-1">
+            Our editorial team will review your submission and get back to you within 2-3 business days.
+          </p>
+        </div>
       )}
     </form>
   )
