@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -8,41 +7,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useFormValidation } from '@/src/hooks/useFormValidation';
+import { adminLoginSchema } from '@/src/utils/validation-schemas';
+import { useCsrfToken } from '@/src/hooks/useCsrfToken';
 
 
 export default function AdminLoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, errors, loading, handleChange, handleSubmit } = useFormValidation(adminLoginSchema, { username: '', password: '' });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { csrfToken } = useCsrfToken();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: any) => {
     setError('');
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        router.push('/admin/story-upload');
-        router.refresh();
-      } else {
-        setError(data.error || 'Login failed');
-      }
-    } catch (error) {
-      setError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
+    const response = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+      body: JSON.stringify({ ...data, csrfToken }),
+    });
+    const res = await response.json();
+    if (response.ok) {
+      router.push('/admin/story-upload');
+      router.refresh();
+    } else if (response.status === 429) {
+      setError('Too many login attempts. Please try again later.');
+    } else {
+      setError('Invalid credentials or login failed.');
     }
   };
 
@@ -62,7 +52,7 @@ export default function AdminLoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={e => { e.preventDefault(); handleSubmit(onSubmit); }} className="space-y-4" autoComplete="off">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
@@ -74,12 +64,15 @@ export default function AdminLoginPage() {
                 <Input
                   id="username"
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={values.username}
+                  onChange={e => handleChange('username', e.target.value)}
                   required
-                  disabled={isLoading}
+                  disabled={loading}
                   placeholder="Enter username"
+                  aria-invalid={!!errors.username}
+                  aria-describedby="username-error"
                 />
+                {errors.username && <div id="username-error" className="text-red-600 text-sm">{errors.username}</div>}
               </div>
 
               <div className="space-y-2">
@@ -87,20 +80,24 @@ export default function AdminLoginPage() {
                 <Input
                   id="password"
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={values.password}
+                  onChange={e => handleChange('password', e.target.value)}
                   required
-                  disabled={isLoading}
+                  disabled={loading}
                   placeholder="Enter password"
+                  aria-invalid={!!errors.password}
+                  aria-describedby="password-error"
                 />
+                {errors.password && <div id="password-error" className="text-red-600 text-sm">{errors.password}</div>}
               </div>
 
               <Button
                 type="submit"
                 className="w-full"
-                disabled={isLoading}
+                disabled={loading}
+                aria-busy={loading}
               >
-                {isLoading ? (
+                {loading ? (
                   <>
                     <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                     Signing in...

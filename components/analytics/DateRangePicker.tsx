@@ -1,13 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 
 interface DateRangePickerProps {
   onChange: (dateRange: { startDate: string; endDate: string }) => void;
@@ -51,23 +44,35 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
     onChange({ startDate, endDate });
   };
 
+  const getDisplayText = () => {
+    switch (selectedRange) {
+      case '7days':
+        return 'Last 7 Days';
+      case '30days':
+        return 'Last 30 Days';
+      case '90days':
+        return 'Last 90 Days';
+      case 'year':
+        return 'Last Year';
+      default:
+        return 'Last 7 Days';
+    }
+  };
+
   return (
     <div className="flex items-center space-x-2">
       <span className="text-sm text-gray-500">Date Range:</span>
       <div className="relative">
-        <Select value={selectedRange} onValueChange={handleRangeChange}>
-          <SelectTrigger>
-            <SelectValue placeholder={selectedRange === '7days' ? 'Last 7 Days' :
-                         selectedRange === '30days' ? 'Last 30 Days' :
-                         selectedRange === '90days' ? 'Last 90 Days' : 'Last Year'} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="7days">Last 7 Days</SelectItem>
-            <SelectItem value="30days">Last 30 Days</SelectItem>
-            <SelectItem value="90days">Last 90 Days</SelectItem>
-            <SelectItem value="year">Last Year</SelectItem>
-          </SelectContent>
-        </Select>
+        <select
+          value={selectedRange}
+          onChange={(e) => handleRangeChange(e.target.value)}
+          className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          <option value="7days">Last 7 Days</option>
+          <option value="30days">Last 30 Days</option>
+          <option value="90days">Last 90 Days</option>
+          <option value="year">Last Year</option>
+        </select>
       </div>
     </div>
   );

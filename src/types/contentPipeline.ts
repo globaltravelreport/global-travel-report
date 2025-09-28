@@ -1,5 +1,5 @@
 // Type definitions for the enhanced content pipeline
-import type { Story } from './Story';
+import type { Story } from '../../types/Story';
 
 export enum ProcessingMode {
   FULL = 'full',

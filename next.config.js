@@ -1,5 +1,83 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
 
+// Inline CSP builder function
+function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
+  const isProd = env === 'production';
+  // Google reCAPTCHA and Google domains for script-src and frame-src
+  const scriptSrc = [
+    `'self'`,
+    nonce ? `'nonce-${nonce}'` : '',
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://www.google.com',
+    'https://www.gstatic.com',
+    'https://www.recaptcha.net', // alternate reCAPTCHA CDN
+    ...(isProd ? [] : [`'unsafe-eval'`, `'unsafe-inline'`])
+  ].filter(Boolean).join(' ');
+  const styleSrc = [
+    `'self'`,
+    nonce ? `'nonce-${nonce}'` : '',
+    'https://fonts.googleapis.com',
+    'https://www.gstatic.com',
+    ...(isProd ? [] : [`'unsafe-inline'`])
+  ].filter(Boolean).join(' ');
+  const imgSrc = [
+    `'self'`,
+    'data:',
+    'blob:',
+    'https://images.unsplash.com',
+    'https://unsplash.com',
+    'https://www.google-analytics.com',
+    'https://www.googletagmanager.com',
+    'https://i.ytimg.com',
+    'https://picsum.photos',
+    'https://source.unsplash.com',
+    'https://www.google.com',
+    'https://www.gstatic.com',
+    'https://www.recaptcha.net'
+  ].join(' ');
+  const connectSrc = [
+    `'self'`,
+    'https://www.google-analytics.com',
+    'https://www.googletagmanager.com',
+    'https://api.unsplash.com',
+    'https://vitals.vercel-insights.com',
+    'https://www.google.com',
+    'https://www.gstatic.com',
+    'https://www.recaptcha.net'
+  ].join(' ');
+  const fontSrc = [
+    `'self'`,
+    'https://fonts.gstatic.com',
+    'https://www.gstatic.com'
+  ].join(' ');
+  const frameSrc = [
+    `'self'`,
+    'https://www.google.com',
+    'https://www.gstatic.com',
+    'https://www.recaptcha.net'
+  ].join(' ');
+  const policy = [
+    `default-src 'self'`,
+    `script-src ${scriptSrc}`,
+    `style-src ${styleSrc}`,
+    `img-src ${imgSrc}`,
+    `connect-src ${connectSrc}`,
+    `font-src ${fontSrc}`,
+    `frame-src ${frameSrc}`,
+    `object-src 'none'`,
+    `base-uri 'self'`,
+    `form-action 'self'`,
+    `frame-ancestors 'none'`,
+    `upgrade-insecure-requests`,
+    `report-uri /api/security/csp-violation`
+  ].join('; ');
+  return {
+    key: reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
+    value: policy
+  };
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = withBundleAnalyzer({
   // Enable experimental features
@@ -41,70 +119,30 @@ const nextConfig = withBundleAnalyzer({
 
   // Security headers
   async headers() {
+    const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+    const csp = buildCSP({ env });
     return [
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: blob: https://images.unsplash.com https://unsplash.com https://source.unsplash.com https://picsum.photos https://i.ytimg.com/vi/NVg0GfEtGQA/maxresdefault.jpg https://www.google-analytics.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://api.unsplash.com https://www.google-analytics.com https://vitals.vercel-insights.com",
-              "frame-src 'self' https://www.google.com",
-              "object-src 'none'",
-              "base-uri 'self'",
-              "form-action 'self'",
-              "frame-ancestors 'none'",
-              "upgrade-insecure-requests",
-            ].join('; '),
-          },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'X-DNS-Prefetch-Control', value: 'off' },
+          { key: 'X-Download-Options', value: 'noopen' },
+          { key: csp.key, value: csp.value },
         ],
       },
       {
         source: '/api/(.*)',
         headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: process.env.NODE_ENV === 'production' 
-              ? 'https://globaltravelreport.com' 
-              : '*',
-          },
-          {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET, POST, PUT, DELETE, OPTIONS',
-          },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type, Authorization, X-Requested-With',
-          },
-          {
-            key: 'Access-Control-Max-Age',
-            value: '86400',
-          },
+          { key: 'Access-Control-Allow-Origin', value: process.env.NODE_ENV === 'production' ? 'https://globaltravelreport.com' : '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization, X-Requested-With' },
+          { key: 'Access-Control-Max-Age', value: '86400' },
         ],
       },
     ];

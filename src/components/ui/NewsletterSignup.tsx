@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useFormValidation } from '@/src/hooks/useFormValidation';
+import { newsletterSchema } from '@/src/utils/validation-schemas';
 
 interface NewsletterSignupProps {
   variant?: 'inline' | 'modal' | 'banner' | 'sidebar' | 'footer';
@@ -57,19 +59,11 @@ export function NewsletterSignup({
   autoShow = defaultProps.autoShow,
   delay = defaultProps.delay,
 }: NewsletterSignupProps) {
-  const [formData, setFormData] = useState<NewsletterFormData>({
+  const { values, errors, loading, success, handleChange, handleSubmit } = useFormValidation(newsletterSchema, {
     email: '',
-    preferences: {
-      destinations: true,
-      travelTips: true,
-      deals: true,
-      news: false,
-    },
-    frequency: 'weekly',
+    csrfToken: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
+
   const [isVisible, setIsVisible] = useState(variant !== 'modal');
   const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -87,65 +81,18 @@ export function NewsletterSignup({
   useEffect(() => {
     const hasSubscribed = localStorage.getItem('newsletter_subscribed');
     if (hasSubscribed) {
-      setIsSuccess(true);
+      setIsVisible(false);
     }
   }, []);
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateEmail(formData.email)) {
-      setError('Please enter a valid email address');
-      onError?.('Please enter a valid email address');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setError('');
-
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // In a real app, this would be an API call
-      const response = await mockSubscribeAPI(formData);
-
-      if (response.success) {
-        setIsSuccess(true);
-        localStorage.setItem('newsletter_subscribed', 'true');
-        onSuccess?.(formData.email);
-      } else {
-        throw new Error(response.error || 'Subscription failed');
-      }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Something went wrong';
-      setError(errorMessage);
-      onError?.(errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputChange = (field: keyof NewsletterFormData, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handlePreferenceChange = (preference: keyof NonNullable<NewsletterFormData['preferences']>, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      preferences: {
-        ...prev.preferences!,
-        [preference]: checked,
-      },
-    }));
+  const onSubmit = async (data: any) => {
+    // Real API call here
+    const response = await fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': data.csrfToken },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw response;
   };
 
   const closeModal = () => {
@@ -172,24 +119,27 @@ export function NewsletterSignup({
   };
 
   const renderForm = () => (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={e => { e.preventDefault(); handleSubmit(onSubmit); }} className="space-y-4" autoComplete="off">
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"
-          value={formData.email}
-          onChange={(e) => handleInputChange('email', e.target.value)}
+          value={values.email}
+          onChange={e => handleChange('email', e.target.value)}
           placeholder={placeholder}
           required
-          disabled={isSubmitting || isSuccess}
+          disabled={loading || success}
           className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
           aria-label="Email address"
+          aria-invalid={!!errors.email}
+          aria-describedby="email-error"
         />
         <button
           type="submit"
-          disabled={isSubmitting || isSuccess || !formData.email}
+          disabled={loading || success || !values.email}
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+          aria-busy={loading}
         >
-          {isSubmitting ? (
+          {loading ? (
             <div className="flex items-center">
               <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -202,66 +152,20 @@ export function NewsletterSignup({
           )}
         </button>
       </div>
+      {errors.email && <div id="email-error" className="text-red-600 text-sm">{errors.email}</div>}
 
-      {/* Advanced preferences */}
-      {showAdvanced && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          className="space-y-3 pt-3 border-t border-gray-200"
-        >
-          <div>
-            <label htmlFor="newsletter-frequency" className="block text-sm font-medium text-gray-700 mb-2">
-              Newsletter Frequency
-            </label>
-            <select
-              id="newsletter-frequency"
-              value={formData.frequency}
-              onChange={(e) => handleInputChange('frequency', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="daily">Daily Digest</option>
-              <option value="weekly">Weekly Summary</option>
-              <option value="monthly">Monthly Highlights</option>
-            </select>
-          </div>
-
-          <div>
-            <div id="content-preferences-label" className="block text-sm font-medium text-gray-700 mb-2">
-              Content Preferences
-            </div>
-            <div className="grid grid-cols-2 gap-2" role="group" aria-labelledby="content-preferences-label">
-              {Object.entries(formData.preferences || {}).map(([key, value]) => {
-                const id = `pref-${key}`;
-                return (
-                  <label key={key} htmlFor={id} className="flex items-center">
-                    <input
-                      id={id}
-                      type="checkbox"
-                      checked={value}
-                      onChange={(e) => handlePreferenceChange(key as keyof NonNullable<NewsletterFormData['preferences']>, e.target.checked)}
-                      className="mr-2"
-                    />
-                    <span className="text-sm capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
-      )}
+      {/* Simplified newsletter signup - just email */}
 
       {/* Error message */}
       <AnimatePresence>
-        {error && (
+        {errors.global && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             className="p-3 bg-red-50 border border-red-200 rounded-lg"
           >
-            <p className="text-red-800 text-sm">{error}</p>
+            <p className="text-red-800 text-sm">{errors.global}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -331,7 +235,7 @@ export function NewsletterSignup({
                   </div>
 
                   <div className="mt-5 sm:mt-4">
-                    {isSuccess ? renderSuccess() : renderForm()}
+                    {success ? renderSuccess() : renderForm()}
                   </div>
                 </div>
 
@@ -341,15 +245,15 @@ export function NewsletterSignup({
                     onClick={closeModal}
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    {isSuccess ? 'Got it!' : 'Maybe later'}
+                    {success ? 'Got it!' : 'Maybe later'}
                   </button>
-                  {!isSuccess && (
+                  {!success && (
                     <button
                       type="button"
-                      onClick={() => setShowAdvanced(!showAdvanced)}
+                      onClick={closeModal}
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     >
-                      {showAdvanced ? 'Simple' : 'Advanced'} Options
+                      Cancel
                     </button>
                   )}
                 </div>
@@ -376,10 +280,10 @@ export function NewsletterSignup({
           </div>
         )}
 
-        {isSuccess ? renderSuccess() : renderForm()}
+        {success ? renderSuccess() : renderForm()}
 
         {/* Social proof */}
-        {showSocialProof && !isSuccess && (
+        {showSocialProof && !success && (
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-500">
               Join 25,000+ travelers already subscribed
@@ -396,7 +300,7 @@ export function NewsletterSignup({
         )}
 
         {/* Privacy notice */}
-        {!isSuccess && (
+        {!success && (
           <p className="mt-3 text-xs text-gray-500 text-center">
             We respect your privacy. Unsubscribe at any time.{' '}
             <a href="/privacy" className="text-blue-600 hover:text-blue-800">

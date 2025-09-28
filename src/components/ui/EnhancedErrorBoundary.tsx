@@ -87,14 +87,19 @@ export function EnhancedErrorBoundary({
 
   if (hasError && error) {
     if (FallbackComponent) {
-      return (
-        <FallbackComponent
-          error={error}
-          errorInfo={errorInfo}
-          resetError={resetError}
-          componentName={componentName}
-        />
-      );
+      // Handle both function components and React elements
+      if (typeof FallbackComponent === 'function') {
+        return (
+          <FallbackComponent
+            error={error}
+            errorInfo={errorInfo}
+            resetError={resetError}
+            componentName={componentName}
+          />
+        );
+      }
+      // If it's a React element, render it directly
+      return FallbackComponent;
     }
     return (
       <DefaultErrorFallback
@@ -108,18 +113,6 @@ export function EnhancedErrorBoundary({
   return children;
 }
 
-export const withEnhancedErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>,
-  errorBoundaryProps?: Omit<EnhancedErrorBoundaryProps, 'children'>
-): React.FC<P> => {
-  const displayName = Component.displayName || Component.name || 'Component';
-  const ComponentWithErrorBoundary: React.FC<P> = (props) => (
-    <EnhancedErrorBoundary {...errorBoundaryProps} componentName={displayName}>
-      <Component {...props} />
-    </EnhancedErrorBoundary>
-  );
-  ComponentWithErrorBoundary.displayName = `withEnhancedErrorBoundary(${displayName})`;
-  return ComponentWithErrorBoundary;
-};
+// HOC function removed due to TypeScript complexity
 
 export default EnhancedErrorBoundary;

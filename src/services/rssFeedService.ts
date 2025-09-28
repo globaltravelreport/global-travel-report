@@ -1,6 +1,6 @@
-import { Story } from '@/types/Story';
+import { Story } from '../../types/Story';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchRSSFeeds } from '@/lib/rss';
+import { fetchRSSFeeds } from '../../lib/rss';
 
 /**
  * Service for fetching and processing RSS feeds

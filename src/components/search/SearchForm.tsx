@@ -10,13 +10,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -239,19 +232,18 @@ export function SearchForm({
                   <AccordionItem>
                     <AccordionTrigger>Category</AccordionTrigger>
                     <AccordionContent>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="">All categories</SelectItem>
-                          {categories.map((category) => (
-                            <SelectItem key={category} value={category}>
-                              {category}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <select
+                        value={searchState.category}
+                        onChange={(e) => setSearchState(prev => ({ ...prev, category: e.target.value }))}
+                        className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      >
+                        <option value="">All categories</option>
+                        {categories.map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
+                      </select>
                     </AccordionContent>
                   </AccordionItem>
                 )}
@@ -261,19 +253,18 @@ export function SearchForm({
                   <AccordionItem>
                     <AccordionTrigger>Country</AccordionTrigger>
                     <AccordionContent>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select country" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="">All countries</SelectItem>
-                          {countries.map((country) => (
-                            <SelectItem key={country} value={country}>
-                              {country}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <select
+                        value={searchState.country}
+                        onChange={(e) => setSearchState(prev => ({ ...prev, country: e.target.value }))}
+                        className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      >
+                        <option value="">All countries</option>
+                        {countries.map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                      </select>
                     </AccordionContent>
                   </AccordionItem>
                 )}
@@ -283,19 +274,18 @@ export function SearchForm({
                   <AccordionItem>
                     <AccordionTrigger>Tag</AccordionTrigger>
                     <AccordionContent>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select tag" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="">All tags</SelectItem>
-                          {tags.map((tag) => (
-                            <SelectItem key={tag} value={tag}>
-                              {tag}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <select
+                        value={searchState.tag}
+                        onChange={(e) => setSearchState(prev => ({ ...prev, tag: e.target.value }))}
+                        className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      >
+                        <option value="">All tags</option>
+                        {tags.map((tag) => (
+                          <option key={tag} value={tag}>
+                            {tag}
+                          </option>
+                        ))}
+                      </select>
                     </AccordionContent>
                   </AccordionItem>
                 )}
@@ -305,19 +295,18 @@ export function SearchForm({
                   <AccordionItem>
                     <AccordionTrigger>Author</AccordionTrigger>
                     <AccordionContent>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select author" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="">All authors</SelectItem>
-                          {authors.map((author) => (
-                            <SelectItem key={author} value={author}>
-                              {author}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <select
+                        value={searchState.author}
+                        onChange={(e) => setSearchState(prev => ({ ...prev, author: e.target.value }))}
+                        className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                      >
+                        <option value="">All authors</option>
+                        {authors.map((author) => (
+                          <option key={author} value={author}>
+                            {author}
+                          </option>
+                        ))}
+                      </select>
                     </AccordionContent>
                   </AccordionItem>
                 )}

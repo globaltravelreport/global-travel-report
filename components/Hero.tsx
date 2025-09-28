@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import OptimizedImage from './OptimizedImage';
-import { useIsomorphicLayoutEffect } from '@/src/hooks/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '../src/hooks/useIsomorphicLayoutEffect';
 
 interface HeroProps {
   title?: string;
@@ -123,8 +123,6 @@ const Hero = ({
           objectFit="cover"
           objectPosition="center"
           loading="eager"
-          fallbackSrc="/images/fallback.jpg"
-          unoptimized={true}
         />
 
         {/* Gradient overlay with more sophisticated layering */}

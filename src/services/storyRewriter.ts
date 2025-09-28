@@ -1,6 +1,6 @@
-import { Story } from '@/types/Story';
+import { Story } from '../../types/Story';
 import { IStoryRewriter } from './interfaces';
-import { fetchRSSFeeds } from '@/lib/rss';
+import { fetchRSSFeeds } from '../../lib/rss';
 
 /**
  * Simple mock implementation of the StoryRewriter interface

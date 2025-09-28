@@ -1,6 +1,6 @@
 // Story Scheduler Service
 // Handles intelligent scheduling, queue management, staggered publication, and lifecycle management
-import type { Story } from '../types/Story';
+import type { Story } from '../../types/Story';
 import type { PublicationSchedule, ContentState, SchedulingOptions } from '../types/contentPipeline';
 
 export class StoryScheduler {
