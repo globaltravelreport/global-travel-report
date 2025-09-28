@@ -17,6 +17,11 @@ export interface UserSubmission {
   reviewedBy?: string;
   rejectionReason?: string;
   approvedStoryId?: string; // Reference to the published story if approved
+  imageUrl?: string; // Image URL for the submission
+  photographer?: {
+    name: string;
+    url?: string;
+  };
 }
 
 /**

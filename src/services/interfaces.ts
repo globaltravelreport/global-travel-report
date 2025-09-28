@@ -33,6 +33,7 @@ export interface IStoryRewriter {
     options?: {
       preserveTags?: boolean;
       maintainTone?: boolean;
+      australianEnglish?: boolean;
     }
   ): Promise<string | Story>;
 }
