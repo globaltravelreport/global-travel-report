@@ -147,6 +147,18 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/archive"
+              className={cn(
+                'transition-colors hover:text-[#C9A14A] relative py-2',
+                pathname === '/archive'
+                  ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
+                  : 'text-white'
+              )}
+            >
+              Archive
+            </Link>
+
+            <Link
               href="/about"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
@@ -295,6 +307,19 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Travel Offers
+              </Link>
+
+              <Link
+                href="/archive"
+                className={cn(
+                  'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
+                  pathname === '/archive'
+                    ? 'bg-[#19273A]/30 text-[#C9A14A] font-semibold'
+                    : 'text-white'
+                )}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Archive
               </Link>
 
               <Link

@@ -37,7 +37,7 @@ import { Story } from '@/types/Story';
 import { StorySearchParams } from '@/types/StorySearchParams';
 import { mockStories } from '@/src/mocks/stories';
 import { memoize, memoizeMultiArg } from '@/utils/memoization';
-import { isArchived } from '@/utils/date-utils';
+import { isArchived, isRecent } from '@/utils/date-utils';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import {
   paginate,
@@ -70,11 +70,21 @@ export function isWithinLast7Days(date: Date | string): boolean {
 /**
  * Check if a story is archived (older than specified days)
  * @param story - The story to check
- * @param days - Number of days to consider for archiving (default: 7)
+ * @param days - Number of days to consider for archiving (default: 30)
  * @returns Boolean indicating if the story is archived
  */
-export const isStoryArchived = memoize((story: Story, days: number = 7): boolean => {
-  return isArchived(story.publishedAt, days);
+export const isStoryArchived = memoize((story: Story, days: number = 30): boolean => {
+  return !isRecent(story.publishedAt, days);
+});
+
+/**
+ * Check if a story is recent (within specified days)
+ * @param story - The story to check
+ * @param days - Number of days to consider as recent (default: 30)
+ * @returns Boolean indicating if the story is recent
+ */
+export const isStoryRecent = memoize((story: Story, days: number = 30): boolean => {
+  return isRecent(story.publishedAt, days);
 });
 
 /**
@@ -117,16 +127,16 @@ export async function getAllStories(): Promise<Story[]> {
 }
 
 /**
- * Get stories for the homepage (non-archived, sorted by date)
+ * Get recent stories for the homepage (within 30 days, sorted by date)
  * @param stories - Array of stories to filter
  * @param options - Pagination options
- * @returns Paginated array of stories for the homepage
+ * @returns Paginated array of recent stories for the homepage
  */
 export const getHomepageStories = memoize(
    (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
-     // First filter and sort the stories
+     // First filter and sort the stories - only show recent stories (30 days)
      const filteredStories = Array.isArray(stories) ? stories
-       .filter(story => !isStoryArchived(story, 365)) // Use 365 days instead of default 7
+       .filter(story => isRecent(story.publishedAt, 30)) // Only show stories from last 30 days
       .sort((a, b) => {
         const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
         const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
@@ -152,16 +162,16 @@ export const getHomepageStories = memoize(
 );
 
 /**
- * Get archived stories (older than specified days, sorted by date)
+ * Get archived stories (older than 30 days, sorted by date)
  * @param stories - Array of stories to filter
  * @param options - Pagination options
  * @returns Paginated array of archived stories
  */
 export const getArchivedStories = memoize(
    (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
-     // First filter and sort the stories
+     // First filter and sort the stories - show stories older than 30 days
      const filteredStories = Array.isArray(stories) ? stories
-       .filter(story => isStoryArchived(story, 365)) // Use 365 days instead of default 7
+       .filter(story => isStoryArchived(story, 30)) // Stories older than 30 days
       .sort((a, b) => {
         const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
         const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
@@ -500,6 +510,133 @@ export async function getUniqueCategories(): Promise<string[]> {
   const stories = await getAllStories();
   const categories = stories.map(story => story.category).filter(Boolean) as string[];
   return Array.from(new Set(categories)).sort();
+}
+
+/**
+ * Update a story with proper update tracking for SEO
+ * @param storyId - The ID of the story to update
+ * @param updates - The partial story data to update
+ * @returns The updated story
+ */
+export async function updateStoryWithTracking(storyId: string, updates: Partial<Story>): Promise<Story | null> {
+  try {
+    const db = StoryDatabase.getInstance();
+
+    // Get the current story to preserve original publish date
+    const currentStory = await db.getStoryById(storyId);
+    if (!currentStory) {
+      return null;
+    }
+
+    // Prepare update data with proper tracking
+    const updateData: Partial<Story> = {
+      ...updates,
+      updatedAt: new Date().toISOString(),
+      // Preserve original publish date for SEO
+      publishedAt: currentStory.publishedAt,
+    };
+
+    const updatedStory = await db.updateStory(storyId, updateData);
+    console.log(`Updated story "${updatedStory?.title}" with SEO tracking`);
+
+    return updatedStory;
+  } catch (error) {
+    console.error('Error updating story with tracking:', error);
+    return null;
+  }
+}
+
+/**
+ * Get stories organized by month/year for archive browsing
+ * @param stories - Array of stories to organize
+ * @returns Stories grouped by month/year
+ */
+export function getStoriesByMonth(stories: Story[]): Record<string, Story[]> {
+  const grouped: Record<string, Story[]> = {};
+
+  stories.forEach(story => {
+    const date = new Date(story.publishedAt || '');
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+    if (!grouped[monthKey]) {
+      grouped[monthKey] = [];
+    }
+    grouped[monthKey].push(story);
+  });
+
+  // Sort stories within each month (newest first)
+  Object.keys(grouped).forEach(month => {
+    grouped[month].sort((a, b) => {
+      const dateA = new Date(a.publishedAt || '');
+      const dateB = new Date(b.publishedAt || '');
+      return dateB.getTime() - dateA.getTime();
+    });
+  });
+
+  // Sort months (newest first)
+  const sortedGrouped = Object.keys(grouped)
+    .sort((a, b) => b.localeCompare(a))
+    .reduce((result, key) => {
+      result[key] = grouped[key];
+      return result;
+    }, {} as Record<string, Story[]>);
+
+  return sortedGrouped;
+}
+
+/**
+ * Get archive statistics
+ * @param stories - Array of stories to analyze
+ * @returns Archive statistics
+ */
+export function getArchiveStats(stories: Story[]): {
+  totalStories: number;
+  recentStories: number; // Last 30 days
+  archivedStories: number; // Older than 30 days
+  categories: Record<string, number>;
+  countries: Record<string, number>;
+  monthlyDistribution: Record<string, number>;
+} {
+  const now = new Date();
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  const recentStories = stories.filter(story => {
+    const storyDate = new Date(story.publishedAt || '');
+    return storyDate >= thirtyDaysAgo;
+  });
+
+  const archivedStories = stories.filter(story => {
+    const storyDate = new Date(story.publishedAt || '');
+    return storyDate < thirtyDaysAgo;
+  });
+
+  const categories: Record<string, number> = {};
+  const countries: Record<string, number> = {};
+  const monthlyDistribution: Record<string, number> = {};
+
+  stories.forEach(story => {
+    // Count categories
+    const category = story.category || 'Uncategorized';
+    categories[category] = (categories[category] || 0) + 1;
+
+    // Count countries
+    const country = story.country || 'Unknown';
+    countries[country] = (countries[country] || 0) + 1;
+
+    // Count monthly distribution
+    const date = new Date(story.publishedAt || '');
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    monthlyDistribution[monthKey] = (monthlyDistribution[monthKey] || 0) + 1;
+  });
+
+  return {
+    totalStories: stories.length,
+    recentStories: recentStories.length,
+    archivedStories: archivedStories.length,
+    categories,
+    countries,
+    monthlyDistribution,
+  };
 }
 
 /**

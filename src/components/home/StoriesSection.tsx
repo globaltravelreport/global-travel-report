@@ -158,17 +158,31 @@ export default function StoriesSection() {
         <TrendingDestinations maxItems={6} />
       </div>
 
-      {/* View All Stories CTA */}
-      <div className="text-center">
-        <Link
-          href="/stories"
-          className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
-        >
-          View All Stories
-          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
+      {/* Navigation CTAs */}
+      <div className="text-center space-y-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/stories"
+            className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
+          >
+            View All Recent Stories
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+          <Link
+            href="/archive"
+            className="inline-flex items-center px-6 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+          >
+            Browse Archive
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V8z" />
+            </svg>
+          </Link>
+        </div>
+        <p className="text-sm text-gray-500">
+          Recent stories: Last 30 days • Archive: Complete collection (12+ months)
+        </p>
       </div>
     </div>
   );

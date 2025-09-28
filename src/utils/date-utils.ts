@@ -184,6 +184,19 @@ export function daysBetween(date1: Date | string, date2: Date | string = new Dat
 }
 
 /**
+ * Check if a story is recent (within specified number of days)
+ * @param publishDate - The publish date of the story
+ * @param recentDays - Number of days to consider as recent (default: 30 for homepage)
+ * @returns Boolean indicating if the story is recent
+ */
+export function isRecent(publishDate: Date | string, recentDays: number = 30): boolean {
+  const dateObj = publishDate instanceof Date ? publishDate : new Date(publishDate);
+  const recentDate = getDaysAgo(recentDays);
+
+  return dateObj >= recentDate;
+}
+
+/**
  * Check if a story is archived (older than a specified number of days)
  * @param publishDate - The publish date of the story
  * @param archiveDays - Number of days after which a story is considered archived (default: 365)
