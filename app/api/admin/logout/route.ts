@@ -8,7 +8,7 @@ export const runtime = 'nodejs';
 export async function POST(_request: NextRequest) {
   try {
     const response = NextResponse.json({ success: true });
-    clearSession(response);
+    clearSession(); // Clear session without response parameter
     return response;
   } catch (error) {
     console.error('Logout error:', error);
