@@ -154,8 +154,8 @@ export default function StoriesSection() {
 
       {/* Engagement Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        <MostViewedThisWeek limit={5} />
-        <TrendingDestinations limit={6} />
+        <MostViewedThisWeek maxItems={5} />
+        <TrendingDestinations maxItems={6} />
       </div>
 
       {/* View All Stories CTA */}
