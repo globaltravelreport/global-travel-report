@@ -1,38 +1,62 @@
 import { getAllStories } from '@/utils/stories';
-import { StoryCard } from '@/components/stories/StoryCard';
-import { CountryDropdown } from '@/components/destinations/CountryDropdown';
-import { isValidCountry } from '@/utils/countries';
-import OptimizedImage from '@/components/ui/OptimizedImage';
-import type { Metadata } from 'next';
-import { FAQSchema } from '@/components/seo/FAQSchema';
-import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
-import dynamic from 'next/dynamic';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
-const DynamicMap = dynamic(() => import('@/components/maps/ClientWorldMap'), { ssr: false, loading: () => <div className="h-[500px] bg-gray-50" /> });
+// Simple server-side story card component to avoid client-side rendering issues
+function SimpleStoryCard({ story }: { story: any }) {
+  const imageUrl = story.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400';
+  const _photographer = story.photographer?.name || 'Unknown Photographer';
 
-function MapSection({ sortedValidCountries }) {
-  const [ref, entry] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px' });
   return (
-    <div ref={ref} className="relative min-h-[500px]">
-      {entry?.isIntersecting ? (
-        <DynamicMap
-          highlightedCountries={sortedValidCountries}
-          height={500}
-          showLabels={true}
-          enableZoom={true}
-          initialZoom={2}
-          highlightColor="#3b82f6"
-        />
-      ) : (
-        <div className="h-[500px] bg-gray-50" />
-      )}
-      <div className="p-4 bg-gray-50 text-sm text-gray-500">
-        Click on a highlighted country to view stories from that destination
-      </div>
+    <div className="transition-all duration-300 bg-white hover:shadow-xl border border-gray-100 rounded-xl overflow-hidden group hover:translate-y-[-4px]">
+      <a href={`/stories/${story.slug}`} className="block">
+        <div className="relative w-full overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={story.title}
+            className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-300"></div>
+        </div>
+
+        <div className="p-6">
+          <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-900 group-hover:text-[#C9A14A] transition-colors mb-3 line-clamp-2">
+            {story.title}
+          </h3>
+
+          <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed text-sm">{story.excerpt}</p>
+
+          <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span>{story.publishedAt ? new Date(story.publishedAt).toLocaleDateString() : 'Unknown date'}</span>
+            </div>
+
+            {story.country && (
+              <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-800">
+                {story.country}
+              </span>
+            )}
+          </div>
+
+          {story.tags && story.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-4 mt-4 border-t border-gray-100">
+              {story.tags.slice(0, 3).map((tag: string) => (
+                <span key={tag} className="inline-flex items-center rounded-full bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+            <span className="text-xs text-gray-500">By Global Travel Report Editorial Team</span>
+            <span className="text-[#C9A14A] text-sm font-medium group-hover:underline">Read More</span>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Destinations - Global Travel Report',
@@ -81,11 +105,26 @@ export const metadata: Metadata = {
 
 // Server component that will be wrapped in a client component with Suspense
 async function DestinationsPageContent() {
-  const allStories = await getAllStories();
+  console.log('DestinationsPage: Starting to fetch stories...');
+
+  let allStories: any[] = [];
+  try {
+    allStories = await getAllStories();
+    console.log(`DestinationsPage: Fetched ${allStories?.length || 0} stories, type: ${typeof allStories}, isArray: ${Array.isArray(allStories)}`);
+  } catch (error) {
+    console.error('DestinationsPage: Error fetching stories:', error);
+    allStories = [];
+  }
+
+  // Ensure allStories is always an array
+  if (!Array.isArray(allStories)) {
+    console.error('DestinationsPage: allStories is not an array, received:', typeof allStories, allStories);
+    allStories = [];
+  }
 
   // Group stories by country
   const storiesByCountry = allStories.reduce((acc, story) => {
-    if (story.country) {
+    if (story?.country) {
       if (!acc[story.country]) {
         acc[story.country] = [];
       }
@@ -94,15 +133,24 @@ async function DestinationsPageContent() {
     return acc;
   }, {} as Record<string, typeof allStories>);
 
+  console.log('DestinationsPage: storiesByCountry keys:', Object.keys(storiesByCountry || {}));
+  console.log('DestinationsPage: storiesByCountry type:', typeof storiesByCountry);
+
   // Filter out non-country entries and sort by number of stories (descending)
-  const allCountries = Object.keys(storiesByCountry);
+  const allCountries = Object.keys(storiesByCountry || {});
 
   // Clean up country names by removing quotes and extra formatting
   const cleanedCountries = allCountries.map(country => country.replace(/['"]+/g, ''));
 
   // Separate valid countries from regions/other entries
-  const validCountryEntries = cleanedCountries.filter(country => isValidCountry(country));
-  const otherEntries = cleanedCountries.filter(country => !isValidCountry(country));
+  const validCountryEntries = cleanedCountries.filter(country => {
+    const validCountries = ["France", "Japan", "Australia", "Italy", "Spain", "Germany", "United Kingdom", "Canada", "United States", "China", "India", "Brazil", "Mexico", "Thailand", "Greece", "Turkey", "Egypt", "South Africa", "Argentina", "Netherlands", "Belgium", "Switzerland", "Austria", "Sweden", "Norway", "Denmark", "Finland", "Ireland", "Portugal", "New Zealand", "Singapore", "Malaysia", "Indonesia", "Philippines", "Vietnam", "South Korea", "Israel", "Jordan", "Morocco", "Tunisia", "Kenya", "Tanzania", "Uganda", "Botswana", "Namibia", "Zimbabwe", "Peru", "Chile", "Ecuador", "Colombia", "Costa Rica", "Panama", "Guatemala", "Belize", "Cuba", "Jamaica", "Dominican Republic", "Puerto Rico", "Iceland", "Maldives", "Sri Lanka", "Nepal", "Bhutan", "Mongolia", "Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Bulgaria", "Croatia", "Slovenia", "Slovakia", "Estonia", "Latvia", "Lithuania", "Ukraine", "Georgia", "Armenia", "Azerbaijan"];
+    return validCountries.includes(country);
+  });
+  const otherEntries = cleanedCountries.filter(country => {
+    const validCountries = ["France", "Japan", "Australia", "Italy", "Spain", "Germany", "United Kingdom", "Canada", "United States", "China", "India", "Brazil", "Mexico", "Thailand", "Greece", "Turkey", "Egypt", "South Africa", "Argentina", "Netherlands", "Belgium", "Switzerland", "Austria", "Sweden", "Norway", "Denmark", "Finland", "Ireland", "Portugal", "New Zealand", "Singapore", "Malaysia", "Indonesia", "Philippines", "Vietnam", "South Korea", "Israel", "Jordan", "Morocco", "Tunisia", "Kenya", "Tanzania", "Uganda", "Botswana", "Namibia", "Zimbabwe", "Peru", "Chile", "Ecuador", "Colombia", "Costa Rica", "Panama", "Guatemala", "Belize", "Cuba", "Jamaica", "Dominican Republic", "Puerto Rico", "Iceland", "Maldives", "Sri Lanka", "Nepal", "Bhutan", "Mongolia", "Russia", "Poland", "Czech Republic", "Hungary", "Romania", "Bulgaria", "Croatia", "Slovenia", "Slovakia", "Estonia", "Latvia", "Lithuania", "Ukraine", "Georgia", "Armenia", "Azerbaijan"];
+    return !validCountries.includes(country);
+  });
 
   // Sort valid countries by number of stories (descending)
   const sortedValidCountries = validCountryEntries.sort(
@@ -110,7 +158,9 @@ async function DestinationsPageContent() {
       // Get the original country key to access the stories
       const countryKeyA = allCountries.find(c => c.replace(/['"]+/g, '') === a) || a;
       const countryKeyB = allCountries.find(c => c.replace(/['"]+/g, '') === b) || b;
-      return storiesByCountry[countryKeyB].length - storiesByCountry[countryKeyA].length;
+      const storiesA = storiesByCountry?.[countryKeyA] || [];
+      const storiesB = storiesByCountry?.[countryKeyB] || [];
+      return storiesB.length - storiesA.length;
     }
   );
 
@@ -120,28 +170,24 @@ async function DestinationsPageContent() {
       // Get the original country key to access the stories
       const countryKeyA = allCountries.find(c => c.replace(/['"]+/g, '') === a) || a;
       const countryKeyB = allCountries.find(c => c.replace(/['"]+/g, '') === b) || b;
-      return storiesByCountry[countryKeyB].length - storiesByCountry[countryKeyA].length;
+      const storiesA = storiesByCountry?.[countryKeyA] || [];
+      const storiesB = storiesByCountry?.[countryKeyB] || [];
+      return storiesB.length - storiesA.length;
     }
   );
 
   // Combine the sorted lists, with valid countries first
-  const sortedCountries = [...sortedValidCountries, ...sortedOtherEntries];
+  const sortedCountries = [...(sortedValidCountries || []), ...(sortedOtherEntries || [])];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Hero Section */}
       <div className="relative h-[300px] mb-12 rounded-lg overflow-hidden">
-        <OptimizedImage
+        <img
           src="/images/destinations-hero.jpg"
           alt="Explore travel destinations around the world"
-          fill
-          className="object-cover"
-          priority={true}
-          sizes="100vw"
-          quality={90}
+          className="w-full h-full object-cover"
           loading="eager"
-          fallbackSrc="/images/fallback.jpg"
-          unoptimized={false}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -175,22 +221,27 @@ async function DestinationsPageContent() {
 
       {sortedCountries.length > 0 ? (
         <>
-          {/* Interactive World Map */}
+          {/* Simple Country List */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Explore Destinations</h2>
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <MapSection sortedValidCountries={sortedValidCountries} />
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
+              <p className="text-center text-gray-600 mb-4">Browse our collection of travel stories by destination</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {sortedCountries.slice(0, 12).map((country) => (
+                  <a
+                    key={country}
+                    href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="block p-4 bg-gray-50 hover:bg-blue-50 rounded-lg text-center transition-colors"
+                  >
+                    <span className="text-sm font-medium text-gray-900">{country}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Country Dropdown Navigation */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-12 shadow-sm">
-            <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">Find Stories by Country</h2>
-            <CountryDropdown countries={sortedCountries} />
-          </div>
-
           <div className="space-y-16">
-            {sortedCountries.map((country) => {
+            {(sortedCountries || []).map((country) => {
               // Get the original country key to access the stories
               const originalCountryKey = allCountries.find(c => c.replace(/['"]+/g, '') === country) || country;
 
@@ -202,11 +253,11 @@ async function DestinationsPageContent() {
                 >
                   <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {storiesByCountry[originalCountryKey].slice(0, 6).map((story) => (
-                      <StoryCard key={story.id} story={story} />
+                    {(storiesByCountry[originalCountryKey] || []).slice(0, 6).map((story) => (
+                      <SimpleStoryCard key={story?.id} story={story} />
                     ))}
                   </div>
-                  {storiesByCountry[originalCountryKey].length > 6 && (
+                  {(storiesByCountry[originalCountryKey] || []).length > 6 && (
                     <div className="text-center mt-4">
                       <a
                         href={`/countries/${country.toLowerCase().replace(/\s+/g, '-')}`}
@@ -230,42 +281,33 @@ async function DestinationsPageContent() {
         </div>
       )}
 
-      {/* FAQ Section with Schema */}
-      <FAQSchema
-        title="Frequently Asked Travel Questions"
-        description="Find answers to common questions about international travel, destinations, and planning your next adventure."
-        items={[
-          {
-            question: "What are the most popular travel destinations in 2024?",
-            answer: "The most popular travel destinations in 2024 include Japan, Portugal, Mexico, New Zealand, and Morocco. These destinations offer a mix of cultural experiences, natural beauty, and unique attractions that appeal to a wide range of travelers."
-          },
-          {
-            question: "When is the best time to book international flights?",
-            answer: "The best time to book international flights is typically 2-3 months before your departure date for the best prices. For peak travel seasons (summer, holidays), booking 4-6 months in advance is recommended. Tuesday and Wednesday are often the cheapest days to book flights."
-          },
-          {
-            question: "Do I need travel insurance for international trips?",
-            answer: "Yes, travel insurance is highly recommended for international trips. It provides coverage for medical emergencies, trip cancellations, lost luggage, and other unexpected events. The cost of medical care abroad can be extremely high, making insurance an essential part of travel planning."
-          },
-          {
-            question: "What documents do I need for international travel?",
-            answer: "For international travel, you typically need a passport valid for at least 6 months beyond your return date, any required visas for your destination countries, proof of return or onward travel, and sometimes proof of sufficient funds. Some countries also require proof of vaccinations."
-          },
-          {
-            question: "How can I find authentic local experiences when traveling?",
-            answer: "To find authentic local experiences, try staying in residential neighborhoods rather than tourist areas, eat at restaurants frequented by locals, use public transportation, learn a few phrases in the local language, join walking tours led by residents, and use apps that connect travelers with local guides or experiences."
-          }
-        ]}
-      />
+      {/* Simple FAQ Section */}
+      <div className="mt-16">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Frequently Asked Travel Questions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">What are the most popular travel destinations in 2024?</h3>
+            <p className="text-gray-600">The most popular travel destinations in 2024 include Japan, Portugal, Mexico, New Zealand, and Morocco. These destinations offer a mix of cultural experiences, natural beauty, and unique attractions.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">When is the best time to book international flights?</h3>
+            <p className="text-gray-600">The best time to book international flights is typically 2-3 months before your departure date for the best prices. For peak travel seasons, booking 4-6 months in advance is recommended.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Do I need travel insurance for international trips?</h3>
+            <p className="text-gray-600">Yes, travel insurance is highly recommended for international trips. It provides coverage for medical emergencies, trip cancellations, lost luggage, and other unexpected events.</p>
+          </div>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">How can I find authentic local experiences?</h3>
+            <p className="text-gray-600">To find authentic local experiences, try staying in residential neighborhoods, eat at local restaurants, use public transportation, and learn a few phrases in the local language.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-// Export a client component that wraps the server component in a Suspense boundary
+// Export the server component directly
 export default function DestinationsPage() {
-  return (
-    <SafeSearchParamsProvider>
-      <DestinationsPageContent />
-    </SafeSearchParamsProvider>
-  );
+  return <DestinationsPageContent />;
 }
