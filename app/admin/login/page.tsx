@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useFormValidation } from '@/src/hooks/useFormValidation';
-import { adminLoginSchema } from '@/src/utils/validation-schemas';
-import { useCsrfToken } from '@/src/hooks/useCsrfToken';
+import { Button } from '../../../src/components/ui/button';
+import { Input } from '../../../src/components/ui/input';
+import { Label } from '../../../src/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../src/components/ui/card';
+import { Alert, AlertDescription } from '../../../src/components/ui/alert';
+import { useFormValidation } from '../../../src/hooks/useFormValidation';
+import { adminLoginSchema } from '../../../src/utils/validation-schemas';
+import { useCsrfToken } from '../../../src/hooks/useCsrfToken';
 
 
 export default function AdminLoginPage() {
@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
     setError('');
     const response = await fetch('/api/admin/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken || '' },
       body: JSON.stringify({ ...data, csrfToken }),
     });
     await response.json();

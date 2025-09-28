@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { SafeSearchParamsProvider } from '../../../src/components/ui/SearchParamsProvider';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../src/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../src/components/ui/tabs';
 import { Button } from '../../../src/components/ui/button';
 import { Badge } from '../../../src/components/ui/badge';
 import { Input } from '../../../src/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../src/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../src/components/ui/tabs';
 import { FreshnessIndicator } from '../../../src/components/ui/FreshnessIndicator';
 
 interface ContentAuditReport {

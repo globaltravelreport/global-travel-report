@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
-import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
+import { PerformanceMonitor } from '../../../src/components/admin/PerformanceMonitor';
+import { SafeSearchParamsProvider } from '../../../src/components/ui/SearchParamsProvider';
 
 interface Stats {
   totalStories: number;
