@@ -69,7 +69,7 @@ export default function StoryUploadPage() {
       } else {
         router.push('/admin/login');
       }
-    } catch (error) {
+    } catch (_error) {
       router.push('/admin/login');
     } finally {
       setIsLoading(false);
@@ -111,7 +111,7 @@ export default function StoryUploadPage() {
       } else {
         setError(data.error || 'Failed to rewrite story');
       }
-    } catch (error) {
+    } catch (_error) {
       setError('Network error. Please try again.');
     } finally {
       setIsRewriting(false);
@@ -164,7 +164,7 @@ export default function StoryUploadPage() {
       } else {
         setError(data.error || 'Failed to publish story');
       }
-    } catch (error) {
+    } catch (_error) {
       setError('Network error. Please try again.');
     } finally {
       setIsPublishing(false);

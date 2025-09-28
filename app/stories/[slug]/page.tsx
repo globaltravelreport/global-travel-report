@@ -65,13 +65,13 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
     siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'
   });
 
-  const optimizedImageUrl = story.imageUrl;
+  const _optimizedImageUrl = story.imageUrl;
   const optimizedAltText = story.title;
 
   // Get the base site URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+  const _baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
 
   return {
     title,

@@ -31,7 +31,7 @@ export async function fetchUnsplashImage(query: string): Promise<{
         url: photo.user.links.html,
       },
     };
-  } catch (error) {
+  } catch (_error) {
     // Return placeholder image if Unsplash fetch fails
     return {
       url: '/images/placeholder.jpg',

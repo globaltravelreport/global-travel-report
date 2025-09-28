@@ -12,24 +12,13 @@ export interface NormalizedStory {
   [key: string]: any;
 }
 
-export async function parseRSSFeed(feedUrl: string, options: { etag?: string; lastModified?: string } = {}): Promise<{ stories: NormalizedStory[]; etag?: string; lastModified?: string }> {
+export async function parseRSSFeed(feedUrl: string, _options: { etag?: string; lastModified?: string } = {}): Promise<{ stories: NormalizedStory[] }> {
   try {
-    const result = await extract(feedUrl, {
-      getExtraFeedFields: true,
-      getExtraEntryFields: true,
-      headers: {
-        'If-None-Match': options.etag || '',
-        'If-Modified-Since': options.lastModified || ''
-      }
-    });
+    const result = await extract(feedUrl);
     if (!result || !result.entries) return { stories: [] };
     const stories = result.entries.map(entry => normalizeEntry(entry));
-    return {
-      stories,
-      etag: result.etag,
-      lastModified: result.lastModified
-    };
-  } catch (error) {
+    return { stories };
+  } catch (_error) {
     return { stories: [] };
   }
 }

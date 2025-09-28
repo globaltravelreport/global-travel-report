@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SESSION_COOKIE_NAME = 'admin-session';
-const SESSION_SECRET = process.env.SESSION_SECRET;
+const _SESSION_SECRET = process.env.SESSION_SECRET;
 
 export interface AdminSession {
   username: string;

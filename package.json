@@ -79,6 +79,7 @@
     "analyze:server": "cross-env ANALYZE=true next build && open .next/analyze/server.html"
   },
   "dependencies": {
+    "@extractus/feed-extractor": "7.1.6",
     "@google-analytics/data": "5.2.0",
     "@hookform/resolvers": "5.0.1",
     "@radix-ui/react-compose-refs": "1.1.2",

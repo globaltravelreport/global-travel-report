@@ -51,7 +51,7 @@ export default function ContactPage() {
         setSubmitStatus('error');
         setSubmitMessage(result.message || 'Failed to send message. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus('error');
       setSubmitMessage('Network error. Please check your connection and try again.');
     } finally {
