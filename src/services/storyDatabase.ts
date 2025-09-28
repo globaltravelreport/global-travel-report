@@ -1,6 +1,6 @@
-import { Story } from '@/types/Story';
-import { mockStories } from '@/src/mocks/stories';
-import { getSafeDateString } from '@/utils/date-utils';
+import { Story } from '../../types/Story';
+import { mockStories } from '../mocks/stories';
+import { getSafeDateString } from '../utils/date-utils';
 
 /**
  * StoryDatabase using in-memory storage with mock data

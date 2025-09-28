@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
-import { cn } from '@/src/lib/utils';
+import { cn } from '../../lib/utils';
 // Theme toggle has been removed
 
 export default function Header() {

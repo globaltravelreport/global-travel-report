@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories, getHomepageStories } from '@/src/utils/stories';
-import { Story } from '@/types/Story';
-import { MostViewedThisWeek } from '@/src/components/engagement/MostViewedThisWeek';
-import { TrendingDestinations } from '@/src/components/engagement/TrendingDestinations';
+import { getAllStories, getHomepageStories } from '../../utils/stories';
+import { Story } from '../../../types/Story';
+import { MostViewedThisWeek } from '../engagement/MostViewedThisWeek';
+import { TrendingDestinations } from '../engagement/TrendingDestinations';
 
 export default function StoriesSection() {
   const [stories, setStories] = useState<Story[]>([]);

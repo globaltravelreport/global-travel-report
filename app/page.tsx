@@ -1,5 +1,5 @@
-import Hero from '@/src/components/home/Hero';
-import StoriesSection from '@/src/components/home/StoriesSection';
+import Hero from '../src/components/home/Hero';
+import StoriesSection from '../src/components/home/StoriesSection';
 import type { Metadata } from 'next';
 
 // Force dynamic rendering to ensure stories are loaded at runtime

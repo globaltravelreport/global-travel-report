@@ -1,4 +1,4 @@
-import { Story } from '@/types/Story';
+import { Story } from '../../types/Story';
 
 /**
  * Mock stories for development and testing

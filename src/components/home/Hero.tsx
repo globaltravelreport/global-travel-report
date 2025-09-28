@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories } from '@/src/utils/stories';
-import { Story } from '@/types/Story';
+import { getAllStories } from '../../utils/stories';
+import { Story } from '../../../types/Story';
 
 export default function Hero() {
   const [featuredStory, setFeaturedStory] = useState<Story | null>(null);
@@ -16,7 +16,7 @@ export default function Hero() {
         const stories = await getAllStories();
         console.log('Hero: Loaded stories:', stories.length, stories.map(s => ({ id: s.id, title: s.title, featured: s.featured })));
         const featured = stories.find(story => story.featured);
-        const storyToUse = featured || stories[0];
+        const storyToUse = featured || (stories.length > 0 ? stories[0] : null);
         console.log('Hero: Selected story:', storyToUse?.title || 'None');
         setFeaturedStory(storyToUse);
       } catch (error) {
@@ -65,24 +65,28 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={featuredStory.imageUrl || '/images/hero-placeholder.jpg'}
+          src={featuredStory.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600'}
           alt={featuredStory.title}
           fill
           className="object-cover"
           priority
         />
         <div className="absolute inset-0 bg-black bg-opacity-50" />
-        {featuredStory.photographer && (
+        {featuredStory.photographer && featuredStory.photographer.name && (
           <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
             Photo by{" "}
-            <a
-              href={featuredStory.photographer.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-gray-200"
-            >
-              {featuredStory.photographer.name}
-            </a>
+            {featuredStory.photographer.url ? (
+              <a
+                href={featuredStory.photographer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-200"
+              >
+                {featuredStory.photographer.name}
+              </a>
+            ) : (
+              <span>{featuredStory.photographer.name}</span>
+            )}
             {" "}on{" "}
             <a
               href="https://unsplash.com"

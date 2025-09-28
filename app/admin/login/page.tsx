@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
       body: JSON.stringify({ ...data, csrfToken }),
     });
-    const res = await response.json();
+    await response.json();
     if (response.ok) {
       router.push('/admin/story-upload');
       router.refresh();

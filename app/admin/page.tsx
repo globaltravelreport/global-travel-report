@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PerformanceMonitor } from '@/components/admin/PerformanceMonitor';
-import { ClientSuspense } from '@/components/ui/ClientSuspense';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 interface Stats {

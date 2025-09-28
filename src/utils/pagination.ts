@@ -26,7 +26,7 @@
  *    ```
  */
 
-import { Story } from '@/types/Story';
+import { Story } from '../../types/Story';
 
 /**
  * Pagination options

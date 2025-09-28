@@ -2,15 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { FreshnessIndicator } from '@/components/ui/FreshnessIndicator';
+import { SafeSearchParamsProvider } from '../../../src/components/ui/SearchParamsProvider';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../src/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../src/components/ui/tabs';
+import { Button } from '../../../src/components/ui/button';
+import { Badge } from '../../../src/components/ui/badge';
+import { Input } from '../../../src/components/ui/input';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../src/components/ui/table';
+import { FreshnessIndicator } from '../../../src/components/ui/FreshnessIndicator';
 
 interface ContentAuditReport {
   generatedAt: string;
@@ -84,7 +83,7 @@ function ContentAuditContent() {
         setReport(JSON.parse(storedReport));
       }
       setLoading(false);
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load content audit report');
       setLoading(false);
     }
@@ -138,7 +137,7 @@ function ContentAuditContent() {
         detailedAnalysis: Array.from({ length: 153 }, (_, i) => {
           const isFresh = i < 42;
           const isRecent = i >= 42 && i < 120;
-          const isOutdated = i >= 120;
+          const _isOutdated = i >= 120;
 
           return {
             slug: `story-${i + 1}`,
@@ -169,7 +168,7 @@ function ContentAuditContent() {
       // Update the state
       setReport(sampleReport);
       setLoading(false);
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to run content audit');
       setLoading(false);
     }
@@ -182,20 +181,6 @@ function ContentAuditContent() {
     story.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
     story.country.toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
-
-  // Get badge color for freshness status
-  const getFreshnessColor = (status: string) => {
-    switch (status) {
-      case 'fresh':
-        return 'bg-green-500 hover:bg-green-600';
-      case 'recent':
-        return 'bg-yellow-500 hover:bg-yellow-600';
-      case 'outdated':
-        return 'bg-red-500 hover:bg-red-600';
-      default:
-        return 'bg-gray-500 hover:bg-gray-600';
-    }
-  };
 
   // Get badge color for score
   const getScoreColor = (score: number) => {

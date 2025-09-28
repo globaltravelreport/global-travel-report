@@ -33,17 +33,17 @@
  *    ```
  */
 import { format } from 'date-fns';
-import { Story } from '@/types/Story';
-import { StorySearchParams } from '@/types/StorySearchParams';
-import { mockStories } from '@/src/mocks/stories';
-import { memoize, memoizeMultiArg } from '@/utils/memoization';
-import { isArchived, isRecent } from '@/utils/date-utils';
-import { StoryDatabase } from '@/src/services/storyDatabase';
+import { Story } from '../../types/Story';
+import { StorySearchParams } from '../../types/StorySearchParams';
+import { mockStories } from '../mocks/stories';
+import { memoize, memoizeMultiArg } from './memoization';
+import { isRecent } from './date-utils';
+import { StoryDatabase } from '../services/storyDatabase';
 import {
   paginate,
   PaginationOptions,
   PaginationResult
-} from '@/src/utils/pagination';
+} from './pagination';
 
 /**
  * Format a date for display
@@ -73,7 +73,10 @@ export function isWithinLast7Days(date: Date | string): boolean {
  * @param days - Number of days to consider for archiving (default: 30)
  * @returns Boolean indicating if the story is archived
  */
-export const isStoryArchived = memoize((story: Story, days: number = 30): boolean => {
+export const isStoryArchived = memoizeMultiArg((story: Story, days: number = 30): boolean => {
+  if (!story.publishedAt) {
+    return true; // Consider stories without publish date as archived
+  }
   return !isRecent(story.publishedAt, days);
 });
 
@@ -83,7 +86,7 @@ export const isStoryArchived = memoize((story: Story, days: number = 30): boolea
  * @param days - Number of days to consider as recent (default: 30)
  * @returns Boolean indicating if the story is recent
  */
-export const isStoryRecent = memoize((story: Story, days: number = 30): boolean => {
+export const isStoryRecent = memoizeMultiArg((story: Story, days: number = 30): boolean => {
   return isRecent(story.publishedAt, days);
 });
 
@@ -132,8 +135,8 @@ export async function getAllStories(): Promise<Story[]> {
  * @param options - Pagination options
  * @returns Paginated array of recent stories for the homepage
  */
-export const getHomepageStories = memoize(
-   (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
+export const getHomepageStories = memoizeMultiArg(
+    (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
      // First filter and sort the stories - only show recent stories (30 days)
      const filteredStories = Array.isArray(stories) ? stories
        .filter(story => isRecent(story.publishedAt, 30)) // Only show stories from last 30 days
@@ -167,8 +170,8 @@ export const getHomepageStories = memoize(
  * @param options - Pagination options
  * @returns Paginated array of archived stories
  */
-export const getArchivedStories = memoize(
-   (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
+export const getArchivedStories = memoizeMultiArg(
+    (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
      // First filter and sort the stories - show stories older than 30 days
      const filteredStories = Array.isArray(stories) ? stories
        .filter(story => isStoryArchived(story, 30)) // Stories older than 30 days
@@ -183,7 +186,7 @@ export const getArchivedStories = memoize(
   },
   {
     // Use a custom key generator that includes pagination options but excludes the story content
-    keyGenerator: (args) => {
+    keyGenerator: (args: unknown[]) => {
       const stories = args[0] as Story[];
       const options = args[1] as PaginationOptions;
       return JSON.stringify({
