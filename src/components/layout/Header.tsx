@@ -170,8 +170,8 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Search and Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          {/* Search and Social */}
+          <div className="flex items-center space-x-2">
             <Link href="/search">
               <Button variant="ghost" size="sm" className="rounded-full text-white hover:bg-[#19273A]/50">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,6 +180,37 @@ export default function Header() {
                 <span className="sr-only">Search</span>
               </Button>
             </Link>
+
+            {/* Social Media Links - Desktop Only */}
+            <div className="hidden lg:flex items-center space-x-1">
+              <a
+                href="https://www.facebook.com/globaltravelreport"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
+                aria-label="Follow us on Facebook"
+              >
+                <FaFacebook className="w-4 h-4" />
+              </a>
+              <a
+                href="https://x.com/GTravelReport"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
+                aria-label="Follow us on X (Twitter)"
+              >
+                <FaXTwitter className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/globaltravelreport/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
+                aria-label="Follow us on LinkedIn"
+              >
+                <FaLinkedin className="w-4 h-4" />
+              </a>
+            </div>
             <Button
               variant="ghost"
               size="sm"

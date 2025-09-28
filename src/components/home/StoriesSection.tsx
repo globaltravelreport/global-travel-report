@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllStories, getHomepageStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
+import { MostViewedThisWeek } from '@/src/components/engagement/MostViewedThisWeek';
+import { TrendingDestinations } from '@/src/components/engagement/TrendingDestinations';
 
 export default function StoriesSection() {
   const [stories, setStories] = useState<Story[]>([]);
@@ -148,6 +150,12 @@ export default function StoriesSection() {
             </Link>
           </article>
         ))}
+      </div>
+
+      {/* Engagement Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <MostViewedThisWeek limit={5} />
+        <TrendingDestinations limit={6} />
       </div>
 
       {/* View All Stories CTA */}

@@ -183,6 +183,28 @@ export class StoryDatabase {
   }
 
   /**
+   * Update an existing story in the database
+   * @param id - The ID of the story to update
+   * @param updates - The partial story data to update
+   * @returns The updated story, or null if not found
+   */
+  public async updateStory(id: string, updates: Partial<Story>): Promise<Story | null> {
+    await this.initialize();
+
+    const storyIndex = this.stories.findIndex(s => s.id === id);
+    if (storyIndex === -1) {
+      return null;
+    }
+
+    // Update the story with the new data
+    this.stories[storyIndex] = { ...this.stories[storyIndex], ...updates };
+
+    console.log(`Updated story "${this.stories[storyIndex].title}" in in-memory storage`);
+
+    return this.stories[storyIndex];
+  }
+
+  /**
    * Add multiple stories to the database
    * @param stories - The stories to add
    * @returns The added stories
@@ -243,23 +265,196 @@ export class StoryDatabase {
    * @param query - The search query
    * @returns An array of stories matching the query
    */
-  public async searchStories(query: string): Promise<Story[]> {
-    await this.initialize();
+ public async searchStories(query: string): Promise<Story[]> {
+   await this.initialize();
 
-    if (!query) {
-      return this.stories;
-    }
+   if (!query) {
+     return this.stories;
+   }
 
-    const lowerQuery = query.toLowerCase();
+   const lowerQuery = query.toLowerCase();
 
-    // Simple in-memory search
-    return this.stories.filter(story =>
-      (story.title && story.title.toLowerCase().includes(lowerQuery)) ||
-      (story.content && story.content.toLowerCase().includes(lowerQuery)) ||
-      (story.excerpt && story.excerpt.toLowerCase().includes(lowerQuery)) ||
-      (story.category && story.category.toLowerCase().includes(lowerQuery)) ||
-      (story.country && story.country.toLowerCase().includes(lowerQuery)) ||
-      (story.tags && story.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
-    );
-  }
+   // Simple in-memory search
+   return this.stories.filter(story =>
+     (story.title && story.title.toLowerCase().includes(lowerQuery)) ||
+     (story.content && story.content.toLowerCase().includes(lowerQuery)) ||
+     (story.excerpt && story.excerpt.toLowerCase().includes(lowerQuery)) ||
+     (story.category && story.category.toLowerCase().includes(lowerQuery)) ||
+     (story.country && story.country.toLowerCase().includes(lowerQuery)) ||
+     (story.tags && story.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
+   );
+ }
+
+ /**
+  * Get paginated stories
+  * @param page - Page number (1-based)
+  * @param limit - Number of stories per page
+  * @param options - Additional filtering options
+  * @returns Paginated stories with metadata
+  */
+ public async getPaginatedStories(
+   page: number = 1,
+   limit: number = 10,
+   options: {
+     category?: string;
+     country?: string;
+     featured?: boolean;
+     editorsPick?: boolean;
+     sortBy?: 'publishedAt' | 'title' | 'category';
+     sortOrder?: 'asc' | 'desc';
+   } = {}
+ ): Promise<{
+   stories: Story[];
+   pagination: {
+     page: number;
+     limit: number;
+     total: number;
+     totalPages: number;
+     hasNext: boolean;
+     hasPrev: boolean;
+   };
+ }> {
+   await this.initialize();
+
+   let filteredStories = [...this.stories];
+
+   // Apply filters
+   if (options.category) {
+     filteredStories = filteredStories.filter(story =>
+       story.category?.toLowerCase() === options.category?.toLowerCase()
+     );
+   }
+
+   if (options.country) {
+     filteredStories = filteredStories.filter(story =>
+       story.country?.toLowerCase() === options.country?.toLowerCase()
+     );
+   }
+
+   if (options.featured !== undefined) {
+     filteredStories = filteredStories.filter(story => story.featured === options.featured);
+   }
+
+   if (options.editorsPick !== undefined) {
+     filteredStories = filteredStories.filter(story => story.editorsPick === options.editorsPick);
+   }
+
+   // Apply sorting
+   const sortBy = options.sortBy || 'publishedAt';
+   const sortOrder = options.sortOrder || 'desc';
+
+   filteredStories.sort((a, b) => {
+     let aValue: any;
+     let bValue: any;
+
+     switch (sortBy) {
+       case 'title':
+         aValue = a.title?.toLowerCase() || '';
+         bValue = b.title?.toLowerCase() || '';
+         break;
+       case 'category':
+         aValue = a.category?.toLowerCase() || '';
+         bValue = b.category?.toLowerCase() || '';
+         break;
+       case 'publishedAt':
+       default:
+         aValue = new Date(a.publishedAt || '').getTime();
+         bValue = new Date(b.publishedAt || '').getTime();
+         break;
+     }
+
+     if (sortOrder === 'asc') {
+       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+     } else {
+       return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+     }
+   });
+
+   // Apply pagination
+   const total = filteredStories.length;
+   const totalPages = Math.ceil(total / limit);
+   const startIndex = (page - 1) * limit;
+   const endIndex = startIndex + limit;
+   const paginatedStories = filteredStories.slice(startIndex, endIndex);
+
+   return {
+     stories: paginatedStories,
+     pagination: {
+       page,
+       limit,
+       total,
+       totalPages,
+       hasNext: page < totalPages,
+       hasPrev: page > 1
+     }
+   };
+ }
+
+ /**
+  * Archive old stories (older than specified days)
+  * @param daysOld - Archive stories older than this many days
+  * @returns Number of stories archived
+  */
+ public async archiveOldStories(daysOld: number = 90): Promise<number> {
+   await this.initialize();
+
+   const cutoffDate = new Date(Date.now() - daysOld * 24 * 60 * 60 * 1000);
+   const storiesToArchive: Story[] = [];
+   const remainingStories: Story[] = [];
+
+   for (const story of this.stories) {
+     const storyDate = new Date(story.publishedAt || '');
+     if (storyDate < cutoffDate) {
+       storiesToArchive.push(story);
+     } else {
+       remainingStories.push(story);
+     }
+   }
+
+   // In a real implementation, you might move to a separate archive collection
+   // For now, we'll just remove them from active stories
+   const archivedCount = storiesToArchive.length;
+   this.stories = remainingStories;
+
+   if (archivedCount > 0) {
+     console.log(`Archived ${archivedCount} stories older than ${daysOld} days`);
+   }
+
+   return archivedCount;
+ }
+
+ /**
+  * Get stories that need to be archived (preview mode)
+  * @param daysOld - Stories older than this many days
+  * @returns Stories that would be archived
+  */
+ public async getStoriesToArchive(daysOld: number = 90): Promise<Story[]> {
+   await this.initialize();
+
+   const cutoffDate = new Date(Date.now() - daysOld * 24 * 60 * 60 * 1000);
+
+   return this.stories.filter(story => {
+     const storyDate = new Date(story.publishedAt || '');
+     return storyDate < cutoffDate;
+   });
+ }
+
+ /**
+  * Clean up old archived stories and optimize storage
+  * @returns Cleanup statistics
+  */
+ public async cleanupStorage(): Promise<{
+   archivedCount: number;
+   totalStories: number;
+   storageOptimized: boolean;
+ }> {
+   const archivedCount = await this.archiveOldStories(90);
+   const totalStories = this.stories.length;
+
+   return {
+     archivedCount,
+     totalStories,
+     storageOptimized: archivedCount > 0
+   };
+ }
 }

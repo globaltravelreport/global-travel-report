@@ -76,7 +76,11 @@
     "refresh:offers": "npm run fetch:offers",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:open": "cross-env ANALYZE=true next build && open .next/analyze/client.html",
-    "analyze:server": "cross-env ANALYZE=true next build && open .next/analyze/server.html"
+    "analyze:server": "cross-env ANALYZE=true next build && open .next/analyze/server.html",
+    "ingest:content": "node scripts/content-ingestion.js",
+    "ingest:content:dry": "node scripts/content-ingestion.js --dry-run",
+    "set:featured": "node scripts/set-featured-story.js",
+    "automation:stats": "node scripts/get-automation-stats.js"
   },
   "dependencies": {
     "@extractus/feed-extractor": "7.1.6",

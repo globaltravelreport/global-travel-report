@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
+import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
 
 export default function Footer() {
   return (
@@ -271,9 +272,10 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-400 text-xs mb-4">
               Based in Sydney, Australia. Content is sourced from various travel news outlets and curated by our editorial team.
             </p>
+            <AffiliateDisclosure variant="footer" className="text-xs" />
           </div>
         </div>
       </div>

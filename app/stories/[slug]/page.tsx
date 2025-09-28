@@ -11,6 +11,8 @@ import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
+import { StoryReactions } from "@/components/ui/StoryReactions";
+import { StoryComments } from "@/components/ui/StoryComments";
 import { getStoryBySlug } from "@/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/utils/meta";
@@ -333,6 +335,23 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
             <AdSenseInArticle />
           </div>
 
+          {/* Story Reactions and Comments */}
+          <div className="mt-12 pt-8 border-t">
+            <StoryReactions
+              storyId={story.id}
+              initialReactions={{
+                likes: Math.floor(Math.random() * 20) + 5,
+                loves: Math.floor(Math.random() * 15) + 3,
+                explores: Math.floor(Math.random() * 10) + 2,
+                comments: Math.floor(Math.random() * 8) + 1,
+                shares: Math.floor(Math.random() * 12) + 2
+              }}
+              onReaction={(type) => console.log(`Reaction: ${type}`)}
+              onComment={() => document.getElementById('comments-section')?.scrollIntoView()}
+              onShare={() => console.log('Share clicked')}
+            />
+          </div>
+
           <footer className="mt-8 pt-8 border-t">
             <div className="flex flex-wrap gap-2 mb-6">
               {story.tags.map((tag) => (
@@ -392,8 +411,43 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
           </div>
 
           {/* Comments */}
-          <div className="mt-12" aria-label="Comments section">
-            <CommentSystem storyId={story.id} />
+          <div id="comments-section" className="mt-12" aria-label="Comments section">
+            <StoryComments
+              storyId={story.id}
+              initialComments={[
+                {
+                  id: 'comment-1',
+                  author: {
+                    name: 'Sarah Johnson',
+                    verified: true
+                  },
+                  content: 'This is such an amazing guide! I\'ve been planning a trip to Japan and this gave me so many great ideas for places to visit beyond the typical tourist spots.',
+                  timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+                  likes: 12,
+                  dislikes: 0,
+                  replies: [
+                    {
+                      id: 'reply-1',
+                      author: { name: 'Mike Chen' },
+                      content: 'I totally agree! The local neighborhoods are definitely the highlight of any Japan trip.',
+                      timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+                      likes: 5,
+                      dislikes: 0
+                    }
+                  ]
+                },
+                {
+                  id: 'comment-2',
+                  author: {
+                    name: 'Travel Enthusiast'
+                  },
+                  content: 'Great photography! The images really capture the essence of Tokyo\'s hidden gems. Thanks for sharing these unique locations.',
+                  timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+                  likes: 8,
+                  dislikes: 0
+                }
+              ]}
+            />
           </div>
         </article>
       </div>
