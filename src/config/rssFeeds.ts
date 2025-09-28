@@ -36,6 +36,7 @@ export interface ContentFilterRule {
 }
 
 export const rssFeedSources: RSSFeedSource[] = [
+  // Cruise and Travel Industry News
   {
     url: 'https://www.cruiseindustrynews.com/cruise-news/rss.xml',
     category: 'Cruises',
@@ -44,13 +45,69 @@ export const rssFeedSources: RSSFeedSource[] = [
     fallbackUrls: ['https://www.cruisecritic.com/rss/news.xml']
   },
   {
+    url: 'https://www.cruisecritic.com/rss/news.xml',
+    category: 'Cruises',
+    priority: 2,
+    updateFrequencyMinutes: 45,
+    fallbackUrls: ['https://www.cruiseindustrynews.com/cruise-news/rss.xml']
+  },
+
+  // Major Travel Publications
+  {
     url: 'https://www.lonelyplanet.com/news/rss.xml',
     category: 'Destinations',
-    priority: 2,
+    priority: 1,
     updateFrequencyMinutes: 60,
     fallbackUrls: ['https://www.travelandleisure.com/rss.xml']
   },
-  // ...add more feeds as needed
+  {
+    url: 'https://www.travelandleisure.com/rss.xml',
+    category: 'Destinations',
+    priority: 2,
+    updateFrequencyMinutes: 60,
+    fallbackUrls: ['https://www.lonelyplanet.com/news/rss.xml']
+  },
+  {
+    url: 'https://www.cntraveler.com/rss.xml',
+    category: 'Destinations',
+    priority: 1,
+    updateFrequencyMinutes: 60,
+    fallbackUrls: ['https://www.travelandleisure.com/rss.xml']
+  },
+
+  // Hotel and Accommodation News
+  {
+    url: 'https://www.hotelnewsnow.com/Articles-RSS',
+    category: 'Hotels',
+    priority: 2,
+    updateFrequencyMinutes: 90,
+    fallbackUrls: ['https://www.travelweekly.com/rss']
+  },
+
+  // Aviation and Flight News
+  {
+    url: 'https://www.aviationweek.com/rss',
+    category: 'Flights',
+    priority: 3,
+    updateFrequencyMinutes: 120,
+    fallbackUrls: ['https://www.flightglobal.com/rss']
+  },
+
+  // Additional trusted travel sources
+  {
+    url: 'https://www.travelweekly.com/rss',
+    category: 'Destinations',
+    priority: 3,
+    updateFrequencyMinutes: 90,
+    fallbackUrls: ['https://www.travelpulse.com/rss']
+  },
+  {
+    url: 'https://www.travelpulse.com/rss',
+    category: 'Destinations',
+    priority: 4,
+    updateFrequencyMinutes: 90,
+    fallbackUrls: ['https://www.travelweekly.com/rss']
+  }
 ];
 
 export const categoryMappings: CategoryMapping = {

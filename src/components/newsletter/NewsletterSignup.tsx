@@ -13,17 +13,13 @@ interface NewsletterSignupProps {
   title?: string;
   description?: string;
   className?: string;
-  onSuccess?: (email: string) => void;
-  onError?: (error: string) => void;
 }
 
 export function NewsletterSignup({
   variant = 'inline',
   title = 'Stay Updated with Travel Stories',
   description = 'Get the latest travel tips, destination guides, and exclusive deals delivered to your inbox.',
-  className = '',
-  onSuccess,
-  onError
+  className = ''
 }: NewsletterSignupProps) {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -59,15 +55,12 @@ export function NewsletterSignup({
 
       if (data.success) {
         setIsSuccess(true);
-        onSuccess?.(email);
       } else {
         setError(data.error || 'Failed to subscribe');
-        onError?.(data.error || 'Failed to subscribe');
       }
     } catch (err) {
       const errorMessage = 'Network error. Please try again.';
       setError(errorMessage);
-      onError?.(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

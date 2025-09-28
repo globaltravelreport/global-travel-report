@@ -26,6 +26,15 @@ interface EnhancedSEOProps {
     href: string;
   }[];
   children?: React.ReactNode;
+  structuredData?: {
+    '@context'?: string;
+    '@type'?: string;
+    [key: string]: any;
+  };
+  breadcrumbs?: Array<{
+    name: string;
+    url: string;
+  }>;
 }
 
 /**
@@ -51,6 +60,8 @@ export function EnhancedSEO({
   noIndex = false,
   noFollow = false,
   alternateLanguages,
+  structuredData,
+  breadcrumbs,
   children
 }: EnhancedSEOProps) {
   const pathname = usePathname();
@@ -127,6 +138,35 @@ export function EnhancedSEO({
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="theme-color" content="#19273A" />
       
+      {/* Structured Data (JSON-LD) */}
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      )}
+
+      {/* Breadcrumb Structured Data */}
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: breadcrumbs.map((crumb, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: crumb.name,
+                item: crumb.url,
+              })),
+            }),
+          }}
+        />
+      )}
+
       {/* Additional children */}
       {children}
     </>

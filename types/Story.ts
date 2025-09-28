@@ -47,6 +47,13 @@ export interface Story {
   source?: string;
   sourceUrl?: string;
 
+  // Enhanced ingestion tracking
+  firstSeenAt?: string;
+  originalPublishedAt?: string;
+  ingestionSource?: string;
+  contentHash?: string;
+  wordCount?: number;
+
   // Nested objects
   photographer?: {
     name: string;

@@ -30,6 +30,7 @@ export interface IngestedContentResult {
   success: boolean;
   storiesIngested: number;
   storiesRejected: number;
+  storiesDuplicates: number;
   errors: string[];
   qualityReport: Record<string, ContentQualityMetrics>;
 }
@@ -77,6 +78,7 @@ export class ContentAutomationService {
       success: false,
       storiesIngested: 0,
       storiesRejected: 0,
+      storiesDuplicates: 0,
       errors: [],
       qualityReport: {}
     };
@@ -107,7 +109,7 @@ export class ContentAutomationService {
               await this.db.addStory(processedStory);
               result.storiesIngested++;
               result.qualityReport[processedStory.id] = quality;
-              console.log(`Ingested story: ${processedStory.title} (Quality: ${quality.overallScore.toFixed(2)})`);
+              console.log(`Ingested story: ${processedStory.title} (Quality: ${quality.overallScore.toFixed(2)}, ID: ${processedStory.id})`);
             } else {
               result.storiesRejected++;
               console.log(`Rejected story: ${processedStory.title} (Quality: ${quality.overallScore.toFixed(2)} below threshold ${this.config.qualityThreshold})`);
@@ -134,8 +136,8 @@ export class ContentAutomationService {
   }
 
   /**
-   * Process a raw story into a structured Story object
-   */
+    * Process a raw story into a structured Story object with enhanced safeguards
+    */
   private async processStory(rawStory: any): Promise<Story | null> {
     try {
       // Validate required fields
@@ -144,24 +146,31 @@ export class ContentAutomationService {
         return null;
       }
 
-      // Generate slug from title
-      const slug = this.generateSlug(rawStory.title);
+      // Generate unique ID from feed GUID or URL hash
+      const uniqueId = this.generateUniqueId(rawStory);
 
-      // Check for duplicates
-      const existingStory = await this.db.getStoryBySlug(slug);
-      if (existingStory) {
-        console.log('Duplicate story found:', slug);
+      // Check for duplicates using multiple methods
+      const duplicateCheck = await this.checkForDuplicates(rawStory, uniqueId);
+      if (duplicateCheck.isDuplicate) {
+        console.log('Duplicate story found:', rawStory.title, '- Reason:', duplicateCheck.reason);
         return null;
       }
+
+      // Generate slug from title
+      const slug = this.generateSlug(rawStory.title);
 
       // Extract metadata
       const category = this.inferCategory(rawStory);
       const country = this.inferCountry(rawStory);
       const tags = this.extractTags(rawStory);
 
-      // Create processed story
+      // Preserve original published date, never overwrite with today's date
+      const originalPublishedAt = this.preserveOriginalDate(rawStory.publishedAt);
+      const firstSeenAt = new Date().toISOString(); // When we first ingested this
+
+      // Create processed story with enhanced fields
       const processedStory: Story = {
-        id: uuidv4(),
+        id: uniqueId,
         slug,
         title: rawStory.title.trim(),
         excerpt: this.generateExcerpt(rawStory.content),
@@ -172,10 +181,16 @@ export class ContentAutomationService {
         tags: tags,
         featured: false, // Manual override required
         editorsPick: false, // Manual override required
-        publishedAt: new Date(rawStory.publishedAt || Date.now()),
+        publishedAt: originalPublishedAt,
         imageUrl: rawStory.imageUrl || this.getDefaultImage(category),
         metaTitle: rawStory.title.trim(),
-        metaDescription: this.generateExcerpt(rawStory.content, 150)
+        metaDescription: this.generateExcerpt(rawStory.content, 150),
+        // Enhanced fields for better tracking
+        firstSeenAt,
+        originalPublishedAt,
+        ingestionSource: rawStory.feedUrl || 'unknown',
+        contentHash: this.generateContentHash(rawStory),
+        wordCount: this.countWords(rawStory.content)
       };
 
       return processedStory;
@@ -351,8 +366,119 @@ export class ContentAutomationService {
   }
 
   /**
-   * Get default image based on category
-   */
+    * Generate unique ID from feed GUID or URL hash
+    */
+  private generateUniqueId(rawStory: any): string {
+    // Use feed GUID if available (most reliable)
+    if (rawStory.guid) {
+      return `feed-${this.hashString(rawStory.guid)}`;
+    }
+
+    // Use URL hash if available
+    if (rawStory.url || rawStory.link) {
+      return `url-${this.hashString(rawStory.url || rawStory.link)}`;
+    }
+
+    // Fallback to content hash
+    return `content-${this.generateContentHash(rawStory)}`;
+  }
+
+  /**
+    * Check for duplicates using multiple methods
+    */
+  private async checkForDuplicates(rawStory: any, uniqueId: string): Promise<{isDuplicate: boolean, reason: string}> {
+    // Check by unique ID first
+    const existingById = await this.db.getStoryById(uniqueId);
+    if (existingById) {
+      return { isDuplicate: true, reason: 'ID already exists' };
+    }
+
+    // Check by URL if available
+    if (rawStory.url || rawStory.link) {
+      const url = rawStory.url || rawStory.link;
+      const allStories = await this.db.getAllStories();
+      const existingByUrl = allStories.find(story =>
+        story.sourceUrl === url || story.ingestionSource === url
+      );
+      if (existingByUrl) {
+        return { isDuplicate: true, reason: 'URL already exists' };
+      }
+    }
+
+    // Check by content hash
+    const contentHash = this.generateContentHash(rawStory);
+    const allStories = await this.db.getAllStories();
+    const existingByContent = allStories.find(story => story.contentHash === contentHash);
+    if (existingByContent) {
+      return { isDuplicate: true, reason: 'Content already exists' };
+    }
+
+    return { isDuplicate: false, reason: 'No duplicate found' };
+  }
+
+  /**
+    * Preserve original published date, never overwrite with today's date
+    */
+  private preserveOriginalDate(publishedAt: any): string {
+    if (!publishedAt) {
+      return new Date().toISOString();
+    }
+
+    // If it's already a valid date string, preserve it
+    if (typeof publishedAt === 'string') {
+      const date = new Date(publishedAt);
+      if (!isNaN(date.getTime())) {
+        return publishedAt;
+      }
+    }
+
+    // If it's a Date object, convert to ISO string
+    if (publishedAt instanceof Date) {
+      return publishedAt.toISOString();
+    }
+
+    // If it's a timestamp, convert it
+    if (typeof publishedAt === 'number') {
+      return new Date(publishedAt).toISOString();
+    }
+
+    // Fallback to current date if invalid
+    console.warn('Invalid published date, using current date:', publishedAt);
+    return new Date().toISOString();
+  }
+
+  /**
+    * Generate content hash for duplicate detection
+    */
+  private generateContentHash(rawStory: any): string {
+    const content = `${rawStory.title || ''}${rawStory.content || ''}${rawStory.excerpt || ''}`;
+    return this.hashString(content);
+  }
+
+  /**
+    * Simple hash function for generating unique IDs
+    */
+  private hashString(str: string): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(36);
+  }
+
+  /**
+    * Count words in content
+    */
+  private countWords(content: string): number {
+    if (!content) return 0;
+    return content.trim().split(/\s+/).length;
+  }
+
+  /**
+    * Get default image based on category
+    */
   private getDefaultImage(category: string): string {
     const defaultImages = {
       'Cruises': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',

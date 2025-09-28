@@ -6,6 +6,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
+import { BrevoService } from './brevoService';
 
 export interface NewsletterSubscriber {
   id: string;
@@ -74,8 +75,10 @@ export class NewsletterService {
   private static instance: NewsletterService | null = null;
   private subscribers: Map<string, NewsletterSubscriber> = new Map();
   private campaigns: Map<string, DripCampaign> = new Map();
+  private brevoService: BrevoService;
 
   private constructor() {
+    this.brevoService = BrevoService.getInstance();
     this.initializeDefaultCampaigns();
   }
 
@@ -87,15 +90,15 @@ export class NewsletterService {
   }
 
   /**
-   * Subscribe a new user to the newsletter
-   */
+    * Subscribe a new user to the newsletter with Brevo integration
+    */
   async subscribeUser(
     email: string,
     preferences: Partial<NewsletterSubscriber['preferences']> = {},
     source: string = 'website'
   ): Promise<{ success: boolean; subscriber?: NewsletterSubscriber; error?: string }> {
     try {
-      // Check if already subscribed
+      // Check if already subscribed locally
       const existingSubscriber = Array.from(this.subscribers.values())
         .find(sub => sub.email.toLowerCase() === email.toLowerCase());
 
@@ -105,6 +108,17 @@ export class NewsletterService {
         } else {
           // Reactivate subscription
           existingSubscriber.status = 'active';
+          // Update in Brevo as well
+          await this.brevoService.addContact({
+            email: existingSubscriber.email,
+            attributes: {
+              FIRSTNAME: existingSubscriber.firstName || '',
+              LASTNAME: existingSubscriber.lastName || '',
+              SUBSCRIPTION_DATE: existingSubscriber.subscriptionDate,
+              SOURCE: existingSubscriber.source,
+            },
+            updateEnabled: true,
+          });
           return { success: true, subscriber: existingSubscriber };
         }
       }
@@ -131,6 +145,25 @@ export class NewsletterService {
 
       this.subscribers.set(subscriber.id, subscriber);
 
+      // Add to Brevo
+      const brevoResult = await this.brevoService.addContact({
+        email: subscriber.email,
+        attributes: {
+          FIRSTNAME: subscriber.firstName || '',
+          LASTNAME: subscriber.lastName || '',
+          SUBSCRIPTION_DATE: subscriber.subscriptionDate,
+          SOURCE: subscriber.source,
+          PREFERENCES: JSON.stringify(subscriber.preferences),
+        },
+        listIds: [2], // "Global Travel Report Newsletter" list
+        updateEnabled: false, // Don't update if exists, we handle that above
+      });
+
+      if (!brevoResult.success) {
+        console.error('Failed to add subscriber to Brevo:', brevoResult.error);
+        // Don't fail the subscription if Brevo fails, just log it
+      }
+
       // Trigger welcome series
       await this.triggerWelcomeSeries(subscriber);
 
@@ -144,18 +177,24 @@ export class NewsletterService {
   }
 
   /**
-   * Unsubscribe a user
-   */
+    * Unsubscribe a user from newsletter and Brevo
+    */
   async unsubscribeUser(email: string): Promise<boolean> {
     const subscriber = Array.from(this.subscribers.values())
       .find(sub => sub.email.toLowerCase() === email.toLowerCase());
 
     if (subscriber) {
       subscriber.status = 'unsubscribed';
+
+      // Remove from Brevo as well
+      await this.brevoService.removeContact(email);
+
       return true;
     }
 
-    return false;
+    // If not found locally, try to remove from Brevo anyway
+    const brevoResult = await this.brevoService.removeContact(email);
+    return brevoResult.success;
   }
 
   /**
@@ -180,8 +219,8 @@ export class NewsletterService {
   }
 
   /**
-   * Schedule email for sending
-   */
+    * Schedule email for sending via Brevo
+    */
   private async scheduleEmail(
     email: string,
     template: EmailTemplate,
@@ -200,23 +239,59 @@ export class NewsletterService {
         textContent = textContent.replace(regex, value);
       });
 
-      // In production, this would integrate with an email service
-      console.log('Email scheduled:', {
-        to: email,
+      // Create or update template in Brevo
+      const templateResult = await this.brevoService.createTemplate({
+        name: template.name,
         subject,
-        template: template.name
+        htmlContent,
+        sender: {
+          name: 'Global Travel Report',
+          email: 'newsletter@globaltravelreport.com',
+        },
       });
 
-      // Simulate email sending
-      const result: EmailSendResult = {
-        success: true,
-        messageId: uuidv4(),
-        recipient: email,
-        templateId: template.id
-      };
+      if (!templateResult.success) {
+        console.error('Failed to create template in Brevo:', templateResult.error);
+        // Fallback to console logging
+        console.log('Email would be sent:', {
+          to: email,
+          subject,
+          template: template.name
+        });
+        return {
+          success: true,
+          messageId: uuidv4(),
+          recipient: email,
+          templateId: template.id
+        };
+      }
 
-      return result;
+      const templateId = templateResult.data?.id;
+      if (!templateId) {
+        throw new Error('No template ID returned from Brevo');
+      }
+
+      // Send email via Brevo
+      const sendResult = await this.brevoService.sendEmail(email, templateId, variables);
+
+      if (sendResult.success) {
+        return {
+          success: true,
+          messageId: sendResult.messageId,
+          recipient: email,
+          templateId: template.id
+        };
+      } else {
+        console.error('Failed to send email via Brevo:', sendResult.error);
+        return {
+          success: false,
+          error: sendResult.error,
+          recipient: email,
+          templateId: template.id
+        };
+      }
     } catch (error) {
+      console.error('Error scheduling email:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',

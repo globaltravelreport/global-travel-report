@@ -316,26 +316,110 @@ export class AffiliateService {
   }
 
   /**
-   * Track an affiliate link click
-   */
+    * Track an affiliate link click with enhanced analytics
+    */
   public trackClick(product: AffiliateProduct, source: string = 'website'): void {
     if (!this.trackingEnabled) return;
 
-    // In a real implementation, this would send data to an analytics service
+    const trackingData = {
+      productId: product.id,
+      provider: product.provider,
+      source,
+      timestamp: new Date().toISOString(),
+      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : '',
+      referrer: typeof window !== 'undefined' ? window.document.referrer : '',
+      url: typeof window !== 'undefined' ? window.location.href : '',
+    };
+
+    // Send to analytics service
+    this.sendToAnalytics('affiliate_click', trackingData);
+
+    // Store in local storage for persistence
+    this.storeClickData(trackingData);
+
     console.log(`Affiliate click tracked: ${product.id} from ${source}`);
+  }
 
-    // Example of sending to a tracking endpoint
-    if (typeof window !== 'undefined') {
-      const trackingData = {
-        productId: product.id,
-        provider: product.provider,
-        source,
-        timestamp: new Date().toISOString()
-      };
-
-      // This would be replaced with a real tracking implementation
-      console.log('Tracking data:', trackingData);
+  /**
+    * Send tracking data to analytics service
+    */
+  private sendToAnalytics(event: string, data: any): void {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', event, {
+        event_category: 'affiliate',
+        event_label: data.productId,
+        value: data.provider,
+        custom_parameter: data.source,
+      });
     }
+
+    // Also send to our API for server-side tracking
+    if (typeof window !== 'undefined') {
+      fetch('/api/analytics/affiliate-click', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).catch(error => {
+        console.error('Failed to send affiliate tracking data:', error);
+      });
+    }
+  }
+
+  /**
+    * Store click data locally for persistence
+    */
+  private storeClickData(data: any): void {
+    if (typeof window !== 'undefined') {
+      try {
+        const existing = JSON.parse(localStorage.getItem('affiliate_clicks') || '[]');
+        existing.push(data);
+
+        // Keep only last 100 clicks
+        if (existing.length > 100) {
+          existing.splice(0, existing.length - 100);
+        }
+
+        localStorage.setItem('affiliate_clicks', JSON.stringify(existing));
+      } catch (error) {
+        console.error('Failed to store affiliate click data:', error);
+      }
+    }
+  }
+
+  /**
+    * Get affiliate click statistics
+    */
+  public getClickStats(): {
+    totalClicks: number;
+    clicksByProvider: Record<string, number>;
+    recentClicks: any[];
+  } {
+    try {
+      if (typeof window !== 'undefined') {
+        const clicks = JSON.parse(localStorage.getItem('affiliate_clicks') || '[]');
+
+        const clicksByProvider: Record<string, number> = {};
+        clicks.forEach((click: any) => {
+          clicksByProvider[click.provider] = (clicksByProvider[click.provider] || 0) + 1;
+        });
+
+        return {
+          totalClicks: clicks.length,
+          clicksByProvider,
+          recentClicks: clicks.slice(-10), // Last 10 clicks
+        };
+      }
+    } catch (error) {
+      console.error('Failed to get affiliate click stats:', error);
+    }
+
+    return {
+      totalClicks: 0,
+      clicksByProvider: {},
+      recentClicks: [],
+    };
   }
 }
 
