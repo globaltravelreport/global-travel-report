@@ -196,10 +196,10 @@ export function setupGlobalErrorHandler(): void {
 
   window.onunhandledrejection = (event) => {
     // Log the unhandled promise rejection
-    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+    const errorMessage = event.reason instanceof Error ? event.reason.message : String(event.reason);
 
     logError(
-      error,
+      errorMessage,
       ErrorSeverity.ERROR,
       { type: 'unhandledrejection' }
     );

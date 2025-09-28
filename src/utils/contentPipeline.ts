@@ -1,6 +1,6 @@
 // Content Pipeline Utilities
 // Provides orchestration, transformation, validation, scheduling, error handling, and monitoring helpers
-import type { Story } from '../types/Story';
+import type { Story } from '../../types/Story';
 import type { QualityScore, ValidationResult, ProcessingStats } from '../types/contentPipeline';
 
 export function orchestratePipeline(stages: Array<() => Promise<any>>): Promise<any[]> {
