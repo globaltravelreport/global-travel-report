@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 // Don't import useSearchParams here - it will be used by child components
 
 /**
@@ -14,8 +15,8 @@ export function ClientSuspense({
   children,
   fallback = <div>Loading...</div>
 }: {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
 }) {
   // This component is a client component that safely handles useSearchParams
   // by wrapping it in a Suspense boundary
@@ -49,7 +50,7 @@ export function ClientSuspenseWithSkeleton({
   children,
   height = '200px'
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   height?: string;
 }) {
   return (
@@ -101,7 +102,7 @@ export function withClientSuspense<T>(Component: React.ComponentType<T>) {
 export function SearchParamsProvider({
   children
 }: {
-  children: (searchParams: URLSearchParams) => React.ReactNode;
+  children: (searchParams: URLSearchParams) => ReactNode;
 }) {
   // This will be properly wrapped in a Suspense boundary by the parent
   const searchParams = React.useMemo(() => {
@@ -124,7 +125,7 @@ export function SearchParamsProvider({
 export function SafeSearchParamsProvider({
   children
 }: {
-  children: (searchParams: URLSearchParams) => React.ReactNode;
+  children: (searchParams: URLSearchParams) => ReactNode;
 }) {
   return (
     <ClientSuspense>
