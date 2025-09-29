@@ -15,7 +15,7 @@
     "incremental": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,18 +27,43 @@
       }
     ],
     "paths": {
-      "@/*": ["src/*"],
-      "@/src/*": ["src/*"],
-      "@/components/*": ["src/components/*", "components/*"],
-      "@/types/*": ["types/*", "src/types/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/app/*": ["app/*"],
-      "@/config/*": ["src/config/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/lib/*": ["src/lib/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/src/*": [
+        "src/*"
+      ],
+      "@/components/*": [
+        "src/components/*",
+        "components/*"
+      ],
+      "@/types/*": [
+        "types/*",
+        "src/types/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/app/*": [
+        "app/*"
+      ],
+      "@/config/*": [
+        "src/config/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/lib/*": [
+        "src/lib/*"
+      ]
     },
     "noFallthroughCasesInSwitch": false,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "types": [
+      "react",
+      "react-dom",
+      "node"
+    ]
   },
   "include": [
     "next-env.d.ts",

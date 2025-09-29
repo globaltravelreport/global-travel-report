@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '../src/components/ui/toaster';
@@ -89,7 +90,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
   
@@ -151,7 +152,7 @@ export default function RootLayout({
                 availableLanguage: 'English',
                 email: 'contact@globaltravelreport.com'
               }
-            })
+            } as const)
           }}
         />
 
@@ -175,28 +176,28 @@ export default function RootLayout({
                 url: baseUrl,
                 logo: `${baseUrl}/images/logo.webp`
               }
-            })
+            } as const)
           }}
         />
       </head>
       <body className={cn(inter.className, 'antialiased')}>
         <SWMount />
         <AccessibilityProvider>
-          <SkipToContent />
           <ErrorBoundary>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main id="main-content" className="flex-1">
-                <Suspense fallback={null}>
-                  <SearchParamsProvider fallback={null}>
+            <SearchParamsProvider fallback={null}>
+              <SkipToContent />
+              <div className="min-h-screen flex flex-col">
+                <Header />
+                <main id="main-content" className="flex-1">
+                  <Suspense fallback={null}>
                     {children}
-                  </SearchParamsProvider>
-                </Suspense>
-              </main>
-              <AffiliatePartners />
-              <Footer />
-            </div>
-            <Toaster />
+                  </Suspense>
+                </main>
+                <AffiliatePartners />
+                <Footer />
+              </div>
+              <Toaster />
+            </SearchParamsProvider>
           </ErrorBoundary>
           <AITravelAssistantMount />
           <Suspense fallback={null}>
