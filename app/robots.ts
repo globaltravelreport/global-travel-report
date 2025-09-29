@@ -80,8 +80,6 @@ export default function robots(): MetadataRoute.Robots {
           "/search?*",
           "/api/feed/", // Disallow direct access to feed API
           "/*.json$", // Disallow JSON files
-          "/*.js$", // Disallow JS files
-          "/*.css$", // Disallow CSS files
         ],
         crawlDelay: 3,
       },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { StoryDatabase } from '@/src/services/storyDatabase';
+import { requireEditor } from '@/src/middleware/admin-auth';
 
 /**
  * POST /api/submissions/[id]/approve
@@ -10,6 +11,17 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Check authentication
+    const auth = (await import('@/src/lib/secureAuth')).SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+
+    if (!auth.isAuthenticated(session) || !auth.hasPermission(session, 'moderate:submissions')) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const { id } = params;
 
     if (!id) {

@@ -1,14 +1,28 @@
 'use client';
 
 import { useEffect } from 'react';
-
+import { useCookieConsent } from '../ui/CookieConsentBanner';
 
 interface GoogleAnalyticsProps {
   gaId: string;
 }
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
+  const { canUseAnalytics, hasConsented } = useCookieConsent();
+
   useEffect(() => {
+    // Only load GA if user has consented to analytics cookies
+    if (!hasConsented || !canUseAnalytics) {
+      return;
+    }
+
     // Load Google Analytics script
     const script = document.createElement('script');
     script.async = true;
@@ -25,14 +39,19 @@ export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
     window.gtag('config', gaId, {
       page_title: document.title,
       page_location: window.location.href,
-      send_page_view: true
+      send_page_view: true,
+      // Respect user privacy settings
+      anonymize_ip: true,
+      allow_ad_features: false,
     });
 
     // Cleanup function
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
-  }, [gaId]);
+  }, [gaId, hasConsented, canUseAnalytics]);
 
   return null;
 }

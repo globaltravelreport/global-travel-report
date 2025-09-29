@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CreateUserSubmissionData, UserSubmission } from '@/types/UserSubmission';
 import { sendSubmissionNotification } from '@/services/brevoService';
+import { requireEditor } from '@/src/middleware/admin-auth';
 import DOMPurify from 'isomorphic-dompurify';
 
 /**
@@ -134,7 +135,17 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
-    // TODO: Add authentication check
+    // Check authentication
+    const auth = (await import('@/src/lib/secureAuth')).SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+
+    if (!auth.isAuthenticated(session) || !auth.hasPermission(session, 'moderate:submissions')) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status'); // 'pending', 'approved', 'rejected', or null for all
 
