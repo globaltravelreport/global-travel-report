@@ -21,9 +21,6 @@ interface StoryReactionsProps {
     comments: number;
     shares: number;
   };
-  onReaction?: (type: string) => void;
-  onComment?: () => void;
-  onShare?: () => void;
   className?: string;
   compact?: boolean;
 }
@@ -43,9 +40,6 @@ export function StoryReactions({
     comments: 0,
     shares: 0
   },
-  onReaction,
-  onComment,
-  onShare,
   className,
   compact = false
 }: StoryReactionsProps) {
@@ -73,7 +67,6 @@ export function StoryReactions({
     }
 
     setUserReactions(newUserReactions);
-    onReaction?.(type);
   };
 
   const totalReactions = reactions.likes + reactions.loves + reactions.explores;
@@ -109,12 +102,16 @@ export function StoryReactions({
           </Button>
         </div>
 
-        <Button variant="ghost" size="sm" onClick={onComment}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' })}
+        >
           <MessageCircle size={16} className="mr-1" />
           <span className="text-sm">{reactions.comments}</span>
         </Button>
 
-        <Button variant="ghost" size="sm" onClick={onShare}>
+        <Button variant="ghost" size="sm" onClick={() => console.log('Share functionality')}>
           <Share2 size={16} className="mr-1" />
           <span className="text-sm">{reactions.shares}</span>
         </Button>
@@ -201,12 +198,16 @@ export function StoryReactions({
             </div>
 
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={onComment}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 <MessageCircle size={16} className="mr-2" />
                 Comment
               </Button>
 
-              <Button variant="outline" size="sm" onClick={onShare}>
+              <Button variant="outline" size="sm" onClick={() => console.log('Share functionality')}>
                 <Share2 size={16} className="mr-2" />
                 Share
               </Button>

@@ -11,7 +11,7 @@ import { AccessibilityProvider, SkipToContent } from '../src/components/accessib
 import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
 import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
 import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
-import { CookieConsentBanner } from '../src/components/ui/CookieConsentBanner';
+import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
@@ -206,14 +206,7 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <WebVitalsTracker />
           </Suspense>
-          <CookieConsentBanner
-            onAccept={(preferences) => {
-              console.log('Cookie preferences accepted:', preferences);
-            }}
-            onReject={() => {
-              console.log('Cookie preferences rejected');
-            }}
-          />
+          <ClientLayoutWrapper />
         </AccessibilityProvider>
       </body>
     </html>

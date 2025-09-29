@@ -34,8 +34,6 @@ interface StoryReactionsProps {
   storyId: string;
   initialReactions?: Reaction[];
   initialComments?: Comment[];
-  onReaction?: (reaction: Reaction) => void;
-  onComment?: (comment: Comment) => void;
   className?: string;
 }
 
@@ -51,8 +49,6 @@ export function StoryReactions({
   storyId,
   initialReactions = [],
   initialComments = [],
-  onReaction,
-  onComment,
   className = ''
 }: StoryReactionsProps) {
   const [reactions, setReactions] = useState<Reaction[]>(initialReactions);
@@ -112,8 +108,7 @@ export function StoryReactions({
       const updatedReactions = [...reactions, reaction];
       setReactions(updatedReactions);
 
-      // Call callback
-      onReaction?.(reaction);
+      // Reaction handled locally
     }
   };
 
@@ -141,8 +136,7 @@ export function StoryReactions({
     setComments(updatedComments);
     setNewComment('');
 
-    // Call callback
-    onComment?.(comment);
+    // Comment handled locally
     setIsSubmitting(false);
   };
 

@@ -357,9 +357,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 comments: Math.floor(Math.random() * 8) + 1,
                 shares: Math.floor(Math.random() * 12) + 2
               }}
-              onReaction={(type) => console.log(`Reaction: ${type}`)}
-              onComment={() => document.getElementById('comments-section')?.scrollIntoView()}
-              onShare={() => console.log('Share clicked')}
             />
           </div>
 
