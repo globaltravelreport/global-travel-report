@@ -11,7 +11,6 @@ import { cn } from '../src/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '../src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
 import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
-import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';

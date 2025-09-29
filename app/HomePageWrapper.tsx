@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientSuspense } from '@/components/ui/ClientSuspense';
+import { Suspense } from 'react';
 import HomePage from './page';
 
 /**
@@ -10,8 +10,8 @@ import HomePage from './page';
  */
 export default function HomePageWrapper() {
   return (
-    <ClientSuspense>
+    <Suspense fallback={null}>
       <HomePage />
-    </ClientSuspense>
+    </Suspense>
   );
 }

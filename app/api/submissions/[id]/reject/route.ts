@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+export const runtime = 'nodejs';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { requireEditor } from '@/src/middleware/admin-auth';
 

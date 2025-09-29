@@ -4,6 +4,7 @@
  * Implements secure session management with encryption and proper security measures
  */
 
+import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 

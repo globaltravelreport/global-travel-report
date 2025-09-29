@@ -12,7 +12,7 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://www.google.com',
     'https://www.gstatic.com',
     'https://www.recaptcha.net', // alternate reCAPTCHA CDN
-    ...(isProd ? [] : [`'unsafe-eval'`, `'unsafe-inline'`])
+    // Removed unsafe-eval and unsafe-inline for security
   ].filter(Boolean).join(' ');
   const styleSrc = [
     `'self'`,

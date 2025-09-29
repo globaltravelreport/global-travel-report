@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+export const runtime = 'nodejs';
 import { CreateUserSubmissionData, UserSubmission } from '@/types/UserSubmission';
 import { sendSubmissionNotification } from '@/services/brevoService';
 import { requireEditor } from '@/src/middleware/admin-auth';

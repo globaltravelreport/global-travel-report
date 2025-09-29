@@ -5,7 +5,7 @@ import { CookieConsentBanner, useCookieConsent } from '../src/components/ui/Cook
 import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 
 export function ClientLayoutWrapper() {
-  const { canUseAnalytics } = useCookieConsent();
+  const { canUseAnalytics: _canUseAnalytics } = useCookieConsent();
 
   useEffect(() => {
     const handleCookieConsent = (event: CustomEvent<{ preferences: any; action: string }>) => {
