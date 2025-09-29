@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getSession } from '@/lib/auth';
+import { SecureAuth } from '@/src/lib/secureAuth';
 import { securityHeadersMiddleware } from '@/src/middleware/security-headers';
 import { errorMonitorMiddleware } from './src/middleware/error-monitor';
 
@@ -15,8 +15,9 @@ export async function middleware(request: NextRequest) {
     // Protect admin routes (except login)
     if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
       try {
-        const session = await getSession();
-        if (!session) {
+        const auth = SecureAuth.getInstance();
+        const session = auth.getSessionFromRequest(request);
+        if (!auth.isAuthenticated(session)) {
           return NextResponse.redirect(new URL('/admin/login', request.url));
         }
       } catch (error) {

@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './button';
 
 interface CookieConsentBannerProps {
-  onAccept: (preferences: CookiePreferences) => void;
-  onReject: () => void;
   className?: string;
 }
 
@@ -23,7 +21,7 @@ const defaultPreferences: CookiePreferences = {
   social: false,
 };
 
-export function CookieConsentBanner({ onAccept, onReject, className = '' }: CookieConsentBannerProps) {
+export function CookieConsentBanner({ className = '' }: CookieConsentBannerProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
   const [showDetails, setShowDetails] = useState(false);
@@ -48,29 +46,41 @@ export function CookieConsentBanner({ onAccept, onReject, className = '' }: Cook
       social: true,
     };
     setPreferences(allAccepted);
-    onAccept(allAccepted);
     setIsVisible(false);
     localStorage.setItem('cookie_consent', JSON.stringify({
       preferences: allAccepted,
       timestamp: Date.now(),
     }));
+
+    // Dispatch custom event for parent components to listen to
+    window.dispatchEvent(new CustomEvent<{ preferences: CookiePreferences; action: string }>('cookieConsent', {
+      detail: { preferences: allAccepted, action: 'accept' }
+    }));
   };
 
   const handleAcceptSelected = () => {
-    onAccept(preferences);
     setIsVisible(false);
     localStorage.setItem('cookie_consent', JSON.stringify({
       preferences,
       timestamp: Date.now(),
     }));
+
+    // Dispatch custom event for parent components to listen to
+    window.dispatchEvent(new CustomEvent<{ preferences: CookiePreferences; action: string }>('cookieConsent', {
+      detail: { preferences, action: 'accept' }
+    }));
   };
 
   const handleReject = () => {
-    onReject();
     setIsVisible(false);
     localStorage.setItem('cookie_consent', JSON.stringify({
       preferences: { necessary: true, analytics: false, marketing: false, social: false },
       timestamp: Date.now(),
+    }));
+
+    // Dispatch custom event for parent components to listen to
+    window.dispatchEvent(new CustomEvent<{ preferences: CookiePreferences; action: string }>('cookieConsent', {
+      detail: { preferences: { necessary: true, analytics: false, marketing: false, social: false }, action: 'reject' }
     }));
   };
 

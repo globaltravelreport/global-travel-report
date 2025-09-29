@@ -8,7 +8,9 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "noEmit": true,
     "incremental": true,
     "downlevelIteration": true,
@@ -35,11 +37,6 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/lib/*": ["src/lib/*"]
     },
-    "useUnknownInCatchVariables": false,
-    "noImplicitAny": false,
-    "strictNullChecks": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": false,
     "allowImportingTsExtensions": true
   },
@@ -53,9 +50,6 @@
     "node_modules",
     ".next",
     "dist",
-    "coverage",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "scripts/**/*.ts"
+    "coverage"
   ]
 }

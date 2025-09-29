@@ -99,7 +99,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/sitemap" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
+                <Link href="/sitemap.xml" className="text-gray-300 hover:text-[#C9A14A] transition-colors flex items-center">
                   <svg className="w-3 h-3 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -274,7 +274,7 @@ export default function Footer() {
               <Link href="/terms" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
                 Terms of Service
               </Link>
-              <Link href="/sitemap" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
+              <Link href="/sitemap.xml" className="text-gray-300 hover:text-[#C9A14A] text-sm transition-colors font-medium hover:underline">
                 Sitemap
               </Link>
             </div>

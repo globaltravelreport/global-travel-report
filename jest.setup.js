@@ -92,14 +92,33 @@ Object.defineProperty(window, 'matchMedia', {
 class MockIntersectionObserver {
   constructor(callback) {
     this.callback = callback;
+    this.root = null;
+    this.rootMargin = '';
+    this.thresholds = [];
   }
 
-  observe() {
-    this.callback([{ isIntersecting: true }]);
+  observe(target) {
+    // Simulate async behavior with setTimeout
+    setTimeout(() => {
+      if (this.callback) {
+        this.callback([{
+          isIntersecting: true,
+          target,
+          intersectionRatio: 1,
+          boundingClientRect: target.getBoundingClientRect(),
+          intersectionRect: target.getBoundingClientRect(),
+          rootBounds: null,
+          time: Date.now(),
+        }], this);
+      }
+    }, 0);
   }
 
   unobserve() {}
   disconnect() {}
+  takeRecords() {
+    return [];
+  }
 }
 
 window.IntersectionObserver = MockIntersectionObserver;

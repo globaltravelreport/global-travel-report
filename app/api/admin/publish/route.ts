@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       featured: false,
       editorsPick: false,
       imageUrl: finalImageUrl,
-      photographer,
+      photographer: photographer || { name: 'Global Travel Report' },
     };
 
     // Save to database

@@ -1,801 +1,648 @@
-# 🌍 Global Travel Report
+# Gitleaks
 
-A world-class, magazine-style travel platform built with Next.js 14, featuring automated RSS story fetching, AI-powered content enhancement, professional affiliate integration, and stunning visual design. The platform delivers premium travel stories, destination guides, and insider tips with enterprise-grade performance and accessibility.
-
-## 🚀 Latest Major Update - Complete Website Redesign
-
-**✅ Magazine-Style Visual Transformation:**
-- Replaced basic text layouts with engaging, image-forward magazine-style design
-- Added visual category index with high-quality Unsplash imagery
-- Created professional stories archive with hero sections and rich visual cards
-- Implemented trusted partners showcase with branded affiliate logos
-
-**✅ Critical Issues Resolved:**
-- Fixed affiliate verification system (optimized timeouts, graceful fallbacks)
-- Corrected logo paths for proper SVG rendering (`/affiliates/` structure)
-- Resolved Facebook/social media preview grey screen issues
-- Restored Stories navigation functionality
-- Enhanced categories redirect with Next.js server-side routing
-
-**✅ Performance & Technical Excellence:**
-- Core Web Vitals optimized (LCP <2.5s, FID <100ms, CLS <0.1)
-- Bundle size maintained <200KB gzipped
-- Advanced lazy loading with intersection observer
-- Service worker caching and compression
-- WCAG 2.1 AA accessibility compliance
-
-**✅ Professional Features:**
-- 10 branded affiliate partner logos with hover effects
-- Comprehensive social media metadata (Open Graph, Twitter Cards)
-- Advanced analytics tracking and affiliate performance monitoring
-- Automated content processing pipeline ready for Make.com integration
-- Cloudflare CDN integration guide for global performance
-
-## Website
-
-Visit the live site at [https://www.globaltravelreport.com/](https://www.globaltravelreport.com/)
-
-![Global Travel Report Screenshot](public/images/screenshot.png)
-
-## ✨ Features
-
-### 🎨 Visual Design & User Experience
-- **Magazine-Style Layout:** Professional, image-forward design with stunning visual hierarchy
-- **Visual Category Index:** Engaging grid layout replacing basic text redirects
-- **Hero Stories Section:** Featured content with large, impactful imagery
-- **Professional Partner Showcase:** Branded affiliate integration with hover effects
-- **Responsive Design:** Mobile-first approach with fluid breakpoints
-- **Dark/Light Theme Support:** Consistent visual identity across all devices
-
-### 🤖 Content Automation & AI
-- **RSS Feed Integration:** Automated story fetching from premium travel news sources
-- **AI Content Enhancement:** OpenAI-powered story rewriting for originality and engagement
-- **Automated Image Sourcing:** Unsplash API integration with attribution tracking
-- **Content Processing Pipeline:** End-to-end automation from RSS to publication
-- **Quality Assurance:** Automated content validation and enhancement
-
-### 📊 Performance & Technical Excellence
-- **Core Web Vitals Optimized:** LCP <2.5s, FID <100ms, CLS <0.1
-- **Advanced Caching:** Service worker implementation with intelligent cache strategies
-- **CDN Ready:** Cloudflare integration for global performance optimization
-- **Bundle Optimization:** Tree-shaking and code splitting for minimal load times
-- **Image Optimization:** WebP with JPEG/AVIF fallbacks, lazy loading, responsive sizing
-
-### 🔒 Security & Reliability
-- **Enterprise Security:** CSP, CSRF protection, input validation, security headers
-- **DDoS Protection:** Cloudflare integration with advanced firewall rules
-- **SSL/TLS:** Full encryption with HSTS and security best practices
-- **Error Handling:** Graceful degradation with comprehensive fallback systems
-- **Monitoring:** Real-time performance and security event tracking
-
-### 🎯 SEO & Social Media
-- **Advanced Metadata:** Dynamic Open Graph and Twitter Card generation
-- **Structured Data:** JSON-LD for articles, breadcrumbs, organizations, and offers
-- **Social Sharing:** Optimized previews for Facebook, Twitter, LinkedIn
-- **Search Optimization:** Canonical URLs, meta tags, and sitemap automation
-- **Analytics Integration:** Google Analytics 4 with enhanced e-commerce tracking
-
-### 🤝 Affiliate & Partnership System
-- **Professional Integration:** 10 world-class travel partners with branded presentation
-- **Revenue Optimization:** Advanced tracking and performance analytics
-- **Automated Offers:** Daily refresh of affiliate deals and promotions
-- **Link Management:** Secure external linking with proper attribution
-- **Performance Monitoring:** Real-time affiliate link health and conversion tracking
-
-### 📱 Advanced Features
-- **Interactive Maps:** World map with country highlighting and story linking
-- **Advanced Search:** Multi-filter search with real-time results
-- **Newsletter System:** Automated email campaigns with subscriber management
-- **Contact Integration:** Professional contact forms with validation and analytics
-- **Story Management:** Full CRUD operations with versioning and archiving
-
-## Prerequisites
-
-- Node.js 18+ and npm
-- Git
-- Vercel account
-- OpenAI API key
-- Unsplash API key
-- reCAPTCHA site and secret keys
-
-## ⚙️ Environment Variables Setup
-
-### **Required Variables**
-Create a `.env.local` file in the root directory with the following variables:
-
-```env
-# Base Configuration
-NEXT_PUBLIC_BASE_URL=https://globaltravelreport.com
-NODE_ENV=production
-
-# API Keys (Required for Content Generation)
-OPENAI_API_KEY=your_openai_api_key_here
-UNSPLASH_ACCESS_KEY=your_unsplash_access_key_here
-
-# Google Analytics (Required for Tracking)
-NEXT_PUBLIC_GA_ID=G-NPKEB5BEMG
-
-# reCAPTCHA (Required for Contact Form)
-RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
-RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
-
-# Database & Caching (Required)
-KV_URL=your-kv-url
-KV_REST_API_URL=your-kv-rest-api-url
-KV_REST_API_TOKEN=your-kv-token
-KV_REST_API_READ_ONLY_TOKEN=your-kv-read-only-token
-
-# Email Configuration (Required for Contact Form)
-EMAIL_SERVICE_API_KEY=your-email-service-api-key
-EMAIL_FROM=noreply@globaltravelreport.com
-
-# Social Media APIs (Optional)
-FACEBOOK_APP_ID=your-facebook-app-id
-TWITTER_BEARER_TOKEN=your-twitter-bearer-token
-
-# Security (Required)
-SESSION_SECRET=your-super-secure-session-secret-min-32-chars
-CSRF_SECRET=your-csrf-secret-key
+```
+┌─○───┐
+│ │╲  │
+│ │ ○ │
+│ ○ ░ │
+└─░───┘
 ```
 
-### **Optional Variables**
-```env
-# Feature Flags
-ENABLE_AFFILIATE_VERIFICATION=false
-ENABLE_ADVANCED_ANALYTICS=true
-ENABLE_SOCIAL_MEDIA_POSTING=true
-ENABLE_CONTENT_GENERATION=true
+[license]: ./LICENSE
+[badge-license]: https://img.shields.io/github/license/gitleaks/gitleaks.svg
+[go-docs-badge]: https://pkg.go.dev/badge/github.com/gitleaks/gitleaks/v8?status
+[go-docs]: https://pkg.go.dev/github.com/zricethezav/gitleaks/v8
+[badge-build]: https://github.com/gitleaks/gitleaks/actions/workflows/test.yml/badge.svg
+[build]: https://github.com/gitleaks/gitleaks/actions/workflows/test.yml
+[go-report-card-badge]: https://goreportcard.com/badge/github.com/gitleaks/gitleaks/v8
+[go-report-card]: https://goreportcard.com/report/github.com/gitleaks/gitleaks/v8
+[dockerhub]: https://hub.docker.com/r/zricethezav/gitleaks
+[dockerhub-badge]: https://img.shields.io/docker/pulls/zricethezav/gitleaks.svg
+[gitleaks-action]: https://github.com/gitleaks/gitleaks-action
+[gitleaks-badge]: https://img.shields.io/badge/protected%20by-gitleaks-blue
+[gitleaks-playground-badge]: https://img.shields.io/badge/gitleaks%20-playground-blue
+[gitleaks-playground]: https://gitleaks.io/playground
 
-# Performance
-ENABLE_IMAGE_OPTIMIZATION=true
-ENABLE_API_CACHING=true
-CACHE_TTL=3600
 
-# Monitoring
-SENTRY_DSN=your-sentry-dsn-for-error-tracking
-ENABLE_DEBUG_LOGS=false
+[![GitHub Action Test][badge-build]][build]
+[![Docker Hub][dockerhub-badge]][dockerhub]
+[![Gitleaks Playground][gitleaks-playground-badge]][gitleaks-playground]
+[![Gitleaks Action][gitleaks-badge]][gitleaks-action]
+[![GoDoc][go-docs-badge]][go-docs]
+[![GoReportCard][go-report-card-badge]][go-report-card]
+[![License][badge-license]][license]
 
-# External APIs
-WEATHER_API_KEY=your-weather-api-key
-CURRENCY_API_KEY=your-currency-api-key
-FLIGHT_API_KEY=your-flight-data-api-key
+
+### Join our Discord! [![Discord](https://img.shields.io/discord/1102689410522284044.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/8Hzbrnkr7E)
+
+Gitleaks is a tool for **detecting** secrets like passwords, API keys, and tokens in git repos, files, and whatever else you wanna throw at it via `stdin`. If you wanna learn more about how the detection engine works check out this blog: [Regex is (almost) all you need](https://lookingatcomputer.substack.com/p/regex-is-almost-all-you-need).
+
+
+```
+➜  ~/code(master) gitleaks git -v
+
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
+
+
+Finding:     "export BUNDLE_ENTERPRISE__CONTRIBSYS__COM=cafebabe:deadbeef",
+Secret:      cafebabe:deadbeef
+RuleID:      sidekiq-secret
+Entropy:     2.609850
+File:        cmd/generate/config/rules/sidekiq.go
+Line:        23
+Commit:      cd5226711335c68be1e720b318b7bc3135a30eb2
+Author:      John
+Email:       john@users.noreply.github.com
+Date:        2022-08-03T12:31:40Z
+Fingerprint: cd5226711335c68be1e720b318b7bc3135a30eb2:cmd/generate/config/rules/sidekiq.go:sidekiq-secret:23
 ```
 
-### **Production Deployment**
-For production environments, set these variables in your hosting platform:
+## Getting Started
 
-**Vercel Dashboard:**
-1. Go to your project → Settings → Environment Variables
-2. Add all required variables from `.env.example`
-3. Redeploy the project
+Gitleaks can be installed using Homebrew, Docker, or Go. Gitleaks is also available in binary form for many popular platforms and OS types on the [releases page](https://github.com/gitleaks/gitleaks/releases). In addition, Gitleaks can be implemented as a pre-commit hook directly in your repo or as a GitHub action using [Gitleaks-Action](https://github.com/gitleaks/gitleaks-action).
 
-**Environment Variable Priority:**
-1. `.env.local` (development only)
-2. Vercel Environment Variables (production)
-3. Default values in code
-
-### **Security Best Practices**
-- ✅ **Never commit** `.env.local` to Git
-- ✅ **Use strong secrets** (32+ characters)
-- ✅ **Rotate API keys** regularly
-- ✅ **Monitor access logs** for suspicious activity
-- ✅ **Use environment-specific** values
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/global-travel-report.git
-   cd global-travel-report
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables:
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your actual values
-   ```
-
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🚀 Available Scripts
-
-### **Development & Build**
-- `npm run dev` - Start the development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check for code issues
-- `npm run typecheck` - Run TypeScript type checking
-
-### **Testing & Quality Assurance**
-- `npm run test` - Run Jest tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run lighthouse` - Run Lighthouse performance audit
-- `npm run lighthouse:mobile` - Mobile-specific Lighthouse audit
-- `npm run lighthouse:desktop` - Desktop-specific Lighthouse audit
-- `npm run test:regression` - Run regression tests with Playwright
-- `npm run test:e2e` - Run end-to-end tests
-
-### **Performance & Optimization**
-- `npm run analyze-bundle` - Analyze bundle size and dependencies
-- `npm run analyze:performance` - Run comprehensive performance analysis
-- `npm run build:optimized` - Build with all optimizations enabled
-- `npm run build:secure` - Build with security checks and optimizations
-
-### **Content & Automation**
-- `npm run fetch:offers` - Fetch and update affiliate offers
-- `npm run refresh:offers` - Refresh affiliate offers from APIs
-- `npm run generate-stories` - Generate stories from RSS feeds
-- `npm run trigger-stories` - Trigger daily story generation
-- `npm run post-to-social` - Post content to social media platforms
-
-### **Validation & Monitoring**
-- `npm run verify:affiliates` - Verify all affiliate links are working
-- `npm run check:images` - Validate all external image URLs
-- `npm run check:metadata` - Validate metadata implementation
-- `npm run validate:social` - Test social media preview functionality
-- `npm run security-audit` - Run comprehensive security audit
-- `npm run security-check` - Run security audit and checks
-- `npm run content-audit` - Audit content quality and completeness
-
-### **Legacy Scripts** (for compatibility)
-- `npm run convert-to-functional` - Convert class components to functional components
-- `npm run fix-http-urls` - Fix HTTP URLs to HTTPS
-- `npm run optimize-images` - Optimize image files
-- `npm run generate-sw` - Generate service worker
-- `npm run enhance-seo` - Enhance SEO elements
-
-## Image Validation System
-
-The project includes a comprehensive image validation system that automatically checks all external image URLs at build time.
-
-### Running Image Validation Locally
-
-To check for broken image URLs locally:
+### Installing
 
 ```bash
-npm run check:images
+# MacOS
+brew install gitleaks
+
+# Docker (DockerHub)
+docker pull zricethezav/gitleaks:latest
+docker run -v ${path_to_host_folder_to_scan}:/path zricethezav/gitleaks:latest [COMMAND] [OPTIONS] [SOURCE_PATH]
+
+# Docker (ghcr.io)
+docker pull ghcr.io/gitleaks/gitleaks:latest
+docker run -v ${path_to_host_folder_to_scan}:/path ghcr.io/gitleaks/gitleaks:latest [COMMAND] [OPTIONS] [SOURCE_PATH]
+
+# From Source (make sure `go` is installed)
+git clone https://github.com/gitleaks/gitleaks.git
+cd gitleaks
+make build
 ```
 
-This will:
-- Scan all TypeScript, JavaScript, and Markdown files for external image URLs
-- Test each URL to ensure it's accessible
-- Categorize failures (broken, timeout, server errors, client errors)
-- Provide detailed reporting with file paths and error types
-- Return different exit codes based on severity:
-  - `0`: All images working correctly
-  - `1`: Critical errors found (broken images in production pages)
-  - `0`: Non-critical issues found (build can proceed)
+### GitHub Action
 
-### Image Validation in CI/CD
-
-The image validation runs automatically as part of the CI pipeline:
-
-- **Critical Errors**: Broken URLs in production pages will fail the build
-- **Non-Critical Issues**: Broken URLs in test files, markdown, or redirects will not block deployment
-- **Redirects**: 3xx status codes are treated as working URLs (they redirect properly)
-
-### Adding Fallback Images
-
-To add a fallback image for broken URLs:
-
-1. Add your image to `public/images/` directory
-2. Update the `defaultFallback` path in `src/components/ui/OptimizedImage.tsx`:
-
-```typescript
-const defaultFallback = '/images/your-fallback-image.jpg';
-```
-
-### Updating Hero Images
-
-To update the hero banner images:
-
-1. Edit the `images` array in `components/Hero.tsx`
-2. Each image object should include:
-   - `url`: The Unsplash image URL
-   - `photographer`: Photographer name
-   - `photographerUrl`: Photographer's Unsplash profile URL
-   - `photoUrl`: Direct link to the photo on Unsplash
-
-Example:
-```typescript
-{
-  url: "https://images.unsplash.com/photo-1234567890?auto=format&q=90",
-  photographer: "John Doe",
-  photographerUrl: "https://unsplash.com/@johndoe",
-  photoUrl: "https://unsplash.com/photos/abcdef123456"
-}
-```
-
-### Production Image Error Logging
-
-To enable logging of broken images in production:
-
-1. Set the environment variable: `NEXT_PUBLIC_IMAGE_ERROR_LOGGING=true`
-2. Broken images will be logged to the browser console with details
-3. This helps identify image issues in production without affecting users
-
-## 🚀 Deployment & Setup Guide
-
-### **Quick Start (5 minutes)**
-
-1. **Clone and Setup:**
-   ```bash
-   git clone https://github.com/yourusername/global-travel-report.git
-   cd global-travel-report
-   npm install
-   ```
-
-2. **Environment Setup:**
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your API keys
-   ```
-
-3. **Start Development:**
-   ```bash
-   npm run dev
-   # Visit http://localhost:3000
-   ```
-
-### **Production Deployment**
-
-#### **Vercel (Recommended)**
-```bash
-# 1. Install Vercel CLI
-npm i -g vercel
-
-# 2. Deploy to production
-vercel --prod
-
-# 3. Set environment variables in Vercel dashboard
-# Go to: https://vercel.com/dashboard → Your Project → Settings → Environment Variables
-```
-
-#### **Manual Deployment**
-```bash
-# 1. Build the application
-npm run build
-
-# 2. Start production server
-npm start
-
-# 3. Or deploy to your preferred hosting platform
-```
-
-### **Cloudflare Integration**
-
-#### **DNS Setup**
-1. **Create Cloudflare Account:** [cloudflare.com](https://cloudflare.com)
-2. **Add Your Domain:** `globaltravelreport.com`
-3. **Update Nameservers:**
-   ```
-   Primary: ns1.cloudflare.com
-   Secondary: ns2.cloudflare.com
-   ```
-
-#### **Cloudflare Configuration**
-1. **Enable Performance Features:**
-   - HTTP/2, HTTP/3 (QUIC)
-   - 0-RTT Connection Resumption
-   - Brotli Compression
-
-2. **Configure Caching:**
-   - Cache Level: Standard
-   - Browser Cache TTL: 4 hours
-
-3. **Set Up Page Rules:**
-   ```
-   Pattern: globaltravelreport.com/*
-   Setting: Cache Level → Cache Everything
-
-   Pattern: globaltravelreport.com/api/*
-   Setting: Cache Level → Bypass
-   ```
-
-#### **SSL Configuration**
-- **SSL/TLS Mode:** Full (strict)
-- **Always Use HTTPS:** ON
-- **HSTS:** Enabled
-
-### **Post-Deployment Validation**
-
-#### **Performance Testing**
-```bash
-# Test from multiple locations
-npm run lighthouse:mobile
-npm run lighthouse:desktop
-
-# Check Core Web Vitals
-npm run analyze:performance
-```
-
-#### **Social Media Validation**
-```bash
-# Test Facebook previews
-npm run validate:social
-
-# Manual testing
-# Visit: https://developers.facebook.com/tools/debug/
-# Visit: https://cards-dev.twitter.com/validator
-```
-
-#### **Affiliate Verification**
-```bash
-# Verify all affiliate links
-npm run verify:affiliates
-```
-
-### **Monitoring & Maintenance**
-
-#### **Daily Tasks**
-- Monitor Core Web Vitals in Google Search Console
-- Check affiliate link performance
-- Review error logs and analytics
-
-#### **Weekly Tasks**
-- Run security audits: `npm run security-audit`
-- Update content and images as needed
-- Review and optimize performance metrics
-
-#### **Monthly Tasks**
-- Update dependencies: `npm audit fix`
-- Review and update affiliate partnerships
-- Analyze traffic and engagement metrics
-
-## Project Structure
+Check out the official [Gitleaks GitHub Action](https://github.com/gitleaks/gitleaks-action)
 
 ```
-global-travel-report/
-├── app/                     # Next.js app directory
-│   ├── api/                # API routes
-│   │   ├── contact/       # Contact form API
-│   │   ├── newsletter/    # Newsletter signup API
-│   │   ├── story/         # Story-related APIs
-│   │   └── ...
-│   ├── countries/          # Country pages
-│   ├── categories/         # Category pages
-│   ├── search/             # Search page
-│   ├── stories/            # Individual story pages
-│   ├── layout.tsx          # Root layout
-│   └── page.tsx            # Homepage
-├── components/             # React components
-│   ├── analytics/         # Analytics components
-│   ├── layout/            # Layout components
-│   ├── search/            # Search components
-│   ├── seo/               # SEO components
-│   ├── stories/           # Story components
-│   └── ui/                # UI components
-├── hooks/                  # Custom React hooks
-│   ├── useApi.ts          # API request hook
-│   ├── useFormSubmit.ts   # Form submission hook
-│   └── ...
-├── lib/                    # Utility functions
-│   ├── stories.ts         # Story-related utilities
-│   └── ...
-├── middleware.ts           # Next.js middleware
-├── public/                 # Static assets
-│   ├── images/            # Static images
-│   ├── fonts/             # Fonts
-│   └── ...
-├── scripts/                # Utility scripts
-│   ├── convert-to-functional.js  # Convert class to functional components
-│   ├── security-audit.js         # Security audit script
-│   └── ...
-├── src/                    # Source code
-│   ├── api/                # API types and utilities
-│   ├── config/             # Configuration
-│   ├── middleware/         # Middleware modules
-│   ├── mocks/              # Mock data
-│   ├── services/           # Service modules
-│   └── utils/              # Utility modules
-├── styles/                 # Global styles
-│   ├── globals.css        # Global CSS
-│   └── ...
-├── types/                  # TypeScript type definitions
-│   ├── Story.ts           # Story type definitions
-│   └── ...
-├── __tests__/              # Test files
-│   ├── components/        # Component tests
-│   ├── lib/               # Library tests
-│   └── utils/             # Utility tests
-├── .env.example            # Example environment variables
-├── .eslintrc.json          # ESLint configuration
-├── .gitignore              # Git ignore file
-├── jest.config.js          # Jest configuration
-├── next.config.js          # Next.js configuration
-├── package.json            # NPM package file
-├── postcss.config.js       # PostCSS configuration
-├── tailwind.config.js      # Tailwind CSS configuration
-└── tsconfig.json           # TypeScript configuration
+name: gitleaks
+on: [pull_request, push, workflow_dispatch]
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
 
-## Testing
+### Pre-Commit
 
-The project uses Jest for unit and integration testing. To run the tests:
+1. Install pre-commit from https://pre-commit.com/#install
+2. Create a `.pre-commit-config.yaml` file at the root of your repository with the following content:
 
-```bash
-# Run all tests
-npm test
+   ```
+   repos:
+     - repo: https://github.com/gitleaks/gitleaks
+       rev: v8.24.2
+       hooks:
+         - id: gitleaks
+   ```
 
-# Run tests with coverage
-npm test -- --coverage
+   for a [native execution of gitleaks](https://github.com/gitleaks/gitleaks/releases) or use the [`gitleaks-docker` pre-commit ID](https://github.com/gitleaks/gitleaks/blob/master/.pre-commit-hooks.yaml) for executing gitleaks using the [official Docker images](#docker)
 
-# Run tests in watch mode
-npm test -- --watch
+3. Auto-update the config to the latest repos' versions by executing `pre-commit autoupdate`
+4. Install with `pre-commit install`
+5. Now you're all set!
 
-# Run specific test file
-npm test -- __tests__/lib/stories.test.ts
+```
+➜ git commit -m "this commit contains a secret"
+Detect hardcoded secrets.................................................Failed
 ```
 
-### Test Structure
+Note: to disable the gitleaks pre-commit hook you can prepend `SKIP=gitleaks` to the commit command
+and it will skip running gitleaks
 
-- Unit tests for utility functions
-- Component tests using React Testing Library
-- Integration tests for API routes
-- End-to-end tests using Cypress (optional)
-
-## Documentation
-
-### Code Documentation
-
-- All functions, components, and types are documented with JSDoc comments
-- Complex logic includes inline comments explaining the approach
-- API endpoints are documented with request/response examples
-
-### API Documentation
-
-API endpoints are documented in the codebase. Here are the main endpoints:
-
-- `GET /api/stories` - Get all stories with optional filtering
-- `GET /api/stories/:slug` - Get a specific story by slug
-- `POST /api/contact` - Submit contact form
-- `POST /api/newsletter/subscribe` - Subscribe to newsletter
-- `POST /api/story/rewrite` - Rewrite a story using OpenAI
-
-## 🤖 Make.com Automation Integration
-
-### **RSS Content Processing Pipeline**
-
-The site is designed for seamless integration with Make.com (formerly Integromat) for automated content processing:
-
-### **Automation Workflow**
-
-1. **RSS Feed Monitoring**
-   - Make.com monitors 5+ premium travel RSS feeds
-   - Triggers on new content every 15 minutes
-   - Filters for travel-related keywords and quality
-
-2. **AI Content Enhancement**
-   - Routes content to Hugging Face Transformers for rewriting
-   - Generates SEO-optimized titles and descriptions
-   - Maintains factual accuracy while improving engagement
-
-3. **Image Processing**
-   - Unsplash API integration for relevant travel imagery
-   - Automatic image optimization and attribution
-   - Fallback systems for failed image loads
-
-4. **Multi-Platform Publishing**
-   - Automatic publishing to Next.js website
-   - Social media posting to Twitter, Facebook, LinkedIn
-   - Affiliate link insertion and tracking
-
-### **Make.com Scenario Setup**
-
-**Required Modules:**
-- **RSS Feed Reader** - Monitor travel news sources
-- **HTTP Request** - Call AI rewriting and image APIs
-- **JSON Parser** - Process API responses
-- **Webhook** - Publish to website API endpoints
-- **Email/Social Media** - Distribute to platforms
-
-**API Endpoints for Integration:**
-```javascript
-// Content submission
-POST /api/stories - Submit new story
-POST /api/affiliates/verify - Verify affiliate links
-POST /api/contact - Process contact form submissions
-
-// Content retrieval
-GET /api/stories - Get all stories with filtering
-GET /api/categories - Get category information
-GET /api/affiliates/verify - Check affiliate link status
+```
+➜ SKIP=gitleaks git commit -m "skip gitleaks check"
+Detect hardcoded secrets................................................Skipped
 ```
 
-### **Automation Schedule**
-- **RSS Monitoring:** Every 15 minutes
-- **Content Processing:** Real-time on new RSS items
-- **Social Media Posting:** 3x daily (9 AM, 3 PM, 9 PM)
-- **Affiliate Verification:** Daily at midnight UTC
-- **Performance Monitoring:** Hourly Core Web Vitals check
+## Usage
 
-### **Error Handling & Monitoring**
-- **Retry Logic:** Exponential backoff for failed API calls
-- **Fallback Content:** Placeholder images and default text
-- **Alert System:** Email notifications for critical failures
-- **Performance Tracking:** Automated Core Web Vitals monitoring
+```
+Usage:
+  gitleaks [command]
 
----
+Available Commands:
+  dir         scan directories or files for secrets
+  git         scan git repositories for secrets
+  help        Help about any command
+  stdin       detect secrets from stdin
+  version     display gitleaks version
 
-## 📈 Contributing & Development
+Flags:
+  -b, --baseline-path string          path to baseline with issues that can be ignored
+  -c, --config string                 config file path
+                                      order of precedence:
+                                      1. --config/-c
+                                      2. env var GITLEAKS_CONFIG
+                                      3. env var GITLEAKS_CONFIG_TOML with the file content
+                                      4. (target path)/.gitleaks.toml
+                                      If none of the four options are used, then gitleaks will use the default config
+      --diagnostics string            enable diagnostics (comma-separated list: cpu,mem,trace). cpu=CPU profiling, mem=memory profiling, trace=execution tracing
+      --diagnostics-dir string        directory to store diagnostics output files (defaults to current directory)
+      --enable-rule strings           only enable specific rules by id
+      --exit-code int                 exit code when leaks have been encountered (default 1)
+  -i, --gitleaks-ignore-path string   path to .gitleaksignore file or folder containing one (default ".")
+  -h, --help                          help for gitleaks
+      --ignore-gitleaks-allow         ignore gitleaks:allow comments
+  -l, --log-level string              log level (trace, debug, info, warn, error, fatal) (default "info")
+      --max-decode-depth int          allow recursive decoding up to this depth (default "0", no decoding is done)
+      --max-archive-depth int         allow scanning into nested archives up to this depth (default "0", no archive traversal is done)
+      --max-target-megabytes int      files larger than this will be skipped
+      --no-banner                     suppress banner
+      --no-color                      turn off color for verbose output
+      --redact uint[=100]             redact secrets from logs and stdout. To redact only parts of the secret just apply a percent value from 0..100. For example --redact=20 (default 100%)
+  -f, --report-format string          output format (json, csv, junit, sarif, template)
+  -r, --report-path string            report file
+      --report-template string        template file used to generate the report (implies --report-format=template)
+  -v, --verbose                       show verbose output from scan
+      --version                       version for gitleaks
 
-### **Development Workflow**
+Use "gitleaks [command] --help" for more information about a command.
+```
 
-1. **Fork & Clone:**
-   ```bash
-   git clone https://github.com/yourusername/global-travel-report.git
-   cd global-travel-report
-   ```
+### Commands
 
-2. **Setup Environment:**
-   ```bash
-   npm install
-   cp .env.example .env.local
-   # Configure your API keys and settings
-   ```
+⚠️ v8.19.0 introduced a change that deprecated `detect` and `protect`. Those commands are still available but
+are hidden in the `--help` menu. Take a look at this [gist](https://gist.github.com/zricethezav/b325bb93ebf41b9c0b0507acf12810d2) for easy command translations.
+If you find v8.19.0 broke an existing command (`detect`/`protect`), please open an issue.
 
-3. **Development:**
-   ```bash
-   npm run dev
-   # Visit http://localhost:3000
-   ```
+There are three scanning modes: `git`, `dir`, and `stdin`.
 
-4. **Testing:**
-   ```bash
-   npm run test          # Run all tests
-   npm run lighthouse    # Performance audit
-   npm run verify:affiliates  # Check affiliate links
-   ```
+#### Git
 
-5. **Submit Changes:**
-   ```bash
-   git checkout -b feature/your-feature-name
-   git add .
-   git commit -m "feat: descriptive commit message"
-   git push origin feature/your-feature-name
-   # Create Pull Request
-   ```
+The `git` command lets you scan local git repos. Under the hood, gitleaks uses the `git log -p` command to scan patches.
+You can configure the behavior of `git log -p` with the `log-opts` option.
+For example, if you wanted to run gitleaks on a range of commits you could use the following
+command: `gitleaks git -v --log-opts="--all commitA..commitB" path_to_repo`. See the [git log](https://git-scm.com/docs/git-log) documentation for more information.
+If there is no target specified as a positional argument, then gitleaks will attempt to scan the current working directory as a git repo.
 
-### **Development Guidelines**
+#### Dir
 
-**Code Standards:**
-- **TypeScript:** Strict mode enabled for type safety
-- **ESLint:** Follow existing code style and patterns
-- **Testing:** Write tests for new features and bug fixes
-- **Documentation:** Update README and inline comments
-- **Performance:** Maintain Core Web Vitals standards
+The `dir` (aliases include `files`, `directory`) command lets you scan directories and files. Example: `gitleaks dir -v path_to_directory_or_file`.
+If there is no target specified as a positional argument, then gitleaks will scan the current working directory.
 
-**Before Submitting:**
-- ✅ **Run Tests:** `npm run test`
-- ✅ **Lint Check:** `npm run lint`
-- ✅ **Build Test:** `npm run build`
-- ✅ **Security Audit:** `npm run security-audit`
-- ✅ **Performance Check:** `npm run lighthouse`
+#### Stdin
 
-**Pull Request Requirements:**
-- **Descriptive Title:** Clear, concise description of changes
-- **Detailed Description:** What, why, and how of the changes
-- **Testing Evidence:** Screenshots, test results, performance metrics
-- **Breaking Changes:** Clearly documented if any
-- **Related Issues:** Link to any related GitHub issues
+You can also stream data to gitleaks with the `stdin` command. Example: `cat some_file | gitleaks -v stdin`
 
-## License
+### Creating a baseline
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+When scanning large repositories or repositories with a long history, it can be convenient to use a baseline. When using a baseline,
+gitleaks will ignore any old findings that are present in the baseline. A baseline can be any gitleaks report. To create a gitleaks report, run gitleaks with the `--report-path` parameter.
 
-## 🗺️ New Pages & Features
+```
+gitleaks git --report-path gitleaks-report.json # This will save the report in a file called gitleaks-report.json
+```
 
-### **Visual Category Index** (`/category-index`)
-- **Magazine-style grid** with 11 featured categories
-- **High-quality Unsplash images** with overlay titles
-- **Interactive hover effects** with smooth animations
-- **Story counts** showing real content from CMS
-- **SEO optimized** with proper heading hierarchy
+Once as baseline is created it can be applied when running the detect command again:
 
-### **Stories Archive** (`/stories-index`)
-- **Hero stories section** with featured/editor's pick content
-- **Magazine-style layout** with large featured images
-- **Grid/list view toggle** with smooth transitions
-- **Real content integration** from existing CMS database
-- **Newsletter signup** for content updates
+```
+gitleaks git --baseline-path gitleaks-report.json --report-path findings.json
+```
 
-### **Trusted Partners** (`/partners`)
-- **Professional showcase** of 10 world-class travel partners
-- **Categorized organization** (Accommodation, Transportation, Connectivity, Travel Essentials)
-- **Branded logos** with professional presentation
-- **Case studies and testimonials** for partnership credibility
-- **Analytics tracking** for partnership performance
+After running the detect command with the --baseline-path parameter, report output (findings.json) will only contain new issues.
 
-### **Travel Deals** (`/offers`)
-- **Affiliate-powered offers** with automated daily refresh
-- **Professional presentation** with pricing and validity
-- **Category-based organization** for easy browsing
-- **Real-time updates** from partner APIs
-- **Structured data** for better SEO
+## Pre-Commit hook
 
-### **Social Preview Testing** (`/social-preview`)
-- **Testing interface** for Facebook/Twitter metadata validation
-- **Direct links** to Facebook Debugger and Twitter Card Validator
-- **Troubleshooting guide** with step-by-step instructions
-- **Metadata preview** showing expected vs actual results
+You can run Gitleaks as a pre-commit hook by copying the example `pre-commit.py` script into
+your `.git/hooks/` directory.
 
----
+## Load Configuration
 
-## 📞 Contact & Support
+The order of precedence is:
 
-**Global Travel Report Team**
-Sydney, Australia
+1. `--config/-c` option:
+      ```bash
+      gitleaks git --config /home/dev/customgitleaks.toml .
+      ```
+2. Environment variable `GITLEAKS_CONFIG` with the file path:
+      ```bash
+      export GITLEAKS_CONFIG="/home/dev/customgitleaks.toml"
+      gitleaks git .
+      ```
+3. Environment variable `GITLEAKS_CONFIG_TOML` with the file content:
+      ```bash
+      export GITLEAKS_CONFIG_TOML=`cat customgitleaks.toml`
+      gitleaks git .
+      ```
+4. A `.gitleaks.toml` file within the target path:
+      ```bash
+      gitleaks git .
+      ```
 
-**For Editorial Inquiries:**
-[editorial@globaltravelreport.com](mailto:editorial@globaltravelreport.com)
+If none of the four options are used, then gitleaks will use the default config.
 
-**For Partnership Opportunities:**
-[partners@globaltravelreport.com](mailto:partners@globaltravelreport.com)
+## Configuration
 
-**Project Repository:**
-[https://github.com/globaltravelreport/global-travel-report](https://github.com/globaltravelreport/global-travel-report)
+Gitleaks offers a configuration format you can follow to write your own secret detection rules:
 
-**Live Website:**
-[https://www.globaltravelreport.com/](https://www.globaltravelreport.com/)
+```toml
+# Title for the gitleaks configuration file.
+title = "Custom Gitleaks configuration"
 
----
+# You have basically two options for your custom configuration:
+#
+# 1. define your own configuration, default rules do not apply
+#
+#    use e.g., the default configuration as starting point:
+#    https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+#
+# 2. extend a configuration, the rules are overwritten or extended
+#
+#    When you extend a configuration the extended rules take precedence over the
+#    default rules. I.e., if there are duplicate rules in both the extended
+#    configuration and the default configuration the extended rules or
+#    attributes of them will override the default rules.
+#    Another thing to know with extending configurations is you can chain
+#    together multiple configuration files to a depth of 2. Allowlist arrays are
+#    appended and can contain duplicates.
 
-## 🏆 Project Status
+# useDefault and path can NOT be used at the same time. Choose one.
+[extend]
+# useDefault will extend the default gitleaks config built in to the binary
+# the latest version is located at:
+# https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+useDefault = true
+# or you can provide a path to a configuration to extend from.
+# The path is relative to where gitleaks was invoked,
+# not the location of the base config.
+# path = "common_config.toml"
+# If there are any rules you don't want to inherit, they can be specified here.
+disabledRules = [ "generic-api-key"]
 
-**Current Version:** 2.0.0 - Complete Website Redesign
-**Last Updated:** 2025-09-27
-**Development Status:** ✅ **Active & Production Ready**
-**Documentation Status:** ✅ **Complete & Comprehensive**
+# An array of tables that contain information that define instructions
+# on how to detect secrets
+[[rules]]
+# Unique identifier for this rule
+id = "awesome-rule-1"
 
-### **Recent Achievements**
-- ✅ **Magazine-style visual transformation** completed
-- ✅ **Professional affiliate integration** implemented
-- ✅ **Critical issues resolved** (verification, logos, social previews)
-- ✅ **Performance optimization** with Core Web Vitals compliance
-- ✅ **Accessibility compliance** with WCAG AA standards
-- ✅ **Cloudflare integration** ready for deployment
-- ✅ **Make.com automation** infrastructure prepared
+# Short human-readable description of the rule.
+description = "awesome rule 1"
 
-### **Next Phase**
-- 🚀 **Cloudflare deployment** for global performance
-- 🤖 **Make.com automation** for RSS content processing
-- 📈 **Content scaling** with automated generation
-- 📊 **Advanced analytics** and performance monitoring
+# Golang regular expression used to detect secrets. Note Golang's regex engine
+# does not support lookaheads.
+regex = '''one-go-style-regex-for-this-rule'''
 
----
+# Int used to extract secret from regex match and used as the group that will have
+# its entropy checked if `entropy` is set.
+secretGroup = 3
 
-## 🙏 Acknowledgments
+# Float representing the minimum shannon entropy a regex group must have to be considered a secret.
+entropy = 3.5
 
-**Built with Modern Technologies:**
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Framer Motion** - Smooth animations
-- **Vercel** - Deployment and hosting
-- **Cloudflare** - Global CDN and security
+# Golang regular expression used to match paths. This can be used as a standalone rule or it can be used
+# in conjunction with a valid `regex` entry.
+path = '''a-file-path-regex'''
 
-**Content Partners:**
-- **Unsplash** - High-quality photography
-- **RSS Feed Sources** - Premium travel news content
-- **Affiliate Partners** - World-class travel services
+# Keywords are used for pre-regex check filtering. Rules that contain
+# keywords will perform a quick string compare check to make sure the
+# keyword(s) are in the content being scanned. Ideally these values should
+# either be part of the identiifer or unique strings specific to the rule's regex
+# (introduced in v8.6.0)
+keywords = [
+  "auth",
+  "password",
+  "token",
+]
 
-**Development Tools:**
-- **Hugging Face** - AI content processing
-- **OpenAI** - Advanced language models
-- **Make.com** - Automation platform
-- **Google Analytics** - Performance tracking
+# Array of strings used for metadata and reporting purposes.
+tags = ["tag","another tag"]
 
----
+    # ⚠️ In v8.21.0 `[rules.allowlist]` was replaced with `[[rules.allowlists]]`.
+    # This change was backwards-compatible: instances of `[rules.allowlist]` still  work.
+    #
+    # You can define multiple allowlists for a rule to reduce false positives.
+    # A finding will be ignored if _ANY_ `[[rules.allowlists]]` matches.
+    [[rules.allowlists]]
+    description = "ignore commit A"
+    # When multiple criteria are defined the default condition is "OR".
+    # e.g., this can match on |commits| OR |paths| OR |stopwords|.
+    condition = "OR"
+    commits = [ "commit-A", "commit-B"]
+    paths = [
+      '''go\.mod''',
+      '''go\.sum'''
+    ]
+    # note: stopwords targets the extracted secret, not the entire regex match
+    # like 'regexes' does. (stopwords introduced in 8.8.0)
+    stopwords = [
+      '''client''',
+      '''endpoint''',
+    ]
 
-*Global Travel Report - Your ultimate travel companion for discovering amazing destinations, inspiring stories, and exclusive deals from around the world. 🗺️✈️*
+    [[rules.allowlists]]
+    # The "AND" condition can be used to make sure all criteria match.
+    # e.g., this matches if |regexes| AND |paths| are satisfied.
+    condition = "AND"
+    # note: |regexes| defaults to check the _Secret_ in the finding.
+    # Acceptable values for |regexTarget| are "secret" (default), "match", and "line".
+    regexTarget = "match"
+    regexes = [ '''(?i)parseur[il]''' ]
+    paths = [ '''package-lock\.json''' ]
+
+# You can extend a particular rule from the default config. e.g., gitlab-pat
+# if you have defined a custom token prefix on your GitLab instance
+[[rules]]
+id = "gitlab-pat"
+# all the other attributes from the default rule are inherited
+
+    [[rules.allowlists]]
+    regexTarget = "line"
+    regexes = [ '''MY-glpat-''' ]
+
+
+# ⚠️ In v8.25.0 `[allowlist]` was replaced with `[[allowlists]]`.
+#
+# Global allowlists have a higher order of precedence than rule-specific allowlists.
+# If a commit listed in the `commits` field below is encountered then that commit will be skipped and no
+# secrets will be detected for said commit. The same logic applies for regexes and paths.
+[[allowlists]]
+description = "global allow list"
+commits = [ "commit-A", "commit-B", "commit-C"]
+paths = [
+  '''gitleaks\.toml''',
+  '''(.*?)(jpg|gif|doc)'''
+]
+# note: (global) regexTarget defaults to check the _Secret_ in the finding.
+# Acceptable values for regexTarget are "match" and "line"
+regexTarget = "match"
+regexes = [
+  '''219-09-9999''',
+  '''078-05-1120''',
+  '''(9[0-9]{2}|666)-\d{2}-\d{4}''',
+]
+# note: stopwords targets the extracted secret, not the entire regex match
+# like 'regexes' does. (stopwords introduced in 8.8.0)
+stopwords = [
+  '''client''',
+  '''endpoint''',
+]
+
+# ⚠️ In v8.25.0, `[[allowlists]]` have a new field called |targetRules|.
+#
+# Common allowlists can be defined once and assigned to multiple rules using |targetRules|.
+# This will only run on the specified rules, not globally.
+[[allowlists]]
+targetRules = ["awesome-rule-1", "awesome-rule-2"]
+description = "Our test assets trigger false-positives in a couple rules."
+paths = ['''tests/expected/._\.json$''']
+```
+
+Refer to the default [gitleaks config](https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml) for examples or follow the [contributing guidelines](https://github.com/gitleaks/gitleaks/blob/master/CONTRIBUTING.md) if you would like to contribute to the default configuration. Additionally, you can check out [this gitleaks blog post](https://blog.gitleaks.io/stop-leaking-secrets-configuration-2-3-aeed293b1fbf) which covers advanced configuration setups.
+
+### Additional Configuration
+
+#### Composite Rules (Multi-part or `required` Rules)
+In v8.28.0 Gitleaks introduced composite rules, which are made up of a single "primary" rule and one or more auxiliary or `required` rules. To create a composite rule, add a `[[rules.required]]` table to the primary rule specifying an `id` and optionally `withinLines` and/or `withinColumns` proximity constraints. A fragment is a chunk of content that Gitleaks processes at once (typically a file, part of a file, or git diff), and proximity matching instructs the primary rule to only report a finding if the auxiliary `required` rules also find matches within the specified area of the fragment.
+
+**Proximity matching:** Using the `withinLines` and `withinColumns` fields instructs the primary rule to only report a finding if the auxiliary `required` rules also find matches within the specified proximity. You can set:
+
+- **`withinLines: N`** - required findings must be within N lines (vertically)
+- **`withinColumns: N`** - required findings must be within N characters (horizontally)  
+- **Both** - creates a rectangular search area (both constraints must be satisfied)
+- **Neither** - fragment-level matching (required findings can be anywhere in the same fragment)
+
+Here are diagrams illustrating each proximity behavior:
+
+```
+p = primary captured secret
+a = auxiliary (required) captured secret
+fragment = section of data gitleaks is looking at
+
+
+    *Fragment-level proximity*               
+    Any required finding in the fragment
+          ┌────────┐                       
+   ┌──────┤fragment├─────┐                 
+   │      └──────┬─┤     │ ┌───────┐       
+   │             │a│◀────┼─│✓ MATCH│       
+   │          ┌─┐└─┘     │ └───────┘       
+   │┌─┐       │p│        │                 
+   ││a│    ┌─┐└─┘        │ ┌───────┐       
+   │└─┘    │a│◀──────────┼─│✓ MATCH│       
+   └─▲─────┴─┴───────────┘ └───────┘       
+     │    ┌───────┐                        
+     └────│✓ MATCH│                        
+          └───────┘                        
+                                           
+                                           
+   *Column bounded proximity*
+   `withinColumns = 3`                    
+          ┌────────┐                       
+   ┌────┬─┤fragment├─┬───┐                 
+   │      └──────┬─┤     │ ┌───────────┐   
+   │    │        │a│◀┼───┼─│+1C ✓ MATCH│   
+   │          ┌─┐└─┘     │ └───────────┘   
+   │┌─┐ │     │p│    │   │                 
+┌──▶│a│  ┌─┐  └─┘        │ ┌───────────┐   
+│  │└─┘ ││a│◀────────┼───┼─│-2C ✓ MATCH│   
+│  │       ┘             │ └───────────┘   
+│  └── -3C ───0C─── +3C ─┘                 
+│  ┌─────────┐                             
+│  │ -4C ✗ NO│                             
+└──│  MATCH  │                             
+   └─────────┘                             
+                                           
+                                           
+   *Line bounded proximity*
+   `withinLines = 4`                      
+         ┌────────┐                        
+   ┌─────┤fragment├─────┐                  
+  +4L─ ─ ┴────────┘─ ─ ─│                  
+   │                    │                  
+   │              ┌─┐   │ ┌────────────┐   
+   │         ┌─┐  │a│◀──┼─│+1L ✓ MATCH │   
+   0L  ┌─┐   │p│  └─┘   │ ├────────────┤   
+   │   │a│◀──┴─┴────────┼─│-1L ✓ MATCH │   
+   │   └─┘              │ └────────────┘   
+   │                    │ ┌─────────┐      
+  -4L─ ─ ─ ─ ─ ─ ─ ─┌─┐─│ │-5L ✗ NO │      
+   │                │a│◀┼─│  MATCH  │      
+   └────────────────┴─┴─┘ └─────────┘      
+                                           
+                                           
+   *Line and column bounded proximity*
+   `withinLines = 4`                      
+   `withinColumns = 3`                    
+         ┌────────┐                        
+   ┌─────┤fragment├─────┐                  
+  +4L   ┌└────────┴ ┐   │                  
+   │            ┌─┐     │ ┌───────────────┐
+   │    │       │a│◀┼───┼─│+2L/+1C ✓ MATCH│
+   │         ┌─┐└─┘     │ └───────────────┘
+   0L   │    │p│    │   │                  
+   │         └─┘        │                  
+   │    │           │   │ ┌────────────┐   
+  -4L    ─ ─ ─ ─ ─ ─┌─┐ │ │-5L/+3C ✗ NO│   
+   │                │a│◀┼─│   MATCH    │   
+   └───-3C────0L───+3C┴─┘ └────────────┘   
+```
+
+<details><summary>Some final quick thoughts on composite rules.</summary>This is an experimental feature! It's subject to change so don't go sellin' a new B2B SaaS feature built ontop of this feature. Scan type (git vs dir) based context is interesting. I'm monitoring the situation. Composite rules might not be super useful for git scans because gitleaks only looks at additions in the git history. It could be useful to scan non-additions in git history for `required` rules. Oh, right this is a readme, I'll shut up now.</details>
+  
+#### gitleaks:allow
+
+If you are knowingly committing a test secret that gitleaks will catch you can add a `gitleaks:allow` comment to that line which will instruct gitleaks
+to ignore that secret. Ex:
+
+```
+class CustomClass:
+    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'  #gitleaks:allow
+
+```
+
+#### .gitleaksignore
+
+You can ignore specific findings by creating a `.gitleaksignore` file at the root of your repo. In release v8.10.0 Gitleaks added a `Fingerprint` value to the Gitleaks report. Each leak, or finding, has a Fingerprint that uniquely identifies a secret. Add this fingerprint to the `.gitleaksignore` file to ignore that specific secret. See Gitleaks' [.gitleaksignore](https://github.com/gitleaks/gitleaks/blob/master/.gitleaksignore) for an example. Note: this feature is experimental and is subject to change in the future.
+
+#### Decoding
+
+Sometimes secrets are encoded in a way that can make them difficult to find
+with just regex. Now you can tell gitleaks to automatically find and decode
+encoded text. The flag `--max-decode-depth` enables this feature (the default
+value "0" means the feature is disabled by default).
+
+Recursive decoding is supported since decoded text can also contain encoded
+text.  The flag `--max-decode-depth` sets the recursion limit. Recursion stops
+when there are no new segments of encoded text to decode, so setting a really
+high max depth doesn't mean it will make that many passes. It will only make as
+many as it needs to decode the text. Overall, decoding only minimally increases
+scan times.
+
+The findings for encoded text differ from normal findings in the following
+ways:
+
+- The location points the bounds of the encoded text
+  - If the rule matches outside the encoded text, the bounds are adjusted to
+    include that as well
+- The match and secret contain the decoded value
+- Two tags are added `decoded:<encoding>` and `decode-depth:<depth>`
+
+Currently supported encodings:
+
+- **percent** - Any printable ASCII percent encoded values
+- **hex** - Any printable ASCII hex encoded values >= 32 characters
+- **base64** - Any printable ASCII base64 encoded values >= 16 characters
+
+#### Archive Scanning
+
+Sometimes secrets are packaged within archive files like zip files or tarballs,
+making them difficult to discover. Now you can tell gitleaks to automatically
+extract and scan the contents of archives. The flag `--max-archive-depth`
+enables this feature for both `dir` and `git` scan types. The default value of
+"0" means this feature is disabled by default.
+
+Recursive scanning is supported since archives can also contain other archives.
+The `--max-archive-depth` flag sets the recursion limit. Recursion stops when
+there are no new archives to extract, so setting a very high max depth just
+sets the potential to go that deep. It will only go as deep as it needs to.
+
+The findings for secrets located within an archive will include the path to the
+file inside the archive. Inner paths are separated with `!`.
+
+Example finding (shortened for brevity):
+
+```
+Finding:     DB_PASSWORD=8ae31cacf141669ddfb5da
+...
+File:        testdata/archives/nested.tar.gz!archives/files.tar!files/.env.prod
+Line:        4
+Commit:      6e6ee6596d337bb656496425fb98644eb62b4a82
+...
+Fingerprint: 6e6ee6596d337bb656496425fb98644eb62b4a82:testdata/archives/nested.tar.gz!archives/files.tar!files/.env.prod:generic-api-key:4
+Link:        https://github.com/leaktk/gitleaks/blob/6e6ee6596d337bb656496425fb98644eb62b4a82/testdata/archives/nested.tar.gz
+```
+
+This means a secret was detected on line 4 of `files/.env.prod.` which is in
+`archives/files.tar` which is in `testdata/archives/nested.tar.gz`.
+
+Currently supported formats:
+
+The [compression](https://github.com/mholt/archives?tab=readme-ov-file#supported-compression-formats)
+and [archive](https://github.com/mholt/archives?tab=readme-ov-file#supported-archive-formats)
+formats supported by mholt's [archives package](https://github.com/mholt/archives)
+are supported.
+
+#### Reporting
+
+Gitleaks has built-in support for several report formats: [`json`](https://github.com/gitleaks/gitleaks/blob/master/testdata/expected/report/json_simple.json), [`csv`](https://github.com/gitleaks/gitleaks/blob/master/testdata/expected/report/csv_simple.csv?plain=1), [`junit`](https://github.com/gitleaks/gitleaks/blob/master/testdata/expected/report/junit_simple.xml), and [`sarif`](https://github.com/gitleaks/gitleaks/blob/master/testdata/expected/report/sarif_simple.sarif).
+
+If none of these formats fit your need, you can create your own report format with a [Go `text/template` .tmpl file](https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-go#step-4-writing-a-template) and the `--report-template` flag. The template can use [extended functionality from the `Masterminds/sprig` template library](https://masterminds.github.io/sprig/).
+
+For example, the following template provides a custom JSON output:
+```gotemplate
+# jsonextra.tmpl
+[{{ $lastFinding := (sub (len . ) 1) }}
+{{- range $i, $finding := . }}{{with $finding}}
+    {
+        "Description": {{ quote .Description }},
+        "StartLine": {{ .StartLine }},
+        "EndLine": {{ .EndLine }},
+        "StartColumn": {{ .StartColumn }},
+        "EndColumn": {{ .EndColumn }},
+        "Line": {{ quote .Line }},
+        "Match": {{ quote .Match }},
+        "Secret": {{ quote .Secret }},
+        "File": "{{ .File }}",
+        "SymlinkFile": {{ quote .SymlinkFile }},
+        "Commit": {{ quote .Commit }},
+        "Entropy": {{ .Entropy }},
+        "Author": {{ quote .Author }},
+        "Email": {{ quote .Email }},
+        "Date": {{ quote .Date }},
+        "Message": {{ quote .Message }},
+        "Tags": [{{ $lastTag := (sub (len .Tags ) 1) }}{{ range $j, $tag := .Tags }}{{ quote . }}{{ if ne $j $lastTag }},{{ end }}{{ end }}],
+        "RuleID": {{ quote .RuleID }},
+        "Fingerprint": {{ quote .Fingerprint }}
+    }{{ if ne $i $lastFinding }},{{ end }}
+{{- end}}{{ end }}
+]
+```
+
+Usage:
+```sh
+$ gitleaks dir ~/leaky-repo/ --report-path "report.json" --report-format template --report-template testdata/report/jsonextra.tmpl
+```
+
+## Sponsorships
+
+<p align="left">
+	<h3><a href="https://coderabbit.ai/?utm_source=oss&utm_medium=sponsorship&utm_campaign=gitleaks">coderabbit.ai</h3>
+	  <a href="https://coderabbit.ai/?utm_source=oss&utm_medium=sponsorship&utm_campaign=gitleaks">
+		  <img alt="CodeRabbit.ai Sponsorship" src="https://github.com/gitleaks/gitleaks/assets/15034943/76c30a85-887b-47ca-9956-17a8e55c6c41" width=200>
+	  </a>
+</p>
+
+
+## Exit Codes
+
+You can always set the exit code when leaks are encountered with the --exit-code flag. Default exit codes below:
+
+```
+0 - no leaks present
+1 - leaks or error encountered
+126 - unknown flag
+```

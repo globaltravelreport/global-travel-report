@@ -1,0 +1,37 @@
+title = "Gitleaks config"
+
+[extend]
+useDefault = true
+
+[rules]
+# Custom rules for common API keys and secrets
+[[rules.allowlists]]
+description = "Allow generic test tokens"
+regex = '''(?i)(test|example|sample|placeholder)_?(token|key|secret|password)'''
+path = '''.*\.md$'''
+
+[[rules.allowlists]]
+description = "Allow your- prefix tokens"
+regex = '''your[_-]?(openai[_-]?api[_-]?key|unsplash[_-]?access[_-]?key|recaptcha[_-]?site[_-]?key|recaptcha[_-]?secret[_-]?key|email[_-]?service[_-]?api[_-]?key|session[_-]?secret|csrf[_-]?secret)'''
+
+[rules.blacklist]
+description = "Make.com webhook URLs"
+regex = '''https://hook\.(us2|eu1|au1)\.make\.com/[a-zA-Z0-9]{20,}'''
+[rules.blacklist]
+description = "Hardcoded API keys"
+regex = '''['"]3zoLqWJSBP['"]'''
+[rules.blacklist]
+description = "Generic API key patterns"
+regex = '''['"][a-zA-Z0-9]{32,}['"]'''
+[rules.blacklist]
+description = "Bearer tokens"
+regex = '''Bearer [a-zA-Z0-9\.\-_]{20,}'''
+[rules.blacklist]
+description = "AWS access keys"
+regex = '''AKIA[0-9A-Z]{16}'''
+[rules.blacklist]
+description = "Private keys"
+regex = '''-----BEGIN (RSA|EC|DSA|PRIVATE) KEY-----'''
+[rules.blacklist]
+description = "Database URLs with credentials"
+regex = '''[a-zA-Z0-9+/\-_]+:[a-zA-Z0-9+/\-_]+@[a-zA-Z0-9\.\-_]+:\d+/[a-zA-Z0-9\.\-_]+'''

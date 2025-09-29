@@ -100,10 +100,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
-        {/* Google Analytics - Production Only */}
-        {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -126,7 +122,7 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Global Travel Report',
               url: baseUrl,
-              logo: `${baseUrl}/images/logo.png`,
+              logo: `${baseUrl}/images/logo.webp`,
               description: 'Your ultimate travel companion for discovering amazing destinations, insider tips, and inspiring stories from around the world.',
               foundingDate: '2024',
               knowsAbout: [
@@ -177,7 +173,7 @@ export default function RootLayout({
                 '@type': 'Organization',
                 name: 'Global Travel Report',
                 url: baseUrl,
-                logo: `${baseUrl}/images/logo.png`
+                logo: `${baseUrl}/images/logo.webp`
               }
             })
           }}
