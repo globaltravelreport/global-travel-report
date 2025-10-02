@@ -141,16 +141,12 @@ export function trackInteraction(
 
 /**
  * Initialize Google Analytics
- * Call this after user consent
+ * Call this after user consent - assumes gtag is already set up
  */
 export function initializeGA(): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || !window.gtag) return;
 
-  // Initialize dataLayer and gtag
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function(...args) {
-    window.dataLayer.push(args);
-  };
+  console.log('GA: Configuring GA with tracking ID:', GA_TRACKING_ID);
 
   // Configure GA
   window.gtag('js', new Date());
