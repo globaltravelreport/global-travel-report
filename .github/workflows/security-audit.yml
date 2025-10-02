@@ -139,8 +139,3 @@ jobs:
           else
             echo "No Slack webhook configured, skipping notification"
           fi
-          SLACK_CHANNEL: security-alerts
-          SLACK_COLOR: danger
-          SLACK_TITLE: Security Audit Failed
-          SLACK_MESSAGE: 'Security issues found in the Global Travel Report website. Please check the GitHub Actions workflow for details.'
-          SLACK_FOOTER: 'Global Travel Report Security Audit'
