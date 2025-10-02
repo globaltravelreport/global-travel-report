@@ -16,9 +16,16 @@ import imageSeoOptimizer from '@/utils/imageSeoOptimizer';
 import pageImageTracker from '@/utils/pageImageTracker';
 
 // Initialize Unsplash API client
-const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_ACCESS_KEY,
-});
+const unsplash = (() => {
+  const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+  if (!accessKey) {
+    console.warn('Unsplash access key is not configured. Image service will use fallback images.');
+    return null;
+  }
+  return createApi({
+    accessKey,
+  });
+})();
 
 // Cache for Unsplash API requests
 const imageCache = new Map<string, any>();
@@ -53,6 +60,12 @@ export async function getRandomImage(
       return imageCache.get(cacheKey);
     }
     
+    // Check if Unsplash client is available
+    if (!unsplash) {
+      console.warn('Unsplash client not initialized. Using fallback image.');
+      return null;
+    }
+
     // Fetch from Unsplash API
     const result = await unsplash.photos.getRandom({
       query,
