@@ -102,7 +102,6 @@ export default function RootLayout({
         <meta name="csp-nonce" content={nonce} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -114,7 +113,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <meta name="theme-color" content="#19273A" />
         <meta name="msapplication-TileColor" content="#19273A" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Global Travel Report" />
         
