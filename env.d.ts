@@ -2,7 +2,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       // Core Application
-      NODE_ENV: 'development' | 'production' | 'test';
+      readonly NODE_ENV: 'development' | 'production' | 'test';
       NEXT_PUBLIC_SITE_URL?: string;
       NEXT_PUBLIC_BASE_URL?: string;
 

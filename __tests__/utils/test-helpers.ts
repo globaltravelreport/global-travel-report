@@ -44,16 +44,16 @@ export function mockDB(methods = {}) {
   return db;
 }
 
-export function makeNextRequest(url, options = {}) {
+export function makeNextRequest(url: string, options: Record<string, any> = {}) {
   return new Request(url, { method: 'GET', ...options });
 }
 
-export function renderWithProviders(ui, options) {
+export function renderWithProviders(ui: React.ReactElement, options?: any) {
   // Add any global providers here if needed
   return render(ui, options);
 }
 
-export function advanceTo(date) {
+export function advanceTo(date: string | number | Date) {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(date));
 }
