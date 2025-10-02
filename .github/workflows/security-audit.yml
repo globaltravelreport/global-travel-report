@@ -2,8 +2,8 @@ name: Security Audit
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Run weekly on Sunday at midnight
-  workflow_dispatch:  # Allow manual triggering
+    - cron: '0 0 * * 0' # Run weekly on Sunday at midnight
+  workflow_dispatch: # Allow manual triggering
   push:
     branches:
       - main
@@ -61,17 +61,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           config-path: .gitleaks.toml
-      
+
       - name: Upload security reports
         uses: actions/upload-artifact@v4
-        if: always()  # Upload reports even if previous steps failed
+        if: always() # Upload reports even if previous steps failed
         with:
           name: security-reports
           path: |
             npm-audit.json
             security-audit-report.md
           retention-days: 30
-      
+
       - name: Check for high severity vulnerabilities
         run: |
           HIGH_VULNS=$(grep -c '"severity":"high"' npm-audit.json || true)
@@ -83,45 +83,45 @@ jobs:
           else
             echo "No high or critical severity vulnerabilities found"
           fi
-          
+
           if grep -q "### High Severity" security-audit-report.md; then
             echo "High severity issues found in custom security audit!"
             exit 1
           fi
-  
+
   dependency-review:
     name: Review Dependencies
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
         with:
           fail-on-severity: high
           deny-licenses: 'GPL-3.0, AGPL-3.0'
-  
+
   codeql-analysis:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
     permissions:
       security-events: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: javascript, typescript
-      
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-  
+
   notify:
     name: Notify on Failure
     needs: [security-audit, dependency-review, codeql-analysis]
@@ -129,12 +129,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Slack notification
+      - name: Send Slack notification (only if webhook configured)
         run: |
           if [ -n "${{ secrets.SLACK_WEBHOOK }}" ]; then
-            echo "Slack webhook found, sending notification..."
+            echo "Sending Slack notification..."
             curl -X POST -H 'Content-type: application/json' \
-              --data '{"channel":"security-alerts","username":"Security Audit","icon_emoji":":warning:","attachments":[{"color":"danger","title":"Security Audit Failed","text":"Security issues found in the Global Travel Report website. Please check the GitHub Actions workflow for details.","footer":"Global Travel Report Security Audit"}]}' \
+              --data '{
+                "username": "Security Audit",
+                "icon_emoji": ":warning:",
+                "attachments": [
+                  {
+                    "color": "danger",
+                    "title": "Security Audit Failed",
+                    "text": "Security audit detected issues in the Global Travel Report repository.",
+                    "footer": "Global Travel Report Security Audit",
+                    "fields": [
+                      {
+                        "title": "Repository",
+                        "value": "'${{ github.repository }}'",
+                        "short": true
+                      },
+                      {
+                        "title": "Branch",
+                        "value": "'${{ github.ref }}'",
+                        "short": true
+                      },
+                      {
+                        "title": "Run URL",
+                        "value": "'${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'",
+                        "short": false
+                      }
+                    ]
+                  }
+                ]
+              }' \
               "${{ secrets.SLACK_WEBHOOK }}"
           else
             echo "No Slack webhook configured, skipping notification"
