@@ -37,6 +37,15 @@ export class UnsplashService {
     this.requestsPerHour = 50; // Unsplash free tier limit
     this.hourlyRequestCount = 0;
     this.lastResetHour = new Date().getHours();
+
+    // Log access key status - only in development
+    if (process.env.NODE_ENV === 'development') {
+      if (!this.accessKey) {
+        console.warn('Unsplash access key is not configured. Using fallback images.');
+      } else {
+        console.log('Unsplash access key is configured.');
+      }
+    }
   }
 
   /**

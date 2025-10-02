@@ -43,11 +43,13 @@ export class OpenAIService {
     // Reset counter if it's a new day
     this.checkAndResetDailyCounter();
 
-    // Log API key status
-    if (!this.apiKey || this.apiKey === 'your_openai_api_key_here') {
-      console.warn('OpenAI API key is not set or is using a placeholder value. Using mock responses instead.');
-    } else {
-      console.log('OpenAI API key is configured.');
+    // Log API key status - only in development
+    if (process.env.NODE_ENV === 'development') {
+      if (!this.apiKey || this.apiKey === 'your_openai_api_key_here') {
+        console.warn('OpenAI API key is not set or is using a placeholder value. Using mock responses instead.');
+      } else {
+        console.log('OpenAI API key is configured.');
+      }
     }
   }
 
