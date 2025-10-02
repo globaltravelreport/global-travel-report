@@ -38,10 +38,10 @@ export class UnsplashService {
     this.hourlyRequestCount = 0;
     this.lastResetHour = new Date().getHours();
 
-    // Log access key status - only in development
+    // Validate access key - only in development to avoid production noise
     if (process.env.NODE_ENV === 'development') {
-      if (!this.accessKey) {
-        console.warn('Unsplash access key is not configured. Using fallback images.');
+      if (!this.accessKey || this.accessKey === 'your_unsplash_access_key_here' || this.accessKey.length < 20) {
+        console.warn('Unsplash access key is not properly configured. Using fallback images.');
       } else {
         console.log('Unsplash access key is configured.');
       }
@@ -73,6 +73,11 @@ export class UnsplashService {
    * Check if we can make more API requests this hour
    */
   public canMakeRequest(): boolean {
+    // Check if access key is valid
+    if (!this.accessKey || this.accessKey === 'your_unsplash_access_key_here' || this.accessKey.length < 20) {
+      return false;
+    }
+
     this.checkAndResetHourlyCounter();
     return this.hourlyRequestCount < this.requestsPerHour;
   }

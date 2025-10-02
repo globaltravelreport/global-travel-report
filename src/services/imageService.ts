@@ -18,13 +18,20 @@ import pageImageTracker from '@/utils/pageImageTracker';
 // Initialize Unsplash API client
 const unsplash = (() => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
-  if (!accessKey) {
-    console.warn('Unsplash access key is not configured. Image service will use fallback images.');
+  if (!accessKey || accessKey === 'your_unsplash_access_key_here' || accessKey.length < 20) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Unsplash access key is not properly configured. Image service will use fallback images.');
+    }
     return null;
   }
-  return createApi({
-    accessKey,
-  });
+  try {
+    return createApi({
+      accessKey,
+    });
+  } catch (error) {
+    console.error('Failed to initialize Unsplash client:', error);
+    return null;
+  }
 })();
 
 // Cache for Unsplash API requests

@@ -30,8 +30,10 @@ const MAILERLITE_CONFIG = {
  * Add subscriber to MailerLite
  */
 async function addToMailerLite(email: string, firstName: string, lastName: string, frequency: string) {
-   if (!MAILERLITE_CONFIG.apiKey || MAILERLITE_CONFIG.apiKey === 'your_mailerlite_api_key_here') {
-     console.warn('MailerLite API key is not configured. Newsletter subscription will be logged but not sent to external service.');
+   if (!MAILERLITE_CONFIG.apiKey || MAILERLITE_CONFIG.apiKey === 'your_mailerlite_api_key_here' || MAILERLITE_CONFIG.apiKey.length < 20) {
+     if (process.env.NODE_ENV === 'development') {
+       console.warn('MailerLite API key is not properly configured. Newsletter subscription will be logged but not sent to external service.');
+     }
      // Return a mock successful response to prevent application crashes
      return {
        data: {
