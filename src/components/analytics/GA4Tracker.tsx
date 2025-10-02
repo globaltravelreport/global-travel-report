@@ -26,16 +26,14 @@ export function GA4Tracker({ children }: GA4TrackerProps) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Track page view
+    // Track page view only if GA is loaded and user has consented
     if (typeof window !== 'undefined' && window.gtag) {
       console.log('GA4Tracker: Tracking page view', pathname);
       const url = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
 
-      window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || GA_TRACKING_ID, {
+      window.gtag('config', GA_TRACKING_ID, {
         page_path: url,
       });
-    } else {
-      console.log('GA4Tracker: gtag not available');
     }
   }, [pathname, searchParams]);
 
@@ -67,7 +65,7 @@ export function useGA4() {
 
   const trackPageView = (pagePath: string, pageTitle?: string) => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+      window.gtag('config', GA_TRACKING_ID, {
         page_path: pagePath,
         page_title: pageTitle,
       });

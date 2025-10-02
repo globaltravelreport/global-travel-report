@@ -24,7 +24,7 @@ export function ClientLayoutWrapper() {
   return (
     <>
       <CookieConsentBanner />
-      {/* Google Analytics - Only loads after consent is checked */}
+      {/* Google Analytics - Only loads after user consent */}
       {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       )}

@@ -42,7 +42,7 @@ export function generateCSP(nonce: string): string {
     // Styles policy
     'style-src': [
       "'self'",
-      "'unsafe-inline'", // Needed for styled-jsx and other CSS-in-JS libraries
+      "'unsafe-inline'", // Needed for styled-jsx dynamic styles
       'https://fonts.googleapis.com',
       'https://www.gstatic.com'
     ],
