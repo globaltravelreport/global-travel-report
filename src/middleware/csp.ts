@@ -39,10 +39,10 @@ export function generateCSP(nonce: string): string {
       'https://pagead2.googlesyndication.com',
     ],
 
-    // Styles policy - temporarily allow unsafe-inline for styled-components compatibility
+    // Styles policy - strict CSP with nonces
     'style-src': [
       "'self'",
-      "'unsafe-inline'", // Temporarily allow inline styles for styled-components
+      `'nonce-${nonce}'`,
       'https://fonts.googleapis.com',
       'https://www.gstatic.com'
     ],

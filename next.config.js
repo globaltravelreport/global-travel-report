@@ -16,7 +16,7 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
   ].filter(Boolean).join(' ');
   const styleSrc = [
     `'self'`,
-    "'unsafe-inline'", // Temporarily allow inline styles for styled-components compatibility
+    nonce ? `'nonce-${nonce}'` : '',
     'https://fonts.googleapis.com',
     'https://www.gstatic.com'
   ].filter(Boolean).join(' ');
