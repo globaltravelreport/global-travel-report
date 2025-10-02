@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleAnalyticsService } from '@/src/lib/analytics';
+import { GoogleAnalyticsService } from '@/src/services/GoogleAnalyticsService';
 
 export const dynamic = 'force-dynamic';
 
