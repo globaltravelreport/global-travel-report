@@ -64,29 +64,29 @@ async function rewriteArticle(content, maxRetries = 3) {
 // Export the rewriteArticle function
 module.exports = { rewriteArticle };
 
-// If this file is run directly, process the sample article
-if (require.main === module) {
+// Main function to process the article
+async function processArticle() {
     // Sample article content (to be replaced with actual content later)
     const article = "Paris has reopened its Eiffel Tower tours after extensive renovations. The iconic landmark now features new glass floors and improved accessibility. Visitors can enjoy panoramic views of the city from the top floor, which has been completely refurbished. The surrounding Champ de Mars gardens have also been updated with new walking paths and seating areas.";
 
-    // Main function to process the article
-    async function processArticle() {
-        try {
-            console.log('Starting article processing...');
-            const rewrittenArticle = await rewriteArticle(article);
-            
-            console.log('\nRewritten Article:');
-            console.log('------------------');
-            console.log('Title:', rewrittenArticle.title);
-            console.log('Summary:', rewrittenArticle.summary);
-            console.log('Keywords:', rewrittenArticle.keywords.join(', '));
-            console.log('\nContent:', rewrittenArticle.content);
-            
-        } catch (error) {
-            console.error('Failed to process article:', error.message);
-        }
-    }
+    try {
+        console.log('Starting article processing...');
+        const rewrittenArticle = await rewriteArticle(article);
 
+        console.log('\nRewritten Article:');
+        console.log('------------------');
+        console.log('Title:', rewrittenArticle.title);
+        console.log('Summary:', rewrittenArticle.summary);
+        console.log('Keywords:', rewrittenArticle.keywords.join(', '));
+        console.log('\nContent:', rewrittenArticle.content);
+
+    } catch (error) {
+        console.error('Failed to process article:', error.message);
+    }
+}
+
+// If this file is run directly, process the sample article
+if (require.main === module) {
     // Run the main function
     processArticle();
-} 
+}

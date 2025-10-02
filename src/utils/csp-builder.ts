@@ -22,6 +22,7 @@ export function buildCSP({ nonce = '', env = 'production', reportOnly = false }:
   const styleSrc = [
     `'self'`,
     nonce ? `'nonce-${nonce}'` : '',
+    `'unsafe-hashes'`,
     'https://fonts.googleapis.com',
     'https://www.gstatic.com',
   ].filter(Boolean).join(' ');

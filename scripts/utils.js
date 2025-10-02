@@ -113,8 +113,11 @@ const fixImageUrls = (dryRun = false) => {
         return;
       }
 
-      // Fix the image URL
-      const fixedImageUrl = `https://images.unsplash.com/${imageUrl.split(?auto=format&q=80&w=2400'/').pop()}`;
+      // Fix the image URL - extract the photo ID from the URL
+      const urlParts = imageUrl.split('/');
+      const lastPart = urlParts[urlParts.length - 1];
+      const photoId = lastPart.split('?')[0];
+      const fixedImageUrl = `https://images.unsplash.com/${photoId}?auto=format&q=80&w=2400`;
 
       console.log(`Fixing image URL in ${path.basename(filePath)}`);
       console.log(`  Old: ${imageUrl}`);

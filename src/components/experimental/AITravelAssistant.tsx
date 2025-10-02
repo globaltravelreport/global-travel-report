@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, FormEvent, KeyboardEvent } from 'react';
+import { motion } from 'framer-motion';
 
 interface Message {
   id: string;
@@ -214,7 +214,7 @@ export function AITravelAssistant({
     }
   }, [isOpen, userLocation, getLocationBasedSuggestions]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
+  const handleSendMessage = async (e: FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
@@ -226,7 +226,7 @@ export function AITravelAssistant({
     await sendMessage(suggestion);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage(e);
@@ -313,7 +313,7 @@ export function AITravelAssistant({
         {messages[messages.length - 1]?.suggestions && (
           <div className="px-4 pb-2">
             <div className="flex flex-wrap gap-2">
-              {messages[messages.length - 1].suggestions.map((suggestion, index) => (
+              {messages[messages.length - 1]?.suggestions?.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}

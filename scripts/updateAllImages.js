@@ -337,7 +337,7 @@ async function updateAllImages() {
           }
 
           // Find available images for this category
-          let availableImages = categoryImages[category];
+          const availableImages = categoryImages[category];
 
           // If all images for this category have been used, reset the used images for this category
           if (availableImages.every(img => usedImages.has(img.url))) {

@@ -150,7 +150,7 @@ export function WorldMap({
 
     // Add the GeoJSON layer
     L.geoJSON(geoJSON, {
-      style: (feature) => {
+      style: (feature: any) => {
         const countryName = feature?.properties?.name;
         const isHighlighted = highlightedCountries.includes(countryName);
 
@@ -162,7 +162,7 @@ export function WorldMap({
           fillOpacity: isHighlighted ? 0.7 : 0.3,
         };
       },
-      onEachFeature: (feature, layer) => {
+      onEachFeature: (feature: any, layer: any) => {
         const countryName = feature?.properties?.name;
 
         // Add tooltip

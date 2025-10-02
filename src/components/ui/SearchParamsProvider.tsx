@@ -1,13 +1,14 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useSearchParams as useNextSearchParams } from 'next/navigation';
 
 /**
  * A component that safely uses useSearchParams inside a client component
  * This is an internal component used by SafeSearchParamsProvider
  */
-function SearchParamsContent({ children }: { children: React.ReactNode }) {
+function SearchParamsContent({ children }: { children: ReactNode }) {
   // Use Next.js useSearchParams hook - this must be called directly in a Client Component
   // and cannot be called conditionally
   // We don't need to use the return value, just need to call the hook to satisfy Next.js requirements
@@ -27,8 +28,8 @@ export function SearchParamsProvider({
   children,
   fallback = <div>Loading...</div>
 }: {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
 }) {
   return (
     <Suspense fallback={fallback}>
@@ -49,8 +50,8 @@ export function SafeSearchParamsProvider({
   children,
   fallback = <div>Loading...</div>
 }: {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
 }) {
   // This component is a client component that safely handles useSearchParams
   const [mounted, setMounted] = useState(false);

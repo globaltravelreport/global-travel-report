@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from "react";
+import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -9,7 +9,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/utils/cn";
 import { Mail } from "lucide-react";
 import { CheckCircle2 } from "lucide-react";
-import { AlertCircle } from "lucide-react";
 import { User } from "lucide-react";
 
 interface NewsletterSignupProps {
@@ -67,21 +66,21 @@ export const NewsletterSignup = ({
   };
 
   // Handle input changes
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if (errors.email) {
       setErrors(prev => ({ ...prev, email: '' }));
     }
   };
 
-  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
     if (errors.firstName) {
       setErrors(prev => ({ ...prev, firstName: '' }));
     }
   };
 
-  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
     if (errors.lastName) {
       setErrors(prev => ({ ...prev, lastName: '' }));
@@ -89,7 +88,7 @@ export const NewsletterSignup = ({
   };
 
   // Handle form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Validate form before submission

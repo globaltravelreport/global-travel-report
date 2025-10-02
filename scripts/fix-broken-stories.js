@@ -115,7 +115,7 @@ function fixStoryContent(content, filename) {
     return createNewFrontmatter(content, filename);
   }
   
-  let frontmatter = frontmatterMatch[1];
+  const frontmatter = frontmatterMatch[1];
   let storyContent = frontmatterMatch[2];
   
   // Parse the frontmatter

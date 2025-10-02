@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -368,7 +368,7 @@ export function CommentSystem({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'popular'>('newest');
 
-  const handleSubmitComment = async (e: React.FormEvent) => {
+  const handleSubmitComment = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!newComment.trim()) return;

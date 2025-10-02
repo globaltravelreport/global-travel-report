@@ -95,7 +95,7 @@ async function fixPhotographerNames() {
           const frontmatterLines = frontmatter.split('\n');
           const storyData = {};
           let inPhotographerBlock = false;
-          let photographerData = { name: '', url: '' };
+          const photographerData = { name: '', url: '' };
 
           for (const line of frontmatterLines) {
             // Check if we're entering the photographer block
@@ -107,9 +107,9 @@ async function fixPhotographerNames() {
             // Parse photographer block
             if (inPhotographerBlock) {
               if (line.startsWith('  name:')) {
-                photographerData.name = line.replace(/^  name:\s*"?([^"]*)"?$/, '$1');
+                photographerData.name = line.replace(/^ {2}name:\s*"?([^"]*)"?$/, '$1');
               } else if (line.startsWith('  url:')) {
-                photographerData.url = line.replace(/^  url:\s*"?([^"]*)"?$/, '$1');
+                photographerData.url = line.replace(/^ {2}url:\s*"?([^"]*)"?$/, '$1');
               } else if (!line.startsWith('  ')) {
                 inPhotographerBlock = false;
               }

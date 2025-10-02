@@ -42,7 +42,7 @@ export default function EnhancedOffersPageClient({
 
     // Track the click
     if (trackedLink.onClick) {
-      trackedLink.onClick({} as React.MouseEvent);
+      trackedLink.onClick({} as any);
     }
 
     // Redirect to the affiliate link

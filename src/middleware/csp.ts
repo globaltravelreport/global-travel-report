@@ -39,11 +39,12 @@ export function generateCSP(nonce: string): string {
       'https://pagead2.googlesyndication.com',
     ],
 
-    // Styles policy
+    // Styles policy - strict CSP with nonces
     'style-src': [
       "'self'",
-      "'unsafe-inline'", // Needed for styled-components and other CSS-in-JS libraries
-      'https://fonts.googleapis.com'
+      `'nonce-${nonce}'`,
+      'https://fonts.googleapis.com',
+      'https://www.gstatic.com'
     ],
 
     // Images policy - restrict to specific domains

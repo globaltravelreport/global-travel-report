@@ -1,9 +1,5 @@
 import { Metadata } from 'next';
 import { affiliatePartners } from '@/src/data/affiliatePartners';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
-import Image from 'next/image';
 import EnhancedOffersPageClient from './EnhancedOffersPageClient';
 
 export const metadata: Metadata = {

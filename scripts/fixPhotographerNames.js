@@ -72,7 +72,7 @@ async function fixPhotographerNames() {
           const frontmatterLines = frontmatter.split('\n');
           const storyData = {};
           let inPhotographerBlock = false;
-          let photographerData = {};
+          const photographerData = {};
           
           for (const line of frontmatterLines) {
             // Check if we're entering the photographer block

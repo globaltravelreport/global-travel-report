@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ShareData {
@@ -22,7 +22,7 @@ interface ShareWidgetsProps {
 
 interface ShareButton {
   name: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   color: string;
   hoverColor: string;
   shareUrl: (data: ShareData) => string;

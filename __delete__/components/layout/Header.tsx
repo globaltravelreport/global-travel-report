@@ -186,63 +186,6 @@ export function Header() {
               <Search className="w-5 h-5" />
             </button>
 
-            {/* Social Media Icons */}
-            <div className="flex items-center space-x-3">
-              <a
-                href="https://www.facebook.com/globaltravelreport"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaFacebook className="w-5 h-5" />
-              </a>
-              <a
-                href="https://x.com/GTravelReport"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (Twitter)"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaXTwitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/globaltravelreport/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaLinkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.youtube.com/@GlobalTravelReport"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaYoutube className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.tiktok.com/@globaltravelreport"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaTiktok className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.tumblr.com/blog/globaltravelreport"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Tumblr"
-                className="text-[#C9A14A] hover:text-white transition-colors"
-              >
-                <FaTumblr className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Mobile Menu Button */}

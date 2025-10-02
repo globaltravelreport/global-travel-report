@@ -24,10 +24,8 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/admin/",
           "/api/admin/",
-          "/_next/",
           "/private/",
           "/search?*", // Disallow search with parameters to avoid duplicate content
-          "/*.json$", // Disallow JSON files
           "/api/",
         ],
         // Crawl delay is not respected by Google, but included for completeness
@@ -57,7 +55,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/admin/",
           "/api/",
-          "/_next/",
           "/private/",
           "/search?*",
         ],

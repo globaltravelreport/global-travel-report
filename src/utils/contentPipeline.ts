@@ -3,8 +3,15 @@
 import type { Story } from '../../types/Story';
 import type { QualityScore, ValidationResult, ProcessingStats } from '../types/contentPipeline';
 
-export function orchestratePipeline(stages: Array<() => Promise<any>>): Promise<any[]> {
-  return stages.reduce((p, stage) => p.then(async (results) => [...results, await stage()]), Promise.resolve([]));
+export async function orchestratePipeline(stages: Array<() => Promise<any>>): Promise<any[]> {
+  const results: any[] = [];
+
+  for (const stage of stages) {
+    const result = await stage();
+    results.push(result);
+  }
+
+  return results;
 }
 
 export function htmlToMarkdown(html: string): string {

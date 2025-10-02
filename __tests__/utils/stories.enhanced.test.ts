@@ -32,38 +32,55 @@ describe('stories utilities', () => {
   });
 
   describe('getUniqueCountries', () => {
-    it('returns unique countries', () => {
-      const stories = [
-        { country: 'A' },
-        { country: 'B' },
-        { country: 'A' },
+    it('returns unique countries', async () => {
+      // Mock the database to return test stories
+      const mockStories = [
+        { country: 'A', id: '1', slug: 'test1', title: 'Test 1', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', category: 'Test', tags: [] },
+        { country: 'B', id: '2', slug: 'test2', title: 'Test 2', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', category: 'Test', tags: [] },
+        { country: 'A', id: '3', slug: 'test3', title: 'Test 3', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', category: 'Test', tags: [] },
       ];
-      expect(storiesUtils.getUniqueCountries(stories)).toEqual(['A', 'B']);
+      mockDB({ getAllStories: jest.fn().mockResolvedValue(mockStories) });
+
+      const result = await storiesUtils.getUniqueCountries();
+      expect(result).toEqual(['A', 'B']);
     });
   });
 
   describe('getUniqueCategories', () => {
-    it('returns unique categories', () => {
-      const stories = [
-        { category: 'X' },
-        { category: 'Y' },
-        { category: 'X' },
+    it('returns unique categories', async () => {
+      // Mock the database to return test stories
+      const mockStories = [
+        { category: 'X', id: '1', slug: 'test1', title: 'Test 1', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', country: 'Test', tags: [] },
+        { category: 'Y', id: '2', slug: 'test2', title: 'Test 2', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', country: 'Test', tags: [] },
+        { category: 'X', id: '3', slug: 'test3', title: 'Test 3', excerpt: 'Test excerpt', body: 'Test body', publishedAt: '2024-01-01', author: 'Test', country: 'Test', tags: [] },
       ];
-      expect(storiesUtils.getUniqueCategories(stories)).toEqual(['X', 'Y']);
+      mockDB({ getAllStories: jest.fn().mockResolvedValue(mockStories) });
+
+      const result = await storiesUtils.getUniqueCategories();
+      expect(result).toEqual(['X', 'Y']);
     });
   });
 
   describe('getStoryBySlug', () => {
-    it('finds by exact slug', () => {
-      const stories = [{ slug: 'foo', id: 1 }, { slug: 'bar', id: 2 }];
-      expect(storiesUtils.getStoryBySlug(stories, 'foo')).toEqual(stories[0]);
+    it('finds by exact slug', async () => {
+      const mockStory = { slug: 'foo', id: '1', title: 'Test', excerpt: 'Test', body: 'Test', publishedAt: '2024-01-01', author: 'Test', country: 'Test', category: 'Test', tags: [] };
+      mockDB({ getStoryBySlug: jest.fn().mockResolvedValue(mockStory) });
+
+      const result = await storiesUtils.getStoryBySlug('foo');
+      expect(result).toEqual(mockStory);
     });
-    it('finds by case-insensitive slug', () => {
-      const stories = [{ slug: 'Foo', id: 1 }];
-      expect(storiesUtils.getStoryBySlug(stories, 'foo')).toEqual(stories[0]);
+    it('finds by case-insensitive slug', async () => {
+      const mockStory = { slug: 'Foo', id: '1', title: 'Test', excerpt: 'Test', body: 'Test', publishedAt: '2024-01-01', author: 'Test', country: 'Test', category: 'Test', tags: [] };
+      mockDB({ getStoryBySlug: jest.fn().mockResolvedValue(mockStory) });
+
+      const result = await storiesUtils.getStoryBySlug('foo');
+      expect(result).toEqual(mockStory);
     });
-    it('returns undefined for missing slug', () => {
-      expect(storiesUtils.getStoryBySlug([], 'nope')).toBeUndefined();
+    it('returns null for missing slug', async () => {
+      mockDB({ getStoryBySlug: jest.fn().mockResolvedValue(null) });
+
+      const result = await storiesUtils.getStoryBySlug('nope');
+      expect(result).toBeNull();
     });
   });
 

@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { Story } from '@/types/Story';
-import { ClientSuspense } from '@/components/ui/ClientSuspense';
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider';
 
 function AdminStoriesContent() {
@@ -87,7 +86,7 @@ function AdminStoriesContent() {
     setCurrentPage(page);
   };
 
-  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(event.target.value);
     setCurrentPage(1); // Reset to first page when changing category
   };

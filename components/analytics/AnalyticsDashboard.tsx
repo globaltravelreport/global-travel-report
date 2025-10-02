@@ -97,16 +97,34 @@ export function AnalyticsDashboard() {
           <OverviewStats data={analyticsData} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <TopPagesChart data={analyticsData.topPages} />
-            <TrafficSourcesChart data={analyticsData.topSources} />
+            <TopPagesChart data={(analyticsData.topPages ?? []).map(page => ({
+              path: page.pagePath,
+              pageViews: page.pageViews,
+              title: page.pageTitle
+            }))} />
+            <TrafficSourcesChart data={(analyticsData.topSources ?? []).map(source => ({
+              source: source.source,
+              pageViews: source.sessions // Map sessions to pageViews for now
+            }))} />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <GeographicDistribution data={analyticsData.topCountries} />
-            <DeviceBreakdown data={analyticsData.deviceBreakdown} />
+            <GeographicDistribution data={(analyticsData.topCountries ?? []).map(country => ({
+              country: country.country,
+              pageViews: country.sessions // Map sessions to pageViews for now
+            }))} />
+            <DeviceBreakdown data={(analyticsData.deviceBreakdown ?? []).map(device => ({
+              device: device.deviceCategory,
+              sessions: device.sessions,
+              percentage: '0%' // Placeholder - would need to calculate from total
+            }))} />
           </div>
 
-          <TrafficOverTime data={analyticsData.trafficOverTime} />
+          <TrafficOverTime data={(analyticsData.trafficOverTime ?? []).map(item => ({
+            date: item.date,
+            visitors: item.sessions, // Map sessions to visitors
+            pageViews: item.pageViews
+          }))} />
         </div>
       ) : null}
     </div>

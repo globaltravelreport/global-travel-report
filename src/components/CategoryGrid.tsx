@@ -1,10 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
 import { StoryDatabase } from '@/src/services/storyDatabase';
-import { useState, useEffect } from 'react';
 import { Story } from '@/types/Story';
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -23,30 +20,22 @@ const CATEGORY_IMAGES: Record<string, string> = {
   'solo-travel': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1200&h=600'
 };
 
-export default function CategoryGrid() {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [loading, setLoading] = useState(true);
+export default async function CategoryGrid() {
   const featuredCategories = getFeaturedCategories();
 
-  useEffect(() => {
-    const loadStories = async () => {
-      try {
-        const storyDb = StoryDatabase.getInstance();
-        const allStories = await storyDb.getAllStories();
-        setStories(allStories);
-      } catch (error) {
-        console.error('Error loading stories for category grid:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStories();
-  }, []);
+  // Server-side data fetching
+  let stories: Story[] = [];
+  try {
+    const storyDb = StoryDatabase.getInstance();
+    stories = await storyDb.getAllStories();
+  } catch (error) {
+    console.error('Error loading stories for category grid:', error);
+    // Continue with empty stories array
+  }
 
   // Get story count for each category
   const getCategoryStoryCount = (categorySlug: string) => {
-    return stories.filter(story =>
+    return stories.filter((story: Story) =>
       story.category && story.category.toLowerCase() === categorySlug.toLowerCase()
     ).length;
   };
@@ -70,7 +59,7 @@ export default function CategoryGrid() {
             <Link
               key={category.slug}
               href={`/categories/${category.slug}`}
-              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out transform hover:-translate-y-2 overflow-hidden focus:outline-none focus:ring-4 focus:ring-[#C9A14A] focus:ring-offset-2"
+              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out transform hover:-translate-y-2 overflow-hidden focus:outline-none focus:ring-4 focus:ring-[#C9A14A] focus:ring-offset-2 animate-fade-in-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Category Image */}
@@ -158,34 +147,6 @@ export default function CategoryGrid() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .group {
-          animation: fade-in-up 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .group {
-            animation: none;
-            opacity: 1;
-          }
-
-          .group:hover {
-            transform: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

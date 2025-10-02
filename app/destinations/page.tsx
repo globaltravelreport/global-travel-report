@@ -253,7 +253,7 @@ async function DestinationsPageContent() {
                 >
                   <h2 className="text-3xl font-bold text-gray-900 border-b pb-2">{country}</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {(storiesByCountry[originalCountryKey] || []).slice(0, 6).map((story) => (
+                    {(storiesByCountry[originalCountryKey] || []).slice(0, 6).map((story: any) => (
                       <SimpleStoryCard key={story?.id} story={story} />
                     ))}
                   </div>

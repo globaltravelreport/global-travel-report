@@ -5,7 +5,7 @@ import { CookieConsentBanner, useCookieConsent } from '../src/components/ui/Cook
 import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 
 export function ClientLayoutWrapper() {
-  const { canUseAnalytics } = useCookieConsent();
+  const { canUseAnalytics: _canUseAnalytics } = useCookieConsent();
 
   useEffect(() => {
     const handleCookieConsent = (event: CustomEvent<{ preferences: any; action: string }>) => {
@@ -24,7 +24,7 @@ export function ClientLayoutWrapper() {
   return (
     <>
       <CookieConsentBanner />
-      {/* Google Analytics - Only loads after consent is checked */}
+      {/* Google Analytics - Only loads after user consent */}
       {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       )}

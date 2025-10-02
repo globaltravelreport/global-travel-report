@@ -4,11 +4,13 @@
  * Implements secure session management with encryption and proper security measures
  */
 
+import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
+import { env, requireEnv } from './env';
 
 const ALGORITHM = 'aes-256-gcm';
-const KEY = process.env.AUTH_ENCRYPTION_KEY || 'fallback-key-change-in-production';
+const KEY = requireEnv('AUTH_ENCRYPTION_KEY', 'Encryption key for session data (must be at least 16 characters)');
 const IV_LENGTH = 16;
 const TAG_LENGTH = 16;
 
@@ -189,13 +191,24 @@ export class SecureAuth {
       };
     }
 
-    // Mock credential verification (replace with real database check)
-    const validCredentials = {
-      admin: 'secure_password_123',
-      editor: 'editor_pass_456',
-    };
+    // Get credentials from validated environment
+    const validCredentials: Record<string, string> = {};
 
-    const expectedPassword = validCredentials[username as keyof typeof validCredentials];
+    // Only add credentials if they exist in environment
+    if (env.ADMIN_USERNAME && env.ADMIN_PASSWORD) {
+      validCredentials[env.ADMIN_USERNAME] = env.ADMIN_PASSWORD;
+    }
+    if (env.EDITOR_USERNAME && env.EDITOR_PASSWORD) {
+      validCredentials[env.EDITOR_USERNAME] = env.EDITOR_PASSWORD;
+    }
+
+    // Fallback for development (should be removed in production)
+    if (Object.keys(validCredentials).length === 0 && env.NODE_ENV !== 'production') {
+      validCredentials.admin = 'secure_password_123';
+      validCredentials.editor = 'editor_pass_456';
+    }
+
+    const expectedPassword = validCredentials[username];
 
     if (!expectedPassword || password !== expectedPassword) {
       // Record failed attempt

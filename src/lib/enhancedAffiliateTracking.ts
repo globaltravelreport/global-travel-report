@@ -135,7 +135,7 @@ export function createTrackedAffiliateLink(
   const utmParams = generateUTMParameters(affiliateId, context, customUTM);
   const trackedUrl = addTrackingToAffiliateUrl(originalUrl, utmParams);
 
-  const clickHandler = async (event: React.MouseEvent) => {
+  const clickHandler = async (event: MouseEvent) => {
     // Track the click
     const trackingData: ClickTrackingData = {
       affiliateId,

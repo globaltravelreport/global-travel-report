@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
 import { AdSenseInArticle, AdSenseLeaderboard } from '@/components/ads/AdSense';
-import type { Story } from "@/types/Story";
 import type { Metadata } from "next";
 import { format } from 'date-fns';
 import { getSafeDateString, validateDate } from '@/utils/date-utils';
@@ -17,14 +16,12 @@ import { getStoryBySlug } from "@/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/utils/meta";
 import { StoryShareSection } from "@/components/stories/StoryShareSection";
-import { EnhancedSocialShare } from "@/components/social/EnhancedSocialShare";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
-import { generateFacebookImage, generateFacebookMeta } from "@/utils/facebook-optimizer";
+import { generateFacebookMeta } from "@/utils/facebook-optimizer";
 
 import PopularTags from "@/src/components/ui/PopularTags";
-import CommentSystem from "@/src/components/ui/CommentSystem";
 
 // Define the params type for Next.js
 type StoryParams = {
@@ -125,15 +122,17 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       },
     },
     other: {
-      'geo.placename': story.country !== 'Global' ? story.country : undefined,
-      'geo.region': story.country !== 'Global' ? story.country : undefined,
       'og:image:width': '1200',
       'og:image:height': '630',
       'article:published_time': getSafeDateString(story.publishedAt, false, true),
       'article:publisher': siteUrl,
       'article:author': 'Global Travel Report Editorial Team',
-      'article:section': story.category,
+      'article:section': story.category || 'General',
       'article:tag': story.tags.join(','),
+      ...(story.country && story.country !== 'Global' ? {
+        'geo.placename': story.country,
+        'geo.region': story.country,
+      } : {}),
     },
   };
 }
@@ -247,19 +246,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 <span>By Global Travel Report Editorial Team</span>
               </div>
 
-              <div className="hidden sm:block">
-                <EnhancedSocialShare
-                  url={`/stories/${story.slug}`}
-                  title={story.title}
-                  description={story.excerpt}
-                  imageUrl={story.imageUrl}
-                  showShareButton={true}
-                  showLabels={false}
-                  iconSize={20}
-                  platforms={['facebook', 'twitter', 'linkedin', 'whatsapp']}
-                  trackShares={true}
-                />
-              </div>
             </div>
 
             {story.imageUrl && (

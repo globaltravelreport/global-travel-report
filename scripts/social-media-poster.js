@@ -653,7 +653,7 @@ function formatForLinkedIn(story, url, hashtags) {
  */
 function formatForMedium(story, url, hashtags) {
   // Create the content
-  let content = `${story.content}\n\n---\n\n*Originally published at [Global Travel Report](${url})*`;
+  const content = `${story.content}\n\n---\n\n*Originally published at [Global Travel Report](${url})*`;
 
   return {
     title: story.title,

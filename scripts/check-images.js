@@ -23,8 +23,8 @@ const ALLOWED_DOMAINS = [
 // Track results
 let totalUrls = 0;
 let checkedUrls = 0;
-let failedUrls = [];
-let brokenUrls = [];
+const failedUrls = [];
+const brokenUrls = [];
 
 // Utility function to check if URL is external
 function isExternalUrl(url) {

@@ -55,7 +55,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     // This ensures each story gets a unique image regardless of what's in the database
 
     // Expanded category-specific default images with more options
-    const defaultImages = {
+    const defaultImages: Record<string, { url: string; photographer: string; profileUrl: string }[]> = {
       'Travel': [
         { url: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400', photographer: 'Jakob Owens', profileUrl: 'https://unsplash.com/@jakobowens1' },
         { url: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400', photographer: 'Asoggetti', profileUrl: 'https://unsplash.com/@asoggetti' },

@@ -31,12 +31,21 @@ export class UnsplashService {
   private lastResetHour: number;
 
   private constructor() {
-    this.accessKey = process.env.UNSPLASH_ACCESS_KEY;
+    this.accessKey = process.env.UNSPLASH_ACCESS_KEY || '';
     this.maxRetries = 3;
     this.retryDelay = 1000;
     this.requestsPerHour = 50; // Unsplash free tier limit
     this.hourlyRequestCount = 0;
     this.lastResetHour = new Date().getHours();
+
+    // Validate access key - only in development to avoid production noise
+    if (process.env.NODE_ENV === 'development') {
+      if (!this.accessKey || this.accessKey === 'your_unsplash_access_key_here' || this.accessKey.length < 20) {
+        console.warn('Unsplash access key is not properly configured. Using fallback images.');
+      } else {
+        console.log('Unsplash access key is configured.');
+      }
+    }
   }
 
   /**
@@ -64,6 +73,11 @@ export class UnsplashService {
    * Check if we can make more API requests this hour
    */
   public canMakeRequest(): boolean {
+    // Check if access key is valid
+    if (!this.accessKey || this.accessKey === 'your_unsplash_access_key_here' || this.accessKey.length < 20) {
+      return false;
+    }
+
     this.checkAndResetHourlyCounter();
     return this.hourlyRequestCount < this.requestsPerHour;
   }
