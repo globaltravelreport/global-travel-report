@@ -8,6 +8,7 @@
 
 import { useEffect, ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { GA_TRACKING_ID } from '../../lib/analytics';
 
 interface GA4TrackerProps {
   children?: ReactNode;
@@ -27,11 +28,14 @@ export function GA4Tracker({ children }: GA4TrackerProps) {
   useEffect(() => {
     // Track page view
     if (typeof window !== 'undefined' && window.gtag) {
+      console.log('GA4Tracker: Tracking page view', pathname);
       const url = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
 
-      window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+      window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || GA_TRACKING_ID, {
         page_path: url,
       });
+    } else {
+      console.log('GA4Tracker: gtag not available');
     }
   }, [pathname, searchParams]);
 
@@ -76,59 +80,13 @@ export function useGA4() {
   };
 }
 
-/**
- * Newsletter signup event tracker
- */
-export function trackNewsletterSignup(source: string = 'website') {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'newsletter_signup', {
-      event_category: 'engagement',
-      event_label: source,
-    });
-  }
-}
-
-/**
- * Affiliate click event tracker
- */
-export function trackAffiliateClick(productId: string, provider: string, source: string = 'website') {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'affiliate_click', {
-      event_category: 'monetization',
-      event_label: productId,
-      value: provider,
-      custom_parameter: source,
-    });
-  }
-}
-
-/**
- * Story engagement tracker
- */
-export function trackStoryEngagement(
-  storyId: string,
-  action: 'view' | 'comment' | 'reaction' | 'share',
-  metadata?: Record<string, any>
-) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'story_engagement', {
-      event_category: 'content',
-      event_label: storyId,
-      action: action,
-      ...metadata,
-    });
-  }
-}
-
-/**
- * Search event tracker
- */
-export function trackSearch(query: string, resultsCount?: number) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'search', {
-      event_category: 'navigation',
-      search_term: query,
-      results_count: resultsCount,
-    });
-  }
-}
+// Re-export utility functions from lib/analytics
+export {
+  trackNewsletterSignup,
+  trackAffiliateClick,
+  trackStoryEngagement,
+  trackSearch,
+  trackEvent,
+  trackPageView,
+  trackInteraction
+} from '../../lib/analytics';
