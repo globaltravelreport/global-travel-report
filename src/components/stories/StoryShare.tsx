@@ -347,7 +347,7 @@ export default function StoryShare({
             </motion.button>
 
             {/* Native Share (mobile) */}
-            {navigator.share && (
+            {typeof navigator !== 'undefined' && 'share' in navigator && (
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
