@@ -332,35 +332,6 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        /* Ensure smooth animations */
-        @media (prefers-reduced-motion: reduce) {
-          .animate-fade-in-up {
-            animation: none;
-            opacity: 1;
-          }
-
-          .group:hover {
-            transform: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
