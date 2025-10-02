@@ -17,9 +17,9 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
   const styleSrc = [
     `'self'`,
     nonce ? `'nonce-${nonce}'` : '',
+    "'unsafe-inline'", // Required for styled-jsx dynamic styles
     'https://fonts.googleapis.com',
-    'https://www.gstatic.com',
-    ...(isProd ? [] : [`'unsafe-inline'`])
+    'https://www.gstatic.com'
   ].filter(Boolean).join(' ');
   const imgSrc = [
     `'self'`,
