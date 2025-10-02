@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const violation = await request.json();
@@ -21,7 +23,7 @@ export async function POST(request: NextRequest) {
     // - CloudWatch
     // - Custom logging service
 
-    return NextResponse.json({ received: true }, { status: 200 });
+    return NextResponse.json({ received: true }, { status: 204 });
   } catch (error) {
     console.error('Error processing CSP violation:', error);
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });

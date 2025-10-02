@@ -39,10 +39,10 @@ export function generateCSP(nonce: string): string {
       'https://pagead2.googlesyndication.com',
     ],
 
-    // Styles policy - allow unsafe-inline for styled-jsx compatibility
+    // Styles policy - temporarily allow unsafe-inline for styled-components compatibility
     'style-src': [
       "'self'",
-      "'unsafe-inline'", // Required for styled-jsx dynamic style injection
+      "'unsafe-inline'", // Temporarily allow inline styles for styled-components
       'https://fonts.googleapis.com',
       'https://www.gstatic.com'
     ],
