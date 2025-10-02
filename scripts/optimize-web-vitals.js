@@ -135,24 +135,7 @@ export function FontOptimizer() {
         crossOrigin="anonymous"
       />
       
-      {/* Font display strategy */}
-      <style jsx global>{\`
-        @font-face {
-          font-family: 'Inter';
-          font-style: normal;
-          font-weight: 400;
-          font-display: swap;
-          src: url('/fonts/inter.woff2') format('woff2');
-        }
-        
-        @font-face {
-          font-family: 'Inter';
-          font-style: normal;
-          font-weight: 700;
-          font-display: swap;
-          src: url('/fonts/inter-bold.woff2') format('woff2');
-        }
-      \`}</style>
+      {/* Font display strategy - moved to globals.css */}
     </>
   );
 }

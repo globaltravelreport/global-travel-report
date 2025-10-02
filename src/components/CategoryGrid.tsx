@@ -70,7 +70,7 @@ export default function CategoryGrid() {
             <Link
               key={category.slug}
               href={`/categories/${category.slug}`}
-              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out transform hover:-translate-y-2 overflow-hidden focus:outline-none focus:ring-4 focus:ring-[#C9A14A] focus:ring-offset-2"
+              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out transform hover:-translate-y-2 overflow-hidden focus:outline-none focus:ring-4 focus:ring-[#C9A14A] focus:ring-offset-2 animate-fade-in-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Category Image */}
@@ -158,34 +158,6 @@ export default function CategoryGrid() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .group {
-          animation: fade-in-up 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .group {
-            animation: none;
-            opacity: 1;
-          }
-
-          .group:hover {
-            transform: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
