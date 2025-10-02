@@ -92,10 +92,14 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
-  
+
+  // Generate nonce for CSP
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <meta name="csp-nonce" content={nonce} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

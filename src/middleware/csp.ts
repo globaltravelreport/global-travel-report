@@ -42,8 +42,9 @@ export function generateCSP(nonce: string): string {
     // Styles policy
     'style-src': [
       "'self'",
-      "'unsafe-inline'", // Needed for styled-components and other CSS-in-JS libraries
-      'https://fonts.googleapis.com'
+      "'unsafe-inline'", // Needed for styled-jsx and other CSS-in-JS libraries
+      'https://fonts.googleapis.com',
+      'https://www.gstatic.com'
     ],
 
     // Images policy - restrict to specific domains
