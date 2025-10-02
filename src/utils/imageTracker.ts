@@ -214,15 +214,19 @@ export function getImageForStory(storySlug: string, category: string): { imageUr
     
     // Get the photographer for this image
     const selectedPhotographer = photographers.find(p => p.imageUrl === leastUsedImage);
-    
+
+    if (!selectedPhotographer) {
+      throw new Error(`Photographer not found for image: ${leastUsedImage}`);
+    }
+
     // Mark this image as used for this story
     tracker.images[leastUsedImage].usedInStories.push(storySlug);
-    
+
     // Save the updated tracker (server-side only)
     if (typeof window === 'undefined' && fs) {
       fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(tracker, null, 2));
     }
-    
+
     return {
       imageUrl: leastUsedImage,
       photographer: {
