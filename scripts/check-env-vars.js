@@ -13,7 +13,6 @@ const requiredVars = [
 ];
 
 const optionalVars = [
-  'MAILERLITE_API_KEY',
   'TWITTER_API_KEY',
   'DATABASE_URL',
   'SENTRY_DSN'

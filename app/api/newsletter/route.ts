@@ -19,63 +19,25 @@ const newsletterSchema = z.object({
 // Define the request type
 type NewsletterRequest = z.infer<typeof newsletterSchema>;
 
-// MailerLite API configuration
-const MAILERLITE_CONFIG = {
-  apiUrl: process.env.MAILERLITE_API_URL || 'https://connect.mailerlite.com/api',
-  apiKey: process.env.MAILERLITE_API_KEY || '',
-  defaultGroupId: process.env.MAILERLITE_DEFAULT_GROUP_ID || '', // Optional: specific group ID
-};
+// Newsletter service configuration (currently using mock responses)
 
 /**
- * Add subscriber to MailerLite
+ * Add subscriber to newsletter service (currently using mock responses)
  */
-async function addToMailerLite(email: string, firstName: string, lastName: string, frequency: string) {
-   if (!MAILERLITE_CONFIG.apiKey || MAILERLITE_CONFIG.apiKey === 'your_mailerlite_api_key_here' || MAILERLITE_CONFIG.apiKey.length < 20) {
-     if (process.env.NODE_ENV === 'development') {
-       console.warn('MailerLite API key is not properly configured. Newsletter subscription will be logged but not sent to external service.');
-     }
-     // Return a mock successful response to prevent application crashes
-     return {
-       data: {
-         id: `mock-${Date.now()}`,
-         email,
-         created_at: new Date().toISOString()
-       }
-     };
+async function addToNewsletterService(email: string, firstName: string, lastName: string, frequency: string) {
+   // Since MailerLite is not being used, always return a mock successful response
+   if (process.env.NODE_ENV === 'development') {
+     console.log(`Newsletter subscription: ${email} (${frequency}) - Mock response`);
    }
 
-  const subscriberData: any = {
-    email,
-    fields: {
-      name: `${firstName} ${lastName}`,
-      first_name: firstName,
-      last_name: lastName,
-      frequency: frequency,
-      source: 'website_signup',
-      signup_date: new Date().toISOString(),
-    },
-  };
-
-  // Add to specific group if configured
-  if (MAILERLITE_CONFIG.defaultGroupId) {
-    subscriberData.groups = [MAILERLITE_CONFIG.defaultGroupId];
-  }
-
-  const response = await fetch(`${MAILERLITE_CONFIG.apiUrl}/subscribers`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${MAILERLITE_CONFIG.apiKey}`,
-    },
-    body: JSON.stringify(subscriberData),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.text();
-    throw new Error(`MailerLite API error: ${response.status} - ${errorData}`);
-  }
-
-  return await response.json();
+   // Return a mock successful response
+   return {
+     data: {
+       id: `mock-${Date.now()}`,
+       email,
+       created_at: new Date().toISOString()
+     }
+   };
 }
 
 /**
@@ -120,15 +82,15 @@ export const POST = createApiHandler<NewsletterRequest>(
     const sanitizedLastName = lastName.trim().replace(/[<>]/g, '');
 
     try {
-       // Add subscriber to MailerLite
-       const mailerLiteResponse = await addToMailerLite(
+       // Add subscriber to newsletter service
+       const newsletterResponse = await addToNewsletterService(
          sanitizedEmail,
          sanitizedFirstName,
          sanitizedLastName,
          frequency
        );
 
-       console.log(`New newsletter subscription: ${sanitizedEmail} (${frequency}) - Subscriber ID: ${mailerLiteResponse.data?.id}`);
+       console.log(`New newsletter subscription: ${sanitizedEmail} (${frequency}) - Subscriber ID: ${newsletterResponse.data?.id}`);
 
        // Return success response
        return createApiResponse({
@@ -138,7 +100,7 @@ export const POST = createApiHandler<NewsletterRequest>(
            firstName: sanitizedFirstName,
            lastName: sanitizedLastName,
            frequency,
-           subscriberId: mailerLiteResponse.data?.id,
+           subscriberId: newsletterResponse.data?.id,
          }
        });
 
