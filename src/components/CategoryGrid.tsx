@@ -1,10 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
 import { StoryDatabase } from '@/src/services/storyDatabase';
-import { useState, useEffect } from 'react';
 import { Story } from '@/types/Story';
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -23,30 +20,22 @@ const CATEGORY_IMAGES: Record<string, string> = {
   'solo-travel': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1200&h=600'
 };
 
-export default function CategoryGrid() {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [loading, setLoading] = useState(true);
+export default async function CategoryGrid() {
   const featuredCategories = getFeaturedCategories();
 
-  useEffect(() => {
-    const loadStories = async () => {
-      try {
-        const storyDb = StoryDatabase.getInstance();
-        const allStories = await storyDb.getAllStories();
-        setStories(allStories);
-      } catch (error) {
-        console.error('Error loading stories for category grid:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStories();
-  }, []);
+  // Server-side data fetching
+  let stories: Story[] = [];
+  try {
+    const storyDb = StoryDatabase.getInstance();
+    stories = await storyDb.getAllStories();
+  } catch (error) {
+    console.error('Error loading stories for category grid:', error);
+    // Continue with empty stories array
+  }
 
   // Get story count for each category
   const getCategoryStoryCount = (categorySlug: string) => {
-    return stories.filter(story =>
+    return stories.filter((story: Story) =>
       story.category && story.category.toLowerCase() === categorySlug.toLowerCase()
     ).length;
   };
