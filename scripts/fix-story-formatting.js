@@ -43,16 +43,16 @@ async function fixStoryFormatting() {
       const { data, content: markdownContent } = matter(fileContent);
 
       // Fix the title
-      let title = cleanValue(data.title || '');
+      const title = cleanValue(data.title || '');
 
       // Fix the country
-      let country = cleanValue(data.country);
+      const country = cleanValue(data.country);
 
       // Fix the type
-      let type = cleanValue(data.type);
+      const type = cleanValue(data.type);
 
       // Fix keywords array
-      let keywords = cleanAndDeduplicateArray(data.keywords);
+      const keywords = cleanAndDeduplicateArray(data.keywords);
 
       // Fix the content
       let content = markdownContent;

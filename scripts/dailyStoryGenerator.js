@@ -503,7 +503,7 @@ async function fetchStoriesFromFeeds(feedUrls, count, logFn = console.log) {
           if (!item.title) continue;
 
           // Extract content from various possible fields
-          let content = item.contentEncoded || item.content || item.description || '';
+          const content = item.contentEncoded || item.content || item.description || '';
 
           // Skip items with very short content
           if (content.length < 100) continue;

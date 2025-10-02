@@ -27,7 +27,7 @@ async function generateStories() {
     console.log(`Configuration: count=${count}, cruiseCount=${cruiseCount}, production=${production}`);
 
     // Build the URL
-    let url = `${BASE_URL}/api/cron/dailyStories?count=${count}&cruiseCount=${cruiseCount}`;
+    const url = `${BASE_URL}/api/cron/dailyStories?count=${count}&cruiseCount=${cruiseCount}`;
 
     // Add headers
     const headers = {

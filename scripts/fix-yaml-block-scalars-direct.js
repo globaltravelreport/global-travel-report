@@ -42,7 +42,7 @@ async function fixYamlBlockScalarsDirect() {
         const filePath = path.join(ARTICLES_DIRECTORY, file);
         
         // Read the file content directly
-        let fileContent = fs.readFileSync(filePath, 'utf8');
+        const fileContent = fs.readFileSync(filePath, 'utf8');
         
         // Check if the file contains YAML block scalar indicators
         const containsBlockScalars = fileContent.includes('summary: |-') || 

@@ -42,7 +42,7 @@ async function fixYamlBlockScalarsRegex() {
         const filePath = path.join(ARTICLES_DIRECTORY, file);
         
         // Read the file content directly
-        let fileContent = fs.readFileSync(filePath, 'utf8');
+        const fileContent = fs.readFileSync(filePath, 'utf8');
         
         // Define regex patterns for block scalar indicators
         const summaryPattern = /(summary:\s*\|-\s*\n)(\s+.*?)(\n\w|$)/s;

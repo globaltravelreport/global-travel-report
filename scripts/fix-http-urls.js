@@ -91,7 +91,7 @@ function getAllFiles(dir, extensions) {
 function fixHttpUrls(filePath, dryRun = false, verbose = false) {
   try {
     let content = fs.readFileSync(filePath, 'utf8');
-    let originalContent = content;
+    const originalContent = content;
     let changed = false;
     
     config.patterns.forEach(pattern => {

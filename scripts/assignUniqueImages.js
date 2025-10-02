@@ -220,7 +220,7 @@ async function assignUniqueImages() {
           const category = storyCategories.get(file) || defaultCategory;
 
           // Find available images for this category
-          let availableImages = categoryImages[category] || categoryImages[defaultCategory];
+          const availableImages = categoryImages[category] || categoryImages[defaultCategory];
 
           // If all images for this category have been used, reset the used images for this category
           if (availableImages.every(img => usedImages.has(img.url))) {
