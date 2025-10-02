@@ -43,7 +43,7 @@ export function useFormValidation<T>(schema: ZodSchema<T>, initial: T) {
       }
       await submitFn({ ...values, csrfToken });
       setSuccess(true);
-    } catch (err) {
+    } catch (err: any) {
       if (err instanceof ZodError) {
         const fieldErrors: Record<string, string> = {};
         err.errors.forEach(e => { if (e.path[0]) fieldErrors[e.path[0] as string] = e.message; });
