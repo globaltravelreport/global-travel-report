@@ -110,7 +110,6 @@ export function AccessibilityProvider({
 
   return (
     <AccessibilityContext.Provider value={contextValue}>
-      <AccessibilityStyles settings={settings} />
       {children}
     </AccessibilityContext.Provider>
   );
@@ -124,102 +123,8 @@ export function useAccessibility() {
   return context;
 }
 
-// Dynamic styles based on accessibility settings
-interface AccessibilityStylesProps {
-  settings: AccessibilitySettings;
-}
-
-function AccessibilityStyles({ settings }: AccessibilityStylesProps) {
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.id = 'accessibility-styles';
-
-    let css = '';
-
-    // Reduced motion
-    if (settings.reducedMotion) {
-      css += `
-        *, *::before, *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          scroll-behavior: auto !important;
-        }
-      `;
-    }
-
-    // High contrast
-    if (settings.highContrast) {
-      css += `
-        body {
-          filter: contrast(150%) brightness(120%);
-        }
-        .bg-gray-50 { background-color: #000 !important; }
-        .bg-white { background-color: #fff !important; }
-        .text-gray-600 { color: #000 !important; }
-        .text-gray-800 { color: #000 !important; }
-        .border-gray-200 { border-color: #000 !important; }
-      `;
-    }
-
-    // Large text
-    if (settings.largeText) {
-      css += `
-        html { font-size: 120% !important; }
-        h1 { font-size: 2.5rem !important; }
-        h2 { font-size: 2rem !important; }
-        h3 { font-size: 1.75rem !important; }
-        .text-sm { font-size: 1rem !important; }
-        .text-base { font-size: 1.125rem !important; }
-        .text-lg { font-size: 1.25rem !important; }
-      `;
-    }
-
-    // Font size
-    const fontSizeMap = {
-      small: '14px',
-      medium: '16px',
-      large: '18px',
-      'extra-large': '20px',
-    };
-
-    css += `html { font-size: ${fontSizeMap[settings.fontSize]} !important; }`;
-
-    // Focus visible
-    if (settings.focusVisible) {
-      css += `
-        .focus-visible:focus {
-          outline: 2px solid #3b82f6 !important;
-          outline-offset: 2px !important;
-        }
-      `;
-    }
-
-    // Color blind friendly
-    if (settings.colorBlind) {
-      css += `
-        .text-red-500 { color: #d97706 !important; }
-        .text-green-500 { color: #059669 !important; }
-        .bg-red-500 { background-color: #d97706 !important; }
-        .bg-green-500 { background-color: #059669 !important; }
-        .border-red-500 { border-color: #d97706 !important; }
-        .border-green-500 { border-color: #059669 !important; }
-      `;
-    }
-
-    style.textContent = css;
-    document.head.appendChild(style);
-
-    return () => {
-      const existingStyle = document.getElementById('accessibility-styles');
-      if (existingStyle) {
-        existingStyle.remove();
-      }
-    };
-  }, [settings]);
-
-  return null;
-}
+// Dynamic styles based on accessibility settings - REMOVED for CSP compliance
+// All accessibility features now use CSS classes and inline styles only
 
 // Accessibility menu component
 interface AccessibilityMenuProps {

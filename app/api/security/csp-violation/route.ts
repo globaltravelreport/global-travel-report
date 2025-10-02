@@ -4,7 +4,17 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
-    const violation = await request.json();
+    const contentType = request.headers.get('content-type') || '';
+
+    let violation;
+    if (contentType.includes('application/csp-report')) {
+      // CSP reports are sent with Content-Type: application/csp-report
+      const body = await request.json();
+      violation = body['csp-report'] || body;
+    } else {
+      // Fallback for other JSON formats
+      violation = await request.json();
+    }
 
     // Log the violation (in production, send to monitoring service)
     console.error('CSP Violation:', {
@@ -23,7 +33,7 @@ export async function POST(request: NextRequest) {
     // - CloudWatch
     // - Custom logging service
 
-    return NextResponse.json({ received: true }, { status: 204 });
+    return new Response(null, { status: 204 });
   } catch (error) {
     console.error('Error processing CSP violation:', error);
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
