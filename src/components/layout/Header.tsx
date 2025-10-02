@@ -189,7 +189,7 @@ export default function Header() {
             <Button
               variant="ghost"
               size="sm"
-              className="rounded-full text-white hover:bg-[#19273A]/50 md:hidden"
+              className="rounded-full text-white hover:bg-[#19273A]/50 lg:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <span className="sr-only">Toggle menu</span>
@@ -205,7 +205,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
+        <div className="lg:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
           <div className="container py-4">
             <nav className="flex flex-col space-y-4">
               <Link
