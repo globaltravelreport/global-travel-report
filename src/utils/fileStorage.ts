@@ -167,7 +167,7 @@ export async function getAllStories(): Promise<Story[]> {
     }
 
     // Get all markdown files in the articles directory
-    const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.md'));
+    const files = fs.readdirSync(articlesDir).filter((file: string) => file.endsWith('.md'));
 
     if (files.length === 0) {
       return storiesData;
@@ -190,7 +190,7 @@ export async function getAllStories(): Promise<Story[]> {
 
           // Parse the frontmatter into key-value pairs
           const frontmatterLines = frontmatter.split('\n');
-          const storyData: Record<string, any> = {};
+          const storyData: Record<string, string> = {};
           let inPhotographerBlock = false;
           const photographerData: { name?: string; url?: string } = {};
 
@@ -208,7 +208,7 @@ export async function getAllStories(): Promise<Story[]> {
                 const match = line.match(/^\s+(\w+):\s*(.*)$/);
                 if (match) {
                   const [, key, value] = match;
-                  photographerData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+                  photographerData[key as keyof typeof photographerData] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
                 }
               } else {
                 // We've exited the photographer block
@@ -228,7 +228,7 @@ export async function getAllStories(): Promise<Story[]> {
 
           // Add the photographer data to storyData
           if (Object.keys(photographerData).length > 0) {
-            storyData.photographer = photographerData;
+            storyData.photographer = JSON.stringify(photographerData);
           }
 
           // Clean up the imageUrl if it exists
@@ -292,7 +292,12 @@ export async function getAllStories(): Promise<Story[]> {
 
           // Add photographer information if available
           if (storyData.photographer) {
-            story.photographer = storyData.photographer;
+            try {
+              story.photographer = JSON.parse(storyData.photographer);
+            } catch {
+              // If parsing fails, treat as a simple string
+              story.photographer = { name: storyData.photographer, url: 'https://unsplash.com' };
+            }
           } else if (storyData.imageCredit || storyData.imageLink) {
             // Fallback to imageCredit and imageLink if photographer is not available
             story.photographer = {
@@ -304,7 +309,7 @@ export async function getAllStories(): Promise<Story[]> {
           // If we still don't have a valid image URL, use a default based on category and story title
           if (!story.imageUrl) {
             // Category-specific default images with multiple options for variety
-            const defaultImages = {
+            const defaultImages: Record<string, string[]> = {
               'Travel': [
                 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
                 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&q=80&w=2400',
@@ -368,7 +373,7 @@ export async function getAllStories(): Promise<Story[]> {
             // Add default photographer if none exists
             if (!story.photographer) {
               // Different photographers for different categories
-              const photographers = {
+              const photographers: Record<string, { name: string; url: string }> = {
                 'Travel': { name: 'Travel Photographer', url: 'https://unsplash.com/@travelphoto' },
                 'Cruise': { name: 'Ocean Explorer', url: 'https://unsplash.com/@oceanexplorer' },
                 'Destination': { name: 'Destination Guide', url: 'https://unsplash.com/@destguide' },
@@ -439,8 +444,8 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
         // If file doesn't exist, try to find a file with a similar name
         if (!fs.existsSync(filePath)) {
-          const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.md'));
-          const matchingFile = files.find(file =>
+          const files = fs.readdirSync(articlesDir).filter((file: string) => file.endsWith('.md'));
+          const matchingFile = files.find((file: string) =>
             file.toLowerCase().includes(normalizedSlug) ||
             normalizedSlug.includes(file.toLowerCase().replace('.md', ''))
           );
@@ -462,17 +467,17 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
               // Parse the frontmatter into key-value pairs
               const frontmatterLines = frontmatter.split('\n');
-              const storyData: Record<string, any> = {};
+              const storyData: Record<string, string> = {};
               let inPhotographerBlock = false;
               const photographerData: { name?: string; url?: string } = {};
-
+  
               for (const line of frontmatterLines) {
                 // Check if we're entering the photographer block
                 if (line.trim() === 'photographer:') {
                   inPhotographerBlock = true;
                   continue;
                 }
-
+  
                 // If we're in the photographer block, parse the photographer data
                 if (inPhotographerBlock) {
                   // Check if the line is indented (part of the photographer block)
@@ -480,14 +485,14 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                     const match = line.match(/^\s+(\w+):\s*(.*)$/);
                     if (match) {
                       const [, key, value] = match;
-                      photographerData[key] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
+                      photographerData[key as keyof typeof photographerData] = value.replace(/^"(.*)"$/, '$1'); // Remove quotes if present
                     }
                   } else {
                     // We've exited the photographer block
                     inPhotographerBlock = false;
                   }
                 }
-
+  
                 // Parse regular key-value pairs
                 if (!inPhotographerBlock) {
                   const match = line.match(/^(\w+):\s*(.*)$/);
@@ -500,7 +505,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
               // Add the photographer data to storyData
               if (Object.keys(photographerData).length > 0) {
-                storyData.photographer = photographerData;
+                storyData.photographer = JSON.stringify(photographerData);
               }
 
               // Clean up the content
@@ -548,7 +553,12 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
               // Add photographer information if available
               if (storyData.photographer) {
-                story.photographer = storyData.photographer;
+                try {
+                  story.photographer = JSON.parse(storyData.photographer);
+                } catch {
+                  // If parsing fails, treat as a simple string
+                  story.photographer = { name: storyData.photographer, url: 'https://unsplash.com' };
+                }
               }
 
               console.log(`[fileStorage.getStoryBySlug] Successfully loaded story from file: ${story.title}`);
