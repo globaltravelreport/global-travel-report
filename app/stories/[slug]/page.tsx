@@ -16,7 +16,6 @@ import { getStoryBySlug } from "@/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/utils/meta";
 import { StoryShareSection } from "@/components/stories/StoryShareSection";
-import { EnhancedSocialShare } from "@/components/social/EnhancedSocialShare";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
@@ -247,19 +246,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                 <span>By Global Travel Report Editorial Team</span>
               </div>
 
-              <div className="hidden sm:block">
-                <EnhancedSocialShare
-                  url={`/stories/${story.slug}`}
-                  title={story.title}
-                  description={story.excerpt}
-                  imageUrl={story.imageUrl}
-                  showShareButton={true}
-                  showLabels={false}
-                  iconSize={20}
-                  platforms={['facebook', 'twitter', 'linkedin', 'whatsapp']}
-                  trackShares={true}
-                />
-              </div>
             </div>
 
             {story.imageUrl && (
