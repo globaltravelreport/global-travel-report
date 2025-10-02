@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/button';
-import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
+import { FaMedium, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { cn } from '../../lib/utils';
+import { SocialLinks } from '../ui/SocialLinks';
 // Theme toggle has been removed
 
 export default function Header() {
@@ -43,26 +44,18 @@ export default function Header() {
               Sydney, Australia
             </span>
           </div>
-          <div className="flex items-center space-x-3">
-            <a href="https://www.facebook.com/globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Facebook">
-              <FaFacebook className="w-4 h-4" />
-            </a>
-            <a href="https://x.com/GTravelReport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Twitter (X)">
-              <FaXTwitter className="w-4 h-4" />
-            </a>
-            <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Medium">
+          <div className="flex items-center space-x-6">
+            <SocialLinks />
+            <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Follow us on Medium">
               <FaMedium className="w-4 h-4" />
             </a>
-            <a href="https://www.linkedin.com/company/globaltravelreport/" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="LinkedIn">
-              <FaLinkedin className="w-4 h-4" />
-            </a>
-            <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="YouTube">
+            <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Follow us on YouTube">
               <FaYoutube className="w-4 h-4" />
             </a>
-            <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Follow us on TikTok">
               <FaTiktok className="w-4 h-4" />
             </a>
-            <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Tumblr">
+            <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A14A] transition-colors" aria-label="Follow us on Tumblr">
               <FaTumblr className="w-4 h-4" />
             </a>
           </div>
@@ -334,26 +327,18 @@ export default function Header() {
                   </span>
                 </div>
 
-                <div className="flex items-center space-x-4 mt-4">
-                  <a href="https://www.facebook.com/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Facebook">
-                    <FaFacebook className="w-5 h-5" />
-                  </a>
-                  <a href="https://x.com/GTravelReport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Twitter (X)">
-                    <FaXTwitter className="w-5 h-5" />
-                  </a>
-                  <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Medium">
+                <div className="flex items-center space-x-6 mt-4">
+                  <SocialLinks iconSize="w-5 h-5" className="text-white" />
+                  <a href="https://medium.com/@editorial_31000" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Follow us on Medium">
                     <FaMedium className="w-5 h-5" />
                   </a>
-                  <a href="https://www.linkedin.com/company/globaltravelreport/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="LinkedIn">
-                    <FaLinkedin className="w-5 h-5" />
-                  </a>
-                  <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="YouTube">
+                  <a href="https://www.youtube.com/@GlobalTravelReport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Follow us on YouTube">
                     <FaYoutube className="w-5 h-5" />
                   </a>
-                  <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="TikTok">
+                  <a href="https://www.tiktok.com/@globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Follow us on TikTok">
                     <FaTiktok className="w-5 h-5" />
                   </a>
-                  <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Tumblr">
+                  <a href="https://www.tumblr.com/blog/globaltravelreport" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#C9A14A] transition-colors" aria-label="Follow us on Tumblr">
                     <FaTumblr className="w-5 h-5" />
                   </a>
                 </div>
