@@ -190,7 +190,7 @@ export class NewStoryProcessorService {
               const contentStr = frontmatterMatch[2];
 
               // Parse frontmatter
-              const frontmatter = {};
+              const frontmatter: Record<string, string> = {};
               frontmatterStr.split('\n').forEach(line => {
                 const [key, ...valueParts] = line.split(':');
                 if (key && valueParts.length > 0) {
