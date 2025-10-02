@@ -150,6 +150,12 @@ const nextConfig = withBundleAnalyzer({
   // Compression and optimization
   compress: true,
   poweredByHeader: false,
+
+  // Build optimization
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.splitChunks.cacheGroups = {

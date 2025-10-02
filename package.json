@@ -2,6 +2,10 @@
   "name": "global-travel-report",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -72,6 +76,7 @@
     "test:ci": "playwright install --with-deps && npm run test:all",
     "check:metadata": "node scripts/check-metadata.js",
     "validate:social": "node scripts/validate-social-previews.js",
+    "check:env": "node scripts/check-env-vars.js",
     "fetch:offers": "node scripts/fetch-affiliate-offers.js",
     "refresh:offers": "npm run fetch:offers",
     "analyze": "cross-env ANALYZE=true next build",

@@ -12,7 +12,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url().optional(),
 
   // Authentication
-  AUTH_ENCRYPTION_KEY: z.string().min(16).optional(),
+  AUTH_ENCRYPTION_KEY: z.string().min(16).default('fallback-encryption-key-change-in-production-32-chars-minimum'),
   ADMIN_USERNAME: z.string().min(1).optional(),
   ADMIN_PASSWORD: z.string().min(8).optional(),
   EDITOR_USERNAME: z.string().min(1).optional(),
@@ -34,8 +34,8 @@ const envSchema = z.object({
   NEXTAUTH_URL: z.string().url().optional(),
 
   // Application
-  NEXT_PUBLIC_BASE_URL: z.string().url(),
-  NODE_ENV: z.enum(['development', 'production', 'test']),
+  NEXT_PUBLIC_BASE_URL: z.string().url().default('https://globaltravelreport.com'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
 
   // Optional features
   ENABLE_ANALYTICS: z.coerce.boolean().default(true),

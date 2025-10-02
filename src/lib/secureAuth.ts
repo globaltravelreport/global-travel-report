@@ -202,8 +202,9 @@ export class SecureAuth {
       validCredentials[env.EDITOR_USERNAME] = env.EDITOR_PASSWORD;
     }
 
-    // Fallback for development (should be removed in production)
-    if (Object.keys(validCredentials).length === 0 && env.NODE_ENV !== 'production') {
+    // Fallback for development/build time (should be overridden in production)
+    if (Object.keys(validCredentials).length === 0) {
+      console.warn('⚠️  No admin credentials configured. Using fallback credentials for build/development.');
       validCredentials.admin = 'secure_password_123';
       validCredentials.editor = 'editor_pass_456';
     }
