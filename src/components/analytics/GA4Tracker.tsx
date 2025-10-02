@@ -6,11 +6,11 @@
  * Client-side component for tracking page views and events with GA4
  */
 
-import { useEffect } from 'react';
+import { useEffect, ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 interface GA4TrackerProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 declare global {

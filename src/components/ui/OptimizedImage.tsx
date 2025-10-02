@@ -41,7 +41,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [loaded, setLoaded] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [ioRef, entry] = useIntersectionObserver({ rootMargin: '200px' });
+  const [ioRef, entry] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px' });
   const isVisible = priority || entry?.isIntersecting;
 
   // Blur placeholder logic
@@ -94,7 +94,13 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   if (fill) {
     return (
-      <div ref={el => { containerRef.current = el; ioRef.current = el; }} className={cn('relative w-full h-full')}>
+      <div
+        ref={(el) => {
+          containerRef.current = el;
+          (ioRef as any).current = el;
+        }}
+        className={cn('relative w-full h-full')}
+      >
         {isVisible ? (
           <Image
             {...imageProps}
@@ -110,7 +116,13 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }
 
   return (
-    <div ref={el => { containerRef.current = el; ioRef.current = el; }} style={{ width, height }}>
+    <div
+      ref={(el) => {
+        containerRef.current = el;
+        (ioRef as any).current = el;
+      }}
+      style={{ width, height }}
+    >
       {isVisible ? (
         <Image
           {...imageProps}

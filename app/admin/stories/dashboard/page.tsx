@@ -1,11 +1,10 @@
 'use client';
 
-import { Suspense } from 'react'
+import { Suspense, ReactNode } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { StoryProcessingStats } from '@/components/admin/StoryProcessingStats'
 import { StoryValidationLog } from '@/components/admin/StoryValidationLog'
 import { StoryPublishingSchedule } from '@/components/admin/StoryPublishingSchedule'
-import { ClientSuspense } from '@/components/ui/ClientSuspense'
 import { SafeSearchParamsProvider } from '@/components/ui/SearchParamsProvider'
 
 function DashboardContent() {
@@ -29,7 +28,7 @@ function DashboardContent() {
   )
 }
 
-function LoadingCard({ children }: { children: React.ReactNode }) {
+function LoadingCard({ children }: { children: ReactNode }) {
   return (
     <Card>
       <CardContent className="p-6">

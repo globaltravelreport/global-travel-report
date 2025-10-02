@@ -1,14 +1,11 @@
-// Enhanced mocks for Next.js Image and OptimizedImage
-// Handles all props, loading, error, responsive, optimization, accessibility
+import React from 'react';
 
-const React = require('react');
-
-const NextImage = (props) => {
+const NextImage = (props: any) => {
   return React.createElement('img', { ...props, 'data-testid': 'next-image' });
 };
 NextImage.displayName = 'Image';
 
-const OptimizedImage = (props) => {
+const OptimizedImage = (props: any) => {
   return React.createElement('img', { ...props, 'data-testid': 'optimized-image' });
 };
 OptimizedImage.displayName = 'OptimizedImage';

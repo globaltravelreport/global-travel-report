@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icons';
 
@@ -10,7 +10,7 @@ interface FacebookShareButtonProps {
   description?: string;
   imageUrl?: string;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 /**

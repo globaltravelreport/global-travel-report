@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -54,7 +54,7 @@ export default function CommentSystem({
     }
   };
 
-  const handleSubmitComment = async (e: React.FormEvent, parentId?: string) => {
+  const handleSubmitComment = async (e: FormEvent, parentId?: string) => {
     e.preventDefault();
 
     if (!newComment.trim() || !authorName.trim() || !authorEmail.trim()) {
@@ -150,7 +150,7 @@ export default function CommentSystem({
     const [replyAuthor, setReplyAuthor] = useState('');
     const [replyEmail, setReplyEmail] = useState('');
 
-    const handleReplySubmit = async (e: React.FormEvent) => {
+    const handleReplySubmit = async (e: FormEvent) => {
       e.preventDefault();
 
       if (!replyContent.trim() || !replyAuthor.trim() || !replyEmail.trim()) {

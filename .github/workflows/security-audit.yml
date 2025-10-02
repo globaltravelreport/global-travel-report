@@ -130,40 +130,60 @@ jobs:
 
     steps:
       - name: Send Slack notification (only if webhook configured)
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK || '' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
         run: |
-          if [ -n "${{ secrets.SLACK_WEBHOOK }}" ]; then
-            echo "Sending Slack notification..."
-            curl -X POST -H 'Content-type: application/json' \
-              --data '{
-                "username": "Security Audit",
-                "icon_emoji": ":warning:",
-                "attachments": [
-                  {
-                    "color": "danger",
-                    "title": "Security Audit Failed",
-                    "text": "Security audit detected issues in the Global Travel Report repository.",
-                    "footer": "Global Travel Report Security Audit",
-                    "fields": [
-                      {
-                        "title": "Repository",
-                        "value": "'${{ github.repository }}'",
-                        "short": true
-                      },
-                      {
-                        "title": "Branch",
-                        "value": "'${{ github.ref }}'",
-                        "short": true
-                      },
-                      {
-                        "title": "Run URL",
-                        "value": "'${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'",
-                        "short": false
-                      }
-                    ]
-                  }
-                ]
-              }' \
-              "${{ secrets.SLACK_WEBHOOK }}"
+          # Check if Slack webhook secret is configured and not empty
+          if [ -n "$SLACK_WEBHOOK" ] && [ "$SLACK_WEBHOOK" != "" ]; then
+            echo "Slack webhook found, sending notification..."
+
+            # Validate webhook URL format (basic check for https://)
+            if [[ "$SLACK_WEBHOOK" =~ ^https://hooks\.slack\.com ]]; then
+              # Send notification with error handling
+              if curl -X POST \
+                -H 'Content-type: application/json' \
+                --data '{
+                  "username": "Security Audit",
+                  "icon_emoji": ":warning:",
+                  "attachments": [
+                    {
+                      "color": "danger",
+                      "title": "Security Audit Failed",
+                      "text": "Security audit detected issues in the Global Travel Report repository.",
+                      "footer": "Global Travel Report Security Audit",
+                      "fields": [
+                        {
+                          "title": "Repository",
+                          "value": "${GITHUB_REPOSITORY}",
+                          "short": true
+                        },
+                        {
+                          "title": "Branch",
+                          "value": "${GITHUB_REF}",
+                          "short": true
+                        },
+                        {
+                          "title": "Run URL",
+                          "value": "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}",
+                          "short": false
+                        }
+                      ]
+                    }
+                  ]
+                }' \
+                "$SLACK_WEBHOOK"; then
+                echo "Slack notification sent successfully"
+              else
+                echo "Failed to send Slack notification"
+              fi
+            else
+              echo "Invalid Slack webhook URL format. Expected https://hooks.slack.com"
+              exit 1
+            fi
           else
-            echo "No Slack webhook configured, skipping notification"
+            echo "No Slack webhook configured or webhook is empty, skipping notification"
           fi

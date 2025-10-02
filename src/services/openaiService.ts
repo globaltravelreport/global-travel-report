@@ -30,7 +30,7 @@ export class OpenAIService {
   private lastResetDate: string;
 
   private constructor() {
-    this.apiKey = process.env.OPENAI_API_KEY;
+    this.apiKey = process.env.OPENAI_API_KEY || '';
     this.model = process.env.OPENAI_MODEL || 'gpt-4o';
     this.maxRetries = 3;
     this.retryDelay = 1000;
@@ -340,7 +340,7 @@ Please provide:
         metaTitle: metaTitleMatch ? metaTitleMatch[1].trim() : story.title,
         metaDescription: metaDescriptionMatch ? metaDescriptionMatch[1].trim() : story.excerpt,
         focusKeywords: focusKeywordsMatch
-          ? focusKeywordsMatch[1].split(/,\s*/).map(k => k.trim())
+          ? focusKeywordsMatch[1].split(/,\s*/).map((k: string) => k.trim())
           : [story.category, story.country, 'travel']
       };
     } catch (error) {

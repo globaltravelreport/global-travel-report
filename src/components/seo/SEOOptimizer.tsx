@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import Head from 'next/head';
 
 interface SEOData {
@@ -29,7 +29,7 @@ interface StructuredData {
 interface SEOOptimizerProps {
   data: SEOData;
   structuredData?: StructuredData[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   jsonLd?: boolean;
 }
 
@@ -312,7 +312,7 @@ export function useSEOAnalysis(data: SEOData): SEOAnalysis {
       metrics: {
         titleLength,
         descriptionLength,
-        hasKeywords,
+        hasKeywords: !!hasKeywords,
         hasStructuredData: true, // We generate structured data
         hasCanonical: !!data.canonical,
         hasOgImage: !!data.ogImage,

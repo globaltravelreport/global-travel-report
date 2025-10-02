@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
+
 export default async function AdminLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="min-h-screen bg-gray-50">

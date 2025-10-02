@@ -1,7 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import { Suspense, useEffect, useState, useMemo, ReactNode, ComponentType } from 'react';
 // Don't import useSearchParams here - it will be used by child components
 
 /**
@@ -82,7 +81,7 @@ function LoadingSkeleton({ height }: { height: string }) {
  * @param Component - The component to wrap
  * @returns A wrapped component with a Suspense boundary
  */
-export function withClientSuspense<T>(Component: React.ComponentType<T>) {
+export function withClientSuspense<T extends Record<string, any>>(Component: ComponentType<T>) {
   return function WithClientSuspense(props: T) {
     return (
       <ClientSuspense>
@@ -105,7 +104,7 @@ export function SearchParamsProvider({
   children: (searchParams: URLSearchParams) => ReactNode;
 }) {
   // This will be properly wrapped in a Suspense boundary by the parent
-  const searchParams = React.useMemo(() => {
+  const searchParams = useMemo(() => {
     // Only run on the client
     if (typeof window !== 'undefined') {
       return new URLSearchParams(window.location.search);

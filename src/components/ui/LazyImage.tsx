@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, CSSProperties, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -18,7 +18,7 @@ interface LazyImageProps {
   onError?: () => void;
   sizes?: string;
   fill?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export function LazyImage({
@@ -196,7 +196,7 @@ export function OptimizedImage({
 // Background image component with lazy loading
 interface LazyBackgroundImageProps {
   src: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   placeholder?: string;
   onLoad?: () => void;
