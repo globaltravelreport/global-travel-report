@@ -193,36 +193,6 @@ export default function Header() {
               </Button>
             </Link>
 
-            {/* Social Media Links - Desktop Only */}
-            <div className="hidden lg:flex items-center space-x-1">
-              <a
-                href="https://www.facebook.com/globaltravelreport"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
-                aria-label="Follow us on Facebook"
-              >
-                <FaFacebook className="w-4 h-4" />
-              </a>
-              <a
-                href="https://x.com/GTravelReport"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
-                aria-label="Follow us on X (Twitter)"
-              >
-                <FaXTwitter className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/globaltravelreport/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-white hover:text-[#C9A14A] transition-colors rounded-full hover:bg-[#19273A]/50"
-                aria-label="Follow us on LinkedIn"
-              >
-                <FaLinkedin className="w-4 h-4" />
-              </a>
-            </div>
             <Button
               variant="ghost"
               size="sm"
