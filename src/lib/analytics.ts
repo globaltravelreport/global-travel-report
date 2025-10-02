@@ -11,6 +11,38 @@ declare global {
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-K8BJQ43XFT';
 
 /**
+ * Analytics data interface for dashboard components
+ */
+export interface AnalyticsData {
+  pageViews: number;
+  uniqueVisitors: number;
+  averageSessionDuration: string;
+  bounceRate: string;
+  topPages?: Array<{
+    pagePath: string;
+    pageTitle: string;
+    pageViews: number;
+  }>;
+  topSources?: Array<{
+    source: string;
+    sessions: number;
+  }>;
+  topCountries?: Array<{
+    country: string;
+    sessions: number;
+  }>;
+  deviceBreakdown?: Array<{
+    deviceCategory: string;
+    sessions: number;
+  }>;
+  trafficOverTime?: Array<{
+    date: string;
+    pageViews: number;
+    sessions: number;
+  }>;
+}
+
+/**
  * Track a custom event
  */
 export function trackEvent(
