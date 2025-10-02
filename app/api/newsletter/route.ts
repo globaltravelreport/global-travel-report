@@ -11,7 +11,7 @@ const newsletterSchema = z.object({
   email: z.string().email('Invalid email address').max(255),
   firstName: z.string().min(1, 'First name is required').max(100),
   lastName: z.string().min(1, 'Last name is required').max(100),
-  frequency: z.enum(['daily', 'weekly', 'monthly']).default('weekly'),
+  frequency: z.enum(['daily', 'weekly', 'monthly']),
   honeypot: z.string().max(0, 'Bot detected'), // Honeypot field - should be empty
   csrfToken: z.string().optional(),
 });
@@ -92,7 +92,7 @@ export const POST = createApiHandler<NewsletterRequest>(
     }
 
     // Extract and sanitize data from the request
-    const { email, firstName, lastName, frequency, honeypot } = data;
+    const { email, firstName, lastName, frequency = 'weekly', honeypot } = data;
 
     // Honeypot validation - if filled, it's likely a bot
     if (honeypot && honeypot.length > 0) {
