@@ -28,7 +28,7 @@ const STATIC_ASSETS = [
 ];
 
 // Cache durations in seconds
-const CACHE_DURATIONS = {
+const CACHE_DURATIONS: Record<string, number> = {
   image: 60 * 60 * 24 * 7, // 7 days
   style: 60 * 60 * 24 * 7, // 7 days
   script: 60 * 60 * 24 * 7, // 7 days
