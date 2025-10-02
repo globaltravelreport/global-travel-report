@@ -230,18 +230,18 @@ async function testTumblr(message, url) {
     // Check if we're using test values
     const isTestKey = process.env.TUMBLR_API_KEY.startsWith('test_');
 
-    if (isTestKey) {
-      console.log('✅ Using test Tumblr API key - skipping actual client initialization');
-    } else {
-      // Initialize Tumblr client
-      const client = tumblr.createClient({
+    // Initialize Tumblr client
+    let tumblrClient;
+    if (!isTestKey) {
+      tumblrClient = tumblr.createClient({
         consumer_key: process.env.TUMBLR_API_KEY,
         consumer_secret: process.env.TUMBLR_CONSUMER_SECRET || '',
         token: process.env.TUMBLR_ACCESS_TOKEN || '',
         token_secret: process.env.TUMBLR_ACCESS_TOKEN_SECRET || ''
       });
-
       console.log('✅ Tumblr client initialized');
+    } else {
+      console.log('✅ Using test Tumblr API key - skipping actual client initialization');
     }
 
     // Create test post content
@@ -260,7 +260,7 @@ async function testTumblr(message, url) {
       console.log('✅ Tumblr API connection verified successfully!');
     } else {
       const response = await new Promise((resolve, reject) => {
-        client.createTextPost(blogName, testPost, (err, data) => {
+        tumblrClient.createTextPost(blogName, testPost, (err, data) => {
           if (err) {
             reject(err);
             return;

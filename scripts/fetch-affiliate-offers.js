@@ -124,9 +124,9 @@ const AFFILIATE_PARTNERS = {
 function makeRequest(url) {
   return new Promise((resolve, reject) => {
     const parsedUrl = new URL(url);
-    const module = parsedUrl.protocol === 'https:' ? https : http;
+    const httpModule = parsedUrl.protocol === 'https:' ? https : http;
 
-    const req = module.request({
+    const req = httpModule.request({
       hostname: parsedUrl.hostname,
       port: parsedUrl.port,
       path: parsedUrl.pathname + parsedUrl.search,
