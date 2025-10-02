@@ -5,11 +5,10 @@
  */
 
 const requiredVars = [
-  'OPENAI_API_KEY',
-  'UNSPLASH_ACCESS_KEY',
   'NEXT_PUBLIC_GA_ID',
   'NEXT_PUBLIC_BASE_URL',
-  'NEXT_PUBLIC_SITE_URL'
+  'NEXT_PUBLIC_SITE_URL',
+  'BREVO_API_KEY'
 ];
 
 const optionalVars = [

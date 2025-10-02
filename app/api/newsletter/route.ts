@@ -5,6 +5,7 @@ import { createApiHandler, createOptionsHandler } from '@/utils/api-handler';
 import { createApiResponse, createValidationErrorResponse } from '@/utils/api-response';
 import { logError } from '@/utils/error-handler';
 import { rateLimit } from '@/utils/rate-limit';
+import { BrevoService } from '@/services/brevoService';
 
 // Newsletter subscription request schema with enhanced validation
 const newsletterSchema = z.object({
@@ -22,22 +23,30 @@ type NewsletterRequest = z.infer<typeof newsletterSchema>;
 // Newsletter service configuration (currently using mock responses)
 
 /**
- * Add subscriber to newsletter service (currently using mock responses)
+ * Add subscriber to Brevo newsletter service
  */
 async function addToNewsletterService(email: string, firstName: string, lastName: string, frequency: string) {
-   // Since MailerLite is not being used, always return a mock successful response
-   if (process.env.NODE_ENV === 'development') {
-     console.log(`Newsletter subscription: ${email} (${frequency}) - Mock response`);
+   const brevoService = BrevoService.getInstance();
+
+   // Add contact to Brevo
+   const result = await brevoService.addContact({
+     email,
+     attributes: {
+       FIRSTNAME: firstName,
+       LASTNAME: lastName,
+       SUBSCRIPTION_DATE: new Date().toISOString(),
+       SOURCE: 'website_signup',
+       PREFERENCES: frequency,
+     },
+     listIds: [2], // Newsletter list ID
+     updateEnabled: true,
+   });
+
+   if (!result.success) {
+     throw new Error(result.error || 'Failed to add subscriber to Brevo');
    }
 
-   // Return a mock successful response
-   return {
-     data: {
-       id: `mock-${Date.now()}`,
-       email,
-       created_at: new Date().toISOString()
-     }
-   };
+   return result;
 }
 
 /**
