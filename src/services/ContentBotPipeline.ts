@@ -180,7 +180,7 @@ export class ContentBotPipeline {
     try {
       console.log('📡 Fetching RSS content...');
       const result = await this.rssService.fetchAllFeeds();
-      const stories = []; // Would extract stories from result
+      const stories: any[] = []; // Would extract stories from result
 
       // Filter for quality content and remove duplicates
       const qualityStories = stories.filter(story => {
