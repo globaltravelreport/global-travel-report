@@ -1,39 +1,38 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { securityHeadersMiddleware } from '@/src/middleware/security-headers';
-import { errorMonitorMiddleware } from './src/middleware/error-monitor';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Compose error monitoring for all requests
-  return errorMonitorMiddleware(request, async () => {
-    // Global security headers
-    const securityResponse = securityHeadersMiddleware(request);
+  try {
+    // Simple security headers
+    const response = NextResponse.next();
 
-    // Protect admin routes (except login)
+    // Add basic security headers
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+    // Protect admin routes (except login) - simple check
     if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-      try {
-        // Simple session check - redirect to login if no session cookie
-        const sessionCookie = request.cookies.get('auth_session');
-        if (!sessionCookie) {
-          return NextResponse.redirect(new URL('/admin/login', request.url));
-        }
-      } catch (error) {
-        console.error('Middleware auth error:', error);
+      const sessionCookie = request.cookies.get('auth_session');
+      if (!sessionCookie) {
         return NextResponse.redirect(new URL('/admin/login', request.url));
       }
     }
 
-    // Attach security headers to the response
-    return securityResponse;
-  });
+    return response;
+  } catch (error) {
+    console.error('Middleware error:', error);
+    // Return a basic response if middleware fails
+    return NextResponse.next();
+  }
 }
 
 export const config = {
   matcher: [
     '/api/:path*',
     '/admin/:path*',
-    '/(.*)',
+    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)',
   ],
 };
