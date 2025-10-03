@@ -280,7 +280,7 @@ function validateEnvironment() {
     facebook: ['FACEBOOK_PAGE_ID', 'FACEBOOK_ACCESS_TOKEN'],
     linkedin: ['LINKEDIN_ACCESS_TOKEN'],
     tumblr: ['TUMBLR_API_KEY'],
-    youtube: ['YOUTUBE_ACCESS_TOKEN', 'YOUTUBE_CHANNEL_ID'],
+    youtube: ['YOUTUBE_API_KEY', 'YOUTUBE_CHANNEL_ID'],
     // Medium is optional since we don't have the token yet
     medium: []
   };
@@ -386,10 +386,10 @@ function initializeApiClients() {
   }
 
   // YouTube API client
-  if (process.env.YOUTUBE_ACCESS_TOKEN && process.env.YOUTUBE_CHANNEL_ID) {
+  if (process.env.YOUTUBE_API_KEY && process.env.YOUTUBE_CHANNEL_ID) {
     try {
       clients.youtube = new YouTubeApi({
-        accessToken: process.env.YOUTUBE_ACCESS_TOKEN,
+        accessToken: process.env.YOUTUBE_API_KEY,
         channelId: process.env.YOUTUBE_CHANNEL_ID
       });
       console.log('✅ YouTube API client initialized');

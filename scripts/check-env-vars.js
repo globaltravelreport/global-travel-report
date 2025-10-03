@@ -15,7 +15,7 @@ const optionalVars = [
   'TWITTER_API_KEY',
   'DATABASE_URL',
   'SENTRY_DSN',
-  'YOUTUBE_ACCESS_TOKEN',
+  'YOUTUBE_API_KEY',
   'YOUTUBE_CHANNEL_ID'
 ];
 

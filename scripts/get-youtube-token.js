@@ -75,7 +75,7 @@ async function exchangeCodeForToken(authCode) {
     console.log('');
     console.log('📋 Add these to your environment variables:');
     console.log('');
-    console.log(`YOUTUBE_ACCESS_TOKEN=${access_token}`);
+    console.log(`YOUTUBE_API_KEY=${access_token}`);
     console.log(`YOUTUBE_REFRESH_TOKEN=${refresh_token}`);
     console.log('');
     console.log(`Token expires in: ${expires_in} seconds (${Math.round(expires_in / 3600)} hours)`);
