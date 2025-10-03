@@ -55,8 +55,22 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  // Debug environment variables
+  const debugInfo = {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
+    NODE_ENV: process.env.NODE_ENV,
+  };
+
   return (
     <div className="min-h-screen">
+      {/* Debug Info - Remove after fixing */}
+      <div className="bg-yellow-100 p-4 text-xs">
+        <strong>Debug Info:</strong>
+        <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
+      </div>
+
       {/* Hero Section with Featured Story */}
       <Hero />
 

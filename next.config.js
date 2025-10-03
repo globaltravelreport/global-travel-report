@@ -33,7 +33,9 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://source.unsplash.com',
     'https://www.google.com',
     'https://www.gstatic.com',
-    'https://www.recaptcha.net'
+    'https://www.recaptcha.net',
+    // Temporarily allow all HTTPS images for debugging
+    'https://*'
   ].join(' ');
   const connectSrc = [
     `'self'`,
