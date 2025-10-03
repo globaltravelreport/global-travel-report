@@ -16,7 +16,7 @@ import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
  
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'),

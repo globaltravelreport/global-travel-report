@@ -12,13 +12,15 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://www.google.com',
     'https://www.gstatic.com',
     'https://www.recaptcha.net', // alternate reCAPTCHA CDN
-    // Removed unsafe-eval and unsafe-inline for security
+    'https://static.cloudflareinsights.com', // Cloudflare Analytics
+    "'unsafe-inline'", // Allow inline scripts for Next.js hydration
   ].filter(Boolean).join(' ');
   const styleSrc = [
     `'self'`,
     nonce ? `'nonce-${nonce}'` : '',
     'https://fonts.googleapis.com',
-    'https://www.gstatic.com'
+    'https://www.gstatic.com',
+    "'unsafe-inline'", // Allow inline styles
   ].filter(Boolean).join(' ');
   const imgSrc = [
     `'self'`,
