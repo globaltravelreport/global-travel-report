@@ -10,12 +10,13 @@
 const crypto = require('crypto');
 const querystring = require('querystring');
 const http = require('http');
-const url = require('url');
+const { URL } = require('url');
 const readline = require('readline');
 
 const TUMBLR_REQUEST_TOKEN_URL = 'https://www.tumblr.com/oauth/request_token';
 const TUMBLR_AUTHORIZE_URL = 'https://www.tumblr.com/oauth/authorize';
 const TUMBLR_ACCESS_TOKEN_URL = 'https://www.tumblr.com/oauth/access_token';
+const TOKEN_CACHE_FILE = require('path').join(process.cwd(), '.tumblr-token-cache.json');
 
 // Get credentials from environment variables
 const CONSUMER_KEY = process.env.TUMBLR_CONSUMER_KEY;
@@ -31,6 +32,36 @@ if (!CONSUMER_KEY || !CONSUMER_SECRET) {
 
 console.log('🔑 Tumblr OAuth Token Generator');
 console.log('================================\n');
+
+// Token cache management
+function saveTokenCache(data) {
+  const fs = require('fs').promises;
+  return fs.writeFile(TOKEN_CACHE_FILE, JSON.stringify(data, null, 2));
+}
+
+function loadTokenCache() {
+  try {
+    const fs = require('fs');
+    if (fs.existsSync(TOKEN_CACHE_FILE)) {
+      const data = fs.readFileSync(TOKEN_CACHE_FILE, 'utf8');
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    // Ignore errors, return null
+  }
+  return null;
+}
+
+function clearTokenCache() {
+  try {
+    const fs = require('fs');
+    if (fs.existsSync(TOKEN_CACHE_FILE)) {
+      fs.unlinkSync(TOKEN_CACHE_FILE);
+    }
+  } catch (error) {
+    // Ignore errors
+  }
+}
 
 // Generate OAuth signature
 function generateSignature(method, url, params, consumerSecret, tokenSecret = '') {
@@ -89,11 +120,11 @@ async function getRequestToken() {
 }
 
 // Step 2: Get authorization URL
-function getAuthorizationUrl(requestToken) {
+function getAuthorizationUrl(requestTokenData) {
   console.log('\n🔗 Step 2: Authorization URL');
   console.log('===========================');
 
-  const authUrl = `${TUMBLR_AUTHORIZE_URL}?oauth_token=${requestToken}`;
+  const authUrl = `${TUMBLR_AUTHORIZE_URL}?oauth_token=${requestTokenData.token}`;
   console.log(`Visit this URL in your browser:`);
   console.log(`\n${authUrl}\n`);
 
@@ -103,6 +134,17 @@ function getAuthorizationUrl(requestToken) {
   console.log('3. Authorize the application');
   console.log('4. Tumblr will redirect you to a URL with oauth_verifier parameter');
   console.log('5. Copy the oauth_verifier value from the URL\n');
+
+  // Save the request token data for later use
+  saveTokenCache({
+    requestToken: requestTokenData.token,
+    requestTokenSecret: requestTokenData.tokenSecret,
+    timestamp: Date.now()
+  });
+
+  // For debugging: show the request token secret
+  console.log(`\n🔐 Request Token Secret (for cache): ${requestTokenData.tokenSecret}`);
+  console.log('This will be saved to cache for the --verifier command.\n');
 
   return authUrl;
 }
@@ -145,13 +187,13 @@ async function getAccessToken(requestToken, requestTokenSecret, verifier) {
 }
 
 // Make HTTP request
-function makeRequest(url, method, headers, body = '') {
+function makeRequest(urlString, method, headers, body = '') {
   return new Promise((resolve, reject) => {
-    const parsedUrl = url.parse(url);
+    const parsedUrl = new URL(urlString);
     const options = {
       hostname: parsedUrl.hostname,
-      port: parsedUrl.port || 443,
-      path: parsedUrl.path,
+      port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
+      path: parsedUrl.pathname + parsedUrl.search,
       method: method,
       headers: headers
     };
@@ -207,7 +249,7 @@ async function main() {
     const requestTokenData = await getRequestToken();
 
     // Step 2: Get authorization URL
-    getAuthorizationUrl(requestTokenData.token);
+    getAuthorizationUrl(requestTokenData);
 
     // Step 3: Get verifier from user
     const rl = createReadlineInterface();
@@ -225,6 +267,9 @@ async function main() {
       requestTokenData.tokenSecret,
       verifier
     );
+
+    // Clear the cache after successful token generation
+    clearTokenCache();
 
     // Display results
     console.log('\n🎉 Success! Your Tumblr OAuth tokens:');
@@ -253,7 +298,90 @@ async function main() {
 
 // Run the script
 if (require.main === module) {
-  main().catch(console.error);
+  // Check if oauth_verifier was provided as command line argument
+  const args = process.argv.slice(2);
+  const verifierArg = args.find(arg => arg.startsWith('--verifier='));
+  if (verifierArg) {
+    const verifier = verifierArg.split('=')[1];
+    if (verifier) {
+      console.log(`Using oauth_verifier from command line: ${verifier}`);
+      // Run main function with pre-provided verifier
+      mainWithVerifier(verifier).catch(console.error);
+    } else {
+      console.error('❌ Invalid verifier format. Use: --verifier=YOUR_VERIFIER');
+      process.exit(1);
+    }
+  } else {
+    main().catch(console.error);
+  }
+}
+
+// Alternative main function that takes verifier as parameter
+async function mainWithVerifier(verifier) {
+  try {
+    // Load cached request token data
+    const cachedData = loadTokenCache();
+    if (!cachedData || !cachedData.requestToken || !cachedData.requestTokenSecret) {
+      console.log('❌ No cached request token found. Please run the interactive flow first:');
+      console.log('npm run get-tumblr-tokens');
+      process.exit(1);
+    }
+
+    // Check if the cached data is not too old (5 minutes)
+    const age = Date.now() - cachedData.timestamp;
+    if (age > 5 * 60 * 1000) {
+      console.log('❌ Cached request token is too old. Please restart the authorization flow:');
+      console.log('npm run get-tumblr-tokens');
+      clearTokenCache();
+      process.exit(1);
+    }
+
+    console.log('🔑 Getting access token with cached request token...');
+    const accessTokenData = await getAccessToken(
+      cachedData.requestToken,
+      cachedData.requestTokenSecret,
+      verifier
+    );
+
+    // Clear the cache after successful token generation
+    clearTokenCache();
+
+    // Display results
+    console.log('\n🎉 Success! Your Tumblr OAuth tokens:');
+    console.log('=====================================');
+    console.log(`TUMBLR_OAUTH_TOKEN=${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET=${accessTokenData.tokenSecret}`);
+    console.log('\n📋 Add these to your environment variables:');
+    console.log('==========================================');
+    console.log('# In your .env.local file:');
+    console.log(`TUMBLR_OAUTH_TOKEN=${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET=${accessTokenData.tokenSecret}`);
+    console.log('\n# In Vercel dashboard (Environment Variables):');
+    console.log(`TUMBLR_OAUTH_TOKEN = ${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET = ${accessTokenData.tokenSecret}`);
+
+    // Display results
+    console.log('\n🎉 Success! Your Tumblr OAuth tokens:');
+    console.log('=====================================');
+    console.log(`TUMBLR_OAUTH_TOKEN=${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET=${accessTokenData.tokenSecret}`);
+    console.log('\n📋 Add these to your environment variables:');
+    console.log('==========================================');
+    console.log('# In your .env.local file:');
+    console.log(`TUMBLR_OAUTH_TOKEN=${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET=${accessTokenData.tokenSecret}`);
+    console.log('\n# In Vercel dashboard (Environment Variables):');
+    console.log(`TUMBLR_OAUTH_TOKEN = ${accessTokenData.token}`);
+    console.log(`TUMBLR_OAUTH_TOKEN_SECRET = ${accessTokenData.tokenSecret}`);
+
+  } catch (error) {
+    console.error('\n❌ Error:', error.message);
+    console.log('\n🔍 Troubleshooting:');
+    console.log('1. Make sure the oauth_verifier is correct');
+    console.log('2. Make sure you authorized the app recently (tokens expire quickly)');
+    console.log('3. Try the full interactive process again');
+    process.exit(1);
+  }
 }
 
 module.exports = { main };

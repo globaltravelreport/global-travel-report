@@ -279,7 +279,7 @@ function validateEnvironment() {
     twitter: ['TWITTER_API_KEY', 'TWITTER_API_SECRET', 'TWITTER_ACCESS_TOKEN', 'TWITTER_ACCESS_SECRET'],
     facebook: ['FACEBOOK_PAGE_ID', 'FACEBOOK_ACCESS_TOKEN'],
     linkedin: ['LINKEDIN_ACCESS_TOKEN'],
-    tumblr: ['TUMBLR_CONSUMER_KEY', 'TUMBLR_CONSUMER_SECRET'],
+    tumblr: ['TUMBLR_CONSUMER_KEY', 'TUMBLR_CONSUMER_SECRET', 'TUMBLR_OAUTH_TOKEN', 'TUMBLR_OAUTH_TOKEN_SECRET'],
     youtube: ['YOUTUBE_API_KEY', 'YOUTUBE_CHANNEL_ID'],
     // Medium is optional since we don't have the token yet
     medium: []

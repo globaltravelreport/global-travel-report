@@ -14,9 +14,9 @@
 
 import Parser from 'rss-parser';
 import axios from 'axios';
-import { generateStoryContent } from '../src/services/aiService.js';
-import { UnsplashService } from '../src/services/unsplashService.js';
-import { FacebookService } from '../src/services/facebookService.js';
+import { generateStoryContent } from '../src/services/aiService.ts';
+import { UnsplashService } from '../src/services/unsplashService.ts';
+import { FacebookService } from '../src/services/facebookService.ts';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });

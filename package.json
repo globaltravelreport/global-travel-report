@@ -47,6 +47,7 @@
     "test-social-media": "node scripts/test-social-media.js",
     "get-youtube-token": "node scripts/get-youtube-token.js",
     "get-tumblr-tokens": "node scripts/get-tumblr-tokens.js",
+    "get-tumblr-tokens:with-verifier": "node scripts/get-tumblr-tokens.js --verifier=",
     "test-twitter": "node scripts/test-social-media.js --platform=twitter",
     "test-facebook": "node scripts/test-social-media.js --platform=facebook",
     "test-linkedin": "node scripts/test-social-media.js --platform=linkedin",
