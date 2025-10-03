@@ -1,18 +1,55 @@
 {
-  "name": "Global Travel Report Daily Publisher",
-  "description": "Automated daily content publishing workflow for Global Travel Report",
+  "name": "Global Travel Report Full Auto Publisher v2",
+  "description": "Complete automated content publishing system with enhanced error handling and social distribution",
   "modules": [
     {
       "id": "schedule-trigger",
       "module": "schedule:watchEvents",
       "parameters": {
-        "schedule": "0 0 * * *",
+        "schedule": "0 6 * * *",
         "timezone": "Australia/Brisbane"
       },
       "metadata": {
         "designer": {
           "x": 100,
           "y": 100
+        }
+      }
+    },
+    {
+      "id": "webhook-trigger",
+      "module": "webhook:catchHook",
+      "parameters": {
+        "hookId": "global-travel-report-manual-trigger"
+      },
+      "metadata": {
+        "designer": {
+          "x": 100,
+          "y": 200
+        }
+      }
+    },
+    {
+      "id": "trigger-router",
+      "module": "router:route",
+      "parameters": {
+        "routes": [
+          {
+            "name": "Scheduled",
+            "condition": "{{schedule-trigger.timestamp}}",
+            "path": "scheduled"
+          },
+          {
+            "name": "Manual",
+            "condition": "{{webhook-trigger.data.trigger}} = 'manual'",
+            "path": "manual"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 150
         }
       }
     },
@@ -296,6 +333,124 @@
       }
     },
     {
+      "id": "story-validator",
+      "module": "router:route",
+      "parameters": {
+        "routes": [
+          {
+            "name": "Valid Story",
+            "condition": "{{text-parser-headline.match}} AND {{text-parser-summary.match}} AND {{length(text-parser-headline.match)}} > 10",
+            "path": "valid"
+          },
+          {
+            "name": "Invalid Story",
+            "condition": "true",
+            "path": "invalid"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1300,
+          "y": 200
+        }
+      }
+    },
+    {
+      "id": "error-counter",
+      "module": "setVariable:setVariable",
+      "parameters": {
+        "variableName": "errorCount",
+        "variableValue": "{{if(empty(errorCount), 0, errorCount + 1)}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 250
+        }
+      }
+    },
+    {
+      "id": "airtable-logger",
+      "module": "http:makeRequest",
+      "parameters": {
+        "url": "https://api.airtable.com/v0/{{AIRTABLE_BASE_ID}}/{{AIRTABLE_TABLE_ID}}",
+        "method": "POST",
+        "headers": {
+          "Authorization": "Bearer {{AIRTABLE_API_KEY}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "fields": {
+            "Date": "{{formatDate(now, 'YYYY-MM-DD')}}",
+            "Story Title": "{{text-parser-headline.match}}",
+            "Status": "Error",
+            "Error Type": "{{error.message}}",
+            "Platform": "{{category-router.path}}"
+          }
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 1700,
+          "y": 250
+        }
+      }
+    },
+    {
+      "id": "success-counter",
+      "module": "setVariable:setVariable",
+      "parameters": {
+        "variableName": "successCount",
+        "variableValue": "{{if(empty(successCount), 1, successCount + 1)}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1700,
+          "y": 50
+        }
+      }
+    },
+    {
+      "id": "abort-check",
+      "module": "router:route",
+      "parameters": {
+        "routes": [
+          {
+            "name": "Continue",
+            "condition": "{{errorCount}} < 3",
+            "path": "continue"
+          },
+          {
+            "name": "Abort",
+            "condition": "true",
+            "path": "abort"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1900,
+          "y": 200
+        }
+      }
+    },
+    {
+      "id": "daily-digest-email",
+      "module": "email:sendEmail",
+      "parameters": {
+        "to": "admin@globaltravelreport.com",
+        "subject": "Daily Automation Report - {{formatDate(now, 'YYYY-MM-DD')}}",
+        "html": "<h2>Global Travel Report - Daily Automation Summary</h2><p><strong>Stories Processed:</strong> {{length(story-iterator.array)}}</p><p><strong>Successfully Published:</strong> {{successCount}}</p><p><strong>Errors:</strong> {{errorCount}}</p><p><strong>Status:</strong> {{if(successCount > 0, '✅ Success', '❌ No stories published')}}</p><p><strong>Categories:</strong> Cruise, Flight, New Zealand, Europe, Travel News</p><p><strong>Platforms:</strong> Website, Facebook, Twitter, LinkedIn</p><p>Check Make.com logs for detailed error information.</p>"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 100
+        }
+      }
+    },
+    {
       "id": "error-handler",
       "module": "error:errorHandler",
       "parameters": {
@@ -303,7 +458,7 @@
       },
       "metadata": {
         "designer": {
-          "x": 1900,
+          "x": 2300,
           "y": 100
         }
       }
@@ -327,7 +482,21 @@
   "connections": [
     {
       "from": "schedule-trigger",
-      "to": "rss-parser"
+      "to": "trigger-router"
+    },
+    {
+      "from": "webhook-trigger",
+      "to": "trigger-router"
+    },
+    {
+      "from": "trigger-router",
+      "to": "rss-parser",
+      "path": "scheduled"
+    },
+    {
+      "from": "trigger-router",
+      "to": "rss-parser",
+      "path": "manual"
     },
     {
       "from": "rss-parser",
@@ -347,11 +516,21 @@
     },
     {
       "from": "text-parser-headline",
-      "to": "category-router"
+      "to": "story-validator"
     },
     {
       "from": "text-parser-summary",
-      "to": "category-router"
+      "to": "story-validator"
+    },
+    {
+      "from": "story-validator",
+      "to": "category-router",
+      "path": "valid"
+    },
+    {
+      "from": "story-validator",
+      "to": "error-counter",
+      "path": "invalid"
     },
     {
       "from": "category-router",
@@ -379,7 +558,33 @@
     },
     {
       "from": "rss-update",
-      "to": "email-notification"
+      "to": "success-counter"
+    },
+    {
+      "from": "success-counter",
+      "to": "daily-digest-email"
+    },
+    {
+      "from": "error-counter",
+      "to": "airtable-logger"
+    },
+    {
+      "from": "airtable-logger",
+      "to": "abort-check"
+    },
+    {
+      "from": "abort-check",
+      "to": "daily-digest-email",
+      "path": "continue"
+    },
+    {
+      "from": "abort-check",
+      "to": "error-handler",
+      "path": "abort"
+    },
+    {
+      "from": "daily-digest-email",
+      "to": "error-handler"
     }
   ],
   "variables": {
@@ -390,6 +595,10 @@
     "FACEBOOK_PAGE_ID": "",
     "TWITTER_BEARER_TOKEN": "",
     "LINKEDIN_ACCESS_TOKEN": "",
-    "LINKEDIN_ORG_ID": ""
+    "LINKEDIN_ORG_ID": "",
+    "AIRTABLE_BASE_ID": "",
+    "AIRTABLE_TABLE_ID": "",
+    "AIRTABLE_API_KEY": "",
+    "MAKE_WEBHOOK_SECRET": ""
   }
 }
