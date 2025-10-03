@@ -5,7 +5,64 @@ import { runDailyAutomation } from '@/automation/dailyAutoPublisher.mjs';
 export const dynamic = 'force-dynamic';
 
 /**
- * Daily Auto Publisher Cron Job API
+ * Daily Auto Publisher Webhook API
+ * POST /api/cron/dailyAutoPublisher
+ *
+ * This endpoint is called by Make.com webhooks to automatically:
+ * 1. Fetch stories from RSS feed
+ * 2. Rewrite content using Gemini AI in Australian English
+ * 3. Add Unsplash images
+ * 4. Classify categories
+ * 5. Publish to website
+ * 6. Update RSS feed
+ *
+ * Triggered by Make.com webhook daily at 10:00 AM AEST
+ */
+export async function POST(request: NextRequest) {
+  try {
+    // Verify webhook secret for security
+    const authHeader = request.headers.get('authorization');
+    const webhookSecret = process.env.WEBHOOK_SECRET_KEY;
+
+    if (webhookSecret && authHeader !== `Bearer ${webhookSecret}`) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    console.log('🚀 Starting Global Travel Report Auto-Publisher webhook...');
+
+    // Run the daily automation
+    await runDailyAutomation();
+
+    console.log('✅ Daily auto-publisher completed successfully');
+
+    // Return success response
+    return NextResponse.json({
+      success: true,
+      message: 'Global Travel Report Auto-Publisher completed successfully',
+      timestamp: new Date().toISOString(),
+      timezone: 'AEST (Australian Eastern Standard Time)'
+    });
+
+  } catch (error) {
+    console.error('💥 Error in daily auto-publisher webhook:', error);
+
+    // Return error response
+    return NextResponse.json(
+      {
+        error: 'Internal server error',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * Daily Auto Publisher Cron Job API (Legacy)
  * GET /api/cron/dailyAutoPublisher
  *
  * This endpoint is called by Vercel cron jobs to automatically:
@@ -13,7 +70,7 @@ export const dynamic = 'force-dynamic';
  * 2. Rewrite content using Gemini AI in Australian English
  * 3. Add Unsplash images
  * 4. Classify categories
- * 5. Publish to website and social media
+ * 5. Publish to website
  * 6. Update RSS feed
  *
  * Runs daily at 10:00 AM AEST (00:00 UTC)

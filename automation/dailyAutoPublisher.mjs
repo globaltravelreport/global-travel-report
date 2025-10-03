@@ -16,7 +16,6 @@ import Parser from 'rss-parser';
 import axios from 'axios';
 import { generateStoryContent } from '../src/services/aiService.ts';
 import { UnsplashService } from '../src/services/unsplashService.ts';
-import { FacebookService } from '../src/services/facebookService.ts';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
@@ -27,37 +26,22 @@ const MAX_STORIES_PER_DAY = 8;
 const WEBSITE_API_BASE = 'https://globaltravelreport.com/api';
 
 // Environment variables
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
-const FACEBOOK_ACCESS_TOKEN = process.env.FACEBOOK_ACCESS_TOKEN;
-const FACEBOOK_PAGE_ID = process.env.FACEBOOK_PAGE_ID;
-const TWITTER_BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
-const LINKEDIN_ACCESS_TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
-const LINKEDIN_ORG_ID = process.env.LINKEDIN_ORG_ID;
 
 // Initialize services
 const unsplashService = UnsplashService.getInstance();
-const facebookService = new FacebookService(FACEBOOK_ACCESS_TOKEN);
 
 // Gemini prompt for Australian English rewriting
-const GEMINI_PROMPT = `You are a professional Australian travel writer for Global Travel Report. Rewrite the following story using correct Australian English, in a professional tone, for publication on our website and social media.
+const GEMINI_PROMPT = `Rewrite the following travel story in **Australian English**, in a professional tone, optimised for SEO and social media.
+Provide:
+- HEADLINE: [engaging, SEO-optimised title]
+- SUMMARY: [concise 150–200 word summary with key tips and details]
+Maintain all facts, locations, names, and relevance.
 
 Original Title: {title}
-Original Content: {content}
-
-Please return:
-1. An SEO-optimised headline (Australian English spelling)
-2. A concise, informative summary (150–200 words)
-3. Key travel highlights or tips
-4. Preserve factual details and place names
-5. Avoid overly casual language or exaggeration
-
-Format:
-HEADLINE: [headline]
-SUMMARY: [summary]
-
-No extra text or formatting.`;
+Original Content: {content}`;
 
 /**
  * Main automation function
@@ -116,8 +100,7 @@ async function runDailyAutomation() {
                     photographer: imageData?.photographer || '',
                     category: category,
                     tags: ['travel', 'automated'],
-                    publish: true,
-                    date: new Date().toISOString().split('T')[0] // Today's date in YYYY-MM-DD
+                    publish: true
                 };
 
                 processedStories.push(storyData);
@@ -126,13 +109,9 @@ async function runDailyAutomation() {
                 console.log('🌐 Posting to website...');
                 await postToWebsite(storyData);
 
-                // 8. Post to social media
-                console.log('📱 Posting to social media...');
-                await postToSocialMedia(storyData);
-
-                // 9. Update RSS feed
+                // 8. Update RSS feed
                 console.log('📰 Updating RSS feed...');
-                await updateRSSFeed(storyData);
+                await updateRSSFeed(storyData, story.pubDate);
 
                 console.log('✅ Story processed successfully');
 
@@ -188,7 +167,7 @@ async function rewriteWithGemini(title, content) {
 
         const response = await generateStoryContent(prompt, {
             provider: 'google',
-            model: 'gemini-1.5-flash',
+            model: 'gemini-pro',
             temperature: 0.7,
             maxTokens: 1000
         });
@@ -293,18 +272,17 @@ function extractKeywords(text) {
 function classifyCategory(headline, summary) {
     const text = `${headline} ${summary}`.toLowerCase();
 
-    const categoryRules = {
-        'Flight': ['qantas', 'flight', 'airline', 'airport', 'aviation'],
-        'Cruise': ['cruise', 'princess', 'ship', 'voyage', 'ocean liner'],
-        'New Zealand': ['new zealand', 'nz', 'auckland', 'wellington'],
-        'Europe': ['france', 'italy', 'spain', 'germany', 'uk', 'europe'],
-        'Travel News': ['travel', 'tourism', 'industry', 'market']
-    };
-
-    for (const [category, keywords] of Object.entries(categoryRules)) {
-        if (keywords.some(keyword => text.includes(keyword))) {
-            return category;
-        }
+    if (text.includes('cruise')) {
+        return 'Cruise';
+    }
+    if (text.includes('flight') || text.includes('airport') || text.includes('airline')) {
+        return 'Flight';
+    }
+    if (text.includes('new zealand')) {
+        return 'New Zealand';
+    }
+    if (text.includes('europe') || text.includes('france') || text.includes('italy')) {
+        return 'Europe';
     }
 
     return 'Travel News'; // Default category
@@ -335,131 +313,18 @@ async function postToWebsite(storyData) {
     }
 }
 
-/**
- * Post to social media platforms
- */
-async function postToSocialMedia(storyData) {
-    const results = {
-        facebook: false,
-        twitter: false,
-        linkedin: false
-    };
-
-    // Facebook
-    try {
-        if (FACEBOOK_ACCESS_TOKEN && FACEBOOK_PAGE_ID) {
-            const message = `${storyData.title}\n\n${storyData.content.substring(0, 200)}...\n\n#GlobalTravelReport #Travel`;
-            await facebookService.createPost(FACEBOOK_PAGE_ID, { message });
-            results.facebook = true;
-            console.log('✅ Posted to Facebook');
-        }
-    } catch (error) {
-        console.error('Facebook posting failed:', error.message);
-    }
-
-    // Twitter/X
-    try {
-        if (TWITTER_BEARER_TOKEN) {
-            await postToTwitter(storyData);
-            results.twitter = true;
-            console.log('✅ Posted to Twitter');
-        }
-    } catch (error) {
-        console.error('Twitter posting failed:', error.message);
-    }
-
-    // LinkedIn
-    try {
-        if (LINKEDIN_ACCESS_TOKEN && LINKEDIN_ORG_ID) {
-            await postToLinkedIn(storyData);
-            results.linkedin = true;
-            console.log('✅ Posted to LinkedIn');
-        }
-    } catch (error) {
-        console.error('LinkedIn posting failed:', error.message);
-    }
-
-    return results;
-}
-
-/**
- * Post to Twitter/X
- */
-async function postToTwitter(storyData) {
-    try {
-        const message = `${storyData.title}\n\n${storyData.content.substring(0, 150)}...\n\n#GlobalTravelReport #Travel`;
-
-        const response = await axios.post(
-            'https://api.twitter.com/2/tweets',
-            { text: message },
-            {
-                headers: {
-                    'Authorization': `Bearer ${TWITTER_BEARER_TOKEN}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-
-        return response.data;
-
-    } catch (error) {
-        console.error('Twitter API error:', error.response?.data || error.message);
-        throw error;
-    }
-}
-
-/**
- * Post to LinkedIn
- */
-async function postToLinkedIn(storyData) {
-    try {
-        const postData = {
-            author: `urn:li:organization:${LINKEDIN_ORG_ID}`,
-            lifecycleState: 'PUBLISHED',
-            specificContent: {
-                'com.linkedin.ugc.ShareContent': {
-                    shareCommentary: {
-                        text: `${storyData.title}\n\n${storyData.content.substring(0, 200)}...\n\n#TravelIndustry #Tourism`
-                    },
-                    shareMediaCategory: 'NONE'
-                }
-            },
-            visibility: {
-                'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
-            }
-        };
-
-        const response = await axios.post(
-            'https://api.linkedin.com/v2/ugcPosts',
-            postData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${LINKEDIN_ACCESS_TOKEN}`,
-                    'Content-Type': 'application/json',
-                    'X-Restli-Protocol-Version': '2.0.0'
-                }
-            }
-        );
-
-        return response.data;
-
-    } catch (error) {
-        console.error('LinkedIn API error:', error.response?.data || error.message);
-        throw error;
-    }
-}
 
 /**
  * Update RSS feed
  */
-async function updateRSSFeed(storyData) {
+async function updateRSSFeed(storyData, originalPubDate) {
     try {
         const rssData = {
             title: storyData.title,
             description: storyData.content,
             link: `https://globaltravelreport.com/stories/${storyData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`,
             image: storyData.imageUrl,
-            pubDate: new Date().toISOString(),
+            pubDate: originalPubDate, // Preserve original story date
             category: storyData.category
         };
 
