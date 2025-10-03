@@ -13,8 +13,8 @@
   },
   "crons": [
     {
-      "path": "/api/cron/dailyStories",
-      "schedule": "0 4 * * *"
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 0 * * *"
     }
   ]
 }

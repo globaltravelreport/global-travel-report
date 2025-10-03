@@ -251,12 +251,21 @@ export class SocialDistributionBot {
    */
   private async distributeToFacebook(story: Story, content: any): Promise<{ success: boolean; platform: string; immediate: boolean; error?: string }> {
     try {
-      // Would integrate with Facebook Page API
-      console.log(`📘 Distributing to Facebook: ${content.facebook.substring(0, 100)}...`);
+      const { FacebookService } = await import('./facebookService');
+      const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
+      const pageId = process.env.FACEBOOK_PAGE_ID;
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!accessToken || !pageId) {
+        throw new Error('Facebook credentials not configured');
+      }
 
+      const facebookService = new FacebookService(accessToken);
+      await facebookService.createPost(pageId, {
+        message: content.facebook,
+        link: `https://globaltravelreport.com/stories/${story.slug}`
+      });
+
+      console.log(`📘 Distributed to Facebook: ${content.facebook.substring(0, 100)}...`);
       return {
         success: true,
         platform: 'Facebook',
@@ -277,12 +286,25 @@ export class SocialDistributionBot {
    */
   private async distributeToTwitter(story: Story, content: any): Promise<{ success: boolean; platform: string; immediate: boolean; error?: string }> {
     try {
-      // Would integrate with Twitter API v2
-      console.log(`🐦 Distributing to Twitter: ${content.twitter.substring(0, 100)}...`);
+      const bearerToken = process.env.TWITTER_BEARER_TOKEN;
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 800));
+      if (!bearerToken) {
+        throw new Error('Twitter bearer token not configured');
+      }
 
+      const axios = (await import('axios')).default;
+      const response = await axios.post(
+        'https://api.twitter.com/2/tweets',
+        { text: content.twitter },
+        {
+          headers: {
+            'Authorization': `Bearer ${bearerToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      console.log(`🐦 Distributed to Twitter: ${content.twitter.substring(0, 100)}...`);
       return {
         success: true,
         platform: 'Twitter',
@@ -303,12 +325,43 @@ export class SocialDistributionBot {
    */
   private async distributeToLinkedIn(story: Story, content: any): Promise<{ success: boolean; platform: string; immediate: boolean; error?: string }> {
     try {
-      // Would integrate with LinkedIn Company Page API
-      console.log(`💼 Distributing to LinkedIn: ${content.linkedin.substring(0, 100)}...`);
+      const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
+      const orgId = process.env.LINKEDIN_ORG_ID;
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1200));
+      if (!accessToken || !orgId) {
+        throw new Error('LinkedIn credentials not configured');
+      }
 
+      const axios = (await import('axios')).default;
+      const postData = {
+        author: `urn:li:organization:${orgId}`,
+        lifecycleState: 'PUBLISHED',
+        specificContent: {
+          'com.linkedin.ugc.ShareContent': {
+            shareCommentary: {
+              text: content.linkedin
+            },
+            shareMediaCategory: 'NONE'
+          }
+        },
+        visibility: {
+          'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
+        }
+      };
+
+      await axios.post(
+        'https://api.linkedin.com/v2/ugcPosts',
+        postData,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+            'X-Restli-Protocol-Version': '2.0.0'
+          }
+        }
+      );
+
+      console.log(`💼 Distributed to LinkedIn: ${content.linkedin.substring(0, 100)}...`);
       return {
         success: true,
         platform: 'LinkedIn',
