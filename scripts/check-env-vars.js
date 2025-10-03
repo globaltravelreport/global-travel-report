@@ -19,6 +19,9 @@ const optionalVars = [
 
 console.log('🔍 Checking environment variables...\n');
 
+// Check if we're running in Vercel (production build)
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV === 'production';
+
 let missingRequired = [];
 let missingOptional = [];
 
@@ -39,7 +42,12 @@ if (missingRequired.length > 0) {
   missingRequired.forEach(varName => {
     console.log(`   - ${varName}`);
   });
-  console.log('\nThese must be set in Vercel for the build to succeed.\n');
+
+  if (isVercel) {
+    console.log('\nThese must be set in Vercel for the build to succeed.\n');
+  } else {
+    console.log('\n⚠️  Running locally - these should be set in Vercel for production.\n');
+  }
 }
 
 if (missingOptional.length > 0) {
@@ -58,6 +66,12 @@ if (missingOptional.length === 0) {
   console.log('✅ All optional environment variables are present.');
 }
 
-if (missingRequired.length > 0) {
+// Only fail the build in Vercel/production, allow local development
+if (missingRequired.length > 0 && isVercel) {
+  console.log('🚫 Build failed: Missing required environment variables in Vercel');
   process.exit(1);
+} else if (missingRequired.length > 0 && !isVercel) {
+  console.log('⚠️  Local development: Missing environment variables, but allowing build to continue');
+} else {
+  console.log('✅ Environment check passed');
 }
