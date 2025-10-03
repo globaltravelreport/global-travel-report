@@ -14,7 +14,9 @@ const requiredVars = [
 const optionalVars = [
   'TWITTER_API_KEY',
   'DATABASE_URL',
-  'SENTRY_DSN'
+  'SENTRY_DSN',
+  'YOUTUBE_ACCESS_TOKEN',
+  'YOUTUBE_CHANNEL_ID'
 ];
 
 console.log('🔍 Checking environment variables...\n');

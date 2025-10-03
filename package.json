@@ -45,6 +45,7 @@
     "post-to-social": "node scripts/social-media-poster.js",
     "post-to-social:test": "node scripts/social-media-poster.js --test",
     "test-social-media": "node scripts/test-social-media.js",
+    "get-youtube-token": "node scripts/get-youtube-token.js",
     "test-twitter": "node scripts/test-social-media.js --platform=twitter",
     "test-facebook": "node scripts/test-social-media.js --platform=facebook",
     "test-linkedin": "node scripts/test-social-media.js --platform=linkedin",

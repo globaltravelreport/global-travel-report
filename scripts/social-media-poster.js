@@ -24,6 +24,39 @@ const { TwitterApi } = require('twitter-api-v2');
 const { createFacebookService } = require('../src/services/facebookService');
 const tumblr = require('tumblr.js');
 
+// YouTube API client (using axios directly)
+const YouTubeApi = function(config) {
+  return {
+    communityPosts: {
+      create: async (post) => {
+        try {
+          // YouTube Community Posts API
+          const response = await axios({
+            method: 'POST',
+            url: 'https://www.googleapis.com/youtube/v3/communityPosts',
+            headers: {
+              'Authorization': `Bearer ${config.accessToken}`,
+              'Content-Type': 'application/json'
+            },
+            data: {
+              snippet: {
+                type: 'textPost',
+                text: post.text,
+                channelId: config.channelId
+              }
+            }
+          });
+
+          return { id: response.data.id };
+        } catch (error) {
+          console.error('YouTube API error:', error.response?.data || error.message);
+          throw error;
+        }
+      }
+    }
+  };
+};
+
 // LinkedIn API client (using axios directly since there's no official package)
 const LinkedInApi = function(config) {
   const instance = {
@@ -247,6 +280,7 @@ function validateEnvironment() {
     facebook: ['FACEBOOK_PAGE_ID', 'FACEBOOK_ACCESS_TOKEN'],
     linkedin: ['LINKEDIN_ACCESS_TOKEN'],
     tumblr: ['TUMBLR_API_KEY'],
+    youtube: ['YOUTUBE_ACCESS_TOKEN', 'YOUTUBE_CHANNEL_ID'],
     // Medium is optional since we don't have the token yet
     medium: []
   };
@@ -348,6 +382,19 @@ function initializeApiClients() {
       console.log('✅ Tumblr API client initialized');
     } catch (error) {
       console.error(`❌ Failed to initialize Tumblr API client: ${error.message}`);
+    }
+  }
+
+  // YouTube API client
+  if (process.env.YOUTUBE_ACCESS_TOKEN && process.env.YOUTUBE_CHANNEL_ID) {
+    try {
+      clients.youtube = new YouTubeApi({
+        accessToken: process.env.YOUTUBE_ACCESS_TOKEN,
+        channelId: process.env.YOUTUBE_CHANNEL_ID
+      });
+      console.log('✅ YouTube API client initialized');
+    } catch (error) {
+      console.error(`❌ Failed to initialize YouTube API client: ${error.message}`);
     }
   }
 
@@ -558,6 +605,28 @@ async function postStoryToSocialMedia(story, apiClients, isTest = false) {
     }
   }
 
+  // Post to YouTube Community
+  if (apiClients.youtube) {
+    try {
+      const youtubePost = formatForYouTube(story, trackingUrl, hashtags);
+      console.log(`📺 Posting to YouTube Community: ${youtubePost.text.substring(0, 50)}...`);
+
+      if (!isTest) {
+        const post = await apiClients.youtube.communityPosts.create(youtubePost);
+        console.log(`✅ Posted to YouTube Community: ${post.id}`);
+        stats.postsCreated.youtube++;
+        successfulPosts++;
+        await logToFile(`Posted to YouTube Community: ${post.id}`);
+      } else {
+        console.log('🧪 Test mode: Would post to YouTube Community');
+      }
+    } catch (error) {
+      console.error(`❌ Failed to post to YouTube Community: ${error.message}`);
+      stats.errors.youtube++;
+      await logToFile(`Error posting to YouTube Community: ${error.message}`);
+    }
+  }
+
   // Mark the story as posted if at least one post was successful
   if (successfulPosts > 0 && !isTest) {
     console.log(`✅ Successfully posted to ${successfulPosts} platform(s)`);
@@ -702,6 +771,35 @@ function formatForTumblr(story, url, hashtags) {
     tags: processedTags,
     format: 'html',
     state: 'published'
+  };
+}
+
+/**
+ * Format a story for YouTube Community Post
+ */
+function formatForYouTube(story, url, hashtags) {
+  // YouTube community posts have a 10,000 character limit
+  const maxLength = 10000;
+
+  // Create the post text
+  let text = `${story.title}\n\n${story.excerpt}\n\n`;
+
+  // Add hashtags
+  if (hashtags && hashtags.length > 0) {
+    text += hashtags.map(tag => `#${tag}`).join(' ') + '\n\n';
+  }
+
+  // Add call to action
+  text += `Read the full story: ${url}`;
+
+  // Ensure we don't exceed the character limit
+  if (text.length > maxLength) {
+    text = text.substring(0, maxLength - 3) + '...';
+  }
+
+  return {
+    text,
+    channelId: process.env.YOUTUBE_CHANNEL_ID
   };
 }
 
