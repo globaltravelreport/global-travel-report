@@ -279,7 +279,7 @@ function validateEnvironment() {
     twitter: ['TWITTER_API_KEY', 'TWITTER_API_SECRET', 'TWITTER_ACCESS_TOKEN', 'TWITTER_ACCESS_SECRET'],
     facebook: ['FACEBOOK_PAGE_ID', 'FACEBOOK_ACCESS_TOKEN'],
     linkedin: ['LINKEDIN_ACCESS_TOKEN'],
-    tumblr: ['TUMBLR_API_KEY'],
+    tumblr: ['TUMBLR_CONSUMER_KEY', 'TUMBLR_CONSUMER_SECRET'],
     youtube: ['YOUTUBE_API_KEY', 'YOUTUBE_CHANNEL_ID'],
     // Medium is optional since we don't have the token yet
     medium: []
@@ -370,13 +370,13 @@ function initializeApiClients() {
   }
 
   // Tumblr API client
-  if (process.env.TUMBLR_API_KEY) {
+  if (process.env.TUMBLR_CONSUMER_KEY && process.env.TUMBLR_CONSUMER_SECRET) {
     try {
       clients.tumblr = new TumblrApi({
-        consumerKey: process.env.TUMBLR_API_KEY,
-        consumerSecret: process.env.TUMBLR_CONSUMER_SECRET || '',
-        accessToken: process.env.TUMBLR_ACCESS_TOKEN || '',
-        accessTokenSecret: process.env.TUMBLR_ACCESS_TOKEN_SECRET || '',
+        consumerKey: process.env.TUMBLR_CONSUMER_KEY,
+        consumerSecret: process.env.TUMBLR_CONSUMER_SECRET,
+        accessToken: process.env.TUMBLR_OAUTH_TOKEN || '',
+        accessTokenSecret: process.env.TUMBLR_OAUTH_TOKEN_SECRET || '',
         blogName: process.env.TUMBLR_BLOG_NAME || 'globaltravelreport'
       });
       console.log('✅ Tumblr API client initialized');
