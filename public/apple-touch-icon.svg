@@ -1,0 +1,7 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#19273A"/>
+  <path d="M45 60L135 60L135 120L45 120Z" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="90" cy="90" r="15" fill="#fff"/>
+  <path d="M60 75L75 90L105 75" stroke="#fff" stroke-width="3" fill="none"/>
+  <text x="90" y="140" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">GTR</text>
+</svg>
