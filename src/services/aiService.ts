@@ -147,7 +147,7 @@ async function generateWithOpenAI(
     };
   } catch (_error) {
     console.error(_error);
-    throw new Error(`OpenAI API error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(`OpenAI API error: ${_error instanceof Error ? _error.message : 'Unknown error'}`);
   }
 }
 
@@ -179,7 +179,7 @@ async function generateWithGoogle(
     };
   } catch (_error) {
     console.error(_error);
-    throw new Error(`Google Gemini API error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(`Google Gemini API error: ${_error instanceof Error ? _error.message : 'Unknown error'}`);
   }
 }
 
@@ -260,7 +260,7 @@ export function getProviderStatus(): {
       provider,
       configured: false,
       availableModels: [],
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: _error instanceof Error ? _error.message : 'Unknown error',
     };
   }
 }

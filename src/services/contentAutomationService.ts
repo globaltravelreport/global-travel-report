@@ -119,7 +119,7 @@ export class ContentAutomationService {
           }
         } catch (_error) {
           console.error(_error);
-          result.errors.push(`Failed to process story: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          result.errors.push(`Failed to process story: ${_error instanceof Error ? _error.message : 'Unknown error'}`);
         }
       }
 
@@ -130,7 +130,7 @@ export class ContentAutomationService {
 
     } catch (_error) {
       console.error(_error);
-      result.errors.push(`Ingestion failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      result.errors.push(`Ingestion failed: ${_error instanceof Error ? _error.message : 'Unknown error'}`);
       return result;
     }
   }

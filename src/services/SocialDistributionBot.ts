@@ -126,7 +126,7 @@ export class SocialDistributionBot {
 
     } catch (_error) {
       console.error(_error);
-      result.errors.push(error instanceof Error ? error.message : 'Unknown distribution error');
+      result.errors.push(_error instanceof Error ? _error.message : 'Unknown distribution error');
     }
 
     return result;
@@ -276,7 +276,7 @@ export class SocialDistributionBot {
         success: false,
         platform: 'Facebook',
         immediate: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -315,7 +315,7 @@ export class SocialDistributionBot {
         success: false,
         platform: 'Twitter',
         immediate: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -372,7 +372,7 @@ export class SocialDistributionBot {
         success: false,
         platform: 'LinkedIn',
         immediate: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -398,7 +398,7 @@ export class SocialDistributionBot {
         success: false,
         platform: 'Medium',
         immediate: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -424,7 +424,7 @@ export class SocialDistributionBot {
         success: false,
         platform: 'Newsletter',
         immediate: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }

@@ -171,7 +171,7 @@ export class NewsletterService {
     } catch (_error) {
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       };
     }
   }
@@ -294,7 +294,7 @@ export class NewsletterService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
         recipient: email,
         templateId: template.id
       };

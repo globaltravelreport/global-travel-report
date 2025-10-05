@@ -143,7 +143,7 @@ export class ContentBotPipeline {
 
     } catch (_error) {
       console.error(_error);
-      result.errors.push(error instanceof Error ? error.message : 'Unknown pipeline error');
+      result.errors.push(_error instanceof Error ? _error.message : 'Unknown pipeline error');
     }
 
     return result;

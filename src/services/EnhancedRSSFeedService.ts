@@ -86,7 +86,7 @@ export class EnhancedRSSFeedService {
 
     } catch (_error) {
       console.error(_error);
-      result.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      result.errors.push(_error instanceof Error ? _error.message : 'Unknown error');
     }
 
     return result;

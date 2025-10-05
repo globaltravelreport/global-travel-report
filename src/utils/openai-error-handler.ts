@@ -115,7 +115,7 @@ export function handleOpenAIError(error: unknown): OpenAIError {
   }
 
   // Handle generic errors
-  const message = error instanceof Error ? error.message : 'Unknown OpenAI API error';
+  const message = _error instanceof Error ? _error.message : 'Unknown OpenAI API error';
   return new OpenAIError(message, OpenAIErrorType.UNKNOWN);
 }
 

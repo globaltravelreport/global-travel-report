@@ -27,10 +27,10 @@ export async function POST(request: NextRequest) {
   } catch (_error) {
     console.error(_error);
     return NextResponse.json(
-      { 
-        success: false, 
-        message: error instanceof Error ? error.message : 'Unknown error',
-        error: JSON.stringify(error)
+      {
+        success: false,
+        message: _error instanceof Error ? _error.message : 'Unknown error',
+        error: JSON.stringify(_error)
       },
       { status: 500 }
     );

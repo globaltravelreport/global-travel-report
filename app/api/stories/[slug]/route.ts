@@ -48,7 +48,7 @@ export async function GET(
       {
         success: false,
         message: 'Error fetching story',
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       },
       { status: 500 }
     );

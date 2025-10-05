@@ -60,7 +60,7 @@ export class FacebookService {
     } catch (_error) {
       // Log the error
       errorService.logError(
-        `Failed to post to Facebook: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to post to Facebook: ${_error instanceof Error ? _error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
         ErrorCategory.API,
         { action: 'createPost', additionalData: { pageId } }
@@ -92,7 +92,7 @@ export class FacebookService {
     } catch (_error) {
       // Log the error
       errorService.logError(
-        `Failed to get Facebook page info: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to get Facebook page info: ${_error instanceof Error ? _error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
         ErrorCategory.API,
         { action: 'getPageInfo', additionalData: { pageId } }
@@ -123,7 +123,7 @@ export class FacebookService {
     } catch (_error) {
       // Log the error
       errorService.logError(
-        `Failed to validate Facebook access token: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to validate Facebook access token: ${_error instanceof Error ? _error.message : String(error)}`,
         errorService.ErrorSeverity.ERROR,
         ErrorCategory.API,
         { action: 'validateAccessToken' }

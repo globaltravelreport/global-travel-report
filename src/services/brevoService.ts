@@ -91,7 +91,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -133,7 +133,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -174,7 +174,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -222,7 +222,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -267,7 +267,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -302,7 +302,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -337,7 +337,7 @@ export class BrevoService {
       console.error(_error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: _error instanceof Error ? _error.message : 'Unknown error',
       };
     }
   }
@@ -404,7 +404,7 @@ export async function sendSubmissionNotification(submission: {
     console.error(_error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: _error instanceof Error ? _error.message : 'Unknown error',
     };
   }
 }

@@ -117,7 +117,7 @@ async function validateCsrfToken(req: NextRequest): Promise<boolean> {
     // For now, we'll just check if it exists and is not empty
     return token.length > 0;
   } catch (_error) {
-    logError(error, { context: 'CSRF validation' });
+    logError(_error, { context: 'CSRF validation' });
     return false;
   }
 }
@@ -281,7 +281,7 @@ export function createApiHandler<T = any>(
 
     } catch (_error) {
       // Log the error
-      logError(error, {
+      logError(_error, {
         context: 'API Handler',
         requestId: context.requestId,
         method: req.method,
