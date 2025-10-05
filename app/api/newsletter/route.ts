@@ -117,7 +117,7 @@ export const POST = createApiHandler<NewsletterRequest>(
        console.error(_error);
 
        // Check if it's a duplicate email error
-       if (error instanceof Error && error.message.includes('duplicate')) {
+       if (_error instanceof Error && _error.message.includes('duplicate')) {
          return createApiResponse({
            message: 'This email is already subscribed to our newsletter.',
            data: { email: sanitizedEmail, frequency }
@@ -125,7 +125,7 @@ export const POST = createApiHandler<NewsletterRequest>(
        }
 
        // Log error but don't expose internal details to user
-       logError(error, {
+       logError(_error, {
          context: 'Newsletter subscription',
          additionalData: { email: sanitizedEmail, frequency }
        });
