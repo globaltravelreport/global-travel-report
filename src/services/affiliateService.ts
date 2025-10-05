@@ -362,7 +362,7 @@ export class AffiliateService {
         },
         body: JSON.stringify(data),
       }).catch(error => {
-        console.error(_error);
+        console.error(error);
       });
     }
   }
