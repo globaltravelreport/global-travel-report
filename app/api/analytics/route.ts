@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (_error) {
     console.error(_error);
-    
+
     return NextResponse.json(
       {
         success: false,
