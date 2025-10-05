@@ -1,11 +1,9 @@
-// Edge-compatible contact form API route
-export const runtime = 'edge';
-
+// Contact form API route
 import { NextRequest } from "next/server";
-import { z } from 'zod';
+// import { z } from 'zod';
 import { verifyRecaptcha } from '@/utils/recaptcha';
 import { ContactFormRequest } from '@/src/api/types';
-import { contactFormSchema } from '@/utils/validation';
+// import { contactFormSchema } from '@/utils/validation';
 import { createApiResponse, createValidationErrorResponse } from '@/utils/api-response';
 import { logError } from '@/utils/error-handler';
 import { createApiHandler, createOptionsHandler } from '@/utils/api-handler';
@@ -46,8 +44,18 @@ export const OPTIONS = createOptionsHandler();
 /**
  * Handle POST requests to the contact form API
  */
-export const POST = createApiHandler<ContactFormRequest>(
-  async (_req: NextRequest, data: ContactFormRequest) => {
+export const POST = async (req: NextRequest) => {
+  try {
+    const data = await req.json() as ContactFormRequest;
+
+    // Basic validation
+    if (!data.name || !data.email || !data.message) {
+      return createApiResponse(
+        new Error('Missing required fields'),
+        { status: 400 }
+      );
+    }
+
     // Check if we're in development mode
     const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -55,7 +63,7 @@ export const POST = createApiHandler<ContactFormRequest>(
     if (!isDevelopment && config.api.recaptcha.secretKey) {
       try {
         // Get the reCAPTCHA token from the request headers
-        const token = _req.headers.get('X-Recaptcha-Token') || '';
+        const token = req.headers.get('X-Recaptcha-Token') || '';
 
         // Verify the token
         const isValid = await verifyRecaptcha(token);
@@ -87,36 +95,19 @@ export const POST = createApiHandler<ContactFormRequest>(
     return createApiResponse({
       message: 'Message sent successfully. We will get back to you soon!'
     });
-  },
-  {
-    bodySchema: contactFormSchema as z.ZodType<ContactFormRequest>,
-    enableCors: true,
-    maxRetries: 2,
-    retryDelay: 1000,
-    validateCsrf: true, // Enable CSRF protection
-    onError: (error) => {
-      logError(error, { context: 'Contact form submission' });
+  } catch (error) {
+    logError(error, { context: 'Contact form submission' });
 
-      if (error instanceof z.ZodError) {
-        return createValidationErrorResponse('Invalid form data. Please check your inputs and try again.', {
-          errors: error.errors.map(e => ({
-            field: e.path.join('.'),
-            message: e.message
-          }))
-        });
-      }
-
-      return createApiResponse(
-        error,
-        {
-          status: 500,
-          headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          }
+    return createApiResponse(
+      error,
+      {
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
         }
-      );
-    }
+      }
+    );
   }
-);
+};
