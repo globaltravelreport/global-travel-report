@@ -36,7 +36,7 @@ export async function rewriteArticle(content: string, style: 'casual' | 'formal'
 
     return completion.choices[0]?.message?.content || content
   } catch (_error) {
-    throw new OpenAIError('Failed to rewrite article', error)
+    throw new OpenAIError('Failed to rewrite article', _error)
   }
 }
 
@@ -60,7 +60,7 @@ export async function generateArticleExcerpt(content: string, maxLength: number 
 
     return completion.choices[0]?.message?.content || content.slice(0, maxLength)
   } catch (_error) {
-    throw new OpenAIError('Failed to generate excerpt', error)
+    throw new OpenAIError('Failed to generate excerpt', _error)
   }
 }
 
@@ -85,6 +85,6 @@ export async function suggestTags(content: string): Promise<string[]> {
     const tags = completion.choices[0]?.message?.content?.split(',').map(tag => tag.trim()) || []
     return tags.filter(tag => tag.length > 0)
   } catch (_error) {
-    throw new OpenAIError('Failed to suggest tags', error)
+    throw new OpenAIError('Failed to suggest tags', _error)
   }
 } 
