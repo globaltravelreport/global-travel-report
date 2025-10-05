@@ -75,7 +75,7 @@ export default function StoryShare({
         });
       } catch (_error) {
         // User cancelled or error occurred
-        console.log('Share cancelled or failed:', error);
+        console.log('Share cancelled or failed:', _error);
       } finally {
         setIsLoading(false);
       }

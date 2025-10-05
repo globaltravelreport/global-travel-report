@@ -94,10 +94,10 @@ export function useApi<T = any>() {
         return data;
 
       } catch (_error) {
-        lastError = error as Error;
+        lastError = _error as Error;
 
         // Don't retry on client errors (4xx)
-        if (error instanceof Error && error.message.includes('HTTP 4')) {
+        if (_error instanceof Error && _error.message.includes('HTTP 4')) {
           break;
         }
 
