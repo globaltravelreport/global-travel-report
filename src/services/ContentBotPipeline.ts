@@ -14,7 +14,7 @@ import { LocationAccurateImageService } from './LocationAccurateImageService';
 import { ContentAutomationService } from './contentAutomationService';
 import { SocialDistributionBot } from './SocialDistributionBot';
 import { sendSubmissionNotification } from './brevoService';
-import { rssFeedSources, categoryMappings } from '@/src/config/rssFeeds';
+import { rssFeedSources, categoryMappings } from '@/config/rssFeeds';
 
 export interface PipelineConfig {
   enableAutoIngestion: boolean;
@@ -194,7 +194,7 @@ export class ContentBotPipeline {
 
     } catch (_error) {
       console.error(_error);
-      throw error;
+      throw _error;
     }
   }
 

@@ -247,7 +247,7 @@ export class NewStoryProcessorService {
       return processedStories;
     } catch (_error) {
       console.error(_error);
-      throw error;
+      throw _error;
     } finally {
       // Update stats
       this.stats.endTime = new Date().toISOString();

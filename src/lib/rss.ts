@@ -1,6 +1,6 @@
 import { Story } from '@/types/Story';
 import { v4 as uuidv4 } from 'uuid';
-import { rssFeedSources, categoryMappings } from '@/src/config/rssFeeds';
+import { rssFeedSources, categoryMappings } from '@/config/rssFeeds';
 
 /**
  * RSS Feed Parser and Fetcher

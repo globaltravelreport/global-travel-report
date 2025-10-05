@@ -51,7 +51,7 @@ export function optimalPublicationTime(): string {
 
 export function handlePipelineError(error: any): void {
   // Dummy error handler
-  console.error(_error);
+  console.error(error);
 }
 
 export function trackPerformance(stats: ProcessingStats): void {

@@ -21,16 +21,16 @@ export function validateWithZod<T>(
   try {
     return schema.parse(data);
   } catch (_error) {
-    if (error instanceof z.ZodError) {
+    if (_error instanceof z.ZodError) {
       throw createValidationError(
         errorMessage,
         {
-          errors: error.errors,
-          formattedErrors: formatZodErrors(error),
+          errors: _error.errors,
+          formattedErrors: formatZodErrors(_error),
         }
       );
     }
-    throw error;
+    throw _error;
   }
 }
 
@@ -48,10 +48,10 @@ export function validateData<T>(
     const validatedData = schema.parse(data);
     return { success: true, data: validatedData };
   } catch (_error) {
-    if (error instanceof z.ZodError) {
-      return { success: false, errors: error };
+    if (_error instanceof z.ZodError) {
+      return { success: false, errors: _error };
     }
-    throw error;
+    throw _error;
   }
 }
 

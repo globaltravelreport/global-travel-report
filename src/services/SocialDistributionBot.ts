@@ -6,7 +6,7 @@
  */
 
 import { Story } from '@/types/Story';
-import { SocialAutomation } from '@/src/components/social/SocialAutomation';
+import { SocialAutomation } from '@/components/social/SocialAutomation';
 
 export interface DistributionConfig {
   enableFacebook: boolean;

@@ -125,7 +125,7 @@ export class StoryProcessorService {
       } catch (_error) {
         console.error(_error);
         this.stats.errors.fetching++;
-        throw error;
+        throw _error;
       }
 
       // Step 2: Process each story
@@ -262,7 +262,7 @@ export class StoryProcessorService {
       return processedStories;
     } catch (_error) {
       console.error(_error);
-      throw error;
+      throw _error;
     } finally {
       // Update stats
       this.stats.endTime = new Date().toISOString();

@@ -151,7 +151,7 @@ export class UnsplashService {
           };
         });
       } catch (_error) {
-        lastError = error instanceof Error ? error : new Error(String(error));
+        lastError = _error instanceof Error ? _error : new Error(String(_error));
 
         // Check if we should retry
         if (attempt < this.maxRetries - 1) {

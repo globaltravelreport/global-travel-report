@@ -160,7 +160,7 @@ export class NewsletterService {
       });
 
       if (!brevoResult.success) {
-        console.error(_error);
+        console.error('Brevo contact creation failed');
         // Don't fail the subscription if Brevo fails, just log it
       }
 
@@ -251,7 +251,7 @@ export class NewsletterService {
       });
 
       if (!templateResult.success) {
-        console.error(_error);
+        console.error('Template creation failed');
         // Fallback to console logging
         console.log('Email would be sent:', {
           to: email,
@@ -282,7 +282,7 @@ export class NewsletterService {
           templateId: template.id
         };
       } else {
-        console.error(_error);
+        console.error('Email sending failed');
         return {
           success: false,
           error: sendResult.error,
@@ -437,14 +437,14 @@ export class NewsletterService {
             result.errors.push(`Failed to send to ${subscriber.email}: ${sendResult.error}`);
           }
         } catch (_error) {
-          result.errors.push(`Error sending to ${subscriber.email}: ${error}`);
+          result.errors.push(`Error sending to ${subscriber.email}: ${_error}`);
         }
       }
 
       result.success = result.errors.length === 0;
       return result;
     } catch (_error) {
-      result.errors.push(`General error: ${error}`);
+      result.errors.push(`General error: ${_error}`);
       return result;
     }
   }

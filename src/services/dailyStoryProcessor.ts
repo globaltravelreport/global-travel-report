@@ -1,7 +1,7 @@
-import { Story } from '../../types/Story';
+import { Story } from '@/types/Story';
 import { IStoryProcessor, IStoryRewriter, IStoryValidator } from './interfaces';
 import { StoryRewriter } from './storyRewriter';
-import { fetchRSSFeeds } from '../../lib/rss';
+import { fetchRSSFeeds } from '@/lib/rss';
 
 /**
  * Simple mock implementation of the DailyStoryProcessor

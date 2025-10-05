@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import type { Story, StoryValidationResult } from '../../types/Story';
-import { storyRewriteConfig } from '../config/storyRewrite';
-import { generateStoryContent } from '../services/aiService';
+import type { Story, StoryValidationResult } from '@/types/Story';
+import { storyRewriteConfig } from '@/config/storyRewrite';
+import { generateStoryContent } from '@/services/aiService';
 
 /**
  * Custom error class for story validation errors
@@ -76,18 +76,18 @@ export class StoryValidator {
       };
     } catch (_error) {
       // Handle different types of errors
-      if (error instanceof StoryValidationError) {
-        issues.push(error.message);
-      } else if (error instanceof Error) {
+      if (_error instanceof StoryValidationError) {
+        issues.push(_error.message);
+      } else if (_error instanceof Error) {
         // Check if it's an API key error
-        if (error.message.includes('Missing OPENAI_API_KEY') || error.message.includes('Missing GOOGLE_API_KEY')) {
+        if (_error.message.includes('Missing OPENAI_API_KEY') || _error.message.includes('Missing GOOGLE_API_KEY')) {
           issues.push('API configuration error. Please check your environment variables.');
-        } else if (error.message.includes('API quota exceeded') || error.message.includes('rate limit')) {
+        } else if (_error.message.includes('API quota exceeded') || _error.message.includes('rate limit')) {
           issues.push('API quota exceeded. Please try again later.');
-        } else if (error.message.includes('API authentication failed')) {
+        } else if (_error.message.includes('API authentication failed')) {
           issues.push('API authentication failed. Please check your API key.');
         } else {
-          issues.push(`API error: ${error.message}`);
+          issues.push(`API error: ${_error.message}`);
         }
       } else {
         issues.push('An unexpected error occurred during validation');
@@ -168,7 +168,7 @@ Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
       }
     } catch (_error) {
       console.error(_error);
-      throw new StoryValidationError('Failed to check content safety', error);
+      throw new StoryValidationError('Failed to check content safety', _error);
     }
   }
 
@@ -272,7 +272,7 @@ Return format: {"isAccurate": true/false, "issues": ["issue1", "issue2"]}`;
       }
     } catch (_error) {
       console.error(_error);
-      throw new StoryValidationError('Failed to check factual accuracy', error);
+      throw new StoryValidationError('Failed to check factual accuracy', _error);
     }
   }
 }

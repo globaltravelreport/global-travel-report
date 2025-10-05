@@ -155,7 +155,7 @@ export function validateAndCorrectImageData(
   } catch (_error) {
     // Log the error if not silent
     logWarning('Error validating image data, using random image', {
-      error,
+      error: _error,
       imageUrl,
       photographer
     });

@@ -136,10 +136,10 @@ async function withRetry<T>(
     try {
       return await operation();
     } catch (_error) {
-      lastError = error;
-      
+      lastError = _error;
+
       if (attempt === maxRetries) {
-        throw error;
+        throw _error;
       }
 
       // Wait before retrying
@@ -231,16 +231,16 @@ export function createApiHandler<T = any>(
           const body = await req.json();
           data = config.bodySchema.parse(body);
         } catch (_error) {
-          if (error instanceof z.ZodError) {
+          if (_error instanceof z.ZodError) {
             const response = createValidationErrorResponse('Invalid request data', {
-              errors: error.errors.map(e => ({
+              errors: _error.errors.map(e => ({
                 field: e.path.join('.'),
                 message: e.message,
               })),
             });
             return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
           }
-          throw error;
+          throw _error;
         }
       }
 
@@ -250,16 +250,16 @@ export function createApiHandler<T = any>(
           const query = Object.fromEntries(req.nextUrl.searchParams);
           config.querySchema.parse(query);
         } catch (_error) {
-          if (error instanceof z.ZodError) {
+          if (_error instanceof z.ZodError) {
             const response = createValidationErrorResponse('Invalid query parameters', {
-              errors: error.errors.map(e => ({
+              errors: _error.errors.map(e => ({
                 field: e.path.join('.'),
                 message: e.message,
               })),
             });
             return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
           }
-          throw error;
+          throw _error;
         }
       }
 
@@ -292,7 +292,7 @@ export function createApiHandler<T = any>(
 
       // Use custom error handler if provided
       if (config.onError) {
-        const response = config.onError(error);
+        const response = config.onError(_error);
         return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
       }
 

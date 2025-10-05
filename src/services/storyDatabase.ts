@@ -1,5 +1,5 @@
-import { Story } from '../../types/Story';
-import { UserSubmission } from '../../types/UserSubmission';
+import { Story } from '@/types/Story';
+import { UserSubmission } from '@/types/UserSubmission';
 import { mockStories } from '../mocks/stories';
 import { getSafeDateString } from '../utils/date-utils';
 

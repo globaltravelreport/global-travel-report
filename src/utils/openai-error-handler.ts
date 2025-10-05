@@ -115,7 +115,7 @@ export function handleOpenAIError(error: unknown): OpenAIError {
   }
 
   // Handle generic errors
-  const message = _error instanceof Error ? _error.message : 'Unknown OpenAI API error';
+  const message = error instanceof Error ? error.message : 'Unknown OpenAI API error';
   return new OpenAIError(message, OpenAIErrorType.UNKNOWN);
 }
 
@@ -140,7 +140,7 @@ export async function retryOpenAICall<T>(
     try {
       return await fn();
     } catch (_error) {
-      const openAIError = handleOpenAIError(error);
+      const openAIError = handleOpenAIError(_error);
 
       // Don't retry if we've reached max retries or the error isn't retryable
       if (retries >= maxRetries || !openAIError.isRetryable()) {

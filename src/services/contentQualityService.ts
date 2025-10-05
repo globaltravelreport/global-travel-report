@@ -1,7 +1,7 @@
 // Content Quality Assurance Service
 // Provides automated quality scoring, suggestions, plagiarism detection, brand compliance, and performance prediction
-import type { Story } from '../../types/Story';
-import type { QualityScore } from '../types/contentPipeline';
+import type { Story } from '@/types/Story';
+import type { QualityScore } from '@/types/contentPipeline';
 
 export class ContentQualityService {
   async score(story: Story): Promise<QualityScore> {

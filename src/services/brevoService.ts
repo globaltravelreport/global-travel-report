@@ -375,7 +375,7 @@ export async function sendSubmissionNotification(submission: {
     );
 
     if (!editorEmailResult.success) {
-      console.error(_error);
+      console.error('Editor email failed');
     }
 
     // Thank you email to submitter
@@ -390,7 +390,7 @@ export async function sendSubmissionNotification(submission: {
     );
 
     if (!submitterEmailResult.success) {
-      console.error(_error);
+      console.error('Submitter email failed');
     }
 
     return {

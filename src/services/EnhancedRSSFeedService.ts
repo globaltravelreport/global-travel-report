@@ -6,7 +6,7 @@
  */
 
 import { Story } from '@/types/Story';
-import { rssFeedSources, categoryMappings } from '@/src/config/rssFeeds';
+import { rssFeedSources, categoryMappings } from '@/config/rssFeeds';
 
 export interface ProcessedRSSItem {
   title: string;

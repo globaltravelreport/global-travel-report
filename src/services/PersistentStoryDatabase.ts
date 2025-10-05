@@ -83,7 +83,7 @@ export class PersistentStoryDatabase {
         return this.storeStoryMemory(story);
       }
 
-      throw error;
+      throw _error;
     }
   }
 
@@ -158,7 +158,7 @@ export class PersistentStoryDatabase {
         return this.storeSubmissionMemory(submission);
       }
 
-      throw error;
+      throw _error;
     }
   }
 
@@ -214,7 +214,7 @@ export class PersistentStoryDatabase {
       return story;
     } catch (_error) {
       console.error(_error);
-      throw error;
+      throw _error;
     }
   }
 
@@ -423,7 +423,7 @@ export class PersistentStoryDatabase {
       return submission;
     } catch (_error) {
       console.error(_error);
-      throw error;
+      throw _error;
     }
   }
 
