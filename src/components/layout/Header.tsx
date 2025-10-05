@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-// import { useState } from 'react';
 // import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { FaMedium, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
@@ -13,10 +12,10 @@ import { SocialLinks } from '../ui/SocialLinks';
 
 export default function Header() {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
