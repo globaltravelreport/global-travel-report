@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       {
         success: false,
         message: 'Error revalidating path',
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: _error instanceof Error ? _error.message : 'Unknown error'
       },
       { status: 500 }
     );
