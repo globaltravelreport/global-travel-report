@@ -112,7 +112,7 @@ export function trackAffiliateClick(
         },
         body: JSON.stringify(trackingData)
       }).catch(error => {
-        console.error(_error);
+        console.error(error);
       });
 
       resolve();
