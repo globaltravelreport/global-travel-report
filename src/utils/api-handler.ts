@@ -116,7 +116,7 @@ async function validateCsrfToken(req: NextRequest): Promise<boolean> {
     // In a real implementation, you would validate the token against your CSRF protection
     // For now, we'll just check if it exists and is not empty
     return token.length > 0;
-  } catch (error) {
+  } catch (_error) {
     logError(error, { context: 'CSRF validation' });
     return false;
   }
@@ -135,7 +135,7 @@ async function withRetry<T>(
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       return await operation();
-    } catch (error) {
+    } catch (_error) {
       lastError = error;
       
       if (attempt === maxRetries) {
@@ -230,7 +230,7 @@ export function createApiHandler<T = any>(
         try {
           const body = await req.json();
           data = config.bodySchema.parse(body);
-        } catch (error) {
+        } catch (_error) {
           if (error instanceof z.ZodError) {
             const response = createValidationErrorResponse('Invalid request data', {
               errors: error.errors.map(e => ({
@@ -249,7 +249,7 @@ export function createApiHandler<T = any>(
         try {
           const query = Object.fromEntries(req.nextUrl.searchParams);
           config.querySchema.parse(query);
-        } catch (error) {
+        } catch (_error) {
           if (error instanceof z.ZodError) {
             const response = createValidationErrorResponse('Invalid query parameters', {
               errors: error.errors.map(e => ({
@@ -279,7 +279,7 @@ export function createApiHandler<T = any>(
       // Apply CORS headers if enabled
       return config.enableCors ? applyCorsHeaders(response, config.corsOptions) : response;
 
-    } catch (error) {
+    } catch (_error) {
       // Log the error
       logError(error, {
         context: 'API Handler',

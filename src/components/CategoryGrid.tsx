@@ -28,7 +28,7 @@ export default async function CategoryGrid() {
   try {
     const storyDb = StoryDatabase.getInstance();
     stories = await storyDb.getAllStories();
-  } catch (error) {
+  } catch (_error) {
     console.error('Error loading stories for category grid:', error);
     // Continue with empty stories array
   }

@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error in daily stories cron job:', error);
     return NextResponse.json(
       {

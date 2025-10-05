@@ -57,7 +57,7 @@ export class FacebookService {
       );
 
       return { id: response.data.id };
-    } catch (error) {
+    } catch (_error) {
       // Log the error
       errorService.logError(
         `Failed to post to Facebook: ${error instanceof Error ? error.message : String(error)}`,
@@ -89,7 +89,7 @@ export class FacebookService {
       );
 
       return response.data;
-    } catch (error) {
+    } catch (_error) {
       // Log the error
       errorService.logError(
         `Failed to get Facebook page info: ${error instanceof Error ? error.message : String(error)}`,
@@ -120,7 +120,7 @@ export class FacebookService {
       );
 
       return response.data.data.is_valid === true;
-    } catch (error) {
+    } catch (_error) {
       // Log the error
       errorService.logError(
         `Failed to validate Facebook access token: ${error instanceof Error ? error.message : String(error)}`,

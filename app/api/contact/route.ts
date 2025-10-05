@@ -32,7 +32,7 @@ async function sendEmail(data: ContactFormRequest): Promise<boolean> {
     // In production, replace this with an HTTP API call to your email service
 
     return true;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error processing contact form:', error);
     return false;
   }
@@ -66,7 +66,7 @@ export const POST = createApiHandler<ContactFormRequest>(
             { status: 403 }
           );
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error verifying reCAPTCHA:', error);
         // Continue processing in case of reCAPTCHA error
         // This prevents the form from being completely blocked if reCAPTCHA has issues

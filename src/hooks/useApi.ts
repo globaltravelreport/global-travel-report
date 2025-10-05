@@ -93,7 +93,7 @@ export function useApi<T = any>() {
         setState({ data, loading: false, error: null });
         return data;
 
-      } catch (error) {
+      } catch (_error) {
         lastError = error as Error;
 
         // Don't retry on client errors (4xx)

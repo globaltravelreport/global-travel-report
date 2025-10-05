@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       success: true,
       data,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching analytics data:', error);
     
     return NextResponse.json(

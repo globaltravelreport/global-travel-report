@@ -27,7 +27,7 @@ export default function Header() {
           slug: country.toLowerCase().replace(/\s+/g, '-')
         }));
         setCountries(countryData);
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading countries:', error);
       }
     };

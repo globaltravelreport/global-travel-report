@@ -173,7 +173,7 @@ export function initializeEnhancedImageTracker(): ImageTrackerData {
       fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
     }
     return newTracker;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error initializing enhanced image tracker:', error);
     // Return a default tracker
     return {
@@ -312,7 +312,7 @@ export function getBestImageForStory(
         url: photographerUrl
       }
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting best image for story:', error);
     // Return a default image
     return {

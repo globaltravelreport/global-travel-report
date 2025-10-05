@@ -17,7 +17,7 @@ async function getCategoryStories(categorySlug: string): Promise<Story[]> {
     const allStories = await getAllStories();
     const categoryResult = getStoriesByCategory(allStories, categorySlug, { page: 1, limit: 100 });
     return categoryResult.data;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching category stories:', error);
     return [];
   }

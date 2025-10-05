@@ -124,7 +124,7 @@ export class SocialDistributionBot {
       result.success = result.errors.length === 0;
       console.log(`✅ Distribution complete: ${result.platforms.length} platforms, ${result.errors.length} errors`);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in story distribution:', error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown distribution error');
     }
@@ -271,7 +271,7 @@ export class SocialDistributionBot {
         platform: 'Facebook',
         immediate: true,
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         platform: 'Facebook',
@@ -310,7 +310,7 @@ export class SocialDistributionBot {
         platform: 'Twitter',
         immediate: true,
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         platform: 'Twitter',
@@ -367,7 +367,7 @@ export class SocialDistributionBot {
         platform: 'LinkedIn',
         immediate: true,
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         platform: 'LinkedIn',
@@ -393,7 +393,7 @@ export class SocialDistributionBot {
         platform: 'Medium',
         immediate: false, // Medium typically scheduled
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         platform: 'Medium',
@@ -419,7 +419,7 @@ export class SocialDistributionBot {
         platform: 'Newsletter',
         immediate: false, // Newsletter campaigns are scheduled
       };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         platform: 'Newsletter',

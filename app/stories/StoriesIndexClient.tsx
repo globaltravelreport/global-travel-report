@@ -18,7 +18,7 @@ export default function StoriesIndexClient() {
         const storyDb = StoryDatabase.getInstance();
         const allStories = await storyDb.getAllStories();
         setStories(allStories);
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading stories:', error);
         setStories([]);
       } finally {

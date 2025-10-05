@@ -13,7 +13,7 @@ export class GoogleAnalyticsService {
         this.client = new BetaAnalyticsDataClient({
           credentials,
         });
-      } catch (error) {
+      } catch (_error) {
         console.error('Failed to initialize Google Analytics client:', error);
       }
     }

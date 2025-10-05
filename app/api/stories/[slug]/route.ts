@@ -42,7 +42,7 @@ export async function GET(
       success: true,
       story
     });
-  } catch (error) {
+  } catch (_error) {
     console.error(`Error fetching story:`, error);
     return NextResponse.json(
       {

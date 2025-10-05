@@ -152,7 +152,7 @@ export function validateAndCorrectImageData(
     // If we have neither, return a random image
     logWarning('No image data provided, using random image');
     return getRandomImage();
-  } catch (error) {
+  } catch (_error) {
     // Log the error if not silent
     logWarning('Error validating image data, using random image', {
       error,

@@ -131,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
 
       return sitemapEntry;
-    } catch (error) {
+    } catch (_error) {
       // If there's any error processing a story, return a basic entry with current date
       console.error(`Error processing story for sitemap: ${story.slug}`, error);
       return {

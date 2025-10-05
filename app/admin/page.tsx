@@ -67,7 +67,7 @@ function AdminDashboardContent() {
         } else {
           throw new Error(data.message || 'Failed to fetch stories');
         }
-      } catch (error) {
+      } catch (_error) {
         setError(error instanceof Error ? error.message : 'An unknown error occurred');
       } finally {
         setLoading(false);
@@ -112,7 +112,7 @@ function AdminDashboardContent() {
       } else {
         throw new Error(data.message || 'Failed to trigger content generation');
       }
-    } catch (error) {
+    } catch (_error) {
       setError(error instanceof Error ? error.message : 'An unknown error occurred');
     } finally {
       setLoading(false);

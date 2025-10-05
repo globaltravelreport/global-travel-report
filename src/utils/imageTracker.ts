@@ -131,7 +131,7 @@ export function initializeImageTracker(): ImageTrackerData {
       fs.writeFileSync(IMAGE_TRACKER_FILE, JSON.stringify(newTracker, null, 2));
     }
     return newTracker;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error initializing image tracker:', error);
     // Return a default tracker
     return {
@@ -234,7 +234,7 @@ export function getImageForStory(storySlug: string, category: string): { imageUr
         url: selectedPhotographer.url
       }
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting image for story:', error);
     // Return a default image
     return {

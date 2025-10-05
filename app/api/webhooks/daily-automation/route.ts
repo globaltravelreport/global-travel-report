@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       triggered_by: 'make_webhook'
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('💥 Error in daily automation webhook:', error);
 
     // Return error response

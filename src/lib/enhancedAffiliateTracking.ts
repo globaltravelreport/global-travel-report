@@ -77,7 +77,7 @@ export function addTrackingToAffiliateUrl(
     });
 
     return url.toString();
-  } catch (error) {
+  } catch (_error) {
     console.error('Error adding tracking to affiliate URL:', error);
     return originalUrl;
   }
@@ -116,7 +116,7 @@ export function trackAffiliateClick(
       });
 
       resolve();
-    } catch (error) {
+    } catch (_error) {
       console.error('Error tracking affiliate click:', error);
       resolve();
     }

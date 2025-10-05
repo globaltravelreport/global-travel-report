@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
           responseTime
         };
 
-      } catch (error) {
+      } catch (_error) {
         const responseTime = Date.now() - startTime;
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 
@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Affiliate verification error:', error);
     return NextResponse.json(
       {
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Cache management error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

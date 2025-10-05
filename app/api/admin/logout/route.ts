@@ -10,7 +10,7 @@ export async function POST(_request: NextRequest) {
     const response = NextResponse.json({ success: true });
     clearSession(); // Clear session without response parameter
     return response;
-  } catch (error) {
+  } catch (_error) {
     console.error('Logout error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

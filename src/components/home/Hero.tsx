@@ -32,7 +32,7 @@ export default function Hero() {
 
         console.log('Hero: Selected story:', storyToUse?.title || 'None');
         setFeaturedStory(storyToUse);
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading featured story:', error);
         // Set a fallback story or handle the error state
         setFeaturedStory(null);

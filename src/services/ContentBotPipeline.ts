@@ -141,7 +141,7 @@ export class ContentBotPipeline {
       result.success = true;
       console.log('✅ Content Bot Pipeline completed successfully');
 
-    } catch (error) {
+    } catch (_error) {
       console.error('❌ Content Bot Pipeline failed:', error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown pipeline error');
     }
@@ -165,7 +165,7 @@ export class ContentBotPipeline {
         } else {
           console.error(`Failed to distribute ${story.title}:`, distributionResult.errors);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error distributing story ${story.title}:`, error);
       }
     }
@@ -192,7 +192,7 @@ export class ContentBotPipeline {
       console.log(`📊 Fetched ${stories.length} stories, ${qualityStories.length} passed quality filter`);
       return qualityStories;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error fetching RSS content:', error);
       throw error;
     }
@@ -234,7 +234,7 @@ export class ContentBotPipeline {
 
         processedStories.push(processedContent);
 
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error processing story "${rawStory.title}":`, error);
       }
     }
@@ -281,7 +281,7 @@ export class ContentBotPipeline {
 
         console.log(`📋 Submitted to moderation: ${submission.title}`);
 
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error submitting to moderation: ${processed.rewrittenStory.title}`, error);
       }
     }
@@ -315,14 +315,14 @@ export class ContentBotPipeline {
             console.log(`✅ Published: ${story.title}`);
           }
 
-        } catch (error) {
+        } catch (_error) {
           console.error(`Error publishing submission ${submission.id}:`, error);
         }
       }
 
       return publishedStories;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in auto-publish:', error);
       return [];
     }
@@ -373,7 +373,7 @@ export class ContentBotPipeline {
         imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600',
       };
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error enhancing story with image:', error);
       return story;
     }
@@ -403,7 +403,7 @@ export class ContentBotPipeline {
 
       return stats;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting pipeline stats:', error);
       return {
         totalProcessed: 0,

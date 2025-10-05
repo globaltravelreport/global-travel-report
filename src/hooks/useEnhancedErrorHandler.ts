@@ -87,7 +87,7 @@ export function useEnhancedErrorHandler() {
         isLoading: false,
         error: null
       }));
-    } catch (error) {
+    } catch (_error) {
       await handleErrorWithContext(
         error as Error,
         { operation: 'retry' }

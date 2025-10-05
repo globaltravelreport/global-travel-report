@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       details: { username, event: 'login_success' },
     });
     return response;
-  } catch (error) {
+  } catch (_error) {
     trackSecurityEvent({ type: 'error', ip, userAgent, details: error });
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

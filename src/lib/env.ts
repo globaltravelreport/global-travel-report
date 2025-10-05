@@ -52,7 +52,7 @@ function validateEnv(): EnvConfig {
   try {
     const parsed = envSchema.parse(process.env);
     return parsed;
-  } catch (error) {
+  } catch (_error) {
     if (error instanceof z.ZodError) {
       console.error('❌ Environment validation failed:');
       error.errors.forEach((err) => {

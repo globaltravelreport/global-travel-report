@@ -51,7 +51,7 @@ export function AdSense({
           window.adsbygoogle.push({});
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading AdSense ad:', error);
     }
   }, []);

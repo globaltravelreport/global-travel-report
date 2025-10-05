@@ -40,7 +40,7 @@ export function SubmissionsManagementClient() {
         }));
         setSubmissions(submissionsWithActions);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading submissions:', error);
     } finally {
       setLoading(false);
@@ -62,7 +62,7 @@ export function SubmissionsManagementClient() {
       } else {
         console.error('Failed to approve submission');
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error approving submission:', error);
     } finally {
       setActionLoading(null);
@@ -87,7 +87,7 @@ export function SubmissionsManagementClient() {
       } else {
         console.error('Failed to reject submission');
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error rejecting submission:', error);
     } finally {
       setActionLoading(null);

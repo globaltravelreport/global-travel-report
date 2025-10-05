@@ -79,7 +79,7 @@ export async function POST(
       message: 'Submission rejected successfully',
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error rejecting submission:', error);
     return NextResponse.json(
       { error: 'Failed to reject submission' },

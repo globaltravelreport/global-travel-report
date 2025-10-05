@@ -117,7 +117,7 @@ export class ContentAutomationService {
           } else {
             result.storiesRejected++;
           }
-        } catch (error) {
+        } catch (_error) {
           console.error('Error processing individual story:', error);
           result.errors.push(`Failed to process story: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
@@ -128,7 +128,7 @@ export class ContentAutomationService {
 
       return result;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in content ingestion:', error);
       result.errors.push(`Ingestion failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       return result;
@@ -195,7 +195,7 @@ export class ContentAutomationService {
 
       return processedStory;
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error processing story:', error);
       return null;
     }
@@ -508,7 +508,7 @@ export class ContentAutomationService {
       await this.db.updateStory(storyId, { featured: true });
       console.log(`Set story ${storyId} as featured`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error setting featured story:', error);
       return false;
     }
@@ -534,7 +534,7 @@ export class ContentAutomationService {
 
       console.log(`Set ${storyIds.length} stories as editor's picks`);
       return true;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error setting editor\'s picks:', error);
       return false;
     }
@@ -572,7 +572,7 @@ export class ContentAutomationService {
         averageQualityScore,
         lastIngestion: allStories.length > 0 ? new Date(allStories[0].publishedAt) : null
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting automation stats:', error);
       return {
         totalStories: 0,

@@ -57,7 +57,7 @@ export function requireAuth(requiredPermissions: string[] = []): (request: NextR
       }
 
       return NextResponse.next();
-    } catch (error) {
+    } catch (_error) {
       console.error('Auth middleware error:', error);
       return NextResponse.json(
         { error: 'Authentication error' },

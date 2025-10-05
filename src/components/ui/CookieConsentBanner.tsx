@@ -263,7 +263,7 @@ export function useCookieConsent(): {
       try {
         const parsed = JSON.parse(consent);
         setPreferences(parsed.preferences);
-      } catch (error) {
+      } catch (_error) {
         console.error('Error parsing cookie consent:', error);
       }
     }

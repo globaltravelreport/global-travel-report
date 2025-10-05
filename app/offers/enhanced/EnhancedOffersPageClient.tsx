@@ -75,7 +75,7 @@ export default function EnhancedOffersPageClient({
       } else {
         setSubmitMessage('Something went wrong. Please try again later.');
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);

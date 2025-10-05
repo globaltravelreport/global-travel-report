@@ -81,7 +81,7 @@ export class StoryDatabase {
 
       console.log(`Loaded ${this.stories.length} stories from mock data`);
       this.initialized = true;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error initializing story database:', error);
       throw new Error('Failed to initialize story database');
     }

@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       trackingId: generateTrackingId(trackingData),
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error tracking affiliate click:', error);
     return NextResponse.json(
       {
@@ -144,7 +144,7 @@ async function storeAffiliateClick(data: any): Promise<void> {
     await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
 
     console.log('Affiliate click data stored successfully');
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to store affiliate click data:', error);
     // Don't throw error, just log it - tracking shouldn't break the user experience
   }
@@ -208,7 +208,7 @@ export async function GET(request: NextRequest) {
       clicks: clicks,
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error retrieving affiliate click stats:', error);
     return NextResponse.json(
       {

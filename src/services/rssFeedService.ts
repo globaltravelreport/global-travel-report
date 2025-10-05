@@ -29,7 +29,7 @@ export class RSSFeedService {
       // Use the mock implementation instead of real RSS parsing
       const stories = await fetchRSSFeeds();
       return stories;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error fetching RSS feeds:', error);
       return this.getBackupStories();
     }

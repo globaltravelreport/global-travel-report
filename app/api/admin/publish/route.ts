@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         slug: story.slug,
       }
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Publish error:', error);
     return NextResponse.json(
       { error: 'Failed to publish story. Please try again.' },

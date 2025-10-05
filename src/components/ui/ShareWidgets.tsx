@@ -133,7 +133,7 @@ export function ShareWidgets({
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
         setShareCount(prev => prev + 1);
-      } catch (error) {
+      } catch (_error) {
         // Fallback for older browsers
         const textArea = document.createElement('textarea');
         textArea.value = data.url;
@@ -159,7 +159,7 @@ export function ShareWidgets({
         });
         setShareCount(prev => prev + 1);
         return;
-      } catch (error) {
+      } catch (_error) {
         // User cancelled or sharing failed, fallback to URL
       }
     }

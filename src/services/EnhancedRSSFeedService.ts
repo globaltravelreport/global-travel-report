@@ -84,7 +84,7 @@ export class EnhancedRSSFeedService {
       result.success = result.errors.length === 0;
       console.log(`✅ RSS processing complete: ${result.itemsAccepted}/${result.itemsProcessed} items accepted`);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in RSS feed processing:', error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown error');
     }
@@ -125,7 +125,7 @@ export class EnhancedRSSFeedService {
             await this.storeForModeration(processedItem);
             itemsAccepted++;
           }
-        } catch (error) {
+        } catch (_error) {
           console.error(`Error processing RSS item:`, error);
         }
       }
@@ -133,7 +133,7 @@ export class EnhancedRSSFeedService {
       console.log(`📊 ${category}: ${itemsAccepted}/${itemsProcessed} items processed successfully`);
       return { itemsProcessed, itemsAccepted };
 
-    } catch (error) {
+    } catch (_error) {
       console.error(`Error processing feed ${feedUrl}:`, error);
       return { itemsProcessed: 0, itemsAccepted: 0 };
     }
@@ -210,7 +210,7 @@ export class EnhancedRSSFeedService {
         qualityScore,
       };
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error processing RSS item:', error);
       return null;
     }
@@ -316,7 +316,7 @@ export class EnhancedRSSFeedService {
 
       console.log(`📋 Stored RSS item for moderation: ${item.title}`);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error storing RSS item for moderation:', error);
     }
   }
@@ -383,7 +383,7 @@ export class EnhancedRSSFeedService {
         averageQualityScore,
       };
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting RSS stats:', error);
       return {
         totalFeeds: 0,

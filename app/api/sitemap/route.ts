@@ -81,7 +81,7 @@ export async function GET() {
         'Cache-Control': 'public, max-age=3600, s-maxage=3600',
       },
     });
-  } catch (error) {
+  } catch (_error) {
     // Log error in production environments using proper logging
     return NextResponse.json(
       { error: 'Failed to generate sitemap' },

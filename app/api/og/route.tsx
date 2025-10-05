@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
         height: 630,
       }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error('Error generating OG image:', error);
 
     // Return a fallback image response

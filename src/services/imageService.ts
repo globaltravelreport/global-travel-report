@@ -28,7 +28,7 @@ const unsplash = (() => {
     return createApi({
       accessKey,
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Failed to initialize Unsplash client:', error);
     return null;
   }
@@ -110,7 +110,7 @@ export async function getRandomImage(
     imageCache.set(cacheKey, imageData);
     
     return imageData;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching image from Unsplash:', error);
     return null;
   }
@@ -174,7 +174,7 @@ export async function getImageForStory(story: Story): Promise<{
     }
     
     return image;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting image for story:', error);
     return null;
   }

@@ -74,7 +74,7 @@ export class StoryValidator {
         issues,
         suggestions
       };
-    } catch (error) {
+    } catch (_error) {
       // Handle different types of errors
       if (error instanceof StoryValidationError) {
         issues.push(error.message);
@@ -166,7 +166,7 @@ Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
         console.error('Failed to parse content safety response:', parseError);
         throw new StoryValidationError('Invalid response format from content safety check');
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Content safety check failed:', error);
       throw new StoryValidationError('Failed to check content safety', error);
     }
@@ -270,7 +270,7 @@ Return format: {"isAccurate": true/false, "issues": ["issue1", "issue2"]}`;
         console.error('Failed to parse factual accuracy response:', parseError);
         throw new StoryValidationError('Invalid response format from factual accuracy check');
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Factual accuracy check failed:', error);
       throw new StoryValidationError('Failed to check factual accuracy', error);
     }

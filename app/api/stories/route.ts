@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
       totalPages: Math.ceil(stories.length / limit),
       stories: paginatedStories
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching stories:', error);
     return NextResponse.json(
       {

@@ -67,7 +67,7 @@ function storeErrorLog(errorLog: ErrorLog): void {
     if (process.env.NODE_ENV === 'development') {
       console.error(`Error logged: ${errorLog.message} (${errorLog.severity})`);
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Error storing error log:', error);
   }
 }
@@ -148,7 +148,7 @@ export function getStoredErrorLogs(): ErrorLog[] {
   try {
     const storedLogs = localStorage.getItem(ERROR_LOGS_STORAGE_KEY);
     return storedLogs ? JSON.parse(storedLogs) : [];
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting stored error logs:', error);
     return [];
   }
@@ -162,7 +162,7 @@ export function clearStoredErrorLogs(): void {
 
   try {
     localStorage.removeItem(ERROR_LOGS_STORAGE_KEY);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error clearing stored error logs:', error);
   }
 }

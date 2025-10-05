@@ -168,7 +168,7 @@ export class NewsletterService {
       await this.triggerWelcomeSeries(subscriber);
 
       return { success: true, subscriber };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -213,7 +213,7 @@ export class NewsletterService {
           { firstName: subscriber.firstName || 'there' }
         );
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error triggering welcome series:', error);
     }
   }
@@ -290,7 +290,7 @@ export class NewsletterService {
           templateId: template.id
         };
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error scheduling email:', error);
       return {
         success: false,
@@ -436,14 +436,14 @@ export class NewsletterService {
           } else {
             result.errors.push(`Failed to send to ${subscriber.email}: ${sendResult.error}`);
           }
-        } catch (error) {
+        } catch (_error) {
           result.errors.push(`Error sending to ${subscriber.email}: ${error}`);
         }
       }
 
       result.success = result.errors.length === 0;
       return result;
-    } catch (error) {
+    } catch (_error) {
       result.errors.push(`General error: ${error}`);
       return result;
     }

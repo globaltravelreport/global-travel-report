@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       timezone: 'AEST (Australian Eastern Standard Time)'
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('💥 Error in daily auto-publisher webhook:', error);
 
     // Return error response
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
       timezone: 'AEST (Australian Eastern Standard Time)'
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('💥 Error in daily auto-publisher cron job:', error);
 
     // Return error response

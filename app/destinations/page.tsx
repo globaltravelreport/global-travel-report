@@ -111,7 +111,7 @@ async function DestinationsPageContent() {
   try {
     allStories = await getAllStories();
     console.log(`DestinationsPage: Fetched ${allStories?.length || 0} stories, type: ${typeof allStories}, isArray: ${Array.isArray(allStories)}`);
-  } catch (error) {
+  } catch (_error) {
     console.error('DestinationsPage: Error fetching stories:', error);
     allStories = [];
   }

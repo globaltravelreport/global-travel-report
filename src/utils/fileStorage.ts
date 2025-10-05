@@ -32,7 +32,7 @@ function safeToISOString(dateStr: string | Date | undefined, preserveFutureDates
         // It's a valid date, return the original string to preserve exact format
         return dateStr;
       }
-    } catch (e) {
+    } catch (_e) {
       // If there's an error, continue with normal validation
     }
   }
@@ -390,13 +390,13 @@ export async function getAllStories(): Promise<Story[]> {
 
           stories.push(story);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error reading story file ${file}:`, error);
       }
     }
 
     return stories.length > 0 ? stories : storiesData;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting stories:', error);
     return storiesData;
   }
@@ -563,7 +563,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
               console.log(`[fileStorage.getStoryBySlug] Successfully loaded story from file: ${story.title}`);
             }
-          } catch (error) {
+          } catch (_error) {
             console.error(`[fileStorage.getStoryBySlug] Error parsing file ${filePath}:`, error);
           }
         }
@@ -577,7 +577,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
     }
 
     return story || null;
-  } catch (error) {
+  } catch (_error) {
     console.error(`[fileStorage.getStoryBySlug] Error getting story by slug ${slug}:`, error);
     return null;
   }
@@ -635,7 +635,7 @@ export async function saveStory(story: Story): Promise<void> {
             }
           }
         }
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error reading existing story file ${filePath}:`, error);
       }
     }
@@ -680,7 +680,7 @@ ${story.content || ''}`;
     } else {
       storiesData.push(story);
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Error saving story:', error);
   }
 }
@@ -714,7 +714,7 @@ export async function deleteStory(slug: string): Promise<void> {
     if (index !== -1) {
       storiesData.splice(index, 1);
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Error deleting story:', error);
   }
 }

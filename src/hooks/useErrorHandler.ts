@@ -73,7 +73,7 @@ export function useErrorHandler() {
       try {
         clearError();
         return await fn(...args);
-      } catch (error) {
+      } catch (_error) {
         handleErrorWithState(error, context);
         return undefined;
       }

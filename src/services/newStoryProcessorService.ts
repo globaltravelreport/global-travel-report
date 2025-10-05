@@ -115,7 +115,7 @@ export class NewStoryProcessorService {
       // Check if the script exists
       try {
         await fs.access(scriptPath);
-      } catch (error) {
+      } catch (_error) {
         throw new Error('Story generator script not found');
       }
 
@@ -160,7 +160,7 @@ export class NewStoryProcessorService {
             saving: errorPerType
           };
         }
-      } catch (error) {
+      } catch (_error) {
         console.warn('Could not parse stats from output');
       }
 
@@ -222,11 +222,11 @@ export class NewStoryProcessorService {
 
               processedStories.push(story);
             }
-          } catch (error) {
+          } catch (_error) {
             console.error(`Error parsing story file ${file}:`, error);
           }
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error reading content directory:', error);
       }
 
@@ -245,7 +245,7 @@ export class NewStoryProcessorService {
 
       console.log('Story processing completed successfully');
       return processedStories;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error processing stories:', error);
       throw error;
     } finally {

@@ -42,7 +42,7 @@ export async function GET() {
           lastmod = date.toISOString();
         }
       }
-    } catch (error) {
+    } catch (_error) {
       // If any error occurs, use current date
       lastmod = new Date().toISOString();
     }

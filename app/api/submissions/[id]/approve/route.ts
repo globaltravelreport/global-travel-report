@@ -75,7 +75,7 @@ export async function POST(
       },
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error approving submission:', error);
     return NextResponse.json(
       { error: 'Failed to approve submission' },

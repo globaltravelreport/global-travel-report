@@ -35,7 +35,7 @@ export default function PopularTags({
           const data = await response.json();
           setTags(data);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error fetching popular tags:', error);
       } finally {
         setIsLoading(false);

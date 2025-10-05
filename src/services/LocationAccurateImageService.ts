@@ -64,7 +64,7 @@ export class LocationAccurateImageService {
             console.log(`✅ Found image: ${bestImage.alt} by ${bestImage.photographer.name}`);
             return bestImage;
           }
-        } catch (error) {
+        } catch (_error) {
           console.error('Error in image search strategy:', error);
           continue;
         }
@@ -74,7 +74,7 @@ export class LocationAccurateImageService {
       console.log('🔄 Using category-based fallback search...');
       return await this.fallbackImageSearch(story);
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error finding image for story:', error);
       return null;
     }
@@ -171,7 +171,7 @@ export class LocationAccurateImageService {
         relevanceScore: this.calculateRelevanceScore(image, options),
       }));
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error searching images:', error);
       return [];
     }
@@ -260,7 +260,7 @@ export class LocationAccurateImageService {
         relevanceScore: 0.3,
       };
 
-    } catch (error) {
+    } catch (_error) {
       console.error('Error in fallback image search:', error);
       return null;
     }
@@ -322,7 +322,7 @@ export class LocationAccurateImageService {
           orientation: 'landscape',
           minRelevance: 0.7,
         });
-      } catch (error) {
+      } catch (_error) {
         console.error(`Error pre-fetching images for ${location}:`, error);
       }
     }

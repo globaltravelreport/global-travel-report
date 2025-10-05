@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
     cacheTime = now;
     trackSecurityEvent({ type: 'monitoring', ip, userAgent, details: 'Stats accessed' });
     return NextResponse.json(stats);
-  } catch (error) {
+  } catch (_error) {
     trackSecurityEvent({ type: 'error', ip, userAgent, details: error });
     return NextResponse.json({ error: 'Failed to fetch processing stats' }, { status: 500 });
   }

@@ -47,7 +47,7 @@ export default function CommentSystem({
         const data = await response.json();
         setComments(data);
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error fetching comments:', error);
     } finally {
       setIsLoading(false);
@@ -102,7 +102,7 @@ export default function CommentSystem({
           setAuthorEmail('');
         }
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error submitting comment:', error);
     } finally {
       setIsSubmitting(false);
@@ -118,7 +118,7 @@ export default function CommentSystem({
       if (response.ok) {
         setComments(prev => updateCommentLikes(prev, commentId));
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('Error liking comment:', error);
     }
   };
@@ -191,7 +191,7 @@ export default function CommentSystem({
           setReplyAuthor('');
           setReplyEmail('');
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error submitting reply:', error);
       }
     };

@@ -162,7 +162,7 @@ ${prompts.map((prompt, index) => `${index + 1}. ${prompt}`).join('\n')}`,
 
     // If the response is not in the expected format, try to extract responses from the object
     return prompts.map((_, index) => parsedResponse[`response${index + 1}`] || '');
-  } catch (error) {
+  } catch (_error) {
     console.error('Error parsing batched OpenAI response:', error);
     return prompts.map(() => 'Error processing request');
   }

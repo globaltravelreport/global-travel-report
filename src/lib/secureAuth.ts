@@ -69,7 +69,7 @@ export class SecureAuth {
       const result = Buffer.concat([iv, Buffer.from(encrypted, 'hex'), tag]).toString('base64');
 
       return result;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error encrypting session:', error);
       throw new Error('Session encryption failed');
     }
@@ -104,7 +104,7 @@ export class SecureAuth {
       }
 
       return session;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error decrypting session:', error);
       return null;
     }
@@ -169,7 +169,7 @@ export class SecureAuth {
       }
 
       return this.decryptSession(sessionCookie);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting session from request:', error);
       return null;
     }

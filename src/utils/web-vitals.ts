@@ -77,7 +77,7 @@ function storeWebVitalsMetric(metric: WebVitalsMetric): void {
     if (process.env.NODE_ENV === 'development') {
       console.log(`Web Vitals: ${metric.name} = ${metric.value} (${metric.rating})`);
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Error storing Web Vitals metric:', error);
   }
 }
@@ -93,7 +93,7 @@ export function getStoredWebVitalsMetrics(): any[] {
   try {
     const storedMetrics = localStorage.getItem(WEB_VITALS_STORAGE_KEY);
     return storedMetrics ? JSON.parse(storedMetrics) : [];
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting stored Web Vitals metrics:', error);
     return [];
   }
@@ -107,7 +107,7 @@ export function clearStoredWebVitalsMetrics(): void {
 
   try {
     localStorage.removeItem(WEB_VITALS_STORAGE_KEY);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error clearing stored Web Vitals metrics:', error);
   }
 }
@@ -121,7 +121,7 @@ function sendToServiceWorker(metric: WebVitalsMetric) {
   if (!('serviceWorker' in navigator)) return;
   try {
     navigator.serviceWorker.controller?.postMessage({ type: 'WEB_VITAL', payload: metric });
-  } catch (error) {
+  } catch (_error) {
     // Silently handle service worker communication errors
     console.debug('Service worker not available for Web Vitals reporting');
   }

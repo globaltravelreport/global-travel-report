@@ -25,7 +25,7 @@ export default function StoriesSection() {
         } else {
           setStories([]);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading stories:', error);
         setStories([]);
       } finally {

@@ -77,7 +77,7 @@ export async function verifyRecaptcha(
 
     // For reCAPTCHA v2, just check success
     return data.success;
-  } catch (error) {
+  } catch (_error) {
     // Check if we're in development mode
     if (process.env.NODE_ENV === 'development') {
       console.log('Development mode: reCAPTCHA error, bypassing verification');
@@ -150,7 +150,7 @@ export async function getRecaptchaDetails(token: string): Promise<RecaptchaRespo
 
     // Parse and return the full response
     return await response.json() as RecaptchaResponse;
-  } catch (error) {
+  } catch (_error) {
     // Return mock data in development mode
     if (process.env.NODE_ENV === 'development') {
       console.log('Development mode: reCAPTCHA error, returning mock details');

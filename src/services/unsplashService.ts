@@ -150,7 +150,7 @@ export class UnsplashService {
             downloadLocation: result.links.download_location
           };
         });
-      } catch (error) {
+      } catch (_error) {
         lastError = error instanceof Error ? error : new Error(String(error));
 
         // Check if we should retry
@@ -174,7 +174,7 @@ export class UnsplashService {
   private async triggerDownload(downloadLocation: string): Promise<void> {
     try {
       await fetch(`${downloadLocation}?client_id=${this.accessKey}`);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error triggering Unsplash download:', error);
       // Don't throw, as this is a background operation
     }
@@ -220,7 +220,7 @@ export class UnsplashService {
         imageCredit: `Photo by ${photographer.name} on Unsplash`,
         imageCreditUrl: photographer.url
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error enhancing story with image:', error);
 
       // If the enhanced image tracker fails, try the original image tracker
@@ -353,7 +353,7 @@ export class UnsplashService {
         },
         downloadLocation: result.links.download_location
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting random image:', error);
       return null;
     }

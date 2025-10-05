@@ -36,7 +36,7 @@ export default function ArchiveClient() {
           setStories([]);
           setFilteredStories([]);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error loading stories:', error);
         setStories([]);
         setFilteredStories([]);

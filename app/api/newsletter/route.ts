@@ -113,7 +113,7 @@ export const POST = createApiHandler<NewsletterRequest>(
          }
        });
 
-     } catch (error) {
+     } catch (_error) {
        console.error('Newsletter subscription error:', error);
 
        // Check if it's a duplicate email error

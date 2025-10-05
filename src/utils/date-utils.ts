@@ -64,7 +64,7 @@ export function formatDisplayDate(date: Date | string, locale: string = 'en-US')
       month: 'long',
       day: 'numeric'
     }).format(dateObj);
-  } catch (error) {
+  } catch (_error) {
     console.error(`Error formatting date: ${date}`, error);
     return 'Unknown date';
   }
@@ -255,7 +255,7 @@ export function validateDate(dateStr: string | Date, preserveFutureDates: boolea
           }
         }
       }
-    } catch (e) {
+    } catch (_e) {
       // If there's an error in the special handling, continue with normal validation
     }
   }
@@ -278,7 +278,7 @@ export function validateDate(dateStr: string | Date, preserveFutureDates: boolea
 
     // Return the valid date
     return date;
-  } catch (error) {
+  } catch (_error) {
     // If there's any error parsing the date, return the current date
     console.error(`Error processing date: ${dateStr}`, error);
     return now;
@@ -328,7 +328,7 @@ export function getSafeDateString(
               }
             }
           }
-        } catch (e) {
+        } catch (_e) {
           // If there's an error in the special handling, continue with normal validation
         }
       }
@@ -353,7 +353,7 @@ export function getSafeDateString(
 
     // Return the valid date
     return dateObj.toISOString();
-  } catch (error) {
+  } catch (_error) {
     if (!silent) console.error(`Error processing date: ${dateStr}`, error);
     return new Date().toISOString();
   }
@@ -424,7 +424,7 @@ export function parseDateSafe(dateStr: string | Date | undefined, silent: boolea
 
     if (!silent) console.warn(`Failed to parse date string: ${dateStr}`);
     return null;
-  } catch (error) {
+  } catch (_error) {
     if (!silent) console.error(`Error parsing date: ${dateStr}`, error);
     return null;
   }

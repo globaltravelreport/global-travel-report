@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     };
 
     return NextResponse.json(result);
-  } catch (error) {
+  } catch (_error) {
     console.error('Rewrite error:', error);
     return NextResponse.json(
       { error: 'Failed to rewrite story. Please try again.' },

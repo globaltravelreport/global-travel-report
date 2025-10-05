@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-    } catch (error) {
+    } catch (_error) {
       console.error('reCAPTCHA verification error:', error);
       return NextResponse.json(
         { error: 'Verification failed. Please try again.' },
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
       submissionId: submission.id
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error processing submission:', error);
     return NextResponse.json(
       { error: 'Something went wrong. Please try again later.' },
@@ -161,7 +161,7 @@ export async function GET(request: NextRequest) {
       submissions
     });
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching submissions:', error);
     return NextResponse.json(
       { error: 'Failed to fetch submissions' },

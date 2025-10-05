@@ -117,7 +117,7 @@ export async function getAllStories(): Promise<Story[]> {
       const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
       return dateB.getTime() - dateA.getTime();
     });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching stories from database:', error);
 
     // Fall back to mock stories if database access fails
@@ -543,7 +543,7 @@ export async function updateStoryWithTracking(storyId: string, updates: Partial<
     console.log(`Updated story "${updatedStory?.title}" with SEO tracking`);
 
     return updatedStory;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error updating story with tracking:', error);
     return null;
   }
@@ -698,7 +698,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
     }
 
     return foundStory || null;
-  } catch (error) {
+  } catch (_error) {
     console.error(`[getStoryBySlug] Error fetching story with slug "${slug}":`, error);
 
     // Fall back to the old method if database access fails

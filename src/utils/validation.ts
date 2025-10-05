@@ -20,7 +20,7 @@ export function validateWithZod<T>(
 ): T {
   try {
     return schema.parse(data);
-  } catch (error) {
+  } catch (_error) {
     if (error instanceof z.ZodError) {
       throw createValidationError(
         errorMessage,
@@ -47,7 +47,7 @@ export function validateData<T>(
   try {
     const validatedData = schema.parse(data);
     return { success: true, data: validatedData };
-  } catch (error) {
+  } catch (_error) {
     if (error instanceof z.ZodError) {
       return { success: false, errors: error };
     }

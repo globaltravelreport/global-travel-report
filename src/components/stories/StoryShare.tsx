@@ -59,7 +59,7 @@ export default function StoryShare({
         whatsapp: Math.floor(Math.random() * 30),
       };
       setShareCounts(mockCounts);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading share counts:', error);
     }
   };
@@ -73,7 +73,7 @@ export default function StoryShare({
           text: description,
           url: shareUrl,
         });
-      } catch (error) {
+      } catch (_error) {
         // User cancelled or error occurred
         console.log('Share cancelled or failed:', error);
       } finally {
@@ -87,7 +87,7 @@ export default function StoryShare({
       await navigator.clipboard.writeText(shareUrl);
       // You could show a toast notification here
       console.log('Link copied to clipboard');
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to copy link:', error);
     }
   };

@@ -98,7 +98,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
     console.log(`Successfully processed ${stories.length} stories from RSS feeds`);
     return stories;
 
-  } catch (error) {
+  } catch (_error) {
     console.error('Error fetching RSS feeds:', error);
 
     // Return backup stories in case of failure
@@ -139,7 +139,7 @@ async function convertRSSItemToStory(item: RSSItem): Promise<Story | null> {
     };
 
     return story;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error converting RSS item to story:', error);
     return null;
   }

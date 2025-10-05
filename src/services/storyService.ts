@@ -44,7 +44,7 @@ export async function getAllStories(): Promise<Story[]> {
         if (story) {
           stories.push(story);
         }
-      } catch (error) {
+      } catch (_error) {
         errorService.logError(
           `Failed to load story file: ${file}`,
           errorService.ErrorSeverity.WARNING,
@@ -56,7 +56,7 @@ export async function getAllStories(): Promise<Story[]> {
 
     // Sort stories by publication date (newest first)
     return sortStoriesByDate(stories);
-  } catch (error) {
+  } catch (_error) {
     errorService.logError(
       `Failed to load stories: ${error instanceof Error ? error.message : String(error)}`,
       errorService.ErrorSeverity.ERROR,
@@ -156,7 +156,7 @@ export function loadStoryFromFile(filePath: string): Story | null {
     }
 
     return story;
-  } catch (error) {
+  } catch (_error) {
     errorService.logError(
       `Failed to load story from file: ${error instanceof Error ? error.message : String(error)}`,
       errorService.ErrorSeverity.ERROR,
@@ -194,7 +194,7 @@ export function saveStoryToFile(story: Story): boolean {
         } else if (data.date) {
           existingPublishedAt = data.date;
         }
-      } catch (error) {
+      } catch (_error) {
         // If there's an error reading the file, continue with the current date
         errorService.logError(
           `Failed to read existing story file: ${error instanceof Error ? error.message : String(error)}`,
@@ -257,7 +257,7 @@ export function saveStoryToFile(story: Story): boolean {
     fs.writeFileSync(filePath, fileContent);
 
     return true;
-  } catch (error) {
+  } catch (_error) {
     errorService.logError(
       `Failed to save story to file: ${error instanceof Error ? error.message : String(error)}`,
       errorService.ErrorSeverity.ERROR,
@@ -277,7 +277,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
     const filePath = path.join(CONTENT_DIR, `${slug}.md`);
     return loadStoryFromFile(filePath);
-  } catch (error) {
+  } catch (_error) {
     errorService.logError(
       `Failed to get story by slug: ${error instanceof Error ? error.message : String(error)}`,
       errorService.ErrorSeverity.ERROR,
@@ -305,7 +305,7 @@ export function sortStoriesByDate(stories: Story[]): Story[] {
       }
 
       return dateB.getTime() - dateA.getTime();
-    } catch (error) {
+    } catch (_error) {
       errorService.logError(
         `Error sorting stories by date: ${error instanceof Error ? error.message : String(error)}`,
         errorService.ErrorSeverity.WARNING,
@@ -359,7 +359,7 @@ export async function getPaginatedStories(
       totalPages,
       currentPage,
     };
-  } catch (error) {
+  } catch (_error) {
     errorService.logError(
       `Failed to get paginated stories: ${error instanceof Error ? error.message : String(error)}`,
       errorService.ErrorSeverity.ERROR,

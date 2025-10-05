@@ -276,7 +276,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             console.debug(`[StoryCard] Story ${story.slug} should use image ${bestImage.imageUrl} (${bestImage.photographer.name})`);
           }
         }
-      } catch (error) {
+      } catch (_error) {
         // Silently fail - this is just a consistency check
       }
     };
@@ -298,7 +298,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
   const formattedDate = React.useMemo(() => {
     try {
       return formatDisplayDate(story.publishedAt);
-    } catch (error) {
+    } catch (_error) {
       // Use silent error handling in production
       if (process.env.NODE_ENV === 'development') {
         console.error('Error formatting date:', error);

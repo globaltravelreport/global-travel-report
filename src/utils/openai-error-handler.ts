@@ -139,7 +139,7 @@ export async function retryOpenAICall<T>(
   while (shouldContinue) {
     try {
       return await fn();
-    } catch (error) {
+    } catch (_error) {
       const openAIError = handleOpenAIError(error);
 
       // Don't retry if we've reached max retries or the error isn't retryable

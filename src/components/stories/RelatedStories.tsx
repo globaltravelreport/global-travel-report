@@ -38,7 +38,7 @@ export default function RelatedStories({
             setRelatedStories(stories);
           }
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error fetching related stories:', error);
       } finally {
         setIsLoading(false);
@@ -147,7 +147,7 @@ export function RelatedStoriesCompact({
           const stories = await response.json();
           setRelatedStories(stories);
         }
-      } catch (error) {
+      } catch (_error) {
         console.error('Error fetching related stories:', error);
       } finally {
         setIsLoading(false);

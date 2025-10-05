@@ -137,7 +137,7 @@ export class OpenAIService {
         const data = await response.json();
         this.dailyRequestCount++;
         return data;
-      } catch (error) {
+      } catch (_error) {
         lastError = error instanceof Error ? error : new Error(String(error));
 
         // Check if we should retry
@@ -227,7 +227,7 @@ Please provide the rewritten article with the same title but improved content.`
         rewritten: true,
         processedAt: new Date().toISOString()
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error rewriting story:', error);
 
       // Return the original story if rewriting fails
@@ -345,7 +345,7 @@ Please provide:
           ? focusKeywordsMatch[1].split(/,\s*/).map((k: string) => k.trim())
           : [story.category, story.country, 'travel']
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error generating SEO metadata:', error);
 
       // Return basic metadata if generation fails

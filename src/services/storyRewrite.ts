@@ -57,7 +57,7 @@ export class StoryRewriter {
 
         // Otherwise, we're creating a new story from raw content
         return await this.rewriteNewContent(content, category);
-      } catch (error) {
+      } catch (_error) {
         lastError = error instanceof Error
           ? error
           : new Error('Unknown error during story rewrite');

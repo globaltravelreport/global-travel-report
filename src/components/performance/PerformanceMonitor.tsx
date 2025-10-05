@@ -89,7 +89,7 @@ export function PerformanceMonitor({
 
     try {
       fcpObserver.observe({ entryTypes: ['paint'] });
-    } catch (e) {
+    } catch (_e) {
       console.warn('FCP measurement not supported');
     }
 
@@ -102,7 +102,7 @@ export function PerformanceMonitor({
 
     try {
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-    } catch (e) {
+    } catch (_e) {
       console.warn('LCP measurement not supported');
     }
 
@@ -119,7 +119,7 @@ export function PerformanceMonitor({
 
     try {
       clsObserver.observe({ entryTypes: ['layout-shift'] });
-    } catch (e) {
+    } catch (_e) {
       console.warn('CLS measurement not supported');
     }
 
@@ -132,7 +132,7 @@ export function PerformanceMonitor({
 
     try {
       fidObserver.observe({ entryTypes: ['first-input'] });
-    } catch (e) {
+    } catch (_e) {
       console.warn('FID measurement not supported');
     }
   };

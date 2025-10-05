@@ -111,7 +111,7 @@ export function WorldMap({
       setLeaflet(L);
       setGeoJSON(data);
       setIsMapLoaded(true);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error loading map:', error);
     }
   };

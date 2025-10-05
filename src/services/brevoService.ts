@@ -87,7 +87,7 @@ export class BrevoService {
         success: true,
         data: data,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error adding contact to Brevo:', error);
       return {
         success: false,
@@ -129,7 +129,7 @@ export class BrevoService {
         success: true,
         data: data,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting contact from Brevo:', error);
       return {
         success: false,
@@ -170,7 +170,7 @@ export class BrevoService {
         success: true,
         data: null,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error removing contact from Brevo:', error);
       return {
         success: false,
@@ -218,7 +218,7 @@ export class BrevoService {
         data: data,
         messageId: data.messageId,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error sending email via Brevo:', error);
       return {
         success: false,
@@ -263,7 +263,7 @@ export class BrevoService {
         success: true,
         data: data,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error creating template in Brevo:', error);
       return {
         success: false,
@@ -298,7 +298,7 @@ export class BrevoService {
         success: true,
         data: data.templates || [],
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting templates from Brevo:', error);
       return {
         success: false,
@@ -333,7 +333,7 @@ export class BrevoService {
         success: true,
         data: data,
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting account info from Brevo:', error);
       return {
         success: false,
@@ -400,7 +400,7 @@ export async function sendSubmissionNotification(submission: {
         submitterEmail: submitterEmailResult,
       },
     };
-  } catch (error) {
+  } catch (_error) {
     console.error('Error sending submission notification:', error);
     return {
       success: false,

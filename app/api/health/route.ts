@@ -26,7 +26,7 @@ export async function GET() {
       environment: environment,
       nodeVersion: nodeVersion,
     }, { status: 200 });
-  } catch (error) {
+  } catch (_error) {
     console.error('Health check error:', error);
     
     // Return error response

@@ -32,7 +32,7 @@ export function formatDate(date: string | Date, formatString: string = 'MMMM d, 
     }
     
     throw new Error(`Unsupported date type: ${typeof date}`);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error formatting date:', error);
     return 'Invalid date';
   }
@@ -47,7 +47,7 @@ export function parseDate(dateString: string): Date | null {
   try {
     const parsedDate = parseISO(dateString);
     return isValid(parsedDate) ? parsedDate : null;
-  } catch (error) {
+  } catch (_error) {
     console.error('Error parsing date:', error);
     return null;
   }
@@ -65,7 +65,7 @@ export function getRelativeTime(date: string | Date): string {
       throw new Error('Invalid date');
     }
     return formatDistanceToNow(parsedDate, { addSuffix: true });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error getting relative time:', error);
     return 'Invalid date';
   }
@@ -94,7 +94,7 @@ export function toISOString(date: Date | string): string {
     }
     
     throw new Error(`Unsupported date type: ${typeof date}`);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error converting to ISO string:', error);
     return new Date().toISOString(); // Fallback to current date
   }
@@ -119,7 +119,7 @@ export function isValidDate(date: string | Date): boolean {
       return isValid(parseISO(date));
     }
     return isValid(date);
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }
@@ -152,7 +152,7 @@ export function formatDateForUrl(date: string | Date): string {
 export function safelyFormatStoryDate(publishedAt: string | Date): string {
   try {
     return toISOString(publishedAt);
-  } catch (error) {
+  } catch (_error) {
     console.error('Error formatting story date:', error);
     return getCurrentDateISO();
   }

@@ -76,7 +76,7 @@ export class PersistentStoryDatabase {
       }
 
       throw new Error('No database configured');
-    } catch (error) {
+    } catch (_error) {
       console.error('Error storing story:', error);
 
       if (this.config.fallbackToMemory) {
@@ -101,7 +101,7 @@ export class PersistentStoryDatabase {
       }
 
       return null;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting story:', error);
 
       if (this.config.fallbackToMemory) {
@@ -126,7 +126,7 @@ export class PersistentStoryDatabase {
       }
 
       return { data: [], pagination: this.getEmptyPagination(options) };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting all stories:', error);
 
       if (this.config.fallbackToMemory) {
@@ -151,7 +151,7 @@ export class PersistentStoryDatabase {
       }
 
       throw new Error('No database configured');
-    } catch (error) {
+    } catch (_error) {
       console.error('Error storing submission:', error);
 
       if (this.config.fallbackToMemory) {
@@ -176,7 +176,7 @@ export class PersistentStoryDatabase {
       }
 
       return { data: [], pagination: this.getEmptyPagination(options) };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting submissions:', error);
 
       if (this.config.fallbackToMemory) {
@@ -212,7 +212,7 @@ export class PersistentStoryDatabase {
 
       console.log(`✅ Stored story in Vercel KV: ${story.title}`);
       return story;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error storing story in Vercel KV:', error);
       throw error;
     }
@@ -233,7 +233,7 @@ export class PersistentStoryDatabase {
       }
 
       return JSON.parse(storyData as string);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting story from Vercel KV:', error);
       return null;
     }
@@ -287,7 +287,7 @@ export class PersistentStoryDatabase {
           hasPrev: options.page > 1,
         },
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting stories from Vercel KV:', error);
       return { data: [], pagination: this.getEmptyPagination(options) };
     }
@@ -421,7 +421,7 @@ export class PersistentStoryDatabase {
 
       console.log(`✅ Stored submission in Vercel KV: ${submission.title}`);
       return submission;
-    } catch (error) {
+    } catch (_error) {
       console.error('Error storing submission in Vercel KV:', error);
       throw error;
     }
@@ -480,7 +480,7 @@ export class PersistentStoryDatabase {
           hasPrev: options.page > 1,
         },
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting submissions from Vercel KV:', error);
       return { data: [], pagination: this.getEmptyPagination(options) };
     }
@@ -501,7 +501,7 @@ export class PersistentStoryDatabase {
       }
 
       return JSON.parse(submissionData as string);
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting submission from Vercel KV:', error);
       return null;
     }
@@ -537,7 +537,7 @@ export class PersistentStoryDatabase {
         pendingSubmissions: 0, // Would calculate from submissions
         databaseType: this.config.useVercelKV ? 'Vercel KV' : 'Memory Fallback',
       };
-    } catch (error) {
+    } catch (_error) {
       console.error('Error getting database stats:', error);
       return {
         storiesCount: 0,

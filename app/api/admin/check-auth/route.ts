@@ -14,7 +14,7 @@ export async function GET(_request: NextRequest) {
     } else {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
-  } catch (error) {
+  } catch (_error) {
     console.error('Auth check error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

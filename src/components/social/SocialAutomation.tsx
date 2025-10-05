@@ -88,7 +88,7 @@ export function useSocialAutomation() {
       ));
 
       return { success: true };
-    } catch (error) {
+    } catch (_error) {
       return { success: false, error: 'Connection failed' };
     } finally {
       setIsLoading(false);

@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     // - Custom logging service
 
     return new Response(null, { status: 204 });
-  } catch (error) {
+  } catch (_error) {
     console.error('Error processing CSP violation:', error);
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
