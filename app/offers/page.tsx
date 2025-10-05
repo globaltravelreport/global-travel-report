@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import OffersPageClient from './OffersPageClient';
+import { affiliatePartners } from '@/src/data/affiliatePartners';
+import EnhancedOffersPageClient from './enhanced/EnhancedOffersPageClient';
 
 export const metadata: Metadata = {
   title: 'Travel Deals & Offers - Global Travel Report',
@@ -47,6 +48,75 @@ export const metadata: Metadata = {
 };
 
 export default function OffersPage() {
-  // Convert to dynamic rendering to avoid static generation timeout
-  return <OffersPageClient />;
+  // Group partners by category (using manual mapping since data doesn't include category)
+  const categoryMapping: Record<string, string> = {
+    'Trip.com': 'Accommodation',
+    'Welcome Pickups': 'Transportation',
+    'Yesim': 'Connectivity',
+    'EKTA': 'Travel Essentials',
+    'Kiwitaxi': 'Transportation',
+    'Airalo': 'Connectivity',
+    'GetRentacar.com': 'Transportation',
+    'Surfshark VPN': 'Travel Essentials',
+    'Surfshark One': 'Travel Essentials',
+    'Wise': 'Finance',
+    'AMEX Platinum': 'Finance',
+    'UP Card': 'Finance'
+  };
+
+  const partnersByCategory = affiliatePartners.reduce((acc, partner) => {
+    const category = categoryMapping[partner.name] || 'General';
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(partner);
+    return acc;
+  }, {} as Record<string, typeof affiliatePartners>);
+
+  // Sample promotional offers (in production, this would come from an API)
+  const promotionalOffers = [
+    {
+      id: 'welcome-bonus',
+      title: 'New Customer Welcome Bonus',
+      description: 'Get 10% off your first booking with Trip.com',
+      partner: 'Trip.com',
+      discount: '10% OFF',
+      validUntil: '2025-12-31',
+      featured: true
+    },
+    {
+      id: 'airport-transfer',
+      title: 'Airport Transfer Discount',
+      description: 'Save 15% on airport transfers with Welcome Pickups',
+      partner: 'Welcome Pickups',
+      discount: '15% OFF',
+      validUntil: '2025-12-31',
+      featured: true
+    },
+    {
+      id: 'esim-data',
+      title: 'Global Data Plans',
+      description: 'Unlimited data in 200+ countries starting at $4.50',
+      partner: 'Airalo',
+      discount: 'FROM $4.50',
+      validUntil: '2025-12-31',
+      featured: false
+    },
+    {
+      id: 'vpn-security',
+      title: 'Travel Security Suite',
+      description: 'Complete online protection for travelers',
+      partner: 'Surfshark VPN',
+      discount: 'SPECIAL OFFER',
+      validUntil: '2025-12-31',
+      featured: false
+    }
+  ];
+
+  return (
+    <EnhancedOffersPageClient
+      promotionalOffers={promotionalOffers}
+      partnersByCategory={partnersByCategory}
+    />
+  );
 }
