@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ContentBotPipeline } from '@/src/services/ContentBotPipeline';
 import { EnhancedRSSFeedService } from '@/src/services/EnhancedRSSFeedService';
 import { LocationAccurateImageService } from '@/src/services/LocationAccurateImageService';
-import { AustralianEnglishRewriter } from '@/src/services/AustralianEnglishRewriter';
 import { SocialDistributionBot } from '@/src/services/SocialDistributionBot';
 
 interface PipelineStats {
@@ -49,8 +48,8 @@ export function RSSManagementClient() {
 
       setPipelineStats(pipelineData);
       setRssStats(rssData);
-    } catch (error) {
-      console.error('Error loading stats:', error);
+    } catch (_error) {
+      console.error('Error loading stats:', _error);
     }
   };
 
@@ -61,8 +60,8 @@ export function RSSManagementClient() {
       const result = await pipeline.runPipeline();
       setLastResult(result);
       await loadStats(); // Reload stats after run
-    } catch (error) {
-      console.error('Error running pipeline:', error);
+    } catch (_error) {
+      console.error('Error running pipeline:', _error);
     } finally {
       setIsRunning(false);
     }
@@ -75,8 +74,8 @@ export function RSSManagementClient() {
       const result = await rssService.fetchAllFeeds();
       setLastResult(result);
       await loadStats();
-    } catch (error) {
-      console.error('Error fetching RSS:', error);
+    } catch (_error) {
+      console.error('Error fetching RSS:', _error);
     } finally {
       setIsRunning(false);
     }
@@ -88,8 +87,8 @@ export function RSSManagementClient() {
       const imageService = LocationAccurateImageService.getInstance();
       await imageService.prefetchCommonLocationImages();
       console.log('✅ Image pre-fetching completed');
-    } catch (error) {
-      console.error('Error pre-fetching images:', error);
+    } catch (_error) {
+      console.error('Error pre-fetching images:', _error);
     } finally {
       setIsRunning(false);
     }
@@ -101,8 +100,8 @@ export function RSSManagementClient() {
       const distributionBot = SocialDistributionBot.getInstance();
       const stats = await distributionBot.getDistributionStats();
       console.log('📊 Distribution stats:', stats);
-    } catch (error) {
-      console.error('Error testing distribution:', error);
+    } catch (_error) {
+      console.error('Error testing distribution:', _error);
     } finally {
       setIsRunning(false);
     }

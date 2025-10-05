@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SecureAuth } from '../../../../src/lib/secureAuth';
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const auth = SecureAuth.getInstance();
     const response = NextResponse.json(
@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
     auth.clearSession(response);
 
     return response;
-  } catch (error) {
-    console.error('Logout error:', error);
+  } catch (_error) {
+    console.error('Logout error:', _error);
     return NextResponse.json(
       { success: false, message: 'Logout failed' },
       { status: 500 }
