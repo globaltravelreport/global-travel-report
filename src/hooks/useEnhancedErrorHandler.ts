@@ -89,7 +89,7 @@ export function useEnhancedErrorHandler() {
       }));
     } catch (_error) {
       await handleErrorWithContext(
-        error as Error,
+        _error as Error,
         { operation: 'retry' }
       );
     }
