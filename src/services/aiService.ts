@@ -205,7 +205,7 @@ export async function generateStoryContent(
     }
   } catch (_error) {
     console.error(_error);
-    throw error;
+    throw _error;
   }
 }
 
