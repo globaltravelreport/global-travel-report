@@ -13,7 +13,7 @@ export default function StoryError({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(_error);
+    console.error(error);
   }, [error]);
 
   return (
