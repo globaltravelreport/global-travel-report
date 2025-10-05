@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function SearchBar({ className = '' }: { className?: string }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
-  const router = useRouter();
+  const _router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

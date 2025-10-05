@@ -41,7 +41,7 @@ export function MostViewedThisWeek({
       setLoading(true);
 
       // Mock view statistics - in production this would come from analytics API
-      const mockStats: ViewStats[] = stories.slice(0, maxItems).map((story, index) => ({
+      const mockStats: ViewStats[] = stories.slice(0, maxItems).map((story, _index) => ({
         storyId: story.id,
         views: Math.floor(Math.random() * 1000) + 100,
         uniqueViews: Math.floor(Math.random() * 800) + 80,

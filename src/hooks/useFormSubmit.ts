@@ -134,7 +134,7 @@ export function useFormSubmit<TData = any, TVariables = any>(
 
         return data;
       } catch (error: any) {
-        console.error('Form submission error:', error);
+        console.error(_error);
 
         // Handle validation errors
         const validationErrors: Record<string, string> = {};

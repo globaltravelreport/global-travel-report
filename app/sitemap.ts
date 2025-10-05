@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const stories = await getAllStories();
 
   // Extract unique categories, countries, and tags from actual stories
-  const categories = Array.from(new Set(stories
+  const _categories = Array.from(new Set(stories
     .map(story => story.category)
     .filter(Boolean)
   ));
@@ -133,7 +133,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return sitemapEntry;
     } catch (_error) {
       // If there's any error processing a story, return a basic entry with current date
-      console.error(`Error processing story for sitemap: ${story.slug}`, error);
+      console.error(_error);
       return {
         url: `${baseUrl}/stories/${story.slug}`,
         lastModified: currentDate,

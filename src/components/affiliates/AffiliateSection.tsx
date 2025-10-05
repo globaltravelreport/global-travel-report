@@ -4,7 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { AffiliateCard } from './AffiliateCard';
 import { AffiliateBanner } from './AffiliateBanner';
-import { AffiliateProduct, AffiliateService } from '@/src/services/affiliateService';
+import { AffiliateProduct } from '@/src/services/affiliateService';
+// import { AffiliateService } from '@/src/services/affiliateService';
 import { cn } from '@/lib/utils';
 
 interface AffiliateSectionProps {

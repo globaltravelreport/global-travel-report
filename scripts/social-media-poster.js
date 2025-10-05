@@ -18,7 +18,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const matter = require('gray-matter');
 const axios = require('axios');
-const { v4: uuidv4 } = require('uuid');
+const { v4: _uuidv4 } = require('uuid');
 const { TwitterApi } = require('twitter-api-v2');
 // Using axios directly for Facebook API instead of the deprecated 'fb' package
 const { createFacebookService } = require('../src/services/facebookService');
@@ -244,8 +244,8 @@ const TumblrApi = function(config) {
 
 // Configuration
 const CONTENT_DIR = path.join(process.cwd(), 'content/articles');
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 2000; // 2 seconds
+const _MAX_RETRIES = 3;
+const _RETRY_DELAY = 2000; // 2 seconds
 const LOG_DIR = path.join(process.cwd(), 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'social-media-poster.log');
 

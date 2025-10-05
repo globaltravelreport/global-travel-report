@@ -1,7 +1,7 @@
 // Service Worker for Global Travel Report
 // Provides caching, offline functionality, and performance optimization
 
-const CACHE_NAME = 'global-travel-report-v1';
+const _CACHE_NAME = 'global-travel-report-v1';
 const STATIC_CACHE_NAME = 'global-travel-report-static-v1';
 const DYNAMIC_CACHE_NAME = 'global-travel-report-dynamic-v1';
 const IMAGE_CACHE = 'gtr-images-v1';
@@ -32,8 +32,8 @@ self.addEventListener('install', (event) => {
         console.log('Service Worker: Static assets cached successfully');
         return self.skipWaiting();
       })
-      .catch((error) => {
-        console.error('Service Worker: Error caching static assets:', error);
+      .catch((__error) => {
+        console.error('Service Worker: Error caching static assets:', __error);
       })
   );
 });

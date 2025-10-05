@@ -175,7 +175,7 @@ export class UnsplashService {
     try {
       await fetch(`${downloadLocation}?client_id=${this.accessKey}`);
     } catch (_error) {
-      console.error('Error triggering Unsplash download:', error);
+      console.error(_error);
       // Don't throw, as this is a background operation
     }
   }
@@ -221,7 +221,7 @@ export class UnsplashService {
         imageCreditUrl: photographer.url
       };
     } catch (_error) {
-      console.error('Error enhancing story with image:', error);
+      console.error(_error);
 
       // If the enhanced image tracker fails, try the original image tracker
       try {
@@ -354,7 +354,7 @@ export class UnsplashService {
         downloadLocation: result.links.download_location
       };
     } catch (_error) {
-      console.error('Error getting random image:', error);
+      console.error(_error);
       return null;
     }
   }

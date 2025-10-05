@@ -57,7 +57,7 @@ export default function ContactForm() {
       setSubmitSuccess(true);
       reset();
       setRecaptchaValue(null);
-    } catch (_error) {
+    } catch (__error) {
       setSubmitError('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);

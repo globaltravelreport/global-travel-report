@@ -84,7 +84,7 @@ export async function verifyRecaptcha(
       return true; // Auto-pass in development
     }
 
-    console.error('Error verifying reCAPTCHA:', error);
+    console.error(_error);
     return false;
   }
 }
@@ -163,7 +163,7 @@ export async function getRecaptchaDetails(token: string): Promise<RecaptchaRespo
       };
     }
 
-    console.error('Error getting reCAPTCHA details:', error);
+    console.error(_error);
     return null;
   }
 }

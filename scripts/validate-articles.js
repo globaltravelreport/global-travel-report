@@ -3,14 +3,14 @@ const path = require('path');
 
 // Required fields for articles
 const REQUIRED_FIELDS = ['title', 'slug', 'content', 'date'];
-const OPTIONAL_FIELDS = ['featuredImage', 'summary', 'category', 'status', 'author'];
+const _OPTIONAL_FIELDS = ['featuredImage', 'summary', 'category', 'status', 'author'];
 
 // Log function with timestamp
 function log(message) {
   console.log(`[${new Date().toISOString()}] ${message}`);
 }
 
-function validateArticle(article, index) {
+function validateArticle(article, _index) {
   const errors = [];
   
   // Check required fields

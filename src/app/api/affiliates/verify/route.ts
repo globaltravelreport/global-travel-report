@@ -70,9 +70,9 @@ export async function GET(request: NextRequest) {
           responseTime
         };
 
-      } catch (_error) {
+      } catch (__error) {
         const responseTime = Date.now() - startTime;
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage = __error instanceof Error ? __error.message : 'Unknown error';
 
         results[url] = {
           isValid: false,
@@ -102,11 +102,11 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Affiliate verification error:', error);
+    console.error(_error);
     return NextResponse.json(
       {
         error: 'Internal server error during verification',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: _error instanceof Error ? _error.message : 'Unknown error'
       },
       { status: 500 }
     );
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (_error) {
-    console.error('Cache management error:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <!-- Cruises -->
+  <symbol id="icon-cruises" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M128 80H72V70H128V80ZM143 120L133 100H67L57 120H143ZM100 50L80 60H120L100 50ZM150 130H50C50 130 60 150 100 150C140 150 150 130 150 130Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Airlines -->
+  <symbol id="icon-airlines" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M150 90L100 70V50C100 44.5 104.5 40 110 40C115.5 40 120 44.5 120 50V60L150 70V90ZM150 90L60 110L100 70L150 90ZM60 110L50 120L80 115L60 110ZM80 115L100 150L100 120L80 115Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Destinations -->
+  <symbol id="icon-destinations" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M100 50C72.4 50 50 72.4 50 100C50 127.6 72.4 150 100 150C127.6 150 150 127.6 150 100C150 72.4 127.6 50 100 50ZM100 60C122 60 140 78 140 100C140 122 122 140 100 140C78 140 60 122 60 100C60 78 78 60 100 60ZM110 80C110 80 120 90 120 100C120 110 110 130 110 130C110 130 130 120 130 100C130 80 110 80 110 80ZM90 70C90 70 70 80 70 100C70 120 90 130 90 130C90 130 80 110 80 100C80 90 90 70 90 70Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Travel Tips -->
+  <symbol id="icon-travel-tips" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M100 50C83.4 50 70 63.4 70 80C70 93.4 78.6 104.8 90.8 108.8C93.4 109.8 95 112.2 95 115V120H105V115C105 112.2 106.6 109.8 109.2 108.8C121.4 104.8 130 93.4 130 80C130 63.4 116.6 50 100 50ZM100 130C94.5 130 90 134.5 90 140C90 145.5 94.5 150 100 150C105.5 150 110 145.5 110 140C110 134.5 105.5 130 100 130Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Food & Dining -->
+  <symbol id="icon-food-dining" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M80 50V110C80 115.5 75.5 120 70 120C64.5 120 60 115.5 60 110V50H70V110H80V50ZM120 50V80C120 91 111 100 100 100V150H110V120C121 120 130 111 130 100V50H120Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Culture -->
+  <symbol id="icon-culture" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M60 130H140V140H60V130ZM65 120H135V130H65V120ZM60 60H140V70H60V60ZM70 70V120H80V70H70ZM90 70V120H100V70H90ZM110 70V120H120V70H110ZM130 70V120H140V70H130Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Nature -->
+  <symbol id="icon-nature" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M100 40L70 100L60 90L50 140H150L140 90L130 100L100 40ZM90 140V110H110V140H90Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Luxury Travel -->
+  <symbol id="icon-luxury-travel" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M100 50L50 130H150L100 50ZM100 70L130 120H70L100 70ZM90 100L80 115H120L110 100H90Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Family Travel -->
+  <symbol id="icon-family-travel" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M80 80C85.5 80 90 75.5 90 70C90 64.5 85.5 60 80 60C74.5 60 70 64.5 70 70C70 75.5 74.5 80 80 80ZM120 80C125.5 80 130 75.5 130 70C130 64.5 125.5 60 120 60C114.5 60 110 64.5 110 70C110 75.5 114.5 80 120 80ZM100 100C105.5 100 110 95.5 110 90C110 84.5 105.5 80 100 80C94.5 80 90 84.5 90 90C90 95.5 94.5 100 100 100ZM90 110H110C115.5 110 120 114.5 120 120V140H100V120H90V140H70V120C70 114.5 74.5 110 80 110H90ZM130 110C135.5 110 140 114.5 140 120V140H130V120H120C120 114.5 115.5 110 110 110H130Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Deals -->
+  <symbol id="icon-deals" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M130 60H70C64.5 60 60 64.5 60 70V130C60 135.5 64.5 140 70 140H130C135.5 140 140 135.5 140 130V70C140 64.5 135.5 60 130 60ZM90 70C95.5 70 100 74.5 100 80C100 85.5 95.5 90 90 90C84.5 90 80 85.5 80 80C80 74.5 84.5 70 90 70ZM80 120V110C80 104.5 84.5 100 90 100H110C115.5 100 120 104.5 120 110V120H80Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+  
+  <!-- Adventure -->
+  <symbol id="icon-adventure" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="100" fill="#0A2F5B"/>
+    <path d="M100 50C83.4 50 70 63.4 70 80C70 96.6 100 150 100 150C100 150 130 96.6 130 80C130 63.4 116.6 50 100 50ZM100 90C94.5 90 90 85.5 90 80C90 74.5 94.5 70 100 70C105.5 70 110 74.5 110 80C110 85.5 105.5 90 100 90Z" fill="#F9B92E" stroke="#F9B92E" stroke-width="2"/>
+  </symbol>
+</svg>

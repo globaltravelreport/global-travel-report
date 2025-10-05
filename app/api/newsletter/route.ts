@@ -114,7 +114,7 @@ export const POST = createApiHandler<NewsletterRequest>(
        });
 
      } catch (_error) {
-       console.error('Newsletter subscription error:', error);
+       console.error(_error);
 
        // Check if it's a duplicate email error
        if (error instanceof Error && error.message.includes('duplicate')) {

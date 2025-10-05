@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Error in daily stories cron job:', error);
+    console.error(_error);
     return NextResponse.json(
       {
         error: 'Internal server error',

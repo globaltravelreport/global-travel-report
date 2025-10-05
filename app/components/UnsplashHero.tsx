@@ -38,7 +38,7 @@ export default function UnsplashHero({
       <div className="absolute inset-0">
         <img
           src={imageUrl}
-          alt="Travel hero image"
+          alt="Scenic travel destination background"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/50 to-brand-dark/70"></div>

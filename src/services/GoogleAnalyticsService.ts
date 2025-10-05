@@ -14,7 +14,7 @@ export class GoogleAnalyticsService {
           credentials,
         });
       } catch (_error) {
-        console.error('Failed to initialize Google Analytics client:', error);
+        console.error(_error);
       }
     }
   }

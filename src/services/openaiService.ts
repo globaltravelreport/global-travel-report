@@ -228,7 +228,7 @@ Please provide the rewritten article with the same title but improved content.`
         processedAt: new Date().toISOString()
       };
     } catch (_error) {
-      console.error('Error rewriting story:', error);
+      console.error(_error);
 
       // Return the original story if rewriting fails
       return {
@@ -346,7 +346,7 @@ Please provide:
           : [story.category, story.country, 'travel']
       };
     } catch (_error) {
-      console.error('Error generating SEO metadata:', error);
+      console.error(_error);
 
       // Return basic metadata if generation fails
       return this.mockGenerateSEOMetadata(story);

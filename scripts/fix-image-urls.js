@@ -290,7 +290,7 @@ async function fixImageUrls() {
  * @param {string} url - The URL to check
  * @returns {boolean} Whether the URL is valid
  */
-function isValidImageUrl(url) {
+function _isValidImageUrl(url) {
   // Only consider URLs that start with http as valid
   return isValidUrl(url);
 }

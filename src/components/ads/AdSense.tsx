@@ -52,7 +52,7 @@ export function AdSense({
         }
       }
     } catch (_error) {
-      console.error('Error loading AdSense ad:', error);
+      console.error(_error);
     }
   }, []);
 

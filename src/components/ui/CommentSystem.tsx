@@ -48,7 +48,7 @@ export default function CommentSystem({
         setComments(data);
       }
     } catch (_error) {
-      console.error('Error fetching comments:', error);
+      console.error(_error);
     } finally {
       setIsLoading(false);
     }
@@ -103,7 +103,7 @@ export default function CommentSystem({
         }
       }
     } catch (_error) {
-      console.error('Error submitting comment:', error);
+      console.error(_error);
     } finally {
       setIsSubmitting(false);
     }
@@ -119,7 +119,7 @@ export default function CommentSystem({
         setComments(prev => updateCommentLikes(prev, commentId));
       }
     } catch (_error) {
-      console.error('Error liking comment:', error);
+      console.error(_error);
     }
   };
 
@@ -192,7 +192,7 @@ export default function CommentSystem({
           setReplyEmail('');
         }
       } catch (_error) {
-        console.error('Error submitting reply:', error);
+        console.error(_error);
       }
     };
 

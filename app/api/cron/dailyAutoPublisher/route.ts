@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('💥 Error in daily auto-publisher webhook:', error);
+    console.error(_error);
 
     // Return error response
     return NextResponse.json(
@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('💥 Error in daily auto-publisher cron job:', error);
+    console.error(_error);
 
     // Return error response
     return NextResponse.json(

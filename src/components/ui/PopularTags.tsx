@@ -36,7 +36,7 @@ export default function PopularTags({
           setTags(data);
         }
       } catch (_error) {
-        console.error('Error fetching popular tags:', error);
+        console.error(_error);
       } finally {
         setIsLoading(false);
       }

@@ -83,7 +83,7 @@ function ContentAuditContent() {
         setReport(JSON.parse(storedReport));
       }
       setLoading(false);
-    } catch (_err) {
+    } catch (_error) {
       setError('Failed to load content audit report');
       setLoading(false);
     }
@@ -168,7 +168,7 @@ function ContentAuditContent() {
       // Update the state
       setReport(sampleReport);
       setLoading(false);
-    } catch (_err) {
+    } catch (_error) {
       setError('Failed to run content audit');
       setLoading(false);
     }

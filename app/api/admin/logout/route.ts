@@ -11,7 +11,7 @@ export async function POST(_request: NextRequest) {
     clearSession(); // Clear session without response parameter
     return response;
   } catch (_error) {
-    console.error('Logout error:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

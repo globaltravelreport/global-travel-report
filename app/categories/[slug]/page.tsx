@@ -18,7 +18,7 @@ async function getCategoryStories(categorySlug: string): Promise<Story[]> {
     const categoryResult = getStoriesByCategory(allStories, categorySlug, { page: 1, limit: 100 });
     return categoryResult.data;
   } catch (_error) {
-    console.error('Error fetching category stories:', error);
+    console.error(_error);
     return [];
   }
 }
@@ -224,7 +224,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`travel-style-${style.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(e) => {
+                          onChange={(_e) => {
                             // Filter functionality would be implemented here
                             console.log(`Filter by travel style: ${style}`);
                           }}
@@ -249,7 +249,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`destination-${country.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(e) => {
+                          onChange={(_e) => {
                             console.log(`Filter by destination: ${country}`);
                           }}
                         />
@@ -273,7 +273,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`topic-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(e) => {
+                          onChange={(_e) => {
                             console.log(`Filter by tag: ${tag}`);
                           }}
                         />

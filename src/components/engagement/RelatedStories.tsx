@@ -359,7 +359,7 @@ interface CommentSystemProps {
 }
 
 export function CommentSystem({
-  storyId,
+  storyId: _storyId,
   initialComments = [],
   className = '',
 }: CommentSystemProps) {

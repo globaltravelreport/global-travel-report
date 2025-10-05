@@ -91,7 +91,7 @@ export class StoryValidator {
         }
       } else {
         issues.push('An unexpected error occurred during validation');
-        console.error('Validation error:', error);
+        console.error(_error);
       }
 
       return { isValid: false, issues, suggestions };
@@ -167,7 +167,7 @@ Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
         throw new StoryValidationError('Invalid response format from content safety check');
       }
     } catch (_error) {
-      console.error('Content safety check failed:', error);
+      console.error(_error);
       throw new StoryValidationError('Failed to check content safety', error);
     }
   }
@@ -271,7 +271,7 @@ Return format: {"isAccurate": true/false, "issues": ["issue1", "issue2"]}`;
         throw new StoryValidationError('Invalid response format from factual accuracy check');
       }
     } catch (_error) {
-      console.error('Factual accuracy check failed:', error);
+      console.error(_error);
       throw new StoryValidationError('Failed to check factual accuracy', error);
     }
   }

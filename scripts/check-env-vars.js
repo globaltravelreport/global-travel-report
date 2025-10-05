@@ -24,8 +24,8 @@ console.log('🔍 Checking environment variables...\n');
 // Check if we're running in Vercel (production build)
 const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV === 'production';
 
-let missingRequired = [];
-let missingOptional = [];
+const missingRequired = [];
+const missingOptional = [];
 
 requiredVars.forEach(varName => {
   if (!process.env[varName]) {

@@ -14,7 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { _execSync } = require('child_process');
 
 // Configuration
 const config = {
@@ -29,7 +29,7 @@ function checkRequirements() {
   try {
     require.resolve('next');
     return true;
-  } catch (error) {
+  } catch (__error) {
     console.error('Next.js is not installed. Please install it first.');
     return false;
   }

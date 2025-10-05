@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAllStories } from '@/src/utils/stories';
-import { CATEGORIES, getCategoryBySlug } from '@/src/config/categories';
+import { getCategoryBySlug } from '@/src/config/categories';
 import DOMPurify from 'isomorphic-dompurify';
 
 // Set cache control headers for better performance
@@ -143,7 +143,7 @@ export async function GET(request: Request) {
       </image>
       ${filteredStories.map((story) => {
         // Prepare content with proper CDATA wrapping
-        const content = story.content ? `<content:encoded><![CDATA[${cleanHtml(story.content)}]]></content:encoded>` : '';
+        // const content = story.content ? `<content:encoded><![CDATA[${cleanHtml(story.content)}]]></content:encoded>` : ''; // Unused variable
 
         // Prepare image data
         const imageUrl = story.imageUrl?.startsWith('http')

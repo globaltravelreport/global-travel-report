@@ -163,7 +163,7 @@ async function main() {
     // Create the images directory if it doesn't exist
     try {
       await fs.access(IMAGES_DIR);
-    } catch (error) {
+    } catch (__error) {
       console.log(`Creating directory: ${IMAGES_DIR}`);
       await fs.mkdir(IMAGES_DIR, { recursive: true });
     }

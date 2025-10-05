@@ -44,7 +44,7 @@ const PHOTOGRAPHER_IMAGE_MAP = {
 };
 
 // Additional photographers to use if needed
-const ADDITIONAL_PHOTOGRAPHERS = [
+const _ADDITIONAL_PHOTOGRAPHERS = [
   { name: 'Roberto Nickson', url: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?auto=format&q=80&w=2400' },
   { name: 'Colton Duke', url: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&q=80&w=2400' },
   { name: 'Zach Betten', url: 'https://images.unsplash.com/photo-1467377791767-c929b5dc9a23?auto=format&q=80&w=2400' },

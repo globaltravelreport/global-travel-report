@@ -223,11 +223,11 @@ export class NewStoryProcessorService {
               processedStories.push(story);
             }
           } catch (_error) {
-            console.error(`Error parsing story file ${file}:`, error);
+            console.error(_error);
           }
         }
       } catch (_error) {
-        console.error('Error reading content directory:', error);
+        console.error(_error);
       }
 
       // Revalidate the pages to show the new stories
@@ -246,7 +246,7 @@ export class NewStoryProcessorService {
       console.log('Story processing completed successfully');
       return processedStories;
     } catch (_error) {
-      console.error('Error processing stories:', error);
+      console.error(_error);
       throw error;
     } finally {
       // Update stats

@@ -85,7 +85,7 @@ export class EnhancedRSSFeedService {
       console.log(`✅ RSS processing complete: ${result.itemsAccepted}/${result.itemsProcessed} items accepted`);
 
     } catch (_error) {
-      console.error('Error in RSS feed processing:', error);
+      console.error(_error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown error');
     }
 
@@ -126,7 +126,7 @@ export class EnhancedRSSFeedService {
             itemsAccepted++;
           }
         } catch (_error) {
-          console.error(`Error processing RSS item:`, error);
+          console.error(_error);
         }
       }
 
@@ -134,7 +134,7 @@ export class EnhancedRSSFeedService {
       return { itemsProcessed, itemsAccepted };
 
     } catch (_error) {
-      console.error(`Error processing feed ${feedUrl}:`, error);
+      console.error(_error);
       return { itemsProcessed: 0, itemsAccepted: 0 };
     }
   }
@@ -211,7 +211,7 @@ export class EnhancedRSSFeedService {
       };
 
     } catch (_error) {
-      console.error('Error processing RSS item:', error);
+      console.error(_error);
       return null;
     }
   }
@@ -317,7 +317,7 @@ export class EnhancedRSSFeedService {
       console.log(`📋 Stored RSS item for moderation: ${item.title}`);
 
     } catch (_error) {
-      console.error('Error storing RSS item for moderation:', error);
+      console.error(_error);
     }
   }
 
@@ -384,7 +384,7 @@ export class EnhancedRSSFeedService {
       };
 
     } catch (_error) {
-      console.error('Error getting RSS stats:', error);
+      console.error(_error);
       return {
         totalFeeds: 0,
         feedsProcessed: 0,

@@ -27,7 +27,7 @@ export async function GET() {
       nodeVersion: nodeVersion,
     }, { status: 200 });
   } catch (_error) {
-    console.error('Health check error:', error);
+    console.error(_error);
     
     // Return error response
     return NextResponse.json({

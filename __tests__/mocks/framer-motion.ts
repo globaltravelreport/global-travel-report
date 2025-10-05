@@ -11,7 +11,7 @@ const motion = new Proxy({}, {
 const AnimatePresence = ({ children }: { children: React.ReactNode }) => React.createElement(React.Fragment, null, children);
 const useAnimation = () => ({ start: jest.fn() });
 const useScroll = () => ({ scrollY: { onChange: jest.fn(), get: () => 0 } });
-const useTransform = (input: any, fn: (value: any) => any) => input;
+const useTransform = (input: any, _fn: (value: any) => any) => input;
 const useMotionValue = (v: any) => v;
 const m = motion;
 

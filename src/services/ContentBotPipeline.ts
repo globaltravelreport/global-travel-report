@@ -142,7 +142,7 @@ export class ContentBotPipeline {
       console.log('✅ Content Bot Pipeline completed successfully');
 
     } catch (_error) {
-      console.error('❌ Content Bot Pipeline failed:', error);
+      console.error(_error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown pipeline error');
     }
 
@@ -166,7 +166,7 @@ export class ContentBotPipeline {
           console.error(`Failed to distribute ${story.title}:`, distributionResult.errors);
         }
       } catch (_error) {
-        console.error(`Error distributing story ${story.title}:`, error);
+        console.error(_error);
       }
     }
 
@@ -193,7 +193,7 @@ export class ContentBotPipeline {
       return qualityStories;
 
     } catch (_error) {
-      console.error('Error fetching RSS content:', error);
+      console.error(_error);
       throw error;
     }
   }
@@ -235,7 +235,7 @@ export class ContentBotPipeline {
         processedStories.push(processedContent);
 
       } catch (_error) {
-        console.error(`Error processing story "${rawStory.title}":`, error);
+        console.error(_error);
       }
     }
 
@@ -282,7 +282,7 @@ export class ContentBotPipeline {
         console.log(`📋 Submitted to moderation: ${submission.title}`);
 
       } catch (_error) {
-        console.error(`Error submitting to moderation: ${processed.rewrittenStory.title}`, error);
+        console.error(_error);
       }
     }
 
@@ -316,14 +316,14 @@ export class ContentBotPipeline {
           }
 
         } catch (_error) {
-          console.error(`Error publishing submission ${submission.id}:`, error);
+          console.error(_error);
         }
       }
 
       return publishedStories;
 
     } catch (_error) {
-      console.error('Error in auto-publish:', error);
+      console.error(_error);
       return [];
     }
   }
@@ -374,7 +374,7 @@ export class ContentBotPipeline {
       };
 
     } catch (_error) {
-      console.error('Error enhancing story with image:', error);
+      console.error(_error);
       return story;
     }
   }
@@ -404,7 +404,7 @@ export class ContentBotPipeline {
       return stats;
 
     } catch (_error) {
-      console.error('Error getting pipeline stats:', error);
+      console.error(_error);
       return {
         totalProcessed: 0,
         pendingModeration: 0,

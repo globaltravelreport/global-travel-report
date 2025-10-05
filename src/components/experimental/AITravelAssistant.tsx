@@ -48,7 +48,7 @@ export function useAITravelAssistant() {
   ]);
 
   const [isTyping, setIsTyping] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState('Unknown');
+  const [_currentLocation, setCurrentLocation] = useState('Unknown');
 
   const sendMessage = async (content: string): Promise<void> => {
     const userMessage: Message = {
@@ -152,7 +152,7 @@ export function useAITravelAssistant() {
     return suggestions;
   };
 
-  const getPersonalizedRecommendations = async (preferences: any): Promise<TravelSuggestion[]> => {
+  const getPersonalizedRecommendations = async (_preferences: any): Promise<TravelSuggestion[]> => {
     const recommendations: TravelSuggestion[] = [
       {
         type: 'destination',
@@ -174,7 +174,7 @@ export function useAITravelAssistant() {
   return {
     messages,
     isTyping,
-    currentLocation,
+    currentLocation: _currentLocation,
     sendMessage,
     getLocationBasedSuggestions,
     getPersonalizedRecommendations,

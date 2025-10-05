@@ -391,13 +391,13 @@ export async function getAllStories(): Promise<Story[]> {
           stories.push(story);
         }
       } catch (_error) {
-        console.error(`Error reading story file ${file}:`, error);
+        console.error(_error);
       }
     }
 
     return stories.length > 0 ? stories : storiesData;
   } catch (_error) {
-    console.error('Error getting stories:', error);
+    console.error(_error);
     return storiesData;
   }
 }
@@ -564,7 +564,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
               console.log(`[fileStorage.getStoryBySlug] Successfully loaded story from file: ${story.title}`);
             }
           } catch (_error) {
-            console.error(`[fileStorage.getStoryBySlug] Error parsing file ${filePath}:`, error);
+            console.error(_error);
           }
         }
       }
@@ -578,7 +578,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
 
     return story || null;
   } catch (_error) {
-    console.error(`[fileStorage.getStoryBySlug] Error getting story by slug ${slug}:`, error);
+    console.error(_error);
     return null;
   }
 }
@@ -636,7 +636,7 @@ export async function saveStory(story: Story): Promise<void> {
           }
         }
       } catch (_error) {
-        console.error(`Error reading existing story file ${filePath}:`, error);
+        console.error(_error);
       }
     }
 
@@ -681,7 +681,7 @@ ${story.content || ''}`;
       storiesData.push(story);
     }
   } catch (_error) {
-    console.error('Error saving story:', error);
+    console.error(_error);
   }
 }
 
@@ -715,7 +715,7 @@ export async function deleteStory(slug: string): Promise<void> {
       storiesData.splice(index, 1);
     }
   } catch (_error) {
-    console.error('Error deleting story:', error);
+    console.error(_error);
   }
 }
 

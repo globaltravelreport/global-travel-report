@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState, Suspense } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+// import { Suspense } from 'react';
 import { cn } from '@/utils/cn';
 
 // Define the props for the WorldMap component
@@ -112,7 +113,7 @@ export function WorldMap({
       setGeoJSON(data);
       setIsMapLoaded(true);
     } catch (_error) {
-      console.error('Error loading map:', error);
+      console.error(_error);
     }
   };
 

@@ -146,7 +146,7 @@ async function sendToErrorReportingService(entry: LogEntry): Promise<void> {
     }
   } catch (_error) {
     // Don't use the logger here to avoid infinite recursion
-    console.error('Error sending to error reporting service:', error);
+    console.error(_error);
   }
 }
 

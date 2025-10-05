@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 import { CreateUserSubmissionData, UserSubmission } from '@/types/UserSubmission';
 import { sendSubmissionNotification } from '@/services/brevoService';
-import { requireEditor } from '@/src/middleware/admin-auth';
+// import { requireEditor } from '@/src/middleware/admin-auth'; // Unused import
 import DOMPurify from 'isomorphic-dompurify';
 
 /**
@@ -66,8 +66,8 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-    } catch (_error) {
-      console.error('reCAPTCHA verification error:', error);
+    } catch (__error) {
+      console.error(__error);
       return NextResponse.json(
         { error: 'Verification failed. Please try again.' },
         { status: 500 }
@@ -122,8 +122,8 @@ export async function POST(request: NextRequest) {
       submissionId: submission.id
     });
 
-  } catch (_error) {
-    console.error('Error processing submission:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       { error: 'Something went wrong. Please try again later.' },
       { status: 500 }
@@ -161,8 +161,8 @@ export async function GET(request: NextRequest) {
       submissions
     });
 
-  } catch (_error) {
-    console.error('Error fetching submissions:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       { error: 'Failed to fetch submissions' },
       { status: 500 }

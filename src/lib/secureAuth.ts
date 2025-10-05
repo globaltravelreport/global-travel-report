@@ -70,7 +70,7 @@ export class SecureAuth {
 
       return result;
     } catch (_error) {
-      console.error('Error encrypting session:', error);
+      console.error(_error);
       throw new Error('Session encryption failed');
     }
   }
@@ -105,7 +105,7 @@ export class SecureAuth {
 
       return session;
     } catch (_error) {
-      console.error('Error decrypting session:', error);
+      console.error(_error);
       return null;
     }
   }
@@ -170,7 +170,7 @@ export class SecureAuth {
 
       return this.decryptSession(sessionCookie);
     } catch (_error) {
-      console.error('Error getting session from request:', error);
+      console.error(_error);
       return null;
     }
   }

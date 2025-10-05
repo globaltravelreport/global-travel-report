@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (_error) {
-    console.error('Error subscribing to newsletter:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -67,7 +67,7 @@ export async function GET() {
       stats
     });
   } catch (_error) {
-    console.error('Error getting newsletter stats:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

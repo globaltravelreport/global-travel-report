@@ -757,8 +757,8 @@ function parseOpenAIResponse(response, originalStory) {
         const jsonStr = metadataPart.substring(jsonStartIndex, jsonEndIndex + 1);
         try {
           metadata = JSON.parse(jsonStr);
-        } catch (e) {
-          console.warn('⚠️ Could not parse metadata JSON, using default values:', e.message);
+        } catch (__error) {
+          console.warn('⚠️ Could not parse metadata JSON, using default values:', __error.message);
         }
       }
     } else {
@@ -802,7 +802,7 @@ function parseOpenAIResponse(response, originalStory) {
 /**
  * Default images to use as fallbacks if Unsplash API fails
  */
-const DEFAULT_IMAGES = {
+const _DEFAULT_IMAGES = {
   Travel: {
     imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400',
     photographer: {

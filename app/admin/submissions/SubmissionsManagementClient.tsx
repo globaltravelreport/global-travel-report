@@ -41,7 +41,7 @@ export function SubmissionsManagementClient() {
         setSubmissions(submissionsWithActions);
       }
     } catch (_error) {
-      console.error('Error loading submissions:', error);
+      console.error(_error);
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ export function SubmissionsManagementClient() {
         console.error('Failed to approve submission');
       }
     } catch (_error) {
-      console.error('Error approving submission:', error);
+      console.error(_error);
     } finally {
       setActionLoading(null);
     }
@@ -88,7 +88,7 @@ export function SubmissionsManagementClient() {
         console.error('Failed to reject submission');
       }
     } catch (_error) {
-      console.error('Error rejecting submission:', error);
+      console.error(_error);
     } finally {
       setActionLoading(null);
     }

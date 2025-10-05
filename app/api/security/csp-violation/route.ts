@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     return new Response(null, { status: 204 });
   } catch (_error) {
-    console.error('Error processing CSP violation:', error);
+    console.error(_error);
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 }

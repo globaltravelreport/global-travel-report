@@ -29,7 +29,7 @@ const unsplash = (() => {
       accessKey,
     });
   } catch (_error) {
-    console.error('Failed to initialize Unsplash client:', error);
+    console.error(_error);
     return null;
   }
 })();
@@ -111,7 +111,7 @@ export async function getRandomImage(
     
     return imageData;
   } catch (_error) {
-    console.error('Error fetching image from Unsplash:', error);
+    console.error(_error);
     return null;
   }
 }
@@ -175,7 +175,7 @@ export async function getImageForStory(story: Story): Promise<{
     
     return image;
   } catch (_error) {
-    console.error('Error getting image for story:', error);
+    console.error(_error);
     return null;
   }
 }

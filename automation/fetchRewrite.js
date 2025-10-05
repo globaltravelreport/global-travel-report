@@ -1,7 +1,7 @@
 // Import required packages
-const Parser = require('rss-parser');
+const _Parser = require('rss-parser');
 const axios = require('axios');
-const cheerio = require('cheerio');
+const _cheerio = require('cheerio');
 const { rewriteArticle } = require('./rewriteAndPublish.js');
 const { saveArticles } = require('./saveArticlesToMarkdown.js');
 require('dotenv').config({ path: '.env.local' });

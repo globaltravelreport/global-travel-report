@@ -1,8 +1,9 @@
-import { getAllStories, getUniqueCountries, getUniqueCategories, getStoryBySlug, isWithinLast7Days } from '../../src/utils/stories';
-import type { Story } from '../../types/Story';
+import { getAllStories, getUniqueCountries, getUniqueCategories, isWithinLast7Days } from '../../src/utils/stories';
+// import { getStoryBySlug } from '../../src/utils/stories';
+// import type { Story } from '../../types/Story';
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+// import matter from 'gray-matter';
 
 // Mock the fs and path modules
 jest.mock('fs', () => ({

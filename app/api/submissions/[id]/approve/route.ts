@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 import { StoryDatabase } from '@/src/services/storyDatabase';
-import { requireEditor } from '@/src/middleware/admin-auth';
+// import { requireEditor } from '@/src/middleware/admin-auth'; // Unused import
 
 /**
  * POST /api/submissions/[id]/approve
@@ -75,8 +75,8 @@ export async function POST(
       },
     });
 
-  } catch (_error) {
-    console.error('Error approving submission:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       { error: 'Failed to approve submission' },
       { status: 500 }

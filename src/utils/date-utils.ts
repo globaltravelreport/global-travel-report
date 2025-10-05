@@ -65,7 +65,7 @@ export function formatDisplayDate(date: Date | string, locale: string = 'en-US')
       day: 'numeric'
     }).format(dateObj);
   } catch (_error) {
-    console.error(`Error formatting date: ${date}`, error);
+    console.error(_error);
     return 'Unknown date';
   }
 }
@@ -280,7 +280,7 @@ export function validateDate(dateStr: string | Date, preserveFutureDates: boolea
     return date;
   } catch (_error) {
     // If there's any error parsing the date, return the current date
-    console.error(`Error processing date: ${dateStr}`, error);
+    console.error(_error);
     return now;
   }
 }
@@ -354,7 +354,7 @@ export function getSafeDateString(
     // Return the valid date
     return dateObj.toISOString();
   } catch (_error) {
-    if (!silent) console.error(`Error processing date: ${dateStr}`, error);
+    if (!silent) console.error(_error);
     return new Date().toISOString();
   }
 }
@@ -425,7 +425,7 @@ export function parseDateSafe(dateStr: string | Date | undefined, silent: boolea
     if (!silent) console.warn(`Failed to parse date string: ${dateStr}`);
     return null;
   } catch (_error) {
-    if (!silent) console.error(`Error parsing date: ${dateStr}`, error);
+    if (!silent) console.error(_error);
     return null;
   }
 }

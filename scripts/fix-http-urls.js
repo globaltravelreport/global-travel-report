@@ -15,7 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { _execSync } = require('child_process');
 const chalk = require('chalk');
 
 // Configuration
@@ -91,7 +91,7 @@ function getAllFiles(dir, extensions) {
 function fixHttpUrls(filePath, dryRun = false, verbose = false) {
   try {
     let content = fs.readFileSync(filePath, 'utf8');
-    const originalContent = content;
+    const _originalContent = content;
     let changed = false;
     
     config.patterns.forEach(pattern => {

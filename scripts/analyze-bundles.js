@@ -14,7 +14,7 @@
 
 const { execSync } = require('child_process');
 const fs = require('fs');
-const path = require('path');
+const _path = require('path');
 
 // Configuration
 const config = {
@@ -47,8 +47,8 @@ function analyzeBundles() {
     execSync(config.buildCommand, { stdio: 'inherit' });
     
     console.log('Bundle analysis complete!');
-  } catch (error) {
-    console.error('Error analyzing bundles:', error.message);
+  } catch (__error) {
+    console.error('Error analyzing bundles:', __error.message);
   }
 }
 

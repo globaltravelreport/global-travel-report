@@ -60,7 +60,7 @@ export default function StoryShare({
       };
       setShareCounts(mockCounts);
     } catch (_error) {
-      console.error('Error loading share counts:', error);
+      console.error(_error);
     }
   };
 
@@ -88,7 +88,7 @@ export default function StoryShare({
       // You could show a toast notification here
       console.log('Link copied to clipboard');
     } catch (_error) {
-      console.error('Failed to copy link:', error);
+      console.error(_error);
     }
   };
 

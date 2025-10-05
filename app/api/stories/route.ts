@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       stories: paginatedStories
     });
   } catch (_error) {
-    console.error('Error fetching stories:', error);
+    console.error(_error);
     return NextResponse.json(
       {
         success: false,

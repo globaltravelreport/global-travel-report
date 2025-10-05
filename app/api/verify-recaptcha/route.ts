@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (_error) {
-    console.error('Error verifying reCAPTCHA:', error);
+    console.error(_error);
     return NextResponse.json(
       { 
         success: false, 

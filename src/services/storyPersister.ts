@@ -29,4 +29,6 @@ export class StoryPersister {
     return fields;
   }
 }
-export default new StoryPersister();
+
+const storyPersister = new StoryPersister();
+export default storyPersister;

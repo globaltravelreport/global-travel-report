@@ -174,7 +174,7 @@ export function initializeEnhancedImageTracker(): ImageTrackerData {
     }
     return newTracker;
   } catch (_error) {
-    console.error('Error initializing enhanced image tracker:', error);
+    console.error(_error);
     // Return a default tracker
     return {
       images: {},
@@ -313,7 +313,7 @@ export function getBestImageForStory(
       }
     };
   } catch (_error) {
-    console.error('Error getting best image for story:', error);
+    console.error(_error);
     // Return a default image
     return {
       imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',

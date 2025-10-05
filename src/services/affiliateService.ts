@@ -310,7 +310,7 @@ export class AffiliateService {
 
       return url.toString();
     } catch (_error) {
-      console.error('Error generating affiliate link:', error);
+      console.error(_error);
       return product.affiliateUrl;
     }
   }
@@ -362,7 +362,7 @@ export class AffiliateService {
         },
         body: JSON.stringify(data),
       }).catch(error => {
-        console.error('Failed to send affiliate tracking data:', error);
+        console.error(_error);
       });
     }
   }
@@ -383,7 +383,7 @@ export class AffiliateService {
 
         localStorage.setItem('affiliate_clicks', JSON.stringify(existing));
       } catch (_error) {
-        console.error('Failed to store affiliate click data:', error);
+        console.error(_error);
       }
     }
   }
@@ -412,7 +412,7 @@ export class AffiliateService {
         };
       }
     } catch (_error) {
-      console.error('Failed to get affiliate click stats:', error);
+      console.error(_error);
     }
 
     return {

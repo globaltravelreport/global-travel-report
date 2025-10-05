@@ -54,7 +54,7 @@ export function AccessibilityProvider({
       try {
         const parsed = JSON.parse(savedSettings);
         setSettings(prev => ({ ...prev, ...parsed }));
-      } catch (_error) {
+      } catch (__error) {
         console.warn('Failed to parse accessibility settings from localStorage');
       }
     }

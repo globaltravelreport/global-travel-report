@@ -220,7 +220,7 @@ async function main() {
     // Check if the articles directory exists
     try {
       await fs.access(ARTICLES_DIRECTORY);
-    } catch (error) {
+    } catch (__error) {
       console.error(`Articles directory not found: ${ARTICLES_DIRECTORY}`);
       return;
     }

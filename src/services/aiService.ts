@@ -146,7 +146,7 @@ async function generateWithOpenAI(
       },
     };
   } catch (_error) {
-    console.error('OpenAI API error:', error);
+    console.error(_error);
     throw new Error(`OpenAI API error: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -178,7 +178,7 @@ async function generateWithGoogle(
       model: config.model || 'gemini-1.5-flash',
     };
   } catch (_error) {
-    console.error('Google Gemini API error:', error);
+    console.error(_error);
     throw new Error(`Google Gemini API error: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -204,7 +204,7 @@ export async function generateStoryContent(
       throw new Error(`Unsupported AI provider: ${provider}`);
     }
   } catch (_error) {
-    console.error(`[AI Service] Error with ${provider}:`, error);
+    console.error(_error);
     throw error;
   }
 }

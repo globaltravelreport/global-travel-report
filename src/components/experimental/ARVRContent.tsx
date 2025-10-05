@@ -127,7 +127,7 @@ export function ARVRContent({ className = '' }: ARVRContentProps) {
   const [isARSupported, setIsARSupported] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const vrViewerRef = useRef<HTMLDivElement>(null);
+  const _vrViewerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     checkDeviceSupport();
@@ -140,7 +140,7 @@ export function ARVRContent({ className = '' }: ARVRContentProps) {
         const xr = (navigator as any).xr;
         const supported = await xr?.isSessionSupported('immersive-vr');
         setIsVRSupported(supported || false);
-      } catch (_error) {
+      } catch (__error) {
         setIsVRSupported(false);
       }
     }
@@ -151,7 +151,7 @@ export function ARVRContent({ className = '' }: ARVRContentProps) {
         const xr = (navigator as any).xr;
         const supported = await xr?.isSessionSupported('immersive-ar');
         setIsARSupported(supported || false);
-      } catch (_error) {
+      } catch (__error) {
         setIsARSupported(false);
       }
     }
@@ -208,7 +208,7 @@ export function ARVRContent({ className = '' }: ARVRContentProps) {
       // For demo purposes, we'll show a modal
       console.log('Launching VR scene:', scene.title);
     } catch (_error) {
-      console.error('Error launching VR scene:', error);
+      console.error(_error);
     }
   };
 
@@ -225,7 +225,7 @@ export function ARVRContent({ className = '' }: ARVRContentProps) {
       // For demo purposes, we'll show a modal
       console.log('Launching AR content:', content.title);
     } catch (_error) {
-      console.error('Error launching AR content:', error);
+      console.error(_error);
     }
   };
 

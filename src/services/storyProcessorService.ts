@@ -123,7 +123,7 @@ export class StoryProcessorService {
       try {
         stories = await this.rssFeedService.fetchStories();
       } catch (_error) {
-        console.error('Error fetching stories:', error);
+        console.error(_error);
         this.stats.errors.fetching++;
         throw error;
       }
@@ -151,7 +151,7 @@ export class StoryProcessorService {
                 console.warn('Story was not rewritten');
               }
             } catch (_error) {
-              console.error('Error rewriting story:', error);
+              console.error(_error);
               this.stats.errors.rewriting++;
             }
           } else {
@@ -172,7 +172,7 @@ export class StoryProcessorService {
                 console.warn('Story was not enhanced with image');
               }
             } catch (_error) {
-              console.error('Error enhancing story with image:', error);
+              console.error(_error);
               this.stats.errors.imageEnhancement++;
             }
           } else {
@@ -192,7 +192,7 @@ export class StoryProcessorService {
               };
               console.log('SEO metadata generated successfully');
             } catch (_error) {
-              console.error('Error generating SEO metadata:', error);
+              console.error(_error);
               // Not critical, so we don't increment error count
             }
           } else {
@@ -218,7 +218,7 @@ export class StoryProcessorService {
           processedStoriesArray.push(enhancedStory);
           this.stats.totalProcessed++;
         } catch (_error) {
-          console.error(`Error processing story ${story.title}:`, error);
+          console.error(_error);
           // Continue with the next story
         }
 
@@ -253,7 +253,7 @@ export class StoryProcessorService {
             // Non-critical error, continue
           }
         } catch (_error) {
-          console.error('Error saving stories to database:', error);
+          console.error(_error);
           this.stats.errors.saving++;
         }
       }
@@ -261,7 +261,7 @@ export class StoryProcessorService {
       console.log('Story processing completed successfully');
       return processedStories;
     } catch (_error) {
-      console.error('Error processing stories:', error);
+      console.error(_error);
       throw error;
     } finally {
       // Update stats

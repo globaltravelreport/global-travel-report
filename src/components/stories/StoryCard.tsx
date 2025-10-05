@@ -301,7 +301,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
     } catch (_error) {
       // Use silent error handling in production
       if (process.env.NODE_ENV === 'development') {
-        console.error('Error formatting date:', error);
+        console.error(_error);
       }
       return 'Unknown date';
     }

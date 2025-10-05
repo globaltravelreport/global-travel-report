@@ -20,7 +20,7 @@ async function setupDailyStoryCron() {
     try {
       const vercelJsonContent = await fs.readFile(vercelJsonPath, 'utf8');
       vercelConfig = JSON.parse(vercelJsonContent);
-    } catch (error) {
+    } catch (__error) {
       // Create a new config if file doesn't exist
       vercelConfig = {
         version: 2,

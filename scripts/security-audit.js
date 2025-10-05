@@ -263,7 +263,7 @@ function checkDependencies() {
         const vulnCount = Object.keys(auditData.vulnerabilities).length;
         addIssue(`${vulnCount} vulnerable dependencies found. Run 'npm audit' for details.`, 'package.json', null, 'high', true);
       }
-    } catch (e) {
+    } catch (__error) {
       addWarning('Failed to check dependencies for vulnerabilities');
     }
   }

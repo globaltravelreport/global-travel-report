@@ -65,7 +65,7 @@ export class LocationAccurateImageService {
             return bestImage;
           }
         } catch (_error) {
-          console.error('Error in image search strategy:', error);
+          console.error(_error);
           continue;
         }
       }
@@ -75,7 +75,7 @@ export class LocationAccurateImageService {
       return await this.fallbackImageSearch(story);
 
     } catch (_error) {
-      console.error('Error finding image for story:', error);
+      console.error(_error);
       return null;
     }
   }
@@ -172,7 +172,7 @@ export class LocationAccurateImageService {
       }));
 
     } catch (_error) {
-      console.error('Error searching images:', error);
+      console.error(_error);
       return [];
     }
   }
@@ -261,7 +261,7 @@ export class LocationAccurateImageService {
       };
 
     } catch (_error) {
-      console.error('Error in fallback image search:', error);
+      console.error(_error);
       return null;
     }
   }
@@ -323,7 +323,7 @@ export class LocationAccurateImageService {
           minRelevance: 0.7,
         });
       } catch (_error) {
-        console.error(`Error pre-fetching images for ${location}:`, error);
+        console.error(_error);
       }
     }
 

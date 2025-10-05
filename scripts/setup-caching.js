@@ -14,7 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { _execSync } = require('child_process');
 
 // Configuration
 const config = {
@@ -156,7 +156,7 @@ function createServiceWorker() {
  * Provides offline support and caching
  */
 
-const CACHE_NAME = 'global-travel-report-v1';
+const _CACHE_NAME = 'global-travel-report-v1';
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [

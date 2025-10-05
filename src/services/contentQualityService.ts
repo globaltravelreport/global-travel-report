@@ -40,4 +40,6 @@ export class ContentQualityService {
     return 0.75;
   }
 }
-export default new ContentQualityService();
+
+const contentQualityService = new ContentQualityService();
+export default contentQualityService;

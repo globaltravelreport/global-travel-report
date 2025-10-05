@@ -30,7 +30,7 @@ export class RSSFeedService {
       const stories = await fetchRSSFeeds();
       return stories;
     } catch (_error) {
-      console.error('Error fetching RSS feeds:', error);
+      console.error(_error);
       return this.getBackupStories();
     }
   }

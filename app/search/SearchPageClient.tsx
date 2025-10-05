@@ -31,7 +31,7 @@ function SearchResults() {
         const searchResult = applySearchFilters(allStories, searchParams);
         setFilteredStories(searchResult.data);
       } catch (_error) {
-        console.error('Error loading stories:', error);
+        console.error(_error);
         setStories([]);
         setAuthors([]);
         setFilteredStories([]);

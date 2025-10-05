@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image'; // Unused import
 
 export const metadata = {
   title: 'Categories - Global Travel Report',
@@ -91,8 +91,8 @@ export default function CategoriesPage() {
   const mainCategories = CATEGORIES;
 
   // Group categories by featured status
-  const featuredCategories = mainCategories.filter(category => category.featured);
-  const otherCategories = mainCategories.filter(category => !category.featured);
+  const _featuredCategories = mainCategories.filter(category => category.featured);
+  const _otherCategories = mainCategories.filter(category => !category.featured);
 
   // Define the specific categories to show in the highlighted grid
   const highlightedCategories = CATEGORIES.slice(0, 8);
@@ -170,15 +170,14 @@ export default function CategoriesPage() {
                   <p className="text-gray-600 mb-4">
                     {category.description}
                   </p>
-                  <a
-                    href="#"
+                  <button
                     className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center group-hover:translate-x-1 transition-transform duration-300"
                   >
                     View stories
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}

@@ -121,7 +121,7 @@ const AFFILIATE_PARTNERS = {
 };
 
 // Helper function to make HTTP requests
-function makeRequest(url) {
+function _makeRequest(url) {
   return new Promise((resolve, reject) => {
     const parsedUrl = new URL(url);
     const httpModule = parsedUrl.protocol === 'https:' ? https : http;
@@ -145,7 +145,7 @@ function makeRequest(url) {
             data: JSON.parse(data),
             headers: res.headers
           });
-        } catch (e) {
+        } catch (__error) {
           resolve({
             status: res.statusCode,
             data: data,

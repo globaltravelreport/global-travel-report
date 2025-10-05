@@ -33,7 +33,7 @@ async function sendEmail(data: ContactFormRequest): Promise<boolean> {
 
     return true;
   } catch (_error) {
-    console.error('Error processing contact form:', error);
+    console.error(_error);
     return false;
   }
 }
@@ -67,7 +67,7 @@ export const POST = createApiHandler<ContactFormRequest>(
           );
         }
       } catch (_error) {
-        console.error('Error verifying reCAPTCHA:', error);
+        console.error(_error);
         // Continue processing in case of reCAPTCHA error
         // This prevents the form from being completely blocked if reCAPTCHA has issues
       }

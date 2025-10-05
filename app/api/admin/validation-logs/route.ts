@@ -36,7 +36,7 @@ export async function GET() {
     return NextResponse.json(validationLogs);
   } catch (_error) {
     /* eslint-disable no-console */
-    console.error('Error fetching validation logs:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Failed to fetch validation logs' },
       { status: 500 }

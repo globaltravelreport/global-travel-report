@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 import { StoryDatabase } from '@/src/services/storyDatabase';
-import { requireEditor } from '@/src/middleware/admin-auth';
+// import { requireEditor } from '@/src/middleware/admin-auth'; // Unused import
 
 /**
  * POST /api/submissions/[id]/reject
@@ -79,8 +79,8 @@ export async function POST(
       message: 'Submission rejected successfully',
     });
 
-  } catch (_error) {
-    console.error('Error rejecting submission:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       { error: 'Failed to reject submission' },
       { status: 500 }

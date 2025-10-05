@@ -49,7 +49,7 @@ export function RSSManagementClient() {
       setPipelineStats(pipelineData);
       setRssStats(rssData);
     } catch (_error) {
-      console.error('Error loading stats:', _error);
+      console.error(_error);
     }
   };
 
@@ -61,7 +61,7 @@ export function RSSManagementClient() {
       setLastResult(result);
       await loadStats(); // Reload stats after run
     } catch (_error) {
-      console.error('Error running pipeline:', _error);
+      console.error(_error);
     } finally {
       setIsRunning(false);
     }
@@ -75,7 +75,7 @@ export function RSSManagementClient() {
       setLastResult(result);
       await loadStats();
     } catch (_error) {
-      console.error('Error fetching RSS:', _error);
+      console.error(_error);
     } finally {
       setIsRunning(false);
     }
@@ -88,7 +88,7 @@ export function RSSManagementClient() {
       await imageService.prefetchCommonLocationImages();
       console.log('✅ Image pre-fetching completed');
     } catch (_error) {
-      console.error('Error pre-fetching images:', _error);
+      console.error(_error);
     } finally {
       setIsRunning(false);
     }
@@ -101,7 +101,7 @@ export function RSSManagementClient() {
       const stats = await distributionBot.getDistributionStats();
       console.log('📊 Distribution stats:', stats);
     } catch (_error) {
-      console.error('Error testing distribution:', _error);
+      console.error(_error);
     } finally {
       setIsRunning(false);
     }

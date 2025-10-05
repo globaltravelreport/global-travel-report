@@ -74,7 +74,7 @@ async function testOpenAIKey() {
         } else {
           console.warn('OpenAIService is not able to make requests. This might be due to rate limiting or configuration issues.');
         }
-      } catch (error) {
+      } catch (__error) {
         console.log('Could not check OpenAIService configuration, but the API key is valid.');
         console.log('This is normal when running the script outside the application context.');
       }

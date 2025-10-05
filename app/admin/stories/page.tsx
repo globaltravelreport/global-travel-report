@@ -43,8 +43,8 @@ function AdminStoriesContent() {
       } else {
         throw new Error(data.message || 'Failed to fetch stories');
       }
-    } catch (_error) {
-      setError(error instanceof Error ? error.message : 'An unknown error occurred');
+    } catch (__error) {
+      setError(__error instanceof Error ? __error.message : 'An unknown error occurred');
     } finally {
       setLoading(false);
     }
@@ -69,8 +69,8 @@ function AdminStoriesContent() {
 
         setCategories(uniqueCategories as string[]);
       }
-    } catch (_error) {
-      console.error('Error fetching categories:', error);
+    } catch (__error) {
+      console.error(__error);
     }
   };
 

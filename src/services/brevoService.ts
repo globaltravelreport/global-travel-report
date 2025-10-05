@@ -88,7 +88,7 @@ export class BrevoService {
         data: data,
       };
     } catch (_error) {
-      console.error('Error adding contact to Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -130,7 +130,7 @@ export class BrevoService {
         data: data,
       };
     } catch (_error) {
-      console.error('Error getting contact from Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -171,7 +171,7 @@ export class BrevoService {
         data: null,
       };
     } catch (_error) {
-      console.error('Error removing contact from Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -219,7 +219,7 @@ export class BrevoService {
         messageId: data.messageId,
       };
     } catch (_error) {
-      console.error('Error sending email via Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -264,7 +264,7 @@ export class BrevoService {
         data: data,
       };
     } catch (_error) {
-      console.error('Error creating template in Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -299,7 +299,7 @@ export class BrevoService {
         data: data.templates || [],
       };
     } catch (_error) {
-      console.error('Error getting templates from Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -334,7 +334,7 @@ export class BrevoService {
         data: data,
       };
     } catch (_error) {
-      console.error('Error getting account info from Brevo:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -375,7 +375,7 @@ export async function sendSubmissionNotification(submission: {
     );
 
     if (!editorEmailResult.success) {
-      console.error('Failed to send editor notification:', editorEmailResult.error);
+      console.error(_error);
     }
 
     // Thank you email to submitter
@@ -390,7 +390,7 @@ export async function sendSubmissionNotification(submission: {
     );
 
     if (!submitterEmailResult.success) {
-      console.error('Failed to send submitter thank you email:', submitterEmailResult.error);
+      console.error(_error);
     }
 
     return {
@@ -401,7 +401,7 @@ export async function sendSubmissionNotification(submission: {
       },
     };
   } catch (_error) {
-    console.error('Error sending submission notification:', error);
+    console.error(_error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',

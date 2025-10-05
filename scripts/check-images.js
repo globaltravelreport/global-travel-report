@@ -24,7 +24,7 @@ const ALLOWED_DOMAINS = [
 let totalUrls = 0;
 let checkedUrls = 0;
 const failedUrls = [];
-const brokenUrls = [];
+const __brokenUrls = [];
 
 // Utility function to check if URL is external
 function isExternalUrl(url) {
@@ -66,13 +66,13 @@ function isImageUrl(url) {
 }
 
 // Function to make HTTP request with timeout
-function makeRequest(url, timeout = REQUEST_TIMEOUT) {
+function makeRequest(url, _timeout = REQUEST_TIMEOUT) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https://') ? https : http;
 
     const request = protocol.request(url, {
       method: 'HEAD',
-      timeout,
+      timeout: _timeout,
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; ImageChecker/1.0)'
       }
@@ -281,7 +281,7 @@ async function main() {
 
     // Check all URLs
     console.log('🔎 Checking image URLs...');
-    const results = await checkUrls(uniqueUrls);
+    const _results = await checkUrls(uniqueUrls);
 
     // Categorize failures
     const categorized = categorizeFailures();

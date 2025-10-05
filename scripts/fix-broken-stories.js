@@ -238,7 +238,7 @@ function fixFrontmatterIssues(data, filename) {
       if (!isNaN(date.getTime())) {
         fixed.date = date.toISOString();
       }
-    } catch (error) {
+    } catch (__error) {
       // If date parsing fails, use current date
       fixed.date = new Date().toISOString();
       stats.fixedIssues.frontmatter++;
@@ -433,8 +433,8 @@ if (require.main === module) {
     .then(() => {
       process.exit(0);
     })
-    .catch(error => {
-      console.error('Unhandled error:', error);
+    .catch(__error => {
+      console.error('Unhandled error:', __error);
       process.exit(1);
     });
 }

@@ -3,8 +3,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
+// import { CardDescription, CardHeader } from '@/components/ui/card';
+// import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AffiliateProduct, AffiliateService } from '@/src/services/affiliateService';
 import { cn } from '@/lib/utils';
@@ -163,9 +164,9 @@ export function AffiliateCard({
         {showTags && product.tags && product.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {product.tags.slice(0, isCompact ? 2 : 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs bg-gray-100">
+              <span key={tag} className="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">
                 {tag}
-              </Badge>
+              </span>
             ))}
           </div>
         )}

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
+// import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
+import { getFeaturedCategories } from '@/src/config/categories';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
 
@@ -29,7 +30,7 @@ export default async function CategoryGrid() {
     const storyDb = StoryDatabase.getInstance();
     stories = await storyDb.getAllStories();
   } catch (_error) {
-    console.error('Error loading stories for category grid:', error);
+    console.error(_error);
     // Continue with empty stories array
   }
 

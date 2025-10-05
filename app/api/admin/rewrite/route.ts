@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result);
   } catch (_error) {
-    console.error('Rewrite error:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Failed to rewrite story. Please try again.' },
       { status: 500 }

@@ -53,7 +53,7 @@ export default function ContentAutomationDashboard() {
         setStats(data);
       }
     } catch (_error) {
-      console.error('Error loading stats:', error);
+      console.error(_error);
     }
   };
 
@@ -65,7 +65,7 @@ export default function ContentAutomationDashboard() {
         setStories(data);
       }
     } catch (_error) {
-      console.error('Error loading stories:', error);
+      console.error(_error);
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ export default function ContentAutomationDashboard() {
         await loadStories();
       }
     } catch (_error) {
-      console.error('Error triggering ingestion:', error);
+      console.error(_error);
     } finally {
       setIngesting(false);
     }
@@ -114,7 +114,7 @@ export default function ContentAutomationDashboard() {
         await loadStories(); // Refresh stories to show updated featured status
       }
     } catch (_error) {
-      console.error('Error setting featured story:', error);
+      console.error(_error);
     }
   };
 
@@ -139,7 +139,7 @@ export default function ContentAutomationDashboard() {
         await loadStories();
       }
     } catch (_error) {
-      console.error('Error setting editor\'s picks:', error);
+      console.error(_error);
     }
   };
 

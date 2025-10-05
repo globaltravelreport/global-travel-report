@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       }
     });
   } catch (_error) {
-    console.error('Publish error:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Failed to publish story. Please try again.' },
       { status: 500 }

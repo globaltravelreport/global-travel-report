@@ -25,4 +25,6 @@ export class StoryScheduler {
     return true;
   }
 }
-export default new StoryScheduler();
+
+const storyScheduler = new StoryScheduler();
+export default storyScheduler;

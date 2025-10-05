@@ -28,7 +28,7 @@ export default function Header() {
         }));
         setCountries(countryData);
       } catch (_error) {
-        console.error('Error loading countries:', error);
+        console.error(_error);
       }
     };
 
@@ -43,8 +43,8 @@ export default function Header() {
   }, [pathname]);
 
   const featuredCategories = CATEGORIES.filter(cat => cat.featured);
-  const destinationCategories = CATEGORIES.filter(cat => cat.slug === 'destinations');
-  const travelStyleCategories = CATEGORIES.filter(cat =>
+  const _destinationCategories = CATEGORIES.filter(cat => cat.slug === 'destinations');
+  const _travelStyleCategories = CATEGORIES.filter(cat =>
     ['luxury-travel', 'budget-travel', 'family-travel', 'solo-travel'].includes(cat.slug)
   );
 

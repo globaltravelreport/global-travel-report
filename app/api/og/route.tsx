@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (_error) {
-    console.error('Error generating OG image:', error);
+    console.error(_error);
 
     // Return a fallback image response
     return new Response(JSON.stringify({ error: 'Failed to generate image' }), {

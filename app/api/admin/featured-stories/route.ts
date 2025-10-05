@@ -18,7 +18,7 @@ export async function GET() {
       stats
     });
   } catch (_error) {
-    console.error('Error getting featured stories:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (_error) {
-    console.error('Error updating featured story:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -115,7 +115,7 @@ export async function PUT(request: NextRequest) {
     }
 
   } catch (_error) {
-    console.error('Error batch updating stories:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

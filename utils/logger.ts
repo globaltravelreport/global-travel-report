@@ -19,7 +19,7 @@ class Logger {
     let formattedMessage = `[${timestamp}] [${requestId}] [${ip}] ${message}`
     
     if (data) {
-      const { request, error, ...rest } = data
+      const { request: _request, error, ...rest } = data
       if (Object.keys(rest).length > 0) {
         formattedMessage += ` ${JSON.stringify(rest)}`
       }

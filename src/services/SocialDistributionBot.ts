@@ -125,7 +125,7 @@ export class SocialDistributionBot {
       console.log(`✅ Distribution complete: ${result.platforms.length} platforms, ${result.errors.length} errors`);
 
     } catch (_error) {
-      console.error('Error in story distribution:', error);
+      console.error(_error);
       result.errors.push(error instanceof Error ? error.message : 'Unknown distribution error');
     }
 

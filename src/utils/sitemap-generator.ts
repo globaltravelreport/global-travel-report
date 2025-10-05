@@ -145,7 +145,7 @@ export async function generateSitemap(baseUrl: string, outputPath: string): Prom
 
     console.log(`Sitemap generated at ${path.join(outputPath, 'sitemap.xml')}`);
   } catch (_error) {
-    console.error('Error generating sitemap:', error);
+    console.error(_error);
   }
 }
 
@@ -174,7 +174,7 @@ export async function generateSitemapIndex(baseUrl: string, outputPath: string):
 
     console.log(`Sitemap index generated at ${path.join(outputPath, 'sitemap-index.xml')}`);
   } catch (_error) {
-    console.error('Error generating sitemap index:', error);
+    console.error(_error);
   }
 }
 

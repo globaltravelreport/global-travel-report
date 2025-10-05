@@ -160,7 +160,7 @@ export class NewsletterService {
       });
 
       if (!brevoResult.success) {
-        console.error('Failed to add subscriber to Brevo:', brevoResult.error);
+        console.error(_error);
         // Don't fail the subscription if Brevo fails, just log it
       }
 
@@ -214,7 +214,7 @@ export class NewsletterService {
         );
       }
     } catch (_error) {
-      console.error('Error triggering welcome series:', error);
+      console.error(_error);
     }
   }
 
@@ -251,7 +251,7 @@ export class NewsletterService {
       });
 
       if (!templateResult.success) {
-        console.error('Failed to create template in Brevo:', templateResult.error);
+        console.error(_error);
         // Fallback to console logging
         console.log('Email would be sent:', {
           to: email,
@@ -282,7 +282,7 @@ export class NewsletterService {
           templateId: template.id
         };
       } else {
-        console.error('Failed to send email via Brevo:', sendResult.error);
+        console.error(_error);
         return {
           success: false,
           error: sendResult.error,
@@ -291,7 +291,7 @@ export class NewsletterService {
         };
       }
     } catch (_error) {
-      console.error('Error scheduling email:', error);
+      console.error(_error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',

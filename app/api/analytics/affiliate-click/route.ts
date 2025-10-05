@@ -59,12 +59,12 @@ export async function POST(request: NextRequest) {
       trackingId: generateTrackingId(trackingData),
     });
 
-  } catch (_error) {
-    console.error('Error tracking affiliate click:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       {
         error: 'Internal server error',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: __error instanceof Error ? __error.message : 'Unknown error'
       },
       { status: 500 }
     );
@@ -144,8 +144,8 @@ async function storeAffiliateClick(data: any): Promise<void> {
     await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
 
     console.log('Affiliate click data stored successfully');
-  } catch (_error) {
-    console.error('Failed to store affiliate click data:', error);
+  } catch (__error) {
+    console.error(__error);
     // Don't throw error, just log it - tracking shouldn't break the user experience
   }
 }
@@ -208,12 +208,12 @@ export async function GET(request: NextRequest) {
       clicks: clicks,
     });
 
-  } catch (_error) {
-    console.error('Error retrieving affiliate click stats:', error);
+  } catch (__error) {
+    console.error(__error);
     return NextResponse.json(
       {
         error: 'Internal server error',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: __error instanceof Error ? __error.message : 'Unknown error'
       },
       { status: 500 }
     );

@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (_error) {
-    console.error('Error in content ingestion API:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -48,7 +48,7 @@ export async function GET() {
 
     return NextResponse.json(stats);
   } catch (_error) {
-    console.error('Error getting automation stats:', error);
+    console.error(_error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

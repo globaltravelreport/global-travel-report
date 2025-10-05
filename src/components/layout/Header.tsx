@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+// import { useState } from 'react';
+// import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { FaMedium, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { cn } from '../../lib/utils';
@@ -194,9 +195,13 @@ export default function Header() {
             >
               <span className="sr-only">Toggle menu</span>
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               ) : (
-                <Menu className="h-5 w-5" />
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
               )}
             </Button>
           </div>

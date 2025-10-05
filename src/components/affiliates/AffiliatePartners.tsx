@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+// import { useCallback } from 'react';
 import Image from 'next/image';
 import { affiliatePartners, getAffiliateLogoFallback, AffiliatePartner } from '@/src/data/affiliatePartners';
 
@@ -15,7 +16,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   maxPartners,
   showHeader = true
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [_isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Filter and limit partners

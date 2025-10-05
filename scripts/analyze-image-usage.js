@@ -14,7 +14,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const _path = require('path');
 const glob = require('glob');
 const { parse } = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
@@ -274,7 +274,7 @@ try {
   require.resolve('@babel/parser');
   require.resolve('@babel/traverse');
   require.resolve('glob');
-} catch (error) {
+} catch (__error) {
   console.error('Required dependencies not found. Please install them:');
   console.error('npm install --save-dev @babel/parser @babel/traverse glob');
   process.exit(1);

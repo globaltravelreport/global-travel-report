@@ -447,7 +447,7 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
       </div>
     );
   } catch (_error) {
-    console.error('Error rendering story page:', error);
+    console.error(_error);
     throw error;
   }
 }

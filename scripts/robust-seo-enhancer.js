@@ -17,7 +17,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 // Define our own slugify function
-function slugify(text) {
+function _slugify(text) {
   return text
     .toLowerCase()
     .trim()

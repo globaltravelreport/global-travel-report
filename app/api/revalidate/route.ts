@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
       now: Date.now()
     });
   } catch (_error) {
-    console.error('Error revalidating path:', error);
+    console.error(_error);
 
     return NextResponse.json(
       {

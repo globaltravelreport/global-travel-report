@@ -43,7 +43,7 @@ export async function GET(
       story
     });
   } catch (_error) {
-    console.error(`Error fetching story:`, error);
+    console.error(_error);
     return NextResponse.json(
       {
         success: false,

@@ -78,7 +78,7 @@ function storeWebVitalsMetric(metric: WebVitalsMetric): void {
       console.log(`Web Vitals: ${metric.name} = ${metric.value} (${metric.rating})`);
     }
   } catch (_error) {
-    console.error('Error storing Web Vitals metric:', error);
+    console.error(_error);
   }
 }
 
@@ -94,7 +94,7 @@ export function getStoredWebVitalsMetrics(): any[] {
     const storedMetrics = localStorage.getItem(WEB_VITALS_STORAGE_KEY);
     return storedMetrics ? JSON.parse(storedMetrics) : [];
   } catch (_error) {
-    console.error('Error getting stored Web Vitals metrics:', error);
+    console.error(_error);
     return [];
   }
 }
@@ -108,7 +108,7 @@ export function clearStoredWebVitalsMetrics(): void {
   try {
     localStorage.removeItem(WEB_VITALS_STORAGE_KEY);
   } catch (_error) {
-    console.error('Error clearing stored Web Vitals metrics:', error);
+    console.error(_error);
   }
 }
 

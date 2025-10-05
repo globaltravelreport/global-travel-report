@@ -1,7 +1,7 @@
 // Deploy to Vercel with proper environment variables
 const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const _fs = require('fs');
+const _path = require('path');
 
 function deployToVercel() {
   try {
@@ -12,7 +12,7 @@ function deployToVercel() {
     try {
       execSync('git add app/stories/[slug]/page.tsx src/components/ui/OptimizedImage.tsx scripts/testMongoDB.js scripts/addMockStoriesToDB.js scripts/deployToVercel.js', { stdio: 'inherit' });
       execSync('git commit -m "Fix 404 pages and image attribution issues" --no-verify', { stdio: 'inherit' });
-    } catch (error) {
+    } catch (__error) {
       console.log('Git commit failed, but continuing with deployment...');
     }
     
