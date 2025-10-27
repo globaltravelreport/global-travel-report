@@ -116,7 +116,7 @@ jobs:
           echo "No audit report generated" >> $GITHUB_STEP_SUMMARY
         fi
     - name: Upload security report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: security-report
         path: |

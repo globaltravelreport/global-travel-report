@@ -139,7 +139,7 @@ jobs:
 
       - name: Upload generated stories as artifact
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: generated-stories
           path: |
