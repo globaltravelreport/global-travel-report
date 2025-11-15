@@ -119,7 +119,7 @@
     "framer-motion": "12.9.2",
     "google-gax": "5.0.3",
     "isomorphic-dompurify": "2.24.0",
-    "js-yaml": "4.1.0",
+    "js-yaml": "4.1.1",
     "leaflet": "1.9.4",
     "lucide-react": "0.523.0",
     "next": "14.2.33",
