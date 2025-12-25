@@ -290,7 +290,7 @@ jobs:
         fi
     - name: Create pull request
       if: env.BRANCH_CREATED == 'true'
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ env.BRANCH_NAME }}
