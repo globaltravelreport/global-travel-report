@@ -1,10 +1,17 @@
 'use client';
 
-import { AFFILIATES } from '@/lib/affiliateLinks';
 import { trackClick } from '@/lib/trackClick';
+import { mapDealsForArticle } from '@/lib/dealMapping';
+import { AffiliateMeta } from '@/lib/affiliateLinks';
 
-export default function RecommendedDeals() {
-  const deals = AFFILIATES.slice(0, 5);
+interface Props {
+  title?: string;
+  category?: string;
+  country?: string;
+}
+
+export default function RecommendedDeals({ title, category, country }: Props) {
+  const deals: AffiliateMeta[] = mapDealsForArticle({ title, category, country });
 
   return (
     <div className="mt-10">
