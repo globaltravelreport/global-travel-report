@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative z-0">
       {/* Hero Section with Featured Story */}
       <Hero />
 
