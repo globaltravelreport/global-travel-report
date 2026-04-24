@@ -14,13 +14,27 @@ export interface RewriteOptions {
   retryDelay?: number;
 }
 
+const GLOBAL_TRAVEL_REPORT_TONE = `
+Write as Global Travel Report, an independent travel news site for Australian readers.
+Use Australian English.
+Keep the tone practical, warm, clear, and editorial.
+Do not mention AI, automation, rewriting, source feeds, prompts, or content generation.
+Do not sound salesy, promotional, exaggerated, or robotic.
+Make the article useful for Australian travellers by explaining why the news matters, who it affects, and what readers should keep in mind.
+Use short paragraphs, natural transitions, and a confident travel editor voice.
+Preserve all factual claims from the source. Do not invent prices, dates, routes, airlines, cruise lines, warnings, visa rules, or official advice.
+If a fact is unclear in the source, phrase it cautiously.
+Avoid clickbait headlines.
+Do not include hashtags.
+`;
+
 /**
  * Class responsible for rewriting travel stories using AI
  */
 export class StoryRewriter {
   private dailyStoriesProcessed: number = 0;
   private lastProcessedTime: Date | null = null;
-  private readonly maxDailyStories: number = 100;
+  private readonly maxDailyStories: number = 8;
   private readonly defaultRetryDelay: number = 1000;
   private readonly defaultMaxRetries: number = 3;
 
@@ -36,7 +50,7 @@ export class StoryRewriter {
   ): Promise<Story | Partial<Story> | null> {
     // Set default options
     const {
-      category = "Travel",
+      category = "Travel News",
       preserveTags = true,
       maintainTone = true,
       maxRetries = this.defaultMaxRetries,
@@ -87,13 +101,23 @@ export class StoryRewriter {
    * @private
    */
   private async rewriteNewContent(originalContent: string, category: string): Promise<Story> {
-    // Use the unified AI service for content generation
-    const prompt = `Rewrite the following article in the style of a professional Australian travel journalist, using Australian English (no slang). The article should be engaging, informative, and detailed, presenting facts in a polished, unbiased manner, as if written for a national travel magazine.
+    const prompt = `${GLOBAL_TRAVEL_REPORT_TONE}
 
-Title: ${category} Travel Guide
-Content: ${originalContent}
+Rewrite the following travel news item as a fresh, original Global Travel Report article.
 
-Please maintain the same key information and facts, but rewrite it in a more engaging and professional style.`;
+Return the article in this structure:
+
+Headline: A clear, factual headline for Australian travellers
+Excerpt: 1 concise sentence summarising the story
+Article: 5 to 8 short paragraphs
+Tags: 5 comma-separated SEO tags
+Country: best matching country, or Global if it is not country-specific
+Category: best matching category, such as Air Travel, Cruise, Hotel, Tours, Rail, Insurance, Safety, Deals, Destinations, or Travel News
+
+Source category hint: ${category}
+
+Source content:
+${originalContent}`;
 
     const result = await generateStoryContent(prompt);
     const rewrittenContent = result.content || originalContent;
@@ -101,9 +125,23 @@ Please maintain the same key information and facts, but rewrite it in a more eng
     // Generate a unique ID
     const id = uuidv4();
 
-    // Extract title from the first line
-    const lines = rewrittenContent.split('\n');
-    const title = lines[0]?.trim() || 'Untitled Story';
+    const headlineMatch = rewrittenContent.match(/Headline:\s*(.+)/i);
+    const excerptMatch = rewrittenContent.match(/Excerpt:\s*(.+)/i);
+    const tagsMatch = rewrittenContent.match(/Tags:\s*(.+)/i);
+    const countryMatch = rewrittenContent.match(/Country:\s*(.+)/i);
+    const categoryMatch = rewrittenContent.match(/Category:\s*(.+)/i);
+    const articleMatch = rewrittenContent.match(/Article:\s*([\s\S]*?)(?:\n\s*Tags:|\n\s*Country:|\n\s*Category:|$)/i);
+
+    const title = headlineMatch?.[1]?.trim() || rewrittenContent.split('\n').find(Boolean)?.trim() || 'Travel News Update';
+    const excerpt = excerptMatch?.[1]?.trim() || 'A practical travel news update for Australian travellers.';
+    const articleContent = articleMatch?.[1]?.trim() || rewrittenContent;
+    const tags = tagsMatch?.[1]
+      ?.split(',')
+      .map((tag: string) => tag.trim().toLowerCase())
+      .filter(Boolean)
+      .slice(0, 8) || ['travel news'];
+    const country = countryMatch?.[1]?.trim() || 'Global';
+    const finalCategory = categoryMatch?.[1]?.trim() || category;
 
     // Generate a slug from the title
     const slug = title
@@ -111,12 +149,8 @@ Please maintain the same key information and facts, but rewrite it in a more eng
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
 
-    // Extract excerpt (first paragraph after title)
-    const excerpt = lines
-      .slice(1)
-      .find((line: string) => line.trim().length > 0) || 'No excerpt available';
-
-    // Get current date
+    // A new generated story receives today's publish date once.
+    // Existing story updates must preserve their original publishedAt elsewhere in the pipeline.
     const publishedAt = new Date();
 
     // Create the rewritten story object
@@ -125,12 +159,12 @@ Please maintain the same key information and facts, but rewrite it in a more eng
       slug,
       title,
       excerpt,
-      content: rewrittenContent,
-      author: "AI Travel Writer",
+      content: articleContent,
+      author: "Global Travel Report",
       publishedAt,
-      tags: ["travel", "ai-generated"],
-      category,
-      country: "Unknown",
+      tags,
+      category: finalCategory,
+      country,
       featured: false,
       editorsPick: false,
       imageUrl: ""
@@ -148,12 +182,51 @@ Please maintain the same key information and facts, but rewrite it in a more eng
     story: Story,
     options: { preserveTags: boolean; maintainTone: boolean }
   ): Promise<Partial<Story>> {
-    // In a real implementation, this would call the OpenAI API
-    // For now, we're just returning the original content
+    const prompt = `${GLOBAL_TRAVEL_REPORT_TONE}
+
+Refresh the following existing Global Travel Report article while preserving the original facts and public publish date.
+Do not change the story date.
+Improve clarity, structure, excerpt, and reader usefulness.
+Keep the article suitable for Australian travellers.
+
+Original title: ${story.title}
+Original excerpt: ${story.excerpt}
+Original category: ${story.category}
+Original country: ${story.country}
+Original tags: ${(story.tags || []).join(', ')}
+
+Original article:
+${story.content}
+
+Return only:
+Headline:
+Excerpt:
+Article:
+Tags:`;
+
+    const result = await generateStoryContent(prompt);
+    const rewrittenContent = result.content || story.content;
+
+    const headlineMatch = rewrittenContent.match(/Headline:\s*(.+)/i);
+    const excerptMatch = rewrittenContent.match(/Excerpt:\s*(.+)/i);
+    const tagsMatch = rewrittenContent.match(/Tags:\s*(.+)/i);
+    const articleMatch = rewrittenContent.match(/Article:\s*([\s\S]*?)(?:\n\s*Tags:|$)/i);
+
+    const updatedTags = options.preserveTags
+      ? story.tags
+      : tagsMatch?.[1]
+          ?.split(',')
+          .map((tag: string) => tag.trim().toLowerCase())
+          .filter(Boolean)
+          .slice(0, 8) || story.tags;
+
     return {
-      title: story.title,
-      excerpt: story.excerpt,
-      content: story.content,
+      title: headlineMatch?.[1]?.trim() || story.title,
+      excerpt: excerptMatch?.[1]?.trim() || story.excerpt,
+      content: articleMatch?.[1]?.trim() || rewrittenContent,
+      tags: updatedTags,
+      updatedAt: new Date().toISOString(),
+      publishedAt: story.publishedAt,
     };
   }
 
