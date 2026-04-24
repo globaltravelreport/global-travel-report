@@ -20,19 +20,6 @@ interface NewsletterSignupProps {
   delay?: number; // Auto-show delay in milliseconds
 }
 
-interface NewsletterFormData {
-  email: string;
-  name?: string;
-  preferences?: {
-    destinations: boolean;
-    travelTips: boolean;
-    deals: boolean;
-    news: boolean;
-  };
-  frequency?: 'daily' | 'weekly' | 'monthly';
-  source?: string;
-}
-
 const defaultProps = {
   variant: 'inline' as const,
   title: 'Stay Updated with Global Travel Report',
@@ -52,8 +39,6 @@ export function NewsletterSignup({
   placeholder = defaultProps.placeholder,
   buttonText = defaultProps.buttonText,
   className = '',
-  onSuccess,
-  onError,
   showSocialProof = defaultProps.showSocialProof,
   compact = defaultProps.compact,
   autoShow = defaultProps.autoShow,
@@ -65,7 +50,6 @@ export function NewsletterSignup({
   });
 
   const [isVisible, setIsVisible] = useState(variant !== 'modal');
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Auto-show modal after delay
   useEffect(() => {
@@ -352,22 +336,4 @@ export function NewsletterButton({
       Subscribe to Newsletter
     </button>
   );
-}
-
-// Mock API function (replace with real API call)
-async function mockSubscribeAPI(data: NewsletterFormData): Promise<{ success: boolean; error?: string }> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  // Simulate occasional failures
-  if (Math.random() < 0.1) {
-    return { success: false, error: 'Network error. Please try again.' };
-  }
-
-  // Simulate duplicate email
-  if (data.email.includes('duplicate')) {
-    return { success: false, error: 'This email is already subscribed.' };
-  }
-
-  return { success: true };
 }
