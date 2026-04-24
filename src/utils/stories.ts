@@ -4,6 +4,12 @@
  * This file contains all the utility functions for working with stories in the Global Travel Report.
  * It provides functions for retrieving, filtering, and paginating stories based on various criteria.
  *
+ * Important story date rules:
+ * - publishedAt is the public publish date and must not be rewritten during routine updates.
+ * - updatedAt should only change when an existing story is materially edited.
+ * - The homepage should only show stories published in the last 7 days.
+ * - Country, category, tag, archive, and search pages may continue showing older stories.
+ *
  * Usage examples:
  *
  * 1. Get all stories:
@@ -36,7 +42,7 @@ import { format } from 'date-fns';
 import { Story } from '../../types/Story';
 import { StorySearchParams } from '../../types/StorySearchParams';
 import { mockStories } from '../mocks/stories';
-import { memoize, memoizeMultiArg } from './memoization';
+import { memoizeMultiArg } from './memoization';
 import { isRecent } from './date-utils';
 import { StoryDatabase } from '../services/storyDatabase';
 import {
@@ -45,14 +51,49 @@ import {
   PaginationResult
 } from './pagination';
 
+const HOMEPAGE_STORY_WINDOW_DAYS = 7;
+const ARCHIVE_STORY_WINDOW_DAYS = 30;
+
+function toValidDate(date: Date | string | undefined | null): Date | null {
+  if (!date) {
+    return null;
+  }
+
+  const parsedDate = date instanceof Date ? date : new Date(date);
+  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+}
+
+function getPublishedDate(story: Story): Date | null {
+  return toValidDate(story.publishedAt);
+}
+
+function sortNewestFirst(a: Story, b: Story): number {
+  const dateA = getPublishedDate(a);
+  const dateB = getPublishedDate(b);
+
+  if (!dateA && !dateB) {
+    return 0;
+  }
+
+  if (!dateA) {
+    return 1;
+  }
+
+  if (!dateB) {
+    return -1;
+  }
+
+  return dateB.getTime() - dateA.getTime();
+}
+
 /**
  * Format a date for display
  * @param date - The date to format
  * @returns A formatted date string
  */
 export const formatDate = (date: Date | string): string => {
-  const d = typeof date === 'string' ? new Date(date) : date;
-  return format(d, 'MMMM dd, yyyy');
+  const d = toValidDate(date);
+  return d ? format(d, 'MMMM dd, yyyy') : '';
 };
 
 /**
@@ -61,10 +102,14 @@ export const formatDate = (date: Date | string): string => {
  * @returns Boolean indicating if the date is within the last 7 days
  */
 export function isWithinLast7Days(date: Date | string): boolean {
-  const d = typeof date === 'string' ? new Date(date) : date;
+  const d = toValidDate(date);
+  if (!d) {
+    return false;
+  }
+
   const now = new Date();
   const diffInDays = Math.floor((now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
-  return diffInDays <= 7;
+  return diffInDays >= 0 && diffInDays <= HOMEPAGE_STORY_WINDOW_DAYS;
 }
 
 /**
@@ -73,7 +118,7 @@ export function isWithinLast7Days(date: Date | string): boolean {
  * @param days - Number of days to consider for archiving (default: 30)
  * @returns Boolean indicating if the story is archived
  */
-export const isStoryArchived = memoizeMultiArg((story: Story, days: number = 30): boolean => {
+export const isStoryArchived = memoizeMultiArg((story: Story, days: number = ARCHIVE_STORY_WINDOW_DAYS): boolean => {
   if (!story.publishedAt) {
     return true; // Consider stories without publish date as archived
   }
@@ -86,8 +131,8 @@ export const isStoryArchived = memoizeMultiArg((story: Story, days: number = 30)
  * @param days - Number of days to consider as recent (default: 30)
  * @returns Boolean indicating if the story is recent
  */
-export const isStoryRecent = memoizeMultiArg((story: Story, days: number = 30): boolean => {
-  return isRecent(story.publishedAt, days);
+export const isStoryRecent = memoizeMultiArg((story: Story, days: number = ARCHIVE_STORY_WINDOW_DAYS): boolean => {
+  return Boolean(story.publishedAt && isRecent(story.publishedAt, days));
 });
 
 /**
@@ -104,47 +149,33 @@ export async function getAllStories(): Promise<Story[]> {
 
     // If no stories found in the database, fall back to mock stories
     if (!stories || stories.length === 0) {
-      return mockStories.sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      });
+      return mockStories.sort(sortNewestFirst);
     }
 
     // Sort by date (newest first)
-    return stories.sort((a, b) => {
-      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-      return dateB.getTime() - dateA.getTime();
-    });
+    return stories.sort(sortNewestFirst);
   } catch (_error) {
     console.error(_error);
 
     // Fall back to mock stories if database access fails
-    return mockStories.sort((a, b) => {
-      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-      return dateB.getTime() - dateA.getTime();
-    });
+    return mockStories.sort(sortNewestFirst);
   }
 }
 
 /**
- * Get recent stories for the homepage (within 30 days, sorted by date)
+ * Get recent stories for the homepage, sorted by date.
+ * Homepage stories must be from the last 7 days only.
+ * Older stories remain available through country, category, search, tag, and archive pages.
  * @param stories - Array of stories to filter
  * @param options - Pagination options
  * @returns Paginated array of recent stories for the homepage
  */
 export const getHomepageStories = memoizeMultiArg(
     (stories: Story[], options: PaginationOptions = { page: 1, limit: 8 }): PaginationResult<Story> => {
-     // First filter and sort the stories - only show recent stories (30 days)
+     // First filter and sort the stories - only show stories from last 7 days
      const filteredStories = Array.isArray(stories) ? stories
-       .filter(story => isRecent(story.publishedAt, 30)) // Only show stories from last 30 days
-      .sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      }) : [];
+       .filter(story => Boolean(story.publishedAt && isRecent(story.publishedAt, HOMEPAGE_STORY_WINDOW_DAYS)))
+      .sort(sortNewestFirst) : [];
 
     // Then apply pagination
     return paginate(filteredStories, options);
@@ -174,12 +205,8 @@ export const getArchivedStories = memoizeMultiArg(
     (stories: Story[], options: PaginationOptions = { page: 1, limit: 10 }): PaginationResult<Story> => {
      // First filter and sort the stories - show stories older than 30 days
      const filteredStories = Array.isArray(stories) ? stories
-       .filter(story => isStoryArchived(story, 30)) // Stories older than 30 days
-      .sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      }) : [];
+       .filter(story => isStoryArchived(story, ARCHIVE_STORY_WINDOW_DAYS))
+      .sort(sortNewestFirst) : [];
 
     // Then apply pagination
     return paginate(filteredStories, options);
@@ -214,11 +241,7 @@ export const getStoriesByCountry = memoizeMultiArg(
     // First filter and sort the stories
     const filteredStories = Array.isArray(stories) ? stories
       .filter(story => story.country.toLowerCase() === country.toLowerCase())
-      .sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      }) : [];
+      .sort(sortNewestFirst) : [];
 
     // Then apply pagination
     return paginate(filteredStories, options);
@@ -280,11 +303,7 @@ export const getStoriesByCategory = memoizeMultiArg(
                normalizedStoryCategory.includes(normalizedCategory) ||
                normalizedStoryType.includes(normalizedCategory);
       })
-      .sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      }) : [];
+      .sort(sortNewestFirst) : [];
 
     // Then apply pagination
     return paginate(filteredStories, options);
@@ -321,11 +340,7 @@ export const getStoriesByTag = memoizeMultiArg(
     // First filter and sort the stories
     const filteredStories = Array.isArray(stories) ? stories
       .filter(story => story.tags.some(t => t.toLowerCase() === tag.toLowerCase()))
-      .sort((a, b) => {
-        const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-        const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-        return dateB.getTime() - dateA.getTime();
-      }) : [];
+      .sort(sortNewestFirst) : [];
 
     // Then apply pagination
     return paginate(filteredStories, options);
@@ -471,11 +486,7 @@ export const searchStories = memoizeMultiArg(
     }
 
     // Sort by date (newest first)
-    filteredStories = filteredStories.sort((a, b) => {
-      const dateA = a.publishedAt instanceof Date ? a.publishedAt : new Date(a.publishedAt);
-      const dateB = b.publishedAt instanceof Date ? b.publishedAt : new Date(b.publishedAt);
-      return dateB.getTime() - dateA.getTime();
-    });
+    filteredStories = filteredStories.sort(sortNewestFirst);
 
     // Apply pagination
     return paginate(filteredStories, options);
@@ -558,7 +569,11 @@ export function getStoriesByMonth(stories: Story[]): Record<string, Story[]> {
   const grouped: Record<string, Story[]> = {};
 
   stories.forEach(story => {
-    const date = new Date(story.publishedAt || '');
+    const date = getPublishedDate(story);
+    if (!date) {
+      return;
+    }
+
     const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
     if (!grouped[monthKey]) {
@@ -569,11 +584,7 @@ export function getStoriesByMonth(stories: Story[]): Record<string, Story[]> {
 
   // Sort stories within each month (newest first)
   Object.keys(grouped).forEach(month => {
-    grouped[month].sort((a, b) => {
-      const dateA = new Date(a.publishedAt || '');
-      const dateB = new Date(b.publishedAt || '');
-      return dateB.getTime() - dateA.getTime();
-    });
+    grouped[month].sort(sortNewestFirst);
   });
 
   // Sort months (newest first)
@@ -601,16 +612,16 @@ export function getArchiveStats(stories: Story[]): {
   monthlyDistribution: Record<string, number>;
 } {
   const now = new Date();
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = new Date(now.getTime() - ARCHIVE_STORY_WINDOW_DAYS * 24 * 60 * 60 * 1000);
 
   const recentStories = stories.filter(story => {
-    const storyDate = new Date(story.publishedAt || '');
-    return storyDate >= thirtyDaysAgo;
+    const storyDate = getPublishedDate(story);
+    return Boolean(storyDate && storyDate >= thirtyDaysAgo);
   });
 
   const archivedStories = stories.filter(story => {
-    const storyDate = new Date(story.publishedAt || '');
-    return storyDate < thirtyDaysAgo;
+    const storyDate = getPublishedDate(story);
+    return Boolean(!storyDate || storyDate < thirtyDaysAgo);
   });
 
   const categories: Record<string, number> = {};
@@ -627,7 +638,11 @@ export function getArchiveStats(stories: Story[]): {
     countries[country] = (countries[country] || 0) + 1;
 
     // Count monthly distribution
-    const date = new Date(story.publishedAt || '');
+    const date = getPublishedDate(story);
+    if (!date) {
+      return;
+    }
+
     const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
     monthlyDistribution[monthKey] = (monthlyDistribution[monthKey] || 0) + 1;
   });
