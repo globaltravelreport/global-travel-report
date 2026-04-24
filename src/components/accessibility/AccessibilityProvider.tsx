@@ -47,7 +47,6 @@ export function AccessibilityProvider({
     ...customDefaults,
   });
 
-  // Load settings from localStorage on mount
   useEffect(() => {
     const savedSettings = localStorage.getItem('accessibility-settings');
     if (savedSettings) {
@@ -59,7 +58,6 @@ export function AccessibilityProvider({
       }
     }
 
-    // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setSettings(prev => ({ ...prev, reducedMotion: mediaQuery.matches }));
 
@@ -71,7 +69,6 @@ export function AccessibilityProvider({
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Save settings to localStorage when they change
   useEffect(() => {
     localStorage.setItem('accessibility-settings', JSON.stringify(settings));
   }, [settings]);
@@ -89,7 +86,6 @@ export function AccessibilityProvider({
 
     document.body.appendChild(announcement);
 
-    // Remove after announcement
     setTimeout(() => {
       if (document.body.contains(announcement)) {
         document.body.removeChild(announcement);
@@ -123,10 +119,6 @@ export function useAccessibility() {
   return context;
 }
 
-// Dynamic styles based on accessibility settings - REMOVED for CSP compliance
-// All accessibility features now use CSS classes and inline styles only
-
-// Accessibility menu component
 interface AccessibilityMenuProps {
   className?: string;
 }
@@ -159,7 +151,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-30"
             aria-label="Close accessibility menu"
             onClick={() => setIsOpen(false)}
             onKeyDown={(e) => {
@@ -185,7 +177,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
               </div>
 
               <div className="space-y-4">
-                {/* Reduced Motion */}
                 <div className="flex items-center justify-between" role="group" aria-label="Reduced Motion">
                   <div>
                     <div className="font-medium">Reduced Motion</div>
@@ -203,7 +194,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                   </button>
                 </div>
 
-                {/* High Contrast */}
                 <div className="flex items-center justify-between" role="group" aria-label="High Contrast">
                   <div>
                     <div className="font-medium">High Contrast</div>
@@ -221,7 +211,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                   </button>
                 </div>
 
-                {/* Large Text */}
                 <div className="flex items-center justify-between" role="group" aria-label="Large Text">
                   <div>
                     <div className="font-medium">Large Text</div>
@@ -239,7 +228,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                   </button>
                 </div>
 
-                {/* Font Size */}
                 <div>
                   <label htmlFor="access-font-size" className="block text-sm font-medium mb-2">Font Size</label>
                   <select
@@ -255,7 +243,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                   </select>
                 </div>
 
-                {/* Color Blind Support */}
                 <div className="flex items-center justify-between" role="group" aria-label="Color Blind Support">
                   <div>
                     <div className="font-medium">Color Blind Support</div>
@@ -273,7 +260,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
                   </button>
                 </div>
 
-                {/* Reset Button */}
                 <button
                   onClick={resetSettings}
                   className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
@@ -289,7 +275,6 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
   );
 }
 
-// Skip to content link
 export function SkipToContent() {
   return (
     <a
@@ -301,7 +286,6 @@ export function SkipToContent() {
   );
 }
 
-// Screen reader only text
 interface ScreenReaderTextProps {
   children: ReactNode;
   className?: string;
@@ -315,7 +299,6 @@ export function ScreenReaderText({ children, className = '' }: ScreenReaderTextP
   );
 }
 
-// Accessible image component
 interface AccessibleImageProps {
   src: string;
   alt: string;
