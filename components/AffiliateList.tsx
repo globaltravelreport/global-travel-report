@@ -11,22 +11,27 @@ export default function AffiliateList() {
         <div
           key={a.id}
           className="rounded-xl border bg-white shadow-sm hover:shadow-md transition-all p-5"
-          style={{
-            borderColor: a.brandColor ? `${a.brandColor}40` : 'rgba(0,0,0,.06)',
-            background: a.brandColor ? `${a.brandColor}08` : undefined
-          }}
         >
           <div className="flex items-start gap-3">
-            <span
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-lg"
-              style={{
-                background: a.brandColor || '#C9A14A',
-                color: a.brandTextColor || '#fff'
-              }}
-              aria-hidden
-            >
-              {a.iconEmoji || '🧭'}
-            </span>
+
+            {/* Standardised Logo Container */}
+            <div className="h-[60px] flex items-center justify-center bg-white rounded-md p-2">
+              {a.logoUrl ? (
+                <img
+                  src={a.logoUrl}
+                  alt={a.name}
+                  className="max-h-[40px] max-w-[120px] object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <span className="text-sm font-semibold text-gray-900 text-center">
+                  {a.name}
+                </span>
+              )}
+            </div>
+
             <div className="min-w-0">
               <h3 className="font-semibold text-lg">{a.name}</h3>
               <p className="text-gray-600 text-sm">{a.short}</p>
