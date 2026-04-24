@@ -69,18 +69,18 @@ export default function Header() {
       )}>
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <div className="relative h-10 w-10 overflow-hidden rounded-full bg-white flex items-center justify-center">
               <span className="text-[#19273A] font-bold text-lg">GTR</span>
             </div>
             <span className="hidden font-bold text-xl sm:inline-block text-[#C9A14A]">
               Global Travel Report
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-            <Link
+            <a
               href="/"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2',
@@ -90,7 +90,7 @@ export default function Header() {
               )}
             >
               Home
-            </Link>
+            </a>
 
             <Link
               href="/stories"
@@ -212,7 +212,7 @@ export default function Header() {
         <div className="lg:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
           <div className="container py-4">
             <nav className="flex flex-col space-y-4">
-              <Link
+              <a
                 href="/"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -223,7 +223,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
-              </Link>
+              </a>
 
               <Link
                 href="/stories"
