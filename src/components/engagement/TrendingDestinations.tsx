@@ -37,7 +37,7 @@ export function TrendingDestinations({
 }: TrendingDestinationsProps) {
   const [destinations, setDestinations] = useState<TrendingDestination[]>([]);
   const [loading, setLoading] = useState(true);
-  const [timeframe, setTimeframe] = useState<'week' | 'month'>('week');
+  const [timeframe] = useState<'week' | 'month'>('week');
 
   useEffect(() => {
     // Simulate loading trending destinations
