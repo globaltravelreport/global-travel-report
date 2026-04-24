@@ -93,7 +93,6 @@ export default function RootLayout({
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
-  // Generate nonce for CSP
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   return (
@@ -102,82 +101,10 @@ export default function RootLayout({
         <meta name="csp-nonce" content={nonce} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
-        
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-        <meta name="theme-color" content="#19273A" />
-        <meta name="msapplication-TileColor" content="#19273A" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Global Travel Report" />
-        
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'Global Travel Report',
-              url: baseUrl,
-              logo: `${baseUrl}/images/logo.webp`,
-              description: 'Your ultimate travel companion for discovering amazing destinations, insider tips, and inspiring stories from around the world.',
-              foundingDate: '2024',
-              knowsAbout: [
-                'Travel',
-                'Tourism',
-                'Travel Tips',
-                'Destinations',
-                'Travel Guides',
-                'Adventure Travel',
-                'Cultural Tourism',
-                'Cruise Travel',
-                'Hotel Reviews',
-                'Flight Information'
-              ],
-              areaServed: 'Worldwide',
-              sameAs: [
-                'https://twitter.com/globaltravelreport',
-                'https://facebook.com/globaltravelreport',
-                'https://instagram.com/globaltravelreport',
-                'https://linkedin.com/company/globaltravelreport'
-              ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                telephone: '+1-555-0123',
-                contactType: 'customer service',
-                availableLanguage: 'English',
-                email: 'contact@globaltravelreport.com'
-              }
-            } as const)
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'Global Travel Report',
-              url: baseUrl,
-              description: 'Discover amazing travel destinations, insider tips, and inspiring stories from around the world. Your ultimate guide to unforgettable adventures.',
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: `${baseUrl}/search?q={search_term_string}`,
-                'query-input': 'required name=search_term_string'
-              }
-            } as const)
-          }}
-        />
       </head>
       <body className={cn(inter.className, 'antialiased')}>
-        <SWMount />
+        {/* SWMount temporarily disabled for diagnosis */}
+        {/* <SWMount /> */}
         <AccessibilityProvider>
           <ErrorBoundary>
             <SearchParamsProvider fallback={null}>
