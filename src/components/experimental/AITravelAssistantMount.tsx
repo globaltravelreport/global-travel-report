@@ -4,17 +4,15 @@ import React, { useState } from 'react';
 import { AITravelAssistant, AITravelButton } from './AITravelAssistant';
 
 /**
- * Dev/Staging-only mount for the AI Travel Assistant.
- * Renders when:
- * - NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true'
- * - or NODE_ENV !== 'production'
+ * Only renders when NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true'.
+ * Removed the NODE_ENV !== 'production' fallback which caused the
+ * floating button and assistant panel to always mount, overlapping
+ * header navigation and intercepting click events.
  */
 export default function AITravelAssistantMount() {
   const [open, setOpen] = useState(false);
 
-  const enabled =
-    process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true' ||
-    process.env.NODE_ENV !== 'production';
+  const enabled = process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true';
 
   if (!enabled) return null;
 
