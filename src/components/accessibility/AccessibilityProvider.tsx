@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface AccessibilitySettings {
   reducedMotion: boolean;
@@ -126,6 +127,11 @@ interface AccessibilityMenuProps {
 export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
   const { settings, updateSetting, resetSettings } = useAccessibility();
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const toggleSetting = (key: keyof AccessibilitySettings) => {
     if (typeof settings[key] === 'boolean') {
