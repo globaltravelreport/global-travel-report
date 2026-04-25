@@ -75,8 +75,8 @@ export default function Hero() {
 
   return (
     <div className="relative h-[600px]">
-      {/* Background Image */}
-      <div className="absolute inset-0">
+      {/* Background Image — pointer-events-none so this layer never intercepts header clicks */}
+      <div className="absolute inset-0 pointer-events-none">
         <Image
           src={featuredStory.imageUrl || '/images/hero-rewrite.jpg'}
           alt={featuredStory.title}
@@ -89,7 +89,7 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none" />
         {featuredStory.photographer && featuredStory.photographer.name && (
-          <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+          <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded pointer-events-auto">
             Photo by{" "}
             {featuredStory.photographer.url ? (
               <a
