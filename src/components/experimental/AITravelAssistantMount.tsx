@@ -1,16 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { AITravelAssistant, AITravelButton } from './AITravelAssistant';
 
 /**
  * Only renders when NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true'.
- * Removed the NODE_ENV !== 'production' fallback which caused the
- * floating button and assistant panel to always mount, overlapping
- * header navigation and intercepting click events.
+ * Resets open state on route change to prevent the fixed panel
+ * from persisting across navigation and intercepting header clicks.
  */
 export default function AITravelAssistantMount() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const enabled = process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true';
 
