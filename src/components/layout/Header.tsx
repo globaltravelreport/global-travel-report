@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 // import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -97,7 +96,7 @@ export default function Header() {
               Home
             </a>
 
-            <Link
+            <a
               href="/stories"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -107,9 +106,9 @@ export default function Header() {
               )}
             >
               Stories
-            </Link>
+            </a>
 
-            <Link
+            <a
               href="/destinations"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -119,8 +118,8 @@ export default function Header() {
               )}
             >
               Destinations
-            </Link>
-            <Link
+            </a>
+            <a
               href="/category-index"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -131,8 +130,8 @@ export default function Header() {
               )}
             >
               Categories
-            </Link>
-            <Link
+            </a>
+            <a
               href="/offers"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -142,9 +141,9 @@ export default function Header() {
               )}
             >
               Travel Offers
-            </Link>
+            </a>
 
-            <Link
+            <a
               href="/archive"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -154,9 +153,9 @@ export default function Header() {
               )}
             >
               Archive
-            </Link>
+            </a>
 
-            <Link
+            <a
               href="/about"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -166,8 +165,8 @@ export default function Header() {
               )}
             >
               About
-            </Link>
-            <Link
+            </a>
+            <a
               href="/contact"
               className={cn(
                 'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
@@ -177,19 +176,19 @@ export default function Header() {
               )}
             >
               Contact
-            </Link>
+            </a>
           </nav>
 
           {/* Search and Social */}
           <div className="flex items-center space-x-2">
-            <Link href="/search">
+            <a href="/search">
               <Button variant="ghost" size="sm" className="rounded-full text-white hover:bg-[#19273A]/50">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <span className="sr-only">Search</span>
               </Button>
-            </Link>
+            </a>
 
             <Button
               variant="ghost"
@@ -230,7 +229,7 @@ export default function Header() {
                 Home
               </a>
 
-              <Link
+              <a
                 href="/stories"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -241,9 +240,9 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Stories
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="/destinations"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -254,8 +253,8 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Destinations
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/category-index"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -267,8 +266,8 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Categories
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/offers"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -279,9 +278,9 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Travel Offers
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="/archive"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -292,9 +291,9 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Archive
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="/about"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -305,8 +304,8 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/contact"
                 className={cn(
                   'transition-colors hover:text-[#C9A14A] py-2 px-4 rounded-md',
@@ -317,7 +316,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
-              </Link>
+              </a>
 
               {/* Mobile contact info */}
               <div className="mt-4 pt-4 border-t border-[#19273A]/30">
