@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Button } from './button';
 
 interface CookieConsentBannerProps {
@@ -25,6 +26,11 @@ export function CookieConsentBanner({ className = '' }: CookieConsentBannerProps
   const [isVisible, setIsVisible] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
   const [showDetails, setShowDetails] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setShowDetails(false);
+  }, [pathname]);
 
   useEffect(() => {
     // Check if user has already made a choice
