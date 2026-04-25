@@ -154,128 +154,113 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
       </button>
 
       {isOpen && (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 z-30 pointer-events-none"
-            aria-label="Close accessibility menu"
-            onClick={() => setIsOpen(false)}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setIsOpen(false);
-              }
-            }}
-            tabIndex={0}
-          />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border z-50 pointer-events-auto">
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Accessibility Settings</h3>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-gray-100 rounded"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border z-50 pointer-events-auto">
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Accessibility Settings</h3>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1 hover:bg-gray-100 rounded"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between" role="group" aria-label="Reduced Motion">
-                  <div>
-                    <div className="font-medium">Reduced Motion</div>
-                    <div className="text-sm text-gray-600">Minimize animations and transitions</div>
-                  </div>
-                  <button
-                    onClick={() => toggleSetting('reducedMotion')}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.reducedMotion ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      settings.reducedMotion ? 'translate-x-6' : 'translate-x-1'
-                    }`} />
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between" role="group" aria-label="High Contrast">
-                  <div>
-                    <div className="font-medium">High Contrast</div>
-                    <div className="text-sm text-gray-600">Increase contrast for better visibility</div>
-                  </div>
-                  <button
-                    onClick={() => toggleSetting('highContrast')}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.highContrast ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      settings.highContrast ? 'translate-x-6' : 'translate-x-1'
-                    }`} />
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between" role="group" aria-label="Large Text">
-                  <div>
-                    <div className="font-medium">Large Text</div>
-                    <div className="text-sm text-gray-600">Increase text size by 20%</div>
-                  </div>
-                  <button
-                    onClick={() => toggleSetting('largeText')}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.largeText ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      settings.largeText ? 'translate-x-6' : 'translate-x-1'
-                    }`} />
-                  </button>
-                </div>
-
+            <div className="space-y-4">
+              <div className="flex items-center justify-between" role="group" aria-label="Reduced Motion">
                 <div>
-                  <label htmlFor="access-font-size" className="block text-sm font-medium mb-2">Font Size</label>
-                  <select
-                    id="access-font-size"
-                    value={settings.fontSize}
-                    onChange={(e) => updateSetting('fontSize', e.target.value)}
-                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                    <option value="extra-large">Extra Large</option>
-                  </select>
+                  <div className="font-medium">Reduced Motion</div>
+                  <div className="text-sm text-gray-600">Minimize animations and transitions</div>
                 </div>
-
-                <div className="flex items-center justify-between" role="group" aria-label="Color Blind Support">
-                  <div>
-                    <div className="font-medium">Color Blind Support</div>
-                    <div className="text-sm text-gray-600">Adjust colors for better accessibility</div>
-                  </div>
-                  <button
-                    onClick={() => toggleSetting('colorBlind')}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.colorBlind ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      settings.colorBlind ? 'translate-x-6' : 'translate-x-1'
-                    }`} />
-                  </button>
-                </div>
-
                 <button
-                  onClick={resetSettings}
-                  className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+                  onClick={() => toggleSetting('reducedMotion')}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    settings.reducedMotion ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
                 >
-                  Reset to Defaults
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    settings.reducedMotion ? 'translate-x-6' : 'translate-x-1'
+                  }`} />
                 </button>
               </div>
+
+              <div className="flex items-center justify-between" role="group" aria-label="High Contrast">
+                <div>
+                  <div className="font-medium">High Contrast</div>
+                  <div className="text-sm text-gray-600">Increase contrast for better visibility</div>
+                </div>
+                <button
+                  onClick={() => toggleSetting('highContrast')}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    settings.highContrast ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
+                >
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    settings.highContrast ? 'translate-x-6' : 'translate-x-1'
+                  }`} />
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between" role="group" aria-label="Large Text">
+                <div>
+                  <div className="font-medium">Large Text</div>
+                  <div className="text-sm text-gray-600">Increase text size by 20%</div>
+                </div>
+                <button
+                  onClick={() => toggleSetting('largeText')}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    settings.largeText ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
+                >
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    settings.largeText ? 'translate-x-6' : 'translate-x-1'
+                  }`} />
+                </button>
+              </div>
+
+              <div>
+                <label htmlFor="access-font-size" className="block text-sm font-medium mb-2">Font Size</label>
+                <select
+                  id="access-font-size"
+                  value={settings.fontSize}
+                  onChange={(e) => updateSetting('fontSize', e.target.value)}
+                  className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                  <option value="extra-large">Extra Large</option>
+                </select>
+              </div>
+
+              <div className="flex items-center justify-between" role="group" aria-label="Color Blind Support">
+                <div>
+                  <div className="font-medium">Color Blind Support</div>
+                  <div className="text-sm text-gray-600">Adjust colors for better accessibility</div>
+                </div>
+                <button
+                  onClick={() => toggleSetting('colorBlind')}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    settings.colorBlind ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
+                >
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    settings.colorBlind ? 'translate-x-6' : 'translate-x-1'
+                  }`} />
+                </button>
+              </div>
+
+              <button
+                onClick={resetSettings}
+                className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+              >
+                Reset to Defaults
+              </button>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
