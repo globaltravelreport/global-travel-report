@@ -24,6 +24,11 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
     /* Updated header with blue gradient background and gold border */
     <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-b-2 border-[#C9A14A]">
