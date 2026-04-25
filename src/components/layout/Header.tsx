@@ -30,8 +30,8 @@ export default function Header() {
   }, [pathname]);
 
   return (
-    /* Updated header with blue gradient background and gold border */
-    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-b-2 border-[#C9A14A]">
+    /* Keep header isolated above homepage media layers so navigation remains clickable after client-side route changes. */
+    <header className="sticky top-0 z-[9999] isolate w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-b-2 border-[#C9A14A] pointer-events-auto">
       {/* Top bar with contact info */}
       <div className="hidden lg:block py-0.5">
         <div className="container flex justify-between items-center text-xs">
@@ -74,7 +74,7 @@ export default function Header() {
       )}>
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 pointer-events-auto">
             <div className="relative h-10 w-10 overflow-hidden rounded-full bg-white flex items-center justify-center">
               <span className="text-[#19273A] font-bold text-lg">GTR</span>
             </div>
@@ -84,11 +84,11 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium pointer-events-auto">
             <Link
               href="/"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/'
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -100,7 +100,7 @@ export default function Header() {
             <Link
               href="/stories"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/stories' || pathname.startsWith('/stories/')
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -112,7 +112,7 @@ export default function Header() {
             <Link
               href="/destinations"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/destinations' || pathname.startsWith('/destinations/')
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -123,7 +123,7 @@ export default function Header() {
             <Link
               href="/category-index"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/category-index' || pathname.startsWith('/category-index/') ||
                 pathname === '/categories' || pathname.startsWith('/categories/')
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
@@ -135,7 +135,7 @@ export default function Header() {
             <Link
               href="/offers"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/offers' || pathname.startsWith('/offers/')
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -147,7 +147,7 @@ export default function Header() {
             <Link
               href="/archive"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/archive'
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -159,7 +159,7 @@ export default function Header() {
             <Link
               href="/about"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/about'
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
@@ -170,7 +170,7 @@ export default function Header() {
             <Link
               href="/contact"
               className={cn(
-                'transition-colors hover:text-[#C9A14A] relative py-2',
+                'transition-colors hover:text-[#C9A14A] relative py-2 pointer-events-auto',
                 pathname === '/contact'
                   ? 'text-[#C9A14A] font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#C9A14A]'
                   : 'text-white'
