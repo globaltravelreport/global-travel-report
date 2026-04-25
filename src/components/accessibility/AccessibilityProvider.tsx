@@ -151,7 +151,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-30 pointer-events-auto"
+            className="fixed inset-0 z-30 pointer-events-none"
             aria-label="Close accessibility menu"
             onClick={() => setIsOpen(false)}
             onKeyDown={(e) => {
