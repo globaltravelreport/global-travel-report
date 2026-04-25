@@ -151,7 +151,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-30 pointer-events-none"
+            className="fixed inset-0 z-30 pointer-events-auto"
             aria-label="Close accessibility menu"
             onClick={() => setIsOpen(false)}
             onKeyDown={(e) => {
@@ -162,7 +162,7 @@ export function AccessibilityMenu({ className = '' }: AccessibilityMenuProps) {
             }}
             tabIndex={0}
           />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border z-50">
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border z-50 pointer-events-auto">
             <div className="p-4">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Accessibility Settings</h3>
