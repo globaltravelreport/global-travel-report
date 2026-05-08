@@ -9,12 +9,10 @@ export const dynamic = 'force-dynamic';
  * POST /api/cron/dailyAutoPublisher
  *
  * This endpoint is called by Make.com webhooks to automatically:
- * 1. Fetch stories from RSS feed
- * 2. Rewrite content using Gemini AI in Australian English
- * 3. Add Unsplash images
- * 4. Classify categories
- * 5. Publish to website
- * 6. Update RSS feed
+ * 1. Fetch candidate stories from approved RSS feeds
+ * 2. Rewrite accepted items with the configured AI provider
+ * 3. Add Unsplash images and attribution
+ * 4. Return drafts by default, or publish when AUTO_PUBLISH_STORIES=true
  *
  * Triggered by Make.com webhook daily at 10:00 AM AEST
  */
@@ -34,7 +32,7 @@ export async function POST(request: NextRequest) {
     console.log('🚀 Starting Global Travel Report Auto-Publisher webhook...');
 
     // Run the daily automation
-    await runDailyAutomation();
+    const result = await runDailyAutomation();
 
     console.log('✅ Daily auto-publisher completed successfully');
 
@@ -42,6 +40,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Global Travel Report Auto-Publisher completed successfully',
+      result,
       timestamp: new Date().toISOString(),
       timezone: 'AEST (Australian Eastern Standard Time)'
     });
@@ -66,12 +65,10 @@ export async function POST(request: NextRequest) {
  * GET /api/cron/dailyAutoPublisher
  *
  * This endpoint is called by Vercel cron jobs to automatically:
- * 1. Fetch stories from RSS feed
- * 2. Rewrite content using Gemini AI in Australian English
- * 3. Add Unsplash images
- * 4. Classify categories
- * 5. Publish to website
- * 6. Update RSS feed
+ * 1. Fetch candidate stories from approved RSS feeds
+ * 2. Rewrite accepted items with the configured AI provider
+ * 3. Add Unsplash images and attribution
+ * 4. Return drafts by default, or publish when AUTO_PUBLISH_STORIES=true
  *
  * Runs daily at 10:00 AM AEST (00:00 UTC)
  */
@@ -91,7 +88,7 @@ export async function GET(request: NextRequest) {
     console.log('🚀 Starting Global Travel Report Auto-Publisher cron job...');
 
     // Run the daily automation
-    await runDailyAutomation();
+    const result = await runDailyAutomation();
 
     console.log('✅ Daily auto-publisher completed successfully');
 
@@ -99,6 +96,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Global Travel Report Auto-Publisher completed successfully',
+      result,
       timestamp: new Date().toISOString(),
       timezone: 'AEST (Australian Eastern Standard Time)'
     });
