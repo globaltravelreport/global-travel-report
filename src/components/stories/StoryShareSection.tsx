@@ -1,11 +1,6 @@
 'use client';
 
-import React from 'react';
-import { EnhancedSocialShare } from '@/components/social/EnhancedSocialShare';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Story } from '@/types/Story';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { Copy, Rss, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { FacebookShareButton } from '@/components/social/FacebookShareButton';
@@ -81,7 +76,7 @@ export function StoryShareSection({
         .then(() => {
           toast.success('Link copied to clipboard!');
         })
-        .catch(_err => {
+        .catch(() => {
           toast.error('Failed to copy link');
         });
     }
