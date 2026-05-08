@@ -2,18 +2,17 @@
  * Unified AI Service for Story Generation
  *
  * This service provides a single interface for AI-powered story generation that can switch
- * between different AI providers (OpenAI GPT-4, Google Gemini, or Cloudflare Workers AI)
- * based on environment configuration.
+ * between different AI providers (OpenAI GPT-4, Google Gemini, or Cloudflare Workers AI) based on environment configuration.
  *
  * Environment Configuration:
  * - Set AI_PROVIDER=openai (default) to use OpenAI GPT-4
  * - Set AI_PROVIDER=google to use Google Gemini (gemini-1.5-flash)
- * - Set AI_PROVIDER=cloudflare to use Cloudflare Workers AI
+ * - Set AI_PROVIDER=cloudflare to use the Global Travel Report Cloudflare Workers AI proxy
  *
  * Required API Keys:
  * - For OpenAI: OPENAI_API_KEY must be set
  * - For Google: GOOGLE_API_KEY must be set
- * - For Cloudflare: CLOUDFLARE_AI_WORKER_URL, CLOUDFLARE_AI_WORKER_TOKEN must be set
+ * - For Cloudflare: CLOUDFLARE_AI_WORKER_URL and CLOUDFLARE_AI_WORKER_TOKEN must be set
  *
  * Usage:
  * ```typescript
@@ -28,6 +27,7 @@
  * console.log(result.content); // AI-generated content
  * ```
  */
+
 import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -67,8 +67,10 @@ const DEFAULT_CONFIG: AIConfig = {
  */
 function getCurrentProvider(): AIProvider {
   const provider = process.env.AI_PROVIDER?.toLowerCase() as AIProvider;
-  if (provider === 'google') return 'google';
-  if (provider === 'cloudflare') return 'cloudflare';
+  if (provider === 'google' || provider === 'cloudflare') {
+    return provider;
+  }
+
   return 'openai';
 }
 
@@ -86,10 +88,11 @@ function validateAPIKeys(provider: AIProvider): void {
     }
   } else if (provider === 'cloudflare') {
     if (!process.env.CLOUDFLARE_AI_WORKER_URL) {
-      throw new Error('Missing CLOUDFLARE_AI_WORKER_URL. Please set your Cloudflare Worker URL in environment variables.');
+      throw new Error('Missing CLOUDFLARE_AI_WORKER_URL. Please set your Cloudflare Workers AI proxy URL.');
     }
+
     if (!process.env.CLOUDFLARE_AI_WORKER_TOKEN) {
-      throw new Error('Missing CLOUDFLARE_AI_WORKER_TOKEN. Please set your Cloudflare Worker token in environment variables.');
+      throw new Error('Missing CLOUDFLARE_AI_WORKER_TOKEN. Please set your Cloudflare Workers AI proxy token.');
     }
   } else {
     throw new Error(`Unsupported AI provider: ${provider}. Supported providers: openai, google, cloudflare`);
@@ -101,6 +104,7 @@ function validateAPIKeys(provider: AIProvider): void {
  */
 function initializeOpenAI(): OpenAI {
   validateAPIKeys('openai');
+
   return new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!,
     organization: process.env.OPENAI_ORGANIZATION,
@@ -112,6 +116,7 @@ function initializeOpenAI(): OpenAI {
  */
 function initializeGoogleAI(): any {
   validateAPIKeys('google');
+
   return new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 }
 
@@ -124,6 +129,7 @@ async function generateWithOpenAI(
 ): Promise<AIResponse> {
   const openai = initializeOpenAI();
   const model = config.model || 'gpt-4';
+
   try {
     const completion = await openai.chat.completions.create({
       model,
@@ -140,7 +146,9 @@ async function generateWithOpenAI(
       temperature: config.temperature || 0.7,
       max_tokens: config.maxTokens || 2000,
     });
+
     const content = completion.choices[0]?.message?.content || '';
+
     return {
       content,
       provider: 'openai',
@@ -172,10 +180,12 @@ async function generateWithGoogle(
       maxOutputTokens: config.maxTokens || 2000,
     },
   });
+
   try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const content = response.text();
+
     return {
       content,
       provider: 'google',
@@ -188,52 +198,53 @@ async function generateWithGoogle(
 }
 
 /**
- * Generate content using Cloudflare Workers AI
+ * Generate content using the Cloudflare Workers AI proxy
  */
 async function generateWithCloudflare(
   prompt: string,
   config: AIConfig = {}
 ): Promise<AIResponse> {
   validateAPIKeys('cloudflare');
+
+  const model = config.model || process.env.CLOUDFLARE_AI_MODEL || '@cf/meta/llama-3.2-3b-instruct';
   const workerUrl = process.env.CLOUDFLARE_AI_WORKER_URL!;
-  const workerToken = process.env.CLOUDFLARE_AI_WORKER_TOKEN!;
-  const model = config.model || process.env.CLOUDFLARE_AI_WORKER_MODEL || '@cf/meta/llama-3.2-3b-instruct';
 
   try {
     const response = await fetch(workerUrl, {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${process.env.CLOUDFLARE_AI_WORKER_TOKEN}`,
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${workerToken}`,
       },
       body: JSON.stringify({
+        prompt,
         model,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a professional Australian travel journalist. Your writing style is engaging, informative, and objective. You use Australian English without slang, and your tone is polished and professional.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        max_tokens: config.maxTokens || 2000,
         temperature: config.temperature || 0.7,
+        max_tokens: config.maxTokens || 2000,
       }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
-      throw new Error(`Cloudflare Worker responded with status ${response.status}: ${await response.text()}`);
+      const message = typeof data.message === 'string'
+        ? data.message
+        : typeof data.error === 'string'
+          ? data.error
+          : response.statusText;
+
+      throw new Error(message);
     }
 
-    const data = await response.json() as { result?: { response?: string }; response?: string };
-    const content = data?.result?.response || data?.response || '';
-
     return {
-      content,
+      content: typeof data.content === 'string' ? data.content : '',
       provider: 'cloudflare',
-      model,
+      model: typeof data.model === 'string' ? data.model : model,
+      usage: data.usage ? {
+        promptTokens: data.usage.prompt_tokens,
+        completionTokens: data.usage.completion_tokens,
+        totalTokens: data.usage.total_tokens,
+      } : undefined,
     };
   } catch (_error) {
     console.error(_error);
@@ -250,7 +261,9 @@ export async function generateStoryContent(
 ): Promise<AIResponse> {
   const provider = getCurrentProvider();
   const mergedConfig = { ...DEFAULT_CONFIG, ...config, provider };
+
   console.log(`[AI Service] Using provider: ${provider}, model: ${mergedConfig.model}`);
+
   try {
     if (provider === 'openai') {
       return await generateWithOpenAI(prompt, mergedConfig);
@@ -272,13 +285,19 @@ export async function generateStoryContent(
  */
 export function getAvailableModels(): string[] {
   const provider = getCurrentProvider();
+
   if (provider === 'openai') {
     return ['gpt-4', 'gpt-4-turbo-preview', 'gpt-3.5-turbo'];
   } else if (provider === 'google') {
     return ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro'];
   } else if (provider === 'cloudflare') {
-    return ['@cf/meta/llama-3.2-3b-instruct', '@cf/meta/llama-3.1-8b-instruct', '@cf/mistral/mistral-7b-instruct-v0.1'];
+    return [
+      '@cf/meta/llama-3.2-3b-instruct',
+      '@cf/openai/gpt-oss-120b',
+      '@cf/meta/llama-3-8b-instruct',
+    ];
   }
+
   return [];
 }
 
@@ -305,6 +324,7 @@ export function getProviderStatus(): {
   error?: string;
 } {
   const provider = getCurrentProvider();
+
   try {
     validateAPIKeys(provider);
     return {
