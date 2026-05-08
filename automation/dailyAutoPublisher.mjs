@@ -166,7 +166,7 @@ async function rewriteWithGemini(title, content) {
             .replace('{content}', content);
 
         const response = await generateStoryContent(prompt, {
-            provider: 'google',
+            provider: (process.env.AI_PROVIDER || 'cloudflare'),
             model: 'gemini-pro',
             temperature: 0.7,
             maxTokens: 1000
