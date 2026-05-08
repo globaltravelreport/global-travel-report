@@ -1,386 +1,544 @@
 /**
- * Global Travel Report Auto-Publisher (Gemini Edition – Australian Style)
+ * Global Travel Report Daily Story Pipeline
  *
- * Automated daily content publisher that:
- * 1. Fetches stories from RSS feed
- * 2. Rewrites content using Gemini AI in Australian English
- * 3. Adds Unsplash images
- * 4. Classifies categories
- * 5. Publishes to website and social media
- * 6. Updates RSS feed
+ * RSS sources -> fact-safe AI rewrite -> Unsplash image -> draft/publish -> site RSS.
  *
- * Runs daily at 10:00 AM AEST
+ * By default this creates validated drafts in the run result. Set
+ * AUTO_PUBLISH_STORIES=true only after editorial review is ready.
  */
 
+import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import Parser from 'rss-parser';
-import axios from 'axios';
-import { generateStoryContent } from '../src/services/aiService.ts';
-import { UnsplashService } from '../src/services/unsplashService.ts';
 import dotenv from 'dotenv';
+import { generateStoryContent } from '../src/services/aiService.ts';
+import { StoryDatabase } from '../src/services/storyDatabase.ts';
+import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
 
-// Configuration
-const RSS_FEED_URL = 'https://globaltravelreport.com/rss/new';
-const MAX_STORIES_PER_DAY = 8;
-const WEBSITE_API_BASE = 'https://globaltravelreport.com/api';
+const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10);
+const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
+const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
+const RSS_FEED_URLS = getFeedUrls();
 
-// Environment variables
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
+const parser = new Parser({
+  timeout: 15000,
+  headers: {
+    'User-Agent': 'GlobalTravelReport/2.0 (+https://www.globaltravelreport.com)'
+  },
+  customFields: {
+    item: [
+      ['content:encoded', 'contentEncoded'],
+      ['dc:creator', 'creator'],
+      ['media:content', 'media'],
+      ['media:thumbnail', 'thumbnail']
+    ]
+  }
+});
 
-// Initialize services
+const db = StoryDatabase.getInstance();
 const unsplashService = UnsplashService.getInstance();
 
-// Gemini prompt for Australian English rewriting
-const GEMINI_PROMPT = `Rewrite the following travel story in **Australian English**, in a professional tone, optimised for SEO and social media.
-Provide:
-- HEADLINE: [engaging, SEO-optimised title]
-- SUMMARY: [concise 150–200 word summary with key tips and details]
-Maintain all facts, locations, names, and relevance.
+const DEFAULT_FEEDS = [
+  'https://www.travelweekly.com/rss',
+  'https://www.travelpulse.com/rss',
+  'https://www.travelandleisure.com/feeds/all.rss',
+  'https://www.timeout.com/travel/rss',
+  'https://www.cruiseindustrynews.com/cruise-news/rss.xml',
+  'https://www.cruisecritic.com/rss/news.xml'
+];
 
-Original Title: {title}
-Original Content: {content}`;
+const CATEGORY_KEYWORDS = {
+  'Air Travel': ['flight', 'airline', 'airport', 'aviation', 'aircraft', 'route'],
+  Cruise: ['cruise', 'ship', 'voyage', 'port', 'sailing'],
+  Accommodation: ['hotel', 'resort', 'accommodation', 'suite', 'lodging'],
+  Destinations: ['destination', 'city', 'country', 'island', 'beach', 'region'],
+  Tours: ['tour', 'itinerary', 'guide', 'excursion', 'experience'],
+  Safety: ['warning', 'advice', 'visa', 'passport', 'safety', 'alert'],
+  Deals: ['deal', 'sale', 'discount', 'offer', 'fare']
+};
 
-/**
- * Main automation function
- */
+function getFeedUrls() {
+  const configured = process.env.RSS_FEED_URLS;
+  if (!configured) {
+    return DEFAULT_FEEDS;
+  }
+
+  return configured
+    .split(',')
+    .map((url) => url.trim())
+    .filter(Boolean);
+}
+
+function stripHtml(value = '') {
+  return String(value)
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function wordCount(value = '') {
+  return stripHtml(value).split(/\s+/).filter(Boolean).length;
+}
+
+function truncate(value = '', limit = 7000) {
+  const clean = stripHtml(value);
+  return clean.length > limit ? `${clean.slice(0, limit)}...` : clean;
+}
+
+function slugify(value = '') {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 90);
+}
+
+function hash(value = '') {
+  return crypto.createHash('sha256').update(value).digest('hex').slice(0, 20);
+}
+
+function parseDate(value) {
+  if (!value) {
+    return new Date().toISOString();
+  }
+
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+}
+
+function inferCategory(text) {
+  const lower = text.toLowerCase();
+
+  for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+    if (keywords.some((keyword) => lower.includes(keyword))) {
+      return category;
+    }
+  }
+
+  return 'Travel News';
+}
+
+function inferCountry(text) {
+  const countries = [
+    'Australia', 'New Zealand', 'Japan', 'Thailand', 'Indonesia', 'Fiji',
+    'United States', 'Canada', 'United Kingdom', 'France', 'Italy', 'Spain',
+    'Greece', 'Singapore', 'China', 'India', 'Vietnam', 'Global'
+  ];
+  const lower = text.toLowerCase();
+  return countries.find((country) => lower.includes(country.toLowerCase())) || 'Global';
+}
+
+function extractTags(text) {
+  const lower = text.toLowerCase();
+  const candidates = [
+    'travel news', 'air travel', 'cruise', 'hotels', 'destinations',
+    'australian travellers', 'travel safety', 'deals', 'tours', 'family travel',
+    'luxury travel', 'sustainable travel'
+  ];
+
+  return candidates.filter((tag) => lower.includes(tag.replace(' travel', ''))).slice(0, 6);
+}
+
+function extractNumbers(text) {
+  return new Set((text.match(/\b\d+(?:[.,]\d+)?%?\b/g) || []).map((value) => value.replace(/,/g, '')));
+}
+
+function hasUnsupportedNumbers(sourceText, rewrittenText) {
+  const sourceNumbers = extractNumbers(sourceText);
+  const rewrittenNumbers = extractNumbers(rewrittenText);
+
+  for (const value of rewrittenNumbers) {
+    if (!sourceNumbers.has(value)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function extractJson(text) {
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const candidate = fenced ? fenced[1] : text;
+  const start = candidate.indexOf('{');
+  const end = candidate.lastIndexOf('}');
+
+  if (start === -1 || end === -1 || end <= start) {
+    throw new Error('AI response did not contain a JSON object');
+  }
+
+  return JSON.parse(candidate.slice(start, end + 1));
+}
+
+function normaliseFeedItem(item, feedUrl) {
+  const content = stripHtml(
+    item.contentEncoded ||
+    item.content ||
+    item['content:encoded'] ||
+    item.summary ||
+    item.contentSnippet ||
+    item.description ||
+    ''
+  );
+
+  const link = item.link || item.guid || '';
+  const title = stripHtml(item.title || '');
+
+  return {
+    id: hash(`${link}:${title}`),
+    title,
+    content,
+    sourceUrl: link,
+    sourceFeedUrl: feedUrl,
+    sourceName: stripHtml(item.creator || item.author || item.feedTitle || ''),
+    guid: item.guid || link,
+    originalPublishedAt: parseDate(item.isoDate || item.pubDate || item.published),
+    category: inferCategory(`${title} ${content}`),
+    country: inferCountry(`${title} ${content}`)
+  };
+}
+
+async function fetchRssCandidates() {
+  const candidates = [];
+  const failures = [];
+
+  for (const feedUrl of RSS_FEED_URLS) {
+    try {
+      const feed = await parser.parseURL(feedUrl);
+      const items = (feed.items || [])
+        .slice(0, 8)
+        .map((item) => normaliseFeedItem({ ...item, feedTitle: feed.title }, feedUrl))
+        .filter((item) => item.title && item.sourceUrl && item.content);
+
+      candidates.push(...items);
+    } catch (error) {
+      failures.push({ feedUrl, error: error instanceof Error ? error.message : String(error) });
+    }
+  }
+
+  const seen = new Set();
+  const unique = candidates
+    .filter((item) => {
+      const key = item.sourceUrl || item.guid || item.title;
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    })
+    .sort((a, b) => new Date(b.originalPublishedAt).getTime() - new Date(a.originalPublishedAt).getTime());
+
+  return { candidates: unique, failures };
+}
+
+function buildRewritePrompt(source) {
+  return `You are the Global Travel Report editorial desk for Australian readers.
+
+Rewrite this RSS source into an original travel news draft.
+
+Hard rules:
+- Return only valid JSON. No markdown.
+- Do not invent dates, prices, passenger numbers, route details, opening dates, warnings, visa rules, quotes, or statistics.
+- If the source text does not support a detail, omit it.
+- If the source is too thin or mostly promotional, return {"status":"rejected","reason":"..."}.
+- Use Australian English.
+- Keep the tone clear, practical, and editorial.
+- Mention why the story matters to Australian travellers where supported by the source.
+- Do not mention AI, automation, RSS, rewriting, or prompts.
+
+Return this JSON shape:
+{
+  "status": "accepted",
+  "title": "clear factual headline",
+  "excerpt": "one sentence",
+  "paragraphs": ["5 to 8 short paragraphs"],
+  "category": "Air Travel | Cruise | Accommodation | Destinations | Tours | Safety | Deals | Travel News",
+  "country": "best matching country or Global",
+  "tags": ["5", "short", "tags"],
+  "imageQuery": "specific travel image search query"
+}
+
+Source title: ${source.title}
+Source URL: ${source.sourceUrl}
+Source published date: ${source.originalPublishedAt}
+Source category hint: ${source.category}
+Source text:
+${truncate(source.content)}`;
+}
+
+async function rewriteSource(source) {
+  if (wordCount(source.content) < MIN_SOURCE_WORDS) {
+    return {
+      status: 'rejected',
+      reason: `Source too thin: ${wordCount(source.content)} words`
+    };
+  }
+
+  const response = await generateStoryContent(buildRewritePrompt(source), {
+    temperature: 0.2,
+    maxTokens: 1800
+  });
+
+  const parsed = extractJson(response.content);
+
+  if (parsed.status !== 'accepted') {
+    return {
+      status: 'rejected',
+      reason: parsed.reason || 'AI rejected source'
+    };
+  }
+
+  const paragraphs = Array.isArray(parsed.paragraphs)
+    ? parsed.paragraphs.map(stripHtml).filter(Boolean)
+    : [];
+
+  const rewrittenText = [
+    parsed.title,
+    parsed.excerpt,
+    ...paragraphs
+  ].join('\n');
+
+  if (!parsed.title || !parsed.excerpt || paragraphs.length < 4) {
+    return {
+      status: 'rejected',
+      reason: 'AI response was incomplete'
+    };
+  }
+
+  if (hasUnsupportedNumbers(source.content, rewrittenText)) {
+    return {
+      status: 'rejected',
+      reason: 'AI introduced numbers not present in source'
+    };
+  }
+
+  return {
+    status: 'accepted',
+    title: stripHtml(parsed.title),
+    excerpt: stripHtml(parsed.excerpt),
+    content: paragraphs.join('\n\n'),
+    category: parsed.category || source.category || 'Travel News',
+    country: parsed.country || source.country || 'Global',
+    tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(rewrittenText),
+    imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`)
+  };
+}
+
+async function triggerUnsplashDownload(downloadLocation) {
+  if (!downloadLocation || !process.env.UNSPLASH_ACCESS_KEY) {
+    return;
+  }
+
+  try {
+    await fetch(`${downloadLocation}?client_id=${process.env.UNSPLASH_ACCESS_KEY}`);
+  } catch (error) {
+    console.warn('Unsplash download tracking failed:', error instanceof Error ? error.message : String(error));
+  }
+}
+
+async function findImage(query) {
+  try {
+    const images = await unsplashService.searchImages(query, {
+      orientation: 'landscape',
+      perPage: 1
+    });
+
+    const image = images[0];
+    if (!image) {
+      return null;
+    }
+
+    await triggerUnsplashDownload(image.downloadLocation);
+
+    return {
+      imageUrl: image.url,
+      imageAlt: image.alt,
+      photographer: {
+        name: image.photographer.name,
+        username: image.photographer.username,
+        url: image.photographer.profileUrl,
+        profileUrl: image.photographer.profileUrl
+      },
+      imageCredit: `Photo by ${image.photographer.name} on Unsplash`,
+      imageCreditUrl: image.photographer.profileUrl
+    };
+  } catch (error) {
+    console.warn('Unsplash image lookup failed:', error instanceof Error ? error.message : String(error));
+    return null;
+  }
+}
+
+async function isDuplicate(source) {
+  const existing = await db.getAllStories();
+  const sourceHash = hash(`${source.sourceUrl}:${source.title}`);
+  const sourceSlug = slugify(source.title);
+
+  return existing.some((story) => (
+    story.sourceUrl === source.sourceUrl ||
+    story.contentHash === sourceHash ||
+    story.slug === sourceSlug
+  ));
+}
+
+function buildStory(source, rewrite, image) {
+  const now = new Date().toISOString();
+  const slug = slugify(rewrite.title);
+  const contentHash = hash(`${source.sourceUrl}:${source.title}`);
+
+  return {
+    id: `rss-${contentHash}`,
+    slug,
+    title: rewrite.title,
+    excerpt: rewrite.excerpt,
+    content: rewrite.content,
+    author: 'Global Travel Report Editorial Team',
+    publishedAt: now,
+    updatedAt: now,
+    originalPublishedAt: source.originalPublishedAt,
+    firstSeenAt: now,
+    source: source.sourceName || source.sourceFeedUrl,
+    sourceUrl: source.sourceUrl,
+    ingestionSource: source.sourceFeedUrl,
+    contentHash,
+    category: rewrite.category,
+    country: rewrite.country,
+    tags: rewrite.tags?.length ? rewrite.tags : ['travel news'],
+    featured: false,
+    editorsPick: false,
+    rewritten: true,
+    processedAt: now,
+    wordCount: wordCount(rewrite.content),
+    imageUrl: image?.imageUrl || '',
+    imageAlt: image?.imageAlt || rewrite.title,
+    imageCredit: image?.imageCredit,
+    imageCreditUrl: image?.imageCreditUrl,
+    photographer: image?.photographer
+  };
+}
+
+async function processCandidate(source) {
+  if (await isDuplicate(source)) {
+    return {
+      status: 'duplicate',
+      title: source.title,
+      sourceUrl: source.sourceUrl
+    };
+  }
+
+  const rewrite = await rewriteSource(source);
+  if (rewrite.status !== 'accepted') {
+    return {
+      status: 'rejected',
+      title: source.title,
+      sourceUrl: source.sourceUrl,
+      reason: rewrite.reason
+    };
+  }
+
+  const image = await findImage(rewrite.imageQuery);
+  const story = buildStory(source, rewrite, image);
+
+  if (AUTO_PUBLISH_STORIES) {
+    await db.addStory(story);
+  }
+
+  return {
+    status: AUTO_PUBLISH_STORIES ? 'published' : 'draft',
+    story,
+    sourceUrl: source.sourceUrl
+  };
+}
+
 async function runDailyAutomation() {
-    console.log('🚀 Starting Global Travel Report Auto-Publisher...');
-    console.log(`📅 Date: ${new Date().toISOString()}`);
-    console.log(`⏰ Time (AEST): ${new Date().toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' })}`);
+  validateEnvironment();
 
+  const startedAt = new Date().toISOString();
+  const result = {
+    success: false,
+    mode: AUTO_PUBLISH_STORIES ? 'publish' : 'draft',
+    startedAt,
+    finishedAt: null,
+    feedsChecked: RSS_FEED_URLS.length,
+    feedFailures: [],
+    candidatesFound: 0,
+    processed: [],
+    summary: {
+      drafts: 0,
+      published: 0,
+      duplicates: 0,
+      rejected: 0,
+      failed: 0
+    }
+  };
+
+  console.log('Starting Global Travel Report daily story pipeline');
+  console.log(`Mode: ${result.mode}`);
+
+  const { candidates, failures } = await fetchRssCandidates();
+  result.feedFailures = failures;
+  result.candidatesFound = candidates.length;
+
+  const selected = candidates.slice(0, MAX_STORIES_PER_DAY);
+
+  for (const source of selected) {
     try {
-        // 1. Fetch RSS feed
-        console.log('📡 Fetching RSS feed...');
-        const stories = await fetchRSSFeed();
-        console.log(`✅ Fetched ${stories.length} stories from RSS feed`);
+      const processed = await processCandidate(source);
+      result.processed.push(processed);
 
-        if (stories.length === 0) {
-            console.log('⚠️ No stories found in RSS feed');
-            return;
-        }
-
-        // Limit to 8 stories per day
-        const limitedStories = stories.slice(0, MAX_STORIES_PER_DAY);
-        console.log(`📊 Processing ${limitedStories.length} stories (limited to ${MAX_STORIES_PER_DAY} per day)`);
-
-        const processedStories = [];
-
-        // 2. Process each story
-        for (let i = 0; i < limitedStories.length; i++) {
-            const story = limitedStories[i];
-            console.log(`\n📄 Processing story ${i + 1}/${limitedStories.length}: ${story.title}`);
-
-            try {
-                // Skip if missing required fields
-                if (!story.title || !story.content) {
-                    console.log('⚠️ Skipping story - missing title or content');
-                    continue;
-                }
-
-                // 3. Rewrite with Gemini AI
-                console.log('🤖 Rewriting with Gemini AI...');
-                const rewrittenData = await rewriteWithGemini(story.title, story.content);
-
-                // 4. Get Unsplash image
-                console.log('🖼️ Fetching Unsplash image...');
-                const imageData = await getUnsplashImage(rewrittenData.headline, rewrittenData.summary);
-
-                // 5. Classify category
-                console.log('🏷️ Classifying category...');
-                const category = classifyCategory(rewrittenData.headline, rewrittenData.summary);
-
-                // 6. Prepare story data
-                const storyData = {
-                    title: rewrittenData.headline,
-                    content: rewrittenData.summary,
-                    imageUrl: imageData?.imageUrl || '',
-                    photographer: imageData?.photographer || '',
-                    category: category,
-                    tags: ['travel', 'automated'],
-                    publish: true
-                };
-
-                processedStories.push(storyData);
-
-                // 7. Post to website
-                console.log('🌐 Posting to website...');
-                await postToWebsite(storyData);
-
-                // 8. Update RSS feed
-                console.log('📰 Updating RSS feed...');
-                await updateRSSFeed(storyData, story.pubDate);
-
-                console.log('✅ Story processed successfully');
-
-                // Rate limiting delay
-                if (i < limitedStories.length - 1) {
-                    console.log('⏳ Waiting 2 seconds before next story...');
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                }
-
-            } catch (error) {
-                console.error(`❌ Failed to process story "${story.title}":`, error.message);
-                // Continue with next story
-            }
-        }
-
-        console.log(`\n🎉 Daily automation completed! Processed ${processedStories.length} stories`);
-
+      if (processed.status === 'draft') result.summary.drafts++;
+      if (processed.status === 'published') result.summary.published++;
+      if (processed.status === 'duplicate') result.summary.duplicates++;
+      if (processed.status === 'rejected') result.summary.rejected++;
     } catch (error) {
-        console.error('💥 Critical error in daily automation:', error);
-        await sendErrorAlert(error);
+      result.summary.failed++;
+      result.processed.push({
+        status: 'failed',
+        title: source.title,
+        sourceUrl: source.sourceUrl,
+        error: error instanceof Error ? error.message : String(error)
+      });
     }
+  }
+
+  result.finishedAt = new Date().toISOString();
+  result.success = result.summary.failed === 0;
+
+  console.log('Daily story pipeline finished', result.summary);
+  return result;
 }
 
-/**
- * Fetch stories from RSS feed
- */
-async function fetchRSSFeed() {
-    try {
-        const parser = new Parser();
-        const feed = await parser.parseURL(RSS_FEED_URL);
-
-        return feed.items.map(item => ({
-            title: item.title,
-            content: item.content || item.summary || item.description,
-            link: item.link,
-            pubDate: item.pubDate
-        })).filter(item => item.title && item.content);
-
-    } catch (error) {
-        console.error('Error fetching RSS feed:', error);
-        throw error;
-    }
-}
-
-/**
- * Rewrite content using Gemini AI
- */
-async function rewriteWithGemini(title, content) {
-    try {
-        const prompt = GEMINI_PROMPT
-            .replace('{title}', title)
-            .replace('{content}', content);
-
-        const response = await generateStoryContent(prompt, {
-            provider: (process.env.AI_PROVIDER || 'cloudflare'),
-            model: 'gemini-pro',
-            temperature: 0.7,
-            maxTokens: 1000
-        });
-
-        const text = response.content;
-        console.log('Gemini response:', text);
-
-        // Parse the response
-        const headlineMatch = text.match(/HEADLINE:\s*(.+?)(?:\n|$)/i);
-        const summaryMatch = text.match(/SUMMARY:\s*(.+?)(?:\nHEADLINE:|$)/is);
-
-        if (!headlineMatch || !summaryMatch) {
-            throw new Error('Failed to parse Gemini response format');
-        }
-
-        return {
-            headline: headlineMatch[1].trim(),
-            summary: summaryMatch[1].trim()
-        };
-
-    } catch (error) {
-        console.error('Error rewriting with Gemini:', error);
-        throw error;
-    }
-}
-
-/**
- * Get image from Unsplash
- */
-async function getUnsplashImage(headline, summary) {
-    try {
-        // Extract keywords from headline and summary
-        const text = `${headline} ${summary}`;
-        const keywords = extractKeywords(text);
-
-        // Try multiple search queries
-        for (const query of keywords) {
-            try {
-                const images = await unsplashService.searchImages(query, { orientation: 'landscape' });
-                if (images.length > 0) {
-                    const image = images[0];
-                    return {
-                        imageUrl: image.url,
-                        photographer: image.photographer.name
-                    };
-                }
-            } catch (error) {
-                console.log(`Unsplash search failed for "${query}":`, error.message);
-            }
-        }
-
-        console.log('No images found for any keywords');
-        return null;
-
-    } catch (error) {
-        console.error('Error getting Unsplash image:', error);
-        return null;
-    }
-}
-
-/**
- * Extract keywords from text for image search
- */
-function extractKeywords(text) {
-    const keywords = [];
-
-    // Common travel keywords
-    const travelKeywords = [
-        'beach', 'mountain', 'city', 'hotel', 'resort', 'cruise', 'flight',
-        'restaurant', 'food', 'culture', 'adventure', 'nature', 'urban',
-        'landscape', 'travel', 'vacation', 'holiday', 'destination'
-    ];
-
-    const lowerText = text.toLowerCase();
-
-    // Add matching keywords
-    travelKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) {
-            keywords.push(`${keyword} travel`);
-        }
-    });
-
-    // Add location-based keywords
-    const locations = ['australia', 'japan', 'france', 'italy', 'thailand', 'usa', 'uk', 'canada', 'europe', 'asia'];
-    locations.forEach(location => {
-        if (lowerText.includes(location)) {
-            keywords.push(`${location} travel`);
-        }
-    });
-
-    // Fallback keywords
-    if (keywords.length === 0) {
-        keywords.push('travel landscape', 'australia travel');
-    }
-
-    return keywords.slice(0, 3); // Limit to 3 queries
-}
-
-/**
- * Classify story category
- */
-function classifyCategory(headline, summary) {
-    const text = `${headline} ${summary}`.toLowerCase();
-
-    if (text.includes('cruise')) {
-        return 'Cruise';
-    }
-    if (text.includes('flight') || text.includes('airport') || text.includes('airline')) {
-        return 'Flight';
-    }
-    if (text.includes('new zealand')) {
-        return 'New Zealand';
-    }
-    if (text.includes('europe') || text.includes('france') || text.includes('italy')) {
-        return 'Europe';
-    }
-
-    return 'Travel News'; // Default category
-}
-
-/**
- * Post story to website
- */
-async function postToWebsite(storyData) {
-    try {
-        const response = await axios.post(
-            `${WEBSITE_API_BASE}/admin/ingest-content`,
-            storyData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${ADMIN_TOKEN}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-
-        console.log('✅ Posted to website:', response.data);
-        return response.data;
-
-    } catch (error) {
-        console.error('Error posting to website:', error.response?.data || error.message);
-        throw error;
-    }
-}
-
-
-/**
- * Update RSS feed
- */
-async function updateRSSFeed(storyData, originalPubDate) {
-    try {
-        const rssData = {
-            title: storyData.title,
-            description: storyData.content,
-            link: `https://globaltravelreport.com/stories/${storyData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`,
-            image: storyData.imageUrl,
-            pubDate: originalPubDate, // Preserve original story date
-            category: storyData.category
-        };
-
-        const response = await axios.post(
-            `${WEBSITE_API_BASE}/rss/update`,
-            rssData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${ADMIN_TOKEN}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-
-        console.log('✅ Updated RSS feed');
-        return response.data;
-
-    } catch (error) {
-        console.error('Error updating RSS feed:', error.response?.data || error.message);
-        throw error;
-    }
-}
-
-/**
- * Send error alert
- */
-async function sendErrorAlert(error) {
-    console.error('🚨 Error alert:', error.message);
-
-    // TODO: Implement email/Discord alerts
-    // For now, just log the error
-}
-
-/**
- * Validate environment variables
- */
 function validateEnvironment() {
-    const required = [
-        'GEMINI_API_KEY',
-        'UNSPLASH_ACCESS_KEY',
-        'ADMIN_TOKEN'
-    ];
+  const provider = (process.env.AI_PROVIDER || 'openai').toLowerCase();
+  const required = ['UNSPLASH_ACCESS_KEY'];
 
-    const missing = required.filter(key => !process.env[key]);
+  if (provider === 'cloudflare') {
+    required.push('CLOUDFLARE_AI_WORKER_URL', 'CLOUDFLARE_AI_WORKER_TOKEN');
+  } else if (provider === 'google') {
+    required.push('GOOGLE_API_KEY');
+  } else {
+    required.push('OPENAI_API_KEY');
+  }
 
-    if (missing.length > 0) {
-        throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
-    }
-
-    console.log('✅ Environment variables validated');
+  const missing = required.filter((key) => !process.env[key]);
+  if (missing.length > 0) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
 }
 
-// Run the automation if called directly
-if (require.main === module) {
-    validateEnvironment();
-    runDailyAutomation().catch(console.error);
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  runDailyAutomation()
+    .then((result) => {
+      console.log(JSON.stringify(result, null, 2));
+    })
+    .catch((error) => {
+      console.error(error);
+      process.exitCode = 1;
+    });
 }
 
 export { runDailyAutomation };
