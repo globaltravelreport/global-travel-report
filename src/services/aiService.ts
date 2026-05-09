@@ -208,10 +208,13 @@ async function generateWithCloudflare(
 
   const model = config.model || process.env.CLOUDFLARE_AI_MODEL || '@cf/meta/llama-3.2-3b-instruct';
   const workerUrl = process.env.CLOUDFLARE_AI_WORKER_URL!;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), Number.parseInt(process.env.AI_REQUEST_TIMEOUT_MS || '45000', 10));
 
   try {
     const response = await fetch(workerUrl, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Authorization': `Bearer ${process.env.CLOUDFLARE_AI_WORKER_TOKEN}`,
         'Content-Type': 'application/json',
@@ -249,6 +252,8 @@ async function generateWithCloudflare(
   } catch (_error) {
     console.error(_error);
     throw new Error(`Cloudflare Workers AI error: ${_error instanceof Error ? _error.message : 'Unknown error'}`);
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
