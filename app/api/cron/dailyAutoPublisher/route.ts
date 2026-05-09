@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { runDailyAutomation } from '@/automation/dailyAutoPublisher.mjs';
+import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
@@ -12,6 +12,27 @@ function healthResponse() {
     pipelineVersion: PIPELINE_VERSION,
     timestamp: new Date().toISOString()
   });
+}
+
+async function enqueueDailyPublisherJob(triggeredBy: string) {
+  if (!SupabaseStoryStore.isConfigured()) {
+    throw new Error('Supabase is not configured for the story queue');
+  }
+
+  const job = await SupabaseStoryStore.enqueueStoryGenerationJob({
+    triggeredBy,
+    requestedAt: new Date().toISOString()
+  });
+
+  return NextResponse.json({
+    success: true,
+    queued: true,
+    jobId: job.id,
+    status: job.status,
+    message: 'Global Travel Report story generation job queued',
+    workerPath: '/api/cron/storyQueueWorker',
+    timestamp: new Date().toISOString()
+  }, { status: 202 });
 }
 
 /**
@@ -43,21 +64,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('🚀 Starting Global Travel Report Auto-Publisher webhook...');
-
-    // Run the daily automation
-    const result = await runDailyAutomation();
-
-    console.log('✅ Daily auto-publisher completed successfully');
-
-    // Return success response
-    return NextResponse.json({
-      success: true,
-      message: 'Global Travel Report Auto-Publisher completed successfully',
-      result,
-      timestamp: new Date().toISOString(),
-      timezone: 'AEST (Australian Eastern Standard Time)'
-    });
+    return enqueueDailyPublisherJob('webhook');
 
   } catch (_error) {
     console.error(_error);
@@ -103,21 +110,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.log('🚀 Starting Global Travel Report Auto-Publisher cron job...');
-
-    // Run the daily automation
-    const result = await runDailyAutomation();
-
-    console.log('✅ Daily auto-publisher completed successfully');
-
-    // Return success response
-    return NextResponse.json({
-      success: true,
-      message: 'Global Travel Report Auto-Publisher completed successfully',
-      result,
-      timestamp: new Date().toISOString(),
-      timezone: 'AEST (Australian Eastern Standard Time)'
-    });
+    return enqueueDailyPublisherJob('vercel_cron');
 
   } catch (_error) {
     console.error(_error);

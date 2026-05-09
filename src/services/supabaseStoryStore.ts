@@ -39,6 +39,24 @@ type SupabaseRequestOptions = {
   prefer?: string;
 };
 
+export type StoryGenerationJob = {
+  id: string;
+  job_type: string;
+  status: 'queued' | 'running' | 'completed' | 'failed' | 'retry';
+  attempts: number;
+  max_attempts: number;
+  payload: Record<string, unknown>;
+  result?: unknown;
+  last_error?: string | null;
+  locked_by?: string | null;
+  locked_at?: string | null;
+  requested_at: string;
+  started_at?: string | null;
+  finished_at?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 function getSupabaseUrl(): string | null {
   return process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || null;
 }
@@ -326,6 +344,108 @@ export class SupabaseStoryStore {
         summary: result.summary,
         feed_failures: result.feedFailures,
         processed: result.processed
+      }
+    });
+  }
+
+  public static async enqueueStoryGenerationJob(payload: Record<string, unknown> = {}): Promise<StoryGenerationJob> {
+    const rows = await this.request<StoryGenerationJob[]>('story_generation_jobs', {
+      method: 'POST',
+      body: {
+        job_type: 'daily_auto_publisher',
+        status: 'queued',
+        payload
+      },
+      query: {
+        select: '*'
+      },
+      prefer: 'return=representation'
+    });
+
+    if (!rows[0]) {
+      throw new Error('Supabase did not return the queued story generation job');
+    }
+
+    return rows[0];
+  }
+
+  public static async getLatestStoryGenerationJobs(limit = 5): Promise<StoryGenerationJob[]> {
+    return this.request<StoryGenerationJob[]>('story_generation_jobs', {
+      query: {
+        select: '*',
+        order: 'created_at.desc',
+        limit: String(limit)
+      }
+    });
+  }
+
+  public static async claimStoryGenerationJob(workerId: string): Promise<StoryGenerationJob | null> {
+    const queued = await this.request<StoryGenerationJob[]>('story_generation_jobs', {
+      query: {
+        select: '*',
+        status: 'in.(queued,retry)',
+        order: 'requested_at.asc',
+        limit: '1'
+      }
+    });
+
+    const job = queued[0];
+    if (!job) {
+      return null;
+    }
+
+    const rows = await this.request<StoryGenerationJob[]>('story_generation_jobs', {
+      method: 'PATCH',
+      body: {
+        status: 'running',
+        attempts: job.attempts + 1,
+        locked_by: workerId,
+        locked_at: new Date().toISOString(),
+        started_at: new Date().toISOString(),
+        last_error: null
+      },
+      query: {
+        id: `eq.${job.id}`,
+        status: `eq.${job.status}`,
+        select: '*'
+      },
+      prefer: 'return=representation'
+    });
+
+    return rows[0] || null;
+  }
+
+  public static async completeStoryGenerationJob(jobId: string, result: unknown): Promise<void> {
+    await this.request('story_generation_jobs', {
+      method: 'PATCH',
+      body: {
+        status: 'completed',
+        result,
+        finished_at: new Date().toISOString(),
+        locked_by: null,
+        locked_at: null
+      },
+      query: {
+        id: `eq.${jobId}`
+      }
+    });
+  }
+
+  public static async failStoryGenerationJob(job: StoryGenerationJob, error: unknown): Promise<void> {
+    const message = error instanceof Error ? error.message : String(error);
+    const shouldRetry = job.attempts < job.max_attempts;
+
+    await this.request('story_generation_jobs', {
+      method: 'PATCH',
+      body: {
+        status: shouldRetry ? 'retry' : 'failed',
+        last_error: message,
+        finished_at: new Date().toISOString(),
+        locked_by: null,
+        locked_at: null
+      },
+      query: {
+        id: `eq.${job.id}`
       }
     });
   }

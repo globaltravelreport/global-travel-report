@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { runDailyAutomation } from '@/automation/dailyAutoPublisher.mjs';
+import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
@@ -49,21 +49,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('🚀 Starting Global Travel Report Auto-Publisher via Make.com webhook...');
-
-    // Run the daily automation
-    await runDailyAutomation();
-
-    console.log('✅ Daily auto-publisher completed successfully via webhook');
+    const job = await SupabaseStoryStore.enqueueStoryGenerationJob({
+      triggeredBy: 'make_webhook',
+      requestedAt: new Date().toISOString(),
+      payload
+    });
 
     // Return success response for Make.com
     return NextResponse.json({
       success: true,
-      message: 'Global Travel Report Auto-Publisher completed successfully',
+      queued: true,
+      jobId: job.id,
+      status: job.status,
+      message: 'Global Travel Report Auto-Publisher queued successfully',
       timestamp: new Date().toISOString(),
       timezone: 'AEST (Australian Eastern Standard Time)',
       triggered_by: 'make_webhook'
-    });
+    }, { status: 202 });
 
   } catch (_error) {
     console.error(_error);
