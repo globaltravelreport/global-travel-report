@@ -20,6 +20,7 @@ dotenv.config({ path: '.env.local' });
 
 const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
+const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '18', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
 const parser = new Parser({
@@ -92,6 +93,9 @@ async function getRuntimeFeedUrls() {
 
 function stripHtml(value = '') {
   return String(value)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<\/li>/gi, '\n')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
@@ -101,6 +105,19 @@ function stripHtml(value = '') {
     .trim();
 }
 
+function decodeHtmlEntities(value = '') {
+  return String(value)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number.parseInt(code, 10)))
+    .replace(/&#x([a-f0-9]+);/gi, (_, code) => String.fromCharCode(Number.parseInt(code, 16)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ');
+}
+
 function wordCount(value = '') {
   return stripHtml(value).split(/\s+/).filter(Boolean).length;
 }
@@ -108,6 +125,95 @@ function wordCount(value = '') {
 function truncate(value = '', limit = 7000) {
   const clean = stripHtml(value);
   return clean.length > limit ? `${clean.slice(0, limit)}...` : clean;
+}
+
+function extractMetaContent(html, property) {
+  const pattern = new RegExp(`<meta[^>]+(?:property|name)=["']${property}["'][^>]+content=["']([^"']+)["'][^>]*>`, 'i');
+  return decodeHtmlEntities(pattern.exec(html)?.[1] || '');
+}
+
+function extractReadableArticleText(html = '') {
+  const cleanedHtml = String(html)
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ')
+    .replace(/<svg[\s\S]*?<\/svg>/gi, ' ');
+
+  const candidates = [
+    ...cleanedHtml.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/gi),
+    ...cleanedHtml.matchAll(/<main\b[^>]*>([\s\S]*?)<\/main>/gi),
+    ...cleanedHtml.matchAll(/<div\b[^>]+(?:class|id)=["'][^"']*(?:post-content|entry-content|article-content|story-content|content__article|article-body)[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)
+  ].map((match) => stripHtml(decodeHtmlEntities(match[1])));
+
+  const bestCandidate = candidates
+    .filter((text) => wordCount(text) >= 80)
+    .sort((a, b) => wordCount(b) - wordCount(a))[0];
+
+  if (bestCandidate) {
+    return bestCandidate;
+  }
+
+  const metaDescription = extractMetaContent(cleanedHtml, 'og:description') ||
+    extractMetaContent(cleanedHtml, 'description');
+
+  if (metaDescription) {
+    return stripHtml(metaDescription);
+  }
+
+  const paragraphs = [...cleanedHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((match) => stripHtml(decodeHtmlEntities(match[1])))
+    .filter((paragraph) => wordCount(paragraph) >= 8);
+
+  return paragraphs.join('\n\n');
+}
+
+async function fetchArticleText(url) {
+  if (!url || !/^https?:\/\//i.test(url)) {
+    return '';
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'GlobalTravelReport/2.0 (+https://www.globaltravelreport.com)',
+        Accept: 'text/html,application/xhtml+xml'
+      },
+      redirect: 'follow'
+    });
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!response.ok || !contentType.toLowerCase().includes('html')) {
+      return '';
+    }
+
+    return extractReadableArticleText(await response.text());
+  } catch (error) {
+    console.warn('Article page lookup failed:', url, error instanceof Error ? error.message : String(error));
+    return '';
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function enrichCandidateContent(source) {
+  if (wordCount(source.content) >= MIN_SOURCE_WORDS) {
+    return source;
+  }
+
+  const articleText = await fetchArticleText(source.sourceUrl);
+  if (wordCount(articleText) <= wordCount(source.content)) {
+    return source;
+  }
+
+  return {
+    ...source,
+    content: articleText,
+    rssSnippet: source.content
+  };
 }
 
 function slugify(value = '') {
@@ -172,7 +278,7 @@ function hasUnsupportedNumbers(sourceText, rewrittenText) {
   const sourceNumbers = extractNumbers(sourceText);
   const rewrittenNumbers = extractNumbers(rewrittenText);
 
-  for (const value of rewrittenText) {
+  for (const value of rewrittenNumbers) {
     if (!sourceNumbers.has(value)) {
       return true;
     }
@@ -454,22 +560,26 @@ async function processCandidate(source) {
     return {
       status: 'duplicate',
       title: source.title,
-      sourceUrl: source.sourceUrl
+      sourceUrl: source.sourceUrl,
+      sourceWordCount: wordCount(source.content)
     };
   }
 
-  const rewrite = await rewriteSource(source);
+  const enrichedSource = await enrichCandidateContent(source);
+  const sourceWordCount = wordCount(enrichedSource.content);
+  const rewrite = await rewriteSource(enrichedSource);
   if (rewrite.status !== 'accepted') {
     return {
       status: 'rejected',
-      title: source.title,
-      sourceUrl: source.sourceUrl,
+      title: enrichedSource.title,
+      sourceUrl: enrichedSource.sourceUrl,
+      sourceWordCount,
       reason: rewrite.reason
     };
   }
 
   const image = await findImage(rewrite.imageQuery);
-  const story = buildStory(source, rewrite, image);
+  const story = buildStory(enrichedSource, rewrite, image);
 
   if (AUTO_PUBLISH_STORIES) {
     await db.addStory(story);
@@ -480,7 +590,8 @@ async function processCandidate(source) {
   return {
     status: AUTO_PUBLISH_STORIES ? 'published' : 'draft',
     story,
-    sourceUrl: source.sourceUrl
+    sourceUrl: enrichedSource.sourceUrl,
+    sourceWordCount
   };
 }
 
@@ -504,7 +615,9 @@ async function runDailyAutomation() {
       published: 0,
       duplicates: 0,
       rejected: 0,
-      failed: 0
+      failed: 0,
+      eligibleCandidates: 0,
+      reviewedCandidates: 0
     }
   };
 
@@ -515,22 +628,26 @@ async function runDailyAutomation() {
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
-  const eligibleCandidates = candidates.filter((source) => wordCount(source.content) >= MIN_SOURCE_WORDS);
-  result.eligibleCandidatesFound = eligibleCandidates.length;
-
-  const selected = eligibleCandidates.slice(0, MAX_STORIES_PER_DAY);
+  const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
 
   for (const source of selected) {
     try {
       const processed = await processCandidate(source);
       result.processed.push(processed);
+      result.summary.reviewedCandidates++;
 
       if (processed.status === 'draft') result.summary.drafts++;
       if (processed.status === 'published') result.summary.published++;
       if (processed.status === 'duplicate') result.summary.duplicates++;
       if (processed.status === 'rejected') result.summary.rejected++;
+      if ((processed.sourceWordCount || 0) >= MIN_SOURCE_WORDS) result.eligibleCandidatesFound++;
+
+      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_DAY) {
+        break;
+      }
     } catch (error) {
       result.summary.failed++;
+      result.summary.reviewedCandidates++;
       result.processed.push({
         status: 'failed',
         title: source.title,
@@ -539,6 +656,8 @@ async function runDailyAutomation() {
       });
     }
   }
+
+  result.summary.eligibleCandidates = result.eligibleCandidatesFound;
 
   result.finishedAt = new Date().toISOString();
   result.success = result.summary.failed === 0;
