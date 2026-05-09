@@ -168,3 +168,8 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📖 **Full details**: Download the security-report artifact for complete analysis" >> $GITHUB_STEP_SUMMARY
           else
+            echo "✅ **No vulnerabilities found in the audit report.**" >> $GITHUB_STEP_SUMMARY
+          fi
+        else
+          echo "⚠️ **No audit report was generated.**" >> $GITHUB_STEP_SUMMARY
+        fi
