@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
     images: [
       {
-        url: '/og/home-1200x630.jpg',
+        url: '/og/facebook-home-20260509',
         width: 1200,
         height: 630,
         alt: 'Global Travel Report social preview',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     creator: '@globaltravelreport',
     title: 'Global Travel Report',
     description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
-    images: ['/og/home-1200x630.jpg'],
+    images: ['/og/facebook-home-20260509'],
   },
   facebook: {
     appId: '173706196043626',
