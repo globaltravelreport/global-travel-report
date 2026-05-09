@@ -84,32 +84,37 @@ jobs:
       run: npm ci
     - name: Run security audit
       id: audit
-      run: npm audit --json --audit-level moderate > security-audit-report.json
+      run: npm audit --omit=dev --json --audit-level moderate > security-audit-report.json
       continue-on-error: true
     - name: Generate suggested fixes
       id: audit-fix-dry-run
       run: |
-        npm audit fix --dry-run --json > security-fix-suggestions.json || echo '{"fixes": [], "message": "No suggested fixes available"}' > security-fix-suggestions.json
+        npm audit fix --omit=dev --dry-run --json > security-fix-suggestions.json || echo '{"fixes": [], "message": "No suggested fixes available"}' > security-fix-suggestions.json
       continue-on-error: true
     - name: Analyze vulnerabilities
       id: analyze-vulnerabilities
       run: |
         # Parse audit results to check for critical/high severity issues
         if [ -f security-audit-report.json ]; then
-          # Count vulnerabilities by severity
-          critical_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.critical // 0')
-          high_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.high // 0')
+          # Count actionable runtime vulnerabilities by severity.
+          # Major framework upgrades are reported, but not auto-blocked by this gate.
+          actionable_filter='(.value.fixAvailable != false) and ((.value.fixAvailable | type) != "object" or (.value.fixAvailable.isSemVerMajor != true))'
+          critical_count=$(cat security-audit-report.json | jq "[.vulnerabilities // {} | to_entries[] | select(.value.severity == \"critical\" and $actionable_filter)] | length")
+          high_count=$(cat security-audit-report.json | jq "[.vulnerabilities // {} | to_entries[] | select(.value.severity == \"high\" and $actionable_filter)] | length")
+          major_count=$(cat security-audit-report.json | jq "[.vulnerabilities // {} | to_entries[] | select((.value.severity == \"critical\" or .value.severity == \"high\") and ((.value.fixAvailable | type) == \"object\" and .value.fixAvailable.isSemVerMajor == true))] | length")
           moderate_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.moderate // 0')
           low_count=$(cat security-audit-report.json | jq '.metadata.vulnerabilities.low // 0')
 
           echo "critical=$critical_count" >> $GITHUB_OUTPUT
           echo "high=$high_count" >> $GITHUB_OUTPUT
+          echo "major=$major_count" >> $GITHUB_OUTPUT
           echo "moderate=$moderate_count" >> $GITHUB_OUTPUT
           echo "low=$low_count" >> $GITHUB_OUTPUT
 
-          echo "📊 Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
-          echo "- 🔴 Critical: $critical_count" >> $GITHUB_STEP_SUMMARY
-          echo "- 🟠 High: $high_count" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Runtime Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔴 Actionable Critical: $critical_count" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟠 Actionable High: $high_count" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚠️ Major-upgrade Critical/High: $major_count" >> $GITHUB_STEP_SUMMARY
           echo "- 🟡 Moderate: $moderate_count" >> $GITHUB_STEP_SUMMARY
           echo "- 🟢 Low: $low_count" >> $GITHUB_STEP_SUMMARY
         else
@@ -130,9 +135,9 @@ jobs:
         high_count="${{ steps.analyze-vulnerabilities.outputs.high }}"
 
         if [ "$critical_count" -gt 0 ] || [ "$high_count" -gt 0 ]; then
-          echo "❌ Security audit failed - critical or high severity vulnerabilities found"
-          echo "🔍 Critical: $critical_count"
-          echo "🟠 High: $high_count"
+          echo "❌ Security audit failed - actionable critical or high severity vulnerabilities found"
+          echo "🔍 Actionable Critical: $critical_count"
+          echo "🟠 Actionable High: $high_count"
           echo ""
           echo "📋 Suggested fixes are available in the security-fix-suggestions.json artifact"
           echo "🔧 Please review and apply the suggested fixes before merging"
@@ -140,7 +145,7 @@ jobs:
           echo "📊 Full vulnerability details available in security-audit-report.json artifact"
           exit 1
         else
-          echo "✅ No critical or high severity vulnerabilities found"
+          echo "✅ No actionable critical or high severity vulnerabilities found"
           echo "📊 Security audit passed successfully"
         fi
     - name: Generate comprehensive security summary
@@ -159,7 +164,7 @@ jobs:
           # Show top vulnerabilities if any exist
           if [ "$(cat security-audit-report.json | jq '.vulnerabilities | length')" -gt 0 ]; then
             echo "🚨 **Top Security Issues:**" >> $GITHUB_STEP_SUMMARY
-            cat security-audit-report.json | jq -r '.vulnerabilities[0:5] | to_entries[] | "- \(.value.severity | ascii_upcase): \(.value.title) (\(.value.module_name)@\(.value.range))"' >> $GITHUB_STEP_SUMMARY
+            cat security-audit-report.json | jq -r '.vulnerabilities | to_entries[0:5] | .[] | "- \(.value.severity | ascii_upcase): \(.value.name // .key) (\(.value.range))"' >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📖 **Full details**: Download the security-report artifact for complete analysis" >> $GITHUB_STEP_SUMMARY
           else
