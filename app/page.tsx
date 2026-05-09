@@ -6,22 +6,22 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
-  description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
+  title: 'Global Travel Report',
+  description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
   alternates: {
     canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
   },
   openGraph: {
-    title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
-    description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
+    title: 'Global Travel Report',
+    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     images: [
       {
-        url: '/og/home-1200x630.jpg',
+        url: '/og/home',
         width: 1200,
         height: 630,
-        alt: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
+        alt: 'Global Travel Report social preview',
       },
     ],
     type: 'website',
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
-    title: 'Global Travel Report - Latest Travel News, Destination Guides & Cruise Updates',
-    description: 'Global Travel Report brings you the latest travel news, destination guides, cruise updates, airline insights, and family & business travel stories from around the world.',
-    images: ['/og/home-1200x630.jpg'],
+    title: 'Global Travel Report',
+    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+    images: ['/og/home'],
   },
   // LinkedIn uses Open Graph tags but we can add LinkedIn-specific optimization
   other: {
