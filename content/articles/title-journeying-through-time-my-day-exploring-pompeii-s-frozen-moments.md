@@ -17,7 +17,6 @@ keywords:
   - Mount Vesuvius
   - ancient history
   - Italian culture
-author: Global Travel Report Editorial Team
 ---
 Ever dreamt of being an archaeologist as a kid? Nah, just me? Well, I was that young history nerd who'd get all giddy about ancient Roman and Greek tales. Hey, don't chuckle! I reckon there's something magical in unearthing secrets from centuries past. As you can guess, the ruins of Pompeii have been on my bucket list for years.
 

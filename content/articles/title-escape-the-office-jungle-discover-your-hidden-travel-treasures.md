@@ -19,7 +19,6 @@ keywords:
   - adventure
   - local exploration
   - time management
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 G'day, mates! Picture this with me for a minute. An alarm clock ringing in the wee hours of your Monday morning, followed by a quick shower and a hurriedly gulped down coffee. You then drag yourself through peak hour traffic (or public transport, if you're lucky) to spend eight or more hours inside the confines of your grey cubicle. Sounds familiar? Well, let me tell ya something you may not have figured out yet...you can break free from this cycle more often than you think!

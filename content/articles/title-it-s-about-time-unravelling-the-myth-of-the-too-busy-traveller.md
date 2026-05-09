@@ -17,7 +17,6 @@ keywords:
   - vacation planning
   - work-life balance
   - local travels
-author: Global Travel Report Editorial Team
 ---
 G'day, mates! We all reckon time is a slippery eel, don't we? One minute you're sipping your morning coffee, then - whoosh! - it's bedtime again. And trust me, as someone who constantly has the travel bug itching at my feet, I know how easy it is to moan about never having enough time to travel. But let me tell you something that may surprise you: you've got more time for trotting around the globe than you think.
 

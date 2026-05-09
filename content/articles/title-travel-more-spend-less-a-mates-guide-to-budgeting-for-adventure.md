@@ -18,7 +18,6 @@ keywords:
   - saving money
   - phantom expenses
   - adventure
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 G'day! Ready to ditch the mundane and chase sunsets around the world? Yeah? Then let's talk brass tacks. Start by taking a squizz at your regular costs. Let's see... there’s rent (or mortgage), car repayments, those sneaky streaming subscriptions, mobile plans, insurances... the list goes on. Roughly add it all up - make sure you're not sitting down when you do this!

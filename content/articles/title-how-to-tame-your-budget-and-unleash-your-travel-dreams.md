@@ -19,7 +19,6 @@ keywords:
   - travel fund
   - frugal living
   - Australia
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Look, I know what you're thinking. Saving money for travel is hard, right? Life's expenses always seem to get in the way. But let me tell you something — it doesn't have to be this way. Trust me, I've been there too!

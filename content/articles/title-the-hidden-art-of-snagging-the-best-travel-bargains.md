@@ -17,7 +17,6 @@ keywords:
   - accommodation bargains
   - travel insurance
   - budget travel
-author: Global Travel Report Editorial Team
 ---
 Let's have a yarn about one thing that really cranks my engine - travel. More specifically, how to nab those sneaky deals that seem to be just out of reach unless you've got insider knowledge. Most folks reckon travelling costs an arm and a leg, but mate, I tell ya - there are great deals popping up left, right and centre. You just gotta know where to look and when to pounce.
 

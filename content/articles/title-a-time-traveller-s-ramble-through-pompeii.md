@@ -18,7 +18,6 @@ keywords:
   - history
   - Mount Vesuvius
   - ruins
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Ever since childhood, I was the kid with a wild imagination and a fascination for ancient history - yeah, the textbook nerd so to speak. My idea of adventure was not swinging on ropes or jumping off cliffs but unearthing tombs, discovering hidden temples in dense jungles, and engaging in passionate debates about Roman gladiators with my history teacher when I was just 13. That's me alright! 

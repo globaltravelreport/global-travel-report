@@ -17,7 +17,6 @@ keywords:
   - history
   - Italy
   - Mount Vesuvius
-author: Global Travel Report Editorial Team
 ---
 Ever as a kid, I was the one head buried in history books - those tales of lost civilisations and ancient heroes. History's my jam! Greek or Roman, it mattered little; what got me hooked was the thrill of uncovering secrets from centuries past. So, you can imagine Pompeii— that majestic city frozen by Mount Vesuvius in 79 CE — was on my must-visit list.
 

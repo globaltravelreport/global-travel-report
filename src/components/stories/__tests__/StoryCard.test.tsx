@@ -56,7 +56,7 @@ const sampleStory: Story = {
   excerpt: 'This is a test story excerpt',
   content: 'This is the full content of the test story',
   publishedAt: '2023-05-15T12:00:00Z',
-  author: 'Global Travel Report Editorial Team',
+  author: '',
   category: 'Travel',
   country: 'Japan',
   tags: ['travel', 'japan', 'adventure'],
@@ -127,8 +127,8 @@ describe('StoryCard Component', () => {
     expect(screen.getByTestId('freshness-indicator')).toBeInTheDocument();
   });
 
-  it('renders the author credit', () => {
+  it('does not render an author credit', () => {
     render(<StoryCard story={sampleStory} />);
-    expect(screen.getByText('By Global Travel Report Editorial Team')).toBeInTheDocument();
+    expect(screen.queryByText(/^By /)).not.toBeInTheDocument();
   });
 });

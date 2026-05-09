@@ -139,13 +139,7 @@ export default function StoriesIndexClient() {
 
                         <div className="flex items-center justify-between">
                           <div className="flex items-center text-sm text-gray-300">
-                            <span>By {story.author}</span>
-                            {story.country && (
-                              <>
-                                <span className="mx-2">•</span>
-                                <span>{story.country}</span>
-                              </>
-                            )}
+                            {story.country && <span>{story.country}</span>}
                           </div>
                           <div className="text-[#C9A14A] group-hover:translate-x-1 transition-transform duration-300">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,7 +205,6 @@ export default function StoriesIndexClient() {
                   </p>
 
                   <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>By {story.author}</span>
                     {story.publishedAt && (
                       <time dateTime={new Date(story.publishedAt).toISOString()}>
                         {new Date(story.publishedAt).toLocaleDateString('en-US', {

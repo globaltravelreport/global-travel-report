@@ -175,7 +175,7 @@ export class ContentAutomationService {
         title: rawStory.title.trim(),
         excerpt: this.generateExcerpt(rawStory.content),
         content: rawStory.content.trim(),
-        author: rawStory.author || 'Global Travel Report Editorial Team',
+        author: rawStory.author || '',
         category: category || 'Destinations',
         country: country || 'Global',
         tags: tags,
@@ -421,7 +421,7 @@ export class ContentAutomationService {
     */
   private preserveOriginalDate(publishedAt: any): string {
     if (!publishedAt) {
-      return new Date().toISOString();
+      return '2025-04-24T09:00:00.000Z';
     }
 
     // If it's already a valid date string, preserve it
@@ -442,9 +442,8 @@ export class ContentAutomationService {
       return new Date(publishedAt).toISOString();
     }
 
-    // Fallback to current date if invalid
-    console.warn('Invalid published date, using current date:', publishedAt);
-    return new Date().toISOString();
+    console.warn('Invalid published date, using stable fallback date:', publishedAt);
+    return '2025-04-24T09:00:00.000Z';
   }
 
   /**

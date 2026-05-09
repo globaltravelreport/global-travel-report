@@ -19,7 +19,6 @@ keywords:
   - work-life balance
   - short-term travel
   - priorities
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Alright folks, let's chat about time. You know that slippery little devil that always seems to outrun us? Yep, time. It’s like trying to catch a greased pig at a country fair—almost impossible. And when it comes to travel, it feels like we’re always left in the dust.

@@ -186,7 +186,6 @@ export async function GET(request: Request) {
           ${enhancedContent}
           <pubDate>${formatRssDate(story.publishedAt)}</pubDate>
           <guid isPermaLink="true">${baseUrl}/stories/${story.slug}</guid>
-          <dc:creator>Global Travel Report Editorial Team</dc:creator>
           <dc:publisher>Global Travel Report</dc:publisher>
           <dc:rights>Copyright ${new Date().getFullYear()} Global Travel Report</dc:rights>
           ${story.category ? `<category>${escapeXml(story.category)}</category>` : ''}

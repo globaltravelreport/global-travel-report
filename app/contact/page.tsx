@@ -109,7 +109,7 @@ export default function ContactPage() {
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent transition-colors ${
                       errors.name ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="John Doe"
+                    placeholder="Your name"
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>

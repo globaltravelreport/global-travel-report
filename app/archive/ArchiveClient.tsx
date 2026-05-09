@@ -314,7 +314,6 @@ export default function ArchiveClient() {
                               <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">{story.title}</h4>
                               <p className="text-sm text-gray-600 line-clamp-2 mb-3">{story.excerpt}</p>
                               <div className="flex items-center justify-between text-xs text-gray-500">
-                                <span>By {story.author}</span>
                                 <time dateTime={new Date(story.publishedAt).toISOString()}>
                                   {new Date(story.publishedAt).toLocaleDateString('en-US', {
                                     month: 'short',
@@ -399,7 +398,6 @@ export default function ArchiveClient() {
                       </p>
 
                       <div className="flex items-center justify-between text-sm text-gray-500">
-                        <span>By {story.author}</span>
                         {story.publishedAt && (
                           <time dateTime={new Date(story.publishedAt).toISOString()}>
                             {new Date(story.publishedAt).toLocaleDateString('en-US', {

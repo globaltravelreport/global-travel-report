@@ -437,8 +437,7 @@ const StoryCardComponent = ({ story, className }: StoryCardProps) => {
             </div>
           )}
 
-          <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-            <span className="text-xs text-gray-500">By Global Travel Report Editorial Team</span>
+          <div className="mt-4 pt-4 border-t border-gray-100 flex justify-end items-center">
             <span className="text-[#C9A14A] text-sm font-medium group-hover:underline">Read More</span>
           </div>
         </div>

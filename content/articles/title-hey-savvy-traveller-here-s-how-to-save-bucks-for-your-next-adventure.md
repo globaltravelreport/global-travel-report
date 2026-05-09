@@ -17,7 +17,6 @@ keywords:
   - phantom expenses
   - minimalist lifestyle
   - adventure
-author: Global Travel Report Editorial Team
 ---
 Alright, let's have a little chat about money. It's no secret that we all love travelling - the salty sea air in your hair in Bali, the taste of croissants fresh outta the oven in Paris or maybe simply the thrill of getting lost in Tokyo’s labyrinthine streets. But hey, let's not kid ourselves - travel needs dosh and saving up can be a real bummer.
 

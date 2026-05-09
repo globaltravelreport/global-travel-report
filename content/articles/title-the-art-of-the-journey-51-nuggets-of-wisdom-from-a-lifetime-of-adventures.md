@@ -19,7 +19,6 @@ keywords:
   - packing light
   - travel mistakes
   - cultural interaction
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 There's no manual for becoming an expert globetrotter, mate. You're not just going to roll out of bed one morning, slip on a rucksack, and instantly morph into Bear Grylls. No way, Jose! Savvy travelling is a craft honed through time — it's the result of missed trains, cultural gaffes, and more than our fair share of little blunders. But over time (and with the odd scraped knee), you'll find yourself navigating foreign lands as easily as if you were strolling down your local high street.

@@ -159,7 +159,6 @@ export default function StoriesSection() {
                 </p>
 
                 <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>By {story.author}</span>
                   {story.publishedAt && (
                     <time dateTime={new Date(story.publishedAt).toISOString()}>
                       {new Date(story.publishedAt).toLocaleDateString('en-US', {

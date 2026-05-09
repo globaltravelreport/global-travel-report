@@ -42,13 +42,13 @@ export class StoryRewriter implements IStoryRewriter {
       slug: `new-${category.toLowerCase()}-story`,
       excerpt: 'This is a mock story excerpt.',
       content: 'This is a mock story content.',
-      author: 'Global Travel Report Editorial Team',
+      author: '',
       category,
       country: 'Global',
       tags: ['travel', category.toLowerCase()],
       featured: false,
       editorsPick: false,
-      publishedAt: new Date().toISOString(),
+      publishedAt: '2025-04-24T09:00:00.000Z',
       imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&q=80&w=2400',
     };
   }

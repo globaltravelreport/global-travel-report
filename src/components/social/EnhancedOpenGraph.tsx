@@ -129,7 +129,7 @@ interface EnhancedOpenGraphProps {
  *   ]}
  *   article={{
  *     publishedTime: "2023-01-01T00:00:00Z",
- *     authors: ["John Doe"],
+ *     authors: ["Global Travel Report"],
  *     tags: ["travel", "adventure"]
  *   }}
  * />

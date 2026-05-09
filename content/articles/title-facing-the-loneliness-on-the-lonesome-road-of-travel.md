@@ -17,7 +17,6 @@ keywords:
   - Travel Experience
   - Introverts travelling
   - Adventure
-author: Global Travel Report Editorial Team
 ---
 Ah, 2006, a time when I was quite green behind the ears but raring to explore. My noggin was buzzing with romanticised visions; popping with expectations painted by glossy magazines and Hollywood travel flicks. I envisioned myself, stepping onto foreign soil and being swept into this whirlwind adventure where every soul I met would be just as vibrant as the culture surrounding us.
 

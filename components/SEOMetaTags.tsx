@@ -27,7 +27,7 @@ export default function SEOMetaTags({
   twitterCard = 'summary_large_image',
   canonicalUrl,
   keywords,
-  author = 'Global Travel Report Editorial Team',
+  author,
   publishedTime,
   modifiedTime,
 }: SEOMetaTagsProps) {
@@ -59,7 +59,7 @@ export default function SEOMetaTags({
       {/* Article-specific Open Graph Tags */}
       {ogType === 'article' && (
         <>
-          <meta property="article:author" content={author} />
+          {author && <meta property="article:author" content={author} />}
           <meta property="article:publisher" content={siteUrl} />
           {publishedTime && (
             <meta property="article:published_time" content={publishedTime} />
@@ -81,7 +81,7 @@ export default function SEOMetaTags({
       <meta name="twitter:image" content={imageUrl} />
       
       {/* Additional Meta Tags */}
-      <meta name="author" content={author} />
+      {author && <meta name="author" content={author} />}
       <meta name="robots" content="index, follow" />
       <meta name="googlebot" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

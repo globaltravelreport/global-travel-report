@@ -198,6 +198,8 @@ export class NewStoryProcessorService {
                 }
               });
 
+              const publishedAt = frontmatter['publishedAt'] || frontmatter['date'] || frontmatter['originalPublishedAt'] || '';
+
               // Create a story object
               const story: Story = {
                 id: frontmatter['slug'] || file.replace('.md', ''),
@@ -205,14 +207,15 @@ export class NewStoryProcessorService {
                 slug: frontmatter['slug'] || file.replace('.md', ''),
                 excerpt: frontmatter['excerpt'] || '',
                 content: contentStr.trim(),
-                author: frontmatter['author'] || 'Global Travel Report Editorial Team',
+                author: frontmatter['author'] || '',
                 category: frontmatter['category'] || 'Travel',
                 country: frontmatter['country'] || 'Global',
                 tags: frontmatter['keywords'] ? frontmatter['keywords'].split(',').map(k => k.trim()) : [],
                 featured: false,
                 editorsPick: false,
-                // Preserve the exact original date string
-                publishedAt: frontmatter['date'] || new Date().toISOString(),
+                // Preserve the source/frontmatter date instead of restamping older stories.
+                publishedAt,
+                date: publishedAt,
                 imageUrl: frontmatter['imageUrl'] || '',
                 photographer: {
                   name: frontmatter['photographer.name'] || 'Unsplash',

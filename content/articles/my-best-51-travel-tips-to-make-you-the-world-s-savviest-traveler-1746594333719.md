@@ -15,7 +15,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 <p><img decoding="async" src="https://media.nomadicmatt.com/2024/mattvienna3.jpg" width="675" height="395" alt="Nomadic Matt sitting on a bridge in Vienna, Austria" /></p>

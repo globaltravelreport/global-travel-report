@@ -15,7 +15,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 <p><img decoding="async" src="https://media.nomadicmatt.com/2024/pompeiimain.jpeg" width="675" height="395" alt="Cobblestone street in Pompeii lined with the ancient ruins of buildings on a bright and sunny day in Italy"/></p>

@@ -17,7 +17,6 @@ keywords:
   - hotel booking
   - flight booking
   - award deals
-author: Global Travel Report Editorial Team
 ---
 Have you ever stumbled on something that changes your travel game? You know, one of those things that makes you wonder how you managed without it before? Well mate, I found mine—it's called Daily Drop Pro.
 

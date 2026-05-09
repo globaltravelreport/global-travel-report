@@ -17,7 +17,6 @@ keywords:
   - travel newsletter
   - flight deals
   - hotel deals
-author: Global Travel Report Editorial Team
 ---
 How about we chat about my latest find in the world of travel newsletters? Meet Daily Drop, the brainchild of my mates Kara and Nate. You might know them from their smashing YouTube channel. This free newsletter is a goldmine for those smitten with points, miles, and all things travel. But there's more: they've whipped up something called Daily Drop Pro that promises to throw even more deals your way. 
 

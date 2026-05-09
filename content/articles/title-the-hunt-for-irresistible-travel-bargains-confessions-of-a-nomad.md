@@ -19,7 +19,6 @@ keywords:
   - hostel booking
   - hotel booking
   - travel insurance
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Now, let me be the first to admit that scoring great travel deals is like nailing a game of darts blindfolded - it's all about timing, mate! You've probably heard folks bleat on about how pricey travelling can be. But honestly? There are some ripper deals popping up left, right and centre. Of course, they tend to vanish quicker than a meat pie at an AFL Grand Final party, so you need to pounce without dithering!

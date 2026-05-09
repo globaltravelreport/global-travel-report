@@ -16,7 +16,6 @@ keywords:
   - saving tips
   - phantom expenses
   - tracking spending
-author: Global Travel Report Editorial Team
 ---
 Ever found yourself staring wistfully at a piggy bank, wishing it'd magically fill up with enough coins to fund your next adventure? Me too, mate. But reality bites and we've gotta save up the old-fashioned way. Step one – grab a piece of paper, or if you're like me and always misplacing things, open your Notes app. Jot down those unavoidable expenses - rent, car payments, phone bills...all that fun stuff. Then add on the discretionary spending- late night kebabs after a few beers at the pub, overly-priced morning coffees...you get the gist.
 

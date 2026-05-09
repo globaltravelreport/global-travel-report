@@ -18,7 +18,6 @@ keywords:
   - personal growth
   - embracing change
   - Prague
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 G'day there, fellow wanderers! Picture this: It’s 2006. My backpack's stuffed to bursting, my passport’s virgin pages impatient for their first stamp, and my head? Oh boy, it's chock-full of wild imaginings about how my life on the road is going to look like. I'm not just talking about tall tales spun out by movies or glossy travel mags – no siree! I envisioned me - a regular bloke from down under, morphing into some kind of international Casanova. 

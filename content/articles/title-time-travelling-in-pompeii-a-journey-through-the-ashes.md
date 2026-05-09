@@ -19,7 +19,6 @@ keywords:
   - Mount Vesuvius
   - ancient Rome
   - archeology
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 As a kid, I was utterly besotted with history. The more ancient it was, the better. Give me crumbling ruins and tales of emperors long past any day. I always dreamed of being an archeologist – rifling through fragments of pottery, unearthing secrets from layers of dust. Greece, Rome - you name it, my younger self was obsessed with it all.

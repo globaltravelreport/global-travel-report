@@ -17,7 +17,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 </p>

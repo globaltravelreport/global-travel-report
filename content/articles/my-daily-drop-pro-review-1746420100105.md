@@ -14,7 +14,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 ---
 <p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt sitting on a bridge in Vienna, Austria" /><br />
 I’m a big fan of <a href="https://www.dailydrop.com/">Daily Drop</a>. It’s a points, miles, travel, and credit card newsletter created by my friends, Kara and Nate (they run a big YouTube channel of the same name). Daily Drop keeps you informed about the latest news and information around points &amp; miles, as well as updates across the airline and hotel industries. </p>

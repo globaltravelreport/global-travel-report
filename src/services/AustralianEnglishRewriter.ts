@@ -105,13 +105,13 @@ export class AustralianEnglishRewriter implements IStoryRewriter {
       slug: this.generateSlug(title),
       excerpt,
       content: optimizedContent,
-      author: 'Global Travel Report Editorial Team',
+      author: '',
       category,
       country: 'Global',
       tags: preserveTags ? this.extractTags(content) : [],
       featured: false,
       editorsPick: false,
-      publishedAt: new Date().toISOString(),
+      publishedAt: '2025-04-24T09:00:00.000Z',
       imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600',
     };
 

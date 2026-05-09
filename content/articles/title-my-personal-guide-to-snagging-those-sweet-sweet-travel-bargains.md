@@ -17,7 +17,6 @@ keywords:
   - booking.com
   - hostelworld
   - skyscanner
-author: Global Travel Report Editorial Team
 ---
 Alright folks, gather round. Let's talk travel deals. You know the ones - those elusive, blink-and-you-miss-it kind of savings that make you feel like a secret agent in a Hollywood flick when you nab 'em. I mean, who doesn't want to be that lucky duck who bagged an unbeatable deal on their dream vacation?
 

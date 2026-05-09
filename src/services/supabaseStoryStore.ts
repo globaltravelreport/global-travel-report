@@ -140,7 +140,7 @@ export class SupabaseStoryStore {
       updatedAt: row.updated_at || undefined,
       originalPublishedAt: row.original_published_at || undefined,
       firstSeenAt: row.first_seen_at || undefined,
-      author: row.author || 'Global Travel Report Editorial Team',
+      author: row.author || '',
       category: row.category || 'Travel News',
       country: row.country || 'Global',
       tags: toArray(row.tags),
@@ -167,7 +167,7 @@ export class SupabaseStoryStore {
   }
 
   private static toStoryRow(story: Story, status: 'published' | 'archived' = 'published'): SupabaseStoryRow {
-    const publishedAt = cleanDate(story.publishedAt) || new Date().toISOString();
+    const publishedAt = cleanDate(story.publishedAt) || cleanDate(story.originalPublishedAt) || '2025-04-24T09:00:00.000Z';
 
     return {
       id: story.id,
@@ -179,7 +179,7 @@ export class SupabaseStoryStore {
       updated_at: cleanDate(story.updatedAt),
       original_published_at: cleanDate(story.originalPublishedAt),
       first_seen_at: cleanDate(story.firstSeenAt),
-      author: story.author || 'Global Travel Report Editorial Team',
+      author: story.author || '',
       category: story.category || 'Travel News',
       country: story.country || 'Global',
       tags: toArray(story.tags || story.keywords),

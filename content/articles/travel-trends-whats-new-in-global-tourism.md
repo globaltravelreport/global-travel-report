@@ -16,7 +16,6 @@ keywords:
   - travel
   - tourism
   - trends
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 The travel industry continues to evolve with changing consumer preferences and technological advancements. Recent trends show increased interest in sustainable tourism, authentic local experiences, and wellness-focused vacations. Experts predict that these trends will continue to shape the industry in the coming years, with travelers increasingly seeking meaningful connections and responsible travel options.

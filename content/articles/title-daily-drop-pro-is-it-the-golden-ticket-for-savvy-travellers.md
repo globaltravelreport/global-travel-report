@@ -18,7 +18,6 @@ keywords:
   - flight points
   - hotel points
   - deal alerts
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Alright, fellow travellers, let's dive into a fabulous newsletter I've been following: Daily Drop. Imagine having your mates Kara and Nate (yeah, those legends from that YouTube channel you've likely stumbled upon) delivering nuggets of wisdom about points, miles, travel and credit cards right into your inbox. Sounds neat? Well, it is! They’ll get you up to speed on all the happenings in the airline and hotel world.

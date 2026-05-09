@@ -15,7 +15,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 <p><img decoding="async" src="https://media.nomadicmatt.com/2024/mattbarcelonabackpack.jpg" alt="Nomadic Matt with a backpack slung over his shoulder, walking through the narrow streets of the Gothic Quarter in Barcelona, Spain" width="675" height="395"/></p>

@@ -19,7 +19,6 @@ keywords:
   - Packing advice
   - Nomadic lifestyle
   - Backpacking essentials
-author: Global Travel Report Editorial Team
 ---
 Picture this – there I was, perched on a bridge in Vienna, Austria. The sun was setting and the world felt right. Now, mind you, I wasn't born with a backpack strapped to my shoulders - becoming travel-savvy took time. Think missed buses in Paris, clumsy language mix-ups in Tokyo, and that one time I slept through an entire train ride... only to end up back where I started! But it's these little mishaps that make you grow.
 

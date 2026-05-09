@@ -87,7 +87,6 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       type: "article",
       publishedTime: getSafeDateString(story.publishedAt, false, true),
       modifiedTime: getSafeDateString(story.updatedAt || story.publishedAt, false, true),
-      authors: ["Global Travel Report Editorial Team"],
       url: storyUrl,
       siteName: 'Global Travel Report',
       images: facebookMeta.image ? [
@@ -128,7 +127,6 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
       'og:image:height': '630',
       'article:published_time': getSafeDateString(story.publishedAt, false, true),
       'article:publisher': siteUrl,
-      'article:author': 'Global Travel Report Editorial Team',
       'article:section': story.category || 'General',
       'article:tag': story.tags.join(','),
       ...(story.country && story.country !== 'Global' ? {
@@ -244,8 +242,6 @@ export default async function StoryPage({ params }: { params: StoryParams }) {
                     </div>
                   )}
                 </div>
-                <span className="mx-2">•</span>
-                <span>By Global Travel Report Editorial Team</span>
               </div>
 
             </div>

@@ -18,7 +18,6 @@ keywords:
   - Travel deals
   - Hotel Points Search
   - Flight Points Search
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Look, I'm not one to normally gush about newsletters, but then came along Daily Drop. Crafted by my mates Kara and Nate (who also run their highly popular YouTube channel), this gem keeps you in the loop on the latest happenings in air travel, hotel updates and all things points & miles. And if that's not enough, there’s a special subscription service called Daily Drop Pro that promises an extra dose of deals, alerts and tools.

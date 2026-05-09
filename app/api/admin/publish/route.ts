@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       title,
       excerpt: excerpt || content.substring(0, 200) + '...',
       content,
-      author: 'Global Travel Report',
+      author: '',
       publishedAt: new Date().toISOString(),
       tags: Array.isArray(tags) ? tags : (tags ? [tags] : ['travel']),
       category,

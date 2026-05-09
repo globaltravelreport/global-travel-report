@@ -625,7 +625,7 @@ export class StoryDatabase {
      excerpt: submission.content.substring(0, 200) + (submission.content.length > 200 ? '...' : ''),
      content: submission.content,
      publishedAt: new Date().toISOString(),
-     author: submission.name,
+     author: '',
      category: submission.category,
      country: submission.country,
      tags: submission.tags,

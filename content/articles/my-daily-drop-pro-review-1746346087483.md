@@ -10,7 +10,6 @@ photographer:
   name: Test Mode
   url: https://unsplash.com
 keywords: International, Worldwide, Global destinations, World travel, Destinations, Places to visit, Travel guide, Vacation spots, Best places, Hidden gems, Travel tips, Must visit, Budget travel, Luxury travel, Adventure travel
-author: Global Travel Report Editorial Team
 summary: <p><img fetchpriority="high" decoding="async" src="https://media.nomadicmatt.com/2025/dailydrop1.jpg" width="675" height="395" alt="Nomadic Matt sitti...
 imageAlt: My Daily Drop Pro Review - Travel Guide | Photo by Test Mode
 ---

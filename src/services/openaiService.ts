@@ -181,7 +181,7 @@ ${preserveKeyInfo ? 'Preserve all key information, facts, and details from the o
 ${enhanceWithFacts ? 'Enhance the article with additional relevant facts where appropriate.' : ''}
 Use Australian English spelling and conventions.
 Write in a journalistic style appropriate for a reputable travel publication.
-Attribute the article to "Global Travel Report Editorial Team" rather than any individual author.
+Do not add a byline or invented author.
 Focus on providing valuable, accurate information to readers.
 Maintain the same general structure and flow as the original article.
 Ensure the rewritten content is engaging, informative, and free of errors.`
@@ -247,10 +247,10 @@ Please provide the rewritten article with the same title but improved content.`
     const originalContent = story.content || '';
 
     // Add a mock introduction
-    const introduction = `Exploring the wonders of ${story.country || 'the world'} is an adventure that captivates travelers from all walks of life. The Global Travel Report Editorial Team brings you this comprehensive guide to one of the most fascinating destinations in the ${story.category || 'travel'} category.\n\n`;
+    const introduction = `Exploring the wonders of ${story.country || 'the world'} is an adventure that captivates travellers from all walks of life. This guide covers one of the most fascinating destinations in the ${story.category || 'travel'} category.\n\n`;
 
     // Add a mock conclusion
-    const conclusion = `\n\nWhether you're a seasoned traveler or planning your first journey, ${story.country || 'this destination'} offers unforgettable experiences that will leave you with memories to cherish for a lifetime. The Global Travel Report Editorial Team recommends planning your visit during the shoulder season for the best combination of good weather and smaller crowds.`;
+    const conclusion = `\n\nWhether you're a seasoned traveller or planning your first journey, ${story.country || 'this destination'} offers memorable experiences worth planning carefully. Consider visiting during the shoulder season for a better mix of good weather, value, and smaller crowds.`;
 
     // Combine to create mock rewritten content
     const rewrittenContent = introduction + originalContent + conclusion;

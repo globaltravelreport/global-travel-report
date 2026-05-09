@@ -16,7 +16,6 @@ photographer:
   url: 'https://unsplash.com'
 keywords:
   - travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 <p><img decoding="async" src="https://media.nomadicmatt.com/traveltime3.jpg" alt="Nomadic Matt on a cruise" /></p>

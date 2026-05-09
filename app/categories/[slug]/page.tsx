@@ -363,7 +363,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         {story.excerpt}
                       </p>
                       <div className="flex items-center justify-between text-sm text-gray-500">
-                        <span>By {story.author}</span>
                         {story.publishedAt && (
                           <time dateTime={new Date(story.publishedAt).toISOString()}>
                             {new Date(story.publishedAt).toLocaleDateString('en-US', {
@@ -439,7 +438,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     <div className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">{story.title}</h4>
                       <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>By {story.author}</span>
                         <time dateTime={new Date(story.publishedAt).toISOString()}>
                           {new Date(story.publishedAt).toLocaleDateString('en-US', {
                             month: 'short',

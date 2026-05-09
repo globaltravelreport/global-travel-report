@@ -18,7 +18,6 @@ keywords:
   - hotel booking
   - travel insurance
   - budget travel
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Alright, mate! Let me paint you a picture. There I am, backpack slung over my shoulder, traipsing through the labyrinthine alleys of Barcelona's Gothic Quarter. How do I afford to explore these incredible places without selling a kidney? Simple answer - timing and knowing where to look.

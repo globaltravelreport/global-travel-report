@@ -264,11 +264,11 @@ function hash(value = '') {
 
 function parseDate(value) {
   if (!value) {
-    return new Date().toISOString();
+    return null;
   }
 
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
 function inferCategory(text) {
@@ -403,7 +403,7 @@ async function fetchRssCandidates(feedUrls) {
         return b.rssWordCount - a.rssWordCount;
       }
 
-      return new Date(b.originalPublishedAt).getTime() - new Date(a.originalPublishedAt).getTime();
+      return (new Date(b.originalPublishedAt || 0).getTime()) - (new Date(a.originalPublishedAt || 0).getTime());
     });
 
   return { candidates: unique, failures };
@@ -438,7 +438,7 @@ Return this JSON shape:
 
 Source title: ${source.title}
 Source URL: ${source.sourceUrl}
-Source published date: ${source.originalPublishedAt}
+Source published date: ${source.originalPublishedAt || 'unknown'}
 Source category hint: ${source.category}
 Source text:
 ${truncate(source.content, 4200)}`;
@@ -587,6 +587,7 @@ async function isDuplicate(source) {
 
 function buildStory(source, rewrite, image) {
   const now = new Date().toISOString();
+  const publishedAt = source.originalPublishedAt || now;
   const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
 
@@ -596,10 +597,11 @@ function buildStory(source, rewrite, image) {
     title: rewrite.title,
     excerpt: rewrite.excerpt,
     content: rewrite.content,
-    author: 'Global Travel Report Editorial Team',
-    publishedAt: now,
+    author: '',
+    publishedAt,
     updatedAt: now,
-    originalPublishedAt: source.originalPublishedAt,
+    date: publishedAt,
+    originalPublishedAt: publishedAt,
     firstSeenAt: now,
     source: source.sourceName || source.sourceFeedUrl,
     sourceUrl: source.sourceUrl,

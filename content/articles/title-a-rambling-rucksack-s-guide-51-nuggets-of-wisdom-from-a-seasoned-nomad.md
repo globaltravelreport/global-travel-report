@@ -18,7 +18,6 @@ keywords:
   - experienced nomad
   - travel mistakes
   - backpack size
-author: Global Travel Report Editorial Team
 ---
 G'day, fellow travellers. Have you ever found yourself stuck in the airport, missing a crucial bus or just feeling like a fish out of water in an unfamiliar culture? Ain't too fun, is it? I know because I've been there too. Now, don’t get me wrong – we’re not born wise wanderers with nifty backpacks and practical shoes, are we? These skills come only with hitting the road and learning from our stuff-ups along the way.
 

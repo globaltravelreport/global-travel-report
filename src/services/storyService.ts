@@ -105,7 +105,7 @@ export function loadStoryFromFile(filePath: string): Story | null {
     }
 
     // Handle dates properly
-    let publishedAt = data.publishedAt || data.date || new Date().toISOString();
+    let publishedAt = data.publishedAt || data.date || data.originalPublishedAt || '2025-04-24T09:00:00.000Z';
     if (typeof publishedAt === 'object' && publishedAt instanceof Date) {
       publishedAt = publishedAt.toISOString();
     }
@@ -119,7 +119,7 @@ export function loadStoryFromFile(filePath: string): Story | null {
       content,
       publishedAt,
       updatedAt: data.updatedAt || publishedAt,
-      author: data.author || 'Global Travel Report Editorial Team',
+      author: data.author || '',
       category: data.category || 'Travel',
       country: data.country || 'Global',
       tags: data.tags || [],

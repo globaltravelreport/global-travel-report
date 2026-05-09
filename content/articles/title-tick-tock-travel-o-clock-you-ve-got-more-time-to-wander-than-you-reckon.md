@@ -18,7 +18,6 @@ keywords:
   - local exploration
   - work-life balance
   - Australian perspective
-author: Global Travel Report Editorial Team
 ---
 Crikey! The clock's always ticking, isn't it? Feels like a darned kangaroo in your pouch – always hopping ahead. It's the one thing everyone seems to be running out of. I often hear folks say they're so starved for minutes and hours that they can't even think about hitting the road. And sure, cash can be tight too, but let me tell you – time's a tricky bugger.
 

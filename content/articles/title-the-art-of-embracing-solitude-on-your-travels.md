@@ -17,7 +17,6 @@ keywords:
   - Travel Experiences
   - Personal Growth
   - Adventure
-author: Global Travel Report Editorial Team
 ---
 There's a funny thing about travel - we all seem to have these grand images in our heads, painted by fanciful stories and glamorous movies, don't we? I remember back in 2006 before my first big trip. I was convinced it'd be non-stop excitement. I'd be chatting up with strangers on buses and swapping stories with charismatic locals over drinks, maybe even getting some French lessons from a beautiful waitress under the soft glow of a wine bar. It was supposed to be an adventure ripped straight from the pages of those glossy travel magazines or films.
 

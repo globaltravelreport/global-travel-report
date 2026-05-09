@@ -19,7 +19,6 @@ keywords:
   - adventure
   - fear
   - making friends
-author: Global Travel Report Editorial Team
 postedToSocialMedia: false
 ---
 Look, we've all been there. You know, that first time when you set off on a wanderlust adventure, heart full of naïve dreams inspired by glossy travel books and Hollywood films. I mean, come on! Didn’t we all imagine ourselves striking up instant friendships with locals over a pint? Or bumping into attractive waitstaff and ending up in smoky wine bars learning a new language?
