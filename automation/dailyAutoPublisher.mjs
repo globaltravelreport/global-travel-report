@@ -497,6 +497,7 @@ async function runDailyAutomation() {
     feedsChecked: feedUrls.length,
     feedFailures: [],
     candidatesFound: 0,
+    eligibleCandidatesFound: 0,
     processed: [],
     summary: {
       drafts: 0,
@@ -514,7 +515,10 @@ async function runDailyAutomation() {
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
-  const selected = candidates.slice(0, MAX_STORIES_PER_DAY);
+  const eligibleCandidates = candidates.filter((source) => wordCount(source.content) >= MIN_SOURCE_WORDS);
+  result.eligibleCandidatesFound = eligibleCandidates.length;
+
+  const selected = eligibleCandidates.slice(0, MAX_STORIES_PER_DAY);
 
   for (const source of selected) {
     try {
