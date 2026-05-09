@@ -61,6 +61,39 @@ const CATEGORY_KEYWORDS = {
   Deals: ['deal', 'sale', 'discount', 'offer', 'fare']
 };
 
+const FALLBACK_UNSPLASH_IMAGES = [
+  {
+    category: 'Cruise',
+    imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
+    imageAlt: 'Cruise ship at sea',
+    photographer: { name: 'Alonso Reyes', username: 'alonsoreyes', url: 'https://unsplash.com/@alonsoreyes', profileUrl: 'https://unsplash.com/@alonsoreyes' }
+  },
+  {
+    category: 'Air Travel',
+    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400',
+    imageAlt: 'Aircraft wing above the clouds',
+    photographer: { name: 'Ross Parmly', username: 'rparmly', url: 'https://unsplash.com/@rparmly', profileUrl: 'https://unsplash.com/@rparmly' }
+  },
+  {
+    category: 'Accommodation',
+    imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=2400',
+    imageAlt: 'Hotel resort pool',
+    photographer: { name: 'Emile Guillemot', username: 'emilegt', url: 'https://unsplash.com/@emilegt', profileUrl: 'https://unsplash.com/@emilegt' }
+  },
+  {
+    category: 'Destinations',
+    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&q=80&w=2400',
+    imageAlt: 'Ocean beach destination',
+    photographer: { name: 'Jared Rice', username: 'jareddrice', url: 'https://unsplash.com/@jareddrice', profileUrl: 'https://unsplash.com/@jareddrice' }
+  },
+  {
+    category: 'Travel News',
+    imageUrl: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400',
+    imageAlt: 'Traveller looking at an airport departure board',
+    photographer: { name: 'Jakob Owens', username: 'jakobowens1', url: 'https://unsplash.com/@jakobowens1', profileUrl: 'https://unsplash.com/@jakobowens1' }
+  }
+];
+
 function getFeedUrls() {
   const configured = process.env.RSS_FEED_URLS;
   if (!configured) {
@@ -481,7 +514,25 @@ async function triggerUnsplashDownload(downloadLocation) {
   }
 }
 
-async function findImage(query) {
+function fallbackImage(query, context = {}) {
+  const text = `${context.category || ''} ${context.title || ''} ${query || ''}`.toLowerCase();
+  const preferred = FALLBACK_UNSPLASH_IMAGES.find((image) => text.includes(image.category.toLowerCase())) ||
+    FALLBACK_UNSPLASH_IMAGES.find((image) => text.includes('cruise') && image.category === 'Cruise') ||
+    FALLBACK_UNSPLASH_IMAGES.find((image) => text.includes('airline') && image.category === 'Air Travel') ||
+    FALLBACK_UNSPLASH_IMAGES.find((image) => text.includes('hotel') && image.category === 'Accommodation') ||
+    FALLBACK_UNSPLASH_IMAGES.find((image) => text.includes('destination') && image.category === 'Destinations') ||
+    FALLBACK_UNSPLASH_IMAGES[Math.abs(hash(text).split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)) % FALLBACK_UNSPLASH_IMAGES.length];
+
+  return {
+    imageUrl: preferred.imageUrl,
+    imageAlt: preferred.imageAlt,
+    photographer: preferred.photographer,
+    imageCredit: `Photo by ${preferred.photographer.name} on Unsplash`,
+    imageCreditUrl: preferred.photographer.profileUrl
+  };
+}
+
+async function findImage(query, context = {}) {
   try {
     const images = await unsplashService.searchImages(query, {
       orientation: 'landscape',
@@ -490,7 +541,7 @@ async function findImage(query) {
 
     const image = images[0];
     if (!image) {
-      return null;
+      return fallbackImage(query, context);
     }
 
     await triggerUnsplashDownload(image.downloadLocation);
@@ -509,7 +560,7 @@ async function findImage(query) {
     };
   } catch (error) {
     console.warn('Unsplash image lookup failed:', error instanceof Error ? error.message : String(error));
-    return null;
+    return fallbackImage(query, context);
   }
 }
 
@@ -593,7 +644,7 @@ async function processCandidate(source) {
     };
   }
 
-  const image = await findImage(rewrite.imageQuery);
+  const image = await findImage(rewrite.imageQuery, rewrite);
   const story = buildStory(enrichedSource, rewrite, image);
 
   if (AUTO_PUBLISH_STORIES) {
