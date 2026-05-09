@@ -4,6 +4,16 @@ import { runDailyAutomation } from '@/automation/dailyAutoPublisher.mjs';
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
 
+const PIPELINE_VERSION = '2026-05-09-request-budget-v2';
+
+function healthResponse() {
+  return NextResponse.json({
+    ok: true,
+    pipelineVersion: PIPELINE_VERSION,
+    timestamp: new Date().toISOString()
+  });
+}
+
 /**
  * Daily Auto Publisher Webhook API
  * POST /api/cron/dailyAutoPublisher
@@ -18,6 +28,10 @@ export const dynamic = 'force-dynamic';
  */
 export async function POST(request: NextRequest) {
   try {
+    if (request.nextUrl.searchParams.get('health') === '1') {
+      return healthResponse();
+    }
+
     // Verify webhook secret for security
     const authHeader = request.headers.get('authorization');
     const webhookSecret = process.env.WEBHOOK_SECRET_KEY;
@@ -74,6 +88,10 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
+    if (request.nextUrl.searchParams.get('health') === '1') {
+      return healthResponse();
+    }
+
     // Verify cron secret for security
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET_KEY;
