@@ -134,11 +134,13 @@ export function GET() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#14b8a6',
-                fontSize: 58,
               }}
             >
-              △
+              <svg width="104" height="62" viewBox="0 0 104 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 46L41 14L63 36L76 22L94 46H13Z" fill="#14b8a6" />
+                <circle cx="80" cy="16" r="10" fill="#f97316" />
+                <rect x="16" y="52" width="76" height="7" rx="3.5" fill="#ffffff" opacity="0.78" />
+              </svg>
             </div>
             <div
               style={{
