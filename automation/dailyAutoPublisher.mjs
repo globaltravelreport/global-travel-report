@@ -18,9 +18,9 @@ import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10);
+const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10), 1);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
-const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10);
+const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 4);
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
