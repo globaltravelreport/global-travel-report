@@ -20,7 +20,8 @@ dotenv.config({ path: '.env.local' });
 
 const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
-const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '18', 10);
+const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10);
+const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
 const parser = new Parser({
@@ -173,7 +174,7 @@ async function fetchArticleText(url) {
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), ARTICLE_FETCH_TIMEOUT_MS);
 
   try {
     const response = await fetch(url, {
@@ -324,7 +325,8 @@ function normaliseFeedItem(item, feedUrl) {
     guid: item.guid || link,
     originalPublishedAt: parseDate(item.isoDate || item.pubDate || item.published),
     category: inferCategory(`${title} ${content}`),
-    country: inferCountry(`${title} ${content}`)
+    country: inferCountry(`${title} ${content}`),
+    rssWordCount: wordCount(content)
   };
 }
 
@@ -356,7 +358,20 @@ async function fetchRssCandidates(feedUrls) {
       seen.add(key);
       return true;
     })
-    .sort((a, b) => new Date(b.originalPublishedAt).getTime() - new Date(a.originalPublishedAt).getTime());
+    .sort((a, b) => {
+      const aHasEnoughText = a.rssWordCount >= MIN_SOURCE_WORDS ? 1 : 0;
+      const bHasEnoughText = b.rssWordCount >= MIN_SOURCE_WORDS ? 1 : 0;
+
+      if (aHasEnoughText !== bHasEnoughText) {
+        return bHasEnoughText - aHasEnoughText;
+      }
+
+      if (a.rssWordCount !== b.rssWordCount) {
+        return b.rssWordCount - a.rssWordCount;
+      }
+
+      return new Date(b.originalPublishedAt).getTime() - new Date(a.originalPublishedAt).getTime();
+    });
 
   return { candidates: unique, failures };
 }
