@@ -380,6 +380,8 @@ export class SupabaseStoryStore {
   }
 
   public static async claimStoryGenerationJob(workerId: string): Promise<StoryGenerationJob | null> {
+    await this.resetStaleStoryGenerationJobs();
+
     const queued = await this.request<StoryGenerationJob[]>('story_generation_jobs', {
       query: {
         select: '*',
@@ -413,6 +415,24 @@ export class SupabaseStoryStore {
     });
 
     return rows[0] || null;
+  }
+
+  public static async resetStaleStoryGenerationJobs(maxAgeMinutes = 15): Promise<void> {
+    const staleBefore = new Date(Date.now() - maxAgeMinutes * 60 * 1000).toISOString();
+
+    await this.request('story_generation_jobs', {
+      method: 'PATCH',
+      body: {
+        status: 'retry',
+        locked_by: null,
+        locked_at: null,
+        last_error: `Worker timed out or stopped before completion; retrying after ${maxAgeMinutes} minutes`
+      },
+      query: {
+        status: 'eq.running',
+        locked_at: `lt.${staleBefore}`
+      }
+    });
   }
 
   public static async completeStoryGenerationJob(jobId: string, result: unknown): Promise<void> {
