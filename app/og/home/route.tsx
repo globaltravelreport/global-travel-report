@@ -19,98 +19,104 @@ export function GET() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #06283d 0%, #0f766e 48%, #f97316 100%)',
+          background: '#07111f',
           fontFamily: 'Arial, Helvetica, sans-serif',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
         <div
           style={{
             position: 'absolute',
-            right: 125,
-            top: 45,
-            width: 175,
-            height: 175,
+            inset: 0,
+            background: 'linear-gradient(135deg, rgba(14, 116, 144, 0.95) 0%, rgba(7, 17, 31, 0.88) 42%, rgba(249, 115, 22, 0.76) 100%)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            right: -70,
+            top: 30,
+            width: 430,
+            height: 430,
             borderRadius: 999,
-            background: '#ffd166',
+            background: 'rgba(255, 209, 102, 0.88)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            width: '100%',
+            height: 170,
+            background: 'linear-gradient(90deg, #0f766e 0%, #0284c7 38%, #f97316 100%)',
             opacity: 0.9,
           }}
         />
         <div
           style={{
-            width: 1020,
-            height: 466,
-            borderRadius: 34,
-            background: 'rgba(255, 255, 255, 0.96)',
-            boxShadow: '0 22px 44px rgba(3, 19, 31, 0.32)',
+            width: 1030,
+            height: 470,
             display: 'flex',
             position: 'relative',
-            overflow: 'hidden',
           }}
         >
           <div
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: 12,
-              background: '#f97316',
-            }}
-          />
-          <div
-            style={{
-              width: 720,
-              padding: '54px 0 0 54px',
+              width: 670,
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'center',
             }}
           >
             <div
               style={{
-                color: '#0f172a',
-                fontSize: 34,
+                color: '#fbbf24',
+                fontSize: 28,
                 fontWeight: 800,
-                letterSpacing: 3,
+                letterSpacing: 4,
+                textTransform: 'uppercase',
               }}
             >
-              INDEPENDENT TRAVEL NEWS
+              Independent Travel News
             </div>
             <div
               style={{
-                color: '#08111f',
-                fontSize: 66,
+                color: '#ffffff',
+                fontSize: 78,
                 fontWeight: 900,
-                marginTop: 56,
-                lineHeight: 1,
+                marginTop: 34,
+                lineHeight: 0.96,
+                letterSpacing: -2,
               }}
             >
               Global Travel Report
             </div>
             <div
               style={{
-                color: '#334155',
-                fontSize: 32,
-                lineHeight: 1.28,
+                color: '#e2e8f0',
+                fontSize: 33,
+                lineHeight: 1.22,
                 marginTop: 24,
-                maxWidth: 650,
+                maxWidth: 620,
               }}
             >
-              Travel news, cruise updates and airline stories for Australian travellers
+              Cruises, airlines, hotels, destinations and travel deals in one newsroom.
             </div>
             <div
               style={{
-                marginTop: 42,
+                marginTop: 38,
                 height: 52,
                 padding: '0 28px',
                 borderRadius: 999,
-                background: '#0f766e',
-                color: '#ffffff',
+                background: '#ffffff',
+                color: '#0f172a',
                 fontSize: 26,
                 fontWeight: 800,
                 display: 'flex',
                 alignItems: 'center',
-                width: 348,
+                width: 350,
               }}
             >
               globaltravelreport.com
@@ -119,46 +125,32 @@ export function GET() {
           <div
             style={{
               flex: 1,
-              paddingTop: 92,
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
+              justifyContent: 'center',
+              gap: 18,
             }}
           >
-            <div
-              style={{
-                width: 142,
-                height: 96,
-                borderRadius: 20,
-                background: '#0f172a',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ffffff',
-                fontSize: 36,
-                fontWeight: 900,
-                letterSpacing: 2,
-              }}
-            >
-              GTR
-            </div>
-            <div
-              style={{
-                marginTop: 36,
-                color: '#0f172a',
-                opacity: 0.78,
-                fontSize: 25,
-                fontWeight: 800,
-                lineHeight: 1.65,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <span>Cruises</span>
-              <span>Airlines</span>
-              <span>Destinations</span>
-              <span>Travel Advice</span>
-            </div>
+            {['Cruise', 'Airlines', 'Hotels', 'Destinations'].map((label) => (
+              <div
+                key={label}
+                style={{
+                  width: 285,
+                  height: 66,
+                  borderRadius: 18,
+                  background: 'rgba(255, 255, 255, 0.94)',
+                  color: '#0f172a',
+                  fontSize: 28,
+                  fontWeight: 900,
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingLeft: 28,
+                  boxShadow: '0 14px 30px rgba(2, 6, 23, 0.26)',
+                }}
+              >
+                {label}
+              </div>
+            ))}
           </div>
         </div>
       </div>

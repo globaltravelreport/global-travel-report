@@ -6,14 +6,16 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Global Travel Report',
-  description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+  title: {
+    absolute: 'Global Travel Report',
+  },
+  description: 'Cruise updates, airline news, hotel stories, destination guides and practical travel advice for Australian travellers.',
   alternates: {
     canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
   },
   openGraph: {
     title: 'Global Travel Report',
-    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+    description: 'Cruises, airlines, hotels, destinations and travel deals in one independent travel newsroom.',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     images: [
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Global Travel Report',
-    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+    description: 'Cruises, airlines, hotels, destinations and travel deals in one independent travel newsroom.',
     images: ['/og/facebook-home-20260509'],
   },
   // LinkedIn uses Open Graph tags but we can add LinkedIn-specific optimization

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ContentAutomationService } from '@/src/services/contentAutomationService';
+import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 // Force dynamic rendering for this route since it uses request headers
 export const dynamic = 'force-dynamic';
@@ -14,10 +15,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     // Verify cron secret for security
-    const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET || process.env.CRON_SECRET_KEY;
-
-    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    if (!isCronRequestAuthorized(request)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

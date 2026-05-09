@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runDailyAutomation } from '@/automation/dailyAutoPublisher.mjs';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 export const dynamic = 'force-dynamic';
 
 const WORKER_VERSION = '2026-05-09-supabase-story-queue-v1';
 
 function isAuthorized(request: NextRequest): boolean {
-  const authHeader = request.headers.get('authorization');
-  const secret = process.env.CRON_SECRET || process.env.CRON_SECRET_KEY;
-
-  return !secret || authHeader === `Bearer ${secret}`;
+  return isCronRequestAuthorized(request);
 }
 
 export async function GET(request: NextRequest) {

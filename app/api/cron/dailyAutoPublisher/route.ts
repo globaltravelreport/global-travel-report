@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
@@ -54,10 +55,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify webhook secret for security
-    const authHeader = request.headers.get('authorization');
     const webhookSecret = process.env.WEBHOOK_SECRET_KEY;
 
-    if (webhookSecret && authHeader !== `Bearer ${webhookSecret}`) {
+    if (webhookSecret && !isCronRequestAuthorized(request, webhookSecret)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -100,10 +100,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify cron secret for security
-    const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET || process.env.CRON_SECRET_KEY;
-
-    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    if (!isCronRequestAuthorized(request)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

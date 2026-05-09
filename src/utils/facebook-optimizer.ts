@@ -27,7 +27,7 @@ export function generateFacebookImage({
 }: FacebookImageOptions): string {
   // If no image provided, use clean branded image
   if (!originalImageUrl) {
-    return `${siteUrl}/og/home-1200x630.jpg`;
+    return `${siteUrl}/og/facebook-home-20260509`;
   }
 
   // Handle external URLs (Unsplash, etc.)
@@ -37,7 +37,7 @@ export function generateFacebookImage({
 
     // If it's still WebP after conversion attempt, use fallback
     if (optimizedUrl.endsWith('.webp') || optimizedUrl.includes('webp')) {
-      return fallbackToCleanImage ? `${siteUrl}/og/home-1200x630.jpg` : optimizedUrl;
+      return fallbackToCleanImage ? `${siteUrl}/og/facebook-home-20260509` : optimizedUrl;
     }
 
     return optimizedUrl;
@@ -49,7 +49,7 @@ export function generateFacebookImage({
 
   // If conversion didn't work or still WebP, use fallback
   if (optimizedUrl.endsWith('.webp') || optimizedUrl.includes('webp')) {
-    return fallbackToCleanImage ? `${siteUrl}/og/home-1200x630.jpg` : optimizedUrl;
+    return fallbackToCleanImage ? `${siteUrl}/og/facebook-home-20260509` : optimizedUrl;
   }
 
   return optimizedUrl;

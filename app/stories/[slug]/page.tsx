@@ -73,7 +73,9 @@ export async function generateMetadata({ params }: { params: StoryParams }): Pro
   const _baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
 
   return {
-    title,
+    title: {
+      absolute: title,
+    },
     description,
     keywords: story.tags.join(', '),
     alternates: {
