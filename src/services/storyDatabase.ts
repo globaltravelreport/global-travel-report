@@ -2,6 +2,9 @@ import { Story } from '@/types/Story';
 import { UserSubmission } from '@/types/UserSubmission';
 import { mockStories } from '../mocks/stories';
 import { getSafeDateString } from '../utils/date-utils';
+import { SupabaseStoryStore } from './supabaseStoryStore';
+
+const FALLBACK_PUBLISHED_AT = '2025-04-24T09:00:00.000Z';
 
 /**
  * StoryDatabase using in-memory storage with mock data
@@ -41,41 +44,17 @@ export class StoryDatabase {
       // Use mock stories as the primary data source
       this.stories = [...mockStories];
 
-      // Process all stories to ensure dates are valid
-      // We want to preserve future dates, especially those from 2025
-      this.stories = this.stories.map((story, index) => {
-        // For dates that are strings and contain "2025", preserve them exactly as they are
-        if (story.date && typeof story.date === 'string' && story.date.includes('2025')) {
-          return {
-            ...story,
-            // Keep the original date string
-            date: story.date,
-            // Use the original date string for publishedAt as well
-            publishedAt: story.date
-          };
-        }
-
-        // For other dates, use our improved date validation
-        const publishedDate = story.publishedAt ?
-          getSafeDateString(story.publishedAt, true, true) :
-          new Date().toISOString();
+      // Process all stories to ensure dates are valid while preserving public publish dates.
+      this.stories = this.stories.map((story) => {
+        const sourceDate = story.publishedAt || story.date || story.originalPublishedAt;
+        const publishedDate = sourceDate
+          ? getSafeDateString(sourceDate, true, true)
+          : FALLBACK_PUBLISHED_AT;
 
         return {
           ...story,
           publishedAt: publishedDate,
-          // If date is explicitly set, keep it, otherwise use publishedAt
           date: story.date || publishedDate
-        };
-      });
-
-      // Add a timestamp to each story to make them appear recent
-      const now = new Date();
-      this.stories = this.stories.map((story, index) => {
-        const publishedAt = new Date(now.getTime() - index * 24 * 60 * 60 * 1000); // Each story is one day older
-        return {
-          ...story,
-          publishedAt: story.publishedAt || publishedAt.toISOString(),
-          date: story.date || publishedAt.toISOString()
         };
       });
 
@@ -93,6 +72,22 @@ export class StoryDatabase {
    */
   public async getAllStories(): Promise<Story[]> {
     await this.initialize();
+
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        const supabaseStories = await SupabaseStoryStore.getPublishedStories();
+        const byId = new Map<string, Story>();
+
+        [...this.stories, ...supabaseStories].forEach((story) => {
+          byId.set(story.id, story);
+        });
+
+        return Array.from(byId.values());
+      } catch (error) {
+        console.error('Supabase story fetch failed, using in-memory stories', error);
+      }
+    }
+
     return [...this.stories];
   }
 
@@ -103,6 +98,18 @@ export class StoryDatabase {
    */
   public async getStoryById(id: string): Promise<Story | null> {
     await this.initialize();
+
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        const story = await SupabaseStoryStore.getStoryById(id);
+        if (story) {
+          return story;
+        }
+      } catch (error) {
+        console.error('Supabase story lookup failed, using in-memory stories', error);
+      }
+    }
+
     return this.stories.find(story => story.id === id) || null;
   }
 
@@ -113,6 +120,17 @@ export class StoryDatabase {
    */
   public async getStoryBySlug(slug: string): Promise<Story | null> {
     await this.initialize();
+
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        const story = await SupabaseStoryStore.getStoryBySlug(slug);
+        if (story) {
+          return story;
+        }
+      } catch (error) {
+        console.error('Supabase story slug lookup failed, using in-memory stories', error);
+      }
+    }
 
     // Normalize the slug for comparison
     const normalizedSlug = slug.trim().toLowerCase();
@@ -168,6 +186,16 @@ export class StoryDatabase {
   public async addStory(story: Story): Promise<Story> {
     await this.initialize();
 
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        const savedStory = await SupabaseStoryStore.upsertStory(story);
+        console.log(`Saved story "${story.title}" to Supabase`);
+        return savedStory;
+      } catch (error) {
+        console.error('Supabase story save failed, using in-memory storage', error);
+      }
+    }
+
     // Check if a story with the same ID already exists
     const existingIndex = this.stories.findIndex(s => s.id === story.id);
 
@@ -213,6 +241,16 @@ export class StoryDatabase {
    */
   public async addStories(stories: Story[]): Promise<Story[]> {
     await this.initialize();
+
+    if (SupabaseStoryStore.isConfigured()) {
+      const savedStories: Story[] = [];
+
+      for (const story of stories) {
+        savedStories.push(await this.addStory(story));
+      }
+
+      return savedStories;
+    }
 
     // Process stories for in-memory storage
     const newStories: Story[] = [];

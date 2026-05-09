@@ -13,6 +13,7 @@ import Parser from 'rss-parser';
 import dotenv from 'dotenv';
 import { generateStoryContent } from '../src/services/aiService.ts';
 import { StoryDatabase } from '../src/services/storyDatabase.ts';
+import { SupabaseStoryStore } from '../src/services/supabaseStoryStore.ts';
 import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
@@ -20,7 +21,6 @@ dotenv.config({ path: '.env.local' });
 const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
-const RSS_FEED_URLS = getFeedUrls();
 
 const parser = new Parser({
   timeout: 15000,
@@ -69,6 +69,25 @@ function getFeedUrls() {
     .split(',')
     .map((url) => url.trim())
     .filter(Boolean);
+}
+
+async function getRuntimeFeedUrls() {
+  if (process.env.RSS_FEED_URLS) {
+    return getFeedUrls();
+  }
+
+  if (SupabaseStoryStore.isConfigured()) {
+    try {
+      const feedUrls = await SupabaseStoryStore.getEnabledFeedUrls();
+      if (feedUrls.length > 0) {
+        return feedUrls;
+      }
+    } catch (error) {
+      console.warn('Supabase RSS source lookup failed:', error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  return DEFAULT_FEEDS;
 }
 
 function stripHtml(value = '') {
@@ -153,7 +172,7 @@ function hasUnsupportedNumbers(sourceText, rewrittenText) {
   const sourceNumbers = extractNumbers(sourceText);
   const rewrittenNumbers = extractNumbers(rewrittenText);
 
-  for (const value of rewrittenNumbers) {
+  for (const value of rewrittenText) {
     if (!sourceNumbers.has(value)) {
       return true;
     }
@@ -203,11 +222,11 @@ function normaliseFeedItem(item, feedUrl) {
   };
 }
 
-async function fetchRssCandidates() {
+async function fetchRssCandidates(feedUrls) {
   const candidates = [];
   const failures = [];
 
-  for (const feedUrl of RSS_FEED_URLS) {
+  for (const feedUrl of feedUrls) {
     try {
       const feed = await parser.parseURL(feedUrl);
       const items = (feed.items || [])
@@ -374,9 +393,18 @@ async function findImage(query) {
 }
 
 async function isDuplicate(source) {
-  const existing = await db.getAllStories();
   const sourceHash = hash(`${source.sourceUrl}:${source.title}`);
   const sourceSlug = slugify(source.title);
+
+  if (SupabaseStoryStore.isConfigured()) {
+    try {
+      return await SupabaseStoryStore.hasStoryOrDraft(source.sourceUrl, sourceHash, sourceSlug);
+    } catch (error) {
+      console.warn('Supabase duplicate lookup failed:', error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  const existing = await db.getAllStories();
 
   return existing.some((story) => (
     story.sourceUrl === source.sourceUrl ||
@@ -445,6 +473,8 @@ async function processCandidate(source) {
 
   if (AUTO_PUBLISH_STORIES) {
     await db.addStory(story);
+  } else if (SupabaseStoryStore.isConfigured()) {
+    await SupabaseStoryStore.saveDraft(story);
   }
 
   return {
@@ -457,13 +487,14 @@ async function processCandidate(source) {
 async function runDailyAutomation() {
   validateEnvironment();
 
+  const feedUrls = await getRuntimeFeedUrls();
   const startedAt = new Date().toISOString();
   const result = {
     success: false,
     mode: AUTO_PUBLISH_STORIES ? 'publish' : 'draft',
     startedAt,
     finishedAt: null,
-    feedsChecked: RSS_FEED_URLS.length,
+    feedsChecked: feedUrls.length,
     feedFailures: [],
     candidatesFound: 0,
     processed: [],
@@ -479,7 +510,7 @@ async function runDailyAutomation() {
   console.log('Starting Global Travel Report daily story pipeline');
   console.log(`Mode: ${result.mode}`);
 
-  const { candidates, failures } = await fetchRssCandidates();
+  const { candidates, failures } = await fetchRssCandidates(feedUrls);
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
@@ -507,6 +538,14 @@ async function runDailyAutomation() {
 
   result.finishedAt = new Date().toISOString();
   result.success = result.summary.failed === 0;
+
+  if (SupabaseStoryStore.isConfigured()) {
+    try {
+      await SupabaseStoryStore.recordPipelineRun(result);
+    } catch (error) {
+      console.warn('Supabase pipeline run logging failed:', error instanceof Error ? error.message : String(error));
+    }
+  }
 
   console.log('Daily story pipeline finished', result.summary);
   return result;
