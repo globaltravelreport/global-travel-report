@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { getRequestIp } from './request-ip';
 
 interface RateLimitOptions {
   maxRequests: number;
@@ -27,10 +28,7 @@ export async function rateLimit(
   const { maxRequests, windowMs } = options;
 
   // Get client IP address
-  const ip = req.ip ||
-    req.headers.get('x-forwarded-for')?.split(',')[0] ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
+  const ip = getRequestIp(req);
 
   const now = Date.now();
   const key = `rate_limit:${ip}`;

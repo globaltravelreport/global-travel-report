@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { createApiResponse, createValidationErrorResponse } from './api-response';
 import { logError } from './error-handler';
 import { rateLimit } from './rate-limit';
+import { getRequestIp } from './request-ip';
 
 // CORS configuration
 interface CorsOptions {
@@ -67,7 +68,7 @@ function generateRequestId(): string {
  */
 function getRequestContext(req: NextRequest): RequestContext {
   return {
-    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    ip: getRequestIp(req),
     userAgent: req.headers.get('user-agent') || 'unknown',
     timestamp: Date.now(),
     requestId: generateRequestId(),

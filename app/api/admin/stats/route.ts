@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth';
 import { statsQuerySchema } from '@/src/utils/validation-schemas';
 import { applyRateLimit } from '@/src/middleware/rate-limit';
 import { trackSecurityEvent } from '@/src/utils/security-monitor';
+import { getRequestIp } from '@/src/utils/request-ip';
 
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
   const rateLimitResponse = applyRateLimit(request);
   if (rateLimitResponse) return rateLimitResponse;
 
-  const ip = request.headers.get('x-forwarded-for') || request.ip || 'unknown';
+  const ip = getRequestIp(request);
   const userAgent = request.headers.get('user-agent') || '';
 
   try {

@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { error, warn, info } from '@/utils/errorLogger';
 import { v4 as uuidv4 } from 'uuid';
+import { getRequestIp } from '@/src/utils/request-ip';
 
 // Define middleware options
 export interface ErrorMonitoringOptions {
@@ -152,7 +153,7 @@ export function errorMonitoringMiddleware(options: ErrorMonitoringOptions = {}) 
         method: request.method,
         url: request.nextUrl.toString(),
         userAgent: request.headers.get('user-agent') || 'unknown',
-        ip: request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+        ip: getRequestIp(request)
       }, err);
       
       // Increment error count for alerting

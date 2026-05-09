@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { getRequestIp } from './request-ip';
 
 // Error severity levels
 export enum ErrorSeverity {
@@ -179,7 +180,7 @@ export function logRequestError(
   const context: ErrorContext = {
     method: req.method,
     url: req.url,
-    ip: req.ip || req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown',
+    ip: getRequestIp(req),
     userAgent: req.headers.get('user-agent') || 'unknown',
     ...additionalContext,
   };

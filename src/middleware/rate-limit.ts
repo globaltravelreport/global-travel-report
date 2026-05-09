@@ -3,6 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getRequestIp } from '@/src/utils/request-ip';
 
 // In-memory store for rate limiting
 // In a production environment, this should be replaced with Redis or a similar solution
@@ -81,7 +82,7 @@ function getRateLimitConfig(path: string): RateLimitConfig {
 function getRequestIdentifier(request: NextRequest, path: string): string {
   // Use IP address as the identifier
   // In a production environment, you might want to use a more sophisticated approach
-  const ip = request.ip || 'unknown';
+  const ip = getRequestIp(request);
 
   // Include the path to have separate rate limits for different endpoints
   return `${ip}:${path}`;

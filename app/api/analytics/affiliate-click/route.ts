@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getRequestIp } from '@/src/utils/request-ip';
 
 /**
  * Affiliate Click Tracking API
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
       userAgent: userAgent || request.headers.get('user-agent') || '',
       referrer: referrer || request.headers.get('referer') || '',
       url: url || '',
-      ip: request.ip || request.headers.get('x-forwarded-for') || 'unknown',
+      ip: getRequestIp(request),
       sessionId: generateSessionId(request),
     };
 
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
  */
 function generateSessionId(request: NextRequest): string {
   const userAgent = request.headers.get('user-agent') || '';
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+  const ip = getRequestIp(request);
 
   // Simple hash-based session ID
   const sessionString = `${ip}-${userAgent}`.substring(0, 50);

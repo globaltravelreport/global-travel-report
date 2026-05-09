@@ -1,4 +1,5 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
+const path = require('node:path');
 
 // Inline CSP builder function
 function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
@@ -83,6 +84,8 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withBundleAnalyzer({
+  outputFileTracingRoot: path.join(__dirname),
+
   // Enable experimental features
   experimental: {
     optimizeCss: true,
@@ -107,12 +110,12 @@ const nextConfig = withBundleAnalyzer({
 
   // Image optimization
   images: {
-    domains: [
-      'images.unsplash.com',
-      'unsplash.com',
-      'source.unsplash.com',
-      'picsum.photos',
-      'via.placeholder.com',
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'unsplash.com' },
+      { protocol: 'https', hostname: 'source.unsplash.com' },
+      { protocol: 'https', hostname: 'picsum.photos' },
+      { protocol: 'https', hostname: 'via.placeholder.com' },
     ],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -156,7 +159,6 @@ const nextConfig = withBundleAnalyzer({
   poweredByHeader: false,
 
   // Build optimization
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },

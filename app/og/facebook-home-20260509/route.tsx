@@ -2,6 +2,7 @@ export {
   GET,
   alt,
   contentType,
-  runtime,
   size,
 } from '../home/route';
+
+export const runtime = 'edge';

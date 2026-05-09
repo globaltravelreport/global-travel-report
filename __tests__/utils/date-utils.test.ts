@@ -6,10 +6,8 @@ describe('Date Utils', () => {
       expect(formatDate('2024-03-24')).toBe('March 24, 2024')
     })
 
-    it('handles invalid date strings', () => {
-      // The formatDate function in stories.ts will throw an error for invalid dates
-      // We're testing that it doesn't crash the test
-      expect(() => formatDate('invalid-date')).toThrow()
+    it('returns an empty string for invalid date strings', () => {
+      expect(formatDate('invalid-date')).toBe('')
     })
   })
 

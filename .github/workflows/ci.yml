@@ -7,12 +7,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [22]
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -71,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [22]
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -84,19 +87,19 @@ jobs:
       run: npm ci
     - name: Run security audit
       id: audit
-      run: npm audit --omit=dev --json --audit-level moderate > security-audit-report.json
+      run: npm audit --json --audit-level moderate > security-audit-report.json
       continue-on-error: true
     - name: Generate suggested fixes
       id: audit-fix-dry-run
       run: |
-        npm audit fix --omit=dev --dry-run --json > security-fix-suggestions.json || echo '{"fixes": [], "message": "No suggested fixes available"}' > security-fix-suggestions.json
+        npm audit fix --dry-run --json > security-fix-suggestions.json || echo '{"fixes": [], "message": "No suggested fixes available"}' > security-fix-suggestions.json
       continue-on-error: true
     - name: Analyze vulnerabilities
       id: analyze-vulnerabilities
       run: |
         # Parse audit results to check for critical/high severity issues
         if [ -f security-audit-report.json ]; then
-          # Count actionable runtime vulnerabilities by severity.
+          # Count actionable vulnerabilities by severity.
           # Major framework upgrades are reported, but not auto-blocked by this gate.
           actionable_filter='(.value.fixAvailable != false) and ((.value.fixAvailable | type) != "object" or (.value.fixAvailable.isSemVerMajor != true))'
           critical_count=$(cat security-audit-report.json | jq "[.vulnerabilities // {} | to_entries[] | select(.value.severity == \"critical\" and $actionable_filter)] | length")
@@ -111,7 +114,7 @@ jobs:
           echo "moderate=$moderate_count" >> $GITHUB_OUTPUT
           echo "low=$low_count" >> $GITHUB_OUTPUT
 
-          echo "📊 Runtime Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
           echo "- 🔴 Actionable Critical: $critical_count" >> $GITHUB_STEP_SUMMARY
           echo "- 🟠 Actionable High: $high_count" >> $GITHUB_STEP_SUMMARY
           echo "- ⚠️ Major-upgrade Critical/High: $major_count" >> $GITHUB_STEP_SUMMARY

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import { getRequestIp } from '@/src/utils/request-ip'
 
 interface LogData {
   request?: NextRequest
@@ -14,7 +15,7 @@ class Logger {
   private formatMessage(message: string, data?: LogData): string {
     const timestamp = new Date().toISOString()
     const requestId = data?.request?.headers.get('x-request-id') || 'unknown'
-    const ip = data?.request?.ip || data?.request?.headers.get('x-forwarded-for') || 'unknown'
+    const ip = data?.request ? getRequestIp(data.request) : 'unknown'
     
     let formattedMessage = `[${timestamp}] [${requestId}] [${ip}] ${message}`
     
