@@ -8,7 +8,7 @@ const WORKER_VERSION = '2026-05-09-supabase-story-queue-v1';
 
 function isAuthorized(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
-  const secret = process.env.CRON_SECRET_KEY || process.env.WEBHOOK_SECRET_KEY;
+  const secret = process.env.CRON_SECRET || process.env.CRON_SECRET_KEY;
 
   return !secret || authHeader === `Bearer ${secret}`;
 }
