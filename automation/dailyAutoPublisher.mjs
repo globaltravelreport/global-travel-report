@@ -18,9 +18,9 @@ import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10);
+const MAX_STORIES_PER_DAY = Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
-const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10);
+const MAX_CANDIDATES_TO_REVIEW = Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10);
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
@@ -408,7 +408,7 @@ Source URL: ${source.sourceUrl}
 Source published date: ${source.originalPublishedAt}
 Source category hint: ${source.category}
 Source text:
-${truncate(source.content)}`;
+${truncate(source.content, 4200)}`;
 }
 
 async function rewriteSource(source) {
@@ -421,7 +421,7 @@ async function rewriteSource(source) {
 
   const response = await generateStoryContent(buildRewritePrompt(source), {
     temperature: 0.2,
-    maxTokens: 1800
+    maxTokens: 1200
   });
 
   const parsed = extractJson(response.content);
