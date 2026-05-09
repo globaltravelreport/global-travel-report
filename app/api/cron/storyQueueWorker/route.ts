@@ -4,6 +4,7 @@ import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 const WORKER_VERSION = '2026-05-09-supabase-story-queue-v1';
 
