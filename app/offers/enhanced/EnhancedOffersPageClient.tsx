@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import Image from 'next/image';
+import { ArrowUpRight, BadgeCheck, Car, CreditCard, Hotel, Mail, Plane, ShieldCheck, Smartphone, Tag } from 'lucide-react';
 import { affiliatePartners } from '@/src/data/affiliatePartners';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
 import { createTrackedAffiliateLink, getCurrentPageContext } from '@/src/lib/enhancedAffiliateTracking';
-import Image from 'next/image';
 
 interface PromotionalOffer {
   id: string;
@@ -18,10 +17,35 @@ interface PromotionalOffer {
   featured: boolean;
 }
 
-
 interface EnhancedOffersPageClientProps {
   promotionalOffers: PromotionalOffer[];
   partnersByCategory: Record<string, typeof affiliatePartners>;
+}
+
+const CATEGORY_ICONS = {
+  Accommodation: Hotel,
+  Transportation: Car,
+  Connectivity: Smartphone,
+  'Travel Essentials': ShieldCheck,
+  Finance: CreditCard,
+  General: Tag,
+};
+
+function getCategoryIcon(category: string) {
+  return CATEGORY_ICONS[category as keyof typeof CATEGORY_ICONS] || Tag;
+}
+
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat('en-AU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
 }
 
 export default function EnhancedOffersPageClient({
@@ -32,28 +56,37 @@ export default function EnhancedOffersPageClient({
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories = useMemo(() => Object.keys(partnersByCategory), [partnersByCategory]);
+  const totalPartners = useMemo(
+    () => Object.values(partnersByCategory).reduce((total, partners) => total + partners.length, 0),
+    [partnersByCategory]
+  );
+  const featuredOffers = promotionalOffers.filter(offer => offer.featured);
+  const visibleCategories = selectedCategory === 'All'
+    ? Object.entries(partnersByCategory)
+    : Object.entries(partnersByCategory).filter(([category]) => category === selectedCategory);
 
   const handleDealClick = (partnerName: string, partnerUrl: string) => {
     const trackedLink = createTrackedAffiliateLink(
       partnerName.toLowerCase().replace(/\s+/g, '-'),
       partnerUrl,
-      { ...context, section: 'featured_deals' }
+      { ...context, section: 'offers' }
     );
 
-    // Track the click
     if (trackedLink.onClick) {
-      trackedLink.onClick({} as any);
+      trackedLink.onClick(new MouseEvent('click'));
     }
 
-    // Redirect to the affiliate link
-    window.open(trackedLink.url, '_blank');
+    window.open(trackedLink.url, '_blank', 'noopener,noreferrer');
   };
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !email.includes('@')) {
-      setSubmitMessage('Please enter a valid email address');
+      setSubmitMessage('Please enter a valid email address.');
       return;
     }
 
@@ -70,7 +103,7 @@ export default function EnhancedOffersPageClient({
       });
 
       if (response.ok) {
-        setSubmitMessage('Thank you for subscribing! Check your email for confirmation.');
+        setSubmitMessage('Thank you for subscribing. Check your email for confirmation.');
         setEmail('');
       } else {
         setSubmitMessage('Something went wrong. Please try again later.');
@@ -83,190 +116,225 @@ export default function EnhancedOffersPageClient({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Exclusive Travel Deals & Offers
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Save on your next adventure with our handpicked selection of travel deals from trusted partners
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold">500+</div>
-                <div className="text-sm">Travel Deals</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold">50+</div>
-                <div className="text-sm">Trusted Partners</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold">24/7</div>
-                <div className="text-sm">Support</div>
-              </div>
+    <main className="min-h-screen bg-[#f5f7f8] text-slate-950">
+      <section className="relative overflow-hidden bg-slate-950">
+        <Image
+          src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400"
+          alt="Travel essentials laid out on a table"
+          fill
+          className="object-cover opacity-35"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/86 to-slate-950/36" />
+        <div className="relative mx-auto flex min-h-[430px] max-w-7xl flex-col justify-end px-4 pb-12 pt-20 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+              <BadgeCheck className="h-4 w-4 text-[#C9A14A]" />
+              Partner offers reviewed for travellers
             </div>
+            <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Travel Deals & Offers
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">
+              A practical directory of booking, transfer, eSIM, insurance, privacy and finance partners for planning trips with less friction.
+            </p>
+          </div>
+          <div className="mt-10 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              { label: 'Partners', value: totalPartners },
+              { label: 'Categories', value: categories.length },
+              { label: 'Featured', value: featuredOffers.length },
+              { label: 'Updated', value: 'Daily' },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
+                <div className="text-2xl font-black text-white">{item.value}</div>
+                <div className="text-xs font-medium uppercase tracking-wide text-slate-300">{item.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Affiliate Disclosure */}
-      <section className="bg-white py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <AffiliateDisclosure variant="banner" />
         </div>
       </section>
 
-      {/* Featured Deals */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Deals</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Don't miss these limited-time offers from our top travel partners
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-slate-950">Featured Offers</h2>
+            <p className="mt-2 max-w-2xl text-slate-600">
+              Current partner promotions with clear expiry dates and direct tracking.
             </p>
           </div>
+          <a href="#partner-directory" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#9f7b30]">
+            Browse all partners
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {promotionalOffers.filter(offer => offer.featured).map((offer) => {
-              const partner = affiliatePartners.find(p => p.name === offer.partner);
-              if (!partner) return null;
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          {featuredOffers.map((offer) => {
+            const partner = affiliatePartners.find(p => p.name === offer.partner);
+            if (!partner) return null;
 
-              return (
-                <Card key={offer.id} className="relative overflow-hidden">
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-red-100 text-red-800">🔥 HOT DEAL</Badge>
-                  </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl">{offer.title}</CardTitle>
-                      <Badge variant="outline" className="text-lg font-bold text-green-600">
+            return (
+              <article key={offer.id} className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <div className="flex h-full flex-col p-6">
+                  <div className="mb-6 flex items-start justify-between gap-4">
+                    <div>
+                      <span className="inline-flex items-center rounded-full bg-[#C9A14A]/15 px-3 py-1 text-xs font-black uppercase tracking-wide text-[#7a5f22]">
                         {offer.discount}
-                      </Badge>
+                      </span>
+                      <h3 className="mt-4 text-2xl font-black tracking-tight text-slate-950">{offer.title}</h3>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4">{offer.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="relative w-12 h-12">
-                          <Image
-                            src={partner.logo}
-                            alt={`${partner.name} logo`}
-                            fill
-                            className="object-contain"
-                            sizes="48px"
-                          />
-                        </div>
-                        <div>
-                          <p className="font-medium">{partner.name}</p>
-                          <p className="text-sm text-gray-500">Valid until {offer.validUntil}</p>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => handleDealClick(partner.name, partner.url)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
-                      >
-                        Claim Deal
-                      </button>
+                    <div className="relative h-12 w-28 shrink-0">
+                      <Image src={partner.logo} alt={`${partner.name} logo`} fill className="object-contain" sizes="112px" />
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  <p className="min-h-12 text-slate-600">{offer.description}</p>
+
+                  <div className="mt-6 flex flex-col gap-4 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <div className="font-bold text-slate-950">{partner.name}</div>
+                      <div className="text-sm text-slate-500">Valid until {formatDate(offer.validUntil)}</div>
+                    </div>
+                    <button
+                      onClick={() => handleDealClick(partner.name, partner.url)}
+                      className="inline-flex items-center justify-center gap-2 rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#9f7b30] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
+                      type="button"
+                    >
+                      Claim Deal
+                      <ArrowUpRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="partner-directory" className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-slate-950">Partner Directory</h2>
+            <p className="mt-2 max-w-2xl text-slate-600">
+              Filter by the service you need, then compare providers before you leave the site.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {['All', ...categories].map((category) => {
+              const isSelected = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
+                    isSelected
+                      ? 'border-slate-950 bg-slate-950 text-white'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                  }`}
+                  type="button"
+                >
+                  {category}
+                </button>
               );
             })}
           </div>
         </div>
-      </section>
 
-      {/* Partner Categories */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Browse by Category</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Find the perfect travel services and deals for your needs
-            </p>
-          </div>
+        <div className="space-y-10">
+          {visibleCategories.map(([category, partners]) => {
+            const Icon = getCategoryIcon(category);
+            return (
+              <section key={category}>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-slate-900 shadow-sm ring-1 ring-slate-200">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-slate-950">{category}</h3>
+                    <p className="text-sm text-slate-500">{partners.length} partner{partners.length === 1 ? '' : 's'}</p>
+                  </div>
+                </div>
 
-          {Object.entries(partnersByCategory).map(([category, partners]) => (
-            <div key={category} className="mb-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">{category}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {partners.map((partner) => (
-                  <Card key={partner.name} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center gap-4">
-                        <div className="relative w-16 h-16">
-                          <Image
-                            src={partner.logo}
-                            alt={`${partner.name} logo`}
-                            fill
-                            className="object-contain"
-                            sizes="64px"
-                          />
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {partners.map((partner) => (
+                    <article key={partner.name} className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                      <div className="mb-4 flex items-center justify-between gap-4">
+                        <div className="relative h-11 w-28">
+                          <Image src={partner.logo} alt={`${partner.name} logo`} fill className="object-contain object-left" sizes="112px" />
                         </div>
-                        <div>
-                          <CardTitle className="text-lg">{partner.name}</CardTitle>
-                          <Badge variant="outline">{category}</Badge>
-                        </div>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{category}</span>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-600 text-sm mb-4">{partner.description}</p>
+                      <h4 className="text-lg font-black text-slate-950">{partner.name}</h4>
+                      <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">{partner.description}</p>
                       <button
                         onClick={() => handleDealClick(partner.name, partner.url)}
-                        className="inline-flex items-center px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-sm rounded-lg transition-colors"
+                        className="mt-5 inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-900 transition hover:border-slate-950 hover:bg-slate-950 hover:text-white"
+                        type="button"
                       >
-                        Visit {partner.name}
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
+                        Visit Partner
+                        <ArrowUpRight className="h-4 w-4" />
                       </button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ))}
+                    </article>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Never Miss a Deal
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Subscribe to our newsletter and be the first to know about exclusive travel deals and offers.
-          </p>
-          <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              disabled={isSubmitting}
-              required
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors"
-            >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-            </button>
-          </form>
-          {submitMessage && (
-            <p className={`mt-4 text-sm ${submitMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>
-              {submitMessage}
+      <section className="bg-slate-950 px-4 py-12 text-white sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_420px] lg:items-center">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-bold text-[#f1d07a]">
+              <Plane className="h-4 w-4" />
+              Deal alerts
+            </div>
+            <h2 className="text-3xl font-black tracking-tight">Never Miss a Useful Travel Offer</h2>
+            <p className="mt-3 max-w-2xl text-slate-300">
+              Get selected travel deals, partner updates and practical planning links in your inbox.
             </p>
-          )}
+          </div>
+          <form onSubmit={handleNewsletterSubmit} className="rounded-lg border border-white/10 bg-white/10 p-4 backdrop-blur">
+            <label htmlFor="offers-email" className="mb-2 block text-sm font-bold text-slate-200">
+              Email address
+            </label>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <input
+                id="offers-email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="min-h-12 flex-1 rounded-md border border-white/20 bg-white px-4 text-slate-950 outline-none focus:ring-2 focus:ring-[#C9A14A]"
+                disabled={isSubmitting}
+                required
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#C9A14A] px-5 font-black text-slate-950 transition hover:bg-[#d8b866] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                <Mail className="h-4 w-4" />
+                {isSubmitting ? 'Subscribing' : 'Subscribe'}
+              </button>
+            </div>
+            {submitMessage && (
+              <p className={`mt-3 text-sm ${submitMessage.includes('Thank you') ? 'text-emerald-300' : 'text-red-300'}`}>
+                {submitMessage}
+              </p>
+            )}
+          </form>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

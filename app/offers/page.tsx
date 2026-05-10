@@ -4,18 +4,18 @@ import EnhancedOffersPageClient from './enhanced/EnhancedOffersPageClient';
 
 export const metadata: Metadata = {
   title: 'Travel Deals & Offers - Global Travel Report',
-  description: 'Discover exclusive travel deals and offers from our trusted partners. Save on hotels, flights, transfers, and travel essentials.',
+  description: 'Compare trusted travel partners for accommodation, transfers, eSIMs, insurance, privacy, finance and practical trip planning offers.',
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/offers`,
   },
   openGraph: {
     title: 'Travel Deals & Offers - Global Travel Report',
-    description: 'Discover exclusive travel deals and offers from our trusted partners. Save on hotels, flights, transfers, and travel essentials.',
+    description: 'Compare trusted travel partners for accommodation, transfers, eSIMs, insurance, privacy, finance and practical trip planning offers.',
     url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/offers`,
     siteName: 'Global Travel Report',
     images: [
       {
-        url: '/og/home-1200x630.jpg',
+        url: '/og/facebook-home-20260509',
         width: 1200,
         height: 630,
         alt: 'Travel Deals and Offers - Global Travel Report',
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Travel Deals & Offers - Global Travel Report',
-    description: 'Discover exclusive travel deals and offers from our trusted partners. Save on hotels, flights, transfers, and travel essentials.',
-    images: ['/og/home-1200x630.jpg'],
+    description: 'Compare trusted travel partners for accommodation, transfers, eSIMs, insurance, privacy, finance and practical trip planning offers.',
+    images: ['/og/facebook-home-20260509'],
   },
   robots: {
     index: true,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     },
   },
   category: 'travel',
-  keywords: ['travel deals', 'travel offers', 'hotel deals', 'flight deals', 'travel discounts', 'travel savings'],
+  keywords: ['travel deals', 'travel offers', 'accommodation deals', 'airport transfers', 'travel esim', 'travel insurance', 'travel finance'],
 };
 
 export default function OffersPage() {
