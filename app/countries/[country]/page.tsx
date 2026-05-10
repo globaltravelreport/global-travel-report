@@ -9,8 +9,9 @@ type CountryParams = {
   country: string;
 };
 
-export async function generateMetadata({ params }: { params: CountryParams }): Promise<Metadata> {
-  const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
+export async function generateMetadata({ params }: { params: Promise<CountryParams> }): Promise<Metadata> {
+  const { country: countryParam } = await params;
+  const country = countryParam.charAt(0).toUpperCase() + countryParam.slice(1);
 
   return {
     title: `${country} Travel Stories - Global Travel Report`,
@@ -25,8 +26,9 @@ export async function generateMetadata({ params }: { params: CountryParams }): P
   };
 }
 
-export default async function CountryPage({ params }: { params: CountryParams }) {
-  const country = params.country.charAt(0).toUpperCase() + params.country.slice(1);
+export default async function CountryPage({ params }: { params: Promise<CountryParams> }) {
+  const { country: countryParam } = await params;
+  const country = countryParam.charAt(0).toUpperCase() + countryParam.slice(1);
   const allStories = await getAllStories();
   const storiesResult = getStoriesByCountry(allStories, country);
   const stories = storiesResult.data;

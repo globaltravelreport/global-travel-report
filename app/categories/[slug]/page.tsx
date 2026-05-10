@@ -7,9 +7,9 @@ import { Story } from '@/types/Story';
 import Image from 'next/image';
 
 type CategoryPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 async function getCategoryStories(categorySlug: string): Promise<Story[]> {
@@ -24,7 +24,7 @@ async function getCategoryStories(categorySlug: string): Promise<Story[]> {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
 
   // Find the category in the config
@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   // Find the category in the config
   const categoryData = getCategoryBySlug(slug);

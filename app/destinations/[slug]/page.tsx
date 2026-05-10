@@ -84,8 +84,9 @@ function getStoriesByDestination(stories: Story[], city: string, country: string
   });
 }
 
-export async function generateMetadata({ params }: { params: DestinationParams }): Promise<Metadata> {
-  const parsed = parseDestinationSlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<DestinationParams> }): Promise<Metadata> {
+  const { slug } = await params;
+  const parsed = parseDestinationSlug(slug);
 
   if (!parsed) {
     return {
@@ -109,8 +110,9 @@ export async function generateMetadata({ params }: { params: DestinationParams }
   };
 }
 
-export default async function DestinationPage({ params }: { params: DestinationParams }) {
-  const parsed = parseDestinationSlug(params.slug);
+export default async function DestinationPage({ params }: { params: Promise<DestinationParams> }) {
+  const { slug } = await params;
+  const parsed = parseDestinationSlug(slug);
 
   if (!parsed) {
     notFound();
