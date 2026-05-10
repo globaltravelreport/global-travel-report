@@ -178,6 +178,19 @@ function AdminDashboardContent() {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">Review Story Drafts</h2>
+              <p className="text-gray-600 mb-4">
+                Review automated RSS drafts, check source dates and images, then publish or reject them from one queue.
+              </p>
+              <Link
+                href="/admin/story-drafts"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block"
+              >
+                Review Drafts
+              </Link>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">Manage Content</h2>
               <p className="text-gray-600 mb-4">
                 View and manage all stories in the database. You can filter by category, view story details,

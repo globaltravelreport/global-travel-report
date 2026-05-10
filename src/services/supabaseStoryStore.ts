@@ -32,6 +32,47 @@ type SupabaseStoryRow = {
   metadata?: Record<string, unknown>;
 };
 
+export type StoryDraft = {
+  id: string;
+  story_id?: string | null;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  original_published_at?: string | null;
+  source?: string | null;
+  source_url?: string | null;
+  ingestion_source?: string | null;
+  content_hash?: string | null;
+  category: string;
+  country: string;
+  tags: string[];
+  image_url?: string | null;
+  image_alt?: string | null;
+  image_credit?: string | null;
+  image_credit_url?: string | null;
+  photographer?: Story['photographer'] | null;
+  status: 'pending_review' | 'approved' | 'rejected' | 'published';
+  rejection_reason?: string | null;
+  story: Story;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StoryPipelineRun = {
+  id: string;
+  mode: string;
+  success: boolean;
+  started_at: string;
+  finished_at?: string | null;
+  feeds_checked: number;
+  candidates_found: number;
+  summary: Record<string, unknown>;
+  feed_failures: unknown[];
+  processed: unknown[];
+  created_at: string;
+};
+
 type SupabaseRequestOptions = {
   method?: string;
   query?: Record<string, string>;
@@ -288,6 +329,89 @@ export class SupabaseStoryStore {
     });
   }
 
+  public static async getStoryDrafts(limit = 50): Promise<StoryDraft[]> {
+    return this.request<StoryDraft[]>('story_drafts', {
+      query: {
+        select: '*',
+        order: 'created_at.desc',
+        limit: String(limit)
+      }
+    });
+  }
+
+  public static async getStoryDraftById(id: string): Promise<StoryDraft | null> {
+    const rows = await this.request<StoryDraft[]>('story_drafts', {
+      query: {
+        select: '*',
+        id: `eq.${id}`,
+        limit: '1'
+      }
+    });
+
+    return rows[0] || null;
+  }
+
+  public static async publishDraft(id: string): Promise<Story> {
+    const draft = await this.getStoryDraftById(id);
+
+    if (!draft) {
+      throw new Error('Story draft not found');
+    }
+
+    const story: Story = {
+      ...draft.story,
+      id: draft.story_id || draft.story?.id || id.replace(/^draft-/, ''),
+      slug: draft.slug,
+      title: draft.title,
+      excerpt: draft.excerpt,
+      content: draft.content,
+      publishedAt: draft.story?.publishedAt || draft.original_published_at || draft.created_at,
+      originalPublishedAt: draft.original_published_at || draft.story?.originalPublishedAt,
+      category: draft.category,
+      country: draft.country,
+      tags: toArray(draft.tags),
+      imageUrl: draft.image_url || draft.story?.imageUrl,
+      imageAlt: draft.image_alt || draft.story?.imageAlt,
+      imageCredit: draft.image_credit || draft.story?.imageCredit,
+      imageCreditUrl: draft.image_credit_url || draft.story?.imageCreditUrl,
+      photographer: draft.photographer || draft.story?.photographer,
+      featured: Boolean(draft.story?.featured),
+      editorsPick: Boolean(draft.story?.editorsPick),
+      author: '',
+      status: undefined
+    } as Story;
+
+    const published = await this.upsertStory(story);
+
+    await this.request('story_drafts', {
+      method: 'PATCH',
+      body: {
+        status: 'published',
+        story: published,
+        updated_at: new Date().toISOString()
+      },
+      query: {
+        id: `eq.${id}`
+      }
+    });
+
+    return published;
+  }
+
+  public static async rejectDraft(id: string, reason: string): Promise<void> {
+    await this.request('story_drafts', {
+      method: 'PATCH',
+      body: {
+        status: 'rejected',
+        rejection_reason: reason || null,
+        updated_at: new Date().toISOString()
+      },
+      query: {
+        id: `eq.${id}`
+      }
+    });
+  }
+
   public static async hasStoryOrDraft(sourceUrl: string, contentHash: string, slug: string): Promise<boolean> {
     const [stories, drafts] = await Promise.all([
       this.request<Array<{ id: string }>>('stories', {
@@ -344,6 +468,16 @@ export class SupabaseStoryStore {
         summary: result.summary,
         feed_failures: result.feedFailures,
         processed: result.processed
+      }
+    });
+  }
+
+  public static async getLatestPipelineRuns(limit = 10): Promise<StoryPipelineRun[]> {
+    return this.request<StoryPipelineRun[]>('story_pipeline_runs', {
+      query: {
+        select: '*',
+        order: 'started_at.desc',
+        limit: String(limit)
       }
     });
   }
