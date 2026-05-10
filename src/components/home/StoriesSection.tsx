@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { getHomepageStories } from '../../utils/stories';
 import { Story } from '../../../types/Story';
@@ -67,7 +66,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
         {displayStories.map((story) => (
           <article key={story.id} className="group card hover:shadow-xl overflow-hidden">
-            <Link href={`/stories/${story.slug}`}>
+            <a href={`/stories/${story.slug}`}>
               {/* Story Image */}
               <div className="relative h-48 overflow-hidden">
                 <Image
@@ -128,7 +127,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
                   )}
                 </div>
               </div>
-            </Link>
+            </a>
           </article>
         ))}
       </div>
@@ -142,7 +141,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
       {/* Navigation CTAs */}
       <div className="text-center space-y-4">
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
+          <a
             href="/stories"
             className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
           >
@@ -150,8 +149,8 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </Link>
-          <Link
+          </a>
+          <a
             href="/archive"
             className="inline-flex items-center px-6 py-3 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
           >
@@ -159,7 +158,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V8z" />
             </svg>
-          </Link>
+          </a>
         </div>
         <p className="text-sm text-gray-500">
           Recent stories: Last 30 days • Archive: Complete collection (12+ months)

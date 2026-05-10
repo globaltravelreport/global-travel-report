@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { Story } from '../../../types/Story';
 
@@ -116,18 +115,18 @@ export default function Hero({ stories }: HeroProps) {
               {featuredStory.excerpt}
             </p>
             <div className="flex space-x-4">
-              <Link
+              <a
                 href={`/stories/${featuredStory.slug}`}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 Read More
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/submit"
                 className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-900"
               >
                 Share Your Story
-              </Link>
+              </a>
             </div>
           </div>
         </div>
