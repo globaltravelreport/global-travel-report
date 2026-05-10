@@ -15,7 +15,17 @@ function getFeaturedStory(stories: Story[]): Story | null {
     return !Number.isNaN(storyDate.getTime()) && storyDate >= thirtyDaysAgo;
   });
 
-  return recentStories.find((story) => story.featured) || recentStories[0] || null;
+  const sortedStories = [...stories].sort((a, b) => {
+    const dateA = new Date(a.publishedAt || '').getTime();
+    const dateB = new Date(b.publishedAt || '').getTime();
+    return (Number.isNaN(dateB) ? 0 : dateB) - (Number.isNaN(dateA) ? 0 : dateA);
+  });
+
+  return recentStories.find((story) => story.featured) ||
+    recentStories[0] ||
+    sortedStories.find((story) => story.featured) ||
+    sortedStories[0] ||
+    null;
 }
 
 export default function Hero({ stories }: HeroProps) {
