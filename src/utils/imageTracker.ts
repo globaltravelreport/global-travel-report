@@ -14,7 +14,6 @@ if (typeof window === 'undefined') {
   fs = require('fs');
   path = require('path');
 }
-import matter from 'gray-matter';
 
 // Define interfaces
 interface Photographer {
@@ -37,9 +36,6 @@ interface ImageTrackerData {
 
 // Define the path to the image tracker data file
 const IMAGE_TRACKER_FILE = typeof window === 'undefined' ? path?.join(process.cwd(), 'data/imageTracker.json') : '';
-
-// Define the directory where story files are stored
-const ARTICLES_DIRECTORY = typeof window === 'undefined' ? path?.join(process.cwd(), 'content/articles') : '';
 
 // Define the category-specific photographers with their images
 const CATEGORY_PHOTOGRAPHERS: Record<string, Array<{ name: string, url: string, imageUrl: string }>> = {

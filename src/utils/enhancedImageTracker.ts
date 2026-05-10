@@ -9,12 +9,11 @@
  */
 
 // Only import these modules on the server side
-let fs: any, path: any, matter: any;
+let fs: any, path: any;
 
 if (typeof window === 'undefined') {
   fs = require('fs');
   path = require('path');
-  matter = require('gray-matter');
 }
 import { validateAndCorrectImageData } from './imageManager';
 
@@ -41,9 +40,6 @@ interface ImageTrackerData {
 
 // Define the path to the image tracker data file
 const IMAGE_TRACKER_FILE = typeof window === 'undefined' ? path?.join(process.cwd(), 'data/enhancedImageTracker.json') : '';
-
-// Define the directory where story files are stored
-const ARTICLES_DIRECTORY = typeof window === 'undefined' ? path?.join(process.cwd(), 'content/articles') : '';
 
 // Define the expanded category-specific photographers with their images and keywords
 const CATEGORY_IMAGES: Record<string, Array<{
