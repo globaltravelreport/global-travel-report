@@ -1,46 +1,25 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllStories } from '../../utils/stories';
 import { Story } from '../../../types/Story';
 
-export default function Hero() {
-  const [featuredStory, setFeaturedStory] = useState<Story | null>(null);
+type HeroProps = {
+  stories: Story[];
+};
 
-  useEffect(() => {
-    const loadFeaturedStory = async () => {
-      try {
-        console.log('Hero: Loading stories...');
-        const stories = await getAllStories();
-        console.log('Hero: Loaded stories:', stories.length, stories.map(s => ({ id: s.id, title: s.title, featured: s.featured })));
+function getFeaturedStory(stories: Story[]): Story | null {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-        // Filter for recent stories (last 30 days) for homepage
-        const recentStories = stories.filter(story => {
-          const thirtyDaysAgo = new Date();
-          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-          const storyDate = new Date(story.publishedAt || '');
-          return storyDate >= thirtyDaysAgo;
-        });
+  const recentStories = stories.filter((story) => {
+    const storyDate = new Date(story.publishedAt || '');
+    return !Number.isNaN(storyDate.getTime()) && storyDate >= thirtyDaysAgo;
+  });
 
-        console.log('Hero: Recent stories count:', recentStories.length);
+  return recentStories.find((story) => story.featured) || recentStories[0] || null;
+}
 
-        // First try to find a featured story from recent stories
-        const featured = recentStories.find(story => story.featured);
-        const storyToUse = featured || (recentStories.length > 0 ? recentStories[0] : null);
-
-        console.log('Hero: Selected story:', storyToUse?.title || 'None');
-        setFeaturedStory(storyToUse);
-      } catch (_error) {
-        console.error(_error);
-        // Set a fallback story or handle the error state
-        setFeaturedStory(null);
-      }
-    };
-
-    loadFeaturedStory();
-  }, []);
+export default function Hero({ stories }: HeroProps) {
+  const featuredStory = getFeaturedStory(stories);
 
   if (!featuredStory) {
     return (

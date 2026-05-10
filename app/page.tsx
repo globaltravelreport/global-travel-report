@@ -1,5 +1,6 @@
 import Hero from '../src/components/home/Hero';
 import StoriesSection from '../src/components/home/StoriesSection';
+import { getAllStories } from '../src/utils/stories';
 import type { Metadata } from 'next';
 
 // Force dynamic rendering to ensure stories are loaded at runtime
@@ -56,14 +57,16 @@ export const metadata: Metadata = {
   keywords: ['travel', 'destinations', 'travel tips', 'travel guide', 'adventure', 'vacation', 'tourism'],
 };
 
-export default function Home() {
+export default async function Home() {
+  const stories = await getAllStories();
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Featured Story */}
-      <Hero />
+      <Hero stories={stories} />
 
       {/* Stories Section */}
-      <StoriesSection />
+      <StoriesSection initialStories={stories} />
 
       {/* Quick Links Section */}
       <div className="max-w-4xl mx-auto px-4 pb-12 sm:pb-24">

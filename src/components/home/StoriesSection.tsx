@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getHomepageStories } from '../../utils/stories';
@@ -8,45 +7,12 @@ import { Story } from '../../../types/Story';
 import { MostViewedThisWeek } from '../engagement/MostViewedThisWeek';
 import { TrendingDestinations } from '../engagement/TrendingDestinations';
 
-export default function StoriesSection() {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [loading, setLoading] = useState(true);
+type StoriesSectionProps = {
+  initialStories: Story[];
+};
 
-  useEffect(() => {
-    const loadStories = async () => {
-      try {
-        const response = await fetch('/api/stories');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data.success && data.stories) {
-          setStories(data.stories);
-        } else {
-          setStories([]);
-        }
-      } catch (_error) {
-        console.error(_error);
-        setStories([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStories();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex justify-center items-center py-16">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A14A]"></div>
-          <span className="ml-3 text-gray-600">Loading stories...</span>
-        </div>
-      </div>
-    );
-  }
-
+export default function StoriesSection({ initialStories }: StoriesSectionProps) {
+  const stories = initialStories;
   if (stories.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16">
