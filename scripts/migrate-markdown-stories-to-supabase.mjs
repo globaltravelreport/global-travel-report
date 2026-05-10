@@ -167,6 +167,7 @@ function makeSlugsUnique(rows) {
       ...row,
       id: `legacy-${slug}`,
       slug,
+      content_hash: crypto.createHash('sha256').update(`${slug}\n${row.content}`).digest('hex'),
       metadata: {
         ...row.metadata,
         duplicateSlugOf: row.slug
