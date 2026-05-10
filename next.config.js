@@ -208,6 +208,46 @@ const nextConfig = withBundleAnalyzer({
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/categories-main',
+        destination: '/categories',
+        permanent: true,
+      },
+      {
+        source: '/category-index',
+        destination: '/categories',
+        permanent: true,
+      },
+      {
+        source: '/category-index/:path*',
+        destination: '/categories/:path*',
+        permanent: true,
+      },
+      {
+        source: '/stories-index',
+        destination: '/stories',
+        permanent: true,
+      },
+      {
+        source: '/deals',
+        destination: '/offers',
+        permanent: true,
+      },
+      {
+        source: '/offers/enhanced',
+        destination: '/offers',
+        permanent: true,
+      },
+      {
+        source: '/privacy',
+        destination: '/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/terms',
+        destination: '/terms-of-service',
+        permanent: true,
+      },
     ];
   },
 

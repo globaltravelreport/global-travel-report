@@ -25,7 +25,7 @@ export default function FallbackPage() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <Link 
-            href="/categories-main"
+            href="/categories"
             className="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg text-center transition-colors"
           >
             <h2 className="text-xl font-semibold text-blue-800 mb-2">Categories</h2>

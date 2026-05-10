@@ -12,7 +12,7 @@ function PrivacyPolicyContent() {
       <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
       <div className="prose dark:prose-invert max-w-none">
-        <p className="text-lg mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+        <p className="text-lg mb-6">Last updated: 9 May 2026</p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>

@@ -90,7 +90,7 @@ export async function generateSitemap(baseUrl: string, outputPath: string): Prom
       { url: `${baseUrl}/`, priority: 1.0, changefreq: 'daily' },
       { url: `${baseUrl}/about`, priority: 0.7, changefreq: 'monthly' },
       { url: `${baseUrl}/contact`, priority: 0.7, changefreq: 'monthly' },
-      { url: `${baseUrl}/categories-main`, priority: 0.8, changefreq: 'weekly' },
+      { url: `${baseUrl}/categories`, priority: 0.8, changefreq: 'weekly' },
       { url: `${baseUrl}/destinations`, priority: 0.8, changefreq: 'weekly' },
       { url: `${baseUrl}/search`, priority: 0.6, changefreq: 'weekly' },
       { url: `${baseUrl}/privacy-policy`, priority: 0.3, changefreq: 'yearly' },

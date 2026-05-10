@@ -222,11 +222,11 @@ export function CookieConsentBanner({ className = '' }: CookieConsentBannerProps
 
             <div className="flex justify-between items-center pt-4 border-t border-gray-200">
               <div className="text-sm text-gray-600">
-                <a href="/privacy" className="text-blue-600 hover:text-blue-800">
+                <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800">
                   Privacy Policy
                 </a>
                 {' • '}
-                <a href="/terms" className="text-blue-600 hover:text-blue-800">
+                <a href="/terms-of-service" className="text-blue-600 hover:text-blue-800">
                   Terms of Service
                 </a>
               </div>

@@ -39,12 +39,12 @@ export async function GET() {
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${baseUrl}/privacy</loc>
+    <loc>${baseUrl}/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>${baseUrl}/terms</loc>
+    <loc>${baseUrl}/terms-of-service</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

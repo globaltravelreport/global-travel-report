@@ -12,8 +12,8 @@ const path = require('path');
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
 const TEST_PAGES = [
   '/',
-  '/category-index',
-  '/stories-index',
+  '/categories',
+  '/stories',
   '/partners',
   '/destinations'
 ];

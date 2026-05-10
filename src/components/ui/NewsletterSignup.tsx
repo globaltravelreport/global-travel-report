@@ -303,7 +303,7 @@ export function NewsletterSignup({
         {!success && (
           <p className="mt-3 text-xs text-gray-500 text-center">
             We respect your privacy. Unsubscribe at any time.{' '}
-            <a href="/privacy" className="text-blue-600 hover:text-blue-800">
+            <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800">
               Privacy Policy
             </a>
           </p>

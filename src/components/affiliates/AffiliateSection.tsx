@@ -33,7 +33,7 @@ export function AffiliateSection({
   className,
   layout = 'grid',
   showViewAll = false,
-  viewAllLink = '/deals',
+  viewAllLink = '/offers',
   viewAllText = 'View All Deals',
   limit = 3,
   showTitle = true
