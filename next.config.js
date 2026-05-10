@@ -162,6 +162,9 @@ const nextConfig = withBundleAnalyzer({
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  outputFileTracingIncludes: {
+    '/api/admin/migrate-markdown-stories': ['./content/articles/**/*.md'],
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.splitChunks.cacheGroups = {

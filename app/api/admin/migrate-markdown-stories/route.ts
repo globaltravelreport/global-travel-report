@@ -249,19 +249,26 @@ async function upsertRows(rows: StoryRow[]) {
 }
 
 export async function POST(request: NextRequest) {
-  if (request.nextUrl.searchParams.get('confirm') !== CONFIRMATION) {
-    return NextResponse.json({ error: 'Missing migration confirmation' }, { status: 401 });
+  try {
+    if (request.nextUrl.searchParams.get('confirm') !== CONFIRMATION) {
+      return NextResponse.json({ error: 'Missing migration confirmation' }, { status: 401 });
+    }
+
+    const prepared = await prepareRows();
+    const imported = await upsertRows(prepared.rows);
+
+    return NextResponse.json({
+      success: true,
+      filesFound: prepared.filesFound,
+      imported,
+      skipped: prepared.skipped,
+      duplicateSlugCount: prepared.duplicateSlugs.length,
+      duplicateSlugs: prepared.duplicateSlugs
+    });
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
-
-  const prepared = await prepareRows();
-  const imported = await upsertRows(prepared.rows);
-
-  return NextResponse.json({
-    success: true,
-    filesFound: prepared.filesFound,
-    imported,
-    skipped: prepared.skipped,
-    duplicateSlugCount: prepared.duplicateSlugs.length,
-    duplicateSlugs: prepared.duplicateSlugs
-  });
 }
