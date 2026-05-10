@@ -50,11 +50,6 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
       '@type': 'WebPage',
       '@id': `${siteUrl}/stories/${story.slug}`
     },
-    'author': {
-      '@type': 'Organization',
-      'name': 'Global Travel Report Editorial Team',
-      'url': siteUrl
-    },
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
@@ -153,10 +148,6 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
         '@type': 'Rating',
         'ratingValue': rating.toFixed(1),
         'bestRating': '5'
-      },
-      'author': {
-        '@type': 'Organization',
-        'name': 'Global Travel Report Editorial Team'
       },
       'datePublished': new Date(story.publishedAt).toISOString(),
       'reviewBody': story.excerpt

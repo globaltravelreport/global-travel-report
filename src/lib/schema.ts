@@ -59,11 +59,6 @@ export function generateNewsArticleSchema(story: Story, siteUrl: string = 'https
     'headline': story.title,
     'description': story.excerpt,
     'image': [imageUrl],
-    'author': {
-      '@type': 'Organization',
-      'name': 'Global Travel Report Editorial Team',
-      'url': siteUrl
-    },
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
@@ -138,11 +133,6 @@ export function generateArticleSchema(story: Story, siteUrl: string = 'https://w
     'headline': story.title,
     'description': story.excerpt,
     'image': [imageUrl],
-    'author': {
-      '@type': 'Organization',
-      'name': 'Global Travel Report Editorial Team',
-      'url': siteUrl
-    },
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
@@ -447,10 +437,6 @@ export function generateAggregateRatingSchema(story: Story, siteUrl: string = 'h
         '@type': 'Rating',
         'ratingValue': rating.toFixed(1),
         'bestRating': '5'
-      },
-      'author': {
-        '@type': 'Organization',
-        'name': 'Global Travel Report Editorial Team'
       },
       'datePublished': new Date(story.publishedAt).toISOString(),
       'reviewBody': story.excerpt,

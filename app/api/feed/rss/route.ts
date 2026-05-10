@@ -128,8 +128,8 @@ export async function GET(request: Request) {
       <lastBuildDate>${formatRssDate(new Date())}</lastBuildDate>
       <atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />
       <copyright>Copyright ${new Date().getFullYear()} Global Travel Report</copyright>
-      <managingEditor>editorial@globaltravelreport.com (Global Travel Report Editorial Team)</managingEditor>
-      <webMaster>editorial@globaltravelreport.com (Global Travel Report Editorial Team)</webMaster>
+      <managingEditor>editorial@globaltravelreport.com (Global Travel Report)</managingEditor>
+      <webMaster>editorial@globaltravelreport.com (Global Travel Report)</webMaster>
       <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
       <generator>Global Travel Report RSS Generator</generator>
       <sy:updatePeriod>hourly</sy:updatePeriod>

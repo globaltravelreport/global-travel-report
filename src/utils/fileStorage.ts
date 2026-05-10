@@ -273,7 +273,7 @@ export async function getAllStories(): Promise<Story[]> {
             title: storyData.title || 'Untitled',
             content: cleanContent,
             excerpt: storyData.summary || '',
-            author: 'Global Travel Report Editorial Team',
+            author: '',
             // Use our processed date
             publishedAt: publishedDate,
             // Keep the original date string for reference
@@ -536,7 +536,7 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                 title: storyData.title || 'Untitled',
                 content: cleanContent,
                 excerpt: storyData.summary || '',
-                author: 'Global Travel Report Editorial Team',
+                author: '',
                 publishedAt: publishedDate,
                 date: storyData.date, // Preserve the original date string
                 category: storyData.type || 'Article',

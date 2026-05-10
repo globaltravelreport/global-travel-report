@@ -90,11 +90,6 @@ export function generateArticleStructuredData(article: any) {
     'headline': article.title,
     'description': article.summary || article.metaDescription || '',
     'image': article.imageUrl ? [article.imageUrl] : [],
-    'author': {
-      '@type': 'Organization',
-      'name': 'Global Travel Report Editorial Team',
-      'url': `${baseUrl}/about`
-    },
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
