@@ -19,7 +19,7 @@ export function GET() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#07111f',
+          background: '#0a1020',
           fontFamily: 'Arial, Helvetica, sans-serif',
           position: 'relative',
           overflow: 'hidden',
@@ -29,18 +29,14 @@ export function GET() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(135deg, rgba(14, 116, 144, 0.95) 0%, rgba(7, 17, 31, 0.88) 42%, rgba(249, 115, 22, 0.76) 100%)',
+            background: 'linear-gradient(135deg, #101827 0%, #153b54 44%, #b7791f 100%)',
           }}
         />
         <div
           style={{
             position: 'absolute',
-            right: -70,
-            top: 30,
-            width: 430,
-            height: 430,
-            borderRadius: 999,
-            background: 'rgba(255, 209, 102, 0.88)',
+            inset: 0,
+            background: 'radial-gradient(circle at 78% 24%, rgba(255, 213, 128, 0.34) 0, rgba(255, 213, 128, 0.16) 23%, transparent 45%)',
           }}
         />
         <div
@@ -49,22 +45,23 @@ export function GET() {
             left: 0,
             bottom: 0,
             width: '100%',
-            height: 170,
-            background: 'linear-gradient(90deg, #0f766e 0%, #0284c7 38%, #f97316 100%)',
-            opacity: 0.9,
+            height: 150,
+            background: 'linear-gradient(90deg, #0f766e 0%, #2563eb 44%, #c084fc 100%)',
+            opacity: 0.78,
           }}
         />
         <div
           style={{
-            width: 1030,
+            width: 1040,
             height: 470,
             display: 'flex',
             position: 'relative',
+            gap: 56,
           }}
         >
           <div
             style={{
-              width: 670,
+              width: 660,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -84,11 +81,10 @@ export function GET() {
             <div
               style={{
                 color: '#ffffff',
-                fontSize: 78,
+                fontSize: 80,
                 fontWeight: 900,
                 marginTop: 34,
                 lineHeight: 0.96,
-                letterSpacing: -2,
               }}
             >
               Global Travel Report
@@ -96,13 +92,13 @@ export function GET() {
             <div
               style={{
                 color: '#e2e8f0',
-                fontSize: 33,
+                fontSize: 31,
                 lineHeight: 1.22,
                 marginTop: 24,
                 maxWidth: 620,
               }}
             >
-              Cruises, airlines, hotels, destinations and travel deals in one newsroom.
+              Air travel, cruise, accommodation, destinations, deals and safety in one newsroom.
             </div>
             <div
               style={{
@@ -128,19 +124,19 @@ export function GET() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              gap: 18,
+              gap: 16,
             }}
           >
-            {['Cruise', 'Airlines', 'Hotels', 'Destinations'].map((label) => (
+            {['Air Travel', 'Cruise', 'Accommodation', 'Travel Deals'].map((label) => (
               <div
                 key={label}
                 style={{
-                  width: 285,
-                  height: 66,
+                  width: 310,
+                  height: 64,
                   borderRadius: 18,
                   background: 'rgba(255, 255, 255, 0.94)',
                   color: '#0f172a',
-                  fontSize: 28,
+                  fontSize: label.length > 12 ? 25 : 28,
                   fontWeight: 900,
                   display: 'flex',
                   alignItems: 'center',

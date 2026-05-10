@@ -19,53 +19,69 @@ export async function GET(request: NextRequest) {
       ? title.substring(0, 60) + '...'
       : title;
 
-    // Generate the image with a simpler design
+    // Generate a branded, high-contrast image for social previews.
     return new ImageResponse(
       (
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(to bottom, #0c4a6e, #0ea5e9)',
-            padding: '40px',
+            background: 'linear-gradient(135deg, #101827 0%, #153b54 48%, #b7791f 100%)',
+            padding: '58px',
             color: 'white',
-            textAlign: 'center',
             fontFamily: 'sans-serif',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
           <div
             style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle at 78% 24%, rgba(255, 213, 128, 0.34) 0, rgba(255, 213, 128, 0.12) 24%, transparent 44%)',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              bottom: 0,
+              width: '100%',
+              height: 122,
+              background: 'linear-gradient(90deg, #0f766e 0%, #2563eb 44%, #c084fc 100%)',
+              opacity: 0.75,
+            }}
+          />
+          <div
+            style={{
+              position: 'relative',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
               width: '100%',
-              maxWidth: '900px',
-              padding: '20px',
-              borderRadius: '15px',
-              background: 'rgba(0, 0, 0, 0.2)',
+              maxWidth: '1020px',
             }}
           >
             <div
               style={{
-                fontSize: '24px',
-                fontWeight: 'normal',
-                marginBottom: '10px',
-                opacity: 0.9,
+                color: '#fbbf24',
+                fontSize: 26,
+                fontWeight: 800,
+                letterSpacing: 3,
+                textTransform: 'uppercase',
+                marginBottom: 28,
               }}
             >
               Global Travel Report
             </div>
             <div
               style={{
-                fontSize: '48px',
-                fontWeight: 'bold',
-                marginBottom: '20px',
-                lineHeight: 1.2,
+                fontSize: 70,
+                fontWeight: 900,
+                lineHeight: 0.98,
+                maxWidth: 940,
               }}
             >
               {truncatedTitle}
@@ -74,9 +90,9 @@ export async function GET(request: NextRequest) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '24px',
-                opacity: 0.8,
+                marginTop: 34,
+                fontSize: 30,
+                color: '#e2e8f0',
               }}
             >
               {destination}

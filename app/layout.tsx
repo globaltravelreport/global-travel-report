@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     default: 'Global Travel Report',
     template: '%s | Global Travel Report',
   },
-  description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
-  keywords: ['travel news', 'cruise news', 'airline news', 'destinations', 'travel advice', 'Australian travellers', 'tourism'],
+  description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
+  keywords: ['travel news', 'air travel', 'cruise', 'accommodation', 'destinations', 'travel deals', 'travel safety', 'Australian travellers', 'tourism'],
   authors: [{ name: 'Global Travel Report Team' }],
   creator: 'Global Travel Report',
   publisher: 'Global Travel Report',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     title: 'Global Travel Report',
-    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+    description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
     images: [
       {
         url: '/og/facebook-home-20260509',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Global Travel Report',
-    description: 'Independent travel news, cruise updates, airline stories, destination guides, and practical travel advice for Australian travellers.',
+    description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
     images: ['/og/facebook-home-20260509'],
   },
   facebook: {

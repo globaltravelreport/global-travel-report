@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   title: {
     absolute: 'Global Travel Report',
   },
-  description: 'Cruise updates, airline news, hotel stories, destination guides and practical travel advice for Australian travellers.',
+  description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
   alternates: {
     canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
   },
   openGraph: {
     title: 'Global Travel Report',
-    description: 'Cruises, airlines, hotels, destinations and travel deals in one independent travel newsroom.',
+    description: 'Air travel, cruise, accommodation, destinations, deals, safety and travel technology in one independent travel newsroom.',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Global Travel Report',
-    description: 'Cruises, airlines, hotels, destinations and travel deals in one independent travel newsroom.',
+    description: 'Air travel, cruise, accommodation, destinations, deals, safety and travel technology in one independent travel newsroom.',
     images: ['/og/facebook-home-20260509'],
   },
   // LinkedIn uses Open Graph tags but we can add LinkedIn-specific optimization
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     },
   },
   category: 'travel',
-  keywords: ['travel', 'destinations', 'travel tips', 'travel guide', 'adventure', 'vacation', 'tourism'],
+  keywords: ['travel news', 'air travel', 'cruise', 'accommodation', 'destinations', 'travel deals', 'travel safety', 'travel technology'],
 };
 
 export default async function Home() {
