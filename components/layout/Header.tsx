@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { EnhancedSearchBar } from '@/components/search/EnhancedSearchBar';
 import { Story } from '@/types/Story';
+import { getFeaturedCategories } from '@/src/config/categories';
 
 const countries = [
   'Australia', 'Japan', 'United States', 'United Kingdom', 'France',
@@ -16,12 +17,9 @@ const countries = [
   'South Africa', 'Brazil', 'Mexico', 'Maldives', 'Africa', 'Europe', 'Asia', 'Global'
 ].sort();
 
-const categories = [
-  'Hotels', 'Airlines', 'Cruises', 'Destinations', 'Food & Dining',
-  'Adventure', 'Culture', 'Shopping', 'Nightlife', 'Family Travel',
-  'Luxury Travel', 'Budget Travel', 'Solo Travel', 'Honeymoon',
-  'Business Travel', 'Eco Tourism', 'Wellness & Spa', 'Tours', 'Finance', 'Travel Tips'
-].sort();
+const categories = getFeaturedCategories()
+  .map((category) => ({ name: category.name, slug: category.slug }))
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,7 +53,7 @@ export function Header() {
   );
 
   const filteredCategories = categories.filter(category =>
-    category.toLowerCase().includes(categorySearch.toLowerCase())
+    category.name.toLowerCase().includes(categorySearch.toLowerCase())
   );
 
   const isActive = (path: string) => pathname === path;
@@ -150,12 +148,12 @@ export function Header() {
                   <div className="max-h-60 overflow-y-auto">
                     {filteredCategories.map((category) => (
                       <Link
-                        key={category}
-                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                        key={category.slug}
+                        href={`/categories/${category.slug}`}
                         className="block px-4 py-2 text-sm text-[#C9A14A] hover:text-white hover:bg-[#1a2b3f] rounded-md"
                         onClick={() => setIsCategoryDropdownOpen(false)}
                       >
-                        {category}
+                        {category.name}
                       </Link>
                     ))}
                   </div>
@@ -337,15 +335,15 @@ export function Header() {
                     />
                     {filteredCategories.map((category) => (
                       <Link
-                        key={category}
-                        href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                        key={category.slug}
+                        href={`/categories/${category.slug}`}
                         className="block px-4 py-2 text-sm text-[#C9A14A] hover:text-white hover:bg-[#1a2b3f] rounded-md"
                         onClick={() => {
                           setIsCategoryDropdownOpen(false);
                           setIsMenuOpen(false);
                         }}
                       >
-                        {category}
+                        {category.name}
                       </Link>
                     ))}
                   </div>
@@ -472,12 +470,12 @@ export function Header() {
                 <div className="flex flex-wrap gap-2">
                   {categories.slice(0, 8).map((category) => (
                     <Link
-                      key={category}
-                      href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      key={category.slug}
+                      href={`/categories/${category.slug}`}
                       className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-700"
                       onClick={() => setIsSearchOpen(false)}
                     >
-                      {category}
+                      {category.name}
                     </Link>
                   ))}
                 </div>

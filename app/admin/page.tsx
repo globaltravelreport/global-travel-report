@@ -258,7 +258,7 @@ function AdminDashboardContent() {
                 Destinations
               </Link>
               <Link
-                href="/category-index/cruises"
+                href="/category-index/cruise"
                 className="text-blue-600 hover:text-blue-800 hover:underline"
                 target="_blank"
               >

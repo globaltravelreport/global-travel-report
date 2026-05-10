@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { CATEGORIES } from '@/src/config/categories';
+import { CATEGORIES, getCategoryBySlug, normalizeCategorySlug } from '@/src/config/categories';
 import { notFound } from 'next/navigation';
 import { getAllStories, getStoriesByCategory } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
 
   // Find the category in the config
-  const categoryData = CATEGORIES.find(cat => cat.slug === slug);
+  const categoryData = getCategoryBySlug(slug);
 
   if (!categoryData) {
     return {
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const categoryUrl = `${baseUrl}/categories/${slug}`;
+  const categoryUrl = `${baseUrl}/categories/${categoryData.slug}`;
   const categoryImage = `https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1200&h=600`;
 
   return {
@@ -94,7 +94,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = params;
 
   // Find the category in the config
-  const categoryData = CATEGORIES.find(cat => cat.slug === slug);
+  const categoryData = getCategoryBySlug(slug);
 
   // If category not found, return 404
   if (!categoryData) {
@@ -103,19 +103,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Get parent category if this is a subcategory
   const parentCategory = categoryData.parent
-    ? CATEGORIES.find(cat => cat.slug === categoryData.parent)
+    ? getCategoryBySlug(categoryData.parent)
     : null;
 
   // Get subcategories if this is a parent category
-  const subcategories = CATEGORIES.filter(cat => cat.parent === slug);
+  const categorySlug = normalizeCategorySlug(slug);
+  const subcategories = CATEGORIES.filter(cat => cat.parent === categorySlug);
 
   // Get related categories (siblings if this is a subcategory, or other main categories if this is a parent)
   const relatedCategories = categoryData.parent
-    ? CATEGORIES.filter(cat => cat.parent === categoryData.parent && cat.slug !== slug).slice(0, 4)
-    : CATEGORIES.filter(cat => !cat.parent && cat.slug !== slug).slice(0, 4);
+    ? CATEGORIES.filter(cat => cat.parent === categoryData.parent && cat.slug !== categoryData.slug).slice(0, 4)
+    : CATEGORIES.filter(cat => !cat.parent && cat.slug !== categoryData.slug).slice(0, 4);
 
   // Fetch stories for this category
-  const categoryStories = await getCategoryStories(slug);
+  const categoryStories = await getCategoryStories(categoryData.slug);
 
   // Separate recent and archived stories
   const thirtyDaysAgo = new Date();

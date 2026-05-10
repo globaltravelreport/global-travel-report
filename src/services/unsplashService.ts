@@ -6,6 +6,7 @@
  */
 
 import { Story } from '@/types/Story';
+import { normalizeCategoryName } from '@/src/config/categories';
 
 interface UnsplashImage {
   url: string;
@@ -254,16 +255,18 @@ export class UnsplashService {
           let query = `${story.country} ${story.category}`;
 
           // Add more specific terms for better results
-          if (story.category === 'Cruises') {
+          const category = normalizeCategoryName(story.category);
+
+          if (category === 'Cruise') {
             query += ' cruise ship ocean';
-          } else if (story.category === 'Food & Drink') {
+          } else if (category === 'Food & Drink') {
             query += ' food cuisine restaurant';
-          } else if (story.category === 'Adventure Travel') {
-            query += ' adventure landscape nature';
-          } else if (story.category === 'Luxury Travel') {
+          } else if (category === 'Tours') {
+            query += ' guided tour landscape';
+          } else if (category === 'Luxury Travel') {
             query += ' luxury hotel resort';
-          } else if (story.category === 'Family Travel') {
-            query += ' family vacation';
+          } else if (category === 'Air Travel') {
+            query += ' aircraft airport';
           } else {
             query += ' travel tourism';
           }

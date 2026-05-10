@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Alert, AlertDescription } from '../../../components/ui/alert';
 import { Eye, Upload } from 'lucide-react';
+import { CATEGORIES } from '../../../src/config/categories';
 
 interface RewriteResult {
   title: string;
@@ -35,9 +36,7 @@ const COUNTRIES = [
   'Vietnam'
 ];
 
-const CATEGORIES = [
-  'Travel', 'Adventure', 'Culture', 'Food & Wine', 'Cruise', 'Luxury', 'Budget', 'Family', 'Solo Travel', 'Business Travel'
-];
+const STORY_CATEGORIES = CATEGORIES.map((category) => category.name);
 
 export default function StoryUploadPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -259,7 +258,7 @@ export default function StoryUploadPage() {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {CATEGORIES.map((category) => (
+                    {STORY_CATEGORIES.map((category) => (
                       <SelectItem key={category} value={category}>
                         {category}
                       </SelectItem>

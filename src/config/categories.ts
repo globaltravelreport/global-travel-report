@@ -1,224 +1,255 @@
 /**
- * Standardized category system for Global Travel Report
- * 
- * This file defines the official categories used throughout the site,
- * including their display names, slugs, descriptions, and icons.
+ * Official category taxonomy for Global Travel Report.
+ *
+ * Keep this list small and editorial. Aliases below preserve older URLs,
+ * imported stories, and previous AI labels without exposing duplicate sections.
  */
 
 export interface Category {
-  name: string;        // Display name (e.g., "Cruise Ships")
-  slug: string;        // URL slug (e.g., "cruise-ships")
-  description: string; // Short description for category pages
-  icon: string;        // Emoji icon for visual representation
-  keywords: string[];  // Related keywords for matching
-  featured: boolean;   // Whether to feature in homepage/navigation
-  parent?: string;     // Optional parent category slug
+  name: string;
+  slug: string;
+  description: string;
+  icon: string;
+  keywords: string[];
+  featured: boolean;
+  parent?: string;
 }
 
-/**
- * Main categories used throughout the site
- */
 export const CATEGORIES: Category[] = [
-  // Main travel categories
   {
-    name: 'Cruises',
-    slug: 'cruises',
-    description: 'Ocean and river cruise experiences, reviews, and news',
-    icon: '🚢',
-    keywords: ['cruise', 'ship', 'ocean', 'river', 'sailing', 'boat'],
-    featured: true
-  },
-  {
-    name: 'Cruise Ships',
-    slug: 'cruise-ships',
-    description: 'Reviews and information about specific cruise ships',
-    icon: '🚢',
-    keywords: ['cruise ship', 'vessel', 'liner', 'fleet'],
-    featured: false,
-    parent: 'cruises'
-  },
-  {
-    name: 'Cruise Lines',
-    slug: 'cruise-lines',
-    description: 'News and information about cruise companies',
-    icon: '🚢',
-    keywords: ['cruise line', 'company', 'carnival', 'royal caribbean', 'norwegian'],
-    featured: false,
-    parent: 'cruises'
-  },
-  {
-    name: 'River Cruises',
-    slug: 'river-cruises',
-    description: 'Experiences and reviews of river cruises worldwide',
-    icon: '⛵',
-    keywords: ['river cruise', 'danube', 'nile', 'amazon', 'rhine', 'mekong'],
-    featured: false,
-    parent: 'cruises'
-  },
-  {
-    name: 'Airlines',
-    slug: 'airlines',
-    description: 'Airline reviews, news, and flight experiences',
+    name: 'Air Travel',
+    slug: 'air-travel',
+    description: 'Airline, airport, aviation, route, lounge, and passenger experience news.',
     icon: '✈️',
-    keywords: ['airline', 'flight', 'airplane', 'aviation', 'airport'],
+    keywords: ['airline', 'flight', 'airport', 'aviation', 'aircraft', 'route', 'lounge'],
     featured: true
   },
   {
-    name: 'Hotels',
-    slug: 'hotels',
-    description: 'Hotel reviews, luxury stays, and accommodation tips',
+    name: 'Cruise',
+    slug: 'cruise',
+    description: 'Ocean, expedition, and river cruise news, ships, ports, and itineraries.',
+    icon: '🚢',
+    keywords: ['cruise', 'ship', 'voyage', 'port', 'sailing', 'river cruise'],
+    featured: true
+  },
+  {
+    name: 'Accommodation',
+    slug: 'accommodation',
+    description: 'Hotels, resorts, lodges, villas, and places to stay around the world.',
     icon: '🏨',
-    keywords: ['hotel', 'resort', 'accommodation', 'stay', 'lodging'],
+    keywords: ['hotel', 'resort', 'accommodation', 'stay', 'lodging', 'suite', 'villa'],
     featured: true
   },
   {
     name: 'Destinations',
     slug: 'destinations',
-    description: 'Guides and stories about travel destinations worldwide',
+    description: 'Country, city, island, region, and destination guides and news.',
     icon: '🌍',
-    keywords: ['destination', 'place', 'location', 'country', 'city', 'region'],
+    keywords: ['destination', 'place', 'location', 'country', 'city', 'region', 'island'],
     featured: true
   },
   {
-    name: 'Travel Tips',
-    slug: 'travel-tips',
-    description: 'Practical advice and tips for travelers',
-    icon: '💡',
-    keywords: ['tips', 'advice', 'guide', 'how-to', 'planning'],
+    name: 'Tours',
+    slug: 'tours',
+    description: 'Tours, activities, attractions, guided experiences, rail journeys, and itineraries.',
+    icon: '🧭',
+    keywords: ['tour', 'itinerary', 'guide', 'excursion', 'experience', 'activity', 'rail', 'train'],
     featured: true
   },
   {
-    name: 'Food & Dining',
-    slug: 'food-dining',
-    description: 'Culinary experiences and food-focused travel',
+    name: 'Travel Deals',
+    slug: 'travel-deals',
+    description: 'Deals, offers, fares, discounts, sale periods, and good-value travel opportunities.',
+    icon: '🏷️',
+    keywords: ['deal', 'sale', 'discount', 'offer', 'fare', 'value', 'budget'],
+    featured: true
+  },
+  {
+    name: 'Travel Safety',
+    slug: 'travel-safety',
+    description: 'Travel warnings, visa rules, passport updates, health advice, and security alerts.',
+    icon: '🛡️',
+    keywords: ['warning', 'advice', 'visa', 'passport', 'safety', 'alert', 'security', 'health'],
+    featured: true
+  },
+  {
+    name: 'Food & Drink',
+    slug: 'food-drink',
+    description: 'Restaurants, food tours, wine regions, bars, culinary travel, and local flavours.',
     icon: '🍽️',
-    keywords: ['food', 'dining', 'restaurant', 'cuisine', 'culinary', 'gastronomy'],
-    featured: true
-  },
-  {
-    name: 'Adventure',
-    slug: 'adventure',
-    description: 'Thrilling experiences and adventure travel',
-    icon: '🧗',
-    keywords: ['adventure', 'outdoor', 'extreme', 'hiking', 'climbing', 'safari'],
-    featured: true
-  },
-  {
-    name: 'Culture',
-    slug: 'culture',
-    description: 'Cultural experiences, history, and heritage travel',
-    icon: '🏛️',
-    keywords: ['culture', 'history', 'heritage', 'museum', 'art', 'tradition'],
-    featured: true
-  },
-  {
-    name: 'Nature',
-    slug: 'nature',
-    description: 'Nature-focused travel and outdoor experiences',
-    icon: '🌲',
-    keywords: ['nature', 'wildlife', 'national park', 'landscape', 'outdoor'],
+    keywords: ['food', 'drink', 'dining', 'restaurant', 'cuisine', 'culinary', 'wine', 'bar'],
     featured: true
   },
   {
     name: 'Luxury Travel',
     slug: 'luxury-travel',
-    description: 'Premium travel experiences and luxury destinations',
+    description: 'Premium cabins, high-end stays, luxury journeys, and exclusive travel experiences.',
     icon: '💎',
-    keywords: ['luxury', 'premium', 'high-end', 'exclusive', 'five-star'],
+    keywords: ['luxury', 'premium', 'first class', 'business class', 'high-end', 'exclusive'],
     featured: true
   },
   {
-    name: 'Budget Travel',
-    slug: 'budget-travel',
-    description: 'Tips and destinations for traveling on a budget',
-    icon: '💰',
-    keywords: ['budget', 'affordable', 'cheap', 'backpacking', 'value'],
+    name: 'Sustainable Travel',
+    slug: 'sustainable-travel',
+    description: 'Responsible travel, sustainability, low-impact tourism, and conservation-led trips.',
+    icon: '🌿',
+    keywords: ['sustainable', 'eco', 'responsible', 'carbon', 'green', 'conservation'],
     featured: true
   },
   {
-    name: 'Family Travel',
-    slug: 'family-travel',
-    description: 'Travel ideas and tips for families with children',
-    icon: '👨‍👩‍👧‍👦',
-    keywords: ['family', 'kids', 'children', 'parents', 'multi-generational'],
+    name: 'Travel Tech',
+    slug: 'travel-tech',
+    description: 'Travel apps, eSIMs, booking technology, digital tools, and connected travel.',
+    icon: '📱',
+    keywords: ['app', 'technology', 'digital', 'esim', 'wifi', 'booking platform', 'online'],
     featured: true
   },
   {
-    name: 'Solo Travel',
-    slug: 'solo-travel',
-    description: 'Advice and experiences for solo travelers',
-    icon: '🧳',
-    keywords: ['solo', 'alone', 'independent', 'single'],
-    featured: false
+    name: 'Finance & Points',
+    slug: 'finance-points',
+    description: 'Travel money, cards, points, miles, insurance, currency, and rewards programs.',
+    icon: '💳',
+    keywords: ['points', 'miles', 'credit card', 'currency', 'bank', 'insurance', 'money', 'rewards'],
+    featured: true
+  },
+  {
+    name: 'Travel News',
+    slug: 'travel-news',
+    description: 'General travel industry updates and stories that do not fit a specialist section.',
+    icon: '📰',
+    keywords: ['travel news', 'tourism', 'industry', 'update', 'announcement'],
+    featured: true
   }
 ];
 
-/**
- * Get a category by its slug
- * @param slug - The category slug to look up
- * @returns The category object or undefined if not found
- */
+const CATEGORY_ALIASES: Record<string, string> = {
+  accommodation: 'accommodation',
+  adventure: 'tours',
+  'adventure travel': 'tours',
+  airline: 'air-travel',
+  airlines: 'air-travel',
+  'air travel': 'air-travel',
+  'air-travel': 'air-travel',
+  aviation: 'air-travel',
+  budget: 'travel-deals',
+  'budget travel': 'travel-deals',
+  culture: 'destinations',
+  cruise: 'cruise',
+  cruises: 'cruise',
+  'cruise lines': 'cruise',
+  'cruise ships': 'cruise',
+  deals: 'travel-deals',
+  destinations: 'destinations',
+  'eco tourism': 'sustainable-travel',
+  'eco-tourism': 'sustainable-travel',
+  family: 'tours',
+  'family travel': 'tours',
+  finance: 'finance-points',
+  'finance & points': 'finance-points',
+  'finance and points': 'finance-points',
+  flights: 'air-travel',
+  food: 'food-drink',
+  'food & dining': 'food-drink',
+  'food & drink': 'food-drink',
+  'food and dining': 'food-drink',
+  'food and drink': 'food-drink',
+  'food-dining': 'food-drink',
+  'food-drink': 'food-drink',
+  'food wine': 'food-drink',
+  'food & wine': 'food-drink',
+  global: 'travel-news',
+  hotel: 'accommodation',
+  hotels: 'accommodation',
+  insurance: 'finance-points',
+  luxury: 'luxury-travel',
+  'luxury travel': 'luxury-travel',
+  nature: 'destinations',
+  rail: 'tours',
+  safety: 'travel-safety',
+  shopping: 'travel-deals',
+  'solo travel': 'tours',
+  sustainability: 'sustainable-travel',
+  'sustainable travel': 'sustainable-travel',
+  tech: 'travel-tech',
+  tours: 'tours',
+  travel: 'travel-news',
+  'travel deals': 'travel-deals',
+  'travel news': 'travel-news',
+  'travel safety': 'travel-safety',
+  'travel tech': 'travel-tech',
+  'travel tips': 'travel-news',
+  'travel-tips': 'travel-news',
+  wellness: 'tours',
+  'wellness & spa': 'tours'
+};
+
+export function slugifyCategory(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function normaliseLookupKey(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+export function normalizeCategorySlug(value?: string | null): string {
+  if (!value) {
+    return 'travel-news';
+  }
+
+  const lookupKey = normaliseLookupKey(value);
+  const slug = slugifyCategory(value);
+  return CATEGORY_ALIASES[lookupKey] || CATEGORY_ALIASES[slug] || slug;
+}
+
 export function getCategoryBySlug(slug: string): Category | undefined {
-  return CATEGORIES.find(category => category.slug === slug);
+  const canonicalSlug = normalizeCategorySlug(slug);
+  return CATEGORIES.find(category => category.slug === canonicalSlug);
 }
 
-/**
- * Get a category by its name (case-insensitive)
- * @param name - The category name to look up
- * @returns The category object or undefined if not found
- */
 export function getCategoryByName(name: string): Category | undefined {
-  return CATEGORIES.find(
-    category => category.name.toLowerCase() === name.toLowerCase()
-  );
+  const canonicalSlug = normalizeCategorySlug(name);
+  return CATEGORIES.find(category => category.slug === canonicalSlug);
 }
 
-/**
- * Get all featured categories
- * @returns Array of featured categories
- */
+export function normalizeCategoryName(value?: string | null): string {
+  return getCategoryBySlug(value || '')?.name || 'Travel News';
+}
+
 export function getFeaturedCategories(): Category[] {
   return CATEGORIES.filter(category => category.featured);
 }
 
-/**
- * Get subcategories for a parent category
- * @param parentSlug - The parent category slug
- * @returns Array of subcategories
- */
 export function getSubcategories(parentSlug: string): Category[] {
-  return CATEGORIES.filter(category => category.parent === parentSlug);
+  const canonicalSlug = normalizeCategorySlug(parentSlug);
+  return CATEGORIES.filter(category => category.parent === canonicalSlug);
 }
 
-/**
- * Find the best matching category for a given string
- * @param input - The input string to match against categories
- * @returns The best matching category or undefined if no good match
- */
-export function findBestMatchingCategory(input: string): Category | undefined {
-  if (!input) return undefined;
-  
-  const normalizedInput = input.toLowerCase();
-  
-  // First try exact match with name or slug
-  const exactMatch = CATEGORIES.find(
-    category => 
-      category.name.toLowerCase() === normalizedInput ||
-      category.slug === normalizedInput
-  );
-  
-  if (exactMatch) return exactMatch;
-  
-  // Then try keyword matching
-  for (const category of CATEGORIES) {
-    if (category.keywords.some(keyword => normalizedInput.includes(keyword.toLowerCase()))) {
-      return category;
-    }
+export function categoryMatches(storyCategory: string | undefined | null, requestedCategory: string): boolean {
+  if (!storyCategory || !requestedCategory) {
+    return false;
   }
-  
-  // Finally try partial name matching
-  return CATEGORIES.find(
-    category => normalizedInput.includes(category.name.toLowerCase())
+
+  return normalizeCategorySlug(storyCategory) === normalizeCategorySlug(requestedCategory);
+}
+
+export function findBestMatchingCategory(input: string): Category | undefined {
+  if (!input) {
+    return undefined;
+  }
+
+  const directMatch = getCategoryBySlug(input) || getCategoryByName(input);
+  if (directMatch) {
+    return directMatch;
+  }
+
+  const normalizedInput = input.toLowerCase();
+  return CATEGORIES.find(category =>
+    category.keywords.some(keyword => normalizedInput.includes(keyword.toLowerCase()))
   );
 }
 

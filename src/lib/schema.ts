@@ -189,10 +189,8 @@ export function generateTravelDestinationSchema(story: Story, siteUrl: string = 
 
   // Determine if this is a cruise destination
   const isCruiseDestination =
-    categoryInfo?.slug === 'cruises' ||
-    categoryInfo?.slug === 'cruise-ships' ||
-    categoryInfo?.slug === 'cruise-lines' ||
-    categoryInfo?.parent === 'cruises' ||
+    categoryInfo?.slug === 'cruise' ||
+    categoryInfo?.parent === 'cruise' ||
     story.category?.toLowerCase().includes('cruise');
 
   // Get optimized keywords

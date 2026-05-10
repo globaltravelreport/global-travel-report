@@ -5,7 +5,7 @@ import { CategoriesIndexStructuredData } from '@/components/seo/CategoriesIndexS
 
 export const metadata: Metadata = {
   title: 'Categories - Global Travel Report',
-  description: 'Explore travel stories by category. Find articles about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+  description: 'Explore travel stories by category. Find articles about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
 };
 
 export default function CategoriesPage() {
@@ -18,14 +18,14 @@ export default function CategoriesPage() {
 
   // Define the specific categories to show in the highlighted grid
   const highlightedCategories = [
-    CATEGORIES.find(c => c.slug === 'cruises'),
-    CATEGORIES.find(c => c.slug === 'airlines'),
-    CATEGORIES.find(c => c.slug === 'hotels'),
+    CATEGORIES.find(c => c.slug === 'air-travel'),
+    CATEGORIES.find(c => c.slug === 'cruise'),
+    CATEGORIES.find(c => c.slug === 'accommodation'),
     CATEGORIES.find(c => c.slug === 'destinations'),
-    CATEGORIES.find(c => c.slug === 'travel-tips'),
-    CATEGORIES.find(c => c.slug === 'food-dining'),
-    CATEGORIES.find(c => c.slug === 'adventure'),
-    CATEGORIES.find(c => c.slug === 'culture'),
+    CATEGORIES.find(c => c.slug === 'tours'),
+    CATEGORIES.find(c => c.slug === 'travel-deals'),
+    CATEGORIES.find(c => c.slug === 'travel-safety'),
+    CATEGORIES.find(c => c.slug === 'food-drink'),
   ].filter(Boolean);
 
   return (

@@ -2,6 +2,7 @@
 import type { Story } from "../../types/Story";
 import { v4 as uuidv4 } from "uuid";
 import { generateStoryContent } from "../services/aiService";
+import { CATEGORIES, normalizeCategoryName } from "../config/categories";
 
 /**
  * Interface for rewrite options
@@ -112,7 +113,7 @@ Excerpt: 1 concise sentence summarising the story
 Article: 5 to 8 short paragraphs
 Tags: 5 comma-separated SEO tags
 Country: best matching country, or Global if it is not country-specific
-Category: best matching category, such as Air Travel, Cruise, Hotel, Tours, Rail, Insurance, Safety, Deals, Destinations, or Travel News
+Category: one best matching category from this exact list: ${CATEGORIES.map(category => category.name).join(', ')}
 
 Source category hint: ${category}
 
@@ -141,7 +142,7 @@ ${originalContent}`;
       .filter(Boolean)
       .slice(0, 8) || ['travel news'];
     const country = countryMatch?.[1]?.trim() || 'Global';
-    const finalCategory = categoryMatch?.[1]?.trim() || category;
+    const finalCategory = normalizeCategoryName(categoryMatch?.[1]?.trim() || category);
 
     // Generate a slug from the title
     const slug = title

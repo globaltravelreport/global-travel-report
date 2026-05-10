@@ -112,8 +112,8 @@ export default function NotFound() {
                 {[
                   { name: 'Europe', href: '/destinations/europe', color: 'bg-green-100 text-green-800' },
                   { name: 'Asia', href: '/destinations/asia', color: 'bg-red-100 text-red-800' },
-                  { name: 'Cruises', href: '/categories/cruises', color: 'bg-blue-100 text-blue-800' },
-                  { name: 'Hotels', href: '/categories/hotels', color: 'bg-purple-100 text-purple-800' },
+                  { name: 'Cruise', href: '/categories/cruise', color: 'bg-blue-100 text-blue-800' },
+                  { name: 'Accommodation', href: '/categories/accommodation', color: 'bg-purple-100 text-purple-800' },
                   { name: 'Adventure', href: '/categories/adventure', color: 'bg-orange-100 text-orange-800' },
                   { name: 'Culture', href: '/categories/culture', color: 'bg-pink-100 text-pink-800' },
                 ].map((category) => (

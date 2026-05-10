@@ -3,13 +3,13 @@ import CategoryGrid from '@/src/components/CategoryGrid';
 
 export const metadata: Metadata = {
   title: 'Travel Categories - Global Travel Report',
-  description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+  description: 'Explore travel stories about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/category-index`,
   },
   openGraph: {
     title: 'Travel Categories - Global Travel Report',
-    description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+    description: 'Explore travel stories about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
     url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/category-index`,
     siteName: 'Global Travel Report',
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     site: '@globaltravelreport',
     creator: '@globaltravelreport',
     title: 'Travel Categories - Global Travel Report',
-    description: 'Explore our comprehensive collection of travel categories. Find stories about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+    description: 'Explore travel stories about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
     images: ['/og/home-1200x630.jpg'],
   },
   robots: {

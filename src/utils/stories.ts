@@ -45,6 +45,7 @@ import { mockStories } from '../mocks/stories';
 import { memoizeMultiArg } from './memoization';
 import { isRecent } from './date-utils';
 import { StoryDatabase } from '../services/storyDatabase';
+import { categoryMatches, normalizeCategoryName } from '../config/categories';
 import {
   paginate,
   PaginationOptions,
@@ -275,33 +276,9 @@ export const getStoriesByCategory = memoizeMultiArg(
     category: string,
     options: PaginationOptions = { page: 1, limit: 10 }
   ): PaginationResult<Story> => {
-    // First filter and sort the stories
     const filteredStories = Array.isArray(stories) ? stories
       .filter(story => {
-        // Check both category and type fields (some stories use type instead of category)
-        const storyCategory = story.category || '';
-        const storyType = story.type || '';
-
-        // Normalize category names for comparison
-        const normalizedCategory = category.toLowerCase();
-        const normalizedStoryCategory = storyCategory.toLowerCase();
-        const normalizedStoryType = storyType.toLowerCase();
-
-        // Special case for "Cruise" category
-        if (normalizedCategory === 'cruise' || normalizedCategory === 'cruises') {
-          return normalizedStoryCategory === 'cruise' ||
-                 normalizedStoryCategory === 'cruises' ||
-                 normalizedStoryType === 'cruise' ||
-                 normalizedStoryType === 'cruises' ||
-                 normalizedStoryCategory.includes('cruise') ||
-                 normalizedStoryType.includes('cruise');
-        }
-
-        // General case for other categories
-        return normalizedStoryCategory === normalizedCategory ||
-               normalizedStoryType === normalizedCategory ||
-               normalizedStoryCategory.includes(normalizedCategory) ||
-               normalizedStoryType.includes(normalizedCategory);
+        return categoryMatches(story.category, category) || categoryMatches(story.type, category);
       })
       .sort(sortNewestFirst) : [];
 
@@ -391,30 +368,7 @@ export const searchStories = memoizeMultiArg(
     if (params.category) {
       const category = params.category;
       filteredStories = filteredStories.filter(story => {
-        // Check both category and type fields (some stories use type instead of category)
-        const storyCategory = story.category || '';
-        const storyType = story.type || '';
-
-        // Normalize category names for comparison
-        const normalizedCategory = category.toLowerCase();
-        const normalizedStoryCategory = storyCategory.toLowerCase();
-        const normalizedStoryType = storyType.toLowerCase();
-
-        // Special case for "Cruise" category
-        if (normalizedCategory === 'cruise' || normalizedCategory === 'cruises') {
-          return normalizedStoryCategory === 'cruise' ||
-                 normalizedStoryCategory === 'cruises' ||
-                 normalizedStoryType === 'cruise' ||
-                 normalizedStoryType === 'cruises' ||
-                 normalizedStoryCategory.includes('cruise') ||
-                 normalizedStoryType.includes('cruise');
-        }
-
-        // General case for other categories
-        return normalizedStoryCategory === normalizedCategory ||
-               normalizedStoryType === normalizedCategory ||
-               normalizedStoryCategory.includes(normalizedCategory) ||
-               normalizedStoryType.includes(normalizedCategory);
+        return categoryMatches(story.category, category) || categoryMatches(story.type, category);
       });
     }
 
@@ -523,7 +477,7 @@ export async function getUniqueCountries(): Promise<string[]> {
 export async function getUniqueCategories(): Promise<string[]> {
   const stories = await getAllStories();
   const categories = stories.map(story => story.category).filter(Boolean) as string[];
-  return Array.from(new Set(categories)).sort();
+  return Array.from(new Set(categories.map(category => normalizeCategoryName(category)))).sort();
 }
 
 /**

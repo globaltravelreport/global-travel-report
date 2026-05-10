@@ -131,14 +131,15 @@ export default function RootLayout({
               knowsAbout: [
                 'Travel',
                 'Tourism',
-                'Travel Tips',
+                'Travel News',
                 'Destinations',
                 'Travel Guides',
-                'Adventure Travel',
-                'Cultural Tourism',
+                'Air Travel',
+                'Tours',
+                'Sustainable Travel',
                 'Cruise Travel',
-                'Hotel Reviews',
-                'Flight Information'
+                'Accommodation',
+                'Finance and Points'
               ],
               areaServed: 'Worldwide',
               sameAs: [

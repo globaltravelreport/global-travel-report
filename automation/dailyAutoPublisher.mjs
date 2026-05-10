@@ -52,16 +52,48 @@ const DEFAULT_FEEDS = [
 ];
 
 const CATEGORY_KEYWORDS = {
-  'Air Travel': ['flight', 'airline', 'airport', 'aviation', 'aircraft', 'route'],
-  Cruise: ['cruise', 'ship', 'voyage', 'port', 'sailing'],
-  Accommodation: ['hotel', 'resort', 'accommodation', 'suite', 'lodging'],
+  'Air Travel': ['flight', 'airline', 'airport', 'aviation', 'aircraft', 'route', 'lounge'],
+  Cruise: ['cruise', 'ship', 'voyage', 'port', 'sailing', 'river cruise'],
+  Accommodation: ['hotel', 'resort', 'accommodation', 'suite', 'lodging', 'villa'],
   Destinations: ['destination', 'city', 'country', 'island', 'beach', 'region'],
-  Tours: ['tour', 'itinerary', 'guide', 'excursion', 'experience'],
-  Safety: ['warning', 'advice', 'visa', 'passport', 'safety', 'alert'],
-  Deals: ['deal', 'sale', 'discount', 'offer', 'fare']
+  Tours: ['tour', 'itinerary', 'guide', 'excursion', 'experience', 'activity', 'rail', 'train'],
+  'Travel Deals': ['deal', 'sale', 'discount', 'offer', 'fare', 'value', 'budget'],
+  'Travel Safety': ['warning', 'advice', 'visa', 'passport', 'safety', 'alert', 'security', 'health'],
+  'Food & Drink': ['food', 'drink', 'dining', 'restaurant', 'cuisine', 'culinary', 'wine', 'bar'],
+  'Luxury Travel': ['luxury', 'premium', 'first class', 'business class', 'high-end', 'exclusive'],
+  'Sustainable Travel': ['sustainable', 'eco', 'responsible', 'carbon', 'green', 'conservation'],
+  'Travel Tech': ['app', 'technology', 'digital', 'esim', 'wifi', 'booking platform', 'online'],
+  'Finance & Points': ['points', 'miles', 'credit card', 'currency', 'bank', 'insurance', 'money', 'rewards']
 };
 
 const ALLOWED_CATEGORIES = [...Object.keys(CATEGORY_KEYWORDS), 'Travel News'];
+
+const CATEGORY_ALIASES = {
+  airline: 'Air Travel',
+  airlines: 'Air Travel',
+  'air travel': 'Air Travel',
+  flights: 'Air Travel',
+  cruises: 'Cruise',
+  hotels: 'Accommodation',
+  hotel: 'Accommodation',
+  deals: 'Travel Deals',
+  safety: 'Travel Safety',
+  'travel tips': 'Travel News',
+  'food dining': 'Food & Drink',
+  'food & dining': 'Food & Drink',
+  'food wine': 'Food & Drink',
+  adventure: 'Tours',
+  culture: 'Destinations',
+  nature: 'Destinations',
+  luxury: 'Luxury Travel',
+  budget: 'Travel Deals',
+  finance: 'Finance & Points',
+  insurance: 'Finance & Points',
+  rail: 'Tours',
+  tech: 'Travel Tech',
+  sustainability: 'Sustainable Travel',
+  sustainable: 'Sustainable Travel'
+};
 
 const FALLBACK_UNSPLASH_IMAGES = [
   {
@@ -292,6 +324,11 @@ function normaliseCategory(value, fallback = 'Travel News') {
     .filter(Boolean);
 
   for (const candidate of candidates) {
+    const alias = CATEGORY_ALIASES[candidate.toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim()];
+    if (alias) {
+      return alias;
+    }
+
     const exact = ALLOWED_CATEGORIES.find((category) => category.toLowerCase() === candidate.toLowerCase());
     if (exact) {
       return exact;
@@ -315,9 +352,9 @@ function inferCountry(text) {
 function extractTags(text) {
   const lower = text.toLowerCase();
   const candidates = [
-    'travel news', 'air travel', 'cruise', 'hotels', 'destinations',
-    'australian travellers', 'travel safety', 'deals', 'tours', 'family travel',
-    'luxury travel', 'sustainable travel'
+    'travel news', 'air travel', 'cruise', 'accommodation', 'destinations',
+    'australian travellers', 'travel safety', 'travel deals', 'tours', 'food and drink',
+    'luxury travel', 'sustainable travel', 'travel tech', 'finance and points'
   ];
 
   return candidates.filter((tag) => lower.includes(tag.replace(' travel', ''))).slice(0, 6);

@@ -40,7 +40,7 @@ export function CategoriesIndexStructuredData({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     'name': 'Categories - Global Travel Report',
-    'description': 'Explore travel stories by category. Find articles about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+    'description': 'Explore travel stories by category, including air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
     'url': `${siteUrl}/categories`,
     'mainEntity': {
       '@type': 'ItemList',

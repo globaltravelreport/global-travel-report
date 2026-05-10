@@ -2,6 +2,7 @@ import { Story } from '@/types/Story';
 import { UserSubmission } from '@/types/UserSubmission';
 import { mockStories } from '../mocks/stories';
 import { getSafeDateString } from '../utils/date-utils';
+import { categoryMatches } from '../config/categories';
 import { SupabaseStoryStore } from './supabaseStoryStore';
 
 const FALLBACK_PUBLISHED_AT = '2025-04-24T09:00:00.000Z';
@@ -162,7 +163,7 @@ export class StoryDatabase {
   public async getStoriesByCategory(category: string): Promise<Story[]> {
     await this.initialize();
     return this.stories.filter(story =>
-      story.category && story.category.toLowerCase() === category.toLowerCase()
+      categoryMatches(story.category, category) || categoryMatches(story.type, category)
     );
   }
 

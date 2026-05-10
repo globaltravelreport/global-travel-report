@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { normalizeCategorySlug } from '@/src/config/categories';
 
 type CategoryPageProps = {
   params: {
@@ -10,5 +11,5 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const { category } = params;
 
   // Redirect to the new categories page
-  redirect(`/categories/${category}`);
+  redirect(`/categories/${normalizeCategorySlug(category)}`);
 }

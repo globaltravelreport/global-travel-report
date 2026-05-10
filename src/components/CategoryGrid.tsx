@@ -1,24 +1,23 @@
 import Link from 'next/link';
 import Image from 'next/image';
-// import { CATEGORIES, getFeaturedCategories } from '@/src/config/categories';
-import { getFeaturedCategories } from '@/src/config/categories';
+import { categoryMatches, getFeaturedCategories } from '@/src/config/categories';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
 
 const CATEGORY_IMAGES: Record<string, string> = {
-  'cruises': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1200&h=600',
-  'airlines': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=1200&h=600',
-  'hotels': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=1200&h=600',
+  'air-travel': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=1200&h=600',
+  'cruise': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1200&h=600',
+  'accommodation': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=1200&h=600',
   'destinations': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1200&h=600',
-  'travel-tips': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1200&h=600',
-  'food-dining': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&q=80&w=1200&h=600',
-  'adventure': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1200&h=600',
-  'culture': 'https://images.unsplash.com/photo-1467269204594-9661b13412d7?auto=format&q=80&w=1200&h=600',
-  'nature': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&q=80&w=1200&h=600',
+  'tours': 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&q=80&w=1200&h=600',
+  'travel-deals': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1200&h=600',
+  'travel-safety': 'https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&q=80&w=1200&h=600',
+  'food-drink': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&q=80&w=1200&h=600',
   'luxury-travel': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&q=80&w=1200&h=600',
-  'budget-travel': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1200&h=600',
-  'family-travel': 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&q=80&w=1200&h=600',
-  'solo-travel': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1200&h=600'
+  'sustainable-travel': 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&q=80&w=1200&h=600',
+  'travel-tech': 'https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&q=80&w=1200&h=600',
+  'finance-points': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&q=80&w=1200&h=600',
+  'travel-news': 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=1200&h=600'
 };
 
 export default async function CategoryGrid() {
@@ -37,7 +36,7 @@ export default async function CategoryGrid() {
   // Get story count for each category
   const getCategoryStoryCount = (categorySlug: string) => {
     return stories.filter((story: Story) =>
-      story.category && story.category.toLowerCase() === categorySlug.toLowerCase()
+      categoryMatches(story.category, categorySlug) || categoryMatches(story.type, categorySlug)
     ).length;
   };
 

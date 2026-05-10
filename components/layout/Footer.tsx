@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { NewsletterSignup } from '@/components/NewsletterSignup'
 import { RssIcon } from 'lucide-react'
+import { getFeaturedCategories } from '@/src/config/categories'
 
 export function Footer() {
+  const footerCategories = getFeaturedCategories().slice(0, 5)
+
   return (
     <footer className="border-t bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -41,18 +44,15 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/privacy-policy" className="text-gray-600 hover:text-gray-900">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms-of-service" className="text-gray-600 hover:text-gray-900">
-                  Terms of Service
-                </Link>
-              </li>
+              {footerCategories.map((category) => (
+                <li key={category.slug}>
+                  <Link href={`/categories/${category.slug}`} className="text-gray-600 hover:text-gray-900">
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
@@ -133,6 +133,14 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t text-center text-gray-600">
+          <div className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
+            <Link href="/privacy-policy" className="hover:text-gray-900">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-gray-900">
+              Terms of Service
+            </Link>
+          </div>
           <p>&copy; {new Date().getFullYear()} Global Travel Report. All rights reserved.</p>
         </div>
       </div>

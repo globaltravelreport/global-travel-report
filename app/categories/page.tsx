@@ -1,90 +1,10 @@
-// import Image from 'next/image'; // Unused import
+import Link from 'next/link';
+import { CATEGORIES } from '@/src/config/categories';
 
 export const metadata = {
   title: 'Categories - Global Travel Report',
-  description: 'Explore travel stories by category. Find articles about cruises, airlines, hotels, destinations, food & dining, adventure, culture, and more.',
+  description: 'Explore travel stories by category. Find articles about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
 };
-
-// Define the categories data
-const CATEGORIES = [
-  {
-    name: 'Cruises',
-    slug: 'cruises',
-    iconPath: '/images/categories/cruises.svg',
-    description: 'Ocean and river cruise experiences, reviews, and news',
-    featured: true,
-  },
-  {
-    name: 'Airlines',
-    slug: 'airlines',
-    iconPath: '/images/categories/airlines.svg',
-    description: 'Airline reviews, news, and flight experiences',
-    featured: true,
-  },
-  {
-    name: 'Destinations',
-    slug: 'destinations',
-    iconPath: '/images/categories/destinations.svg',
-    description: 'Guides and stories about travel destinations worldwide',
-    featured: true,
-  },
-  {
-    name: 'Travel Tips',
-    slug: 'travel-tips',
-    iconPath: '/images/categories/travel-tips.svg',
-    description: 'Practical advice and tips for travelers',
-    featured: true,
-  },
-  {
-    name: 'Food & Dining',
-    slug: 'food-dining',
-    iconPath: '/images/categories/food-dining.svg',
-    description: 'Culinary experiences and food-focused travel',
-    featured: true,
-  },
-  {
-    name: 'Culture',
-    slug: 'culture',
-    iconPath: '/images/categories/culture.svg',
-    description: 'Cultural experiences, history, and heritage travel',
-    featured: true,
-  },
-  {
-    name: 'Nature',
-    slug: 'nature',
-    iconPath: '/images/categories/nature.svg',
-    description: 'Nature-focused travel and outdoor experiences',
-    featured: true,
-  },
-  {
-    name: 'Luxury Travel',
-    slug: 'luxury-travel',
-    iconPath: '/images/categories/luxury-travel.svg',
-    description: 'Premium travel experiences and luxury destinations',
-    featured: true,
-  },
-  {
-    name: 'Family Travel',
-    slug: 'family-travel',
-    iconPath: '/images/categories/family-travel.svg',
-    description: 'Travel ideas and tips for families with children',
-    featured: true,
-  },
-  {
-    name: 'Adventure',
-    slug: 'adventure',
-    iconPath: '/images/categories/adventure.svg',
-    description: 'Thrilling experiences and adventure travel',
-    featured: false,
-  },
-  {
-    name: 'Deals',
-    slug: 'deals',
-    iconPath: '/images/categories/deals.svg',
-    description: 'The best travel deals and discounts',
-    featured: false,
-  },
-];
 
 export default function CategoriesPage() {
   // Get all main categories
@@ -146,21 +66,16 @@ export default function CategoriesPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {highlightedCategories.map((category, index) => (
-              <div
-                key={index}
+            {highlightedCategories.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/categories/${category.slug}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg border border-gray-100 group"
               >
                 <div className="h-40 bg-gradient-to-br from-brand-dark to-brand-blue-800 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                  <div className="w-20 h-20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <img
-                      src={category.iconPath}
-                      alt={`${category.name} icon`}
-                      width={80}
-                      height={80}
-                      className="w-full h-full"
-                    />
+                  <div className="text-6xl transform group-hover:scale-110 transition-transform duration-300">
+                    {category.icon}
                   </div>
                 </div>
                 <div className="p-6">
@@ -170,16 +85,14 @@ export default function CategoriesPage() {
                   <p className="text-gray-600 mb-4">
                     {category.description}
                   </p>
-                  <button
-                    className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center group-hover:translate-x-1 transition-transform duration-300"
-                  >
+                  <span className="text-brand-gold hover:text-brand-lightGold font-medium inline-flex items-center group-hover:translate-x-1 transition-transform duration-300">
                     View stories
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -197,25 +110,20 @@ export default function CategoriesPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {CATEGORIES.map((category, index) => (
-              <div
-                key={index}
+            {CATEGORIES.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/categories/${category.slug}`}
                 className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center space-x-4 hover:-translate-y-1 group"
               >
                 <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <img
-                    src={category.iconPath}
-                    alt={`${category.name} icon`}
-                    width={48}
-                    height={48}
-                    className="w-full h-full"
-                  />
+                  <span className="text-4xl">{category.icon}</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-brand-dark group-hover:text-brand-gold transition-colors duration-300">{category.name}</h3>
                   <p className="text-sm text-gray-500 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">View stories</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
