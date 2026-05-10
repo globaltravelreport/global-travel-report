@@ -445,6 +445,22 @@ export class SupabaseStoryStore {
     return rows.map((row) => row.feed_url).filter(Boolean);
   }
 
+  public static async recordFeedCheck(feedUrl: string, error?: string | null): Promise<void> {
+    const checkedAt = new Date().toISOString();
+    await this.request('rss_sources', {
+      method: 'PATCH',
+      query: {
+        feed_url: `eq.${feedUrl}`
+      },
+      body: {
+        last_checked_at: checkedAt,
+        last_success_at: error ? undefined : checkedAt,
+        last_error: error || null,
+        updated_at: checkedAt
+      }
+    });
+  }
+
   public static async recordPipelineRun(result: {
     mode: string;
     success: boolean;

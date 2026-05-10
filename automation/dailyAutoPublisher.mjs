@@ -432,8 +432,23 @@ async function fetchRssCandidates(feedUrls) {
         .filter((item) => item.title && item.sourceUrl && item.content);
 
       candidates.push(...items);
+      if (SupabaseStoryStore.isConfigured()) {
+        try {
+          await SupabaseStoryStore.recordFeedCheck(feedUrl, null);
+        } catch (error) {
+          console.warn('Supabase feed success logging failed:', error instanceof Error ? error.message : String(error));
+        }
+      }
     } catch (error) {
-      failures.push({ feedUrl, error: error instanceof Error ? error.message : String(error) });
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push({ feedUrl, error: message });
+      if (SupabaseStoryStore.isConfigured()) {
+        try {
+          await SupabaseStoryStore.recordFeedCheck(feedUrl, message);
+        } catch (loggingError) {
+          console.warn('Supabase feed failure logging failed:', loggingError instanceof Error ? loggingError.message : String(loggingError));
+        }
+      }
     }
   }
 

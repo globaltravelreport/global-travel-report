@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAllStories } from '@/src/utils/stories';
-import { getCategoryBySlug } from '@/src/config/categories';
+import { categoryMatches, getCategoryBySlug, type Category } from '@/src/config/categories';
 import DOMPurify from 'isomorphic-dompurify';
 
 // Set cache control headers for better performance
@@ -76,14 +76,14 @@ export async function GET(request: Request) {
 
   // Filter stories by category if specified
   let filteredStories = stories;
-  let categoryInfo = null;
+  let categoryInfo: Category | null = null;
 
   if (categorySlug) {
-    categoryInfo = getCategoryBySlug(categorySlug);
-    if (categoryInfo) {
+    const category = getCategoryBySlug(categorySlug);
+    if (category) {
+      categoryInfo = category;
       filteredStories = stories.filter(story => {
-        const storyCategory = story.category?.toLowerCase().replace(/\s+/g, '-');
-        return storyCategory === categorySlug;
+        return categoryMatches(story.category, category.slug) || categoryMatches(story.type, category.slug);
       });
     }
   }
