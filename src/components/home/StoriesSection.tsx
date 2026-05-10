@@ -104,22 +104,6 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
                     )}
                   </div>
                 )}
-
-                {/* Archived Badge for older stories */}
-                {(() => {
-                  const thirtyDaysAgo = new Date();
-                  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-                  const storyDate = new Date(story.publishedAt || '');
-                  const isArchived = storyDate < thirtyDaysAgo;
-
-                  return isArchived ? (
-                    <div className="absolute top-3 left-3">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-white">
-                        Archived
-                      </span>
-                    </div>
-                  ) : null;
-                })()}
               </div>
 
               {/* Content */}
@@ -162,7 +146,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
             href="/stories"
             className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
           >
-            View All Recent Stories
+            {showingRecentStories ? 'View All Recent Stories' : 'View All Stories'}
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
