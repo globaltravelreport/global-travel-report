@@ -61,6 +61,8 @@ const CATEGORY_KEYWORDS = {
   Deals: ['deal', 'sale', 'discount', 'offer', 'fare']
 };
 
+const ALLOWED_CATEGORIES = [...Object.keys(CATEGORY_KEYWORDS), 'Travel News'];
+
 const FALLBACK_UNSPLASH_IMAGES = [
   {
     category: 'Cruise',
@@ -283,6 +285,23 @@ function inferCategory(text) {
   return 'Travel News';
 }
 
+function normaliseCategory(value, fallback = 'Travel News') {
+  const candidates = String(value || '')
+    .split(/[|,;/]/)
+    .map((category) => category.trim())
+    .filter(Boolean);
+
+  for (const candidate of candidates) {
+    const exact = ALLOWED_CATEGORIES.find((category) => category.toLowerCase() === candidate.toLowerCase());
+    if (exact) {
+      return exact;
+    }
+  }
+
+  const inferred = inferCategory(`${value || ''} ${fallback || ''}`);
+  return ALLOWED_CATEGORIES.includes(inferred) ? inferred : 'Travel News';
+}
+
 function inferCountry(text) {
   const countries = [
     'Australia', 'New Zealand', 'Japan', 'Thailand', 'Indonesia', 'Fiji',
@@ -409,7 +428,7 @@ async function fetchRssCandidates(feedUrls) {
   return { candidates: unique, failures };
 }
 
-function buildRewritePrompt(source) {
+function buildRewritePrompt(source, previousError = '') {
   return `You are the Global Travel Report editorial desk for Australian readers.
 
 Rewrite this RSS source into an original travel news draft.
@@ -423,6 +442,8 @@ Hard rules:
 - Keep the tone clear, practical, and editorial.
 - Mention why the story matters to Australian travellers where supported by the source.
 - Do not mention AI, automation, RSS, rewriting, or prompts.
+- Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}.
+${previousError ? `- Your previous response failed validation: ${previousError}. Return only the JSON object this time.` : ''}
 
 Return this JSON shape:
 {
@@ -430,7 +451,7 @@ Return this JSON shape:
   "title": "clear factual headline",
   "excerpt": "one sentence",
   "paragraphs": ["5 to 8 short paragraphs"],
-  "category": "Air Travel | Cruise | Accommodation | Destinations | Tours | Safety | Deals | Travel News",
+  "category": "one exact category from the allowed list",
   "country": "best matching country or Global",
   "tags": ["5", "short", "tags"],
   "imageQuery": "specific travel image search query"
@@ -452,12 +473,29 @@ async function rewriteSource(source) {
     };
   }
 
-  const response = await generateStoryContent(buildRewritePrompt(source), {
-    temperature: 0.2,
-    maxTokens: 1200
-  });
+  let parsed;
+  let previousError = '';
 
-  const parsed = extractJson(response.content);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
+      temperature: attempt === 0 ? 0.2 : 0,
+      maxTokens: 1200
+    });
+
+    try {
+      parsed = extractJson(response.content);
+      break;
+    } catch (error) {
+      previousError = error instanceof Error ? error.message : String(error);
+    }
+  }
+
+  if (!parsed) {
+    return {
+      status: 'rejected',
+      reason: previousError || 'AI response was not valid JSON'
+    };
+  }
 
   if (parsed.status !== 'accepted') {
     return {
@@ -495,7 +533,7 @@ async function rewriteSource(source) {
     title: stripHtml(parsed.title),
     excerpt: stripHtml(parsed.excerpt),
     content: paragraphs.join('\n\n'),
-    category: parsed.category || source.category || 'Travel News',
+    category: normaliseCategory(parsed.category, source.category),
     country: parsed.country || source.country || 'Global',
     tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(rewrittenText),
     imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`)
