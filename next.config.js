@@ -88,7 +88,8 @@ const nextConfig = withBundleAnalyzer({
 
   // Enable experimental features
   experimental: {
-    optimizeCss: true,
+    serverExternalPackages: ['rss-parser', 'dotenv'],
+        optimizeCss: true,
     optimizePackageImports: [
       'date-fns',
       '@radix-ui/react-*',
