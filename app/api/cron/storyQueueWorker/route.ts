@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-            const { runDailyAutomation } = await import(/* webpackIgnore: true */ '../../automation/dailyAutoPublisher.mjs');
+            // @ts-ignore - .mjs file resolved at runtime       const { runDailyAutomation } = await import(/* webpackIgnore: true */ '../../automation/dailyAutoPublisher.mjs');
             const result = await runDailyAutomation();
       await SupabaseStoryStore.completeStoryGenerationJob(job.id, result);
 
