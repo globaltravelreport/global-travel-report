@@ -248,7 +248,7 @@ export class SupabaseStoryStore {
       query: {
         select: '*',
         status: 'eq.published',
-        order: 'published_at.desc'
+        order: 'published_at.desc.nullslast'
       }
     });
 
