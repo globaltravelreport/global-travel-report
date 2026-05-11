@@ -494,14 +494,18 @@ Hard rules:
 - Keep the tone clear, practical, and editorial.
 - Mention why the story matters to Australian travellers where supported by the source.
 - Do not mention AI, automation, RSS, rewriting, or prompts.
-- Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}.
+- Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}. Do not invent or modify category names.
+- The "title" must be a catchy, engaging headline under 60 characters.
+- The "excerpt" must be a Google meta description between 140 and 155 characters for Google search snippets.
+- The "publishedAt" field must use the source.originalPublishedAt value provided below. Do not use the current time.
 ${previousError ? `- Your previous response failed validation: ${previousError}. Return only the JSON object this time.` : ''}
 
 Return this JSON shape:
 {
   "status": "accepted",
-  "title": "clear factual headline",
-  "excerpt": "one sentence",
+      "title": "catchy headline under 60 characters",
+      "excerpt": "Google meta description between 140 and 155 characters",
+          "publishedAt": "${source.originalPublishedAt || new Date().toISOString()}",
   "paragraphs": ["5 to 8 short paragraphs"],
   "category": "one exact category from the allowed list",
   "country": "best matching country or Global",
@@ -677,15 +681,19 @@ async function isDuplicate(source) {
 
 function buildStory(source, rewrite, image) {
   const now = new Date().toISOString();
-  const publishedAt = source.originalPublishedAt || now;
+  const publishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
   const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
 
-  return {
+let excerpt = rewrite.excerpt || '';
+  if (excerpt.length > 155) {
+    excerpt = excerpt.slice(0, 152) + '...';
+  }
+    return {
     id: `rss-${contentHash}`,
     slug,
     title: rewrite.title,
-    excerpt: rewrite.excerpt,
+        excerpt,
     content: rewrite.content,
     author: '',
     publishedAt,
