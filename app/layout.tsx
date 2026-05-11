@@ -15,6 +15,7 @@ import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
+import { GoogleAnalytics } from '@next/third-parties/google';
  
 const inter = Inter({ subsets: ['latin'], preload: false });
 
@@ -201,6 +202,7 @@ export default function RootLayout({
             <WebVitalsTracker />
           </Suspense>
           <ClientLayoutWrapper />
+         <GoogleAnalytics gaId="G-K8BJQ43XFT" />
         </AccessibilityProvider>
       </body>
     </html>
