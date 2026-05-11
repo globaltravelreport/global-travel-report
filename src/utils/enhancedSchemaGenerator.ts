@@ -65,7 +65,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
       'url': imageUrl,
       'width': 1200,
       'height': 630,
-      'caption': story.title,
+        'caption': story.imageAlt || story.title,
       'creditText': story.photographer?.name ? `Photo by ${story.photographer.name} on Unsplash` : undefined
     },
     'keywords': keywords.join(', '),
