@@ -174,8 +174,8 @@ export function StoryDraftsClient({
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-900">Pending Review</h2>
-          <Link href="/admin/rss" className="text-sm font-medium text-blue-700 hover:underline">
-            RSS settings
+          <Link href="/admin" className="text-sm font-medium text-blue-700 hover:underline">
+            Admin overview
           </Link>
         </div>
 

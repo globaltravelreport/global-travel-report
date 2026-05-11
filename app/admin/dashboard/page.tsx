@@ -1,7 +1,8 @@
-import { ContentAutomationService } from '@/src/services/contentAutomationService';
 import { NewsletterService } from '@/src/services/newsletterService';
 import { EngagementService } from '@/src/services/engagementService';
 import { AffiliateService } from '@/src/services/affiliateService';
+import { StoryDatabase } from '@/src/services/storyDatabase';
+import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 /**
  * Admin Dashboard
@@ -10,13 +11,31 @@ import { AffiliateService } from '@/src/services/affiliateService';
  * newsletter statistics, and affiliate performance.
  */
 export default async function AdminDashboard() {
-  const automationService = ContentAutomationService.getInstance();
   const newsletterService = NewsletterService.getInstance();
   const engagementService = EngagementService.getInstance();
   const affiliateService = AffiliateService.getInstance();
+  const storyDatabase = StoryDatabase.getInstance();
 
-  // Get automation stats
-  const automationStats = await automationService.getAutomationStats();
+  const [stories, pipelineRuns, jobs] = await Promise.all([
+    storyDatabase.getAllStories(),
+    SupabaseStoryStore.isConfigured() ? SupabaseStoryStore.getLatestPipelineRuns(5) : Promise.resolve([]),
+    SupabaseStoryStore.isConfigured() ? SupabaseStoryStore.getLatestStoryGenerationJobs(5) : Promise.resolve([])
+  ]);
+
+  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const storiesThisWeek = stories.filter((story) => {
+    const time = new Date(story.publishedAt || story.date || '').getTime();
+    return Number.isFinite(time) && time >= weekAgo;
+  }).length;
+
+  const latestRun = pipelineRuns[0];
+  const latestJob = jobs[0];
+  const automationStats = {
+    totalStories: stories.length,
+    storiesThisWeek,
+    averageQualityScore: 1,
+    lastIngestion: latestRun?.started_at || latestJob?.created_at || null
+  };
 
   // Get newsletter stats
   const newsletterStats = await newsletterService.getSubscriberStats();
