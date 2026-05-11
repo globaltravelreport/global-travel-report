@@ -619,4 +619,48 @@ export class SupabaseStoryStore {
       }
     });
   }
+
+    public static async getRelatedStories(
+          story: { slug: string; category: string; country: string },
+          limit = 3
+        ): Promise<Story[]> {
+          // First try: same category AND country, excluding current slug
+          const rows = await this.request<SupabaseStoryRow[]>('stories', {
+                  query: {
+                            select: '*',
+                            status: 'eq.published',
+                            category: `eq.${story.category}`,
+                            country: `eq.${story.country}`,
+                            slug: `neq.${story.slug}`,
+                            order: 'published_at.desc.nullslast',
+                            limit: String(limit),
+                          },
+                });
+          if (rows.length >= limit) return rows.map((r) => this.toStory(r));
+
+          // Fallback: same category only, excluding current slug
+          const byCat = await this.request<SupabaseStoryRow[]>('stories', {
+                  query: {
+                            select: '*',
+                            status: 'eq.published',
+                            category: `eq.${story.category}`,
+                            slug: `neq.${story.slug}`,
+                            order: 'published_at.desc.nullslast',
+                            limit: String(limit),
+                          },
+                });
+          if (byCat.length >= limit) return byCat.map((r) => this.toStory(r));
+
+          // Final fallback: most recent published stories, excluding current slug
+          const recent = await this.request<SupabaseStoryRow[]>('stories', {
+                  query: {
+                            select: '*',
+                            status: 'eq.published',
+                            slug: `neq.${story.slug}`,
+                            order: 'published_at.desc.nullslast',
+                            limit: String(limit),
+                          },
+                });
+          return recent.map((r) => this.toStory(r));
+        }
 }
