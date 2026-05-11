@@ -22,6 +22,7 @@ import { ContextualAffiliateRecommendations } from "@/components/affiliates/Cont
 import { generateFacebookMeta } from "@/utils/facebook-optimizer";
 
 import PopularTags from "@/src/components/ui/PopularTags";
+import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 // Define the params type for Next.js
 type StoryParams = {
@@ -153,6 +154,13 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
     if (!story) {
       notFound();
     }
+
+        // Fetch related stories for 'Recommended for You' section
+        const relatedStories = await SupabaseStoryStore.getRelatedStories({
+                slug: story.slug,
+                category: story.category,
+                country: story.country,
+              });
 
     // Construct the canonical URL for this story
     const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
@@ -395,6 +403,29 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
               <PopularTags className="md:sticky md:top-24" variant="default" showCounts={false} />
             </aside>
           </section>
+
+                    {/* Recommended for You */}
+                    {relatedStories.length > 0 && (
+                    <section className="mt-12 lg:mt-16">
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended for You</h2>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                                      {relatedStories.map((rec) => (
+                                        <a key={rec.slug} href={`/stories/${rec.slug}`}
+                                                              className="group block rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow bg-white">
+                                                              {rec.imageUrl && (
+                                                                                      <img src={rec.imageUrl} alt={rec.imageAlt || rec.title}
+                                                                                                                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                                                                                    )}
+                                                              <div className="p-4">
+                                                                                      <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">{rec.category}</span>
+                                                                                      <h3 className="mt-1 text-base font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-700">{rec.title}</h3>
+                                                                                      <p className="mt-1 text-sm text-gray-500 line-clamp-2">{rec.excerpt}</p>
+                                                                                    </div>
+                                                            </a>
+                                      ))}
+                                                    </div>
+                                  </section>
+                  )}
 
           {/* Newsletter signup */}
           <div className="mt-12">
