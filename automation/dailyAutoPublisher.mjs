@@ -498,6 +498,8 @@ Hard rules:
 - The "title" must be a catchy, engaging headline under 60 characters.
 - The "excerpt" must be a Google meta description between 140 and 155 characters for Google search snippets.
 - The "publishedAt" field must use the source.originalPublishedAt value provided below. Do not use the current time.
+- The "imageQuery" must be a vivid, specific scene description for an Unsplash image search (e.g. "Sydney Harbour Bridge at sunset aerial view"). Avoid generic terms like "travel" or "holiday".
+- The "imageAltText" must be a descriptive 10 to 15 word sentence for Google image SEO, describing the scene as it relates to the article.
 ${previousError ? `- Your previous response failed validation: ${previousError}. Return only the JSON object this time.` : ''}
 
 Return this JSON shape:
@@ -510,7 +512,8 @@ Return this JSON shape:
   "category": "one exact category from the allowed list",
   "country": "best matching country or Global",
   "tags": ["5", "short", "tags"],
-  "imageQuery": "specific travel image search query"
+      "imageQuery": "vivid specific Unsplash travel scene search query",
+          "imageAltText": "10 to 15 word descriptive sentence for Google image SEO"
 }
 
 Source title: ${source.title}
@@ -714,7 +717,7 @@ let excerpt = rewrite.excerpt || '';
     processedAt: now,
     wordCount: wordCount(rewrite.content),
     imageUrl: image?.imageUrl || '',
-    imageAlt: image?.imageAlt || rewrite.title,
+    imageAlt: rewrite.imageAltText || image?.imageAlt || rewrite.title,
     imageCredit: image?.imageCredit,
     imageCreditUrl: image?.imageCreditUrl,
     photographer: image?.photographer
