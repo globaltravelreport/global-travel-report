@@ -4,8 +4,7 @@
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
-    dataLayer: any[];
-  }
+  
 }
 
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-K8BJQ43XFT';
