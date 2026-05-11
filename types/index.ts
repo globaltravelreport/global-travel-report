@@ -23,6 +23,5 @@ export interface Story {
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
-    dataLayer: any[];
   }
 }
