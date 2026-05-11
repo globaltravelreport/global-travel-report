@@ -12,7 +12,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url().optional(),
 
   // Authentication
-  AUTH_ENCRYPTION_KEY: z.string().min(16).default('fallback-encryption-key-change-in-production-32-chars-minimum'),
+  AUTH_ENCRYPTION_KEY: z.string().min(16).optional(),
   ADMIN_USERNAME: z.string().min(1).optional(),
   ADMIN_PASSWORD: z.string().min(8).optional(),
   EDITOR_USERNAME: z.string().min(1).optional(),

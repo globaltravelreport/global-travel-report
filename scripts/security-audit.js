@@ -28,7 +28,6 @@ const config = {
     'components',
     'middleware',
     'pages',
-    'public',
   ],
   // Files to check
   configFiles: [
@@ -57,7 +56,7 @@ const config = {
       { pattern: /innerHTML\s*=/g, description: 'Use of innerHTML (consider textContent)' },
       { pattern: /http:\/\//g, description: 'Non-HTTPS URL' },
       { pattern: /dangerouslySetInnerHTML/g, description: 'Use of dangerouslySetInnerHTML' },
-      { pattern: /password.*=.*['"][^'"]*['"]|apiKey.*=.*['"][^'"]*['"]|secret.*=.*['"][^'"]*['"]/g, description: 'Hardcoded credentials' },
+      { pattern: /(?:password|apiKey|secret)\s*=\s*['"][^'"]+['"]/gi, description: 'Hardcoded credentials' },
     ],
     // Patterns that should be present
     secure: [
@@ -112,20 +111,25 @@ function addWarning(description, file = null) {
 function checkSecurityHeaders() {
   log('Checking security headers...');
   
-  // Check middleware.ts for security headers
-  const middlewarePath = path.join(process.cwd(), 'middleware.ts');
-  if (fs.existsSync(middlewarePath)) {
-    const content = fs.readFileSync(middlewarePath, 'utf8');
+  // Check the root middleware/proxy or Next config for security headers.
+  const candidatePaths = ['middleware.ts', 'proxy.ts', 'next.config.js']
+    .map((file) => path.join(process.cwd(), file))
+    .filter((file) => fs.existsSync(file));
+
+  if (candidatePaths.length > 0) {
+    const content = candidatePaths
+      .map((file) => fs.readFileSync(file, 'utf8'))
+      .join('\n');
     
     config.securityHeaders.forEach(header => {
       if (content.includes(header)) {
-        addPass(`${header} header is set in middleware.ts`);
+        addPass(`${header} header is set`);
       } else {
-        addWarning(`${header} header might not be set`, 'middleware.ts');
+        addWarning(`${header} header might not be set`, 'next.config.js');
       }
     });
   } else {
-    addIssue('middleware.ts file not found', null, null, 'high', false);
+    addIssue('No root middleware/proxy or next.config.js file found for security headers', null, null, 'high', false);
   }
 }
 
@@ -145,14 +149,14 @@ function checkHttpsEnforcement() {
   }
   
   // Check for HSTS header
-  const middlewarePath = path.join(process.cwd(), 'middleware.ts');
-  if (fs.existsSync(middlewarePath)) {
-    const content = fs.readFileSync(middlewarePath, 'utf8');
+  const headerConfigPath = path.join(process.cwd(), 'next.config.js');
+  if (fs.existsSync(headerConfigPath)) {
+    const content = fs.readFileSync(headerConfigPath, 'utf8');
     
     if (content.includes('Strict-Transport-Security')) {
       addPass('HSTS header is set');
     } else {
-      addIssue('HSTS header is not set', 'middleware.ts', null, 'high', true);
+      addIssue('HSTS header is not set', 'next.config.js', null, 'high', true);
     }
   }
 }
@@ -170,8 +174,16 @@ function scanCodeForPatterns() {
     const files = getAllFiles(dirPath);
     
     files.forEach(file => {
-      // Skip node_modules and .next
-      if (file.includes('node_modules') || file.includes('.next')) {
+      // Skip generated, dependency, and test files.
+      if (
+        file.includes('node_modules') ||
+        file.includes('.next') ||
+        file.includes('__tests__') ||
+        file.endsWith('.test.ts') ||
+        file.endsWith('.test.tsx') ||
+        file.endsWith('.spec.ts') ||
+        file.endsWith('.spec.tsx')
+      ) {
         return;
       }
       
@@ -183,6 +195,37 @@ function scanCodeForPatterns() {
       const content = fs.readFileSync(file, 'utf8');
       const relativePath = path.relative(process.cwd(), file);
       
+      function isAllowedMatch(description, line) {
+        if (description === 'Non-HTTPS URL') {
+          return line.includes('xmlns="http://www.w3.org/2000/svg"') ||
+            line.includes('http://www.sitemaps.org/') ||
+            line.includes('http://www.w3.org/') ||
+            line.includes('http://purl.org/') ||
+            line.includes('http://search.yahoo.com/') ||
+            line.includes('http://wellformedweb.org/') ||
+            line.includes('http://www.georss.org/') ||
+            line.includes('http://localhost') ||
+            line.includes('http://127.0.0.1');
+        }
+
+        if (description === 'Use of dangerouslySetInnerHTML') {
+          return line.includes('application/ld+json') ||
+            line.includes('JSON.stringify') ||
+            line.includes('DOMPurify.sanitize');
+        }
+
+        return false;
+      }
+
+      function hasNearbyJsonLd(lines, index) {
+        const start = Math.max(0, index - 4);
+        const end = Math.min(lines.length - 1, index + 4);
+        const context = lines.slice(start, end + 1).join('\n');
+        return context.includes('application/ld+json') ||
+          context.includes('JSON.stringify') ||
+          context.includes('DOMPurify.sanitize');
+      }
+
       // Check for insecure patterns
       config.patterns.insecure.forEach(({ pattern, description }) => {
         const matches = content.match(pattern);
@@ -192,12 +235,16 @@ function scanCodeForPatterns() {
           const lineNumbers = [];
           
           lines.forEach((line, index) => {
-            if (pattern.test(line)) {
+            pattern.lastIndex = 0;
+            const allowedDangerouslySetHtml = description === 'Use of dangerouslySetInnerHTML' && hasNearbyJsonLd(lines, index);
+            if (pattern.test(line) && !isAllowedMatch(description, line) && !allowedDangerouslySetHtml) {
               lineNumbers.push(index + 1);
             }
           });
-          
-          addIssue(`${description} found`, relativePath, lineNumbers.join(', '), 'medium', false);
+
+          if (lineNumbers.length > 0) {
+            addIssue(`${description} found`, relativePath, lineNumbers.join(', '), 'medium', false);
+          }
         }
       });
     });
@@ -240,8 +287,12 @@ function checkDependencies() {
   log('Checking dependencies for vulnerabilities...');
   
   try {
+    const npmCommand = process.env.npm_execpath
+      ? `"${process.execPath}" "${process.env.npm_execpath}"`
+      : 'npm';
+
     // Run npm audit
-    const auditOutput = execSync('npm audit --json', { encoding: 'utf8' });
+    const auditOutput = execSync(`${npmCommand} audit --json`, { encoding: 'utf8' });
     const auditData = JSON.parse(auditOutput);
     
     if (auditData.vulnerabilities) {

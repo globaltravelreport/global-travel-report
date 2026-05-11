@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyCredentials, createSession, setSessionCookie } from '@/lib/auth';
+import { verifyCredentials, setSessionCookie } from '@/lib/auth';
 import { adminLoginSchema } from '@/src/utils/validation-schemas';
 import { applyRateLimit } from '@/src/middleware/rate-limit';
 import { trackSecurityEvent } from '@/src/utils/security-monitor';
@@ -39,8 +39,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing CSRF token' }, { status: 403 });
     }
 
-    // Verify credentials
-    if (!verifyCredentials(username, password)) {
+    const result = await verifyCredentials(username, password);
+    if (!result.success || !result.session) {
       trackSecurityEvent({
         type: 'failed_login',
         ip,
@@ -50,10 +50,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Create session
-    const session = createSession(username);
     const response = NextResponse.json({ success: true });
-    setSessionCookie(response, session);
+    setSessionCookie(response, result.session);
     trackSecurityEvent({
       type: 'authentication',
       ip,

@@ -7,12 +7,17 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
-import { env, requireEnv } from './env';
+import { env } from './env';
 
 const ALGORITHM = 'aes-256-gcm';
-const KEY = requireEnv('AUTH_ENCRYPTION_KEY', 'Encryption key for session data (must be at least 16 characters)');
+const RUNTIME_FALLBACK_KEY = randomBytes(32).toString('hex');
 const IV_LENGTH = 16;
 const TAG_LENGTH = 16;
+
+function getEncryptionKey(): Buffer {
+  const key = env.AUTH_ENCRYPTION_KEY || RUNTIME_FALLBACK_KEY;
+  return Buffer.from(key.padEnd(32).slice(0, 32));
+}
 
 export interface UserSession {
   userId: string;
@@ -57,7 +62,7 @@ export class SecureAuth {
   private encryptSession(session: UserSession): string {
     try {
       const iv = randomBytes(IV_LENGTH);
-      const cipher = createCipheriv(ALGORITHM, Buffer.from(KEY.padEnd(32).slice(0, 32)), iv);
+      const cipher = createCipheriv(ALGORITHM, getEncryptionKey(), iv);
 
       const sessionString = JSON.stringify(session);
       let encrypted = cipher.update(sessionString, 'utf8', 'hex');
@@ -90,7 +95,7 @@ export class SecureAuth {
       const tag = buffer.subarray(-TAG_LENGTH);
       const encrypted = buffer.subarray(IV_LENGTH, -TAG_LENGTH).toString('hex');
 
-      const decipher = createDecipheriv(ALGORITHM, Buffer.from(KEY.padEnd(32).slice(0, 32)), iv);
+      const decipher = createDecipheriv(ALGORITHM, getEncryptionKey(), iv);
       decipher.setAuthTag(tag);
 
       let decrypted = decipher.update(encrypted, 'hex', 'utf8');
@@ -202,11 +207,8 @@ export class SecureAuth {
       validCredentials[env.EDITOR_USERNAME] = env.EDITOR_PASSWORD;
     }
 
-    // Fallback for development/build time (should be overridden in production)
     if (Object.keys(validCredentials).length === 0) {
-      console.warn('⚠️  No admin credentials configured. Using fallback credentials for build/development.');
-      validCredentials.admin = 'secure_password_123';
-      validCredentials.editor = 'editor_pass_456';
+      console.warn('No admin credentials configured. Admin login is disabled until ADMIN_USERNAME and ADMIN_PASSWORD are set.');
     }
 
     const expectedPassword = validCredentials[username];

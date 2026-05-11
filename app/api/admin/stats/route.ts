@@ -5,7 +5,7 @@ import { applyRateLimit } from '@/src/middleware/rate-limit';
 import { trackSecurityEvent } from '@/src/utils/security-monitor';
 import { getRequestIp } from '@/src/utils/request-ip';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 let cachedStats: any = null;
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Auth validation
-    const session = await getSession();
+    const session = getSession(request);
     if (!session) {
       trackSecurityEvent({
         type: 'authorization',

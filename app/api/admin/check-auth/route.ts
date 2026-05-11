@@ -5,9 +5,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const runtime = 'nodejs';
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const authenticated = await isAuthenticated();
+    const authenticated = isAuthenticated(request);
 
     if (authenticated) {
       return NextResponse.json({ authenticated: true });

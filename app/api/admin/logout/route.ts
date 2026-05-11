@@ -8,8 +8,7 @@ export const runtime = 'nodejs';
 export async function POST(_request: NextRequest) {
   try {
     const response = NextResponse.json({ success: true });
-    clearSession(); // Clear session without response parameter
-    return response;
+    return clearSession(response);
   } catch (_error) {
     console.error(_error);
     return NextResponse.json(

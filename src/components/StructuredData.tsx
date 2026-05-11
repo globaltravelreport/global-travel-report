@@ -37,36 +37,12 @@ export function StructuredData({ slug, data, type }: StructuredDataProps) {
 
   // If slug is provided, load from a file
   if (slug) {
-    // In production, load from the static file
-    if (process.env.NODE_ENV === 'production') {
-      return (
-        <Script
-          id={`structured-data-${slug}`}
-          type="application/ld+json"
-          src={`/structured-data/${slug}.json`}
-          strategy="afterInteractive"
-        />
-      );
-    }
-
-    // In development, load dynamically
     return (
       <Script
         id={`structured-data-${slug}`}
+        type="application/ld+json"
+        src={`/structured-data/${slug}.json`}
         strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            fetch('/structured-data/${slug}.json')
-              .then(response => response.json())
-              .then(data => {
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.textContent = JSON.stringify(data);
-                document.head.appendChild(script);
-              })
-              .catch(error => console.error('Error loading structured data:', error));
-          `,
-        }}
       />
     );
   }

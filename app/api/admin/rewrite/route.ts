@@ -5,7 +5,7 @@ import { StoryRewriter } from '@/src/services/storyRewrite';
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const authenticated = await isAuthenticated();
+    const authenticated = isAuthenticated(request);
     if (!authenticated) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

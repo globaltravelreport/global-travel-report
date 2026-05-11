@@ -1,28 +1,24 @@
-export function isAuthenticated() {
-  // TODO: Implement real authentication logic
-  return true;
+import { NextRequest, NextResponse } from 'next/server';
+import { SecureAuth, type UserSession } from './secureAuth';
+
+export function isAuthenticated(request: NextRequest): boolean {
+  const auth = SecureAuth.getInstance();
+  const session = auth.getSessionFromRequest(request);
+  return auth.isAuthenticated(session);
 }
 
-export function clearSession() {
-  // TODO: Implement session clearing logic
+export function clearSession(response: NextResponse): NextResponse {
+  return SecureAuth.getInstance().clearSession(response);
 }
 
-export function getSession() {
-  // TODO: Implement session retrieval logic
-  return null;
+export function getSession(request: NextRequest): UserSession | null {
+  return SecureAuth.getInstance().getSessionFromRequest(request);
 }
 
-export function verifyCredentials(username: string, password: string) {
-  // TODO: Implement credential verification
-  return username === 'admin' && password === 'password';
+export async function verifyCredentials(username: string, password: string) {
+  return SecureAuth.getInstance().verifyCredentials(username, password);
 }
 
-export function createSession(username: string) {
-  // TODO: Implement session creation
-  return { user: username, token: 'mock-token' };
-}
-
-export function setSessionCookie(response: any, session: any) {
-  // TODO: Implement cookie setting
-  return response;
+export function setSessionCookie(response: NextResponse, session: UserSession): NextResponse {
+  return SecureAuth.getInstance().setSessionCookie(response, session);
 }

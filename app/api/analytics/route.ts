@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleAnalyticsService } from '@/src/services/GoogleAnalyticsService';
+import { SecureAuth } from '@/src/lib/secureAuth';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * API route for fetching analytics data
@@ -10,10 +12,9 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(request: NextRequest) {
   try {
-    // Check if the user is authenticated
-    // This should be replaced with your actual authentication logic
-    const authHeader = request.headers.get('authorization');
-    if (!isValidAuthHeader(authHeader)) {
+    const auth = SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+    if (!auth.isAuthenticated(session) || !auth.hasPermission(session, 'read:analytics')) {
       return NextResponse.json(
         { success: false, message: 'Unauthorized' },
         { status: 401 }
@@ -48,35 +49,4 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-/**
- * Check if the authorization header is valid
- * @param authHeader - The authorization header
- * @returns True if the header is valid, false otherwise
- */
-function isValidAuthHeader(authHeader: string | null): boolean {
-  if (!authHeader) {
-    return false;
-  }
-  
-  // Check if the header starts with "Basic "
-  if (!authHeader.startsWith('Basic ')) {
-    return false;
-  }
-  
-  // Get the base64-encoded credentials
-  const base64Credentials = authHeader.split(' ')[1];
-  
-  // Decode the credentials
-  const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
-  
-  // Split the credentials into username and password
-  const [username, password] = credentials.split(':');
-  
-  // Check if the username and password are valid
-  const validUsername = process.env.ADMIN_USERNAME || 'admin';
-  const validPassword = process.env.ADMIN_PASSWORD || 'GlobalTravelReport2024';
-  
-  return username === validUsername && password === validPassword;
 }
