@@ -168,6 +168,16 @@ const nextConfig = withBundleAnalyzer({
       config.optimization.splitChunks.cacheGroups = {
         ...config.optimization.splitChunks.cacheGroups,
         recharts: {
+              // Prevent webpack from bundling Node.js-only automation modules
+    config.externals = config.externals || [];
+    if (isServer) {
+      config.externals.push(({ request }, callback) => {
+        if (request && request.includes('dailyAutoPublisher')) {
+          return callback(null, 'commonjs ' + request);
+        }
+        callback();
+      });
+    }
           test: /[\\/]node_modules[\\/]recharts[\\/]/,
           name: 'recharts',
           chunks: 'all',
