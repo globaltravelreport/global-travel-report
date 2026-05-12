@@ -86,10 +86,11 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
 const nextConfig = withBundleAnalyzer({
   outputFileTracingRoot: path.join(__dirname),
 
+  serverExternalPackages: ['rss-parser', 'dotenv'],
+
   // Enable experimental features
   experimental: {
-    serverExternalPackages: ['rss-parser', 'dotenv'],
-        optimizeCss: true,
+    optimizeCss: true,
     optimizePackageImports: [
       'date-fns',
       '@radix-ui/react-*',
