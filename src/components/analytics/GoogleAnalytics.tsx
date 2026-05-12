@@ -4,6 +4,14 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 import { useCookieConsent } from '../ui/CookieConsentBanner';
 
+// Type declarations for Google Analytics
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 interface GoogleAnalyticsProps {
   gaId?: string;
 }
