@@ -15,8 +15,8 @@ import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
-import { GoogleAnalytics } from '@next/third-parties/google';
- 
+import Script from 'next/script';
+
 const inter = Inter({ subsets: ['latin'], preload: false });
 
 export const metadata: Metadata = {
@@ -118,6 +118,20 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Global Travel Report" />
         
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-K8BJQ43XFT`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-K8BJQ43XFT');
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -202,7 +216,6 @@ export default function RootLayout({
             <WebVitalsTracker />
           </Suspense>
           <ClientLayoutWrapper />
-         <GoogleAnalytics gaId="G-K8BJQ43XFT" />
         </AccessibilityProvider>
       </body>
     </html>
