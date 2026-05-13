@@ -26,17 +26,28 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
     ? story.imageUrl
     : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
 
-  // Extract keywords from tags
-  const keywords = story.tags || [];
+  // --- AI-Entity: Generate rich keywords from category, country, and title words ---
+  // Extract meaningful words from the title (filter common stop words)
+  const stopWords = new Set([
+    'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+    'of', 'with', 'by', 'from', 'is', 'are', 'was', 'were', 'be', 'been',
+    'has', 'have', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
+    'should', 'may', 'might', 'shall', 'can', 'that', 'this', 'these',
+    'those', 'as', 'its', 'it', 'how', 'why', 'what', 'when', 'where',
+    'who', 'which', 'not', 'no', 'up', 'out', 'into', 'over', 'about'
+  ]);
+  const titleWords = (story.title || '')
+    .split(/\s+/)
+    .map(w => w.replace(/[^a-zA-Z0-9]/g, '').trim())
+    .filter(w => w.length > 3 && !stopWords.has(w.toLowerCase()));
 
-  // Add country and category as keywords if not already included
-  if (story.country && !keywords.includes(story.country)) {
-    keywords.push(story.country);
-  }
-
-  if (story.category && !keywords.includes(story.category)) {
-    keywords.push(story.category);
-  }
+  // Combine: category + country + title words + existing tags (deduplicated)
+  const keywordSet = new Set<string>();
+  if (story.category) keywordSet.add(story.category);
+  if (story.country) keywordSet.add(story.country);
+  titleWords.forEach(w => keywordSet.add(w));
+  (story.tags || []).forEach(t => keywordSet.add(t));
+  const keywords = Array.from(keywordSet).join(', ');
 
   return {
     '@context': 'https://schema.org',
@@ -46,31 +57,49 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
     'description': story.excerpt,
     'datePublished': publishedDate,
     'dateModified': updatedDate,
+
+    // AI-Entity: Maps article to a category so AI models can instantly classify the content
+    'articleSection': story.category,
+
+    // AI-Entity: Rich keyword string for entity disambiguation and topic matching
+    'keywords': keywords,
+
+    // AI-Entity: Explicitly signals free content — AI search engines prioritize non-paywalled pages
+    'isAccessibleForFree': 'True',
+
     'mainEntityOfPage': {
       '@type': 'WebPage',
       '@id': `${siteUrl}/stories/${story.slug}`
     },
+
+    // AI-Entity: Upgraded publisher with sameAs array — proves we are a verified entity
+    // across the web, strengthening Knowledge Graph eligibility
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
+      'url': siteUrl,
       'logo': {
         '@type': 'ImageObject',
         'url': `${siteUrl}/logo-gtr.png`,
         'width': 600,
         'height': 60
-      }
+      },
+      'sameAs': [
+        'https://twitter.com/GlobalTravelRpt',       // X / Twitter — replace with actual handle
+        'https://www.linkedin.com/company/global-travel-report', // LinkedIn — replace with actual page
+        'https://www.facebook.com/GlobalTravelReport',           // Facebook — replace with actual page
+        'https://www.instagram.com/globaltravelreport',          // Instagram — replace with actual handle
+        siteUrl                                                   // Canonical site URL
+      ]
     },
     'image': {
       '@type': 'ImageObject',
       'url': imageUrl,
       'width': 1200,
       'height': 630,
-        'caption': story.imageAlt || story.title,
+      'caption': story.imageAlt || story.title,
       'creditText': story.photographer?.name ? `Photo by ${story.photographer.name} on Unsplash` : undefined
     },
-    'keywords': keywords.join(', '),
-    'articleSection': story.category,
-    'isAccessibleForFree': 'True',
     'speakable': {
       '@type': 'SpeakableSpecification',
       'cssSelector': ['article h1', 'article p']
