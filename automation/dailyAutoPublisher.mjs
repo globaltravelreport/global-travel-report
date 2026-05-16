@@ -63,7 +63,8 @@ const CATEGORY_KEYWORDS = {
   'Luxury Travel': ['luxury', 'premium', 'first class', 'business class', 'high-end', 'exclusive'],
   'Sustainable Travel': ['sustainable', 'eco', 'responsible', 'carbon', 'green', 'conservation'],
   'Travel Tech': ['app', 'technology', 'digital', 'esim', 'wifi', 'booking platform', 'online'],
-  'Finance & Points': ['points', 'miles', 'credit card', 'currency', 'bank', 'insurance', 'money', 'rewards']
+  'Finance & Points': ['points', 'miles', 'credit card', 'currency', 'bank', 'insurance', 'money', 'rewards'],
+  'Travel News': ['travel news', 'tourism', 'travel industry', 'industry', 'association', 'council', 'merger', 'agency', 'agent', 'operator']
 };
 
 const ALLOWED_CATEGORIES = [...Object.keys(CATEGORY_KEYWORDS), 'Travel News'];
@@ -307,11 +308,25 @@ function parseDate(value) {
 
 function inferCategory(text) {
   const lower = text.toLowerCase();
+  const scores = Object.entries(CATEGORY_KEYWORDS).map(([category, keywords]) => ({
+    category,
+    score: keywords.reduce((total, keyword) => {
+      const matches = lower.match(new RegExp(`\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g'));
+      return total + (matches?.length || 0);
+    }, 0)
+  }));
 
-  for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
-    if (keywords.some((keyword) => lower.includes(keyword))) {
-      return category;
-    }
+  const industryScore = scores.find((item) => item.category === 'Travel News')?.score || 0;
+  const specialistBest = scores
+    .filter((item) => item.category !== 'Travel News')
+    .sort((a, b) => b.score - a.score)[0];
+
+  if (industryScore >= 2 && (!specialistBest || industryScore > specialistBest.score)) {
+    return 'Travel News';
+  }
+
+  if (specialistBest?.score) {
+    return specialistBest.category;
   }
 
   return 'Travel News';
@@ -394,6 +409,25 @@ function truncateWords(text = '', limit = 28) {
   return words.length > limit ? `${words.slice(0, limit).join(' ')}.` : words.join(' ');
 }
 
+function buildFallbackTitle(text = '') {
+  const clean = stripHtml(text).replace(/\s+/g, ' ').trim();
+  if (clean.length <= 60) {
+    return clean;
+  }
+
+  const words = clean.split(/\s+/);
+  let title = '';
+  for (const word of words) {
+    const next = title ? `${title} ${word}` : word;
+    if (next.length > 60) {
+      break;
+    }
+    title = next;
+  }
+
+  return title || clean.slice(0, 60).replace(/\s+\S*$/, '');
+}
+
 function buildMetaExcerpt(text = '') {
   const base = stripHtml(text).replace(/\s+/g, ' ').trim();
   const fallback = 'Global Travel Report covers the latest travel development with practical context for Australian travellers planning upcoming trips.';
@@ -414,7 +448,7 @@ function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
   const sentences = splitSentences(source.content);
-  const title = truncateWords(source.title, 10).slice(0, 60);
+  const title = buildFallbackTitle(source.title);
   const lead = sentenceCase(sentences[0] || source.title);
   const detail = sentenceCase(sentences.find((sentence) => sentence !== sentences[0]) || source.content || source.title);
   const context = `For Australian travellers, the update is worth noting as part of the wider ${category.toLowerCase()} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
