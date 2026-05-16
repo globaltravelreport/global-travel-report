@@ -680,38 +680,37 @@ async function isDuplicate(source) {
     story.contentHash === sourceHash ||
     story.slug === sourceSlug
   ));
-const story = buildStory(enrichedSource, rewrite, image);
-    if (!story) {
-          return { status: 'rejected', title: rewrite.title || 'Untitled', sourceUrl: enrichedSource.sourceUrl, sourceWordCount, reason: 'validation-failed' };
-        }
+}
+
 function buildStory(source, rewrite, image) {
-    // Validation guard — reject thin or broken AI output
-    if (!rewrite.title || rewrite.title.length < 20) {
-          console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} — title too short or missing`);
-          return null;
-        }
-    if (!rewrite.excerpt || rewrite.excerpt.length < 50) {
-          console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} — excerpt too short or missing`);
-          return null;
-        }
-    if (!rewrite.paragraphs || rewrite.paragraphs.length < 3) {
-          console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} — fewer than 3 paragraphs`);
-          return null;
-        }
+  if (!rewrite.title || rewrite.title.length < 20) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - title too short or missing`);
+    return null;
+  }
+  if (!rewrite.excerpt || rewrite.excerpt.length < 50) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - excerpt too short or missing`);
+    return null;
+  }
+  if (!rewrite.paragraphs || rewrite.paragraphs.length < 3) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than 3 paragraphs`);
+    return null;
+  }
+
   const now = new Date().toISOString();
   const publishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
   const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
 
-let excerpt = rewrite.excerpt || '';
+  let excerpt = rewrite.excerpt || '';
   if (excerpt.length > 155) {
     excerpt = excerpt.slice(0, 152) + '...';
   }
-    return {
+
+  return {
     id: `rss-${contentHash}`,
     slug,
     title: rewrite.title,
-        excerpt,
+    excerpt,
     content: rewrite.content,
     author: '',
     publishedAt,
@@ -764,6 +763,15 @@ async function processCandidate(source) {
 
   const image = await findImage(rewrite.imageQuery, rewrite);
   const story = buildStory(enrichedSource, rewrite, image);
+  if (!story) {
+    return {
+      status: 'rejected',
+      title: rewrite.title || 'Untitled',
+      sourceUrl: enrichedSource.sourceUrl,
+      sourceWordCount,
+      reason: 'validation-failed'
+    };
+  }
 
   if (AUTO_PUBLISH_STORIES) {
     await db.addStory(story);
