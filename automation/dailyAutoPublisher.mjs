@@ -377,6 +377,76 @@ function hasUnsupportedNumbers(sourceText, rewrittenText) {
   return false;
 }
 
+function splitSentences(text = '') {
+  return stripHtml(text)
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.trim())
+    .filter((sentence) => wordCount(sentence) >= 8);
+}
+
+function sentenceCase(text = '') {
+  const clean = stripHtml(text).replace(/\s+/g, ' ').trim();
+  return clean ? `${clean.charAt(0).toUpperCase()}${clean.slice(1)}` : '';
+}
+
+function truncateWords(text = '', limit = 28) {
+  const words = stripHtml(text).split(/\s+/).filter(Boolean);
+  return words.length > limit ? `${words.slice(0, limit).join(' ')}.` : words.join(' ');
+}
+
+function buildMetaExcerpt(text = '') {
+  const base = stripHtml(text).replace(/\s+/g, ' ').trim();
+  const fallback = 'Global Travel Report covers the latest travel development with practical context for Australian travellers planning upcoming trips.';
+  let excerpt = base || fallback;
+
+  if (excerpt.length < 140) {
+    excerpt = `${excerpt.replace(/[.!?]?$/, '')}. ${fallback}`;
+  }
+
+  if (excerpt.length > 155) {
+    return `${excerpt.slice(0, 152).replace(/\s+\S*$/, '')}...`;
+  }
+
+  return excerpt;
+}
+
+function buildFallbackRewrite(source, reason = '') {
+  const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
+  const country = inferCountry(`${source.title} ${source.content}`);
+  const sentences = splitSentences(source.content);
+  const title = truncateWords(source.title, 10).slice(0, 60);
+  const lead = sentenceCase(sentences[0] || source.title);
+  const detail = sentenceCase(sentences.find((sentence) => sentence !== sentences[0]) || source.content || source.title);
+  const context = `For Australian travellers, the update is worth noting as part of the wider ${category.toLowerCase()} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
+  let sourceLabel = source.sourceName || source.sourceFeedUrl || 'a travel news source';
+  try {
+    sourceLabel = source.sourceName || new URL(source.sourceUrl).hostname.replace(/^www\./, '');
+  } catch {
+    // Keep the feed/source fallback above when a malformed feed item URL slips through.
+  }
+  const paragraphs = [
+    `${title} is the latest travel development being reported by ${sourceLabel}.`,
+    truncateWords(lead, 34),
+    truncateWords(detail, 34),
+    context
+  ].filter((paragraph) => wordCount(paragraph) >= 8);
+
+  return {
+    status: 'accepted',
+    title,
+    excerpt: buildMetaExcerpt(`${lead} ${detail}`),
+    publishedAt: source.originalPublishedAt,
+    paragraphs: paragraphs.slice(0, 4),
+    content: paragraphs.slice(0, 4).join('\n\n'),
+    category,
+    country,
+    tags: extractTags(`${source.title} ${source.content} ${category}`),
+    imageQuery: `${country !== 'Global' ? country : category} ${category} travel news`,
+    imageAltText: `${category} scene connected to ${title}`,
+    fallbackReason: reason
+  };
+}
+
 function extractJson(text) {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
   const candidate = fenced ? fenced[1] : text;
@@ -559,30 +629,28 @@ async function rewriteSource(source) {
   }
 
   if (!parsed) {
-    return {
-      status: 'rejected',
-      reason: previousError || 'AI response was not valid JSON'
-    };
+    parsed = buildFallbackRewrite(source, previousError || 'AI response was not valid JSON');
   }
 
   const paragraphs = Array.isArray(parsed.paragraphs)
     ? parsed.paragraphs.map(stripHtml).filter(Boolean)
     : [];
 
-  const rewrittenText = [
-    parsed.title,
-    parsed.excerpt,
-    ...paragraphs
-  ].join('\n');
-
   if (!parsed.title || !parsed.excerpt || paragraphs.length < 3) {
-    return {
-      status: 'rejected',
-      reason: 'AI response was incomplete'
-    };
+    parsed = buildFallbackRewrite(source, 'AI response was incomplete');
   }
 
-  if (hasUnsupportedNumbers(source.content, rewrittenText)) {
+  const finalParagraphs = Array.isArray(parsed.paragraphs)
+    ? parsed.paragraphs.map(stripHtml).filter(Boolean)
+    : [];
+
+  const finalText = [
+    parsed.title,
+    parsed.excerpt,
+    ...finalParagraphs
+  ].join('\n');
+
+  if (hasUnsupportedNumbers(`${source.title} ${source.content}`, finalText)) {
     return {
       status: 'rejected',
       reason: 'AI introduced numbers not present in source'
@@ -593,10 +661,12 @@ async function rewriteSource(source) {
     status: 'accepted',
     title: stripHtml(parsed.title),
     excerpt: stripHtml(parsed.excerpt),
-    content: paragraphs.join('\n\n'),
+    paragraphs: finalParagraphs,
+    content: finalParagraphs.join('\n\n'),
+    publishedAt: parsed.publishedAt || source.originalPublishedAt,
     category: normaliseCategory(parsed.category, source.category),
     country: parsed.country || source.country || 'Global',
-    tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(rewrittenText),
+    tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(finalText),
     imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`),
     imageAltText: stripHtml(parsed.imageAltText || parsed.title || source.title)
   };
@@ -694,7 +764,11 @@ function buildStory(source, rewrite, image) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - excerpt too short or missing`);
     return null;
   }
-  if (!rewrite.paragraphs || rewrite.paragraphs.length < 3) {
+  const paragraphs = Array.isArray(rewrite.paragraphs)
+    ? rewrite.paragraphs
+    : String(rewrite.content || '').split(/\n{2,}/).map(stripHtml).filter(Boolean);
+
+  if (paragraphs.length < 3) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than 3 paragraphs`);
     return null;
   }
