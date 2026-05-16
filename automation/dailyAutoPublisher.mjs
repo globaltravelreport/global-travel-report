@@ -20,7 +20,7 @@ dotenv.config({ path: '.env.local' });
 
 const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10), 1);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
-const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 4);
+const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10), 8);
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
@@ -489,7 +489,8 @@ Hard rules:
 - Return only valid JSON. No markdown.
 - Do not invent dates, prices, passenger numbers, route details, opening dates, warnings, visa rules, quotes, or statistics.
 - If the source text does not support a detail, omit it.
-- If the source is too thin or mostly promotional, return {"status":"rejected","reason":"..."}.
+  - Accept normal travel news, aviation, cruise, hotel, destination, travel technology, travel safety and travel industry stories.
+  - Reject only when the source has no substantive travel information, is mostly an advert, is unrelated to travel, or is too thin to rewrite safely.
 - Use Australian English.
 - Keep the tone clear, practical, and editorial.
 - Mention why the story matters to Australian travellers where supported by the source.
@@ -508,7 +509,7 @@ Return this JSON shape:
       "title": "catchy headline under 60 characters",
       "excerpt": "Google meta description between 140 and 155 characters",
           "publishedAt": "${source.originalPublishedAt || new Date().toISOString()}",
-  "paragraphs": ["5 to 8 short paragraphs"],
+  "paragraphs": ["4 to 7 short paragraphs"],
   "category": "one exact category from the allowed list",
   "country": "best matching country or Global",
   "tags": ["5", "short", "tags"],
@@ -573,7 +574,7 @@ async function rewriteSource(source) {
     ...paragraphs
   ].join('\n');
 
-  if (!parsed.title || !parsed.excerpt || paragraphs.length < 4) {
+  if (!parsed.title || !parsed.excerpt || paragraphs.length < 3) {
     return {
       status: 'rejected',
       reason: 'AI response was incomplete'
@@ -595,7 +596,8 @@ async function rewriteSource(source) {
     category: normaliseCategory(parsed.category, source.category),
     country: parsed.country || source.country || 'Global',
     tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(rewrittenText),
-    imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`)
+    imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`),
+    imageAltText: stripHtml(parsed.imageAltText || parsed.title || source.title)
   };
 }
 
