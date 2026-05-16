@@ -489,8 +489,8 @@ Hard rules:
 - Return only valid JSON. No markdown.
 - Do not invent dates, prices, passenger numbers, route details, opening dates, warnings, visa rules, quotes, or statistics.
 - If the source text does not support a detail, omit it.
-  - Accept normal travel news, aviation, cruise, hotel, destination, travel technology, travel safety and travel industry stories.
-  - Reject only when the source has no substantive travel information, is mostly an advert, is unrelated to travel, or is too thin to rewrite safely.
+  - The source has already passed the minimum quality check. Do not reject normal travel news, aviation, cruise, hotel, destination, travel technology, travel safety or travel industry stories.
+  - Return "status": "accepted" unless the source is unrelated to travel or impossible to understand.
 - Use Australian English.
 - Keep the tone clear, practical, and editorial.
 - Mention why the story matters to Australian travellers where supported by the source.
@@ -536,14 +536,22 @@ async function rewriteSource(source) {
   let parsed;
   let previousError = '';
 
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
       temperature: attempt === 0 ? 0.2 : 0,
-      maxTokens: 1200
+      maxTokens: 1600
     });
 
     try {
-      parsed = extractJson(response.content);
+      const candidate = extractJson(response.content);
+      if (candidate.status !== 'accepted') {
+        previousError = candidate.reason
+          ? `You returned rejected: ${candidate.reason}. This source is eligible; rewrite it as accepted JSON unless it is unrelated to travel.`
+          : 'You returned rejected. This source is eligible; rewrite it as accepted JSON unless it is unrelated to travel.';
+        continue;
+      }
+
+      parsed = candidate;
       break;
     } catch (error) {
       previousError = error instanceof Error ? error.message : String(error);
@@ -554,13 +562,6 @@ async function rewriteSource(source) {
     return {
       status: 'rejected',
       reason: previousError || 'AI response was not valid JSON'
-    };
-  }
-
-  if (parsed.status !== 'accepted') {
-    return {
-      status: 'rejected',
-      reason: parsed.reason || 'AI rejected source'
     };
   }
 
