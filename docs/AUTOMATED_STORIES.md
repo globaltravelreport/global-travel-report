@@ -4,10 +4,12 @@ Global Travel Report now uses the Supabase/Vercel story queue for daily story ge
 
 ## Active Flow
 
-1. Supabase cron calls `POST /api/cron/dailyAutoPublisher`.
+1. Vercel Cron calls `GET /api/cron/dailyAutoPublisher` once per day.
 2. The API queues a story generation job in Supabase.
-3. Supabase cron calls `/api/cron/storyQueueWorker` on an interval.
-4. The worker claims one queued job, fetches approved RSS feeds, rewrites eligible stories with the configured AI provider, adds Unsplash image data, and writes drafts or published stories to Supabase.
+3. The same request immediately claims and processes one queued job.
+4. The worker fetches approved RSS feeds, rewrites eligible stories with the configured AI provider, adds Unsplash image data, and writes drafts or published stories to Supabase.
+
+The production Vercel schedule is defined in `vercel.json` as `0 0 * * *`, which runs at 00:00 UTC. In May this is 10:00 AM Sydney time.
 
 The old GitHub Actions and local markdown generator path has been removed. Do not recreate scheduled workflows that write to `content/articles`; that creates a second publishing system and can reintroduce duplicate stories, stale dates, and inconsistent categories.
 

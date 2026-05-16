@@ -7,6 +7,12 @@
   "regions": [
     "syd1"
   ],
+  "crons": [
+    {
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 0 * * *"
+    }
+  ],
   "env": {
     "NEXT_PUBLIC_SITE_URL": "https://globaltravelreport.com",
     "DISABLE_MIDDLEWARE": "true"
