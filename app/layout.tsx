@@ -93,6 +93,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-K8BJQ43XFT';
 
   // Generate nonce for CSP
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
@@ -120,7 +121,7 @@ export default function RootLayout({
         
         {/* Google Analytics */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-K8BJQ43XFT`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -128,7 +129,12 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-K8BJQ43XFT');
+            gtag('config', '${gaId}', {
+              anonymize_ip: true,
+              allow_ad_features: false,
+              allow_google_signals: false,
+              allow_ad_personalization_signals: false
+            });
           `}
         </Script>
 
