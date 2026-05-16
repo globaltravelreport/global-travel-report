@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // runDailyAutomation loaded dynamically below to avoid webpack bundling Node.js-only modules
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { processStoryGenerationJob } from '@/src/services/storyGenerationWorker';
 import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 export const dynamic = 'force-dynamic';
@@ -59,9 +60,7 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-      const { runDailyAutomation } = await import('@/automation/dailyAutoPublisher.mjs');
-      const result = await runDailyAutomation();
-      await SupabaseStoryStore.completeStoryGenerationJob(job.id, result);
+      const result = await processStoryGenerationJob(job);
 
       return NextResponse.json({
         success: true,

@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { processStoryGenerationJob } from '@/src/services/storyGenerationWorker';
 import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 const PIPELINE_VERSION = '2026-05-09-request-budget-v2';
 
@@ -20,20 +22,44 @@ async function enqueueDailyPublisherJob(triggeredBy: string) {
     throw new Error('Supabase is not configured for the story queue');
   }
 
-  const job = await SupabaseStoryStore.enqueueStoryGenerationJob({
+  await SupabaseStoryStore.enqueueStoryGenerationJob({
     triggeredBy,
     requestedAt: new Date().toISOString()
   });
 
-  return NextResponse.json({
-    success: true,
-    queued: true,
-    jobId: job.id,
-    status: job.status,
-    message: 'Global Travel Report story generation job queued',
-    workerPath: '/api/cron/storyQueueWorker',
-    timestamp: new Date().toISOString()
-  }, { status: 202 });
+  const workerId = `${triggeredBy}-${Date.now()}`;
+  const job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
+
+  if (!job) {
+    return NextResponse.json({
+      success: true,
+      queued: true,
+      processed: false,
+      status: 'queued',
+      message: 'Global Travel Report story generation job queued',
+      workerPath: '/api/cron/storyQueueWorker',
+      timestamp: new Date().toISOString()
+    }, { status: 202 });
+  }
+
+  try {
+    const result = await processStoryGenerationJob(job);
+
+    return NextResponse.json({
+      success: true,
+      queued: true,
+      processed: true,
+      jobId: job.id,
+      status: 'completed',
+      result,
+      message: 'Global Travel Report story generation job completed',
+      workerPath: '/api/cron/storyQueueWorker',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    await SupabaseStoryStore.failStoryGenerationJob(job, error);
+    throw error;
+  }
 }
 
 /**
