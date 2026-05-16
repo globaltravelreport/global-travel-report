@@ -11,11 +11,10 @@ const IMAGE_TTL = 1000 * 60 * 60 * 24 * 30; // 30 days
 // Assets to cache immediately
 const STATIC_ASSETS = [
   '/',
-  '/manifest.json',
+  '/site.webmanifest',
   '/favicon.ico',
   '/images/logo.png',
-  '/images/fallback.jpg',
-  '/og/home-1200x630.jpg'
+  '/images/fallback.jpg'
 ];
 
 // Install event - cache static assets
@@ -26,7 +25,13 @@ self.addEventListener('install', (event) => {
     caches.open(STATIC_CACHE_NAME)
       .then((cache) => {
         console.log('Service Worker: Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        return Promise.allSettled(
+          STATIC_ASSETS.map((asset) =>
+            cache.add(asset).catch((error) => {
+              console.warn('Service Worker: Skipping uncached static asset:', asset, error);
+            })
+          )
+        );
       })
       .then(() => {
         console.log('Service Worker: Static assets cached successfully');

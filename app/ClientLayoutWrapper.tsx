@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { CookieConsentBanner, useCookieConsent } from '../src/components/ui/CookieConsentBanner';
-import { GoogleAnalytics } from '../src/components/analytics/GoogleAnalytics';
 
 export function ClientLayoutWrapper() {
   const { canUseAnalytics: _canUseAnalytics } = useCookieConsent();
@@ -24,10 +23,6 @@ export function ClientLayoutWrapper() {
   return (
     <>
       <CookieConsentBanner />
-      {/* Google Analytics - Only loads after user consent */}
-      {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-      )}
     </>
   );
 }
