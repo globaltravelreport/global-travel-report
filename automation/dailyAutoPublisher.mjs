@@ -425,7 +425,13 @@ function buildFallbackTitle(text = '') {
     title = next;
   }
 
-  return title || clean.slice(0, 60).replace(/\s+\S*$/, '');
+  const weakEndings = new Set(['a', 'an', 'and', 'as', 'at', 'by', 'for', 'from', 'in', 'of', 'on', 'the', 'to', 'with']);
+  const titleWords = title.split(/\s+/).filter(Boolean);
+  while (titleWords.length > 4 && weakEndings.has(titleWords[titleWords.length - 1].toLowerCase())) {
+    titleWords.pop();
+  }
+
+  return titleWords.join(' ') || clean.slice(0, 60).replace(/\s+\S*$/, '');
 }
 
 function buildMetaExcerpt(text = '') {
