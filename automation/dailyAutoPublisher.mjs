@@ -20,6 +20,7 @@ dotenv.config({ path: '.env.local' });
 
 const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10), 1);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
+const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
 const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10), 8);
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
@@ -392,6 +393,22 @@ function hasUnsupportedNumbers(sourceText, rewrittenText) {
   return false;
 }
 
+function normaliseForComparison(text = '') {
+  return stripHtml(text)
+    .toLowerCase()
+    .replace(/['']/g, "'")
+    .replace(/[^a-z0-9%.' ]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function hasCopiedSentence(sourceText = '', rewrittenText = '') {
+  const source = normaliseForComparison(sourceText);
+  return splitSentences(rewrittenText)
+    .map(normaliseForComparison)
+    .some((sentence) => wordCount(sentence) >= 8 && source.includes(sentence));
+}
+
 function splitSentences(text = '') {
   return stripHtml(text)
     .split(/(?<=[.!?])\s+/)
@@ -483,7 +500,8 @@ function buildFallbackRewrite(source, reason = '') {
     tags: extractTags(`${source.title} ${source.content} ${category}`),
     imageQuery: `${country !== 'Global' ? country : category} ${category} travel news`,
     imageAltText: `${category} scene connected to ${title}`,
-    fallbackReason: reason
+    fallbackReason: reason,
+    fallback: true
   };
 }
 
@@ -708,7 +726,8 @@ async function rewriteSource(source) {
     country: parsed.country || source.country || 'Global',
     tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(finalText),
     imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`),
-    imageAltText: stripHtml(parsed.imageAltText || parsed.title || source.title)
+    imageAltText: stripHtml(parsed.imageAltText || parsed.title || source.title),
+    fallback: Boolean(parsed.fallback)
   };
 }
 
@@ -812,6 +831,19 @@ function buildStory(source, rewrite, image) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than 3 paragraphs`);
     return null;
   }
+  const contentWordCount = wordCount(rewrite.content);
+  if (contentWordCount < MIN_REWRITTEN_WORDS) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than ${MIN_REWRITTEN_WORDS} rewritten words`);
+    return null;
+  }
+  if (normaliseForComparison(rewrite.title) === normaliseForComparison(source.title)) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - copied source title`);
+    return null;
+  }
+  if (hasCopiedSentence(source.content, `${rewrite.excerpt}\n${rewrite.content}`)) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - copied source sentence`);
+    return null;
+  }
 
   const now = new Date().toISOString();
   const publishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
@@ -846,7 +878,7 @@ function buildStory(source, rewrite, image) {
     editorsPick: false,
     rewritten: true,
     processedAt: now,
-    wordCount: wordCount(rewrite.content),
+    wordCount: contentWordCount,
     imageUrl: image?.imageUrl || '',
     imageAlt: rewrite.imageAltText || image?.imageAlt || rewrite.title,
     imageCredit: image?.imageCredit,
@@ -875,6 +907,16 @@ async function processCandidate(source) {
       sourceUrl: enrichedSource.sourceUrl,
       sourceWordCount,
       reason: rewrite.reason
+    };
+  }
+
+  if (AUTO_PUBLISH_STORIES && rewrite.fallback) {
+    return {
+      status: 'rejected',
+      title: enrichedSource.title,
+      sourceUrl: enrichedSource.sourceUrl,
+      sourceWordCount,
+      reason: 'fallback-rewrite-not-auto-published'
     };
   }
 

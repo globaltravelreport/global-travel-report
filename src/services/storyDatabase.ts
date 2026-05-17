@@ -6,6 +6,17 @@ import { categoryMatches } from '../config/categories';
 import { SupabaseStoryStore } from './supabaseStoryStore';
 
 const FALLBACK_PUBLISHED_AT = '2025-04-24T09:00:00.000Z';
+const HIDDEN_STORY_SLUGS = new Set([
+  'is-the-key-on-royal-caribbean-worth-it-we-break-down'
+]);
+
+function isHiddenStory(story: Story | null | undefined): boolean {
+  return Boolean(story?.slug && HIDDEN_STORY_SLUGS.has(story.slug));
+}
+
+function visibleStories(stories: Story[]): Story[] {
+  return stories.filter((story) => !isHiddenStory(story));
+}
 
 /**
  * StoryDatabase using in-memory storage with mock data
@@ -83,13 +94,13 @@ export class StoryDatabase {
           byId.set(story.id, story);
         });
 
-        return Array.from(byId.values());
+        return visibleStories(Array.from(byId.values()));
       } catch (error) {
         console.error('Supabase story fetch failed, using in-memory stories', error);
       }
     }
 
-    return [...this.stories];
+    return visibleStories([...this.stories]);
   }
 
   /**
@@ -103,7 +114,7 @@ export class StoryDatabase {
     if (SupabaseStoryStore.isConfigured()) {
       try {
         const story = await SupabaseStoryStore.getStoryById(id);
-        if (story) {
+        if (story && !isHiddenStory(story)) {
           return story;
         }
       } catch (error) {
@@ -111,7 +122,8 @@ export class StoryDatabase {
       }
     }
 
-    return this.stories.find(story => story.id === id) || null;
+    const story = this.stories.find(story => story.id === id) || null;
+    return isHiddenStory(story) ? null : story;
   }
 
   /**
@@ -122,10 +134,14 @@ export class StoryDatabase {
   public async getStoryBySlug(slug: string): Promise<Story | null> {
     await this.initialize();
 
+    if (HIDDEN_STORY_SLUGS.has(slug.trim().toLowerCase())) {
+      return null;
+    }
+
     if (SupabaseStoryStore.isConfigured()) {
       try {
         const story = await SupabaseStoryStore.getStoryBySlug(slug);
-        if (story) {
+        if (story && !isHiddenStory(story)) {
           return story;
         }
       } catch (error) {
@@ -152,7 +168,7 @@ export class StoryDatabase {
       );
     }
 
-    return story || null;
+    return isHiddenStory(story) ? null : story || null;
   }
 
   /**
@@ -162,7 +178,7 @@ export class StoryDatabase {
    */
   public async getStoriesByCategory(category: string): Promise<Story[]> {
     await this.initialize();
-    return this.stories.filter(story =>
+    return visibleStories(this.stories).filter(story =>
       categoryMatches(story.category, category) || categoryMatches(story.type, category)
     );
   }
@@ -174,7 +190,7 @@ export class StoryDatabase {
    */
   public async getStoriesByCountry(country: string): Promise<Story[]> {
     await this.initialize();
-    return this.stories.filter(story =>
+    return visibleStories(this.stories).filter(story =>
       story.country && story.country.toLowerCase() === country.toLowerCase()
     );
   }
@@ -310,13 +326,13 @@ export class StoryDatabase {
    await this.initialize();
 
    if (!query) {
-     return this.stories;
+     return visibleStories(this.stories);
    }
 
    const lowerQuery = query.toLowerCase();
 
    // Simple in-memory search
-   return this.stories.filter(story =>
+   return visibleStories(this.stories).filter(story =>
      (story.title && story.title.toLowerCase().includes(lowerQuery)) ||
      (story.content && story.content.toLowerCase().includes(lowerQuery)) ||
      (story.excerpt && story.excerpt.toLowerCase().includes(lowerQuery)) ||
@@ -357,7 +373,7 @@ export class StoryDatabase {
  }> {
    await this.initialize();
 
-   let filteredStories = [...this.stories];
+   let filteredStories = visibleStories([...this.stories]);
 
    // Apply filters
    if (options.category) {
@@ -474,7 +490,7 @@ export class StoryDatabase {
 
    const cutoffDate = new Date(Date.now() - daysOld * 24 * 60 * 60 * 1000);
 
-   return this.stories.filter(story => {
+   return visibleStories(this.stories).filter(story => {
      const storyDate = new Date(story.publishedAt || '');
      return storyDate < cutoffDate;
    });
