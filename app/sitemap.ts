@@ -172,25 +172,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  // Author routes - dynamically generated from actual stories
-  const authors = Array.from(new Set(stories
-    .map(story => story.author)
-    .filter(Boolean)
-  ));
-
-  const authorRoutes = authors.map((author) => ({
-    url: `${baseUrl}/authors/${author.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
-  }));
-
   return [
     ...routes,
     ...storyRoutes,
     ...categoryRoutes,
     ...countryRoutes,
     ...tagRoutes,
-    ...authorRoutes,
   ];
 }

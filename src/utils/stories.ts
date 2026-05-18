@@ -388,14 +388,6 @@ export const searchStories = memoizeMultiArg(
       );
     }
 
-    // Author filter
-    if (params.author) {
-      const author = params.author;
-      filteredStories = filteredStories.filter(story =>
-        story.author.toLowerCase() === author.toLowerCase()
-      );
-    }
-
     // Date range filter
     if (params.fromDate) {
       const fromDate = params.fromDate instanceof Date

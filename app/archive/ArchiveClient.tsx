@@ -85,8 +85,7 @@ export default function ArchiveClient() {
         (story.title && story.title.toLowerCase().includes(query)) ||
         (story.excerpt && story.excerpt.toLowerCase().includes(query)) ||
         (story.content && story.content.toLowerCase().includes(query)) ||
-        (story.tags && story.tags.some(tag => tag.toLowerCase().includes(query))) ||
-        (story.author && story.author.toLowerCase().includes(query))
+        (story.tags && story.tags.some(tag => tag.toLowerCase().includes(query)))
       );
     }
 

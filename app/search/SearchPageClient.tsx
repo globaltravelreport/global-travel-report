@@ -17,7 +17,6 @@ function SearchResults() {
   const [stories, setStories] = useState<Story[]>([]);
   const [filteredStories, setFilteredStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
-  const [authors, setAuthors] = useState<string[]>([]);
 
   useEffect(() => {
     const loadStories = async () => {
@@ -25,7 +24,6 @@ function SearchResults() {
         setLoading(true);
         const allStories = await getAllStories();
         setStories(allStories);
-        setAuthors(Array.from(new Set(allStories.map(story => story.author))));
 
         // Apply search filters
         const searchResult = applySearchFilters(allStories, searchParams);
@@ -33,7 +31,6 @@ function SearchResults() {
       } catch (_error) {
         console.error(_error);
         setStories([]);
-        setAuthors([]);
         setFilteredStories([]);
       } finally {
         setLoading(false);
@@ -104,7 +101,6 @@ function SearchResults() {
           categories={mockCategories}
           countries={mockCountries}
           tags={mockTags}
-          authors={authors}
           baseUrl="/search"
         />
       </div>

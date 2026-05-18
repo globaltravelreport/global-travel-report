@@ -2,7 +2,7 @@
  * Enhanced Story Schema Component
  *
  * Generates comprehensive JSON-LD structured data for stories
- * including author, dates, images, keywords, and related content.
+ * including publisher, dates, images, keywords, and related content.
  */
 
 import React from 'react';
@@ -30,9 +30,9 @@ export function EnhancedStorySchema({
     'datePublished': story.publishedAt,
     'dateModified': story.publishedAt, // Could be enhanced with actual modification date
     'author': {
-      '@type': 'Person',
-      'name': story.author,
-      'url': `https://globaltravelreport.com/author/${encodeURIComponent(story.author.toLowerCase().replace(/\s+/g, '-'))}`
+      '@type': 'Organization',
+      'name': 'Global Travel Report',
+      'url': 'https://globaltravelreport.com'
     },
     'publisher': {
       '@type': 'Organization',
@@ -119,8 +119,8 @@ export function EnhancedStorySchema({
       'image': relatedStory.imageUrl,
       'datePublished': relatedStory.publishedAt,
       'author': {
-        '@type': 'Person',
-        'name': relatedStory.author
+        '@type': 'Organization',
+        'name': 'Global Travel Report'
       }
     }))
   } : null;
@@ -161,7 +161,7 @@ export function EnhancedStorySchema({
 
       {/* Enhanced Meta Tags */}
       <Head>
-        <meta name="author" content={story.author} />
+        <meta name="author" content="Global Travel Report" />
         <meta name="publish_date" content={story.publishedAt?.toString()} />
         <meta name="category" content={story.category} />
         <meta name="country" content={story.country} />
@@ -171,7 +171,7 @@ export function EnhancedStorySchema({
 
         {/* Open Graph enhanced tags */}
         <meta property="og:type" content="article" />
-        <meta property="og:author" content={story.author} />
+        <meta property="og:author" content="Global Travel Report" />
         <meta property="article:published_time" content={story.publishedAt?.toString()} />
         <meta property="article:section" content={story.category} />
         {story.tags?.map(tag => (
@@ -263,8 +263,8 @@ export function useStoryMetadata(story: Story) {
       'image': story.imageUrl,
       'datePublished': story.publishedAt,
       'author': {
-        '@type': 'Person',
-        'name': story.author
+        '@type': 'Organization',
+        'name': 'Global Travel Report'
       },
       'publisher': {
         '@type': 'Organization',

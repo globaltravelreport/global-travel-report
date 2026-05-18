@@ -29,7 +29,15 @@ function isHiddenStory(story: Story | null | undefined): boolean {
 }
 
 function visibleStories(stories: Story[]): Story[] {
-  return stories.filter((story) => !isHiddenStory(story));
+  return stories.filter((story) => !isHiddenStory(story)).map(publicStory);
+}
+
+function publicStory(story: Story): Story {
+  return {
+    ...story,
+    author: '',
+    source: undefined
+  };
 }
 
 /**
@@ -129,7 +137,7 @@ export class StoryDatabase {
       try {
         const story = await SupabaseStoryStore.getStoryById(id);
         if (story && !isHiddenStory(story)) {
-          return story;
+          return publicStory(story);
         }
       } catch (error) {
         console.error('Supabase story lookup failed, using in-memory stories', error);
@@ -137,7 +145,7 @@ export class StoryDatabase {
     }
 
     const story = this.stories.find(story => story.id === id) || null;
-    return isHiddenStory(story) ? null : story;
+    return isHiddenStory(story) || !story ? null : publicStory(story);
   }
 
   /**
@@ -156,7 +164,7 @@ export class StoryDatabase {
       try {
         const story = await SupabaseStoryStore.getStoryBySlug(slug);
         if (story && !isHiddenStory(story)) {
-          return story;
+          return publicStory(story);
         }
       } catch (error) {
         console.error('Supabase story slug lookup failed, using in-memory stories', error);
@@ -182,7 +190,7 @@ export class StoryDatabase {
       );
     }
 
-    return isHiddenStory(story) ? null : story || null;
+    return isHiddenStory(story) || !story ? null : publicStory(story);
   }
 
   /**

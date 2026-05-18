@@ -103,9 +103,8 @@ export default function RelatedStories({
                 <p className="text-gray-600 text-sm line-clamp-2 mb-3">
                   {story.excerpt}
                 </p>
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>{story.author}</span>
-                  <span>{new Date(story.publishedAt).toLocaleDateString()}</span>
+                <div className="text-xs text-gray-500">
+                  {new Date(story.publishedAt).toLocaleDateString()}
                 </div>
                 {story.tags && story.tags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">
