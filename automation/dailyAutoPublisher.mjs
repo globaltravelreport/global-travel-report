@@ -475,14 +475,8 @@ function buildFallbackRewrite(source, reason = '') {
   const lead = sentenceCase(sentences[0] || source.title);
   const detail = sentenceCase(sentences.find((sentence) => sentence !== sentences[0]) || source.content || source.title);
   const context = `For Australian travellers, the update is worth noting as part of the wider ${category.toLowerCase()} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
-  let sourceLabel = source.sourceName || source.sourceFeedUrl || 'a travel news source';
-  try {
-    sourceLabel = source.sourceName || new URL(source.sourceUrl).hostname.replace(/^www\./, '');
-  } catch {
-    // Keep the feed/source fallback above when a malformed feed item URL slips through.
-  }
   const paragraphs = [
-    `${title} is the latest travel development being reported by ${sourceLabel}.`,
+    `The latest ${category.toLowerCase()} update gives travellers another reminder to check details carefully before making firm plans.`,
     truncateWords(lead, 34),
     truncateWords(detail, 34),
     context
@@ -538,7 +532,7 @@ function normaliseFeedItem(item, feedUrl) {
     content,
     sourceUrl: link,
     sourceFeedUrl: feedUrl,
-    sourceName: stripHtml(item.creator || item.author || item.feedTitle || ''),
+    sourceName: stripHtml(item.feedTitle || ''),
     guid: item.guid || link,
     originalPublishedAt: parseDate(item.isoDate || item.pubDate || item.published),
     category: inferCategory(`${title} ${content}`),

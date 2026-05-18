@@ -7,11 +7,25 @@ import { SupabaseStoryStore } from './supabaseStoryStore';
 
 const FALLBACK_PUBLISHED_AT = '2025-04-24T09:00:00.000Z';
 const HIDDEN_STORY_SLUGS = new Set([
-  'is-the-key-on-royal-caribbean-worth-it-we-break-down'
+  'is-the-key-on-royal-caribbean-worth-it-we-break-down',
+  'royal-caribbean-modifies-allure-of-the-seas-cruise-to-drop-a'
 ]);
+const MIN_PUBLIC_REWRITTEN_WORDS = 180;
 
 function isHiddenStory(story: Story | null | undefined): boolean {
-  return Boolean(story?.slug && HIDDEN_STORY_SLUGS.has(story.slug));
+  if (!story) {
+    return false;
+  }
+
+  if (story.slug && HIDDEN_STORY_SLUGS.has(story.slug)) {
+    return true;
+  }
+
+  if (story.rewritten && (story.wordCount || 0) > 0 && (story.wordCount || 0) < MIN_PUBLIC_REWRITTEN_WORDS) {
+    return true;
+  }
+
+  return Boolean(story.content?.toLowerCase().includes('being reported by'));
 }
 
 function visibleStories(stories: Story[]): Story[] {
