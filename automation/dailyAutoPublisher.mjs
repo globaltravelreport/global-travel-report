@@ -18,7 +18,7 @@ import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10), 1);
+const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '3', 10), 3);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
 const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
@@ -444,29 +444,41 @@ function buildFallbackTitle(text = '') {
   return titleWords.join(' ') || clean.slice(0, 60).replace(/\s+\S*$/, '');
 }
 
-function extractTitleFocus(text = '') {
-  const words = stripHtml(text)
-    .replace(/["'():,]/g, ' ')
-    .split(/\s+/)
-    .filter((word) => word.length > 2);
-  const stopWords = new Set([
-    'the', 'and', 'for', 'with', 'from', 'that', 'this', 'into', 'onto',
-    'are', 'was', 'were', 'has', 'have', 'had', 'new', 'one', 'its',
-    'your', 'you', 'why', 'how', 'can', 'could', 'would', 'should'
-  ]);
+function extractTravelBrand(text = '') {
+  const normalized = stripHtml(text).toLowerCase();
+  const brands = [
+    ['royal caribbean', 'Royal Caribbean'],
+    ['princess cruises', 'Princess Cruises'],
+    ['norwegian cruise line', 'Norwegian Cruise Line'],
+    ['carnival cruise', 'Carnival Cruise Line'],
+    ['virgin voyages', 'Virgin Voyages'],
+    ['celebrity cruises', 'Celebrity Cruises'],
+    ['msc cruises', 'MSC Cruises'],
+    ['viking', 'Viking'],
+    ['qantas', 'Qantas'],
+    ['jetstar', 'Jetstar'],
+    ['virgin australia', 'Virgin Australia'],
+    ['emirates', 'Emirates'],
+    ['singapore airlines', 'Singapore Airlines'],
+    ['air new zealand', 'Air New Zealand'],
+    ['airbnb', 'Airbnb'],
+    ['marriott', 'Marriott'],
+    ['hilton', 'Hilton'],
+    ['accor', 'Accor'],
+    ['ihg', 'IHG']
+  ];
 
-  return words
-    .filter((word) => !stopWords.has(word.toLowerCase()))
-    .slice(0, 5)
-    .join(' ');
+  return brands.find(([needle]) => normalized.includes(needle))?.[1] || '';
 }
 
 function buildOriginalFallbackTitle(source, category) {
-  const focus = extractTitleFocus(source.title);
+  const country = inferCountry(`${source.title} ${source.content}`);
+  const brand = extractTravelBrand(source.title);
   const categoryLabel = category === 'Air Travel' ? 'Airline' : category;
-  const base = focus
-    ? `${focus} Travel Update`
-    : `${categoryLabel} Update for Travellers`;
+  const countryPrefix = country !== 'Global' && !brand ? `${country} ` : '';
+  const base = brand
+    ? `${brand} ${categoryLabel} Update for Travellers`
+    : `${countryPrefix}${categoryLabel} Update for Travellers`;
 
   return buildFallbackTitle(base);
 }
@@ -490,13 +502,16 @@ function buildMetaExcerpt(text = '') {
 function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
+  const brand = extractTravelBrand(source.title);
   const title = buildOriginalFallbackTitle(source, category);
-  const topic = extractTitleFocus(source.title) || category.toLowerCase();
   const locationContext = country !== 'Global' ? ` in ${country}` : '';
   const categoryContext = category.toLowerCase();
+  const subject = brand
+    ? `${brand}'s latest ${categoryContext} update`
+    : `the latest ${categoryContext} update${locationContext}`;
   const context = `For Australian travellers, the update is worth noting as part of the wider ${categoryContext} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
   const paragraphs = [
-    `A fresh ${categoryContext} development${locationContext} is giving travellers another reason to check the details behind their next trip. The update centres on ${topic}, and it points to the kind of operational change that can affect planning even when the wider travel outlook remains strong.`,
+    `A fresh ${categoryContext} development${locationContext} is giving travellers another reason to check the details behind their next trip. The story concerns ${subject}, and it points to the kind of travel change that is worth checking before booking or departure.`,
     `For readers comparing options, the practical message is to look beyond the headline and confirm what has changed, who is affected and when the change applies. Airline, cruise, hotel and destination updates can all carry booking conditions, timing issues or availability limits that are easy to miss during a quick search.`,
     `The safest approach is to treat the story as a prompt for further checking before making a firm booking. Travellers should review the operator's current advice, compare it with any existing reservation details and keep a copy of relevant terms in case schedules, inclusions or requirements shift later.`,
     `This is especially important for Australian travellers planning overseas trips, where time zones, long-haul connections and supplier policies can make small changes more disruptive. A short check before payment or departure can reduce the chance of surprise costs or avoidable itinerary problems.`,
@@ -519,6 +534,60 @@ function buildFallbackRewrite(source, reason = '') {
     fallback: true,
     safeFallback: true
   };
+}
+
+function shouldRepairFallbackStory(story) {
+  if (!story?.rewritten) {
+    return false;
+  }
+
+  const title = story.title || '';
+  const content = story.content || '';
+  return (
+    (title.includes('“') && title.includes('Travel Update')) ||
+    content.includes('update centres on')
+  );
+}
+
+async function repairPublishedFallbackStories() {
+  if (!AUTO_PUBLISH_STORIES || !SupabaseStoryStore.isConfigured()) {
+    return 0;
+  }
+
+  try {
+    const stories = await SupabaseStoryStore.getPublishedStories();
+    const repairable = stories.slice(0, 12).filter(shouldRepairFallbackStory);
+
+    for (const story of repairable) {
+      const rewrite = buildFallbackRewrite({
+        title: story.title,
+        content: story.content,
+        category: story.category,
+        originalPublishedAt: story.originalPublishedAt || story.publishedAt
+      }, 'cleaned previous safe fallback copy');
+
+      await SupabaseStoryStore.upsertStory({
+        ...story,
+        title: rewrite.title,
+        slug: slugify(rewrite.title),
+        excerpt: rewrite.excerpt,
+        content: rewrite.content,
+        author: '',
+        category: rewrite.category,
+        country: story.country || rewrite.country,
+        tags: rewrite.tags,
+        imageAlt: rewrite.imageAltText,
+        wordCount: wordCount(rewrite.content),
+        rewritten: true,
+        updatedAt: new Date().toISOString()
+      });
+    }
+
+    return repairable.length;
+  } catch (error) {
+    console.warn('Published fallback story repair skipped:', error instanceof Error ? error.message : String(error));
+    return 0;
+  }
 }
 
 function extractJson(text) {
@@ -997,6 +1066,11 @@ async function runDailyAutomation() {
 
   console.log('Starting Global Travel Report daily story pipeline');
   console.log(`Mode: ${result.mode}`);
+
+  const repairedStories = await repairPublishedFallbackStories();
+  if (repairedStories > 0) {
+    console.log(`Cleaned ${repairedStories} previously published fallback story`);
+  }
 
   const { candidates, failures } = await fetchRssCandidates(feedUrls);
   result.feedFailures = failures;
