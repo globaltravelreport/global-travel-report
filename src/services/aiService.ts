@@ -209,7 +209,7 @@ async function generateWithCloudflare(
   const model = config.model || process.env.CLOUDFLARE_AI_MODEL || '@cf/meta/llama-3.2-3b-instruct';
   const workerUrl = process.env.CLOUDFLARE_AI_WORKER_URL!;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), Number.parseInt(process.env.AI_REQUEST_TIMEOUT_MS || '45000', 10));
+  const timeout = setTimeout(() => controller.abort(), Number.parseInt(process.env.AI_REQUEST_TIMEOUT_MS || '18000', 10));
 
   try {
     const response = await fetch(workerUrl, {

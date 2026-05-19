@@ -21,12 +21,15 @@ dotenv.config({ path: '.env.local' });
 const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '1', 10), 1);
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
-const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10), 8);
+const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
+const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '2', 10), 2);
+const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '45000', 10), 50000);
+const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 8000;
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
 
 const parser = new Parser({
-  timeout: 15000,
+  timeout: Number.parseInt(process.env.RSS_FETCH_TIMEOUT_MS || '5000', 10),
   headers: {
     'User-Agent': 'GlobalTravelReport/2.0 (+https://www.globaltravelreport.com)'
   },
@@ -541,38 +544,43 @@ function normaliseFeedItem(item, feedUrl) {
   };
 }
 
-async function fetchRssCandidates(feedUrls) {
-  const candidates = [];
-  const failures = [];
+async function fetchFeedCandidates(feedUrl) {
+  try {
+    const feed = await parser.parseURL(feedUrl);
+    const items = (feed.items || [])
+      .slice(0, 8)
+      .map((item) => normaliseFeedItem({ ...item, feedTitle: feed.title }, feedUrl))
+      .filter((item) => item.title && item.sourceUrl && item.content);
 
-  for (const feedUrl of feedUrls) {
-    try {
-      const feed = await parser.parseURL(feedUrl);
-      const items = (feed.items || [])
-        .slice(0, 8)
-        .map((item) => normaliseFeedItem({ ...item, feedTitle: feed.title }, feedUrl))
-        .filter((item) => item.title && item.sourceUrl && item.content);
-
-      candidates.push(...items);
-      if (SupabaseStoryStore.isConfigured()) {
-        try {
-          await SupabaseStoryStore.recordFeedCheck(feedUrl, null);
-        } catch (error) {
-          console.warn('Supabase feed success logging failed:', error instanceof Error ? error.message : String(error));
-        }
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      failures.push({ feedUrl, error: message });
-      if (SupabaseStoryStore.isConfigured()) {
-        try {
-          await SupabaseStoryStore.recordFeedCheck(feedUrl, message);
-        } catch (loggingError) {
-          console.warn('Supabase feed failure logging failed:', loggingError instanceof Error ? loggingError.message : String(loggingError));
-        }
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        await SupabaseStoryStore.recordFeedCheck(feedUrl, null);
+      } catch (error) {
+        console.warn('Supabase feed success logging failed:', error instanceof Error ? error.message : String(error));
       }
     }
+
+    return { candidates: items, failure: null };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        await SupabaseStoryStore.recordFeedCheck(feedUrl, message);
+      } catch (loggingError) {
+        console.warn('Supabase feed failure logging failed:', loggingError instanceof Error ? loggingError.message : String(loggingError));
+      }
+    }
+
+    return { candidates: [], failure: { feedUrl, error: message } };
   }
+}
+
+async function fetchRssCandidates(feedUrls) {
+  const feedResults = await Promise.all(feedUrls.map((feedUrl) => fetchFeedCandidates(feedUrl)));
+  const candidates = feedResults.flatMap((result) => result.candidates);
+  const failures = feedResults
+    .map((result) => result.failure)
+    .filter(Boolean);
 
   const seen = new Set();
   const unique = candidates
@@ -658,10 +666,10 @@ async function rewriteSource(source) {
   let parsed;
   let previousError = '';
 
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < MAX_AI_REWRITE_ATTEMPTS; attempt++) {
     const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
       temperature: attempt === 0 ? 0.2 : 0,
-      maxTokens: 1600
+      maxTokens: 1200
     });
 
     try {
@@ -943,6 +951,7 @@ async function processCandidate(source) {
 async function runDailyAutomation() {
   validateEnvironment();
 
+  const deadline = Date.now() + MAX_PIPELINE_RUNTIME_MS;
   const feedUrls = await getRuntimeFeedUrls();
   const startedAt = new Date().toISOString();
   const result = {
@@ -976,6 +985,15 @@ async function runDailyAutomation() {
   const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
 
   for (const source of selected) {
+    if (Date.now() + MIN_TIME_FOR_NEXT_CANDIDATE_MS > deadline) {
+      result.processed.push({
+        status: 'stopped',
+        reason: 'time-budget-exhausted',
+        message: 'Stopped before the next candidate so the Vercel function could finish cleanly.'
+      });
+      break;
+    }
+
     try {
       const processed = await processCandidate(source);
       result.processed.push(processed);
