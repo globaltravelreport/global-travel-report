@@ -22,13 +22,17 @@ async function enqueueDailyPublisherJob(triggeredBy: string) {
     throw new Error('Supabase is not configured for the story queue');
   }
 
-  await SupabaseStoryStore.enqueueStoryGenerationJob({
-    triggeredBy,
-    requestedAt: new Date().toISOString()
-  });
-
   const workerId = `${triggeredBy}-${Date.now()}`;
-  const job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
+  let job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
+
+  if (!job) {
+    await SupabaseStoryStore.enqueueStoryGenerationJob({
+      triggeredBy,
+      requestedAt: new Date().toISOString()
+    });
+
+    job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
+  }
 
   if (!job) {
     return NextResponse.json({
