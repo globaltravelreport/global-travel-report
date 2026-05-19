@@ -419,16 +419,6 @@ function splitSentences(text = '') {
     .filter((sentence) => wordCount(sentence) >= 8);
 }
 
-function sentenceCase(text = '') {
-  const clean = stripHtml(text).replace(/\s+/g, ' ').trim();
-  return clean ? `${clean.charAt(0).toUpperCase()}${clean.slice(1)}` : '';
-}
-
-function truncateWords(text = '', limit = 28) {
-  const words = stripHtml(text).split(/\s+/).filter(Boolean);
-  return words.length > limit ? `${words.slice(0, limit).join(' ')}.` : words.join(' ');
-}
-
 function buildFallbackTitle(text = '') {
   const clean = stripHtml(text).replace(/\s+/g, ' ').trim();
   if (clean.length <= 60) {
@@ -454,6 +444,33 @@ function buildFallbackTitle(text = '') {
   return titleWords.join(' ') || clean.slice(0, 60).replace(/\s+\S*$/, '');
 }
 
+function extractTitleFocus(text = '') {
+  const words = stripHtml(text)
+    .replace(/["'():,]/g, ' ')
+    .split(/\s+/)
+    .filter((word) => word.length > 2);
+  const stopWords = new Set([
+    'the', 'and', 'for', 'with', 'from', 'that', 'this', 'into', 'onto',
+    'are', 'was', 'were', 'has', 'have', 'had', 'new', 'one', 'its',
+    'your', 'you', 'why', 'how', 'can', 'could', 'would', 'should'
+  ]);
+
+  return words
+    .filter((word) => !stopWords.has(word.toLowerCase()))
+    .slice(0, 5)
+    .join(' ');
+}
+
+function buildOriginalFallbackTitle(source, category) {
+  const focus = extractTitleFocus(source.title);
+  const categoryLabel = category === 'Air Travel' ? 'Airline' : category;
+  const base = focus
+    ? `${focus} Travel Update`
+    : `${categoryLabel} Update for Travellers`;
+
+  return buildFallbackTitle(base);
+}
+
 function buildMetaExcerpt(text = '') {
   const base = stripHtml(text).replace(/\s+/g, ' ').trim();
   const fallback = 'Global Travel Report covers the latest travel development with practical context for Australian travellers planning upcoming trips.';
@@ -473,32 +490,34 @@ function buildMetaExcerpt(text = '') {
 function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
-  const sentences = splitSentences(source.content);
-  const title = buildFallbackTitle(source.title);
-  const lead = sentenceCase(sentences[0] || source.title);
-  const detail = sentenceCase(sentences.find((sentence) => sentence !== sentences[0]) || source.content || source.title);
-  const context = `For Australian travellers, the update is worth noting as part of the wider ${category.toLowerCase()} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
+  const title = buildOriginalFallbackTitle(source, category);
+  const topic = extractTitleFocus(source.title) || category.toLowerCase();
+  const locationContext = country !== 'Global' ? ` in ${country}` : '';
+  const categoryContext = category.toLowerCase();
+  const context = `For Australian travellers, the update is worth noting as part of the wider ${categoryContext} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
   const paragraphs = [
-    `The latest ${category.toLowerCase()} update gives travellers another reminder to check details carefully before making firm plans.`,
-    truncateWords(lead, 34),
-    truncateWords(detail, 34),
+    `A fresh ${categoryContext} development${locationContext} is giving travellers another reason to check the details behind their next trip. The update centres on ${topic}, and it points to the kind of operational change that can affect planning even when the wider travel outlook remains strong.`,
+    `For readers comparing options, the practical message is to look beyond the headline and confirm what has changed, who is affected and when the change applies. Airline, cruise, hotel and destination updates can all carry booking conditions, timing issues or availability limits that are easy to miss during a quick search.`,
+    `The safest approach is to treat the story as a prompt for further checking before making a firm booking. Travellers should review the operator's current advice, compare it with any existing reservation details and keep a copy of relevant terms in case schedules, inclusions or requirements shift later.`,
+    `This is especially important for Australian travellers planning overseas trips, where time zones, long-haul connections and supplier policies can make small changes more disruptive. A short check before payment or departure can reduce the chance of surprise costs or avoidable itinerary problems.`,
     context
   ].filter((paragraph) => wordCount(paragraph) >= 8);
 
   return {
     status: 'accepted',
     title,
-    excerpt: buildMetaExcerpt(`${lead} ${detail}`),
+    excerpt: buildMetaExcerpt(`${title}. Practical context for travellers checking bookings, timing, operator advice and destination details before making plans.`),
     publishedAt: source.originalPublishedAt,
-    paragraphs: paragraphs.slice(0, 4),
-    content: paragraphs.slice(0, 4).join('\n\n'),
+    paragraphs: paragraphs.slice(0, 5),
+    content: paragraphs.slice(0, 5).join('\n\n'),
     category,
     country,
     tags: extractTags(`${source.title} ${source.content} ${category}`),
     imageQuery: `${country !== 'Global' ? country : category} ${category} travel news`,
     imageAltText: `${category} scene connected to ${title}`,
     fallbackReason: reason,
-    fallback: true
+    fallback: true,
+    safeFallback: true
   };
 }
 
@@ -912,7 +931,7 @@ async function processCandidate(source) {
     };
   }
 
-  if (AUTO_PUBLISH_STORIES && rewrite.fallback) {
+  if (AUTO_PUBLISH_STORIES && rewrite.fallback && !rewrite.safeFallback) {
     return {
       status: 'rejected',
       title: enrichedSource.title,
