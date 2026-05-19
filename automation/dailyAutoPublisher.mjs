@@ -748,7 +748,8 @@ async function rewriteSource(source) {
     tags: Array.isArray(parsed.tags) ? parsed.tags.map(stripHtml).filter(Boolean).slice(0, 8) : extractTags(finalText),
     imageQuery: stripHtml(parsed.imageQuery || `${source.country} ${source.category} travel`),
     imageAltText: stripHtml(parsed.imageAltText || parsed.title || source.title),
-    fallback: Boolean(parsed.fallback)
+    fallback: Boolean(parsed.fallback),
+    safeFallback: Boolean(parsed.safeFallback)
   };
 }
 
