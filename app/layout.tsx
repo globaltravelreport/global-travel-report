@@ -5,6 +5,7 @@ import './globals.css';
 import { Toaster } from '../src/components/ui/toaster';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import Header from '../src/components/layout/Header';
+import SponsorBanner from '../src/components/layout/SponsorBanner';
 import Footer from '../src/components/layout/Footer';
 import AffiliatePartners from '../src/components/affiliates/AffiliatePartners';
 import { cn } from '../src/utils/cn';
@@ -205,6 +206,7 @@ export default function RootLayout({
             <SearchParamsProvider fallback={null}>
               <SkipToContent />
               <div className="min-h-screen flex flex-col">
+                <SponsorBanner />
                 <Header />
                 <main id="main-content" className="flex-1">
                   <Suspense fallback={null}>
