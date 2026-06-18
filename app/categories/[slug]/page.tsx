@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { getAllStories, getStoriesByCategory } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 import Image from 'next/image';
+import InterlineSponsorPlacement from '@/src/components/sponsorship/InterlineSponsorPlacement';
 
 type CategoryPageProps = {
   params: Promise<{
@@ -207,6 +208,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
 
+        <InterlineSponsorPlacement variant="compact" className="mb-10" />
+
         {/* Filtering Section */}
         {categoryStories.length > 6 && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
@@ -349,7 +352,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       {/* Featured Badge */}
                       {story.featured && (
                         <div className="absolute top-3 right-3">
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#19273A] text-white">
                             Featured
                           </span>
                         </div>

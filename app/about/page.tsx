@@ -1,74 +1,105 @@
-
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About Us - Global Travel Report',
-  description: 'Learn about Global Travel Report - your trusted source for travel insights, destination guides, and inspiring stories from around the world. Meet our team of passionate travel writers and experts.',
+  title: 'About Global Travel Report',
+  description: 'Learn how Global Travel Report covers travel news for Australian readers, including editorial standards, source transparency and sponsorship disclosure.',
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/about`,
   },
   openGraph: {
-    title: 'About Us - Global Travel Report',
-    description: 'Learn about Global Travel Report - your trusted source for travel insights, destination guides, and inspiring stories from around the world. Meet our team of passionate travel writers and experts.',
+    title: 'About Global Travel Report',
+    description: 'Independent travel news, source-aware story curation and practical context for Australian travellers.',
     url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/about`,
     siteName: 'Global Travel Report',
-    images: [
-      {
-        url: '/og/home-1200x630.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'About Global Travel Report - Your Travel Companion',
-      },
-    ],
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_AU',
   },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@globaltravelreport',
-    creator: '@globaltravelreport',
-    title: 'About Us - Global Travel Report',
-    description: 'Learn about Global Travel Report - your trusted source for travel insights, destination guides, and inspiring stories from around the world.',
-    images: ['/og/home-1200x630.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  category: 'travel',
-  keywords: ['about global travel report', 'travel team', 'travel writers', 'travel experts', 'travel company'],
 };
+
+const standards = [
+  'We write for Australian travellers and use Australian English.',
+  'We separate editorial coverage from sponsored placements and affiliate links.',
+  'We avoid invented prices, dates, routes, warnings, entry rules or official advice.',
+  'We add practical context where it helps readers understand who is affected and what to check next.',
+];
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-center mb-8">About Global Travel Report</h1>
-      <div className="max-w-3xl mx-auto">
-        <p className="text-lg mb-4">
-          Global Travel Report is your trusted source for travel insights, destination guides, and inspiring stories from around the world.
-        </p>
-        <p className="text-lg mb-4">
-          Our mission is to provide travelers with accurate, engaging, and useful information to help them plan their next adventure.
-        </p>
-        <p className="text-lg mb-4">
-          Founded by a team of passionate travelers and writers, Global Travel Report aims to showcase the beauty and diversity of our world.
-        </p>
-        <h2 className="text-2xl font-bold mt-8 mb-4">Our Team</h2>
-        <p className="text-lg mb-4">
-          Our editorial team consists of experienced travel writers, photographers, and industry experts who are dedicated to bringing you the best travel content.
-        </p>
-        <h2 className="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
-        <p className="text-lg mb-4">
-          Have questions or suggestions? We'd love to hear from you! Visit our <a href="/contact" className="text-blue-600 hover:underline">Contact page</a> to get in touch.
-        </p>
-      </div>
-    </div>
+    <main className="bg-[#F7F4ED]">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8A6A20]">
+            About the newsroom
+          </p>
+          <h1 className="text-4xl font-black tracking-tight text-[#19273A] sm:text-5xl">
+            Global Travel Report covers travel news with practical context.
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-gray-700">
+            Global Travel Report is a Sydney-based travel publication focused on air travel, cruise,
+            accommodation, destinations, travel deals, safety and travel technology for Australian readers.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-3 lg:px-8">
+          <div className="lg:col-span-2">
+            <h2 className="text-2xl font-bold text-[#19273A]">How we work</h2>
+            <div className="mt-6 space-y-5 text-base leading-7 text-gray-700">
+              <p>
+                Our editorial desk reviews travel industry updates, public travel information, operator
+                announcements and destination news, then rewrites coverage in clear language for travellers.
+              </p>
+              <p>
+                When a story is based on external source material, we preserve the factual claims and avoid
+                overstating details that are not explicit in the source. Readers should always confirm booking
+                terms, official travel advice and entry requirements with the relevant provider or authority.
+              </p>
+              <p>
+                Sponsorship and affiliate placements help fund the site, but paid placements do not determine
+                editorial conclusions. Sponsored modules are labelled and external commercial links use
+                appropriate disclosure language.
+              </p>
+            </div>
+          </div>
+
+          <aside className="rounded-lg border border-[#C9A14A]/40 bg-[#F8F5EC] p-6">
+            <h2 className="text-lg font-bold text-[#19273A]">Editorial standards</h2>
+            <ul className="mt-4 space-y-3 text-sm leading-6 text-gray-700">
+              {standards.map((standard) => (
+                <li key={standard} className="flex gap-3">
+                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#C9A14A]" aria-hidden="true" />
+                  <span>{standard}</span>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-6 md:grid-cols-3">
+          <Link href="/why-trust-us" className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:bg-[#F8F5EC]">
+            <h2 className="text-lg font-bold text-[#19273A]">Why trust us</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              Read more about our sourcing, transparency and correction principles.
+            </p>
+          </Link>
+          <Link href="/contact" className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:bg-[#F8F5EC]">
+            <h2 className="text-lg font-bold text-[#19273A]">Contact editorial</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              Send story tips, corrections, commercial enquiries or source feedback.
+            </p>
+          </Link>
+          <Link href="/privacy-policy" className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:bg-[#F8F5EC]">
+            <h2 className="text-lg font-bold text-[#19273A]">Privacy</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              Review how newsletter and website data is handled.
+            </p>
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

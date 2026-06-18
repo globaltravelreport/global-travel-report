@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from 'next/image';
 import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
 import { AdSenseInArticle, AdSenseLeaderboard } from '@/components/ads/AdSense';
 import type { Metadata } from "next";
@@ -10,8 +11,6 @@ import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import DOMPurify from 'isomorphic-dompurify';
 import { RelatedStories } from "@/components/recommendations/RelatedStories";
 import { CategoryStories } from "@/components/recommendations/CategoryStories";
-import { StoryReactions } from "@/components/ui/StoryReactions";
-import { StoryComments } from "@/components/ui/StoryComments";
 import { getStoryBySlug } from "@/utils/stories";
 import { Toaster } from 'sonner';
 import { generateStoryMeta } from "@/utils/meta";
@@ -20,6 +19,7 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
 import { generateFacebookMeta } from "@/utils/facebook-optimizer";
+import InterlineSponsorPlacement from "@/components/sponsorship/InterlineSponsorPlacement";
 
 import PopularTags from "@/src/components/ui/PopularTags";
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
@@ -242,6 +242,10 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
               <div className="mb-4 sm:mb-0">
                 <div className="flex flex-col space-y-1">
                   <div>
+                    <span className="font-medium">By: </span>
+                    <span>{story.author || 'Global Travel Report Editorial Desk'}</span>
+                  </div>
+                  <div>
                     <span className="font-medium">Published: </span>
                     <span>{format(validateDate(story.date || story.publishedAt, true), 'MMMM dd, yyyy')}</span>
                   </div>
@@ -308,6 +312,28 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
 
+            <div className="not-prose mb-8 rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+              <p className="font-semibold text-[#19273A]">Editorial note</p>
+              <p className="mt-1">
+                Published by the Global Travel Report Editorial Desk. Source material is reviewed, rewritten for Australian travellers, and checked for factual caution before publication.
+              </p>
+              {story.sourceUrl && (
+                <p className="mt-2">
+                  Source reference:{' '}
+                  <a
+                    href={story.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-[#8A6A20] underline"
+                  >
+                    original source
+                  </a>
+                </p>
+              )}
+            </div>
+
+            <InterlineSponsorPlacement className="not-prose mb-8" />
+
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
@@ -340,20 +366,6 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
             <AdSenseInArticle />
           </div>
 
-          {/* Story Reactions and Comments */}
-          <div className="mt-12 pt-8 border-t">
-            <StoryReactions
-              storyId={story.id}
-              initialReactions={{
-                likes: Math.floor(Math.random() * 20) + 5,
-                loves: Math.floor(Math.random() * 15) + 3,
-                explores: Math.floor(Math.random() * 10) + 2,
-                comments: Math.floor(Math.random() * 8) + 1,
-                shares: Math.floor(Math.random() * 12) + 2
-              }}
-            />
-          </div>
-
           <footer className="mt-8 pt-8 border-t">
             <div className="flex flex-wrap gap-2 mb-6">
               {story.tags.map((tag) => (
@@ -373,11 +385,10 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
           </footer>
 
           {story.country !== 'Australia' && story.country !== 'Global' && (
-            <div className="my-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
-              <h3 className="text-xl font-bold mb-2">Traveling to {story.country}?</h3>
+            <div className="my-8 rounded-xl border border-[#C9A14A]/30 bg-[#F8F5EC] p-6">
+              <h3 className="text-xl font-bold mb-2">Travelling to {story.country}?</h3>
               <p className="mb-4">
-                Protect your online privacy and security while traveling internationally with Nord VPN.
-                Access your favorite websites and services from anywhere in the world.
+                Review official travel advice, entry requirements and digital security before you go.
               </p>
               <ContextualAffiliateRecommendations
                 story={{...story, tags: [...story.tags, 'Security', 'VPN']}}
@@ -404,74 +415,46 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
             </aside>
           </section>
 
-                    {/* Recommended for You */}
-                    {relatedStories.length > 0 && (
-                    <section className="mt-12 lg:mt-16">
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended for You</h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                                      {relatedStories.map((rec) => (
-                                        <a key={rec.slug} href={`/stories/${rec.slug}`}
-                                                              className="group block rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow bg-white">
-                                                              {rec.imageUrl && (
-                                                                                      <img src={rec.imageUrl} alt={rec.imageAlt || rec.title}
-                                                                                                                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
-                                                                                    )}
-                                                              <div className="p-4">
-                                                                                      <span className="text-xs font-semibold uppercase tracking-wide text-blue-600">{rec.category}</span>
-                                                                                      <h3 className="mt-1 text-base font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-700">{rec.title}</h3>
-                                                                                      <p className="mt-1 text-sm text-gray-500 line-clamp-2">{rec.excerpt}</p>
-                                                                                    </div>
-                                                            </a>
-                                      ))}
-                                                    </div>
-                                  </section>
-                  )}
+          {/* Recommended for You */}
+          {relatedStories.length > 0 && (
+            <section className="mt-12 lg:mt-16">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended for You</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedStories.map((rec) => (
+                  <a
+                    key={rec.slug}
+                    href={`/stories/${rec.slug}`}
+                    className="group block overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
+                  >
+                    {rec.imageUrl && (
+                      <Image
+                        src={rec.imageUrl}
+                        alt={rec.imageAlt || rec.title}
+                        width={480}
+                        height={320}
+                        className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="p-4">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-[#8A6A20]">
+                        {rec.category}
+                      </span>
+                      <h3 className="mt-1 line-clamp-2 text-base font-semibold text-gray-900 group-hover:text-[#8A6A20]">
+                        {rec.title}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-sm text-gray-500">{rec.excerpt}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Newsletter signup */}
           <div className="mt-12">
             <NewsletterSignup
-              title="Get More Travel Stories Like This"
-              description="Subscribe to our newsletter and receive the latest travel stories, tips, and inspiration directly to your inbox."
-            />
-          </div>
-
-          {/* Comments */}
-          <div id="comments-section" className="mt-12" aria-label="Comments section">
-            <StoryComments
-              storyId={story.id}
-              initialComments={[
-                {
-                  id: 'comment-1',
-                  author: {
-                    name: 'Sarah Johnson',
-                    verified: true
-                  },
-                  content: 'This is such an amazing guide! I\'ve been planning a trip to Japan and this gave me so many great ideas for places to visit beyond the typical tourist spots.',
-                  timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-                  likes: 12,
-                  dislikes: 0,
-                  replies: [
-                    {
-                      id: 'reply-1',
-                      author: { name: 'Mike Chen' },
-                      content: 'I totally agree! The local neighborhoods are definitely the highlight of any Japan trip.',
-                      timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
-                      likes: 5,
-                      dislikes: 0
-                    }
-                  ]
-                },
-                {
-                  id: 'comment-2',
-                  author: {
-                    name: 'Travel Enthusiast'
-                  },
-                  content: 'Great photography! The images really capture the essence of Tokyo\'s hidden gems. Thanks for sharing these unique locations.',
-                  timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
-                  likes: 8,
-                  dislikes: 0
-                }
-              ]}
+              title="Get the Global Travel Report briefing"
+              description="Travel news, practical planning context and selected sponsor offers delivered to your inbox."
             />
           </div>
         </article>

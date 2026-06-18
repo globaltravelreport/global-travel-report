@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFormValidation } from '@/src/hooks/useFormValidation';
 import { newsletterSchema } from '@/src/utils/validation-schemas';
+import InterlineSponsorPlacement from '@/src/components/sponsorship/InterlineSponsorPlacement';
 
 interface NewsletterSignupProps {
   variant?: 'inline' | 'modal' | 'banner' | 'sidebar' | 'footer';
@@ -18,19 +19,6 @@ interface NewsletterSignupProps {
   compact?: boolean;
   autoShow?: boolean;
   delay?: number; // Auto-show delay in milliseconds
-}
-
-interface NewsletterFormData {
-  email: string;
-  name?: string;
-  preferences?: {
-    destinations: boolean;
-    travelTips: boolean;
-    deals: boolean;
-    news: boolean;
-  };
-  frequency?: 'daily' | 'weekly' | 'monthly';
-  source?: string;
 }
 
 const defaultProps = {
@@ -108,7 +96,7 @@ export function NewsletterSignup({
       case 'modal':
         return 'max-w-md mx-auto';
       case 'banner':
-        return 'w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white';
+        return 'w-full bg-[#19273A] text-white';
       case 'sidebar':
         return 'w-80';
       case 'footer':
@@ -128,7 +116,7 @@ export function NewsletterSignup({
           placeholder={placeholder}
           required
           disabled={loading || success}
-          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
           aria-label="Email address"
           aria-invalid={!!errors.email}
           aria-describedby="email-error"
@@ -136,7 +124,7 @@ export function NewsletterSignup({
         <button
           type="submit"
           disabled={loading || success || !values.email}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+          className="px-6 py-3 bg-[#C9A14A] text-[#19273A] rounded-lg hover:bg-[#D8B75C] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap font-semibold"
           aria-busy={loading}
         >
           {loading ? (
@@ -217,8 +205,8 @@ export function NewsletterSignup({
               <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-[#F8F5EC] sm:mx-0 sm:h-10 sm:w-10">
+                      <svg className="h-6 w-6 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
@@ -243,7 +231,7 @@ export function NewsletterSignup({
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#19273A] text-base font-medium text-white hover:bg-[#2A3F5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9A14A] sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     {success ? 'Got it!' : 'Maybe later'}
                   </button>
@@ -282,20 +270,16 @@ export function NewsletterSignup({
 
         {success ? renderSuccess() : renderForm()}
 
-        {/* Social proof */}
+        {!success && variant !== 'footer' && (
+          <InterlineSponsorPlacement variant="newsletter" className="mt-5 text-left" />
+        )}
+
+        {/* Reader promise */}
         {showSocialProof && !success && (
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-500">
-              Join 25,000+ travelers already subscribed
+              Curated by the Global Travel Report Editorial Desk.
             </p>
-            <div className="flex justify-center items-center mt-2 space-x-1">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-              <span className="ml-2 text-sm text-gray-500">4.9/5 from 1,200+ reviews</span>
-            </div>
           </div>
         )}
 
@@ -303,7 +287,7 @@ export function NewsletterSignup({
         {!success && (
           <p className="mt-3 text-xs text-gray-500 text-center">
             We respect your privacy. Unsubscribe at any time.{' '}
-            <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800">
+            <a href="/privacy-policy" className="text-[#8A6A20] hover:text-[#6B5D35]">
               Privacy Policy
             </a>
           </p>
@@ -330,9 +314,9 @@ export function NewsletterButton({
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+    primary: 'bg-[#19273A] text-white hover:bg-[#2A3F5F] focus:ring-[#C9A14A]',
     secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
-    outline: 'border border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
+    outline: 'border border-[#C9A14A] text-[#19273A] hover:bg-[#F8F5EC] focus:ring-[#C9A14A]',
   };
 
   const sizeClasses = {
@@ -352,22 +336,4 @@ export function NewsletterButton({
       Subscribe to Newsletter
     </button>
   );
-}
-
-// Mock API function (replace with real API call)
-async function mockSubscribeAPI(data: NewsletterFormData): Promise<{ success: boolean; error?: string }> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  // Simulate occasional failures
-  if (Math.random() < 0.1) {
-    return { success: false, error: 'Network error. Please try again.' };
-  }
-
-  // Simulate duplicate email
-  if (data.email.includes('duplicate')) {
-    return { success: false, error: 'This email is already subscribed.' };
-  }
-
-  return { success: true };
 }
