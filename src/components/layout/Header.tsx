@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     /* Keep header isolated above homepage media layers so navigation remains clickable after client-side route changes. */
-    <header className="sticky top-0 z-[9999] isolate w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-b-2 border-[#C9A14A] pointer-events-auto">
+    <header className="sticky top-0 z-[9999] isolate w-full transition-all duration-300 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white shadow-lg border-y-2 border-[#C9A14A] pointer-events-auto">
       {/* Top bar with contact info */}
       <div className="hidden lg:block py-0.5">
         <div className="container flex justify-between items-center text-xs">
