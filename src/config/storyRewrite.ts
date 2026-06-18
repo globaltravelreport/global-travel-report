@@ -86,11 +86,11 @@ export const storyRewriteConfig: StoryRewriteConfig = {
     headline: {
       maxLength: 70,
       case: 'Title Case',
-      requiredElements: ['destination', 'category', 'travel keyword']
+      requiredElements: []
     },
     meta: {
       descriptionMaxLength: 155,
-      requiredElements: ['destination', 'holiday type']
+      requiredElements: []
     },
     tone: {
       style: [
@@ -128,7 +128,9 @@ export const storyRewriteConfig: StoryRewriteConfig = {
         'tone',
         'grammar',
         'SEO structure',
-        'Australian English'
+        'Australian English',
+        'original wording',
+        'non-repetitive structure'
       ]
     }
   },
@@ -147,4 +149,4 @@ export const storyRewriteConfig: StoryRewriteConfig = {
   preserveTags: true,
   maintainTone: true,
   keepKeywords: true
-}; 
+};

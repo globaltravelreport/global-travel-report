@@ -49,87 +49,104 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {showingRecentStories ? 'Latest Travel Stories' : 'Featured Travel Guides'}
-        </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      <div className="mb-10 flex flex-col gap-4 border-l-4 border-[#C9A14A] pl-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#C9A14A]">
+            Travel News Desk
+          </p>
+          <h2 className="text-3xl font-black tracking-tight text-[#19273A] md:text-4xl">
+            {showingRecentStories ? 'Latest Travel Stories' : 'Featured Travel Guides'}
+          </h2>
+        </div>
+        <p className="max-w-2xl text-base leading-7 text-gray-600">
           {showingRecentStories
-            ? 'Discover inspiring travel stories, destination guides, and insider tips from around the world'
-            : 'Browse selected destination guides and travel features while today\'s news drafts are reviewed'}
+            ? 'Fresh travel updates, destination context and practical planning notes for Australian travellers.'
+            : 'Selected destination guides and travel features while today\'s news drafts are reviewed.'}
         </p>
       </div>
 
       {/* Stories Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
-        {displayStories.map((story) => (
-          <article key={story.id} className="group card hover:shadow-xl overflow-hidden">
-            <a href={`/stories/${story.slug}`}>
-              {/* Story Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={story.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600'}
-                  alt={story.title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {displayStories.map((story, index) => {
+          const isLeadCard = index === 0;
 
-                {/* Category Badge */}
-                {story.category && (
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800 backdrop-blur-sm">
-                      {story.category}
-                    </span>
-                  </div>
-                )}
+          return (
+            <article
+              key={story.id}
+              className={`group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-xl ${isLeadCard ? 'lg:col-span-2' : ''}`}
+            >
+              <a href={`/stories/${story.slug}`}>
+                {/* Story Image */}
+                <div className={`relative overflow-hidden ${isLeadCard ? 'h-64 md:h-80' : 'h-48'}`}>
+                  <Image
+                    src={story.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=800&h=600'}
+                    alt={story.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes={isLeadCard ? '(max-width: 1024px) 100vw, 66vw' : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'}
+                    loading="lazy"
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent transition-opacity duration-300 ${isLeadCard ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
-                {/* Featured/Editor's Pick Badge */}
-                {(story.featured || story.editorsPick) && (
-                  <div className="absolute top-3 right-3">
-                    {story.editorsPick && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#C9A14A] text-white">
-                        Editor's Pick
+                  {/* Category Badge */}
+                  {story.category && (
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800 backdrop-blur-sm">
+                        {story.category}
                       </span>
-                    )}
-                    {story.featured && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  )}
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#C9A14A] transition-colors duration-300 leading-tight">
-                  {story.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                  {story.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  {story.publishedAt && (
-                    <time dateTime={new Date(story.publishedAt).toISOString()}>
-                      {new Date(story.publishedAt).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
-                    </time>
+                  {/* Featured/Editor's Pick Badge */}
+                  {(story.featured || story.editorsPick) && (
+                    <div className="absolute top-3 right-3">
+                      {story.editorsPick && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#C9A14A] text-white">
+                          Editor's Pick
+                        </span>
+                      )}
+                      {story.featured && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#19273A] text-white">
+                          Featured
+                        </span>
+                      )}
+                    </div>
                   )}
                 </div>
-              </div>
-            </a>
-          </article>
-        ))}
+
+                {/* Content */}
+                <div className={isLeadCard ? 'p-6 md:p-7' : 'p-6'}>
+                  {isLeadCard && (
+                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">
+                      Top Story
+                    </p>
+                  )}
+                  <h3 className={`${isLeadCard ? 'text-2xl md:text-3xl' : 'text-xl'} mb-3 font-bold leading-tight text-gray-900 transition-colors duration-300 group-hover:text-[#C9A14A]`}>
+                    {story.title}
+                  </h3>
+
+                  <p className={`${isLeadCard ? 'text-base leading-7' : 'text-sm leading-relaxed'} mb-4 line-clamp-3 text-gray-600`}>
+                    {story.excerpt}
+                  </p>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    {story.publishedAt && (
+                      <time dateTime={new Date(story.publishedAt).toISOString()}>
+                        {new Date(story.publishedAt).toLocaleDateString('en-AU', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric'
+                        })}
+                      </time>
+                    )}
+                  </div>
+                </div>
+              </a>
+            </article>
+          );
+        })}
       </div>
 
       {/* Engagement Sections */}
@@ -164,6 +181,6 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
           Recent stories: Last 30 days • Archive: Complete collection (12+ months)
         </p>
       </div>
-    </div>
+    </section>
   );
 }

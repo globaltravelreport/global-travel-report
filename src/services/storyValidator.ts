@@ -63,6 +63,8 @@ export class StoryValidator {
         return { isValid: false, issues, suggestions };
       }
 
+      this.checkEditorialQuality(story, issues, suggestions);
+
       // Factual accuracy check
       if (!await this.checkFactualAccuracy(story)) {
         issues.push('Factual accuracy check failed');
@@ -227,7 +229,52 @@ Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
       return false;
     }
 
+    if (words.length < 220) {
+      issues.push(`Content is too thin for publication. Minimum target is 220 words. (Current: ${words.length})`);
+      return false;
+    }
+
     return true;
+  }
+
+  private checkEditorialQuality(story: Story, issues: string[], suggestions: string[]): void {
+    const content = story.content.toLowerCase();
+    const genericPhrases = [
+      'whether you are a seasoned traveller',
+      'hidden gem',
+      'must-visit',
+      'unforgettable experience',
+      'paradise',
+      'travellers are set to',
+      'captivates travellers from all walks of life'
+    ];
+
+    for (const phrase of genericPhrases) {
+      if (content.includes(phrase)) {
+        issues.push(`Generic travel phrase detected: "${phrase}"`);
+      }
+    }
+
+    const paragraphs = story.content
+      .split(/\n{2,}/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+    const paragraphFingerprints = paragraphs.map((paragraph) =>
+      paragraph.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+    );
+
+    if (new Set(paragraphFingerprints).size !== paragraphFingerprints.length) {
+      issues.push('Duplicate paragraphs detected');
+    }
+
+    const firstWords = paragraphs
+      .map((paragraph) => paragraph.split(/\s+/).slice(0, 3).join(' ').toLowerCase())
+      .filter(Boolean);
+    const repeatedOpenings = firstWords.filter((opening, index) => firstWords.indexOf(opening) !== index);
+
+    if (repeatedOpenings.length > 0) {
+      suggestions.push('Vary paragraph openings to reduce repetitive rhythm');
+    }
   }
 
   /**

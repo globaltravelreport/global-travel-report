@@ -178,12 +178,14 @@ export class OpenAIService {
         content: `You are a professional travel writer for Global Travel Report, an Australian travel publication.
 Your task is to rewrite travel articles in a ${style} style with a ${tone} tone for a ${targetAudience} audience.
 ${preserveKeyInfo ? 'Preserve all key information, facts, and details from the original article.' : ''}
-${enhanceWithFacts ? 'Enhance the article with additional relevant facts where appropriate.' : ''}
+${enhanceWithFacts ? 'Add context only when it is directly supported by the supplied article; do not invent prices, dates, routes, operators, safety advice, or official rules.' : ''}
 Use Australian English spelling and conventions.
 Write in a journalistic style appropriate for a reputable travel publication.
 Do not add a byline or invented author.
 Focus on providing valuable, accurate information to readers.
-Maintain the same general structure and flow as the original article.
+Open with the news and reader impact, not a generic destination description.
+Avoid travel cliches such as "hidden gem", "must-visit", "paradise", and "unforgettable experience".
+Use short paragraphs and varied sentence openings.
 Ensure the rewritten content is engaging, informative, and free of errors.`
       };
 
@@ -206,7 +208,7 @@ ${options.focusKeywords && options.focusKeywords.length > 0 ?
 
 ${options.maxLength ? `The rewritten article should be approximately ${options.maxLength} words in length.` : ''}
 
-Please provide the rewritten article with the same title but improved content.`
+Please provide only the improved article body.`
       };
 
       // Make the API request
@@ -243,17 +245,12 @@ Please provide the rewritten article with the same title but improved content.`
    * @private
    */
   private mockRewriteStory(story: Story): Story {
-    // Add some improvements to the original content to simulate rewriting
     const originalContent = story.content || '';
-
-    // Add a mock introduction
-    const introduction = `Exploring the wonders of ${story.country || 'the world'} is an adventure that captivates travellers from all walks of life. This guide covers one of the most fascinating destinations in the ${story.category || 'travel'} category.\n\n`;
-
-    // Add a mock conclusion
-    const conclusion = `\n\nWhether you're a seasoned traveller or planning your first journey, ${story.country || 'this destination'} offers memorable experiences worth planning carefully. Consider visiting during the shoulder season for a better mix of good weather, value, and smaller crowds.`;
-
-    // Combine to create mock rewritten content
-    const rewrittenContent = introduction + originalContent + conclusion;
+    const rewrittenContent = originalContent
+      .split(/\n{2,}/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean)
+      .join('\n\n');
 
     return {
       ...story,

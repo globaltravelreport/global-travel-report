@@ -27,8 +27,23 @@ function getFeaturedStory(stories: Story[]): Story | null {
     null;
 }
 
+function formatStoryDate(date: Story['publishedAt']): string | null {
+  const parsedDate = new Date(date || '');
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return null;
+  }
+
+  return parsedDate.toLocaleDateString('en-AU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
 export default function Hero({ stories }: HeroProps) {
   const featuredStory = getFeaturedStory(stories);
+  const publishedDate = featuredStory ? formatStoryDate(featuredStory.publishedAt) : null;
 
   if (!featuredStory) {
     return (
@@ -62,7 +77,7 @@ export default function Hero({ stories }: HeroProps) {
   }
 
   return (
-    <div className="relative h-[600px]">
+    <section className="relative min-h-[520px] overflow-hidden bg-[#19273A] md:min-h-[600px]">
       {/* Background Image — pointer-events-none so this layer never intercepts header clicks */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
@@ -75,7 +90,8 @@ export default function Hero({ stories }: HeroProps) {
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#19273A]/95 via-[#19273A]/75 to-[#19273A]/25 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F7F4ED] to-transparent pointer-events-none" />
         {featuredStory.photographer && featuredStory.photographer.name && (
           <div className="absolute bottom-2 right-2 text-white text-xs bg-black/50 px-2 py-1 rounded pointer-events-auto">
             Photo by{" "}
@@ -105,32 +121,45 @@ export default function Hero({ stories }: HeroProps) {
       </div>
 
       {/* Content */}
-      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-center h-full">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              {featuredStory.title}
-            </h1>
-            <p className="text-xl text-gray-200 mb-8">
-              {featuredStory.excerpt}
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href={`/stories/${featuredStory.slug}`}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                Read More
-              </a>
-              <a
-                href="/submit"
-                className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-900"
-              >
-                Share Your Story
-              </a>
-            </div>
+      <div className="relative mx-auto flex min-h-[520px] max-w-7xl items-center px-4 py-12 sm:px-6 md:min-h-[600px] lg:px-8">
+        <div className="max-w-3xl">
+          <div className="mb-5 flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center border-l-4 border-[#C9A14A] bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#F2D891] backdrop-blur-sm">
+              Lead Story
+            </span>
+            {featuredStory.category && (
+              <span className="text-sm font-medium text-white/80">
+                {featuredStory.category}
+              </span>
+            )}
+            {publishedDate && (
+              <time className="text-sm text-white/65" dateTime={new Date(featuredStory.publishedAt).toISOString()}>
+                {publishedDate}
+              </time>
+            )}
+          </div>
+          <h1 className="mb-5 max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">
+            {featuredStory.title}
+          </h1>
+          <p className="mb-8 max-w-2xl text-lg leading-8 text-white/85 md:text-xl">
+            {featuredStory.excerpt}
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={`/stories/${featuredStory.slug}`}
+              className="inline-flex items-center justify-center rounded-md border border-[#C9A14A] bg-[#C9A14A] px-6 py-3 text-base font-semibold text-[#19273A] shadow-lg transition-colors hover:bg-[#D8B75C] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 focus:ring-offset-[#19273A]"
+            >
+              Read Lead Story
+            </a>
+            <a
+              href="/stories"
+              className="inline-flex items-center justify-center rounded-md border border-white/70 bg-white/10 px-6 py-3 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-[#19273A] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#19273A]"
+            >
+              Latest Stories
+            </a>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

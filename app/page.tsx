@@ -69,19 +69,22 @@ export default async function Home() {
       <StoriesSection initialStories={stories} />
 
       {/* Quick Links Section */}
-      <div className="max-w-4xl mx-auto px-4 pb-12 sm:pb-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <a href="/categories" className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Explore Categories</h3>
-            <p className="text-gray-600 text-sm">Browse travel stories by category</p>
+      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-24 lg:px-8">
+        <div className="grid grid-cols-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm sm:grid-cols-3">
+          <a href="/categories" className="group border-b border-gray-200 p-6 transition-colors hover:bg-[#F8F5EC] sm:border-b-0 sm:border-r">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Browse</p>
+            <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Explore Categories</h3>
+            <p className="text-sm leading-6 text-gray-600">Find travel stories by theme, from air travel and cruise to deals and safety.</p>
           </a>
-          <a href="/destinations" className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Destinations</h3>
-            <p className="text-gray-600 text-sm">Discover amazing places to visit</p>
+          <a href="/destinations" className="group border-b border-gray-200 p-6 transition-colors hover:bg-[#F8F5EC] sm:border-b-0 sm:border-r">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Plan</p>
+            <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Destinations</h3>
+            <p className="text-sm leading-6 text-gray-600">Scan destination coverage and practical context for Australian travellers.</p>
           </a>
-          <a href="/search" className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center sm:col-span-2 lg:col-span-1">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Search</h3>
-            <p className="text-gray-600 text-sm">Find specific travel content</p>
+          <a href="/search" className="group p-6 transition-colors hover:bg-[#F8F5EC]">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Find</p>
+            <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Search</h3>
+            <p className="text-sm leading-6 text-gray-600">Look up specific airlines, cruise lines, countries, offers, or travel topics.</p>
           </a>
         </div>
       </div>

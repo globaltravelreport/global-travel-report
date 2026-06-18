@@ -26,6 +26,9 @@ Use short paragraphs, natural transitions, and a confident travel editor voice.
 Preserve all factual claims from the source. Do not invent prices, dates, routes, airlines, cruise lines, warnings, visa rules, or official advice.
 If a fact is unclear in the source, phrase it cautiously.
 Avoid clickbait headlines.
+Avoid formulaic openings such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", or "unforgettable experience".
+Do not finish with a generic conclusion. End with a useful planning note, booking implication, timing consideration, or official-advice caveat.
+Vary paragraph openings and sentence rhythm.
 Do not include hashtags.
 `;
 
@@ -108,9 +111,14 @@ Rewrite the following travel news item as a fresh, original Global Travel Report
 
 Return the article in this structure:
 
-Headline: A clear, factual headline for Australian travellers
-Excerpt: 1 concise sentence summarising the story
-Article: 5 to 8 short paragraphs
+Headline: A clear, factual headline for Australian travellers, under 70 characters where possible
+Excerpt: 1 concise sentence summarising the practical reader value, under 155 characters
+Article: 5 to 8 short paragraphs, with this editorial shape:
+- Paragraph 1: the news and why it matters
+- Paragraph 2: who is affected
+- Paragraph 3: key details from the source
+- Paragraph 4: Australian traveller context where relevant
+- Final paragraph: practical next step, timing note, or official-advice caveat
 Tags: 5 comma-separated SEO tags
 Country: best matching country, or Global if it is not country-specific
 Category: one best matching category from this exact list: ${CATEGORIES.map(category => category.name).join(', ')}
@@ -134,8 +142,8 @@ ${originalContent}`;
     const articleMatch = rewrittenContent.match(/Article:\s*([\s\S]*?)(?:\n\s*Tags:|\n\s*Country:|\n\s*Category:|$)/i);
 
     const title = headlineMatch?.[1]?.trim() || rewrittenContent.split('\n').find(Boolean)?.trim() || 'Travel News Update';
-    const excerpt = excerptMatch?.[1]?.trim() || 'A practical travel news update for Australian travellers.';
-    const articleContent = articleMatch?.[1]?.trim() || rewrittenContent;
+    const excerpt = this.truncateSentence(excerptMatch?.[1]?.trim() || 'A practical travel news update for Australian travellers.', 155);
+    const articleContent = this.cleanArticleContent(articleMatch?.[1]?.trim() || rewrittenContent);
     const tags = tagsMatch?.[1]
       ?.split(',')
       .map((tag: string) => tag.trim().toLowerCase())
@@ -189,6 +197,8 @@ Refresh the following existing Global Travel Report article while preserving the
 Do not change the story date.
 Improve clarity, structure, excerpt, and reader usefulness.
 Keep the article suitable for Australian travellers.
+Remove repetitive phrasing, generic travel cliches, and unsupported promotional language.
+Keep any safety, visa, route, price, timing, operator or official-advice claims cautious unless they are explicit in the original.
 
 Original title: ${story.title}
 Original excerpt: ${story.excerpt}
@@ -223,12 +233,42 @@ Tags:`;
 
     return {
       title: headlineMatch?.[1]?.trim() || story.title,
-      excerpt: excerptMatch?.[1]?.trim() || story.excerpt,
-      content: articleMatch?.[1]?.trim() || rewrittenContent,
+      excerpt: this.truncateSentence(excerptMatch?.[1]?.trim() || story.excerpt, 155),
+      content: this.cleanArticleContent(articleMatch?.[1]?.trim() || rewrittenContent),
       tags: updatedTags,
       updatedAt: new Date().toISOString(),
       publishedAt: story.publishedAt,
     };
+  }
+
+  private cleanArticleContent(content: string): string {
+    const paragraphs = content
+      .replace(/^Article:\s*/i, '')
+      .split(/\n{2,}/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+    const seen = new Set<string>();
+
+    return paragraphs
+      .filter((paragraph) => {
+        const fingerprint = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+        if (seen.has(fingerprint)) {
+          return false;
+        }
+
+        seen.add(fingerprint);
+        return true;
+      })
+      .join('\n\n');
+  }
+
+  private truncateSentence(value: string, maxLength: number): string {
+    if (value.length <= maxLength) {
+      return value;
+    }
+
+    return `${value.slice(0, maxLength - 1).trim().replace(/[,\s]+$/, '')}.`;
   }
 
   /**
