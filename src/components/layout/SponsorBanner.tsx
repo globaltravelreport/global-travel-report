@@ -6,13 +6,13 @@ export default function SponsorBanner() {
   return (
     <section
       aria-label="Website sponsor"
-      className="w-full border-b border-[#C9A14A]/35 bg-[#F8F5EC] text-[#19273A]"
+      className="w-full border-y border-[#C9A14A]/55 bg-[#F8F5EC] text-[#19273A] shadow-[0_1px_0_rgba(25,39,58,0.08)]"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5 lg:py-2.5">
+        <div className="flex flex-col gap-2.5 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5 lg:py-2.5">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <p className="text-sm font-semibold tracking-wide text-[#19273A]">
+              <p className="text-sm font-semibold text-[#19273A]">
                 Sponsored by Interline Travel Asia
               </p>
               <span className="hidden h-4 w-px bg-[#C9A14A]/50 sm:inline-block" aria-hidden="true" />

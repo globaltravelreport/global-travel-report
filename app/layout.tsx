@@ -206,8 +206,8 @@ export default function RootLayout({
             <SearchParamsProvider fallback={null}>
               <SkipToContent />
               <div className="min-h-screen flex flex-col">
-                <SponsorBanner />
                 <Header />
+                <SponsorBanner />
                 <main id="main-content" className="flex-1">
                   <Suspense fallback={null}>
                     {children}
