@@ -1,10 +1,12 @@
 import Hero from '../src/components/home/Hero';
 import StoriesSection from '../src/components/home/StoriesSection';
-import { getAllStories } from '../src/utils/stories';
+import { getAllStories, getHomepageStories } from '../src/utils/stories';
 import type { Metadata } from 'next';
+import type { Story } from '../types/Story';
 
-// Force dynamic rendering to ensure stories are loaded at runtime
-export const dynamic = 'force-dynamic';
+// Refresh the homepage regularly while still allowing Vercel to cache the large
+// story payload between automated publishing runs.
+export const revalidate = 900;
 
 export const metadata: Metadata = {
   title: {
@@ -57,8 +59,20 @@ export const metadata: Metadata = {
   keywords: ['travel news', 'air travel', 'cruise', 'accommodation', 'destinations', 'travel deals', 'travel safety', 'travel technology'],
 };
 
+function getHomepageStorySet(allStories: Story[]): Story[] {
+  const homepageStories = getHomepageStories(allStories, { page: 1, limit: 8 }).data;
+
+  if (homepageStories.length > 0) {
+    return homepageStories;
+  }
+
+  return [...allStories]
+    .sort((a, b) => new Date(b.publishedAt || '').getTime() - new Date(a.publishedAt || '').getTime())
+    .slice(0, 8);
+}
+
 export default async function Home() {
-  const stories = await getAllStories();
+  const stories = getHomepageStorySet(await getAllStories());
 
   return (
     <div className="min-h-screen">
