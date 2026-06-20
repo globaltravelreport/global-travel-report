@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from '@/lib/auth';
+import { SecureAuth } from '@/lib/secureAuth';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { getImageForStory } from '@/utils/imageTracker';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,9 +7,9 @@ import type { Story } from '@/types/Story';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check authentication
-    const authenticated = isAuthenticated(request);
-    if (!authenticated) {
+    const auth = SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+    if (!auth.hasPermission(session, 'write:stories')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

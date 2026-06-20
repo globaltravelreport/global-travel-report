@@ -1,10 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import { SecureAuth } from '@/lib/secureAuth';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const auth = SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+    if (!auth.hasPermission(session, 'read:analytics')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     // Mock data for demonstration
     const validationLogs = [
       {
@@ -42,4 +49,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-} 
+}

@@ -24,48 +24,44 @@ export function AnalyticsDashboard() {
   });
 
   useEffect(() => {
-    fetchAnalyticsData();
-  }, [dateRange]);
+    const controller = new AbortController();
 
-  /**
-   * Fetch analytics data from the API
-   */
-  const fetchAnalyticsData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+    async function fetchAnalyticsData() {
+      try {
+        setLoading(true);
+        setError(null);
 
-      // Create base64 encoded credentials
-      const credentials = btoa(`${process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin'}:${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'password'}`);
-      
-      // Fetch analytics data from the API
-      const response = await fetch(
-        `/api/analytics?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`,
-        {
-          headers: {
-            Authorization: `Basic ${credentials}`,
-          },
+        // The server validates the existing httpOnly admin session cookie. Never
+        // derive credentials from browser-exposed environment variables.
+        const response = await fetch(
+          `/api/analytics?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`,
+          { signal: controller.signal },
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch analytics data: ${response.statusText}`);
         }
-      );
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch analytics data: ${response.statusText}`);
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Failed to fetch analytics data');
+        }
+
+        if (!controller.signal.aborted) setAnalyticsData(data.data);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error('Error fetching analytics data:', error);
+          setError(error instanceof Error ? error.message : 'An unknown error occurred');
+        }
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
       }
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.message || 'Failed to fetch analytics data');
-      }
-
-      setAnalyticsData(data.data);
-    } catch (error) {
-      console.error('Error fetching analytics data:', error);
-      setError(error instanceof Error ? error.message : 'An unknown error occurred');
-    } finally {
-      setLoading(false);
     }
-  };
+
+    void fetchAnalyticsData();
+    return () => controller.abort();
+  }, [dateRange]);
 
   /**
    * Handle date range change

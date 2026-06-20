@@ -1,32 +1,23 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import { updateSession } from '@/lib/supabase/proxy';
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  try {
-    const response = NextResponse.next();
-
-    response.headers.set('X-Frame-Options', 'DENY');
-    response.headers.set('X-Content-Type-Options', 'nosniff');
-    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-    if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-      const sessionCookie = request.cookies.get('auth_session');
-      if (!sessionCookie?.value) {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
-      }
-
-      if (sessionCookie.value.length < 50) {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
-      }
+  // The legacy admin area still uses the existing encrypted admin cookie. Keep
+  // its fast redirect while Supabase owns the new application login flow.
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+    const sessionCookie = request.cookies.get('auth_session');
+    if (!sessionCookie?.value || sessionCookie.value.length < 50) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
     }
-
-    return response;
-  } catch (error) {
-    console.error('Proxy error:', error);
-    return NextResponse.next();
   }
+
+  const response = await updateSession(request);
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  return response;
 }
 
 export const config = {

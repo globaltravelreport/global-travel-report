@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from '@/lib/auth';
+import { SecureAuth } from '@/lib/secureAuth';
 import { StoryRewriter } from '@/src/services/storyRewrite';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check authentication
-    const authenticated = isAuthenticated(request);
-    if (!authenticated) {
+    const auth = SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+    if (!auth.hasPermission(session, 'write:stories')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
