@@ -18,7 +18,10 @@ import { UnsplashService } from '../src/services/unsplashService.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '3', 10), 3);
+// Vercel executes this pipeline in short-lived functions. Each scheduled run
+// deliberately publishes at most one story; five separate runs are scheduled
+// each day so one slow rewrite cannot prevent the day from being completed.
+const MAX_STORIES_PER_RUN = 1;
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
 const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
@@ -1099,7 +1102,7 @@ async function runDailyAutomation() {
       if (processed.status === 'rejected') result.summary.rejected++;
       if ((processed.sourceWordCount || 0) >= MIN_SOURCE_WORDS) result.eligibleCandidatesFound++;
 
-      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_DAY) {
+      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_RUN) {
         break;
       }
     } catch (error) {

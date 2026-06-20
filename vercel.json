@@ -11,6 +11,22 @@
     {
       "path": "/api/cron/dailyAutoPublisher",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/dailyAutoPublisher",
+      "schedule": "0 12 * * *"
     }
   ],
   "env": {
