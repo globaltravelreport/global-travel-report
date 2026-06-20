@@ -9,7 +9,7 @@ import { CATEGORIES } from '@/src/config/categories';
  * @returns A sitemap configuration for Next.js
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
   const currentDate = new Date();
 
   // Get all stories

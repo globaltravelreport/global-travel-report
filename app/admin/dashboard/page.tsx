@@ -3,6 +3,7 @@ import { EngagementService } from '@/src/services/engagementService';
 import { AffiliateService } from '@/src/services/affiliateService';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { getPublishingHealth } from '@/src/utils/publishingHealth';
 
 /**
  * Admin Dashboard
@@ -18,7 +19,7 @@ export default async function AdminDashboard() {
 
   const [stories, pipelineRuns, jobs] = await Promise.all([
     storyDatabase.getAllStories(),
-    SupabaseStoryStore.isConfigured() ? SupabaseStoryStore.getLatestPipelineRuns(5) : Promise.resolve([]),
+    SupabaseStoryStore.isConfigured() ? SupabaseStoryStore.getLatestPipelineRuns(20) : Promise.resolve([]),
     SupabaseStoryStore.isConfigured() ? SupabaseStoryStore.getLatestStoryGenerationJobs(5) : Promise.resolve([])
   ]);
 
@@ -30,6 +31,7 @@ export default async function AdminDashboard() {
 
   const latestRun = pipelineRuns[0];
   const latestJob = jobs[0];
+  const publishingHealth = getPublishingHealth(pipelineRuns);
   const automationStats = {
     totalStories: stories.length,
     storiesThisWeek,
@@ -159,6 +161,12 @@ export default async function AdminDashboard() {
                 <span className="text-sm text-gray-600">Last Ingestion</span>
                 <span className="text-sm font-medium text-gray-900">
                   {automationStats.lastIngestion ? new Date(automationStats.lastIngestion).toLocaleDateString() : 'Never'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Today&apos;s Publishing</span>
+                <span className={`text-sm font-medium ${publishingHealth.status === 'on_target' ? 'text-green-700' : publishingHealth.status === 'at_risk' || publishingHealth.status === 'behind' ? 'text-red-700' : 'text-amber-700'}`}>
+                  {publishingHealth.publishedStories} / {publishingHealth.dailyTarget} ({publishingHealth.status.replace('_', ' ')})
                 </span>
               </div>
             </div>

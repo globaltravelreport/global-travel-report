@@ -10,7 +10,7 @@ import { getAllCountries } from '@/utils/countries';
  * @returns Server-side sitemap
  */
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
   // Get all stories
   const stories = await getAllStories();
