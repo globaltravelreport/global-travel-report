@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<StoryParams
   const { title, description } = generateStoryMeta(story);
 
   // Construct the canonical URL for this story
-  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}/stories/${story.slug}`;
+  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
 
   // Generate Facebook-optimized metadata
   const facebookMeta = generateFacebookMeta({
@@ -70,9 +70,9 @@ export async function generateMetadata({ params }: { params: Promise<StoryParams
   const optimizedAltText = story.title;
 
   // Get the base site URL
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
-  const _baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+  const _baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
   return {
     title: {

@@ -81,11 +81,7 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 3,
       },
     ],
-    // Add sitemap URLs - multiple sitemaps for better organization
-    sitemap: [
-      `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/server-sitemap.xml`,
-    ],
+    sitemap: `${baseUrl}/sitemap.xml`,
     // Add host directive for better SEO
     host: baseUrl.replace(/^https?:\/\//, ''),
   };
