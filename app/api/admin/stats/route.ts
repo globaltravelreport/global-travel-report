@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSession } from '@/lib/auth';
+import { SecureAuth } from '@/lib/secureAuth';
 import { statsQuerySchema } from '@/src/utils/validation-schemas';
 import { applyRateLimit } from '@/src/middleware/rate-limit';
 import { trackSecurityEvent } from '@/src/utils/security-monitor';
@@ -22,8 +22,9 @@ export async function GET(request: NextRequest) {
 
   try {
     // Auth validation
-    const session = getSession(request);
-    if (!session) {
+    const auth = SecureAuth.getInstance();
+    const session = auth.getSessionFromRequest(request);
+    if (!auth.hasPermission(session, 'read:analytics')) {
       trackSecurityEvent({
         type: 'authorization',
         ip,

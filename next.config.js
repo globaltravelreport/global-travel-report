@@ -48,7 +48,8 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://vitals.vercel-insights.com',
     'https://www.google.com',
     'https://www.gstatic.com',
-    'https://www.recaptcha.net'
+    'https://www.recaptcha.net',
+    'https://yybjxcpuvcesoccmgtgj.supabase.co',
   ].join(' ');
   const fontSrc = [
     `'self'`,
