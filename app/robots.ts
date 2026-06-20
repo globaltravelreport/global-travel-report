@@ -61,6 +61,26 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 2,
       },
       {
+        // Permit OpenAI's search crawler to discover publicly available reporting.
+        // This is separate from GPTBot, which is used for model training.
+        userAgent: "OAI-SearchBot",
+        allow: [
+          "/",
+          "/stories/",
+          "/categories/",
+          "/destinations/",
+          "/countries/",
+          "/offers/",
+          "/archive",
+        ],
+        disallow: [
+          "/admin/",
+          "/api/",
+          "/private/",
+          "/search?*",
+        ],
+      },
+      {
         // Rules for all other bots
         userAgent: "*",
         allow: [
