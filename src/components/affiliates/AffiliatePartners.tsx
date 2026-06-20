@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 // import { useCallback } from 'react';
 import Image from 'next/image';
 import { affiliatePartners, getAffiliateLogoFallback, AffiliatePartner } from '@/src/data/affiliatePartners';
@@ -16,44 +16,13 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   maxPartners,
   showHeader = true
 }) => {
-  const [_isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
   // Filter and limit partners
   const displayPartners = maxPartners
     ? affiliatePartners.slice(0, maxPartners)
     : affiliatePartners;
 
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // All partners are displayed by default for performance
-  // Verification can be implemented server-side in the future
-
-  // Track affiliate link clicks for analytics
-  const handleAffiliateClick = (partnerName: string, url: string) => {
-    // Track the click event using our analytics utility
+  const trackAffiliateClick = (partnerName: string, url: string) => {
     if (typeof window !== 'undefined') {
-      // Log for debugging (remove in production)
-      console.log(`Affiliate click tracked: ${partnerName} -> ${url}`);
-
-      // Track with Google Analytics if available
       if (window.gtag) {
         window.gtag('event', 'affiliate_click', {
           event_category: 'affiliate',
@@ -63,14 +32,10 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
         });
       }
     }
-
-    // Open link in new tab
-    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <section
-      ref={sectionRef}
       className={`bg-gradient-to-b from-gray-50 to-white border-t border-gray-200 ${className}`}
       aria-labelledby="affiliate-partners-heading"
     >
@@ -113,14 +78,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
                       target.src = getAffiliateLogoFallback(partner.name);
                     }
                   }}
-                  onKeyDown={(e) => {
-                    // Enhanced keyboard navigation
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleAffiliateClick(partner.name, partner.url);
-                    }
-                  }}
-                  onClick={() => handleAffiliateClick(partner.name, partner.url)}
+                  onClick={() => trackAffiliateClick(partner.name, partner.url)}
                 >
                   {/* Partner Logo */}
                   <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">

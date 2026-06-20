@@ -15,10 +15,14 @@ import { generateStoryContent } from '../src/services/aiService.ts';
 import { StoryDatabase } from '../src/services/storyDatabase.ts';
 import { SupabaseStoryStore } from '../src/services/supabaseStoryStore.ts';
 import { UnsplashService } from '../src/services/unsplashService.ts';
+import { checkStoryDiversity } from '../src/utils/storyDiversity.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '3', 10), 3);
+// Vercel executes this pipeline in short-lived functions. Each scheduled run
+// deliberately publishes at most one story; five separate runs are scheduled
+// each day so one slow rewrite cannot prevent the day from being completed.
+const MAX_STORIES_PER_RUN = 1;
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
 const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
@@ -978,13 +982,24 @@ function buildStory(source, rewrite, image) {
   };
 }
 
-async function processCandidate(source) {
+async function processCandidate(source, recentStories) {
   if (await isDuplicate(source)) {
     return {
       status: 'duplicate',
       title: source.title,
       sourceUrl: source.sourceUrl,
       sourceWordCount: wordCount(source.content)
+    };
+  }
+
+  const diversity = checkStoryDiversity(source, recentStories);
+  if (!diversity.allowed) {
+    return {
+      status: 'rejected',
+      title: source.title,
+      sourceUrl: source.sourceUrl,
+      sourceWordCount: wordCount(source.content),
+      reason: diversity.reason
     };
   }
 
@@ -1077,6 +1092,7 @@ async function runDailyAutomation() {
   result.candidatesFound = candidates.length;
 
   const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
+  const recentStories = await db.getAllStories();
 
   for (const source of selected) {
     if (Date.now() + MIN_TIME_FOR_NEXT_CANDIDATE_MS > deadline) {
@@ -1089,7 +1105,7 @@ async function runDailyAutomation() {
     }
 
     try {
-      const processed = await processCandidate(source);
+      const processed = await processCandidate(source, recentStories);
       result.processed.push(processed);
       result.summary.reviewedCandidates++;
 
@@ -1099,7 +1115,11 @@ async function runDailyAutomation() {
       if (processed.status === 'rejected') result.summary.rejected++;
       if ((processed.sourceWordCount || 0) >= MIN_SOURCE_WORDS) result.eligibleCandidatesFound++;
 
-      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_DAY) {
+      if (processed.story) {
+        recentStories.push(processed.story);
+      }
+
+      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_RUN) {
         break;
       }
     } catch (error) {

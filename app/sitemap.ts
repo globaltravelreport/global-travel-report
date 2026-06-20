@@ -9,7 +9,7 @@ import { CATEGORIES } from '@/src/config/categories';
  * @returns A sitemap configuration for Next.js
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
   const currentDate = new Date();
 
   // Get all stories
@@ -26,9 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter(Boolean)
   ));
 
-  const allTags = stories.flatMap(story => story.tags || []);
-  const tags = Array.from(new Set(allTags));
-
   // Static routes
   const routes = [
     '',
@@ -43,7 +40,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/offers',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: currentDate,
     changeFrequency: route === '' || route === '/stories' || route === '/categories' ? 'daily' as const : 'monthly' as const,
     priority: route === '' ? 1 : route === '/categories' ? 0.9 : 0.8,
   }));
@@ -55,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const enhancedStory = enhanceStoryForSEO(story);
 
       // Get optimized image data
-      const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
+      const { imageUrl } = optimizeStoryImageForSeo(enhancedStory);
 
       // Calculate story age for priority adjustment
       const storyDate = new Date(enhancedStory.publishedAt || currentDate);
@@ -104,8 +100,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency = 'yearly'; // Very old content, rarely changes
       }
 
-      // Create the basic sitemap entry
-      const sitemapEntry: any = {
+      const sitemapEntry: MetadataRoute.Sitemap[number] = {
         url: `${baseUrl}/stories/${enhancedStory.slug}`,
         lastModified,
         changeFrequency,
@@ -118,16 +113,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           ? imageUrl
           : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
 
-        // Enhanced image sitemap data with additional attributes
-        sitemapEntry.images = [
-          {
-            url: fullImageUrl,
-            title: altText || enhancedStory.title,
-            caption: caption || enhancedStory.excerpt?.substring(0, 100),
-            geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
-            license: 'https://creativecommons.org/licenses/by/4.0/'
-          }
-        ];
+        // Next.js serialises sitemap images as URL strings. Supplying an object
+        // produces an invalid <image:loc>[object Object]</image:loc> entry.
+        sitemapEntry.images = [fullImageUrl];
       }
 
       return sitemapEntry;
@@ -150,7 +138,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return {
       url: `${baseUrl}/categories/${category.slug}`,
-      lastModified: currentDate,
       changeFrequency: "weekly" as const,
       priority,
     };
@@ -159,17 +146,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Country routes - dynamically generated from actual stories
   const countryRoutes = countries.map((country) => ({
     url: `${baseUrl}/countries/${country.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: currentDate,
     changeFrequency: "weekly" as const,
     priority: 0.6,
-  }));
-
-  // Tag routes - dynamically generated from actual stories
-  const tagRoutes = tags.map((tag) => ({
-    url: `${baseUrl}/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.5,
   }));
 
   return [
@@ -177,6 +155,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...storyRoutes,
     ...categoryRoutes,
     ...countryRoutes,
-    ...tagRoutes,
   ];
 }

@@ -34,7 +34,7 @@ const envSchema = z.object({
   NEXTAUTH_URL: z.string().url().optional(),
 
   // Application
-  NEXT_PUBLIC_BASE_URL: z.string().url().default('https://globaltravelreport.com'),
+  NEXT_PUBLIC_BASE_URL: z.string().url().default('https://www.globaltravelreport.com'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
 
   // Optional features

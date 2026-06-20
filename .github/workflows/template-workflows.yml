@@ -184,7 +184,7 @@ jobs:
       
       - name: Run basic checks
         run: |
-          npm install
-          npm test
+          npm ci
           npm run lint
-          npm run build 
+          npm run typecheck
+          npm run build

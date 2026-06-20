@@ -176,7 +176,7 @@ export class EnhancedAppError extends Error {
       case ErrorType.AUTHORIZATION:
         return 'You do not have permission to perform this action.';
       case ErrorType.NOT_FOUND:
-        return 'The requested resource could not be found.';
+        return 'The requested resource was not found.';
       case ErrorType.API:
         return 'There was a problem communicating with our services. Please try again later.';
       case ErrorType.NETWORK:
@@ -365,17 +365,18 @@ export function handleError(
     let code: string | undefined;
 
     // Check for common error patterns
-    if (error.name === 'ValidationError' || error.message.includes('validation')) {
+    const normalizedMessage = error.message.toLowerCase();
+    if (error.name === 'ValidationError' || normalizedMessage.includes('validation')) {
       type = ErrorType.VALIDATION;
       severity = ErrorSeverity.WARNING;
       code = 'VALIDATION_ERROR';
-    } else if (error.name === 'NetworkError' || error.message.includes('network')) {
+    } else if (error.name === 'NetworkError' || normalizedMessage.includes('network')) {
       type = ErrorType.NETWORK;
       code = 'NETWORK_ERROR';
-    } else if (error.name === 'TimeoutError' || error.message.includes('timeout')) {
+    } else if (error.name === 'TimeoutError' || normalizedMessage.includes('timeout')) {
       type = ErrorType.TIMEOUT;
       code = 'TIMEOUT_ERROR';
-    } else if (error.name === 'NotFoundError' || error.message.includes('not found')) {
+    } else if (error.name === 'NotFoundError' || normalizedMessage.includes('not found')) {
       type = ErrorType.NOT_FOUND;
       severity = ErrorSeverity.WARNING;
       code = 'NOT_FOUND_ERROR';

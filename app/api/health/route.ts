@@ -1,4 +1,8 @@
 import { NextResponse } from 'next/server';
+import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { getPublishingHealth } from '@/src/utils/publishingHealth';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * Health check API endpoint
@@ -7,24 +11,16 @@ import { NextResponse } from 'next/server';
  */
 export async function GET() {
   try {
-    // Get basic system information
-    const uptime = process.uptime();
-    const memoryUsage = process.memoryUsage();
-    const nodeVersion = process.version;
-    const environment = process.env.NODE_ENV || 'development';
-    
-    // Return health information
+    const pipelineRuns = SupabaseStoryStore.isConfigured()
+      ? await SupabaseStoryStore.getLatestPipelineRuns(20)
+      : [];
+
     return NextResponse.json({
       status: 'ok',
       timestamp: new Date().toISOString(),
-      uptime: uptime,
-      memory: {
-        rss: Math.round(memoryUsage.rss / 1024 / 1024) + 'MB',
-        heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) + 'MB',
-        heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024) + 'MB',
-      },
-      environment: environment,
-      nodeVersion: nodeVersion,
+      publishing: SupabaseStoryStore.isConfigured()
+        ? getPublishingHealth(pipelineRuns)
+        : { status: 'unavailable' }
     }, { status: 200 });
   } catch (_error) {
     console.error(_error);

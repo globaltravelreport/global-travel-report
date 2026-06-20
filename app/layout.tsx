@@ -11,14 +11,14 @@ import AffiliatePartners from '../src/components/affiliates/AffiliatePartners';
 import { cn } from '../src/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '../src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
-import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
+import AITravelAssistantLoader from './AITravelAssistantLoader';
 import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ['latin'], preload: false });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'),
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_AU',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     siteName: 'Global Travel Report',
     title: 'Global Travel Report',
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     languages: {
-      'en-US': process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+      'en-AU': process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
     },
   },
   category: 'travel',
@@ -100,11 +100,9 @@ export default function RootLayout({
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en-AU" className="scroll-smooth">
       <head>
         <meta name="csp-nonce" content={nonce} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -148,7 +146,7 @@ export default function RootLayout({
               name: 'Global Travel Report',
               url: baseUrl,
               logo: `${baseUrl}/images/logo.webp`,
-              description: 'Your ultimate travel companion for discovering amazing destinations, insider tips, and inspiring stories from around the world.',
+              description: 'Independent travel news, practical context and destination coverage for Australian travellers.',
               foundingDate: '2024',
               knowsAbout: [
                 'Travel',
@@ -163,20 +161,13 @@ export default function RootLayout({
                 'Accommodation',
                 'Finance and Points'
               ],
-              areaServed: 'Worldwide',
+              areaServed: 'Australia',
               sameAs: [
                 'https://twitter.com/globaltravelreport',
                 'https://facebook.com/globaltravelreport',
                 'https://instagram.com/globaltravelreport',
                 'https://linkedin.com/company/globaltravelreport'
-              ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                telephone: '+1-555-0123',
-                contactType: 'customer service',
-                availableLanguage: 'English',
-                email: 'contact@globaltravelreport.com'
-              }
+              ]
             } as const)
           }}
         />
@@ -219,7 +210,7 @@ export default function RootLayout({
               <Toaster />
             </SearchParamsProvider>
           </ErrorBoundary>
-          <AITravelAssistantMount />
+          {process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true' ? <AITravelAssistantLoader /> : null}
           <Suspense fallback={null}>
             <WebVitalsTracker />
           </Suspense>

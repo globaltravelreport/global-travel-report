@@ -7,7 +7,7 @@ User-agent: Mediapartners-Google
 Allow: /
 
 # Sitemap
-Sitemap: https://globaltravelreport.com/sitemap.xml
+Sitemap: https://www.globaltravelreport.com/sitemap.xml
 
 # Disallow admin and API routes
 Disallow: /api/*
