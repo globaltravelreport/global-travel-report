@@ -64,8 +64,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
     // AI-Entity: Rich keyword string for entity disambiguation and topic matching
     'keywords': keywords,
 
-    // AI-Entity: Explicitly signals free content — AI search engines prioritize non-paywalled pages
-    'isAccessibleForFree': 'True',
+    'isAccessibleForFree': true,
 
     'mainEntityOfPage': {
       '@type': 'WebPage',
@@ -92,6 +91,12 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
         siteUrl                                                   // Canonical site URL
       ]
     },
+    'author': {
+      '@type': 'Organization',
+      'name': 'Global Travel Report Editorial Desk',
+      'url': siteUrl
+    },
+    ...(story.sourceUrl ? { 'isBasedOn': story.sourceUrl } : {}),
     'image': {
       '@type': 'ImageObject',
       'url': imageUrl,
@@ -148,10 +153,6 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
     return null;
   }
 
-  // Generate a rating based on the story content sentiment (placeholder)
-  const rating = 4.5; // This would ideally be calculated based on content analysis
-  const reviewCount = Math.floor(Math.random() * 50) + 10; // Placeholder
-
   return {
     '@context': 'https://schema.org',
     '@type': 'TouristDestination',
@@ -162,31 +163,6 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
     'address': {
       '@type': 'PostalAddress',
       'addressCountry': story.country
-    },
-    'includesAttraction': [
-      {
-        '@type': 'TouristAttraction',
-        'name': `${story.country} Attractions`,
-        'description': `Popular attractions in ${story.country}`,
-        'url': `${siteUrl}/countries/${story.country}`
-      }
-    ],
-    'review': {
-      '@type': 'Review',
-      'reviewRating': {
-        '@type': 'Rating',
-        'ratingValue': rating.toFixed(1),
-        'bestRating': '5'
-      },
-      'datePublished': new Date(story.publishedAt).toISOString(),
-      'reviewBody': story.excerpt
-    },
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': rating.toFixed(1),
-      'reviewCount': reviewCount,
-      'bestRating': '5',
-      'worstRating': '1'
     },
     'image': {
       '@type': 'ImageObject',

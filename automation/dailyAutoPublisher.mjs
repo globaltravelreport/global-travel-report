@@ -15,6 +15,7 @@ import { generateStoryContent } from '../src/services/aiService.ts';
 import { StoryDatabase } from '../src/services/storyDatabase.ts';
 import { SupabaseStoryStore } from '../src/services/supabaseStoryStore.ts';
 import { UnsplashService } from '../src/services/unsplashService.ts';
+import { checkStoryDiversity } from '../src/utils/storyDiversity.ts';
 
 dotenv.config({ path: '.env.local' });
 
@@ -981,13 +982,24 @@ function buildStory(source, rewrite, image) {
   };
 }
 
-async function processCandidate(source) {
+async function processCandidate(source, recentStories) {
   if (await isDuplicate(source)) {
     return {
       status: 'duplicate',
       title: source.title,
       sourceUrl: source.sourceUrl,
       sourceWordCount: wordCount(source.content)
+    };
+  }
+
+  const diversity = checkStoryDiversity(source, recentStories);
+  if (!diversity.allowed) {
+    return {
+      status: 'rejected',
+      title: source.title,
+      sourceUrl: source.sourceUrl,
+      sourceWordCount: wordCount(source.content),
+      reason: diversity.reason
     };
   }
 
@@ -1080,6 +1092,7 @@ async function runDailyAutomation() {
   result.candidatesFound = candidates.length;
 
   const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
+  const recentStories = await db.getAllStories();
 
   for (const source of selected) {
     if (Date.now() + MIN_TIME_FOR_NEXT_CANDIDATE_MS > deadline) {
@@ -1092,7 +1105,7 @@ async function runDailyAutomation() {
     }
 
     try {
-      const processed = await processCandidate(source);
+      const processed = await processCandidate(source, recentStories);
       result.processed.push(processed);
       result.summary.reviewedCandidates++;
 
@@ -1101,6 +1114,10 @@ async function runDailyAutomation() {
       if (processed.status === 'duplicate') result.summary.duplicates++;
       if (processed.status === 'rejected') result.summary.rejected++;
       if ((processed.sourceWordCount || 0) >= MIN_SOURCE_WORDS) result.eligibleCandidatesFound++;
+
+      if (processed.story) {
+        recentStories.push(processed.story);
+      }
 
       if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_RUN) {
         break;
