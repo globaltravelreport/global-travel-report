@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecureAuth } from '@/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 import { StoryRewriter } from '@/src/services/storyRewrite';
 
 export async function POST(request: NextRequest) {
   try {
-    const auth = SecureAuth.getInstance();
-    const session = auth.getSessionFromRequest(request);
-    if (!auth.hasPermission(session, 'write:stories')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authorization = await requireAdmin();
+    if (isAuthorizationResponse(authorization)) return authorization;
 
     const { title, content, category } = await request.json();
 

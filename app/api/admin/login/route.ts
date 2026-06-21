@@ -1,66 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { verifyCredentials, setSessionCookie } from '@/lib/auth';
-import { adminLoginSchema } from '@/src/utils/validation-schemas';
-import { applyRateLimit } from '@/src/middleware/rate-limit';
-import { trackSecurityEvent } from '@/src/utils/security-monitor';
-import { getRequestIp } from '@/src/utils/request-ip';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
-  // Rate limiting
-  const rateLimitResponse = applyRateLimit(request);
-  if (rateLimitResponse) return rateLimitResponse;
-
-  const ip = getRequestIp(request);
-  const userAgent = request.headers.get('user-agent') || '';
-
-  try {
-    const body = await request.json();
-    const parseResult = adminLoginSchema.safeParse(body);
-    if (!parseResult.success) {
-      trackSecurityEvent({
-        type: 'validation_failure',
-        ip,
-        userAgent,
-        details: parseResult.error,
-      });
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
-    }
-    const { username, password } = parseResult.data;
-
-    // CSRF token validation (assume token in header for demo)
-    const csrfToken = request.headers.get('x-csrf-token');
-    if (!csrfToken) {
-      trackSecurityEvent({
-        type: 'suspicious_request',
-        ip,
-        userAgent,
-        details: 'Missing CSRF token',
-      });
-      return NextResponse.json({ error: 'Missing CSRF token' }, { status: 403 });
-    }
-
-    const result = await verifyCredentials(username, password);
-    if (!result.success || !result.session) {
-      trackSecurityEvent({
-        type: 'failed_login',
-        ip,
-        userAgent,
-        details: { username },
-      });
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-    }
-
-    const response = NextResponse.json({ success: true });
-    setSessionCookie(response, result.session);
-    trackSecurityEvent({
-      type: 'authentication',
-      ip,
-      userAgent,
-      details: { username, event: 'login_success' },
-    });
-    return response;
-  } catch (__error) {
-    trackSecurityEvent({ type: 'error', ip, userAgent, details: __error });
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
+export async function POST() {
+  return NextResponse.json(
+    { error: 'Legacy admin login has been retired. Use Supabase sign-in.' },
+    { status: 410 }
+  );
 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 import { StoryDatabase } from '@/src/services/storyDatabase';
+import { isAuthorizationResponse, requireRole } from '@/lib/admin-auth';
 // import { requireEditor } from '@/src/middleware/admin-auth'; // Unused import
 
 /**
@@ -13,16 +14,8 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Check authentication
-    const auth = (await import('@/src/lib/secureAuth')).SecureAuth.getInstance();
-    const session = auth.getSessionFromRequest(request);
-
-    if (!auth.isAuthenticated(session) || !auth.hasPermission(session, 'moderate:submissions')) {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
-      );
-    }
+    const authorization = await requireRole('admin', 'editor');
+    if (isAuthorizationResponse(authorization)) return authorization;
 
     const { id } = params;
 

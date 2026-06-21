@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from '@/lib/auth';
+import { NextResponse } from 'next/server';
+import { getAuthorizedUser } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const runtime = 'nodejs';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const authenticated = isAuthenticated(request);
+    const user = await getAuthorizedUser();
 
-    if (authenticated) {
-      return NextResponse.json({ authenticated: true });
+    if (user?.role === 'admin') {
+      return NextResponse.json({ authenticated: true, role: user.role });
     } else {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }

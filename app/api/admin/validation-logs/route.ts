@@ -1,16 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { SecureAuth } from '@/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const auth = SecureAuth.getInstance();
-    const session = auth.getSessionFromRequest(request);
-    if (!auth.hasPermission(session, 'read:analytics')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authorization = await requireAdmin();
+    if (isAuthorizationResponse(authorization)) return authorization;
 
     // Mock data for demonstration
     const validationLogs = [

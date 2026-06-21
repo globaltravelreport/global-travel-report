@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -39,8 +38,6 @@ const COUNTRIES = [
 const STORY_CATEGORIES = CATEGORIES.map((category) => category.name);
 
 export default function StoryUploadPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -54,27 +51,6 @@ export default function StoryUploadPage() {
   const [isPublishing, setIsPublishing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const router = useRouter();
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const response = await fetch('/api/admin/check-auth');
-      if (response.ok) {
-        setIsAuthenticated(true);
-      } else {
-        router.push('/admin/login');
-      }
-    } catch (_error) {
-      router.push('/admin/login');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     setError('');
@@ -169,18 +145,6 @@ export default function StoryUploadPage() {
       setIsPublishing(false);
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-current border-t-transparent" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">

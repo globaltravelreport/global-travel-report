@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecureAuth } from '@/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 import { StoryDatabase } from '@/src/services/storyDatabase';
 import { getImageForStory } from '@/utils/imageTracker';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,11 +7,8 @@ import type { Story } from '@/types/Story';
 
 export async function POST(request: NextRequest) {
   try {
-    const auth = SecureAuth.getInstance();
-    const session = auth.getSessionFromRequest(request);
-    if (!auth.hasPermission(session, 'write:stories')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authorization = await requireAdmin();
+    if (isAuthorizationResponse(authorization)) return authorization;
 
     const { title, content, excerpt, slug, country, category, imageUrl, tags } = await request.json();
 

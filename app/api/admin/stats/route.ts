@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecureAuth } from '@/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 import { statsQuerySchema } from '@/src/utils/validation-schemas';
 import { applyRateLimit } from '@/src/middleware/rate-limit';
 import { trackSecurityEvent } from '@/src/utils/security-monitor';
@@ -22,16 +22,15 @@ export async function GET(request: NextRequest) {
 
   try {
     // Auth validation
-    const auth = SecureAuth.getInstance();
-    const session = auth.getSessionFromRequest(request);
-    if (!auth.hasPermission(session, 'read:analytics')) {
+    const authorization = await requireAdmin();
+    if (isAuthorizationResponse(authorization)) {
       trackSecurityEvent({
         type: 'authorization',
         ip,
         userAgent,
         details: 'Unauthorized stats access',
       });
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return authorization;
     }
     // Input validation
     const { searchParams } = new URL(request.url);

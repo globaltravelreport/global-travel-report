@@ -1,30 +1,16 @@
 import { ReactNode } from 'react';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { SecureAuth } from '../../src/lib/secureAuth';
+import { getAuthorizedUser } from '@/lib/admin-auth';
+import { AdminLogoutButton } from './AdminLogoutButton';
 
 export default async function AdminLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  // Server-side authentication check
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('auth_session');
+  const user = await getAuthorizedUser();
 
-  if (!sessionCookie?.value) {
-    redirect('/admin/login');
-  }
-
-  // Validate session
-  const auth = SecureAuth.getInstance();
-  const session = auth.getSessionFromRequest({
-    cookies: {
-      get: (name: string) => name === 'auth_session' ? { value: sessionCookie.value } : undefined
-    }
-  } as any);
-
-  if (!auth.isAuthenticated(session) || session?.role !== 'admin') {
+  if (!user || user.role !== 'admin') {
     redirect('/admin/login');
   }
 
@@ -37,15 +23,8 @@ export default async function AdminLayout({
               <h1 className="text-xl font-semibold text-gray-900">Global Travel Report Admin</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">Welcome, {session.username}</span>
-              <form action="/api/admin/logout" method="POST" className="inline">
-                <button
-                  type="submit"
-                  className="text-sm text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md hover:bg-gray-100"
-                >
-                  Logout
-                </button>
-              </form>
+              <span className="text-sm text-gray-700">Welcome, {user.email ?? 'Administrator'}</span>
+              <AdminLogoutButton />
             </div>
           </div>
         </div>

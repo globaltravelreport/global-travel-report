@@ -1,4 +1,5 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
+const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('node:path');
 
 // Inline CSP builder function
@@ -266,4 +267,14 @@ const nextConfig = withBundleAnalyzer({
   },
 });
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(nextConfig, {
+  silent: true,
+  webpack: {
+    treeshake: {
+      removeDebugLogging: true,
+    },
+  },
+  sourcemaps: {
+    disable: !process.env.SENTRY_AUTH_TOKEN,
+  },
+});
