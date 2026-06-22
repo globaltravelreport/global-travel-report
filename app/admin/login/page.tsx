@@ -2,39 +2,48 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../../../src/components/ui/button';
-import { Input } from '../../../src/components/ui/input';
-import { Label } from '../../../src/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../src/components/ui/card';
-import { Alert, AlertDescription } from '../../../src/components/ui/alert';
-import { useFormValidation } from '../../../src/hooks/useFormValidation';
-import { adminLoginSchema } from '../../../src/utils/validation-schemas';
-import { useCsrfToken } from '../../../src/hooks/useCsrfToken';
-
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { createClient } from '@/lib/supabase/client';
+import * as Sentry from '@sentry/nextjs';
 
 export default function AdminLoginPage() {
-  const { values, errors, loading, handleChange, handleSubmit } = useFormValidation(adminLoginSchema, { username: '', password: '' });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { csrfToken } = useCsrfToken();
 
-  const onSubmit = async (data: any) => {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setError('');
-    const response = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken || '' },
-      body: JSON.stringify({ ...data, csrfToken }),
-    });
-    await response.json();
-    if (response.ok) {
-      router.push('/admin/story-upload');
+    setLoading(true);
+
+    try {
+      const supabase = createClient();
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (signInError) {
+        Sentry.captureMessage('Admin authentication failed', {
+          level: 'warning',
+          tags: { area: 'admin-auth', outcome: 'failure' },
+        });
+        setError('Sign-in failed. Check your email and password.');
+        return;
+      }
+
+      router.replace('/admin');
       router.refresh();
-    } else if (response.status === 429) {
-      setError('Too many login attempts. Please try again later.');
-    } else {
-      setError('Invalid credentials or login failed.');
+    } catch (cause) {
+      Sentry.captureException(cause, { tags: { area: 'admin-auth' } });
+      setError('Sign-in failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -46,65 +55,25 @@ export default function AdminLoginPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Sign In</CardTitle>
-            <CardDescription>
-              Enter your admin credentials to access the story upload system.
-            </CardDescription>
+            <CardTitle>Sign in</CardTitle>
+            <CardDescription>Use your Supabase administrator account.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={e => { e.preventDefault(); handleSubmit(onSubmit); }} className="space-y-4" autoComplete="off">
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+            <form onSubmit={onSubmit} className="space-y-4">
+              {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
 
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  id="username"
-                  type="text"
-                  value={values.username}
-                  onChange={e => handleChange('username', e.target.value)}
-                  required
-                  disabled={loading}
-                  placeholder="Enter username"
-                  aria-invalid={!!errors.username}
-                  aria-describedby="username-error"
-                />
-                {errors.username && <div id="username-error" className="text-red-600 text-sm">{errors.username}</div>}
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={loading} autoComplete="email" />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={values.password}
-                  onChange={e => handleChange('password', e.target.value)}
-                  required
-                  disabled={loading}
-                  placeholder="Enter password"
-                  aria-invalid={!!errors.password}
-                  aria-describedby="password-error"
-                />
-                {errors.password && <div id="password-error" className="text-red-600 text-sm">{errors.password}</div>}
+                <Input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} required disabled={loading} autoComplete="current-password" />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={loading}
-                aria-busy={loading}
-              >
-                {loading ? (
-                  <>
-                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    Signing in...
-                  </>
-                ) : (
-                  'Sign In'
-                )}
+              <Button type="submit" className="w-full" disabled={loading} aria-busy={loading}>
+                {loading ? 'Signing in…' : 'Sign in'}
               </Button>
             </form>
           </CardContent>

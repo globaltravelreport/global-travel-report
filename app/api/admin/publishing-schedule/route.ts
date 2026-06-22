@@ -1,21 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecureAuth } from '@/src/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-function isAdminRequest(request: NextRequest): boolean {
-  const auth = SecureAuth.getInstance();
-  const session = auth.getSessionFromRequest(request);
-  return auth.isAuthenticated(session) && session?.role === 'admin';
-}
-
 export async function GET(request: NextRequest) {
   try {
-    if (!isAdminRequest(request)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authorization = await requireAdmin();
+    if (isAuthorizationResponse(authorization)) return authorization;
 
     if (!SupabaseStoryStore.isConfigured()) {
       return NextResponse.json([]);

@@ -7,6 +7,7 @@
  */
 
 import { EnhancedAppError, ErrorType, ErrorSeverity, handleError } from './enhanced-error-handler';
+import * as Sentry from '@sentry/nextjs';
 
 // Use ErrorSeverity from enhanced-error-handler for log levels
 export type LogLevel = ErrorSeverity;
@@ -209,6 +210,10 @@ export function log(level: LogLevel, message: string, context?: Record<string, a
 
   // Send to error reporting service if it's an error, critical, or fatal
   if (level === LogLevel.ERROR || level === LogLevel.CRITICAL || level === LogLevel.FATAL) {
+    Sentry.captureException(error instanceof Error ? error : new Error(message), {
+      tags: { source: 'errorLogger', severity: level },
+      extra: context,
+    });
     sendToErrorReportingService(entry);
   }
 }
