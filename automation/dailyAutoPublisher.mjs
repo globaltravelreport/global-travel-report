@@ -19,18 +19,20 @@ import { checkStoryDiversity } from '../src/utils/storyDiversity.ts';
 
 dotenv.config({ path: '.env.local' });
 
-// Vercel executes this pipeline in short-lived functions. Each scheduled run
-// deliberately publishes at most one story; five separate runs are scheduled
-// each day so one slow rewrite cannot prevent the day from being completed.
-const MAX_STORIES_PER_RUN = 1;
+// A single daily cron run publishes the five-story editorial target. This
+// keeps the schedule compatible with Vercel's cron limits and avoids jobs
+// being silently skipped on lower plans.
+const MAX_STORIES_PER_RUN = Math.max(1, Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10), 5));
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
-const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
+const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10), 10));
 const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '2', 10), 2);
-const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '45000', 10), 50000);
-const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 8000;
+const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '55000', 10), 55000);
+const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 5000;
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
-const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
+// Publishing is the default production behavior. Set this to "false" only
+// when deliberately switching the pipeline to draft-only review mode.
+const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES !== 'false';
 
 const parser = new Parser({
   timeout: Number.parseInt(process.env.RSS_FETCH_TIMEOUT_MS || '5000', 10),
