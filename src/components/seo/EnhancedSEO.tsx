@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Head from 'next/head';
 import { usePathname } from 'next/navigation';
 
 interface EnhancedSEOProps {
