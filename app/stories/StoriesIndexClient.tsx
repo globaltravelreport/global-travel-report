@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
 
 export default function StoriesIndexClient() {
@@ -15,9 +14,16 @@ export default function StoriesIndexClient() {
   useEffect(() => {
     const loadStories = async () => {
       try {
-        const storyDb = StoryDatabase.getInstance();
-        const allStories = await storyDb.getAllStories();
-        setStories(allStories);
+        const response = await fetch('/api/stories?limit=500', {
+          cache: 'no-store',
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to load stories: ${response.status}`);
+        }
+
+        const payload = await response.json() as { stories?: Story[] };
+        setStories(Array.isArray(payload.stories) ? payload.stories : []);
       } catch (_error) {
         console.error(_error);
         setStories([]);
