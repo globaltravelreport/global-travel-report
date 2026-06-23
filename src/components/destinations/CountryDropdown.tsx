@@ -68,7 +68,7 @@ export function CountryDropdown({ countries }: CountryDropdownProps) {
               {isValidCountry(selectedCountry) ? (
                 <MapPin size={18} className="text-blue-600" />
               ) : (
-                <Globe size={18} className="text-gray-500" />
+                <Globe size={18} className="text-[#C9A14A]" />
               )}
               <span className="block truncate">{selectedCountry}</span>
             </>
@@ -125,7 +125,7 @@ export function CountryDropdown({ countries }: CountryDropdownProps) {
                     aria-selected={selectedCountry === entry}
                     tabIndex={0}
                   >
-                    <Globe size={16} className="text-gray-500 flex-shrink-0" />
+                    <Globe size={16} className="text-[#C9A14A] flex-shrink-0" />
                     <span>{entry}</span>
                   </li>
                 ))}
