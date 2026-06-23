@@ -1128,8 +1128,17 @@ async function runDailyAutomation() {
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
-  const selected = selectDiverseCandidates(candidates, MAX_CANDIDATES_TO_REVIEW);
   const recentStories = await db.getAllStories();
+  const existingSourceUrls = new Set(recentStories.map((story) => story.sourceUrl).filter(Boolean));
+  const existingContentHashes = new Set(recentStories.map((story) => story.contentHash).filter(Boolean));
+  const existingSlugs = new Set(recentStories.map((story) => story.slug).filter(Boolean));
+  const unseenCandidates = candidates.filter((candidate) => {
+    const candidateHash = hash(`${candidate.sourceUrl}:${candidate.title}`);
+    return !existingSourceUrls.has(candidate.sourceUrl) &&
+      !existingContentHashes.has(candidateHash) &&
+      !existingSlugs.has(slugify(candidate.title));
+  });
+  const selected = selectDiverseCandidates(unseenCandidates, MAX_CANDIDATES_TO_REVIEW);
 
   for (const source of selected) {
     if (Date.now() + MIN_TIME_FOR_NEXT_CANDIDATE_MS > deadline) {
