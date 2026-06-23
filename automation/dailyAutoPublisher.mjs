@@ -25,7 +25,7 @@ dotenv.config({ path: '.env.local' });
 const MAX_STORIES_PER_RUN = Math.max(1, Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10), 5));
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
-const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '8', 10), 10));
+const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '10', 10), 10));
 const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '2', 10), 2);
 const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '55000', 10), 55000);
 const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 5000;
@@ -362,6 +362,38 @@ function normaliseCategory(value, fallback = 'Travel News') {
 
   const inferred = inferCategory(`${value || ''} ${fallback || ''}`);
   return ALLOWED_CATEGORIES.includes(inferred) ? inferred : 'Travel News';
+}
+
+function selectDiverseCandidates(candidates, limit) {
+  const byCategory = new Map();
+
+  for (const candidate of candidates) {
+    const category = normaliseCategory(candidate.category);
+    const bucket = byCategory.get(category) || [];
+    bucket.push(candidate);
+    byCategory.set(category, bucket);
+  }
+
+  const selected = [];
+  const categories = Array.from(byCategory.keys());
+
+  while (selected.length < limit) {
+    let addedCandidate = false;
+
+    for (const category of categories) {
+      const candidate = byCategory.get(category)?.shift();
+      if (!candidate) continue;
+
+      selected.push(candidate);
+      addedCandidate = true;
+
+      if (selected.length >= limit) break;
+    }
+
+    if (!addedCandidate) break;
+  }
+
+  return selected;
 }
 
 function inferCountry(text) {
@@ -943,7 +975,10 @@ function buildStory(source, rewrite, image) {
   }
 
   const now = new Date().toISOString();
-  const publishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
+  const originalPublishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
+  // The public feed should reflect when Global Travel Report published the
+  // article, while retaining the source timestamp separately for attribution.
+  const publishedAt = now;
   const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
 
@@ -962,7 +997,7 @@ function buildStory(source, rewrite, image) {
     publishedAt,
     updatedAt: now,
     date: publishedAt,
-    originalPublishedAt: publishedAt,
+    originalPublishedAt,
     firstSeenAt: now,
     source: source.sourceName || source.sourceFeedUrl,
     sourceUrl: source.sourceUrl,
@@ -1093,7 +1128,7 @@ async function runDailyAutomation() {
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
-  const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
+  const selected = selectDiverseCandidates(candidates, MAX_CANDIDATES_TO_REVIEW);
   const recentStories = await db.getAllStories();
 
   for (const source of selected) {
