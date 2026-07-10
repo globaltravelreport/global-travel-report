@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import * as Sentry from '@sentry/nextjs';
 
 /* eslint-disable no-console */
 export default function StoryError({
@@ -12,8 +13,7 @@ export default function StoryError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
+    Sentry.captureException(error, { tags: { boundary: 'story' } });
   }, [error]);
 
   return (
@@ -30,4 +30,4 @@ export default function StoryError({
       </Button>
     </div>
   );
-} 
+}

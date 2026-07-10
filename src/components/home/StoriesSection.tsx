@@ -53,7 +53,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
       {/* Section Header */}
       <div className="mb-10 flex flex-col gap-4 border-l-4 border-[#C9A14A] pl-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#C9A14A]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#8A6A20]">
             Travel News Desk
           </p>
           <h2 className="text-3xl font-black tracking-tight text-[#19273A] md:text-4xl">
@@ -103,7 +103,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
                   {(story.featured || story.editorsPick) && (
                     <div className="absolute top-3 right-3">
                       {story.editorsPick && (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#C9A14A] text-white">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#C9A14A] text-[#19273A]">
                           Editor's Pick
                         </span>
                       )}
@@ -119,7 +119,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
                 {/* Content */}
                 <div className={isLeadCard ? 'p-6 md:p-7' : 'p-6'}>
                   {isLeadCard && (
-                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#8A6A20]">
                       Top Story
                     </p>
                   )}
@@ -160,7 +160,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/stories"
-            className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2"
+            className="inline-flex items-center px-6 py-3 bg-[#C9A14A] hover:bg-[#D8B75C] text-[#19273A] font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#8A6A20] focus:ring-offset-2"
           >
             {showingRecentStories ? 'View All Recent Stories' : 'View All Stories'}
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

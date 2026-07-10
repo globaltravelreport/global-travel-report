@@ -14,6 +14,7 @@ import { Story } from '@/types/Story';
  * @returns JSON-LD schema object
  */
 export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string = 'https://www.globaltravelreport.com'): Record<string, any> {
+  const canonicalSiteUrl = siteUrl.replace(/\/$/, '');
   const publishedDate = typeof story.publishedAt === 'object'
     ? story.publishedAt.toISOString()
     : new Date(story.publishedAt).toISOString();
@@ -24,7 +25,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
 
   const imageUrl = story.imageUrl?.startsWith('http')
     ? story.imageUrl
-    : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
+    : `${canonicalSiteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
 
   // --- AI-Entity: Generate rich keywords from category, country, and title words ---
   // Extract meaningful words from the title (filter common stop words)
@@ -64,32 +65,31 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
     // AI-Entity: Rich keyword string for entity disambiguation and topic matching
     'keywords': keywords,
 
-    // AI-Entity: Explicitly signals free content — AI search engines prioritize non-paywalled pages
-    'isAccessibleForFree': 'True',
+    'isAccessibleForFree': true,
 
     'mainEntityOfPage': {
       '@type': 'WebPage',
-      '@id': `${siteUrl}/stories/${story.slug}`
+      '@id': `${canonicalSiteUrl}/stories/${story.slug}`
     },
 
-    // AI-Entity: Upgraded publisher with sameAs array — proves we are a verified entity
-    // across the web, strengthening Knowledge Graph eligibility
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
-      'url': siteUrl,
+      'url': canonicalSiteUrl,
       'logo': {
         '@type': 'ImageObject',
-        'url': `${siteUrl}/logo-gtr.png`,
-        'width': 600,
-        'height': 60
+        'url': `${canonicalSiteUrl}/images/logo-gtr.png`,
+        'width': 1024,
+        'height': 1024
       },
       'sameAs': [
-        'https://twitter.com/GlobalTravelRpt',       // X / Twitter — replace with actual handle
-        'https://www.linkedin.com/company/global-travel-report', // LinkedIn — replace with actual page
-        'https://www.facebook.com/GlobalTravelReport',           // Facebook — replace with actual page
-        'https://www.instagram.com/globaltravelreport',          // Instagram — replace with actual handle
-        siteUrl                                                   // Canonical site URL
+        'https://x.com/GTravelReport',
+        'https://www.facebook.com/globaltravelreport',
+        'https://medium.com/@editorial_31000',
+        'https://www.linkedin.com/company/globaltravelreport/',
+        'https://www.youtube.com/@GlobalTravelReport',
+        'https://www.tiktok.com/@globaltravelreport',
+        'https://www.tumblr.com/blog/globaltravelreport'
       ]
     },
     'image': {
@@ -117,7 +117,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
     'copyrightHolder': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
-      'url': siteUrl
+      'url': canonicalSiteUrl
     }
   };
 }
@@ -137,7 +137,7 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
   // Check if the story is about a destination
   const isDestination =
     story.category?.toLowerCase().includes('destination') ||
-    story.tags.some(tag =>
+    (story.tags || []).some(tag =>
       tag.toLowerCase().includes('destination') ||
       tag.toLowerCase().includes('travel guide') ||
       tag.toLowerCase().includes('vacation') ||
@@ -148,51 +148,24 @@ export function generateEnhancedTravelDestinationSchema(story: Story, siteUrl: s
     return null;
   }
 
-  // Generate a rating based on the story content sentiment (placeholder)
-  const rating = 4.5; // This would ideally be calculated based on content analysis
-  const reviewCount = Math.floor(Math.random() * 50) + 10; // Placeholder
+  const canonicalSiteUrl = siteUrl.replace(/\/$/, '');
 
   return {
     '@context': 'https://schema.org',
     '@type': 'TouristDestination',
     'name': story.country,
     'description': story.excerpt,
-    'url': `${siteUrl}/stories/${story.slug}`,
-    'touristType': story.tags.join(', '),
+    'url': `${canonicalSiteUrl}/stories/${story.slug}`,
+    'touristType': (story.tags || []).join(', '),
     'address': {
       '@type': 'PostalAddress',
       'addressCountry': story.country
-    },
-    'includesAttraction': [
-      {
-        '@type': 'TouristAttraction',
-        'name': `${story.country} Attractions`,
-        'description': `Popular attractions in ${story.country}`,
-        'url': `${siteUrl}/countries/${story.country}`
-      }
-    ],
-    'review': {
-      '@type': 'Review',
-      'reviewRating': {
-        '@type': 'Rating',
-        'ratingValue': rating.toFixed(1),
-        'bestRating': '5'
-      },
-      'datePublished': new Date(story.publishedAt).toISOString(),
-      'reviewBody': story.excerpt
-    },
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': rating.toFixed(1),
-      'reviewCount': reviewCount,
-      'bestRating': '5',
-      'worstRating': '1'
     },
     'image': {
       '@type': 'ImageObject',
       'url': story.imageUrl?.startsWith('http')
         ? story.imageUrl
-        : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`,
+        : `${canonicalSiteUrl}${story.imageUrl || '/images/default-story.jpg'}`,
       'width': 1200,
       'height': 630,
       'caption': `Travel guide to ${story.country}`,

@@ -1,42 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { StoryDatabase } from '@/src/services/storyDatabase';
 import { Story } from '@/types/Story';
+import { NewsletterSignup } from '@/src/components/ui/NewsletterSignup';
 
-export default function StoriesIndexClient() {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function StoriesIndexClient({ initialStories }: { initialStories: Story[] }) {
+  const [stories] = useState<Story[]>(initialStories);
   const [currentPage, setCurrentPage] = useState(1);
   const storiesPerPage = 9;
-
-  useEffect(() => {
-    const loadStories = async () => {
-      try {
-        const storyDb = StoryDatabase.getInstance();
-        const allStories = await storyDb.getAllStories();
-        setStories(allStories);
-      } catch (_error) {
-        console.error(_error);
-        setStories([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStories();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center py-16">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C9A14A]"></div>
-        <span className="ml-3 text-gray-600">Loading stories...</span>
-      </div>
-    );
-  }
 
   if (stories.length === 0) {
     return (
@@ -270,16 +243,7 @@ export default function StoriesIndexClient() {
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
             Subscribe to our newsletter for the latest travel stories, exclusive deals, and insider tips delivered to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C9A14A] focus:border-transparent outline-none"
-            />
-            <button className="px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2">
-              Subscribe
-            </button>
-          </div>
+          <NewsletterSignup variant="inline" title="" description="" compact />
         </div>
       </section>
     </div>

@@ -23,7 +23,7 @@ export function slugify(text: string): string {
  * @returns The story URL
  */
 export function getStoryUrl(slug: string, absolute: boolean = false): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
   return `${base}/stories/${slug}`;
 }
 
@@ -34,7 +34,7 @@ export function getStoryUrl(slug: string, absolute: boolean = false): string {
  * @returns The category URL
  */
 export function getCategoryUrl(category: string, absolute: boolean = false): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
   return `${base}/categories/${slugify(category)}`;
 }
 
@@ -45,7 +45,7 @@ export function getCategoryUrl(category: string, absolute: boolean = false): str
  * @returns The country URL
  */
 export function getCountryUrl(country: string, absolute: boolean = false): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
   return `${base}/countries/${slugify(country)}`;
 }
 
@@ -56,7 +56,7 @@ export function getCountryUrl(country: string, absolute: boolean = false): strin
  * @returns The tag URL
  */
 export function getTagUrl(tag: string, absolute: boolean = false): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
   return `${base}/tags/${slugify(tag)}`;
 }
 
@@ -67,7 +67,7 @@ export function getTagUrl(tag: string, absolute: boolean = false): string {
  * @returns The author URL
  */
 export function getAuthorUrl(author: string, absolute: boolean = false): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
   return `${base}/authors/${slugify(author)}`;
 }
 
@@ -81,8 +81,8 @@ export function getSearchUrl(
   params: { query?: string; category?: string; country?: string; tag?: string; page?: number },
   absolute: boolean = false
 ): string {
-  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com') : '';
-  const url = new URL(`${base}/search`);
+  const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
+  const url = absolute ? new URL(`${base}/search`) : new URL('/search', 'https://www.globaltravelreport.com');
   
   if (params.query) url.searchParams.set('q', params.query);
   if (params.category) url.searchParams.set('category', slugify(params.category));
@@ -90,7 +90,7 @@ export function getSearchUrl(
   if (params.tag) url.searchParams.set('tag', slugify(params.tag));
   if (params.page && params.page > 1) url.searchParams.set('page', params.page.toString());
   
-  return url.toString().replace(url.origin, base);
+  return absolute ? url.toString() : `${url.pathname}${url.search}`;
 }
 
 /**
@@ -99,6 +99,6 @@ export function getSearchUrl(
  * @returns The canonical URL
  */
 export function getCanonicalUrl(path: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   return `${base}${path}`;
 }

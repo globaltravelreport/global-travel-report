@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -19,9 +19,18 @@ import SWMount from './SWMount';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], preload: false });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#19273A',
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Global Travel Report',
     template: '%s | Global Travel Report',
@@ -39,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+    url: siteUrl,
     siteName: 'Global Travel Report',
     title: 'Global Travel Report',
     description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
@@ -80,9 +89,9 @@ export const metadata: Metadata = {
     yahoo: process.env.YAHOO_VERIFICATION,
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+    canonical: siteUrl,
     languages: {
-      'en-US': process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+      'en-US': siteUrl,
     },
   },
   category: 'travel',
@@ -93,7 +102,7 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const baseUrl = siteUrl;
   const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-K8BJQ43XFT';
 
   // Generate nonce for CSP
@@ -113,8 +122,6 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-        <meta name="theme-color" content="#19273A" />
         <meta name="msapplication-TileColor" content="#19273A" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -172,7 +179,7 @@ export default function RootLayout({
               ],
               contactPoint: {
                 '@type': 'ContactPoint',
-                telephone: '+1-555-0123',
+                telephone: undefined,
                 contactType: 'customer service',
                 availableLanguage: 'English',
                 email: 'contact@globaltravelreport.com'

@@ -1,21 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecureAuth } from '@/src/lib/secureAuth';
+import { isAuthorizationResponse, requireAdmin } from '@/lib/admin-auth';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const runtime = 'nodejs';
 
-function isAdminRequest(request: NextRequest): boolean {
-  const auth = SecureAuth.getInstance();
-  const session = auth.getSessionFromRequest(request);
-  return auth.isAuthenticated(session) && session?.role === 'admin';
-}
-
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const authorization = await requireAdmin();
+  if (isAuthorizationResponse(authorization)) return authorization;
 
   if (!SupabaseStoryStore.isConfigured()) {
     return NextResponse.json({ error: 'Supabase is not configured' }, { status: 500 });
@@ -37,9 +30,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  if (!isAdminRequest(request)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const authorization = await requireAdmin();
+  if (isAuthorizationResponse(authorization)) return authorization;
 
   if (!SupabaseStoryStore.isConfigured()) {
     return NextResponse.json({ error: 'Supabase is not configured' }, { status: 500 });

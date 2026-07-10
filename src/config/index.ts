@@ -5,7 +5,7 @@ const config = {
   site: {
     name: 'Global Travel Report',
     description: 'Discover travel stories from around the world',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com',
   },
 
   // Contact form settings

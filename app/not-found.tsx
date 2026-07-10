@@ -9,7 +9,7 @@ import { NewsletterSignup } from '@/src/components/newsletter/NewsletterSignup';
  * to help users find what they're looking for.
  */
 export default function NotFound() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   // Generate structured data for 404 page
   const structuredData = {

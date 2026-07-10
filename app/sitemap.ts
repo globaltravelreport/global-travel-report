@@ -1,15 +1,15 @@
 import { MetadataRoute } from 'next';
 import { getAllStories } from '@/src/utils/stories';
 import { enhanceStoryForSEO } from '@/utils/seoEnhancer';
-import { optimizeStoryImageForSeo } from '@/utils/imageSeoOptimizer';
 import { CATEGORIES } from '@/src/config/categories';
+import { slugify } from '@/src/utils/url';
 
 /**
  * Generate a dynamic sitemap based on actual content
  * @returns A sitemap configuration for Next.js
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const currentDate = new Date();
 
   // Get all stories
@@ -26,8 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter(Boolean)
   ));
 
-  const allTags = stories.flatMap(story => story.tags || []);
-  const tags = Array.from(new Set(allTags));
 
   // Static routes
   const routes = [
@@ -54,8 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Enhance the story with SEO optimizations
       const enhancedStory = enhanceStoryForSEO(story);
 
-      // Get optimized image data
-      const { imageUrl, altText, caption } = optimizeStoryImageForSeo(enhancedStory);
+      const imageUrl = enhancedStory.imageUrl || enhancedStory.coverImage?.url;
 
       // Calculate story age for priority adjustment
       const storyDate = new Date(enhancedStory.publishedAt || currentDate);
@@ -112,22 +109,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority,
       };
 
-      // Add image data if available with enhanced SEO information
+      // Next's MetadataRoute sitemap expects image URLs as strings.
       if (imageUrl) {
         const fullImageUrl = imageUrl.startsWith('http')
           ? imageUrl
           : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
 
-        // Enhanced image sitemap data with additional attributes
-        sitemapEntry.images = [
-          {
-            url: fullImageUrl,
-            title: altText || enhancedStory.title,
-            caption: caption || enhancedStory.excerpt?.substring(0, 100),
-            geo_location: enhancedStory.country !== 'Global' ? enhancedStory.country : undefined,
-            license: 'https://creativecommons.org/licenses/by/4.0/'
-          }
-        ];
+        sitemapEntry.images = [fullImageUrl];
       }
 
       return sitemapEntry;
@@ -158,18 +146,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Country routes - dynamically generated from actual stories
   const countryRoutes = countries.map((country) => ({
-    url: `${baseUrl}/countries/${country.toLowerCase().replace(/\s+/g, '-')}`,
+    url: `${baseUrl}/countries/${slugify(country)}`,
     lastModified: currentDate,
     changeFrequency: "weekly" as const,
     priority: 0.6,
-  }));
-
-  // Tag routes - dynamically generated from actual stories
-  const tagRoutes = tags.map((tag) => ({
-    url: `${baseUrl}/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.5,
   }));
 
   return [
@@ -177,6 +157,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...storyRoutes,
     ...categoryRoutes,
     ...countryRoutes,
-    ...tagRoutes,
   ];
 }

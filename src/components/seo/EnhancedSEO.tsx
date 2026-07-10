@@ -67,7 +67,7 @@ export function EnhancedSEO({
   children
 }: EnhancedSEOProps) {
   const pathname = usePathname();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   // Generate canonical URL if not provided
   const canonicalUrl = canonical || `${baseUrl}${pathname}`;
@@ -136,7 +136,6 @@ export function EnhancedSEO({
       ))}
       
       {/* Additional meta tags */}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="theme-color" content="#19273A" />
       

@@ -10,7 +10,7 @@ import { getAllCountries } from '@/utils/countries';
  * @returns Server-side sitemap
  */
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   // Get all stories
   const stories = await getAllStories();
@@ -58,7 +58,7 @@ export async function GET() {
           loc: new URL(
             story.imageUrl.startsWith('http')
               ? story.imageUrl
-              : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+              : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`,
           ),
           title: story.title,
           caption: story.excerpt?.substring(0, 100) || story.title,

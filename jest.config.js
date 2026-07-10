@@ -16,5 +16,8 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/__tests__/utils/test-helpers.ts',
+    '<rootDir>/e2e/',
+    '<rootDir>/__tests__/mocks/',
   ],
+  passWithNoTests: true,
 };

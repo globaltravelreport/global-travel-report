@@ -3,6 +3,7 @@ import { StoryCard } from '@/components/stories/StoryCard';
 import { getStoriesByCountry, getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 import type { Metadata } from 'next';
+import { slugify } from '@/src/utils/url';
 
 // Define the params type for Next.js 15
 type CountryParams = {
@@ -11,10 +12,10 @@ type CountryParams = {
 
 export async function generateMetadata({ params }: { params: Promise<CountryParams> }): Promise<Metadata> {
   const { country: countryParam } = await params;
-  const country = countryParam.charAt(0).toUpperCase() + countryParam.slice(1);
+  const country = countryParam.split('-').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 
   return {
-    title: `${country} Travel Stories - Global Travel Report`,
+    title: `${country} Travel Stories`,
     description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
     openGraph: {
       title: `${country} Travel Stories - Global Travel Report`,
@@ -23,12 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<CountryPara
       locale: 'en_US',
       siteName: 'Global Travel Report',
     },
+    alternates: { canonical: `/countries/${slugify(country)}` },
   };
 }
 
 export default async function CountryPage({ params }: { params: Promise<CountryParams> }) {
   const { country: countryParam } = await params;
-  const country = countryParam.charAt(0).toUpperCase() + countryParam.slice(1);
+  const country = countryParam.split('-').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
   const allStories = await getAllStories();
   const storiesResult = getStoriesByCountry(allStories, country);
   const stories = storiesResult.data;

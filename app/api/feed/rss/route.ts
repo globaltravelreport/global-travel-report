@@ -72,7 +72,7 @@ export async function GET(request: Request) {
 
   // Get all stories
   const stories = await getAllStories();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   // Filter stories by category if specified
   let filteredStories = stories;

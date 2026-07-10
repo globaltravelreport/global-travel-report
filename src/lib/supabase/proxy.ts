@@ -4,9 +4,17 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  // Authentication must not make unrelated public pages unavailable when an
+  // environment variable is missing or the Auth service is temporarily down.
+  // Protected pages independently verify claims before serving user data.
+  if (!supabaseUrl || !supabasePublishableKey) return response;
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    supabaseUrl,
+    supabasePublishableKey,
     {
       cookies: {
         getAll() {
@@ -24,7 +32,11 @@ export async function updateSession(request: NextRequest) {
   );
 
   // This validates/refreshes the token. Do not replace with getSession().
-  await supabase.auth.getClaims();
+  try {
+    await supabase.auth.getClaims();
+  } catch (error) {
+    console.error('Unable to refresh the Supabase session in proxy', error);
+  }
 
   return response;
 }

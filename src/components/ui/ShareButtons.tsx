@@ -47,7 +47,7 @@ export function ShareButtons({
   vertical = false
 }: ShareButtonsProps) {
   // Ensure we have the full URL
-  const fullUrl = url.startsWith('http') ? url : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com'}${url}`;
+  const fullUrl = url.startsWith('http') ? url : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}${url}`;
   
   // Handle copy to clipboard
   const copyToClipboard = () => {

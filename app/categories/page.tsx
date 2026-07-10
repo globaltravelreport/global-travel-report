@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { CATEGORIES } from '@/src/config/categories';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Categories - Global Travel Report',
-  description: 'Explore travel stories by category. Find articles about air travel, cruise, accommodation, destinations, tours, deals, safety, food, luxury, sustainability, tech, finance, and travel news.',
+export const metadata: Metadata = {
+  title: 'Categories',
+  description: 'Explore travel stories by category, including air travel, cruise, destinations, deals, safety, and travel technology.',
+  alternates: { canonical: '/categories' },
 };
 
 export default function CategoriesPage() {

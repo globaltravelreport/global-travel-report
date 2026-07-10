@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com.au',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   sitemapSize: 5000,

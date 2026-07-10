@@ -20,9 +20,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Filter and limit partners
-  const displayPartners = maxPartners
-    ? affiliatePartners.slice(0, maxPartners)
-    : affiliatePartners;
+  const displayPartners = affiliatePartners.slice(0, maxPartners ?? 6);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -64,8 +62,7 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
       }
     }
 
-    // Open link in new tab
-    window.open(url, '_blank', 'noopener,noreferrer');
+    // Let the anchor perform the single, user-initiated navigation.
   };
 
   return (
@@ -111,13 +108,6 @@ const AffiliatePartners: React.FC<AffiliatePartnersProps> = ({
                     const target = e.target as HTMLImageElement;
                     if (target.src !== getAffiliateLogoFallback(partner.name)) {
                       target.src = getAffiliateLogoFallback(partner.name);
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    // Enhanced keyboard navigation
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleAffiliateClick(partner.name, partner.url);
                     }
                   }}
                   onClick={() => handleAffiliateClick(partner.name, partner.url)}
