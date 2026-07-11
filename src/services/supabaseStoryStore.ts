@@ -358,6 +358,9 @@ export class SupabaseStoryStore {
       throw new Error('Story draft not found');
     }
 
+    const publishedAt = new Date().toISOString();
+    const originalPublishedAt = draft.original_published_at || draft.story?.originalPublishedAt || draft.story?.publishedAt;
+
     const story: Story = {
       ...draft.story,
       id: draft.story_id || draft.story?.id || id.replace(/^draft-/, ''),
@@ -365,8 +368,10 @@ export class SupabaseStoryStore {
       title: draft.title,
       excerpt: draft.excerpt,
       content: draft.content,
-      publishedAt: draft.story?.publishedAt || draft.original_published_at || draft.created_at,
-      originalPublishedAt: draft.original_published_at || draft.story?.originalPublishedAt,
+      publishedAt,
+      updatedAt: publishedAt,
+      date: publishedAt,
+      originalPublishedAt,
       category: draft.category,
       country: draft.country,
       tags: toArray(draft.tags),

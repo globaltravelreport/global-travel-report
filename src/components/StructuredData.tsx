@@ -57,7 +57,7 @@ export function StructuredData({ slug, data, type }: StructuredDataProps) {
  * @returns Structured data for an article
  */
 export function generateArticleStructuredData(article: any) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const url = `${baseUrl}/${article.slug}`;
   
   return {
@@ -111,7 +111,7 @@ export function generateFAQStructuredData(faqs: { question: string; answer: stri
  * @returns Structured data for breadcrumbs
  */
 export function generateBreadcrumbStructuredData(items: { name: string; url: string }[]) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   return {
     '@context': 'https://schema.org',
@@ -130,7 +130,7 @@ export function generateBreadcrumbStructuredData(items: { name: string; url: str
  * @returns Structured data for the organization
  */
 export function generateOrganizationStructuredData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   return {
     '@context': 'https://schema.org',

@@ -94,7 +94,7 @@ export default function EnhancedOffersPageClient({
     setSubmitMessage('');
 
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export default function EnhancedOffersPageClient({
             {[
               { label: 'Partners', value: totalPartners },
               { label: 'Categories', value: categories.length },
-              { label: 'Featured', value: featuredOffers.length },
+              { label: 'Partner picks', value: totalPartners },
               { label: 'Updated', value: 'Daily' },
             ].map((item) => (
               <div key={item.label} className="rounded-lg border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
@@ -162,7 +162,7 @@ export default function EnhancedOffersPageClient({
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      {featuredOffers.length > 0 && <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-3xl font-black tracking-tight text-slate-950">Featured Offers</h2>
@@ -217,7 +217,18 @@ export default function EnhancedOffersPageClient({
             );
           })}
         </div>
-      </section>
+      </section>}
+
+      {featuredOffers.length === 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-[#e8dfc8] bg-[#f4efe2] p-8 sm:p-10">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#8A6A20]">Live partner directory</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Useful links, without invented discounts.</h2>
+            <p className="mt-3 max-w-2xl leading-7 text-slate-600">We only publish a promotion when its terms and expiry have been verified. Until then, browse the trusted services below and compare them for your trip.</p>
+            <a href="#partner-directory" className="mt-6 inline-flex items-center gap-2 font-bold text-slate-950 hover:text-[#8A6A20]">Browse the directory <ArrowUpRight className="h-4 w-4" /></a>
+          </div>
+        </section>
+      )}
 
       <section id="partner-directory" className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">

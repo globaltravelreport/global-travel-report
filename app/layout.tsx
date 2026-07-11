@@ -11,14 +11,15 @@ import AffiliatePartners from '../src/components/affiliates/AffiliatePartners';
 import { cn } from '../src/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '../src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
-import AITravelAssistantLoader from './AITravelAssistantLoader';
+import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
 import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
 import SWMount from './SWMount';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const inter = Inter({ subsets: ['latin'], preload: false });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Global Travel Report',
     template: '%s | Global Travel Report',
@@ -46,8 +47,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_AU',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+    locale: 'en_US',
+    url: siteUrl,
     siteName: 'Global Travel Report',
     title: 'Global Travel Report',
     description: 'Independent travel news for Australian travellers, covering air travel, cruise, accommodation, destinations, deals, safety and travel technology.',
@@ -88,9 +89,9 @@ export const metadata: Metadata = {
     yahoo: process.env.YAHOO_VERIFICATION,
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+    canonical: siteUrl,
     languages: {
-      'en-AU': process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+      'en-US': siteUrl,
     },
   },
   category: 'travel',
@@ -101,16 +102,18 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const baseUrl = siteUrl;
   const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-K8BJQ43XFT';
 
   // Generate nonce for CSP
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   return (
-    <html lang="en-AU" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <head>
         <meta name="csp-nonce" content={nonce} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -152,7 +155,7 @@ export default function RootLayout({
               name: 'Global Travel Report',
               url: baseUrl,
               logo: `${baseUrl}/images/logo.webp`,
-              description: 'Independent travel news, practical context and destination coverage for Australian travellers.',
+              description: 'Your ultimate travel companion for discovering amazing destinations, insider tips, and inspiring stories from around the world.',
               foundingDate: '2024',
               knowsAbout: [
                 'Travel',
@@ -167,13 +170,20 @@ export default function RootLayout({
                 'Accommodation',
                 'Finance and Points'
               ],
-              areaServed: 'Australia',
+              areaServed: 'Worldwide',
               sameAs: [
                 'https://twitter.com/globaltravelreport',
                 'https://facebook.com/globaltravelreport',
                 'https://instagram.com/globaltravelreport',
                 'https://linkedin.com/company/globaltravelreport'
-              ]
+              ],
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: undefined,
+                contactType: 'customer service',
+                availableLanguage: 'English',
+                email: 'contact@globaltravelreport.com'
+              }
             } as const)
           }}
         />
@@ -216,7 +226,7 @@ export default function RootLayout({
               <Toaster />
             </SearchParamsProvider>
           </ErrorBoundary>
-          {process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true' ? <AITravelAssistantLoader /> : null}
+          <AITravelAssistantMount />
           <Suspense fallback={null}>
             <WebVitalsTracker />
           </Suspense>

@@ -22,12 +22,12 @@ export const metadata: Metadata = {
       },
     ],
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_AU',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@globaltravelreport',
-    creator: '@globaltravelreport',
+    site: '@GTravelReport',
+    creator: '@GTravelReport',
     title: 'Travel Deals & Offers - Global Travel Report',
     description: 'Compare trusted travel partners for accommodation, transfers, eSIMs, insurance, privacy, finance and practical trip planning offers.',
     images: ['/og/facebook-home-20260509'],
@@ -73,49 +73,23 @@ export default function OffersPage() {
     return acc;
   }, {} as Record<string, typeof affiliatePartners>);
 
-  // Sample promotional offers (in production, this would come from an API)
-  const promotionalOffers = [
-    {
-      id: 'welcome-bonus',
-      title: 'New Customer Welcome Bonus',
-      description: 'Get 10% off your first booking with Trip.com',
-      partner: 'Trip.com',
-      discount: '10% OFF',
-      validUntil: '2025-12-31',
-      featured: true
-    },
-    {
-      id: 'airport-transfer',
-      title: 'Airport Transfer Discount',
-      description: 'Save 15% on airport transfers with Welcome Pickups',
-      partner: 'Welcome Pickups',
-      discount: '15% OFF',
-      validUntil: '2025-12-31',
-      featured: true
-    },
-    {
-      id: 'esim-data',
-      title: 'Global Data Plans',
-      description: 'Unlimited data in 200+ countries starting at $4.50',
-      partner: 'Airalo',
-      discount: 'FROM $4.50',
-      validUntil: '2025-12-31',
-      featured: false
-    },
-    {
-      id: 'vpn-security',
-      title: 'Travel Security Suite',
-      description: 'Complete online protection for travelers',
-      partner: 'Surfshark VPN',
-      discount: 'SPECIAL OFFER',
-      validUntil: '2025-12-31',
-      featured: false
-    }
-  ];
+  // Promotions remain empty until their terms, expiry and verification date are
+  // supplied by a maintained source. Partner links are still available below.
+  const verifiedPromotionalOffers: Array<{
+    id: string;
+    title: string;
+    description: string;
+    partner: string;
+    discount: string;
+    validUntil: string;
+    verifiedAt: string;
+    termsUrl: string;
+    featured: boolean;
+  }> = [];
 
   return (
     <EnhancedOffersPageClient
-      promotionalOffers={promotionalOffers}
+      promotionalOffers={verifiedPromotionalOffers}
       partnersByCategory={partnersByCategory}
     />
   );

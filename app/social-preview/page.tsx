@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default function SocialPreviewTestPage() {
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://globaltravelreport.com/social-preview';
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://www.globaltravelreport.com/social-preview';
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">

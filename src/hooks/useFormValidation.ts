@@ -37,11 +37,12 @@ export function useFormValidation<T>(schema: ZodSchema<T>, initial: T) {
     setSuccess(false);
     setErrors({});
     try {
-      schema.parse(values);
+      const submission = { ...values, csrfToken } as T & { csrfToken: string };
+      schema.parse(submission);
       if (!csrfToken) {
         throw new Error('CSRF token not available');
       }
-      await submitFn({ ...values, csrfToken });
+      await submitFn(submission);
       setSuccess(true);
     } catch (err: any) {
       if (err instanceof ZodError) {

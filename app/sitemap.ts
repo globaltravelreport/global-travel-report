@@ -1,15 +1,15 @@
 import { MetadataRoute } from 'next';
 import { getAllStories } from '@/src/utils/stories';
 import { enhanceStoryForSEO } from '@/utils/seoEnhancer';
-import { optimizeStoryImageForSeo } from '@/utils/imageSeoOptimizer';
 import { CATEGORIES } from '@/src/config/categories';
+import { slugify } from '@/src/utils/url';
 
 /**
  * Generate a dynamic sitemap based on actual content
  * @returns A sitemap configuration for Next.js
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const currentDate = new Date();
 
   // Get all stories
@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter(Boolean)
   ));
 
+
   // Static routes
   const routes = [
     '',
@@ -40,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/offers',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
+    lastModified: currentDate,
     changeFrequency: route === '' || route === '/stories' || route === '/categories' ? 'daily' as const : 'monthly' as const,
     priority: route === '' ? 1 : route === '/categories' ? 0.9 : 0.8,
   }));
@@ -50,8 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Enhance the story with SEO optimizations
       const enhancedStory = enhanceStoryForSEO(story);
 
-      // Get optimized image data
-      const { imageUrl } = optimizeStoryImageForSeo(enhancedStory);
+      const imageUrl = enhancedStory.imageUrl || enhancedStory.coverImage?.url;
 
       // Calculate story age for priority adjustment
       const storyDate = new Date(enhancedStory.publishedAt || currentDate);
@@ -100,21 +101,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency = 'yearly'; // Very old content, rarely changes
       }
 
-      const sitemapEntry: MetadataRoute.Sitemap[number] = {
+      // Create the basic sitemap entry
+      const sitemapEntry: any = {
         url: `${baseUrl}/stories/${enhancedStory.slug}`,
         lastModified,
         changeFrequency,
         priority,
       };
 
-      // Add image data if available with enhanced SEO information
+      // Next's MetadataRoute sitemap expects image URLs as strings.
       if (imageUrl) {
         const fullImageUrl = imageUrl.startsWith('http')
           ? imageUrl
           : `${baseUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
 
-        // Next.js serialises sitemap images as URL strings. Supplying an object
-        // produces an invalid <image:loc>[object Object]</image:loc> entry.
         sitemapEntry.images = [fullImageUrl];
       }
 
@@ -138,6 +138,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return {
       url: `${baseUrl}/categories/${category.slug}`,
+      lastModified: currentDate,
       changeFrequency: "weekly" as const,
       priority,
     };
@@ -145,7 +146,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Country routes - dynamically generated from actual stories
   const countryRoutes = countries.map((country) => ({
-    url: `${baseUrl}/countries/${country.toLowerCase().replace(/\s+/g, '-')}`,
+    url: `${baseUrl}/countries/${slugify(country)}`,
+    lastModified: currentDate,
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));

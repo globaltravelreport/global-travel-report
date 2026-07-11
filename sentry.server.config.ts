@@ -11,4 +11,3 @@ Sentry.init({
     return event;
   },
 });
-

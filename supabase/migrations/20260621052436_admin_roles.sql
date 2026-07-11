@@ -22,4 +22,3 @@ create policy "users can read their own role"
 -- role management through the Data API.
 revoke all on table public.user_roles from anon;
 grant select on table public.user_roles to authenticated;
-

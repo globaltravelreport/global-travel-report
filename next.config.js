@@ -122,6 +122,7 @@ const nextConfig = withBundleAnalyzer({
       { protocol: 'https', hostname: 'via.placeholder.com' },
     ],
     formats: ['image/webp', 'image/avif'],
+    qualities: [75, 85, 90],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
@@ -132,6 +133,12 @@ const nextConfig = withBundleAnalyzer({
     const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
     const csp = buildCSP({ env });
     return [
+      {
+        source: '/',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=900, stale-while-revalidate=86400' },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [
@@ -149,7 +156,7 @@ const nextConfig = withBundleAnalyzer({
       {
         source: '/api/(.*)',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: process.env.NODE_ENV === 'production' ? 'https://globaltravelreport.com' : '*' },
+          { key: 'Access-Control-Allow-Origin', value: process.env.NODE_ENV === 'production' ? 'https://www.globaltravelreport.com' : '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization, X-Requested-With' },
           { key: 'Access-Control-Max-Age', value: '86400' },
@@ -196,7 +203,7 @@ const nextConfig = withBundleAnalyzer({
 
   // Environment variables
   env: {
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com',
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com',
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
   },
 

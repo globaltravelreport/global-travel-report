@@ -9,6 +9,8 @@ import { cn } from '../../lib/utils';
 import { SocialLinks } from '../ui/SocialLinks';
 // Theme toggle has been removed
 
+const protectedEmailHtml = '<!--email_off-->editorial@globaltravelreport.com<!--/email_off-->';
+
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,7 +41,7 @@ export default function Header() {
               <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              editorial@globaltravelreport.com
+              <span dangerouslySetInnerHTML={{ __html: protectedEmailHtml }} />
             </span>
             <span className="flex items-center">
               <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +85,7 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium pointer-events-auto">
+          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium pointer-events-auto">
             <a
               href="/"
               className={cn(
@@ -180,13 +182,11 @@ export default function Header() {
 
           {/* Search and Social */}
           <div className="flex items-center space-x-2">
-            <a href="/search">
-              <Button variant="ghost" size="sm" className="rounded-full text-white hover:bg-[#19273A]/50">
+            <a href="/search" aria-label="Search" className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white hover:bg-[#19273A]/50">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <span className="sr-only">Search</span>
-              </Button>
             </a>
 
             <Button
@@ -194,6 +194,8 @@ export default function Header() {
               size="sm"
               className="rounded-full text-white hover:bg-[#19273A]/50 lg:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               <span className="sr-only">Toggle menu</span>
               {isMobileMenuOpen ? (
@@ -212,7 +214,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
+        <div id="mobile-navigation" className="lg:hidden border-t border-[#19273A]/30 bg-gradient-to-r from-[#19273A] to-[#2A3F5F] text-white">
           <div className="container py-4">
             <nav className="flex flex-col space-y-4">
               <a
@@ -323,7 +325,7 @@ export default function Header() {
                     <svg className="w-4 h-4 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    editorial@globaltravelreport.com
+                    <span dangerouslySetInnerHTML={{ __html: protectedEmailHtml }} />
                   </span>
                   <span className="flex items-center">
                     <svg className="w-4 h-4 mr-2 text-[#C9A14A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

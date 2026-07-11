@@ -75,8 +75,8 @@ export class StoryDatabase {
     }
 
     try {
-      // Use mock stories as the primary data source
-      this.stories = [...mockStories];
+      // Keep mock stories as a local fallback only. Production content comes from Supabase.
+      this.stories = SupabaseStoryStore.isConfigured() ? [] : [...mockStories];
 
       // Process all stories to ensure dates are valid while preserving public publish dates.
       this.stories = this.stories.map((story) => {
@@ -118,7 +118,8 @@ export class StoryDatabase {
 
         return visibleStories(Array.from(byId.values()));
       } catch (error) {
-        console.error('Supabase story fetch failed, using in-memory stories', error);
+        console.error('Supabase story fetch failed; serving cached in-memory stories only', error);
+        return visibleStories([...this.stories]);
       }
     }
 
@@ -155,6 +156,7 @@ export class StoryDatabase {
    */
   public async getStoryBySlug(slug: string): Promise<Story | null> {
     await this.initialize();
+    const normalizedSlug = slug.trim().toLowerCase();
 
     if (HIDDEN_STORY_SLUGS.has(slug.trim().toLowerCase())) {
       return null;
@@ -167,12 +169,11 @@ export class StoryDatabase {
           return publicStory(story);
         }
       } catch (error) {
-        console.error('Supabase story slug lookup failed, using in-memory stories', error);
+        console.error('Supabase story slug lookup failed; serving cached in-memory stories only', error);
+        const fallbackStory = this.stories.find((story) => story.slug.toLowerCase() === normalizedSlug);
+        return isHiddenStory(fallbackStory) || !fallbackStory ? null : publicStory(fallbackStory);
       }
     }
-
-    // Normalize the slug for comparison
-    const normalizedSlug = slug.trim().toLowerCase();
 
     // Try exact match first
     let story = this.stories.find(s => s.slug === slug);

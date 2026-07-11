@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import StoriesIndexClient from './StoriesIndexClient.tsx';
+import { getAllStories } from '@/src/utils/stories';
 
 // Force dynamic rendering to ensure stories are loaded at runtime
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Travel Stories - Global Travel Report',
+  title: 'Travel Stories',
   description: 'Discover inspiring travel stories, destination guides, and insider tips from around the world. Explore our collection of engaging travel content with stunning visuals and expert insights.',
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/stories`,
@@ -49,6 +50,7 @@ export const metadata: Metadata = {
   keywords: ['travel stories', 'travel guides', 'destination guides', 'travel tips', 'travel inspiration', 'travel blog'],
 };
 
-export default function StoriesPage() {
-  return <StoriesIndexClient />;
+export default async function StoriesPage() {
+  const stories = await getAllStories();
+  return <StoriesIndexClient initialStories={stories} />;
 }

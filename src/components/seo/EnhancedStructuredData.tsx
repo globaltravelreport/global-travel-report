@@ -30,7 +30,7 @@ export function EnhancedStructuredData({ data, id = 'structured-data' }: Structu
  * Generate WebSite structured data
  */
 export function WebsiteStructuredData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   const websiteData = {
     '@context': 'https://schema.org',
@@ -71,7 +71,7 @@ export function WebsiteStructuredData() {
  * Generate Organization structured data
  */
 export function OrganizationStructuredData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   const organizationData = {
     '@context': 'https://schema.org',
@@ -111,7 +111,7 @@ export function OrganizationStructuredData() {
  */
 export function BreadcrumbStructuredData() {
   const pathname = usePathname();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   
   // Skip for homepage
   if (pathname === '/') {
@@ -182,7 +182,7 @@ export function ArticleStructuredData({
   tags?: string[];
 }) {
   const pathname = usePathname();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
   const articleUrl = `${baseUrl}${pathname}`;
   
   const articleData = {

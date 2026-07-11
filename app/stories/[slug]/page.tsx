@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<StoryParams
   const { title, description } = generateStoryMeta(story);
 
   // Construct the canonical URL for this story
-  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
+  const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
 
   // Generate Facebook-optimized metadata
   const facebookMeta = generateFacebookMeta({
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: { params: Promise<StoryParams
   const optimizedAltText = story.title;
 
   // Get the base site URL
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   const _baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
@@ -156,11 +156,19 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
     }
 
         // Fetch related stories for 'Recommended for You' section
-        const relatedStories = await SupabaseStoryStore.getRelatedStories({
-                slug: story.slug,
-                category: story.category,
-                country: story.country,
-              });
+        let relatedStories: Awaited<ReturnType<typeof SupabaseStoryStore.getRelatedStories>> = [];
+        try {
+          if (SupabaseStoryStore.isConfigured()) {
+            relatedStories = await SupabaseStoryStore.getRelatedStories({
+              slug: story.slug,
+              category: story.category,
+              country: story.country,
+            });
+          }
+        } catch (error) {
+          // Related content is optional; never turn a readable article into an error shell.
+          console.error('Related stories unavailable:', error);
+        }
 
     // Construct the canonical URL for this story
     const storyUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/stories/${story.slug}`;
@@ -196,7 +204,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
                 "@type": "ListItem",
                 "position": 3,
                 "name": story.category,
-                "item": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/categories/${story.category.toLowerCase()}`
+                "item": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/categories/${story.category.toLowerCase().replace(/\s+/g, '-')}`
               },
               {
                 "@type": "ListItem",
@@ -217,7 +225,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
             <Breadcrumb
               items={[
                 { label: 'Stories', href: '/stories' },
-                { label: story.category, href: `/categories/${story.category.toLowerCase()}` },
+                { label: story.category, href: `/categories/${story.category.toLowerCase().replace(/\s+/g, '-')}` },
                 { label: story.title, active: true }
               ]}
               className="text-sm"

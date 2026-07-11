@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 function FeedsPageContent() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   // Get all categories that should have feeds
   const categoryFeeds = CATEGORIES.filter(cat => !cat.parent); // Only main categories

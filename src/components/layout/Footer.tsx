@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { FaFacebook, FaXTwitter, FaMedium, FaLinkedin, FaYoutube, FaTiktok, FaTumblr } from "react-icons/fa6";
 import { AffiliateDisclosure } from '@/src/components/legal/AffiliateDisclosure';
+import { NewsletterSignup } from '@/src/components/ui/NewsletterSignup';
 
 export default function Footer() {
   return (
@@ -16,24 +17,7 @@ export default function Footer() {
               </p>
             </div>
             <div className="w-full md:w-auto">
-              <form className="flex flex-col sm:flex-row gap-3">
-                <label htmlFor="footer-email" className="sr-only">Email address for newsletter</label>
-                <input
-                  id="footer-email"
-                  type="email"
-                  placeholder="Your email address"
-                  className="px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A14A] text-white w-full sm:w-64"
-                  aria-label="Email address for newsletter subscription"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-[#C9A14A] hover:bg-[#B89038] text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#C9A14A]"
-                  aria-label="Subscribe to newsletter"
-                >
-                  Subscribe
-                </button>
-              </form>
+              <NewsletterSignup variant="footer" title="" description="" compact />
             </div>
           </div>
         </div>

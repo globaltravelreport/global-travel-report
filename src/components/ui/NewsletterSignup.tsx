@@ -146,14 +146,14 @@ export function NewsletterSignup({
 
       {/* Error message */}
       <AnimatePresence>
-        {errors.global && (
+        {(errors.global || errors._form) && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             className="p-3 bg-red-50 border border-red-200 rounded-lg"
           >
-            <p className="text-red-800 text-sm">{errors.global}</p>
+            <p className="text-red-800 text-sm">{errors.global || errors._form}</p>
           </motion.div>
         )}
       </AnimatePresence>

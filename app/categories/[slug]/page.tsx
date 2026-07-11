@@ -26,7 +26,7 @@ async function getCategoryStories(categorySlug: string): Promise<Story[]> {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
   // Find the category in the config
   const categoryData = getCategoryBySlug(slug);

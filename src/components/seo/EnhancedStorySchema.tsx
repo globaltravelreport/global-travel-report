@@ -32,21 +32,21 @@ export function EnhancedStorySchema({
     'author': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
-      'url': 'https://globaltravelreport.com'
+      'url': 'https://www.globaltravelreport.com'
     },
     'publisher': {
       '@type': 'Organization',
       'name': 'Global Travel Report',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://globaltravelreport.com/logo.png',
+        'url': 'https://www.globaltravelreport.com/logo.png',
         'width': 400,
         'height': 60
       }
     },
     'mainEntityOfPage': {
       '@type': 'WebPage',
-      '@id': `https://globaltravelreport.com/stories/${story.slug}`
+      '@id': `https://www.globaltravelreport.com/stories/${story.slug}`
     },
     'articleSection': story.category,
     'keywords': story.tags?.join(', '),
@@ -56,7 +56,7 @@ export function EnhancedStorySchema({
     'isPartOf': {
       '@type': 'Blog',
       'name': 'Global Travel Report',
-      'url': 'https://globaltravelreport.com'
+      'url': 'https://www.globaltravelreport.com'
     },
     // Travel-specific properties
     'about': [
@@ -89,19 +89,19 @@ export function EnhancedStorySchema({
         '@type': 'ListItem',
         'position': 1,
         'name': 'Home',
-        'item': 'https://globaltravelreport.com'
+        'item': 'https://www.globaltravelreport.com'
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': story.category,
-        'item': `https://globaltravelreport.com/categories/${story.category.toLowerCase()}`
+        'item': `https://www.globaltravelreport.com/categories/${story.category.toLowerCase()}`
       },
       {
         '@type': 'ListItem',
         'position': 3,
         'name': story.title,
-        'item': `https://globaltravelreport.com/stories/${story.slug}`
+        'item': `https://www.globaltravelreport.com/stories/${story.slug}`
       }
     ]
   };
@@ -115,7 +115,7 @@ export function EnhancedStorySchema({
       '@type': 'Article',
       'position': index + 1,
       'headline': relatedStory.title,
-      'url': `https://globaltravelreport.com/stories/${relatedStory.slug}`,
+      'url': `https://www.globaltravelreport.com/stories/${relatedStory.slug}`,
       'image': relatedStory.imageUrl,
       'datePublished': relatedStory.publishedAt,
       'author': {

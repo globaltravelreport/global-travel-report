@@ -88,17 +88,17 @@ export default async function Home() {
       <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-24 lg:px-8">
         <div className="grid grid-cols-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm sm:grid-cols-3">
           <a href="/categories" className="group border-b border-gray-200 p-6 transition-colors hover:bg-[#F8F5EC] sm:border-b-0 sm:border-r">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Browse</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#8A6A20]">Browse</p>
             <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Explore Categories</h3>
             <p className="text-sm leading-6 text-gray-600">Find travel stories by theme, from air travel and cruise to deals and safety.</p>
           </a>
           <a href="/destinations" className="group border-b border-gray-200 p-6 transition-colors hover:bg-[#F8F5EC] sm:border-b-0 sm:border-r">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Plan</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#8A6A20]">Plan</p>
             <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Destinations</h3>
             <p className="text-sm leading-6 text-gray-600">Scan destination coverage and practical context for Australian travellers.</p>
           </a>
           <a href="/search" className="group p-6 transition-colors hover:bg-[#F8F5EC]">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C9A14A]">Find</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#8A6A20]">Find</p>
             <h3 className="mb-2 text-lg font-bold text-[#19273A] group-hover:text-[#8A6A20]">Search</h3>
             <p className="text-sm leading-6 text-gray-600">Look up specific airlines, cruise lines, countries, offers, or travel topics.</p>
           </a>

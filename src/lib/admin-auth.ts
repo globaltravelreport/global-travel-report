@@ -58,4 +58,3 @@ export async function requireAdmin(): Promise<AuthorizedUser | NextResponse> {
 export function isAuthorizationResponse(value: AuthorizedUser | NextResponse): value is NextResponse {
   return value instanceof NextResponse;
 }
-

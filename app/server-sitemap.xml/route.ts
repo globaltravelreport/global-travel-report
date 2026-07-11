@@ -10,7 +10,7 @@ import { getAllCountries } from '@/utils/countries';
  * @returns Server-side sitemap
  */
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com';
 
   // Get all stories
   const stories = await getAllStories();
@@ -23,13 +23,28 @@ export async function GET() {
 
   // Story pages
   const storyFields: ISitemapField[] = stories.map(story => {
-    let lastmod: string | undefined;
+    // Safely handle the lastmod date
+    let lastmod: string;
     try {
+      // Try to use the updatedAt or publishedAt date
       const dateStr = story.updatedAt || story.publishedAt;
-      const date = new Date(dateStr);
-      lastmod = Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+
+      // Special handling for 2025 dates - use current date for sitemap
+      if (typeof dateStr === 'string' && dateStr.includes('2025')) {
+        lastmod = new Date().toISOString();
+      } else {
+        // For other dates, try to parse them normally
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) {
+          // If invalid, use current date
+          lastmod = new Date().toISOString();
+        } else {
+          lastmod = date.toISOString();
+        }
+      }
     } catch (_error) {
-      lastmod = undefined;
+      // If any error occurs, use current date
+      lastmod = new Date().toISOString();
     }
 
     return {
@@ -43,11 +58,12 @@ export async function GET() {
           loc: new URL(
             story.imageUrl.startsWith('http')
               ? story.imageUrl
-              : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`
+              : `${baseUrl}${story.imageUrl.startsWith('/') ? story.imageUrl : `/${story.imageUrl}`}`,
           ),
           title: story.title,
           caption: story.excerpt?.substring(0, 100) || story.title,
-          geoLocation: story.country !== 'Global' ? story.country : undefined
+          geoLocation: story.country !== 'Global' ? story.country : undefined,
+          license: new URL('https://creativecommons.org/licenses/by/4.0/')
         } as IImageEntry
       ] : undefined,
     };

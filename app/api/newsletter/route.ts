@@ -10,15 +10,22 @@ import { BrevoService } from '@/services/brevoService';
 // Newsletter subscription request schema with enhanced validation
 const newsletterSchema = z.object({
   email: z.string().email('Invalid email address').max(255),
-  firstName: z.string().min(1, 'First name is required').max(100),
-  lastName: z.string().min(1, 'Last name is required').max(100),
-  frequency: z.enum(['daily', 'weekly', 'monthly']),
-  honeypot: z.string().max(0, 'Bot detected'), // Honeypot field - should be empty
+  firstName: z.string().max(100).optional().default(''),
+  lastName: z.string().max(100).optional().default(''),
+  frequency: z.enum(['daily', 'weekly', 'monthly']).optional().default('weekly'),
+  honeypot: z.string().max(0, 'Bot detected').optional().default(''), // Honeypot field - should be empty
   csrfToken: z.string().optional(),
 });
 
 // Define the request type
-type NewsletterRequest = z.infer<typeof newsletterSchema>;
+type NewsletterRequest = {
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  frequency?: 'daily' | 'weekly' | 'monthly';
+  honeypot?: string;
+  csrfToken?: string;
+};
 
 // Newsletter service configuration (currently using mock responses)
 
@@ -73,7 +80,7 @@ export const POST = createApiHandler<NewsletterRequest>(
     }
 
     // Extract and sanitize data from the request
-    const { email, firstName, lastName, frequency = 'weekly', honeypot } = data;
+    const { email, firstName = '', lastName = '', frequency = 'weekly', honeypot = '' } = data;
 
     // Honeypot validation - if filled, it's likely a bot
     if (honeypot && honeypot.length > 0) {

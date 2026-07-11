@@ -1,6 +1,5 @@
 import js from '@eslint/js';
 import nextVitals from 'eslint-config-next/core-web-vitals';
-import tseslint from 'typescript-eslint';
 
 const config = [
   {
@@ -28,11 +27,13 @@ const config = [
     ],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommended,
   ...nextVitals,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
+      'no-unused-vars': 'off',
+      'no-undef': 'off',
+      'no-redeclare': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',

@@ -112,12 +112,12 @@
 
   /* Improved link styles */
   a:not([class]) {
-    @apply text-[#C9A14A] hover:text-[#E6C677] underline focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2 rounded;
+    @apply text-[#8A6A20] hover:text-[#6B5117] underline focus:outline-none focus:ring-2 focus:ring-[#8A6A20] focus:ring-offset-2 rounded;
   }
 
   /* Improved button styles */
   button:not([class]) {
-    @apply px-4 py-2 rounded-md bg-[#C9A14A] text-white hover:bg-[#E6C677] focus:outline-none focus:ring-2 focus:ring-[#C9A14A] focus:ring-offset-2;
+    @apply px-4 py-2 rounded-md bg-[#C9A14A] text-[#19273A] hover:bg-[#D8B75C] focus:outline-none focus:ring-2 focus:ring-[#8A6A20] focus:ring-offset-2;
   }
 
   /* Consistent card styles */
