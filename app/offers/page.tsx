@@ -51,14 +51,14 @@ export default function OffersPage() {
   // Group partners by category (using manual mapping since data doesn't include category)
   const categoryMapping: Record<string, string> = {
     'Trip.com': 'Accommodation',
-    'Welcome Pickups': 'Transportation',
-    'Yesim': 'Connectivity',
-    'EKTA': 'Travel Essentials',
-    'Kiwitaxi': 'Transportation',
-    'Airalo': 'Connectivity',
-    'GetRentacar.com': 'Transportation',
-    'Surfshark VPN': 'Travel Essentials',
-    'Surfshark One': 'Travel Essentials',
+    'Welcome Pickups': 'Transfers',
+    'Yesim': 'eSIMs/Connectivity',
+    'EKTA': 'Travel Insurance',
+    'Kiwitaxi': 'Transfers',
+    'Airalo': 'eSIMs/Connectivity',
+    'GetRentacar.com': 'Transfers',
+    'Surfshark VPN': 'Privacy',
+    'Surfshark One': 'Privacy',
     'Wise': 'Finance',
     'AMEX Platinum': 'Finance',
     'UP Card': 'Finance'
