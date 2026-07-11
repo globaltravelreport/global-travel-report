@@ -4,9 +4,11 @@ import { getAllStories, getHomepageStories } from '../src/utils/stories';
 import type { Metadata } from 'next';
 import type { Story } from '../types/Story';
 
-// Refresh the homepage regularly while still allowing Vercel to cache the large
-// story payload between automated publishing runs.
-export const revalidate = 900;
+// The homepage is a live newsroom index. It must read the same current Supabase
+// data as the individual story routes and sitemap instead of serving a stale
+// render after a new story has been published.
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 export const metadata: Metadata = {
   title: {

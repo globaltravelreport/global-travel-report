@@ -15,18 +15,24 @@ import { generateStoryContent } from '../src/services/aiService.ts';
 import { StoryDatabase } from '../src/services/storyDatabase.ts';
 import { SupabaseStoryStore } from '../src/services/supabaseStoryStore.ts';
 import { UnsplashService } from '../src/services/unsplashService.ts';
+import { checkStoryDiversity } from '../src/utils/storyDiversity.ts';
 
 dotenv.config({ path: '.env.local' });
 
-const MAX_STORIES_PER_DAY = Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '3', 10), 3);
+// A single daily cron run publishes the five-story editorial target. This
+// keeps the schedule compatible with Vercel's cron limits and avoids jobs
+// being silently skipped on lower plans.
+const MAX_STORIES_PER_RUN = Math.max(1, Math.min(Number.parseInt(process.env.MAX_STORIES_PER_DAY || '5', 10), 5));
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
-const MAX_CANDIDATES_TO_REVIEW = Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '4', 10), 6);
+const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '10', 10), 10));
 const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '2', 10), 2);
-const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '45000', 10), 50000);
-const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 8000;
+const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '55000', 10), 55000);
+const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 5000;
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
-const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES === 'true';
+// Publishing is the default production behavior. Set this to "false" only
+// when deliberately switching the pipeline to draft-only review mode.
+const AUTO_PUBLISH_STORIES = process.env.AUTO_PUBLISH_STORIES !== 'false';
 
 const parser = new Parser({
   timeout: Number.parseInt(process.env.RSS_FETCH_TIMEOUT_MS || '5000', 10),
@@ -356,6 +362,38 @@ function normaliseCategory(value, fallback = 'Travel News') {
 
   const inferred = inferCategory(`${value || ''} ${fallback || ''}`);
   return ALLOWED_CATEGORIES.includes(inferred) ? inferred : 'Travel News';
+}
+
+function selectDiverseCandidates(candidates, limit) {
+  const byCategory = new Map();
+
+  for (const candidate of candidates) {
+    const category = normaliseCategory(candidate.category);
+    const bucket = byCategory.get(category) || [];
+    bucket.push(candidate);
+    byCategory.set(category, bucket);
+  }
+
+  const selected = [];
+  const categories = Array.from(byCategory.keys());
+
+  while (selected.length < limit) {
+    let addedCandidate = false;
+
+    for (const category of categories) {
+      const candidate = byCategory.get(category)?.shift();
+      if (!candidate) continue;
+
+      selected.push(candidate);
+      addedCandidate = true;
+
+      if (selected.length >= limit) break;
+    }
+
+    if (!addedCandidate) break;
+  }
+
+  return selected;
 }
 
 function inferCountry(text) {
@@ -937,7 +975,10 @@ function buildStory(source, rewrite, image) {
   }
 
   const now = new Date().toISOString();
-  const publishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
+  const originalPublishedAt = rewrite.publishedAt || source.originalPublishedAt || now;
+  // The public feed should reflect when Global Travel Report published the
+  // article, while retaining the source timestamp separately for attribution.
+  const publishedAt = now;
   const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
 
@@ -956,7 +997,7 @@ function buildStory(source, rewrite, image) {
     publishedAt,
     updatedAt: now,
     date: publishedAt,
-    originalPublishedAt: publishedAt,
+    originalPublishedAt,
     firstSeenAt: now,
     source: source.sourceName || source.sourceFeedUrl,
     sourceUrl: source.sourceUrl,
@@ -978,13 +1019,24 @@ function buildStory(source, rewrite, image) {
   };
 }
 
-async function processCandidate(source) {
+async function processCandidate(source, recentStories) {
   if (await isDuplicate(source)) {
     return {
       status: 'duplicate',
       title: source.title,
       sourceUrl: source.sourceUrl,
       sourceWordCount: wordCount(source.content)
+    };
+  }
+
+  const diversity = checkStoryDiversity(source, recentStories);
+  if (!diversity.allowed) {
+    return {
+      status: 'rejected',
+      title: source.title,
+      sourceUrl: source.sourceUrl,
+      sourceWordCount: wordCount(source.content),
+      reason: diversity.reason
     };
   }
 
@@ -1076,7 +1128,17 @@ async function runDailyAutomation() {
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
-  const selected = candidates.slice(0, MAX_CANDIDATES_TO_REVIEW);
+  const recentStories = await db.getAllStories();
+  const existingSourceUrls = new Set(recentStories.map((story) => story.sourceUrl).filter(Boolean));
+  const existingContentHashes = new Set(recentStories.map((story) => story.contentHash).filter(Boolean));
+  const existingSlugs = new Set(recentStories.map((story) => story.slug).filter(Boolean));
+  const unseenCandidates = candidates.filter((candidate) => {
+    const candidateHash = hash(`${candidate.sourceUrl}:${candidate.title}`);
+    return !existingSourceUrls.has(candidate.sourceUrl) &&
+      !existingContentHashes.has(candidateHash) &&
+      !existingSlugs.has(slugify(candidate.title));
+  });
+  const selected = selectDiverseCandidates(unseenCandidates, MAX_CANDIDATES_TO_REVIEW);
 
   for (const source of selected) {
     if (Date.now() + MIN_TIME_FOR_NEXT_CANDIDATE_MS > deadline) {
@@ -1089,7 +1151,7 @@ async function runDailyAutomation() {
     }
 
     try {
-      const processed = await processCandidate(source);
+      const processed = await processCandidate(source, recentStories);
       result.processed.push(processed);
       result.summary.reviewedCandidates++;
 
@@ -1099,7 +1161,11 @@ async function runDailyAutomation() {
       if (processed.status === 'rejected') result.summary.rejected++;
       if ((processed.sourceWordCount || 0) >= MIN_SOURCE_WORDS) result.eligibleCandidatesFound++;
 
-      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_DAY) {
+      if (processed.story) {
+        recentStories.push(processed.story);
+      }
+
+      if (result.summary.drafts + result.summary.published >= MAX_STORIES_PER_RUN) {
         break;
       }
     } catch (error) {

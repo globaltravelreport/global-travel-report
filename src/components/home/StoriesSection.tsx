@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { getHomepageStories } from '../../utils/stories';
 import { Story } from '../../../types/Story';

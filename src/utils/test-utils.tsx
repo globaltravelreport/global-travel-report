@@ -42,17 +42,9 @@ export function renderWithProviders(
     ...renderOptions
   }: CustomRenderOptions = {}
 ) {
-  // Mock window.location
-  Object.defineProperty(window, 'location', {
-    value: {
-      pathname: route,
-      search: '',
-      hash: '',
-      href: `http://localhost${route}`,
-      origin: 'http://localhost',
-    },
-    writable: true,
-  });
+  // JSDOM's Location is non-configurable. Updating history gives tests the
+  // requested URL without replacing a browser-owned object.
+  window.history.replaceState({}, '', route);
 
   // Create a wrapper with all providers
   function AllProviders({ children }: { children: ReactNode }) {
