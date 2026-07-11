@@ -52,10 +52,12 @@ export default function StoriesIndexClient({ initialStories }: { initialStories:
     .slice(0, 2);
 
   // Get regular stories with pagination
-  const allRegularStories = stories.filter(story => !story.editorsPick && !story.featured && story.content && story.content.length > 100);
-  const totalPages = Math.ceil(allRegularStories.length / storiesPerPage);
+  const publishableStories = stories.filter(story => story.content && story.content.length > 100);
+  const allRegularStories = publishableStories.filter(story => !story.editorsPick && !story.featured);
+  const displayStories = allRegularStories.length > 0 ? allRegularStories : publishableStories;
+  const totalPages = Math.ceil(displayStories.length / storiesPerPage);
   const startIndex = (currentPage - 1) * storiesPerPage;
-  const paginatedStories = allRegularStories.slice(startIndex, startIndex + storiesPerPage);
+  const paginatedStories = displayStories.slice(startIndex, startIndex + storiesPerPage);
 
   return (
     <div className="min-h-screen bg-white">
@@ -216,6 +218,7 @@ export default function StoriesIndexClient({ initialStories }: { initialStories:
                         ? 'text-blue-600 bg-blue-50 border-blue-300'
                         : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-50'
                     }`}
+                    aria-current={pageNum === currentPage ? 'page' : undefined}
                   >
                     {pageNum}
                   </button>
