@@ -18,6 +18,7 @@ import { StoryShareSection } from "@/components/stories/StoryShareSection";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
+import RecommendedDeals from "@/components/monetisation/RecommendedDeals";
 import { generateFacebookMeta } from "@/utils/facebook-optimizer";
 import InterlineSponsorPlacement from "@/components/sponsorship/InterlineSponsorPlacement";
 
@@ -369,7 +370,11 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
               />
             )}
 
-
+            <RecommendedDeals
+              title={story.title}
+              category={story.category}
+              country={story.country}
+            />
 
             <AdSenseInArticle />
           </div>
