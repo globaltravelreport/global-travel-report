@@ -41,14 +41,6 @@ export function FacebookMetaTags({
       }
     };
 
-    // Helper function to remove meta tag if it exists
-    const removeMetaTag = (property: string, attribute: string = 'property') => {
-      const tag = document.querySelector(`meta[${attribute}="${property}"]`);
-      if (tag) {
-        document.head.removeChild(tag);
-      }
-    };
-
     // Set core Open Graph tags (these should override any existing ones for consistency)
     setMetaTag('og:title', title);
     setMetaTag('og:description', description);
