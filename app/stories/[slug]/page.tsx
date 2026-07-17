@@ -327,17 +327,20 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
               </p>
               {story.sourceUrl && (
                 <p className="mt-2">
-                  Source reference:{' '}
+                  Source:{' '}
                   <a
                     href={story.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium text-[#8A6A20] underline"
                   >
-                    original source
+                    {story.source || 'Original reporting'}
                   </a>
                 </p>
               )}
+              <p className="mt-2 text-xs text-gray-600">
+                We distinguish original source material from our editorial context and update stories when material facts change.
+              </p>
             </div>
 
             <InterlineSponsorPlacement className="not-prose mb-8" />

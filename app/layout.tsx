@@ -220,7 +220,10 @@ export default function RootLayout({
                     {children}
                   </Suspense>
                 </main>
-                <AffiliatePartners />
+                <AffiliatePartners
+                  maxPartners={6}
+                  className="mt-12"
+                />
                 <Footer />
               </div>
               <Toaster />
