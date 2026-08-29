@@ -44,12 +44,8 @@ export function AdSense({
       const isProduction = process.env.NODE_ENV === 'production';
       const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === 'true';
 
-      if ((isProduction || adsEnabled) && typeof window !== 'undefined') {
-        // Check if adsbygoogle is defined
-        if (window.adsbygoogle && adRef.current) {
-          // Push the ad to adsbygoogle for rendering
-          window.adsbygoogle.push({});
-        }
+      if ((isProduction || adsEnabled) && typeof window !== 'undefined' && adRef.current) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (_error) {
       console.error(_error);
