@@ -10,7 +10,7 @@ export async function GET(
   _req: NextRequest
 ) {
   // Generate a new CSRF token
-  const token = createCsrfToken();
+  const token = await createCsrfToken();
 
   // Return the token
   return NextResponse.json(

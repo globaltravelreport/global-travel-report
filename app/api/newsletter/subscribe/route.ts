@@ -1,76 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { NewsletterService } from '@/src/services/newsletterService';
+import { NextResponse } from 'next/server';
 
 /**
- * Newsletter Subscription API
- * POST /api/newsletter/subscribe
+ * Leftover /api/newsletter/subscribe callers go through the real Brevo
+ * handler. The in-memory fake drip is gone. Do not restore it.
  */
+export { POST, OPTIONS } from '../route';
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { email, firstName, lastName, preferences, source } = body;
-
-    // Validate required fields
-    if (!email || !email.includes('@')) {
-      return NextResponse.json(
-        { error: 'Valid email address is required' },
-        { status: 400 }
-      );
-    }
-
-    const newsletterService = NewsletterService.getInstance();
-
-    // Subscribe user
-    const result = await newsletterService.subscribeUser(
-      email,
-      {
-        ...preferences,
-        firstName,
-        lastName
-      },
-      source || 'website'
-    );
-
-    if (result.success) {
-      return NextResponse.json({
-        success: true,
-        message: 'Successfully subscribed to newsletter!',
-        subscriber: result.subscriber
-      });
-    } else {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 400 }
-      );
-    }
-
-  } catch (_error) {
-    console.error(_error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * GET endpoint to get newsletter statistics
- */
 export async function GET() {
-  try {
-    const newsletterService = NewsletterService.getInstance();
-    const stats = await newsletterService.getSubscriberStats();
-
-    return NextResponse.json({
-      success: true,
-      stats
-    });
-  } catch (_error) {
-    console.error(_error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json({ error: 'Not found' }, { status: 404 });
 }
