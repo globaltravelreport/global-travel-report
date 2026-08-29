@@ -145,6 +145,12 @@ export default function RootLayout({
             });
           `}
         </Script>
+        <Script
+          id="adsense"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005772594728149"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
 
         <script
           type="application/ld+json"

@@ -15,6 +15,8 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://www.gstatic.com',
     'https://www.recaptcha.net', // alternate reCAPTCHA CDN
     'https://static.cloudflareinsights.com', // Cloudflare Analytics
+    'https://pagead2.googlesyndication.com',
+    'https://www.googleadservices.com',
     "'unsafe-inline'", // Allow inline scripts for Next.js hydration
   ].filter(Boolean).join(' ');
   const styleSrc = [
@@ -51,6 +53,9 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     'https://www.gstatic.com',
     'https://www.recaptcha.net',
     'https://yybjxcpuvcesoccmgtgj.supabase.co',
+    'https://pagead2.googlesyndication.com',
+    'https://googleads.g.doubleclick.net',
+    'https://www.googleadservices.com',
   ].join(' ');
   const fontSrc = [
     `'self'`,
@@ -61,7 +66,10 @@ function buildCSP({ nonce = '', env = 'production', reportOnly = false } = {}) {
     `'self'`,
     'https://www.google.com',
     'https://www.gstatic.com',
-    'https://www.recaptcha.net'
+    'https://www.recaptcha.net',
+    'https://googleads.g.doubleclick.net',
+    'https://tpc.googlesyndication.com',
+    'https://pagead2.googlesyndication.com'
   ].join(' ');
   const policy = [
     `default-src 'self'`,
