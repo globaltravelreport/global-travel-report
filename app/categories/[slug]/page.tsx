@@ -228,10 +228,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`travel-style-${style.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(_e) => {
-                            // Filter functionality would be implemented here
-                            console.log(`Filter by travel style: ${style}`);
-                          }}
                         />
                         <span className="ml-2 text-sm text-gray-700 capitalize">{style}</span>
                       </label>
@@ -253,9 +249,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`destination-${country.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(_e) => {
-                            console.log(`Filter by destination: ${country}`);
-                          }}
                         />
                         <span className="ml-2 text-sm text-gray-700">{country}</span>
                       </label>
@@ -277,9 +270,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           type="checkbox"
                           id={`topic-${tag.toLowerCase().replace(/\s+/g, '-')}`}
                           className="rounded border-gray-300 text-[#C9A14A] focus:ring-[#C9A14A]"
-                          onChange={(_e) => {
-                            console.log(`Filter by tag: ${tag}`);
-                          }}
                         />
                         <span className="ml-2 text-sm text-gray-700 capitalize">{tag}</span>
                       </label>
@@ -291,10 +281,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             <div className="mt-4 pt-4 border-t border-gray-100">
               <button
-                onClick={() => {
-                  // Clear all filters
-                  console.log('Clear all filters');
-                }}
                 className="text-sm text-[#C9A14A] hover:text-[#B89038] font-medium"
               >
                 Clear All Filters
