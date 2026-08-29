@@ -137,11 +137,10 @@ export const POST = createApiHandler<NewsletterRequest>(
          additionalData: { email: sanitizedEmail, frequency }
        });
 
-       // Return a graceful error response instead of crashing
+       // Do not fake-succeed: missing Brevo key or API errors must fail visibly
        return createApiResponse({
-         message: 'Thank you for your interest! We\'ll add you to our newsletter list.',
-         data: { email: sanitizedEmail, frequency }
-       });
+         error: 'Newsletter signup is temporarily unavailable. Please try again later.',
+       }, { status: 503 });
      }
   },
   {
