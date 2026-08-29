@@ -137,9 +137,19 @@ export const POST = createApiHandler<NewsletterRequest>(
          additionalData: { email: sanitizedEmail, frequency }
        });
 
-       // Do not fake-succeed: missing Brevo key or API errors must fail visibly
+       // Do not fake-succeed. Return a non-secret code so we can tell
+       // missing-key from a Brevo API rejection without logging the key.
+       const raw = _error instanceof Error ? _error.message : '';
+       const code = !raw
+         ? 'brevo_failed'
+         : raw.includes('not configured')
+           ? 'key_missing'
+           : /json|unexpected end/i.test(raw)
+             ? 'empty_body'
+             : raw.replace(/xkeysib-[a-zA-Z0-9-]+/gi, '[redacted]').slice(0, 180);
        return createApiResponse({
          error: 'Newsletter signup is temporarily unavailable. Please try again later.',
+         code,
        }, { status: 503 });
      }
   },

@@ -59,7 +59,8 @@ export class BrevoService {
    */
   async addContact(contact: BrevoContact): Promise<BrevoApiResponse> {
     try {
-      if (!this.apiKey) {
+      const apiKey = process.env.BREVO_API_KEY || this.apiKey;
+      if (!apiKey) {
         throw new Error('Brevo API key not configured');
       }
 
@@ -67,7 +68,7 @@ export class BrevoService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'api-key': this.apiKey,
+          'api-key': apiKey,
         },
         body: JSON.stringify({
           email: contact.email,
