@@ -77,7 +77,12 @@ export class BrevoService {
         }),
       });
 
-      const data = await response.json();
+      // Brevo returns 204 No Content when updateEnabled updates an existing contact.
+      if (response.status === 204) {
+        return { success: true, data: { updated: true } };
+      }
+
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         throw new Error(data.message || `HTTP ${response.status}`);
