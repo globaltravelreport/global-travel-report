@@ -232,7 +232,10 @@ export class StoryDatabase {
         console.log(`Saved story "${story.title}" to Supabase`);
         return savedStory;
       } catch (error) {
-        console.error('Supabase story save failed, using in-memory storage', error);
+        // Never report a durable publish when Supabase is configured but the write failed.
+        // The old in-memory fallback made pipeline jobs look successful while the live site stayed thin.
+        console.error('Supabase story save failed', error);
+        throw error instanceof Error ? error : new Error(String(error));
       }
     }
 
