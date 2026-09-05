@@ -518,7 +518,16 @@ function buildOriginalFallbackTitle(source, category) {
     ? `${brand} ${categoryLabel} Update for Travellers`
     : `${countryPrefix}${categoryLabel} Update for Travellers`;
 
-  return buildFallbackTitle(base);
+  // Keep fallback titles distinct so slug/id collisions do not wipe or block same-day publishes.
+  const sourceHint = stripHtml(source.title || '')
+    .replace(/[^\w\s]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 2)
+    .slice(0, 8)
+    .join(' ');
+
+  return buildFallbackTitle(sourceHint ? `${base}: ${sourceHint}` : base);
 }
 
 function buildMetaExcerpt(text = '') {
@@ -979,8 +988,9 @@ function buildStory(source, rewrite, image) {
   // The public feed should reflect when Global Travel Report published the
   // article, while retaining the source timestamp separately for attribution.
   const publishedAt = now;
-  const slug = slugify(rewrite.title);
   const contentHash = hash(`${source.sourceUrl}:${source.title}`);
+  // Suffix content hash so generic fallback titles cannot collide on the unique slug column.
+  const slug = `${slugify(rewrite.title)}-${contentHash.slice(0, 8)}`.replace(/-+$/g, '').slice(0, 90);
 
   let excerpt = rewrite.excerpt || '';
   if (excerpt.length > 155) {
