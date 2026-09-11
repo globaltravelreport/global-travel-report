@@ -1,7 +1,3 @@
-import React from 'react';
-import Script from 'next/script';
-import DOMPurify from 'isomorphic-dompurify';
-
 interface StructuredDataProps {
   /**
    * Structured data to render
@@ -15,18 +11,18 @@ interface StructuredDataProps {
 }
 
 /**
- * Component for adding structured data (JSON-LD) to a page
+ * Emit crawler-visible JSON-LD as a real application/ld+json script.
+ * Avoid next/script — it often leaves schema only in the RSC flight payload.
+ * Escape "<" so the JSON cannot break out of the script tag.
  */
 export function StructuredData({ data, id = 'structured-data' }: StructuredDataProps) {
-  // Convert data to string and sanitize
-  const jsonLd = JSON.stringify(data);
-  const sanitizedJsonLd = DOMPurify.sanitize(jsonLd);
+  const jsonLd = JSON.stringify(data).replace(/</g, '\\u003c');
 
   return (
-    <Script
+    <script
       id={id}
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: sanitizedJsonLd }}
+      dangerouslySetInnerHTML={{ __html: jsonLd }}
     />
   );
 }
