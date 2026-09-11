@@ -26,7 +26,7 @@ Use short paragraphs, natural transitions, and a confident travel editor voice.
 Preserve all factual claims from the source. Do not invent prices, dates, routes, airlines, cruise lines, warnings, visa rules, or official advice.
 If a fact is unclear in the source, phrase it cautiously.
 Avoid clickbait headlines.
-Avoid formulaic openings and AI clichés such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", or "seamless experience".
+Never use headlines like "Update for Travellers" or category-only stubs. Avoid formulaic openings and AI clichés such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", or "seamless experience".
 Do not finish with a generic conclusion. End with a useful planning note, booking implication, timing consideration, or official-advice caveat.
 Vary paragraph openings and sentence rhythm so consecutive stories do not share the same shape.
 Prefer concrete details from the source over abstract praise.
