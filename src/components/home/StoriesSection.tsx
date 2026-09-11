@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { getHomepageStories } from '../../utils/stories';
 import { Story } from '../../../types/Story';
-import { MostViewedThisWeek } from '../engagement/MostViewedThisWeek';
-import { TrendingDestinations } from '../engagement/TrendingDestinations';
 
 type StoriesSectionProps = {
   initialStories: Story[];
@@ -146,14 +144,7 @@ export default function StoriesSection({ initialStories }: StoriesSectionProps) 
           );
         })}
       </div>
-
-      {/* Engagement Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        <MostViewedThisWeek maxItems={5} />
-        <TrendingDestinations maxItems={6} />
-      </div>
-
-      {/* Navigation CTAs */}
+{/* Navigation CTAs */}
       <div className="text-center space-y-4">
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
