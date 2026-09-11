@@ -63,7 +63,7 @@ export function OpenGraphMeta({
   url,
   type = 'website',
   siteName = 'Global Travel Report',
-  locale = 'en_US',
+  locale = 'en_AU',
   publishedTime,
   modifiedTime,
   author,
