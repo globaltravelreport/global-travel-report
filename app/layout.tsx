@@ -109,7 +109,7 @@ export default function RootLayout({
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en-AU" className="scroll-smooth">
       <head>
         <meta name="csp-nonce" content={nonce} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
