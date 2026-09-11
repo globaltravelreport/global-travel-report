@@ -22,10 +22,8 @@ interface AdSenseProps {
 }
 
 /**
- * AdSense component for displaying Google AdSense ads
- *
- * @param props Component props
- * @returns AdSense component
+ * AdSense unit. Reserves height without dashed "empty ad" chrome that looks broken
+ * when inventory hasn't filled yet.
  */
 export function AdSense({
   className,
@@ -36,23 +34,22 @@ export function AdSense({
   layout = 'default',
   fullWidth = false,
 }: AdSenseProps) {
-  const adRef = useRef<HTMLDivElement>(null);
+  const pushed = useRef(false);
 
   useEffect(() => {
+    if (pushed.current) return;
     try {
-      // Only run in production or when explicitly enabled
       const isProduction = process.env.NODE_ENV === 'production';
       const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === 'true';
-
-      if ((isProduction || adsEnabled) && typeof window !== 'undefined' && adRef.current) {
+      if ((isProduction || adsEnabled) && typeof window !== 'undefined') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        pushed.current = true;
       }
     } catch (_error) {
       console.error(_error);
     }
   }, []);
 
-  // Set format classes based on the format prop
   const formatClasses = {
     auto: 'min-h-[90px] md:min-h-[250px]',
     horizontal: 'min-h-[90px]',
@@ -60,117 +57,87 @@ export function AdSense({
     rectangle: 'min-h-[250px] min-w-[300px]',
   };
 
-  // Set layout-specific attributes
-  const getAdAttributes = () => {
-    const baseAttributes = {
-      className: cn(
-        'block text-center overflow-hidden bg-gray-100 border border-dashed border-gray-300',
-        formatClasses[format],
-        fullWidth ? 'w-full' : '',
-        className
-      ),
-      style: {
-        ...style,
-        position: 'relative' as const,
-      },
-      'data-ad-client': 'ca-pub-4005772594728149',
-      'data-ad-slot': slot,
-    };
+  const sharedClass = cn(
+    'adsbygoogle block overflow-hidden bg-transparent',
+    formatClasses[format],
+    fullWidth ? 'w-full' : '',
+    className
+  );
 
-    if (layout === 'in-article') {
-      return {
-        ...baseAttributes,
-        className: cn(baseAttributes.className, 'adsbygoogle'),
-        'data-ad-format': 'fluid',
-        'data-ad-layout': 'in-article',
-      };
-    }
-
-    if (layout === 'in-feed') {
-      return {
-        ...baseAttributes,
-        className: cn(baseAttributes.className, 'adsbygoogle'),
-        'data-ad-format': 'fluid',
-        'data-ad-layout-key': '-fb+5w+4e-db+86',
-      };
-    }
-
-    // Default layout
-    return {
-      ...baseAttributes,
-      className: cn(baseAttributes.className, 'adsbygoogle'),
-      'data-ad-format': responsive ? 'auto' : format,
-      'data-full-width-responsive': responsive ? 'true' : 'false',
-    };
+  const sharedStyle: React.CSSProperties = {
+    display: 'block',
+    ...style,
   };
 
+  if (layout === 'in-article') {
+    return (
+      <ins
+        className={sharedClass}
+        style={sharedStyle}
+        data-ad-client="ca-pub-4005772594728149"
+        data-ad-slot={slot}
+        data-ad-format="fluid"
+        data-ad-layout="in-article"
+      />
+    );
+  }
+
+  if (layout === 'in-feed') {
+    return (
+      <ins
+        className={sharedClass}
+        style={sharedStyle}
+        data-ad-client="ca-pub-4005772594728149"
+        data-ad-slot={slot}
+        data-ad-format="fluid"
+        data-ad-layout-key="-fb+5w+4e-db+86"
+      />
+    );
+  }
+
   return (
-    <div ref={adRef} {...getAdAttributes()}>
-      {/* Add a label to make ad placements more visible during development */}
-      <div className="text-xs text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        Advertisement Space
-      </div>
-    </div>
+    <ins
+      className={sharedClass}
+      style={sharedStyle}
+      data-ad-client="ca-pub-4005772594728149"
+      data-ad-slot={slot}
+      data-ad-format={responsive ? 'auto' : format}
+      data-full-width-responsive={responsive ? 'true' : 'false'}
+    />
   );
 }
 
-/**
- * AdSenseInArticle component for displaying in-article ads
- *
- * @param props Component props
- * @returns AdSense component with in-article layout
- */
 export function AdSenseInArticle({
   className,
   slot = '3940256099',
 }: Partial<Omit<AdSenseProps, 'layout' | 'format'>>) {
   return (
-    <div className={cn('my-8 relative', className)}>
-      <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">
+    <div className={cn('my-8 relative', className)} aria-label="Advertisement">
+      <div className="text-xs text-gray-400 absolute -top-4 left-0 pointer-events-none">
         Advertisement
       </div>
-      <AdSense
-        slot={slot}
-        layout="in-article"
-        fullWidth
-      />
+      <AdSense slot={slot} layout="in-article" fullWidth />
     </div>
   );
 }
 
-/**
- * AdSenseInFeed component for displaying in-feed ads
- *
- * @param props Component props
- * @returns AdSense component with in-feed layout
- */
 export function AdSenseInFeed({
   className,
   slot = '1154567389',
 }: Partial<Omit<AdSenseProps, 'layout' | 'format'>>) {
   return (
-    <div className={cn('my-6', className)}>
-      <AdSense
-        slot={slot}
-        layout="in-feed"
-        fullWidth
-      />
+    <div className={cn('my-6', className)} aria-label="Advertisement">
+      <AdSense slot={slot} layout="in-feed" fullWidth />
     </div>
   );
 }
 
-/**
- * AdSenseSidebar component for displaying sidebar ads
- *
- * @param props Component props
- * @returns AdSense component for sidebar
- */
 export function AdSenseSidebar({
   className,
   slot = '7259870876',
 }: Partial<Omit<AdSenseProps, 'format'>>) {
   return (
-    <div className={cn('my-6', className)}>
+    <div className={cn('my-6', className)} aria-label="Advertisement">
       <AdSense
         slot={slot}
         format="vertical"
@@ -181,19 +148,13 @@ export function AdSenseSidebar({
   );
 }
 
-/**
- * AdSenseLeaderboard component for displaying leaderboard ads
- *
- * @param props Component props
- * @returns AdSense component for leaderboard
- */
 export function AdSenseLeaderboard({
   className,
   slot = '6487384954',
 }: Partial<Omit<AdSenseProps, 'format'>>) {
   return (
-    <div className={cn('my-6 mx-auto max-w-[728px] relative', className)}>
-      <div className="text-xs text-gray-500 absolute -top-4 left-0 pointer-events-none">
+    <div className={cn('my-6 mx-auto max-w-[728px] relative', className)} aria-label="Advertisement">
+      <div className="text-xs text-gray-400 absolute -top-4 left-0 pointer-events-none">
         Advertisement
       </div>
       <AdSense
