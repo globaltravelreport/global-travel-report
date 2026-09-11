@@ -11,7 +11,7 @@ import AffiliatePartners from '../src/components/affiliates/AffiliatePartners';
 import { cn } from '../src/utils/cn';
 import { AccessibilityProvider, SkipToContent } from '../src/components/accessibility/AccessibilityProvider';
 import { WebVitalsTracker } from '../src/components/analytics/WebVitalsTracker';
-import AITravelAssistantMount from '../src/components/experimental/AITravelAssistantMount';
+import AITravelAssistantLoader from './AITravelAssistantLoader';
 import { ClientLayoutWrapper } from './ClientLayoutWrapper';
 import { Suspense } from 'react';
 import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider';
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_AU',
     url: siteUrl,
     siteName: 'Global Travel Report',
     title: 'Global Travel Report',
@@ -234,7 +234,7 @@ export default function RootLayout({
               <Toaster />
             </SearchParamsProvider>
           </ErrorBoundary>
-          <AITravelAssistantMount />
+          {process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true' ? <AITravelAssistantLoader /> : null}
           <Suspense fallback={null}>
             <WebVitalsTracker />
           </Suspense>
