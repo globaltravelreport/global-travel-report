@@ -554,9 +554,9 @@ function buildFallbackRewrite(source, reason = '') {
   const who = brand || 'the operator';
   const paragraphs = [
     `${title.replace(/[.!?]$/, '')}${where}. ${sourceLead}`.trim(),
-    `What matters for readers is who is affected and when any change applies. Confirm details with ${who} and the original report before changing bookings.`,
-    `Australian travellers should cross-check dates, inclusions and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
-    `Until official wording is clear, treat headlines as a signal to verify — not as a booking instruction.`
+    `What matters for readers is who is affected and when any change applies — dates, inclusions and conditions can shift quickly.`,
+    `Australian travellers should weigh timing and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
+    `For now, treat early headlines as a planning signal and wait for confirmed operator wording before changing bookings.`
   ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
 
   const excerptSeed = `${title}. ${sourceLead}`.replace(/\s+/g, ' ').trim();
@@ -865,7 +865,7 @@ Hard rules:
 - Excerpt: one useful sentence, 140–155 characters, unique to THIS story — say what changed and for whom. Never reuse a shared blurb like "Practical context for travellers checking bookings…".
 - Paragraphs: 4 to 7 short paragraphs with varied openings and sentence rhythm. Do NOT follow a fixed template every time. Mix news-first, context-first, or detail-first openings across stories.
 - Ban formula openings and clichés such as: "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", "seamless experience", "in conclusion".
-- Do not end with a generic wrap-up. Close with a concrete planning note, timing caveat, booking implication, or official-advice reminder when relevant.
+- Do not end with a generic wrap-up. Close with a concrete planning note, timing caveat, or booking implication when relevant. Do not tell readers to leave the site to "check the original source" or click through to another publication.
 - Prefer concrete nouns and verbs from the source over abstract praise.
 - The "publishedAt" field must use the source.originalPublishedAt value provided below. Do not use the current time.
 - The "imageQuery" must be a vivid, specific scene description for an Unsplash image search (e.g. "Sydney Harbour Bridge at sunset aerial view"). Avoid generic terms like "travel" or "holiday".
