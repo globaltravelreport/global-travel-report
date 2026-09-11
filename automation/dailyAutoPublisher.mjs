@@ -522,6 +522,7 @@ function buildOriginalFallbackTitle(source, category) {
   }
 
   const country = inferCountry(`${source.title} ${source.content}`);
+  const brand = extractTravelBrand(source.title);
   const categoryLabel = category === 'Air Travel' ? 'Airline' : category;
   const subject = brand || (country !== 'Global' ? country : categoryLabel);
   return buildFallbackTitle(`${subject}: ${cleaned || categoryLabel + ' news Australian travellers should note'}`);
@@ -545,7 +546,6 @@ function buildMetaExcerpt(text = '') {
 function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
-  const brand = extractTravelBrand(source.title);
   const title = buildOriginalFallbackTitle(source, category);
   const sourceLead = splitSentences(source.content).slice(0, 2).join(' ')
     || stripHtml(source.content).replace(/\s+/g, ' ').trim().slice(0, 280);
