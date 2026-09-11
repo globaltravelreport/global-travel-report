@@ -10,11 +10,11 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(request: NextRequest) {
   try {
-    // Check for API key if this is a public endpoint
+    // Fail closed: require CRON_SECRET_KEY (or CRON_SECRET) and matching x-api-key.
     const apiKey = request.headers.get('x-api-key');
-    const secretKey = process.env.CRON_SECRET_KEY;
+    const secretKey = process.env.CRON_SECRET_KEY || process.env.CRON_SECRET;
 
-    if (secretKey && apiKey !== secretKey) {
+    if (!secretKey || apiKey !== secretKey) {
       return NextResponse.json(
         {
           success: false,

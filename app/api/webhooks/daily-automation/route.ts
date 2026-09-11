@@ -24,12 +24,12 @@ export const dynamic = 'force-dynamic';
  */
 export async function POST(request: NextRequest) {
   try {
-    // Verify webhook secret for security
+    // Fail closed: require MAKE_WEBHOOK_SECRET and a matching Bearer token.
     const authHeader = request.headers.get('authorization');
     const webhookSecret = process.env.MAKE_WEBHOOK_SECRET;
 
-    if (webhookSecret && authHeader !== `Bearer ${webhookSecret}`) {
-      console.log('❌ Webhook authentication failed');
+    if (!webhookSecret || authHeader !== `Bearer ${webhookSecret}`) {
+      console.log('Webhook authentication failed');
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

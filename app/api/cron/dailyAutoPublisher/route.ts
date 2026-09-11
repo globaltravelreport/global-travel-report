@@ -84,10 +84,10 @@ export async function POST(request: NextRequest) {
       return healthResponse();
     }
 
-    // Verify webhook secret for security
+    // Fail closed: require cron/webhook auth even if WEBHOOK_SECRET_KEY is unset.
     const webhookSecret = process.env.WEBHOOK_SECRET_KEY;
 
-    if (webhookSecret && !isCronRequestAuthorized(request, webhookSecret)) {
+    if (!isCronRequestAuthorized(request, webhookSecret)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
