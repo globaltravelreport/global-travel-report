@@ -522,7 +522,6 @@ function buildOriginalFallbackTitle(source, category) {
   }
 
   const country = inferCountry(`${source.title} ${source.content}`);
-  const brand = extractTravelBrand(source.title);
   const categoryLabel = category === 'Air Travel' ? 'Airline' : category;
   const subject = brand || (country !== 'Global' ? country : categoryLabel);
   return buildFallbackTitle(`${subject}: ${cleaned || categoryLabel + ' news Australian travellers should note'}`);
@@ -551,7 +550,6 @@ function buildFallbackRewrite(source, reason = '') {
   const sourceLead = splitSentences(source.content).slice(0, 2).join(' ')
     || stripHtml(source.content).replace(/\s+/g, ' ').trim().slice(0, 280);
   const where = country !== 'Global' ? ` (${country})` : '';
-  const who = brand || 'the operator';
   const paragraphs = [
     `${title.replace(/[.!?]$/, '')}${where}. ${sourceLead}`.trim(),
     `What matters for readers is who is affected and when any change applies — dates, inclusions and conditions can shift quickly.`,
