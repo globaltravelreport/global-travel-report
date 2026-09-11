@@ -27,7 +27,7 @@ Preserve all factual claims from the source. Do not invent prices, dates, routes
 If a fact is unclear in the source, phrase it cautiously.
 Avoid clickbait headlines.
 Never use headlines like "Update for Travellers", "Category Update for Travellers: …", or category-only stubs. Never use a shared excerpt such as "Practical context for travellers checking bookings…". Avoid formulaic openings and AI clichés such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", or "seamless experience".
-Do not finish with a generic conclusion. End with a useful planning note, booking implication, timing consideration, or official-advice caveat.
+Do not finish with a generic conclusion. End with a useful planning note, booking implication, or timing consideration. Do not tell readers to leave for another publication or "check the original source".
 Vary paragraph openings and sentence rhythm so consecutive stories do not share the same shape.
 Prefer concrete details from the source over abstract praise.
 Do not include hashtags.
@@ -114,7 +114,7 @@ Return the article in this structure:
 
 Headline: A clear, factual headline for Australian travellers, under 70 characters where possible
 Excerpt: 1 concise sentence summarising the practical reader value, under 155 characters
-Article: 5 to 8 short paragraphs that sound like a human travel editor. Vary the structure between stories (news-first, context-first, or detail-first). Cover the news, who is affected, key source details, Australian traveller context where relevant, and close with a practical next step, timing note, or official-advice caveat — without using the same paragraph order every time.
+Article: 5 to 8 short paragraphs that sound like a human travel editor. Vary the structure between stories (news-first, context-first, or detail-first). Cover the news, who is affected, key source details, Australian traveller context where relevant, and close with a practical next step or timing note — without using the same paragraph order every time, and without sending readers to another publication.
 Tags: 5 comma-separated SEO tags
 Country: best matching country, or Global if it is not country-specific
 Category: one best matching category from this exact list: ${CATEGORIES.map(category => category.name).join(', ')}
