@@ -33,7 +33,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/about',
     '/contact',
     '/stories',
-    '/search',
     '/privacy-policy',
     '/terms-of-service',
     '/categories', // Add the main categories page
