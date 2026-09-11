@@ -33,14 +33,11 @@ export function CookieConsentBanner({ className = '' }: CookieConsentBannerProps
   }, [pathname]);
 
   useEffect(() => {
-    // Check if user has already made a choice
+    // Check if user has already made a choice. Show immediately when needed —
+    // a delayed pop covers CTAs and feels like layout shift.
     const consent = localStorage.getItem('cookie_consent');
     if (!consent) {
-      // Show banner after a short delay
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 2000);
-      return () => clearTimeout(timer);
+      setIsVisible(true);
     }
   }, []);
 
