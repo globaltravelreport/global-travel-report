@@ -35,7 +35,6 @@
     "convert-to-webp:avif": "node scripts/convert-to-webp.js --avif",
     "generate-sw": "node scripts/generate-service-worker.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "postbuild": "next-sitemap",
     "content-audit": "node scripts/content-audit.js",
     "optimize-all": "npm run optimize-images && npm run convert-to-webp && npm run generate-sw && npm run generate-sitemap",
     "build:optimized": "npm run optimize-all && next build",
