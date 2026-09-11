@@ -26,7 +26,7 @@ const MAX_STORIES_PER_RUN = Math.max(1, Math.min(Number.parseInt(process.env.MAX
 const MIN_SOURCE_WORDS = Number.parseInt(process.env.MIN_RSS_SOURCE_WORDS || '120', 10);
 const MIN_REWRITTEN_WORDS = Number.parseInt(process.env.MIN_REWRITTEN_STORY_WORDS || '180', 10);
 const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.env.MAX_RSS_CANDIDATES_TO_REVIEW || '10', 10), 10));
-const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '2', 10), 2);
+const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '3', 10), 3);
 const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '55000', 10), 55000);
 const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 5000;
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
@@ -510,24 +510,22 @@ function extractTravelBrand(text = '') {
 }
 
 function buildOriginalFallbackTitle(source, category) {
+  // Prefer a cleaned source headline — never the old "X Update for Travellers" formula.
+  const cleaned = stripHtml(source.title || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\s*[|\-—:]\s*(Travel Weekly|TravelPulse|Cruise Industry News|Cruise Critic|Time Out|Travel \+ Leisure).*$/i, '')
+    .trim();
+
+  if (cleaned.length >= 24) {
+    return buildFallbackTitle(cleaned);
+  }
+
   const country = inferCountry(`${source.title} ${source.content}`);
   const brand = extractTravelBrand(source.title);
   const categoryLabel = category === 'Air Travel' ? 'Airline' : category;
-  const countryPrefix = country !== 'Global' && !brand ? `${country} ` : '';
-  const base = brand
-    ? `${brand} ${categoryLabel} Update for Travellers`
-    : `${countryPrefix}${categoryLabel} Update for Travellers`;
-
-  // Keep fallback titles distinct so slug/id collisions do not wipe or block same-day publishes.
-  const sourceHint = stripHtml(source.title || '')
-    .replace(/[^\w\s]/g, ' ')
-    .trim()
-    .split(/\s+/)
-    .filter((word) => word.length > 2)
-    .slice(0, 8)
-    .join(' ');
-
-  return buildFallbackTitle(sourceHint ? `${base}: ${sourceHint}` : base);
+  const subject = brand || (country !== 'Global' ? country : categoryLabel);
+  return buildFallbackTitle(`${subject}: ${cleaned || categoryLabel + ' news Australian travellers should note'}`);
 }
 
 function buildMetaExcerpt(text = '') {
@@ -551,24 +549,23 @@ function buildFallbackRewrite(source, reason = '') {
   const country = inferCountry(`${source.title} ${source.content}`);
   const brand = extractTravelBrand(source.title);
   const title = buildOriginalFallbackTitle(source, category);
-  const locationContext = country !== 'Global' ? ` in ${country}` : '';
-  const categoryContext = category.toLowerCase();
-  const subject = brand
-    ? `${brand}'s latest ${categoryContext} update`
-    : `the latest ${categoryContext} update${locationContext}`;
-  const context = `For Australian travellers, the update is worth noting as part of the wider ${categoryContext} picture. Travellers should check the original source and official operator guidance before making firm plans.`;
+  const sourceLead = splitSentences(source.content).slice(0, 2).join(' ')
+    || stripHtml(source.content).replace(/\s+/g, ' ').trim().slice(0, 280);
+  const where = country !== 'Global' ? ` (${country})` : '';
+  const who = brand || 'the operator';
   const paragraphs = [
-    `A fresh ${categoryContext} development${locationContext} is giving travellers another reason to check the details behind their next trip. The story concerns ${subject}, and it points to the kind of travel change that is worth checking before booking or departure.`,
-    `For readers comparing options, the practical message is to look beyond the headline and confirm what has changed, who is affected and when the change applies. Airline, cruise, hotel and destination updates can all carry booking conditions, timing issues or availability limits that are easy to miss during a quick search.`,
-    `The safest approach is to treat the story as a prompt for further checking before making a firm booking. Travellers should review the operator's current advice, compare it with any existing reservation details and keep a copy of relevant terms in case schedules, inclusions or requirements shift later.`,
-    `This is especially important for Australian travellers planning overseas trips, where time zones, long-haul connections and supplier policies can make small changes more disruptive. A short check before payment or departure can reduce the chance of surprise costs or avoidable itinerary problems.`,
-    context
-  ].filter((paragraph) => wordCount(paragraph) >= 8);
+    `${title.replace(/[.!?]$/, '')}${where}. ${sourceLead}`.trim(),
+    `What matters for readers is who is affected and when any change applies. Confirm details with ${who} and the original report before changing bookings.`,
+    `Australian travellers should cross-check dates, inclusions and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
+    `Until official wording is clear, treat headlines as a signal to verify — not as a booking instruction.`
+  ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
+
+  const excerptSeed = `${title}. ${sourceLead}`.replace(/\s+/g, ' ').trim();
 
   return {
     status: 'accepted',
     title,
-    excerpt: buildMetaExcerpt(`${title}. Practical context for travellers checking bookings, timing, operator advice and destination details before making plans.`),
+    excerpt: buildMetaExcerpt(excerptSeed),
     publishedAt: source.originalPublishedAt,
     paragraphs: paragraphs.slice(0, 5),
     content: paragraphs.slice(0, 5).join('\n\n'),
@@ -579,6 +576,7 @@ function buildFallbackRewrite(source, reason = '') {
     imageAltText: `${category} scene connected to ${title}`,
     fallbackReason: reason,
     fallback: true,
+    // Still marked safeFallback for telemetry, but auto-publish is blocked separately.
     safeFallback: true
   };
 }
@@ -771,8 +769,47 @@ const GENERIC_AI_PHRASES = [
   'game-changer',
   'game changer',
   'elevate your',
-  'seamless experience'
+  'seamless experience',
+  'update for travellers',
+  'practical context for travellers checking',
+  'giving travellers another reason to check',
+  'look beyond the headline',
+  'the safest approach is to treat the story',
+  'fresh luxury travel development',
+  'fresh cruise development',
+  'fresh airline development',
+  'kind of travel change that is worth checking'
 ];
+
+function isFormulaFallbackTitle(title = '') {
+  return /update for travellers/i.test(title);
+}
+
+function isThinOrFormulaCopy(rewrite) {
+  const title = rewrite?.title || '';
+  const excerpt = rewrite?.excerpt || '';
+  const content = rewrite?.content || '';
+  const blob = `${title}\n${excerpt}\n${content}`;
+
+  if (isFormulaFallbackTitle(title)) {
+    return 'formula-fallback-title';
+  }
+  if (/practical context for travellers checking/i.test(excerpt)) {
+    return 'formula-excerpt';
+  }
+  if (/giving travellers another reason to check the details/i.test(content)) {
+    return 'formula-body';
+  }
+  if (findGenericAiPhrases(blob).length >= 2) {
+    return 'generic-ai-phrases';
+  }
+  // Titles that are mostly category labels with almost no news noun
+  if (/^(Australia|Canada|Global)?\s*(Airline|Cruise|Tours|Destinations|Accommodation|Travel News|Luxury Travel)\b/i.test(title)
+    && title.split(/\s+/).length <= 6) {
+    return 'thin-title';
+  }
+  return null;
+}
 
 function findGenericAiPhrases(text) {
   const haystack = String(text || '').toLowerCase();
@@ -795,7 +832,9 @@ Hard rules:
 - Mention why the story matters to Australian travellers only where the source supports it.
 - Do not mention AI, automation, RSS, rewriting, prompts, or content generation.
 - Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}. Do not invent or modify category names.
-- Title: specific and factual for Australian travellers, under 70 characters. No clickbait, no vague hype, no "catchy" filler words.
+- Title: specific and factual for Australian travellers, under 70 characters. Must name the operator, place, or concrete change from the source. Never use "Update for Travellers", category-only headlines, or vague stubs like "Why" / "How" with no object.
+- Bad title examples to avoid: "Luxury Travel Update for Travellers: Inside Abercrombie Kent", "Australia Airline Update for Travellers: years How".
+- Good title examples: "Abercrombie & Kent adds Patagonia small-group departures", "Qantas tweaks Sydney–Tokyo schedule for peak season".
 - Excerpt: one useful sentence, 140–155 characters, for Google snippets — say what changed and for whom.
 - Paragraphs: 4 to 7 short paragraphs with varied openings and sentence rhythm. Do NOT follow a fixed template every time. Mix news-first, context-first, or detail-first openings across stories.
 - Ban formula openings and clichés such as: "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", "seamless experience", "in conclusion".
@@ -841,9 +880,9 @@ async function rewriteSource(source) {
 
   for (let attempt = 0; attempt < MAX_AI_REWRITE_ATTEMPTS; attempt++) {
     const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
-      // Slightly higher temp on first pass for more natural rhythm; second pass cooler for cleanup.
-      temperature: attempt === 0 ? 0.55 : 0.3,
-      maxTokens: 1200
+      // Moderate temperature: enough voice, low enough for reliable JSON from Workers AI.
+      temperature: attempt === 0 ? 0.4 : 0.35,
+      maxTokens: 1400
     });
 
     try {
@@ -1016,6 +1055,15 @@ function buildStory(source, rewrite, image) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - title too short or missing`);
     return null;
   }
+  if (isFormulaFallbackTitle(rewrite.title)) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title} - formula Update for Travellers title`);
+    return null;
+  }
+  const thinReason = isThinOrFormulaCopy(rewrite);
+  if (thinReason) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title} - ${thinReason}`);
+    return null;
+  }
   if (!rewrite.excerpt || rewrite.excerpt.length < 50) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - excerpt too short or missing`);
     return null;
@@ -1128,13 +1176,27 @@ async function processCandidate(source, recentStories) {
     };
   }
 
-  if (AUTO_PUBLISH_STORIES && rewrite.fallback && !rewrite.safeFallback) {
+  // Never auto-publish AI-failure fallbacks (including former "safeFallback" generic copy).
+  if (AUTO_PUBLISH_STORIES && rewrite.fallback) {
     return {
       status: 'rejected',
-      title: enrichedSource.title,
+      title: rewrite.title || enrichedSource.title,
       sourceUrl: enrichedSource.sourceUrl,
       sourceWordCount,
-      reason: 'fallback-rewrite-not-auto-published'
+      reason: rewrite.safeFallback
+        ? 'safe-fallback-not-auto-published'
+        : 'fallback-rewrite-not-auto-published'
+    };
+  }
+
+  const formulaReason = isThinOrFormulaCopy(rewrite);
+  if (formulaReason) {
+    return {
+      status: 'rejected',
+      title: rewrite.title || enrichedSource.title,
+      sourceUrl: enrichedSource.sourceUrl,
+      sourceWordCount,
+      reason: `quality-gate:${formulaReason}`
     };
   }
 
