@@ -281,7 +281,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
                     md: '100vw',
                     lg: '1200px'
                   }}
-                  quality={90}
+                  quality={75}
                   objectFit="cover"
                   lazyLoad={false}
                 />
