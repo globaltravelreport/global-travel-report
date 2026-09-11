@@ -1,23 +1,35 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { AITravelAssistant, AITravelButton } from './AITravelAssistant';
 
 /**
  * Only renders when NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true'.
- * Resets open state on route change to prevent the fixed panel
- * from persisting across navigation and intercepting header clicks.
+ * Dynamic-import the heavy framer-motion assistant so it never hits first paint
+ * when the feature is off (default).
  */
+const AITravelAssistant = dynamic(
+  () => import('./AITravelAssistant').then((m) => m.AITravelAssistant),
+  { ssr: false }
+);
+const AITravelButton = dynamic(
+  () => import('./AITravelAssistant').then((m) => m.AITravelButton),
+  { ssr: false }
+);
+
 export default function AITravelAssistantMount() {
   const [open, setOpen] = useState(false);
+  const [enabled, setEnabled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setEnabled(process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true');
+  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
-
-  const enabled = process.env.NEXT_PUBLIC_ENABLE_AI_ASSISTANT === 'true';
 
   if (!enabled) return null;
 
