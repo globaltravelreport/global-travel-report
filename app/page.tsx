@@ -1,5 +1,6 @@
 import Hero from '../src/components/home/Hero';
 import StoriesSection from '../src/components/home/StoriesSection';
+import { AdSenseLeaderboard } from '../src/components/ads/AdSense';
 import { getAllStories, getHomepageStories } from '../src/utils/stories';
 import type { Metadata } from 'next';
 import type { Story } from '../types/Story';
@@ -80,6 +81,11 @@ export default async function Home() {
     <div className="min-h-screen">
       {/* Hero Section with Featured Story */}
       <Hero stories={stories} />
+
+      {/* Homepage ad unit — loader already in root layout */}
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <AdSenseLeaderboard className="w-full" />
+      </div>
 
       {/* Stories Section */}
       <StoriesSection initialStories={stories} />
