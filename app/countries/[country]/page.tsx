@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<CountryPara
       title: `${country} Travel Stories - Global Travel Report`,
       description: `Explore travel stories, tips, and inspiration from ${country}. Discover the best experiences and destinations in ${country}.`,
       type: 'website',
-      locale: 'en_US',
+      locale: 'en_AU',
       siteName: 'Global Travel Report',
     },
     alternates: { canonical: `/countries/${slugify(country)}` },

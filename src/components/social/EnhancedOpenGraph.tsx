@@ -140,7 +140,7 @@ export function EnhancedOpenGraph({
   description,
   url,
   type = 'website',
-  locale = 'en_US',
+  locale = 'en_AU',
   siteName = 'Global Travel Report',
   images = [],
   videos = [],
