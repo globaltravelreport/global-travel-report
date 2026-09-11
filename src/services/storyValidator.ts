@@ -246,7 +246,14 @@ Return format: {"isSafe": true/false, "issues": ["issue1", "issue2"]}`;
       'unforgettable experience',
       'paradise',
       'travellers are set to',
-      'captivates travellers from all walks of life'
+      'captivates travellers from all walks of life',
+      "in today's fast-paced world",
+      'nestled in the heart of',
+      'delve into',
+      'game-changer',
+      'seamless experience',
+      'look no further',
+      'bucket list'
     ];
 
     for (const phrase of genericPhrases) {

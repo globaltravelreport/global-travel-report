@@ -26,9 +26,10 @@ Use short paragraphs, natural transitions, and a confident travel editor voice.
 Preserve all factual claims from the source. Do not invent prices, dates, routes, airlines, cruise lines, warnings, visa rules, or official advice.
 If a fact is unclear in the source, phrase it cautiously.
 Avoid clickbait headlines.
-Avoid formulaic openings such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", or "unforgettable experience".
+Avoid formulaic openings and AI clichés such as "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", or "seamless experience".
 Do not finish with a generic conclusion. End with a useful planning note, booking implication, timing consideration, or official-advice caveat.
-Vary paragraph openings and sentence rhythm.
+Vary paragraph openings and sentence rhythm so consecutive stories do not share the same shape.
+Prefer concrete details from the source over abstract praise.
 Do not include hashtags.
 `;
 
@@ -113,12 +114,7 @@ Return the article in this structure:
 
 Headline: A clear, factual headline for Australian travellers, under 70 characters where possible
 Excerpt: 1 concise sentence summarising the practical reader value, under 155 characters
-Article: 5 to 8 short paragraphs, with this editorial shape:
-- Paragraph 1: the news and why it matters
-- Paragraph 2: who is affected
-- Paragraph 3: key details from the source
-- Paragraph 4: Australian traveller context where relevant
-- Final paragraph: practical next step, timing note, or official-advice caveat
+Article: 5 to 8 short paragraphs that sound like a human travel editor. Vary the structure between stories (news-first, context-first, or detail-first). Cover the news, who is affected, key source details, Australian traveller context where relevant, and close with a practical next step, timing note, or official-advice caveat — without using the same paragraph order every time.
 Tags: 5 comma-separated SEO tags
 Country: best matching country, or Global if it is not country-specific
 Category: one best matching category from this exact list: ${CATEGORIES.map(category => category.name).join(', ')}
