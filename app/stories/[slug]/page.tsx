@@ -320,26 +320,6 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-muted-foreground mb-8">{story.excerpt}</p>
 
-            <div className="not-prose mb-8 rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
-              <p className="font-semibold text-[#19273A]">Editorial note</p>
-              <p className="mt-1">
-                Published by the Global Travel Report Editorial Desk. Source material is reviewed, rewritten for Australian travellers, and checked for factual caution before publication.
-              </p>
-              {story.sourceUrl && (
-                <p className="mt-2">
-                  Source reference:{' '}
-                  <a
-                    href={story.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-[#8A6A20] underline"
-                  >
-                    original source
-                  </a>
-                </p>
-              )}
-            </div>
-
             <InterlineSponsorPlacement className="not-prose mb-8" />
 
             <div
