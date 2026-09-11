@@ -112,9 +112,10 @@ export function ResponsiveImage({
         priority={priority}
         quality={quality}
         className={cn(
-          "transition-opacity duration-500",
-          !isLoaded && "opacity-0",
-          isLoaded && "opacity-100",
+          // Priority/LCP images must not start invisible — that delays LCP and looks like CLS.
+          !priority && "transition-opacity duration-500",
+          !priority && !isLoaded && "opacity-0",
+          (!priority && isLoaded) || priority ? "opacity-100" : "",
           className
         )}
         sizes={sizesString}
