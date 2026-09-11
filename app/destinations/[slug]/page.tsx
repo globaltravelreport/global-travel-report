@@ -104,7 +104,7 @@ export async function generateMetadata({ params }: { params: Promise<Destination
       title: `${city}, ${country} Travel Stories - Global Travel Report`,
       description: `Explore travel stories, tips, and inspiration from ${city}, ${country}. Discover the best experiences and destinations in ${city}.`,
       type: 'website',
-      locale: 'en_US',
+      locale: 'en_AU',
       siteName: 'Global Travel Report',
     },
   };
