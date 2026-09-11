@@ -604,9 +604,20 @@ function cheapRepairFormulaStoryFields(story) {
   const formula = title.match(/^(.+?)\s+Update for Travellers:\s*(.+)$/i);
   if (formula) {
     const after = formula[2].trim();
-    const before = formula[1].trim();
-    // Prefer the concrete tail after the colon; otherwise strip the formula phrase.
-    title = after.length >= 18 ? buildFallbackTitle(after) : buildFallbackTitle(before.replace(/\s+Update for Travellers$/i, '').trim() || after);
+    const before = formula[1].trim().replace(/\s+Update for Travellers$/i, '').trim();
+    const afterWords = after.split(/\s+/).filter(Boolean);
+    const weakTail = /^(why|how|what|this|that|royal|aussie|years|year|update)$/i.test(after)
+      || (afterWords.length <= 2 && /^(years|why|how)\b/i.test(after));
+    if (!weakTail && (after.length >= 14 || afterWords.length >= 2)) {
+      // Prefer concrete colon-tail: "Wyndham Watching", "Intrepid reveals", "Cruise Guest Confronts Alleged"
+      title = buildFallbackTitle(after);
+    } else if (!weakTail && after.length >= 6) {
+      title = buildFallbackTitle(after);
+    } else if (before.length >= 8) {
+      title = buildFallbackTitle(weakTail && after ? `${before}: ${after}` : before);
+    } else {
+      title = buildFallbackTitle(title.replace(/\s*Update for Travellers:?\s*/ig, ' ').replace(/\s+/g, ' ').trim());
+    }
   } else if (isFormulaFallbackTitle(title)) {
     title = buildFallbackTitle(title.replace(/\s*Update for Travellers:?\s*/ig, ' ').replace(/\s+/g, ' ').trim());
   }
@@ -631,7 +642,8 @@ async function repairPublishedFallbackStories() {
 
   try {
     const stories = await SupabaseStoryStore.getPublishedStories();
-    const repairable = stories.slice(0, 25).filter(shouldRepairFallbackStory);
+    // Cap per cron run; ~166 formula titles in sitemap today — flag stays off until CoS approves.
+    const repairable = stories.slice(0, 40).filter(shouldRepairFallbackStory);
     let repaired = 0;
 
     for (const story of repairable) {
@@ -647,7 +659,7 @@ async function repairPublishedFallbackStories() {
       await SupabaseStoryStore.upsertStory({
         ...story,
         title,
-        slug: slugify(title),
+        // Keep existing slug so live /stories/... URLs do not 404.
         excerpt,
         // Keep existing body — title/excerpt-only cleanup.
         updatedAt: new Date().toISOString()
