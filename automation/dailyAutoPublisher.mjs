@@ -745,24 +745,62 @@ async function fetchRssCandidates(feedUrls) {
   return { candidates: unique, failures };
 }
 
-function buildRewritePrompt(source, previousError = '') {
-  return `You are the Global Travel Report editorial desk for Australian readers.
+const GENERIC_AI_PHRASES = [
+  'whether you are a seasoned traveller',
+  'whether you\'re a seasoned traveller',
+  'hidden gem',
+  'must-visit',
+  'must visit',
+  'unforgettable experience',
+  'paradise',
+  'travellers are set to',
+  'travelers are set to',
+  'captivates travellers from all walks of life',
+  'in today\'s fast-paced world',
+  'it goes without saying',
+  'a testament to',
+  'nestled in the heart of',
+  'breathtaking views',
+  'bucket list',
+  'look no further',
+  'without further ado',
+  'in conclusion',
+  'delve into',
+  'dive into',
+  'unpack',
+  'game-changer',
+  'game changer',
+  'elevate your',
+  'seamless experience'
+];
 
-Rewrite this RSS source into an original travel news draft.
+function findGenericAiPhrases(text) {
+  const haystack = String(text || '').toLowerCase();
+  return GENERIC_AI_PHRASES.filter((phrase) => haystack.includes(phrase));
+}
+
+function buildRewritePrompt(source, previousError = '') {
+  return `You are a human travel editor at Global Travel Report writing for Australian readers.
+
+Rewrite this RSS source into an original travel news article that sounds like a real journalist wrote it — not an AI summary.
 
 Hard rules:
 - Return only valid JSON. No markdown.
 - Do not invent dates, prices, passenger numbers, route details, opening dates, warnings, visa rules, quotes, or statistics.
 - If the source text does not support a detail, omit it.
-  - The source has already passed the minimum quality check. Do not reject normal travel news, aviation, cruise, hotel, destination, travel technology, travel safety or travel industry stories.
-  - Return "status": "accepted" unless the source is unrelated to travel or impossible to understand.
-- Use Australian English.
-- Keep the tone clear, practical, and editorial.
-- Mention why the story matters to Australian travellers where supported by the source.
-- Do not mention AI, automation, RSS, rewriting, or prompts.
+- The source has already passed the minimum quality check. Do not reject normal travel news, aviation, cruise, hotel, destination, travel technology, travel safety or travel industry stories.
+- Return "status": "accepted" unless the source is unrelated to travel or impossible to understand.
+- Use Australian English (favourite, organise, travelling, harbour).
+- Voice: practical, warm, clear, confident editorial desk — never salesy, breathless, or robotic.
+- Mention why the story matters to Australian travellers only where the source supports it.
+- Do not mention AI, automation, RSS, rewriting, prompts, or content generation.
 - Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}. Do not invent or modify category names.
-- The "title" must be a catchy, engaging headline under 60 characters.
-- The "excerpt" must be a Google meta description between 140 and 155 characters for Google search snippets.
+- Title: specific and factual for Australian travellers, under 70 characters. No clickbait, no vague hype, no "catchy" filler words.
+- Excerpt: one useful sentence, 140–155 characters, for Google snippets — say what changed and for whom.
+- Paragraphs: 4 to 7 short paragraphs with varied openings and sentence rhythm. Do NOT follow a fixed template every time. Mix news-first, context-first, or detail-first openings across stories.
+- Ban formula openings and clichés such as: "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", "seamless experience", "in conclusion".
+- Do not end with a generic wrap-up. Close with a concrete planning note, timing caveat, booking implication, or official-advice reminder when relevant.
+- Prefer concrete nouns and verbs from the source over abstract praise.
 - The "publishedAt" field must use the source.originalPublishedAt value provided below. Do not use the current time.
 - The "imageQuery" must be a vivid, specific scene description for an Unsplash image search (e.g. "Sydney Harbour Bridge at sunset aerial view"). Avoid generic terms like "travel" or "holiday".
 - The "imageAltText" must be a descriptive 10 to 15 word sentence for Google image SEO, describing the scene as it relates to the article.
@@ -771,15 +809,15 @@ ${previousError ? `- Your previous response failed validation: ${previousError}.
 Return this JSON shape:
 {
   "status": "accepted",
-      "title": "catchy headline under 60 characters",
-      "excerpt": "Google meta description between 140 and 155 characters",
-          "publishedAt": "${source.originalPublishedAt || new Date().toISOString()}",
-  "paragraphs": ["4 to 7 short paragraphs"],
+  "title": "specific factual headline under 70 characters",
+  "excerpt": "useful meta description between 140 and 155 characters",
+  "publishedAt": "${source.originalPublishedAt || new Date().toISOString()}",
+  "paragraphs": ["4 to 7 short human-sounding paragraphs"],
   "category": "one exact category from the allowed list",
   "country": "best matching country or Global",
   "tags": ["5", "short", "tags"],
-      "imageQuery": "vivid specific Unsplash travel scene search query",
-          "imageAltText": "10 to 15 word descriptive sentence for Google image SEO"
+  "imageQuery": "vivid specific Unsplash travel scene search query",
+  "imageAltText": "10 to 15 word descriptive sentence for Google image SEO"
 }
 
 Source title: ${source.title}
@@ -803,7 +841,8 @@ async function rewriteSource(source) {
 
   for (let attempt = 0; attempt < MAX_AI_REWRITE_ATTEMPTS; attempt++) {
     const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
-      temperature: attempt === 0 ? 0.2 : 0,
+      // Slightly higher temp on first pass for more natural rhythm; second pass cooler for cleanup.
+      temperature: attempt === 0 ? 0.55 : 0.3,
       maxTokens: 1200
     });
 
@@ -813,6 +852,17 @@ async function rewriteSource(source) {
         previousError = candidate.reason
           ? `You returned rejected: ${candidate.reason}. This source is eligible; rewrite it as accepted JSON unless it is unrelated to travel.`
           : 'You returned rejected. This source is eligible; rewrite it as accepted JSON unless it is unrelated to travel.';
+        continue;
+      }
+
+      const candidateText = [
+        candidate.title,
+        candidate.excerpt,
+        ...(Array.isArray(candidate.paragraphs) ? candidate.paragraphs : [])
+      ].join('\n');
+      const banned = findGenericAiPhrases(candidateText);
+      if (banned.length > 0 && attempt < MAX_AI_REWRITE_ATTEMPTS - 1) {
+        previousError = `Remove generic/AI-sounding phrases (${banned.slice(0, 4).join(', ')}) and rewrite in a natural editorial voice with varied paragraph openings.`;
         continue;
       }
 
@@ -833,6 +883,15 @@ async function rewriteSource(source) {
 
   if (!parsed.title || !parsed.excerpt || paragraphs.length < 3) {
     parsed = buildFallbackRewrite(source, 'AI response was incomplete');
+  }
+
+  const phraseHits = findGenericAiPhrases([
+    parsed.title,
+    parsed.excerpt,
+    ...paragraphs
+  ].join('\n'));
+  if (phraseHits.length > 0 && !parsed.safeFallback) {
+    console.warn(`[HUMANIZE] Soft-fail phrases still present for "${parsed.title || source.title}": ${phraseHits.join(', ')}`);
   }
 
   const finalParagraphs = Array.isArray(parsed.paragraphs)
@@ -980,6 +1039,12 @@ function buildStory(source, rewrite, image) {
   }
   if (hasCopiedSentence(source.content, `${rewrite.excerpt}\n${rewrite.content}`)) {
     console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - copied source sentence`);
+    return null;
+  }
+
+  const genericHits = findGenericAiPhrases(`${rewrite.title}\n${rewrite.excerpt}\n${rewrite.content}`);
+  if (genericHits.length >= 3) {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - too many generic AI phrases (${genericHits.join(', ')})`);
     return null;
   }
 
