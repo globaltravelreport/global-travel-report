@@ -18,7 +18,7 @@ import { SearchParamsProvider } from '../src/components/ui/SearchParamsProvider'
 import SWMount from './SWMount';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ['latin'], preload: false });
+const inter = Inter({ subsets: ['latin'], display: 'swap', preload: false });
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.globaltravelreport.com';
 
 export const viewport: Viewport = {
@@ -114,6 +114,8 @@ export default function RootLayout({
         <meta name="csp-nonce" content={nonce} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
         
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useFormValidation } from '@/src/hooks/useFormValidation';
 import { newsletterSchema } from '@/src/utils/validation-schemas';
 import InterlineSponsorPlacement from '@/src/components/sponsorship/InterlineSponsorPlacement';
@@ -145,25 +144,20 @@ export function NewsletterSignup({
       {/* Simplified newsletter signup - just email */}
 
       {/* Error message */}
-      <AnimatePresence>
+      
         {(errors.global || errors._form) && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+          <div
             className="p-3 bg-red-50 border border-red-200 rounded-lg"
           >
             <p className="text-red-800 text-sm">{errors.global || errors._form}</p>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      
     </form>
   );
 
   const renderSuccess = () => (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
+    <div
       className="text-center py-8"
     >
       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -177,14 +171,13 @@ export function NewsletterSignup({
       <p className="text-gray-600">
         Thank you for subscribing. Check your email for a confirmation link.
       </p>
-    </motion.div>
+    </div>
   );
 
   // Modal variant
   if (variant === 'modal') {
+    if (!isVisible) return null;
     return (
-      <AnimatePresence>
-        {isVisible && (
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -248,8 +241,6 @@ export function NewsletterSignup({
               </div>
             </div>
           </div>
-        )}
-      </AnimatePresence>
     );
   }
 

@@ -106,6 +106,7 @@ const nextConfig = withBundleAnalyzer({
       '@radix-ui/react-*',
       'lucide-react',
       'react-icons',
+      'framer-motion',
     ],
   },
   modularizeImports: {
