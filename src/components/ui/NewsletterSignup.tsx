@@ -144,18 +144,20 @@ export function NewsletterSignup({
       {/* Simplified newsletter signup - just email */}
 
       {/* Error message */}
-      {(errors.global || errors._form) && (
-          <div}}}
+      
+        {(errors.global || errors._form) && (
+          <div
             className="p-3 bg-red-50 border border-red-200 rounded-lg"
           >
             <p className="text-red-800 text-sm">{errors.global || errors._form}</p>
           </div>
         )}
+      
     </form>
   );
 
   const renderSuccess = () => (
-    <div}}
+    <div
       className="text-center py-8"
     >
       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -174,8 +176,9 @@ export function NewsletterSignup({
 
   // Modal variant
   if (variant === 'modal') {
-    if (!isVisible) return null;
     return (
+      
+        {isVisible && (
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -239,6 +242,8 @@ export function NewsletterSignup({
               </div>
             </div>
           </div>
+        )}
+      
     );
   }
 
