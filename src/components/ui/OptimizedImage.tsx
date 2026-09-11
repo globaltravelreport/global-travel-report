@@ -73,7 +73,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const optimizedSrc = React.useMemo(() => {
     if (imageSrc.includes('images.unsplash.com') && !imageSrc.includes('?auto=format&q=80&w=')) {
       const separator = imageSrc.includes('?') ? '&' : '?';
-      return `${imageSrc}${separator}auto=format&q=80&w=${width || 2400}`;
+      return `${imageSrc}${separator}auto=format&q=80&w=${width || 1200}`;
     }
     return imageSrc;
   }, [imageSrc, width]);
@@ -106,7 +106,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
             {...imageProps}
             alt={alt}
             fill
-            style={{ objectFit: 'cover', opacity: loaded ? 1 : 0.5, transition: 'opacity 0.3s' }}
+            style={{ objectFit: 'cover', opacity: priority || loaded ? 1 : 0.85, transition: priority ? undefined : 'opacity 0.3s' }}
           />
         ) : (
           <div className="w-full h-full bg-gray-100 animate-pulse" />
