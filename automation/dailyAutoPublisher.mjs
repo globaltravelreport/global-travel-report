@@ -530,11 +530,10 @@ function buildOriginalFallbackTitle(source, category) {
 
 function buildMetaExcerpt(text = '') {
   const base = stripHtml(text).replace(/\s+/g, ' ').trim();
-  const fallback = 'Global Travel Report covers the latest travel development with practical context for Australian travellers planning upcoming trips.';
-  let excerpt = base || fallback;
-
-  if (excerpt.length < 140) {
-    excerpt = `${excerpt.replace(/[.!?]?$/, '')}. ${fallback}`;
+  // Prefer source/lead text only — never pad with a shared sitewide blurb.
+  let excerpt = base;
+  if (!excerpt) {
+    return '';
   }
 
   if (excerpt.length > 155) {
@@ -547,17 +546,15 @@ function buildMetaExcerpt(text = '') {
 function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
-  const brand = extractTravelBrand(source.title);
   const title = buildOriginalFallbackTitle(source, category);
   const sourceLead = splitSentences(source.content).slice(0, 2).join(' ')
     || stripHtml(source.content).replace(/\s+/g, ' ').trim().slice(0, 280);
   const where = country !== 'Global' ? ` (${country})` : '';
-  const who = brand || 'the operator';
   const paragraphs = [
     `${title.replace(/[.!?]$/, '')}${where}. ${sourceLead}`.trim(),
-    `What matters for readers is who is affected and when any change applies. Confirm details with ${who} and the original report before changing bookings.`,
-    `Australian travellers should cross-check dates, inclusions and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
-    `Until official wording is clear, treat headlines as a signal to verify — not as a booking instruction.`
+    `What matters for readers is who is affected and when any change applies — dates, inclusions and conditions can shift quickly.`,
+    `Australian travellers should weigh timing and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
+    `For now, treat early headlines as a planning signal and wait for confirmed operator wording before changing bookings.`
   ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
 
   const excerptSeed = `${title}. ${sourceLead}`.replace(/\s+/g, ' ').trim();
@@ -587,48 +584,88 @@ function shouldRepairFallbackStory(story) {
   }
 
   const title = story.title || '';
+  const excerpt = story.excerpt || '';
   const content = story.content || '';
   return (
+    isFormulaFallbackTitle(title) ||
+    /practical context for travellers checking/i.test(excerpt) ||
     (title.includes('“') && title.includes('Travel Update')) ||
     content.includes('update centres on')
   );
 }
 
+/** Cheap title/excerpt-only cleanup for old formula publishes — no full body rewrite. */
+function cheapRepairFormulaStoryFields(story) {
+  let title = stripHtml(story.title || '').replace(/\s+/g, ' ').trim();
+  let excerpt = stripHtml(story.excerpt || '').replace(/\s+/g, ' ').trim();
+
+  const formula = title.match(/^(.+?)\s+Update for Travellers:\s*(.+)$/i);
+  if (formula) {
+    const after = formula[2].trim();
+    const before = formula[1].trim().replace(/\s+Update for Travellers$/i, '').trim();
+    const afterWords = after.split(/\s+/).filter(Boolean);
+    const weakTail = /^(why|how|what|this|that|royal|aussie|years|year|update)$/i.test(after)
+      || (afterWords.length <= 2 && /^(years|why|how)\b/i.test(after));
+    if (!weakTail && (after.length >= 14 || afterWords.length >= 2)) {
+      // Prefer concrete colon-tail: "Wyndham Watching", "Intrepid reveals", "Cruise Guest Confronts Alleged"
+      title = buildFallbackTitle(after);
+    } else if (!weakTail && after.length >= 6) {
+      title = buildFallbackTitle(after);
+    } else if (before.length >= 8) {
+      title = buildFallbackTitle(weakTail && after ? `${before}: ${after}` : before);
+    } else {
+      title = buildFallbackTitle(title.replace(/\s*Update for Travellers:?\s*/ig, ' ').replace(/\s+/g, ' ').trim());
+    }
+  } else if (isFormulaFallbackTitle(title)) {
+    title = buildFallbackTitle(title.replace(/\s*Update for Travellers:?\s*/ig, ' ').replace(/\s+/g, ' ').trim());
+  }
+
+  if (/practical context for travellers checking/i.test(excerpt) || !excerpt || excerpt.length < 50) {
+    const lead = splitSentences(story.content || '').slice(0, 2).join(' ')
+      || stripHtml(story.content || '').replace(/\s+/g, ' ').trim().slice(0, 180);
+    excerpt = buildMetaExcerpt(`${title}. ${lead}`.trim());
+  }
+
+  return { title, excerpt };
+}
+
 async function repairPublishedFallbackStories() {
+  // Off by default: needs explicit CoS/Rodney approval before touching live titles.
+  if (process.env.REPAIR_FORMULA_STORY_TITLES !== 'true') {
+    return 0;
+  }
   if (!AUTO_PUBLISH_STORIES || !SupabaseStoryStore.isConfigured()) {
     return 0;
   }
 
   try {
     const stories = await SupabaseStoryStore.getPublishedStories();
-    const repairable = stories.slice(0, 12).filter(shouldRepairFallbackStory);
+    // Cap per cron run; ~166 formula titles in sitemap today — flag stays off until CoS approves.
+    const repairable = stories.slice(0, 40).filter(shouldRepairFallbackStory);
+    let repaired = 0;
 
     for (const story of repairable) {
-      const rewrite = buildFallbackRewrite({
-        title: story.title,
-        content: story.content,
-        category: story.category,
-        originalPublishedAt: story.originalPublishedAt || story.publishedAt
-      }, 'cleaned previous safe fallback copy');
+      const { title, excerpt } = cheapRepairFormulaStoryFields(story);
+      if (!title || title === story.title && excerpt === story.excerpt) {
+        continue;
+      }
+      if (isFormulaFallbackTitle(title) || !excerpt || excerpt.length < 50) {
+        console.warn(`[REPAIR SKIP] Still formula/thin after cheap cleanup: ${story.title}`);
+        continue;
+      }
 
       await SupabaseStoryStore.upsertStory({
         ...story,
-        title: rewrite.title,
-        slug: slugify(rewrite.title),
-        excerpt: rewrite.excerpt,
-        content: rewrite.content,
-        author: '',
-        category: rewrite.category,
-        country: story.country || rewrite.country,
-        tags: rewrite.tags,
-        imageAlt: rewrite.imageAltText,
-        wordCount: wordCount(rewrite.content),
-        rewritten: true,
+        title,
+        // Keep existing slug so live /stories/... URLs do not 404.
+        excerpt,
+        // Keep existing body — title/excerpt-only cleanup.
         updatedAt: new Date().toISOString()
       });
+      repaired += 1;
     }
 
-    return repairable.length;
+    return repaired;
   } catch (error) {
     console.warn('Published fallback story repair skipped:', error instanceof Error ? error.message : String(error));
     return 0;
@@ -832,13 +869,13 @@ Hard rules:
 - Mention why the story matters to Australian travellers only where the source supports it.
 - Do not mention AI, automation, RSS, rewriting, prompts, or content generation.
 - Choose exactly one category from this list: ${ALLOWED_CATEGORIES.join(', ')}. Do not invent or modify category names.
-- Title: specific and factual for Australian travellers, under 70 characters. Must name the operator, place, or concrete change from the source. Never use "Update for Travellers", category-only headlines, or vague stubs like "Why" / "How" with no object.
-- Bad title examples to avoid: "Luxury Travel Update for Travellers: Inside Abercrombie Kent", "Australia Airline Update for Travellers: years How".
-- Good title examples: "Abercrombie & Kent adds Patagonia small-group departures", "Qantas tweaks Sydney–Tokyo schedule for peak season".
-- Excerpt: one useful sentence, 140–155 characters, for Google snippets — say what changed and for whom.
+- Title: specific and factual for Australian travellers, under 70 characters. Must name the operator, place, or concrete change from the source. Never use "Update for Travellers", never use the pattern "Category Update for Travellers: …", never use category-only headlines, or vague stubs like "Why" / "How" with no object.
+- Bad title examples to avoid: "Luxury Travel Update for Travellers: Inside Abercrombie Kent", "Australia Airline Update for Travellers: years How", "Greece Accommodation Update for Travellers: Wyndham Watching".
+- Good title examples: "Abercrombie & Kent adds Patagonia small-group departures", "Qantas tweaks Sydney–Tokyo schedule for peak season", "Wyndham expands Greece hotel pipeline".
+- Excerpt: one useful sentence, 140–155 characters, unique to THIS story — say what changed and for whom. Never reuse a shared blurb like "Practical context for travellers checking bookings…".
 - Paragraphs: 4 to 7 short paragraphs with varied openings and sentence rhythm. Do NOT follow a fixed template every time. Mix news-first, context-first, or detail-first openings across stories.
 - Ban formula openings and clichés such as: "travellers are set to", "whether you are a seasoned traveller", "hidden gem", "must-visit", "paradise", "unforgettable experience", "in today's fast-paced world", "nestled in the heart of", "delve into", "game-changer", "seamless experience", "in conclusion".
-- Do not end with a generic wrap-up. Close with a concrete planning note, timing caveat, booking implication, or official-advice reminder when relevant.
+- Do not end with a generic wrap-up. Close with a concrete planning note, timing caveat, or booking implication when relevant. Do not tell readers to leave the site to "check the original source" or click through to another publication.
 - Prefer concrete nouns and verbs from the source over abstract praise.
 - The "publishedAt" field must use the source.originalPublishedAt value provided below. Do not use the current time.
 - The "imageQuery" must be a vivid, specific scene description for an Unsplash image search (e.g. "Sydney Harbour Bridge at sunset aerial view"). Avoid generic terms like "travel" or "holiday".
@@ -900,6 +937,15 @@ async function rewriteSource(source) {
         ...(Array.isArray(candidate.paragraphs) ? candidate.paragraphs : [])
       ].join('\n');
       const banned = findGenericAiPhrases(candidateText);
+      const formulaReason = isThinOrFormulaCopy({
+        title: candidate.title,
+        excerpt: candidate.excerpt,
+        content: Array.isArray(candidate.paragraphs) ? candidate.paragraphs.join('\n') : ''
+      });
+      if (formulaReason) {
+        previousError = `Title/excerpt failed editorial voice check (${formulaReason}). Write a specific news headline naming the operator/place/change. Never use "Update for Travellers" or a shared practical-context excerpt.`;
+        continue;
+      }
       if (banned.length > 0 && attempt < MAX_AI_REWRITE_ATTEMPTS - 1) {
         previousError = `Remove generic/AI-sounding phrases (${banned.slice(0, 4).join(', ')}) and rewrite in a natural editorial voice with varied paragraph openings.`;
         continue;
@@ -950,7 +996,7 @@ async function rewriteSource(source) {
     };
   }
 
-  return {
+  const outgoing = {
     status: 'accepted',
     title: stripHtml(parsed.title),
     excerpt: stripHtml(parsed.excerpt),
@@ -965,6 +1011,17 @@ async function rewriteSource(source) {
     fallback: Boolean(parsed.fallback),
     safeFallback: Boolean(parsed.safeFallback)
   };
+
+  // Last line of defence: never hand formula voice to publish as a normal rewrite.
+  const voiceFail = isThinOrFormulaCopy(outgoing);
+  if (voiceFail && !outgoing.fallback) {
+    return {
+      status: 'rejected',
+      reason: `Editorial voice gate: ${voiceFail}`
+    };
+  }
+
+  return outgoing;
 }
 
 async function triggerUnsplashDownload(downloadLocation) {
