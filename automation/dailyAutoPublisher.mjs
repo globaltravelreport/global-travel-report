@@ -1233,18 +1233,9 @@ async function processCandidate(source, recentStories) {
     };
   }
 
-  // Never auto-publish AI-failure fallbacks (including former "safeFallback" generic copy).
-  if (AUTO_PUBLISH_STORIES && rewrite.fallback) {
-    return {
-      status: 'rejected',
-      title: rewrite.title || enrichedSource.title,
-      sourceUrl: enrichedSource.sourceUrl,
-      sourceWordCount,
-      reason: rewrite.safeFallback
-        ? 'safe-fallback-not-auto-published'
-        : 'fallback-rewrite-not-auto-published'
-    };
-  }
+  // Allow AI-failure fallbacks to auto-publish when they pass the voice/title gate below.
+  // Still reject thin/formula "Update for Travellers" / practical-context copy via isThinOrFormulaCopy.
+  // (Blanket fallback reject after PR 215 zeroed nightly publishes whenever the model failed.)
 
   const formulaReason = isThinOrFormulaCopy(rewrite);
   if (formulaReason) {
