@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
-import { processStoryGenerationJob } from '@/src/services/storyGenerationWorker';
 import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
 // Force dynamic rendering for this route since it uses external APIs
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-const PIPELINE_VERSION = '2026-05-09-request-budget-v2';
+const PIPELINE_VERSION = '2026-09-15-enqueue-only-v1';
 
 function healthResponse() {
   return NextResponse.json({
@@ -17,64 +16,37 @@ function healthResponse() {
   });
 }
 
+/**
+ * Enqueue a story-generation job and return immediately.
+ * Heavy work runs on /api/cron/storyQueueWorker so Hobby 60s crons do not kill mid-publish.
+ */
 async function enqueueDailyPublisherJob(triggeredBy: string) {
   if (!SupabaseStoryStore.isConfigured()) {
     throw new Error('Supabase is not configured for the story queue');
   }
 
-  const workerId = `${triggeredBy}-${Date.now()}`;
-  let job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
+  const existing = await SupabaseStoryStore.enqueueStoryGenerationJob({
+    triggeredBy,
+    requestedAt: new Date().toISOString()
+  });
 
-  if (!job) {
-    await SupabaseStoryStore.enqueueStoryGenerationJob({
-      triggeredBy,
-      requestedAt: new Date().toISOString()
-    });
-
-    job = await SupabaseStoryStore.claimStoryGenerationJob(workerId);
-  }
-
-  if (!job) {
-    return NextResponse.json({
-      success: true,
-      queued: true,
-      processed: false,
-      status: 'queued',
-      message: 'Global Travel Report story generation job queued',
-      workerPath: '/api/cron/storyQueueWorker',
-      timestamp: new Date().toISOString()
-    }, { status: 202 });
-  }
-
-  try {
-    const result = await processStoryGenerationJob(job);
-
-    return NextResponse.json({
-      success: true,
-      queued: true,
-      processed: true,
-      jobId: job.id,
-      status: 'completed',
-      result,
-      message: 'Global Travel Report story generation job completed',
-      workerPath: '/api/cron/storyQueueWorker',
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    await SupabaseStoryStore.failStoryGenerationJob(job, error);
-    throw error;
-  }
+  return NextResponse.json({
+    success: true,
+    queued: true,
+    processed: false,
+    status: 'queued',
+    jobId: existing?.id ?? null,
+    message: 'Global Travel Report story generation job queued',
+    workerPath: '/api/cron/storyQueueWorker',
+    timestamp: new Date().toISOString()
+  }, { status: 202 });
 }
 
 /**
  * Daily Auto Publisher Webhook API
  * POST /api/cron/dailyAutoPublisher
  *
- * This endpoint is called by Make.com webhooks to automatically:
- * 1. Fetch candidate stories from approved RSS feeds
- * 2. Rewrite accepted items with the configured AI provider
- * 3. Add Unsplash images and attribution
- * 4. Return drafts by default, or publish when AUTO_PUBLISH_STORIES=true
+ * Enqueues story generation for the queue worker. Does not run the pipeline inline.
  *
  * Triggered by Make.com webhook daily at 10:00 AM AEST
  */
@@ -99,7 +71,6 @@ export async function POST(request: NextRequest) {
   } catch (_error) {
     console.error(_error);
 
-    // Return error response
     return NextResponse.json(
       {
         error: 'Internal server error',
@@ -112,16 +83,13 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Daily Auto Publisher Cron Job API (Legacy)
+ * Daily Auto Publisher Cron Job API
  * GET /api/cron/dailyAutoPublisher
  *
- * This endpoint is called by Vercel cron jobs to automatically:
- * 1. Fetch candidate stories from approved RSS feeds
- * 2. Rewrite accepted items with the configured AI provider
- * 3. Add Unsplash images and attribution
- * 4. Return drafts by default, or publish when AUTO_PUBLISH_STORIES=true
+ * Vercel cron: enqueue only and return 202 fast. Processing happens on
+ * /api/cron/storyQueueWorker (Hobby-safe schedule in vercel.json).
  *
- * Runs daily at 10:00 AM AEST (00:00 UTC)
+ * Runs daily at 00:00 UTC
  */
 export async function GET(request: NextRequest) {
   try {
@@ -129,7 +97,6 @@ export async function GET(request: NextRequest) {
       return healthResponse();
     }
 
-    // Verify cron secret for security
     if (!isCronRequestAuthorized(request)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -142,7 +109,6 @@ export async function GET(request: NextRequest) {
   } catch (_error) {
     console.error(_error);
 
-    // Return error response
     return NextResponse.json(
       {
         error: 'Internal server error',

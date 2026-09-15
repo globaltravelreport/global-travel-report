@@ -29,6 +29,8 @@ const MAX_CANDIDATES_TO_REVIEW = Math.max(5, Math.min(Number.parseInt(process.en
 const MAX_AI_REWRITE_ATTEMPTS = Math.min(Number.parseInt(process.env.MAX_AI_REWRITE_ATTEMPTS || '3', 10), 3);
 const MAX_PIPELINE_RUNTIME_MS = Math.min(Number.parseInt(process.env.MAX_STORY_PIPELINE_RUNTIME_MS || '55000', 10), 55000);
 const MIN_TIME_FOR_NEXT_CANDIDATE_MS = 5000;
+// Leave headroom for one AI rewrite + JSON parse before Hobby's hard 60s kill.
+const MIN_TIME_FOR_AI_REWRITE_MS = 12000;
 const ARTICLE_FETCH_TIMEOUT_MS = Number.parseInt(process.env.ARTICLE_FETCH_TIMEOUT_MS || '2500', 10);
 // Publishing is the default production behavior. Set this to "false" only
 // when deliberately switching the pipeline to draft-only review mode.
@@ -904,7 +906,7 @@ Source text:
 ${truncate(source.content, 4200)}`;
 }
 
-async function rewriteSource(source) {
+async function rewriteSource(source, deadline = Date.now() + MAX_PIPELINE_RUNTIME_MS) {
   if (wordCount(source.content) < MIN_SOURCE_WORDS) {
     return {
       status: 'rejected',
@@ -916,6 +918,12 @@ async function rewriteSource(source) {
   let previousError = '';
 
   for (let attempt = 0; attempt < MAX_AI_REWRITE_ATTEMPTS; attempt++) {
+    if (Date.now() + MIN_TIME_FOR_AI_REWRITE_MS > deadline) {
+      console.warn(`[TIME BUDGET] Stopping AI rewrite for "${source.title}" before Vercel timeout (attempt ${attempt + 1}/${MAX_AI_REWRITE_ATTEMPTS})`);
+      previousError = previousError || 'time-budget-exhausted before AI rewrite';
+      break;
+    }
+
     const response = await generateStoryContent(buildRewritePrompt(source, previousError), {
       // Moderate temperature: enough voice, low enough for reliable JSON from Workers AI.
       temperature: attempt === 0 ? 0.4 : 0.35,
@@ -1199,7 +1207,7 @@ function buildStory(source, rewrite, image) {
   };
 }
 
-async function processCandidate(source, recentStories) {
+async function processCandidate(source, recentStories, deadline = Date.now() + MAX_PIPELINE_RUNTIME_MS) {
   if (await isDuplicate(source)) {
     return {
       status: 'duplicate',
@@ -1222,7 +1230,7 @@ async function processCandidate(source, recentStories) {
 
   const enrichedSource = await enrichCandidateContent(source);
   const sourceWordCount = wordCount(enrichedSource.content);
-  const rewrite = await rewriteSource(enrichedSource);
+  const rewrite = await rewriteSource(enrichedSource, deadline);
   if (rewrite.status !== 'accepted') {
     return {
       status: 'rejected',
@@ -1336,7 +1344,7 @@ async function runDailyAutomation() {
     }
 
     try {
-      const processed = await processCandidate(source, recentStories);
+      const processed = await processCandidate(source, recentStories, deadline);
       result.processed.push(processed);
       result.summary.reviewedCandidates++;
 
