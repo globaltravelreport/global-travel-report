@@ -581,14 +581,15 @@ function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
   const title = buildOriginalFallbackTitle(source, category);
-  // Paraphrase-friendly lead: short token window, not full source sentences (avoids hasCopiedSentence).
-  const sourceBits = stripHtml(source.content).replace(/\s+/g, ' ').trim().split(/\s+/).filter(Boolean).slice(0, 28).join(' ');
+  // Original bridging copy only — never paste verbatim source sentences (hasCopiedSentence / copyright).
+  const brand = extractTravelBrand(source.title);
   const where = country !== 'Global' ? ` in ${country}` : '';
+  const who = brand || (country !== 'Global' ? country : 'the operator');
   const paragraphs = [
-    `${title.replace(/[.!?]$/, '')}${where} is the development Australian travellers are watching. Early reporting points to key supplier moves rather than a finished timetable.`.trim(),
-    `Public notes so far mention: ${sourceBits}${sourceBits ? '…' : 'limited detail pending a fuller operator briefing.'} Readers should treat that wording as provisional until bookings pages catch up.`.trim(),
+    `${title.replace(/[.!?]$/, '')}${where} is the development Australian travellers are watching in ${category.toLowerCase()}. Early reporting points to key supplier moves rather than a finished timetable.`.trim(),
+    `Coverage so far centres on ${who}, with limited confirmed detail on dates, inventory and who is affected. Treat early notes as provisional until the operator booking path catches up.`.trim(),
     `What matters for readers is who is affected and when any change applies — dates, inclusions, cabin categories and conditions can shift quickly once inventory is loaded.`,
-    `Australian travellers should weigh timing and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade into connections, insurance and hotel nights.`,
+    `Australian travellers should weigh timing, fare rules and change fees against their itinerary, especially on long-haul trips where small supplier shifts can cascade into connections, insurance cover and hotel nights.`,
     `Compare the claim against the operator's own booking path, loyalty rules and any official travel-advice updates before paying deposits or changing non-refundable flights, cruises or hotel plans.`,
     `For now, treat early headlines as a planning signal and wait for confirmed operator wording before changing bookings or assuming a route, ship or hotel is locked in.`
   ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
