@@ -7,7 +7,7 @@ import { isCronRequestAuthorized } from '@/utils/cronAuth';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-const PIPELINE_VERSION = '2026-09-17-hybrid-claim-v1';
+const PIPELINE_VERSION = '2026-09-18-feed-fallback-v1';
 
 function healthResponse() {
   return NextResponse.json({

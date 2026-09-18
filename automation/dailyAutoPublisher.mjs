@@ -55,12 +55,12 @@ const db = StoryDatabase.getInstance();
 const unsplashService = UnsplashService.getInstance();
 
 const DEFAULT_FEEDS = [
-  'https://www.travelweekly.com/rss',
-  'https://www.travelpulse.com/rss',
-  'https://www.travelandleisure.com/feeds/all.rss',
-  'https://www.timeout.com/travel/rss',
-  'https://www.cruiseindustrynews.com/cruise-news/rss.xml',
-  'https://www.cruisecritic.com/rss/news.xml'
+  'https://www.cruiseindustrynews.com/cruise-news/feed/',
+  'https://www.travelpulse.com/rss/news',
+  'https://skift.com/feed/',
+  'https://thepointsguy.com/feed/',
+  'https://www.cntraveler.com/feed/rss',
+  'https://rss.nytimes.com/services/xml/rss/nyt/Travel.xml'
 ];
 
 const CATEGORY_KEYWORDS = {
@@ -153,23 +153,55 @@ function getFeedUrls() {
     .filter(Boolean);
 }
 
+async function getSupabaseFeedUrls() {
+  if (!SupabaseStoryStore.isConfigured()) {
+    return [];
+  }
+
+  try {
+    const feedUrls = await SupabaseStoryStore.getEnabledFeedUrls();
+    return Array.isArray(feedUrls) ? feedUrls.filter(Boolean) : [];
+  } catch (error) {
+    console.warn('Supabase RSS source lookup failed:', error instanceof Error ? error.message : String(error));
+    return [];
+  }
+}
+
 async function getRuntimeFeedUrls() {
+  // Prefer explicit env when set, but runDailyAutomation may fall back if those feeds
+  // all fail or yield zero candidates (stale RSS_FEED_URLS must not starve the pipeline).
   if (process.env.RSS_FEED_URLS) {
     return getFeedUrls();
   }
 
-  if (SupabaseStoryStore.isConfigured()) {
-    try {
-      const feedUrls = await SupabaseStoryStore.getEnabledFeedUrls();
-      if (feedUrls.length > 0) {
-        return feedUrls;
-      }
-    } catch (error) {
-      console.warn('Supabase RSS source lookup failed:', error instanceof Error ? error.message : String(error));
-    }
+  const supabaseFeeds = await getSupabaseFeedUrls();
+  if (supabaseFeeds.length > 0) {
+    return supabaseFeeds;
   }
 
   return DEFAULT_FEEDS;
+}
+
+function uniqueFeedUrls(urls = []) {
+  const seen = new Set();
+  const unique = [];
+  for (const url of urls) {
+    const trimmed = String(url || '').trim();
+    if (!trimmed || seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    unique.push(trimmed);
+  }
+  return unique;
+}
+
+async function getFallbackFeedUrls(excludeUrls = []) {
+  const exclude = new Set(excludeUrls);
+  const supabaseFeeds = (await getSupabaseFeedUrls()).filter((url) => !exclude.has(url));
+  if (supabaseFeeds.length > 0) {
+    return supabaseFeeds;
+  }
+
+  return DEFAULT_FEEDS.filter((url) => !exclude.has(url));
 }
 
 function stripHtml(value = '') {
@@ -1286,7 +1318,7 @@ async function runDailyAutomation() {
   validateEnvironment();
 
   const deadline = Date.now() + MAX_PIPELINE_RUNTIME_MS;
-  const feedUrls = await getRuntimeFeedUrls();
+  let feedUrls = uniqueFeedUrls(await getRuntimeFeedUrls());
   const startedAt = new Date().toISOString();
   const result = {
     success: false,
@@ -1317,7 +1349,25 @@ async function runDailyAutomation() {
     console.log(`Cleaned ${repairedStories} previously published fallback story`);
   }
 
-  const { candidates, failures } = await fetchRssCandidates(feedUrls);
+  let { candidates, failures } = await fetchRssCandidates(feedUrls);
+
+  // Stale RSS_FEED_URLS (or a dead Supabase list) can return all failures / 0 candidates.
+  // Fall back to Supabase-enabled feeds, then baked-in DEFAULT_FEEDS, without re-fetching
+  // URLs already tried in this run.
+  if (feedUrls.length > 0 && (candidates.length === 0 || failures.length >= feedUrls.length)) {
+    const fallbackUrls = uniqueFeedUrls(await getFallbackFeedUrls(feedUrls));
+    if (fallbackUrls.length > 0) {
+      console.warn(
+        `Primary RSS sources yielded ${candidates.length} candidates / ${failures.length} failures; falling back to ${fallbackUrls.length} alternate feed(s)`
+      );
+      const fallback = await fetchRssCandidates(fallbackUrls);
+      feedUrls = uniqueFeedUrls([...feedUrls, ...fallbackUrls]);
+      candidates = fallback.candidates;
+      failures = [...failures, ...fallback.failures];
+    }
+  }
+
+  result.feedsChecked = feedUrls.length;
   result.feedFailures = failures;
   result.candidatesFound = candidates.length;
 
