@@ -31,7 +31,47 @@ describe('getPublishingHealth', () => {
       dailyTarget: 5,
       publishedStories: 5,
       completedRuns: 5,
-      failedRuns: 0
+      failedRuns: 0,
+      latestRun: {
+        started_at: '2026-06-20T00:00:00.000Z',
+        success: true,
+        feeds_checked: 4,
+        candidates_found: 8,
+        summary: {
+          published: 1,
+          rejected: 0,
+          drafts: 0,
+          duplicates: 0,
+          failed: 0,
+          reviewedCandidates: 0
+        },
+        feedFailures: { count: 0, reasons: [] }
+      }
+    });
+  });
+
+  it('exposes compact feed failure reasons on latestRun', () => {
+    const runs = [
+      pipelineRun({
+        feed_failures: [
+          { feedUrl: 'https://www.travelweekly.com/rss', error: 'Status code 404' },
+          { feedUrl: 'https://www.timeout.com/travel/rss', error: 'Status code 404' }
+        ],
+        summary: { published: 0, rejected: 2, drafts: 0, duplicates: 0, failed: 0, reviewedCandidates: 2 },
+        candidates_found: 0
+      })
+    ];
+
+    expect(getPublishingHealth(runs, now).latestRun).toMatchObject({
+      candidates_found: 0,
+      feedFailures: {
+        count: 2,
+        reasons: [
+          'www.travelweekly.com: Status code 404',
+          'www.timeout.com: Status code 404'
+        ]
+      },
+      summary: { published: 0, rejected: 2, reviewedCandidates: 2 }
     });
   });
 

@@ -5,6 +5,26 @@ const SYDNEY_TIME_ZONE = 'Australia/Sydney';
 
 type PublishingHealthStatus = 'on_target' | 'in_progress' | 'at_risk' | 'behind' | 'unavailable';
 
+export type LatestPipelineRunSummary = {
+  started_at: string;
+  finished_at?: string | null;
+  success: boolean;
+  feeds_checked: number;
+  candidates_found: number;
+  summary: {
+    published: number;
+    rejected: number;
+    drafts: number;
+    duplicates: number;
+    failed: number;
+    reviewedCandidates: number;
+  };
+  feedFailures: {
+    count: number;
+    reasons: string[];
+  };
+};
+
 export type PublishingHealth = {
   status: PublishingHealthStatus;
   date: string;
@@ -13,6 +33,7 @@ export type PublishingHealth = {
   completedRuns: number;
   failedRuns: number;
   lastRunAt: string | null;
+  latestRun: LatestPipelineRunSummary | null;
 };
 
 function localDateKey(date: Date): string {
@@ -35,6 +56,66 @@ function localHour(date: Date): number {
 function publishedCount(summary: Record<string, unknown>): number {
   const value = summary.published;
   return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function numberField(summary: Record<string, unknown>, key: string): number {
+  const value = summary[key];
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function compactFeedFailures(feedFailures: unknown[]): LatestPipelineRunSummary['feedFailures'] {
+  const reasons: string[] = [];
+
+  for (const failure of feedFailures || []) {
+    if (!failure || typeof failure !== 'object') continue;
+    const record = failure as Record<string, unknown>;
+    const feedUrl = typeof record.feedUrl === 'string' ? record.feedUrl : '';
+    const error = typeof record.error === 'string' ? record.error : 'unknown error';
+    const host = (() => {
+      try {
+        return feedUrl ? new URL(feedUrl).host : '';
+      } catch {
+        return '';
+      }
+    })();
+    const reason = host ? `${host}: ${error}` : error;
+    if (reason && !reasons.includes(reason)) {
+      reasons.push(reason);
+    }
+    if (reasons.length >= 5) break;
+  }
+
+  return {
+    count: Array.isArray(feedFailures) ? feedFailures.length : 0,
+    reasons
+  };
+}
+
+export function summariseLatestPipelineRun(
+  run: StoryPipelineRun | null | undefined
+): LatestPipelineRunSummary | null {
+  if (!run) {
+    return null;
+  }
+
+  const summary = (run.summary || {}) as Record<string, unknown>;
+
+  return {
+    started_at: run.started_at,
+    finished_at: run.finished_at ?? null,
+    success: Boolean(run.success),
+    feeds_checked: run.feeds_checked,
+    candidates_found: run.candidates_found,
+    summary: {
+      published: numberField(summary, 'published'),
+      rejected: numberField(summary, 'rejected'),
+      drafts: numberField(summary, 'drafts'),
+      duplicates: numberField(summary, 'duplicates'),
+      failed: numberField(summary, 'failed'),
+      reviewedCandidates: numberField(summary, 'reviewedCandidates')
+    },
+    feedFailures: compactFeedFailures(Array.isArray(run.feed_failures) ? run.feed_failures : [])
+  };
 }
 
 export function getPublishingHealth(
@@ -63,6 +144,8 @@ export function getPublishingHealth(
     publishedStories,
     completedRuns: todaysRuns.filter((run) => run.success).length,
     failedRuns,
-    lastRunAt
+    lastRunAt,
+    // Prefer the absolute latest stored run (may be prior Sydney day) for ops diagnosis.
+    latestRun: summariseLatestPipelineRun(runs[0] || null)
   };
 }

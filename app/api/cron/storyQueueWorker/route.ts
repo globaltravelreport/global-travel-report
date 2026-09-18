@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // runDailyAutomation loaded dynamically below to avoid webpack bundling Node.js-only modules
 import { SupabaseStoryStore } from '@/src/services/supabaseStoryStore';
+import { summariseLatestPipelineRun } from '@/src/utils/publishingHealth';
 import { processStoryGenerationJob } from '@/src/services/storyGenerationWorker';
 import { isCronRequestAuthorized } from '@/utils/cronAuth';
 
@@ -16,8 +17,12 @@ function isAuthorized(request: NextRequest): boolean {
 export async function GET(request: NextRequest) {
   try {
     if (request.nextUrl.searchParams.get('health') === '1') {
-      const jobs = SupabaseStoryStore.isConfigured()
+      const configured = SupabaseStoryStore.isConfigured();
+      const jobs = configured
         ? await SupabaseStoryStore.getLatestStoryGenerationJobs(5)
+        : [];
+      const latestRuns = configured
+        ? await SupabaseStoryStore.getLatestPipelineRuns(1)
         : [];
 
       return NextResponse.json({
@@ -31,6 +36,7 @@ export async function GET(request: NextRequest) {
           finishedAt: job.finished_at,
           lastError: job.last_error
         })),
+        latestPipelineRun: summariseLatestPipelineRun(latestRuns[0] || null),
         timestamp: new Date().toISOString()
       });
     }
