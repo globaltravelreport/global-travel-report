@@ -591,7 +591,7 @@ function buildFallbackRewrite(source, reason = '') {
     `What matters for readers is who is affected and when any change applies — dates, inclusions, cabin categories and conditions can shift quickly once inventory is loaded.`,
     `Australian travellers should weigh timing, fare rules and change fees against their itinerary, especially on long-haul trips where small supplier shifts can cascade into connections, insurance cover and hotel nights.`,
     `Compare the claim against the operator's own booking path, loyalty rules and any official travel-advice updates before paying deposits or changing non-refundable flights, cruises or hotel plans.`,
-    `For now, treat early headlines as a planning signal and wait for confirmed operator wording before changing bookings or assuming a route, ship or hotel is locked in.`
+    `For now, treat early headlines as a planning signal only and wait for confirmed operator wording before changing bookings or assuming a route, ship, fare or hotel night is locked in.`
   ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
 
   const excerptSeed = `${title}${where}: planning note for Australian travellers as details firm up.`.replace(/\s+/g, ' ').trim();
