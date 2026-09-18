@@ -5,6 +5,12 @@ const SYDNEY_TIME_ZONE = 'Australia/Sydney';
 
 type PublishingHealthStatus = 'on_target' | 'in_progress' | 'at_risk' | 'behind' | 'unavailable';
 
+export type RejectReasonSample = {
+  status: string;
+  reason: string;
+  title: string;
+};
+
 export type LatestPipelineRunSummary = {
   started_at: string;
   finished_at?: string | null;
@@ -23,6 +29,10 @@ export type LatestPipelineRunSummary = {
     count: number;
     reasons: string[];
   };
+  /** Non-sensitive tally of processed[].reason for rejected items. */
+  rejectReasonCounts: Record<string, number>;
+  /** Up to 10 compact samples: status + reason + title only (no bodies/URLs). */
+  rejectSamples: RejectReasonSample[];
 };
 
 export type PublishingHealth = {
@@ -91,6 +101,34 @@ function compactFeedFailures(feedFailures: unknown[]): LatestPipelineRunSummary[
   };
 }
 
+
+function compactRejectDiagnostics(processed: unknown[]): {
+  rejectReasonCounts: Record<string, number>;
+  rejectSamples: RejectReasonSample[];
+} {
+  const rejectReasonCounts: Record<string, number> = {};
+  const rejectSamples: RejectReasonSample[] = [];
+
+  for (const item of processed || []) {
+    if (!item || typeof item !== 'object') continue;
+    const record = item as Record<string, unknown>;
+    const status = typeof record.status === 'string' ? record.status : '';
+    if (status !== 'rejected') continue;
+
+    const reason = typeof record.reason === 'string' && record.reason.trim()
+      ? record.reason.trim()
+      : 'unknown';
+    rejectReasonCounts[reason] = (rejectReasonCounts[reason] || 0) + 1;
+
+    if (rejectSamples.length < 10) {
+      const title = typeof record.title === 'string' ? record.title.trim().slice(0, 120) : '';
+      rejectSamples.push({ status, reason, title });
+    }
+  }
+
+  return { rejectReasonCounts, rejectSamples };
+}
+
 export function summariseLatestPipelineRun(
   run: StoryPipelineRun | null | undefined
 ): LatestPipelineRunSummary | null {
@@ -99,6 +137,8 @@ export function summariseLatestPipelineRun(
   }
 
   const summary = (run.summary || {}) as Record<string, unknown>;
+
+  const rejectDiagnostics = compactRejectDiagnostics(Array.isArray(run.processed) ? run.processed : []);
 
   return {
     started_at: run.started_at,
@@ -114,7 +154,9 @@ export function summariseLatestPipelineRun(
       failed: numberField(summary, 'failed'),
       reviewedCandidates: numberField(summary, 'reviewedCandidates')
     },
-    feedFailures: compactFeedFailures(Array.isArray(run.feed_failures) ? run.feed_failures : [])
+    feedFailures: compactFeedFailures(Array.isArray(run.feed_failures) ? run.feed_failures : []),
+    rejectReasonCounts: rejectDiagnostics.rejectReasonCounts,
+    rejectSamples: rejectDiagnostics.rejectSamples
   };
 }
 

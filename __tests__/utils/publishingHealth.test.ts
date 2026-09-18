@@ -45,7 +45,9 @@ describe('getPublishingHealth', () => {
           failed: 0,
           reviewedCandidates: 0
         },
-        feedFailures: { count: 0, reasons: [] }
+        feedFailures: { count: 0, reasons: [] },
+        rejectReasonCounts: {},
+        rejectSamples: []
       }
     });
   });
@@ -73,6 +75,35 @@ describe('getPublishingHealth', () => {
       },
       summary: { published: 0, rejected: 2, reviewedCandidates: 2 }
     });
+  });
+
+  it('exposes rejectReasonCounts and title/reason samples from processed', () => {
+    const runs = [
+      pipelineRun({
+        summary: { published: 0, rejected: 3, drafts: 0, duplicates: 0, failed: 0, reviewedCandidates: 3 },
+        processed: [
+          { status: 'rejected', reason: 'validation-failed', title: 'Qantas adds Tokyo flights' },
+          { status: 'rejected', reason: 'validation-failed', title: 'Cruise line updates itinerary' },
+          { status: 'rejected', reason: 'quality-gate:formula-fallback-title', title: 'Airline Update for Travellers' },
+          { status: 'published', reason: undefined, title: 'Should be ignored' },
+          { status: 'rejected', reason: 'validation-failed', title: 'x'.repeat(200), content: 'SECRET BODY' }
+        ]
+      })
+    ];
+
+    const latest = getPublishingHealth(runs, now).latestRun;
+    expect(latest?.rejectReasonCounts).toEqual({
+      'validation-failed': 3,
+      'quality-gate:formula-fallback-title': 1
+    });
+    expect(latest?.rejectSamples).toHaveLength(4);
+    expect(latest?.rejectSamples[0]).toEqual({
+      status: 'rejected',
+      reason: 'validation-failed',
+      title: 'Qantas adds Tokyo flights'
+    });
+    expect(latest?.rejectSamples[3].title).toHaveLength(120);
+    expect(JSON.stringify(latest)).not.toContain('SECRET BODY');
   });
 
   it('flags multiple failed runs before the daily cutoff', () => {

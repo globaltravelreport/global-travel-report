@@ -581,25 +581,28 @@ function buildFallbackRewrite(source, reason = '') {
   const category = normaliseCategory(source.category, inferCategory(`${source.title} ${source.content}`));
   const country = inferCountry(`${source.title} ${source.content}`);
   const title = buildOriginalFallbackTitle(source, category);
-  const sourceLead = splitSentences(source.content).slice(0, 2).join(' ')
-    || stripHtml(source.content).replace(/\s+/g, ' ').trim().slice(0, 280);
-  const where = country !== 'Global' ? ` (${country})` : '';
+  // Original bridging copy only — never paste verbatim source sentences (hasCopiedSentence / copyright).
+  const brand = extractTravelBrand(source.title);
+  const where = country !== 'Global' ? ` in ${country}` : '';
+  const who = brand || (country !== 'Global' ? country : 'the operator');
   const paragraphs = [
-    `${title.replace(/[.!?]$/, '')}${where}. ${sourceLead}`.trim(),
-    `What matters for readers is who is affected and when any change applies — dates, inclusions and conditions can shift quickly.`,
-    `Australian travellers should weigh timing and fare rules against their itinerary, especially on long-haul trips where small supplier shifts can cascade.`,
-    `For now, treat early headlines as a planning signal and wait for confirmed operator wording before changing bookings.`
+    `${title.replace(/[.!?]$/, '')}${where} is the development Australian travellers are watching in ${category.toLowerCase()}. Early reporting points to key supplier moves and schedule notes rather than a finished timetable.`.trim(),
+    `Coverage so far centres on ${who}, with limited confirmed detail on dates, inventory and who is affected. Treat early notes as provisional until the operator booking path catches up.`.trim(),
+    `What matters for readers is who is affected and when any change applies — departure dates, inclusions, cabin categories, fare rules and conditions can shift quickly once inventory is loaded.`,
+    `Australian travellers should weigh timing, fare rules and change fees against their itinerary, especially on long-haul trips where small supplier shifts can cascade into connections, insurance cover and hotel nights.`,
+    `Compare the claim against the operator's own booking path, loyalty rules and any official travel-advice updates before paying deposits or changing non-refundable flights, cruises or hotel plans.`,
+    `For now, treat early headlines as a planning signal only and wait for confirmed operator wording before changing bookings or assuming a route, ship, fare or hotel night is locked in.`
   ].map((paragraph) => paragraph.replace(/\s+/g, ' ').trim()).filter((paragraph) => wordCount(paragraph) >= 8);
 
-  const excerptSeed = `${title}. ${sourceLead}`.replace(/\s+/g, ' ').trim();
+  const excerptSeed = `${title}${where}: planning note for Australian travellers as details firm up.`.replace(/\s+/g, ' ').trim();
 
   return {
     status: 'accepted',
     title,
     excerpt: buildMetaExcerpt(excerptSeed),
     publishedAt: source.originalPublishedAt,
-    paragraphs: paragraphs.slice(0, 5),
-    content: paragraphs.slice(0, 5).join('\n\n'),
+    paragraphs: paragraphs.slice(0, 6),
+    content: paragraphs.slice(0, 6).join('\n\n'),
     category,
     country,
     tags: extractTags(`${source.title} ${source.content} ${category}`),
@@ -607,7 +610,7 @@ function buildFallbackRewrite(source, reason = '') {
     imageAltText: `${category} scene connected to ${title}`,
     fallbackReason: reason,
     fallback: true,
-    // Still marked safeFallback for telemetry, but auto-publish is blocked separately.
+    // Non-formula fallback may auto-publish after buildStory gates (PR 224 intent).
     safeFallback: true
   };
 }
@@ -1148,49 +1151,49 @@ async function isDuplicate(source) {
 }
 
 function buildStory(source, rewrite, image) {
+  const fail = (validationError, detail) => {
+    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite?.title || 'Untitled'} - ${detail}`);
+    return { story: null, validationError };
+  };
+
   if (!rewrite.title || rewrite.title.length < 20) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - title too short or missing`);
-    return null;
+    return fail('validation-failed:title-too-short', 'title too short or missing');
   }
   if (isFormulaFallbackTitle(rewrite.title)) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title} - formula Update for Travellers title`);
-    return null;
+    return fail('validation-failed:formula-title', 'formula Update for Travellers title');
   }
   const thinReason = isThinOrFormulaCopy(rewrite);
   if (thinReason) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title} - ${thinReason}`);
-    return null;
+    return fail(`validation-failed:${thinReason}`, thinReason);
   }
   if (!rewrite.excerpt || rewrite.excerpt.length < 50) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - excerpt too short or missing`);
-    return null;
+    return fail('validation-failed:excerpt-too-short', 'excerpt too short or missing');
   }
   const paragraphs = Array.isArray(rewrite.paragraphs)
     ? rewrite.paragraphs
     : String(rewrite.content || '').split(/\n{2,}/).map(stripHtml).filter(Boolean);
 
   if (paragraphs.length < 3) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than 3 paragraphs`);
-    return null;
+    return fail('validation-failed:too-few-paragraphs', 'fewer than 3 paragraphs');
   }
   const contentWordCount = wordCount(rewrite.content);
   if (contentWordCount < MIN_REWRITTEN_WORDS) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - fewer than ${MIN_REWRITTEN_WORDS} rewritten words`);
-    return null;
+    return fail('validation-failed:too-few-words', `fewer than ${MIN_REWRITTEN_WORDS} rewritten words`);
   }
-  if (normaliseForComparison(rewrite.title) === normaliseForComparison(source.title)) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - copied source title`);
-    return null;
+
+  // AI-failure fallbacks intentionally keep a cleaned source headline (non-formula).
+  // Do not zero publishes on that path after PR 224; still block copy for real AI rewrites.
+  const isFallback = Boolean(rewrite.fallback || rewrite.safeFallback);
+  if (!isFallback && normaliseForComparison(rewrite.title) === normaliseForComparison(source.title)) {
+    return fail('validation-failed:copied-source-title', 'copied source title');
   }
-  if (hasCopiedSentence(source.content, `${rewrite.excerpt}\n${rewrite.content}`)) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - copied source sentence`);
-    return null;
+  if (!isFallback && hasCopiedSentence(source.content, `${rewrite.excerpt}\n${rewrite.content}`)) {
+    return fail('validation-failed:copied-source-sentence', 'copied source sentence');
   }
 
   const genericHits = findGenericAiPhrases(`${rewrite.title}\n${rewrite.excerpt}\n${rewrite.content}`);
   if (genericHits.length >= 3) {
-    console.warn(`[VALIDATION FAILED] Skipping story: ${rewrite.title || 'Untitled'} - too many generic AI phrases (${genericHits.join(', ')})`);
-    return null;
+    return fail('validation-failed:generic-ai-phrases', `too many generic AI phrases (${genericHits.join(', ')})`);
   }
 
   const now = new Date().toISOString();
@@ -1208,34 +1211,37 @@ function buildStory(source, rewrite, image) {
   }
 
   return {
-    id: `rss-${contentHash}`,
-    slug,
-    title: rewrite.title,
-    excerpt,
-    content: rewrite.content,
-    author: '',
-    publishedAt,
-    updatedAt: now,
-    date: publishedAt,
-    originalPublishedAt,
-    firstSeenAt: now,
-    source: source.sourceName || source.sourceFeedUrl,
-    sourceUrl: source.sourceUrl,
-    ingestionSource: source.sourceFeedUrl,
-    contentHash,
-    category: rewrite.category,
-    country: rewrite.country,
-    tags: rewrite.tags?.length ? rewrite.tags : ['travel news'],
-    featured: false,
-    editorsPick: false,
-    rewritten: true,
-    processedAt: now,
-    wordCount: contentWordCount,
-    imageUrl: image?.imageUrl || '',
-    imageAlt: rewrite.imageAltText || image?.imageAlt || rewrite.title,
-    imageCredit: image?.imageCredit,
-    imageCreditUrl: image?.imageCreditUrl,
-    photographer: image?.photographer
+    story: {
+      id: `rss-${contentHash}`,
+      slug,
+      title: rewrite.title,
+      excerpt,
+      content: rewrite.content,
+      author: '',
+      publishedAt,
+      updatedAt: now,
+      date: publishedAt,
+      originalPublishedAt,
+      firstSeenAt: now,
+      source: source.sourceName || source.sourceFeedUrl,
+      sourceUrl: source.sourceUrl,
+      ingestionSource: source.sourceFeedUrl,
+      contentHash,
+      category: rewrite.category,
+      country: rewrite.country,
+      tags: rewrite.tags?.length ? rewrite.tags : ['travel news'],
+      featured: false,
+      editorsPick: false,
+      rewritten: true,
+      processedAt: now,
+      wordCount: contentWordCount,
+      imageUrl: image?.imageUrl || '',
+      imageAlt: rewrite.imageAltText || image?.imageAlt || rewrite.title,
+      imageCredit: image?.imageCredit,
+      imageCreditUrl: image?.imageCreditUrl,
+      photographer: image?.photographer
+    },
+    validationError: null
   };
 }
 
@@ -1289,16 +1295,18 @@ async function processCandidate(source, recentStories, deadline = Date.now() + M
   }
 
   const image = await findImage(rewrite.imageQuery, rewrite);
-  const story = buildStory(enrichedSource, rewrite, image);
-  if (!story) {
+  const built = buildStory(enrichedSource, rewrite, image);
+  if (!built.story) {
     return {
       status: 'rejected',
       title: rewrite.title || 'Untitled',
       sourceUrl: enrichedSource.sourceUrl,
       sourceWordCount,
-      reason: 'validation-failed'
+      reason: built.validationError || 'validation-failed'
     };
   }
+
+  const story = built.story;
 
   if (AUTO_PUBLISH_STORIES) {
     await db.addStory(story);
