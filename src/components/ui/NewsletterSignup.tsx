@@ -39,8 +39,6 @@ export function NewsletterSignup({
   placeholder = defaultProps.placeholder,
   buttonText = defaultProps.buttonText,
   className = '',
-  onSuccess,
-  onError,
   showSocialProof = defaultProps.showSocialProof,
   compact = defaultProps.compact,
   autoShow = defaultProps.autoShow,
@@ -52,7 +50,6 @@ export function NewsletterSignup({
   });
 
   const [isVisible, setIsVisible] = useState(variant !== 'modal');
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Auto-show modal after delay
   useEffect(() => {

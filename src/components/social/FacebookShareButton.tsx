@@ -18,8 +18,6 @@ interface FacebookShareButtonProps {
  */
 export function FacebookShareButton({
   url,
-  title,
-  description,
   imageUrl,
   className = '',
   children,

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { logError } from '@/utils/error-handler';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { useErrorBoundary } from '@/hooks/useErrorBoundary';
-import type { ErrorBoundaryOptions, FallbackProps, ErrorBoundaryProps } from '@/types/error-boundary';
+import type { FallbackProps, ErrorBoundaryProps } from '@/types/error-boundary';
 
 export function DefaultErrorFallback({
   error,
@@ -72,7 +72,7 @@ export function EnhancedErrorBoundary({
   componentName,
   logErrors = true
 }: EnhancedErrorBoundaryProps) {
-  const { error, errorInfo, hasError, resetError, captureError } = useErrorBoundary({ onError, resetKeys, componentName });
+  const { error, errorInfo, hasError, resetError } = useErrorBoundary({ onError, resetKeys, componentName });
 
   React.useEffect(() => {
     if (hasError && error && logErrors) {
