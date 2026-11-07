@@ -76,7 +76,9 @@ export class StoryDatabase {
 
     try {
       // Keep mock stories as a local fallback only. Production content comes from Supabase.
-      this.stories = SupabaseStoryStore.isConfigured() ? [] : [...mockStories];
+      this.stories = process.env.NODE_ENV === 'production' || SupabaseStoryStore.isConfigured()
+        ? []
+        : [...mockStories];
 
       // Process all stories to ensure dates are valid while preserving public publish dates.
       this.stories = this.stories.map((story) => {
