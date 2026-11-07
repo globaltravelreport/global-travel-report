@@ -35,13 +35,7 @@ export const revalidate = 3600; // Revalidate every hour
 export async function generateMetadata({ params }: { params: Promise<StoryParams> }): Promise<Metadata> {
   const { slug } = await params;
   // Try to get the story by slug
-  let story = await getStoryBySlug(slug);
-
-  // If not found, try to get from mock stories as a fallback
-  if (!story) {
-    const { mockStories } = await import('@/src/mocks/stories');
-    story = mockStories.find(s => s.slug === slug) || null;
-  }
+  const story = await getStoryBySlug(slug);
 
   if (!story) {
     return {
@@ -143,13 +137,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
   try {
     const { slug } = await params;
     // Try to get the story by slug
-    let story = await getStoryBySlug(slug);
-
-    // If not found, try to get from mock stories as a fallback
-    if (!story) {
-      const { mockStories } = await import('@/src/mocks/stories');
-      story = mockStories.find(s => s.slug === slug) || null;
-    }
+    const story = await getStoryBySlug(slug);
 
     if (!story) {
       notFound();
