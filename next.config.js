@@ -121,8 +121,11 @@ const nextConfig = withBundleAnalyzer({
     },
   },
 
-  // Image optimization
+  // Serve images directly from source (skip Vercel image optimization).
+  // Needed because the free optimization quota returns HTTP 402
+  // (OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED) and breaks story photos.
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'unsplash.com' },
