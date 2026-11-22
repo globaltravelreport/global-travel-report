@@ -148,9 +148,9 @@ export async function getAllStories(): Promise<Story[]> {
     // Get all stories from the database
     const stories = await db.getAllStories();
 
-    // If no stories found in the database, fall back to mock stories
+    // Sample content is only a development/test fallback, never live news.
     if (!stories || stories.length === 0) {
-      return mockStories.sort(sortNewestFirst);
+      return process.env.NODE_ENV === 'production' ? [] : [...mockStories].sort(sortNewestFirst);
     }
 
     // Sort by date (newest first)
@@ -158,8 +158,8 @@ export async function getAllStories(): Promise<Story[]> {
   } catch (_error) {
     console.error(_error);
 
-    // Fall back to mock stories if database access fails
-    return mockStories.sort(sortNewestFirst);
+    // Keep database failures honest in production instead of displaying sample guides.
+    return process.env.NODE_ENV === 'production' ? [] : [...mockStories].sort(sortNewestFirst);
   }
 }
 

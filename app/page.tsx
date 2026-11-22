@@ -80,7 +80,19 @@ export default async function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Featured Story */}
-      <Hero stories={stories} />
+      {stories.length > 0 ? (
+        <Hero stories={stories} />
+      ) : (
+        <section aria-labelledby="stories-unavailable" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="rounded-lg border border-gray-200 bg-[#F8F5EC] px-6 py-12 text-center shadow-sm">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8A6A20]">Global Travel Report</p>
+            <h1 id="stories-unavailable" className="mb-4 text-3xl font-black tracking-tight text-[#19273A] sm:text-4xl">Stories are currently unavailable</h1>
+            <p className="mx-auto max-w-2xl text-base leading-7 text-gray-600">
+              We can’t display travel stories right now. Please check back later.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Homepage ad unit — loader already in root layout */}
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
@@ -88,7 +100,7 @@ export default async function Home() {
       </div>
 
       {/* Stories Section */}
-      <StoriesSection initialStories={stories} />
+      {stories.length > 0 ? <StoriesSection initialStories={stories} /> : null}
 
       {/* Quick Links Section */}
       <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-24 lg:px-8">
