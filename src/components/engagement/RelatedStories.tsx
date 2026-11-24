@@ -35,7 +35,7 @@ const sampleStories: Story[] = [
     id: '1',
     title: 'The Ultimate Guide to Tokyo Street Food',
     excerpt: 'Discover the best hidden gems and local favorites in Tokyo\'s vibrant street food scene.',
-    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&q=80&w=1080',
     publishedAt: '2024-01-15',
     readTime: 8,
     category: 'Food & Dining',
@@ -43,14 +43,14 @@ const sampleStories: Story[] = [
     slug: 'tokyo-street-food-guide',
     author: {
       name: 'Sarah Chen',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&q=80&w=2400',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&q=80&w=1080',
     },
   },
   {
     id: '2',
     title: 'Hidden Beaches of the Amalfi Coast',
     excerpt: 'Escape the crowds and discover secluded beaches along Italy\'s stunning coastline.',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1080',
     publishedAt: '2024-01-12',
     readTime: 6,
     category: 'Beaches',
@@ -58,14 +58,14 @@ const sampleStories: Story[] = [
     slug: 'hidden-beaches-amalfi-coast',
     author: {
       name: 'Marco Rossi',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&q=80&w=2400',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&q=80&w=1080',
     },
   },
   {
     id: '3',
     title: 'Budget Travel Tips for Southeast Asia',
     excerpt: 'How to travel extensively through Southeast Asia without breaking the bank.',
-    imageUrl: 'https://images.unsplash.com/photo-1528184039931-a224460b8d4b?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1528184039931-a224460b8d4b?auto=format&q=80&w=1080',
     publishedAt: '2024-01-10',
     readTime: 10,
     category: 'Budget Travel',
@@ -73,14 +73,14 @@ const sampleStories: Story[] = [
     slug: 'budget-travel-southeast-asia',
     author: {
       name: 'Alex Thompson',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&q=80&w=2400',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&q=80&w=1080',
     },
   },
   {
     id: '4',
     title: 'Cultural Experiences in Marrakech',
     excerpt: 'Immerse yourself in the rich culture and traditions of Morocco\'s Red City.',
-    imageUrl: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73b0e?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73b0e?auto=format&q=80&w=1080',
     publishedAt: '2024-01-08',
     readTime: 7,
     category: 'Culture',
@@ -88,14 +88,14 @@ const sampleStories: Story[] = [
     slug: 'cultural-experiences-marrakech',
     author: {
       name: 'Zahra Alami',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&q=80&w=2400',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&q=80&w=1080',
     },
   },
   {
     id: '5',
     title: 'Hiking Patagonia: Torres del Paine',
     excerpt: 'A comprehensive guide to hiking in one of the world\'s most beautiful national parks.',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1080',
     publishedAt: '2024-01-05',
     readTime: 12,
     category: 'Adventure',
@@ -103,7 +103,7 @@ const sampleStories: Story[] = [
     slug: 'hiking-patagonia-torres-del-paine',
     author: {
       name: 'Carlos Mendoza',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&q=80&w=2400',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&q=80&w=1080',
     },
   },
 ];
@@ -270,7 +270,7 @@ export function RelatedStories({
                   />
                   <span>{story.author.name}</span>
                 </div>
-                <span>{new Date(story.publishedAt).toLocaleDateString()}</span>
+                <span>{new Date(story.publishedAt).toLocaleDateString('en-AU')}</span>
               </div>
 
               <div className="flex flex-wrap gap-1 mt-2">
@@ -382,7 +382,7 @@ export function CommentSystem({
       id: Date.now().toString(),
       author: {
         name: 'Current User',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&q=80&w=2400',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&q=80&w=1080',
         verified: true,
       },
       content: newComment,
@@ -485,7 +485,7 @@ export function CommentSystem({
                   </span>
                 )}
                 <span className="text-gray-500 text-sm">
-                  {new Date(comment.timestamp).toLocaleDateString()}
+                  {new Date(comment.timestamp).toLocaleDateString('en-AU')}
                 </span>
               </div>
               <p className="text-gray-700 mb-3">{comment.content}</p>

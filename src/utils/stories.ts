@@ -94,7 +94,7 @@ function sortNewestFirst(a: Story, b: Story): number {
  */
 export const formatDate = (date: Date | string): string => {
   const d = toValidDate(date);
-  return d ? format(d, 'MMMM dd, yyyy') : '';
+  return d ? format(d, 'd MMMM yyyy') : '';
 };
 
 /**

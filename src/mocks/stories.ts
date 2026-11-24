@@ -17,7 +17,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: '2025-04-08T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&q=80&w=1080',
     photographer: {
       name: 'Paris Photographer',
       url: 'https://unsplash.com/@paris'
@@ -38,7 +38,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-09T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&q=80&w=1080',
     photographer: {
       name: 'Paris Photographer',
       url: 'https://unsplash.com/@parisphoto'
@@ -60,7 +60,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-04-10T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&q=80&w=1080',
     photographer: {
       name: 'Aviation Photographer',
       url: 'https://unsplash.com/@aviationphoto'
@@ -82,7 +82,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: '2025-04-11T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&q=80&w=1080',
     photographer: {
       name: 'Wildlife Photographer',
       url: 'https://unsplash.com/@wildlifephoto'
@@ -104,7 +104,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-12T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1553773077-91673524aafa?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1553773077-91673524aafa?auto=format&q=80&w=1080',
     photographer: {
       name: 'Rail Photographer',
       url: 'https://unsplash.com/@railphoto'
@@ -126,7 +126,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-13T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&q=80&w=1080',
     photographer: {
       name: 'Island Photographer',
       url: 'https://unsplash.com/@islandphoto'
@@ -148,7 +148,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-14T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&q=80&w=1080',
     photographer: {
       name: 'Tokyo Photographer',
       url: 'https://unsplash.com/@tokyophoto'
@@ -169,7 +169,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-04-15T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&q=80&w=1080',
     photographer: {
       name: 'Finance Photographer',
       url: 'https://unsplash.com/@financephoto'
@@ -190,7 +190,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-16T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&q=80&w=1080',
     photographer: {
       name: 'Bangkok Photographer',
       url: 'https://unsplash.com/@bangkokphoto'
@@ -211,7 +211,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: '2025-04-17T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&q=80&w=1080',
     photographer: {
       name: 'Iceland Photographer',
       url: 'https://unsplash.com/@icelandphoto'
@@ -232,7 +232,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-18T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1587595437715-1b0e0f8b01dd?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&q=80&w=1080',
     photographer: {
       name: 'Peru Photographer',
       url: 'https://unsplash.com/@peruphoto'
@@ -253,7 +253,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-04-19T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&q=80&w=1080',
     photographer: {
       name: 'Santorini Photographer',
       url: 'https://unsplash.com/@santoriniphoto'
@@ -274,7 +274,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-20T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&q=80&w=1080',
     photographer: {
       name: 'Vietnam Photographer',
       url: 'https://unsplash.com/@vietnamphoto'
@@ -295,7 +295,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-21T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1080',
     photographer: {
       name: 'Norway Photographer',
       url: 'https://unsplash.com/@norwayphoto'
@@ -316,7 +316,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-22T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73fb6?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&q=80&w=1080',
     photographer: {
       name: 'Morocco Photographer',
       url: 'https://unsplash.com/@moroccophoto'
@@ -337,7 +337,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: '2025-04-23T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1080',
     photographer: {
       name: 'Patagonia Photographer',
       url: 'https://unsplash.com/@patagoniaphoto'
@@ -358,7 +358,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-24T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&q=80&w=1080',
     photographer: {
       name: 'Dubai Photographer',
       url: 'https://unsplash.com/@dubaiphoto'
@@ -379,7 +379,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-25T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&q=80&w=1080',
     photographer: {
       name: 'Kyoto Photographer',
       url: 'https://unsplash.com/@kyotophoto'
@@ -400,7 +400,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-04-26T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73fb6?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&q=80&w=1080',
     photographer: {
       name: 'Amalfi Photographer',
       url: 'https://unsplash.com/@amalfiphoto'
@@ -421,7 +421,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-04-27T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1080',
     photographer: {
       name: 'Cappadocia Photographer',
       url: 'https://unsplash.com/@cappadociaphoto'
@@ -442,7 +442,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-28T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&q=80&w=1080',
     photographer: {
       name: 'Singapore Photographer',
       url: 'https://unsplash.com/@singaporephoto'
@@ -463,7 +463,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-04-29T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&q=80&w=1080',
     photographer: {
       name: 'Yellowstone Photographer',
       url: 'https://unsplash.com/@yellowstonephoto'
@@ -484,7 +484,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-04-30T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1544737151-6e4b789de6b4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&q=80&w=1080',
     photographer: {
       name: 'Prague Photographer',
       url: 'https://unsplash.com/@praguephoto'
@@ -505,7 +505,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-05-01T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1080',
     photographer: {
       name: 'Reef Photographer',
       url: 'https://unsplash.com/@reefphoto'
@@ -526,7 +526,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-05-02T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1080',
     photographer: {
       name: 'Budapest Photographer',
       url: 'https://unsplash.com/@budapestphoto'
@@ -547,7 +547,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: true,
     publishedAt: '2025-05-03T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&q=80&w=1080',
     photographer: {
       name: 'Swiss Photographer',
       url: 'https://unsplash.com/@swissphoto'
@@ -568,7 +568,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: false,
     publishedAt: '2025-05-04T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&q=80&w=1080',
     photographer: {
       name: 'Rio Photographer',
       url: 'https://unsplash.com/@riophoto'
@@ -589,7 +589,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-05-05T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&q=80&w=1080',
     photographer: {
       name: 'Scotland Photographer',
       url: 'https://unsplash.com/@scotlandphoto'
@@ -610,7 +610,7 @@ export const mockStories: Story[] = [
     featured: false,
     editorsPick: false,
     publishedAt: '2025-05-06T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?auto=format&q=80&w=1080',
     photographer: {
       name: 'Bali Photographer',
       url: 'https://unsplash.com/@baliphoto'
@@ -631,7 +631,7 @@ export const mockStories: Story[] = [
     featured: true,
     editorsPick: true,
     publishedAt: '2025-05-07T09:00:00.000Z',
-    imageUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&q=80&w=2400',
+    imageUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&q=80&w=1080',
     photographer: {
       name: 'Canada Photographer',
       url: 'https://unsplash.com/@canadaphoto'

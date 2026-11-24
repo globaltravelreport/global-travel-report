@@ -104,7 +104,7 @@ export default function RelatedStories({
                   {story.excerpt}
                 </p>
                 <div className="text-xs text-gray-500">
-                  {new Date(story.publishedAt).toLocaleDateString()}
+                  {new Date(story.publishedAt).toLocaleDateString('en-AU')}
                 </div>
                 {story.tags && story.tags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1">
@@ -187,7 +187,7 @@ export function RelatedStoriesCompact({
                   {story.title}
                 </h5>
                 <p className="text-xs text-gray-500 mt-1">
-                  {new Date(story.publishedAt).toLocaleDateString()}
+                  {new Date(story.publishedAt).toLocaleDateString('en-AU')}
                 </p>
               </div>
             </div>

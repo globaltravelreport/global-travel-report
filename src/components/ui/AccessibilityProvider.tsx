@@ -1,228 +1,99 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { SkipToContent } from '@/components/ui/SkipToContent';
+/**
+ * Compatibility layer for the UI accessibility hook.
+ *
+ * The root layout wraps the app with `src/components/accessibility/AccessibilityProvider`.
+ * Image and menu components historically imported a *different* context from this file,
+ * which caused `useAccessibility must be used within an AccessibilityProvider` and
+ * blank country pages. Both entry points now share the same provider/context.
+ */
 
-interface AccessibilityContextType {
-  /**
-   * Whether high contrast mode is enabled
-   */
-  highContrast: boolean;
-  
-  /**
-   * Toggle high contrast mode
-   */
-  toggleHighContrast: () => void;
-  
-  /**
-   * Whether reduced motion is enabled
-   */
-  reducedMotion: boolean;
-  
-  /**
-   * Toggle reduced motion
-   */
-  toggleReducedMotion: () => void;
-  
-  /**
-   * Current font size adjustment
-   */
-  fontSizeAdjustment: number;
-  
-  /**
-   * Increase font size
-   */
-  increaseFontSize: () => void;
-  
-  /**
-   * Decrease font size
-   */
-  decreaseFontSize: () => void;
-  
-  /**
-   * Reset font size to default
-   */
-  resetFontSize: () => void;
-  
-  /**
-   * Whether focus indicators are visible
-   */
-  focusVisible: boolean;
-  
-  /**
-   * Set focus visibility
-   */
-  setFocusVisible: (visible: boolean) => void;
-}
+import {
+  AccessibilityProvider,
+  useAccessibility as useAccessibilitySettings,
+} from '@/components/accessibility/AccessibilityProvider';
 
-const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
+const FONT_SIZES = ['small', 'medium', 'large', 'extra-large'] as const;
+type FontSize = (typeof FONT_SIZES)[number];
 
-interface AccessibilityProviderProps {
-  /**
-   * Children to render
-   */
-  children: ReactNode;
-}
+const SIZE_TO_ADJUSTMENT: Record<FontSize, number> = {
+  small: -1,
+  medium: 0,
+  large: 1,
+  'extra-large': 2,
+};
+
+const ADJUSTMENT_TO_SIZE: Record<number, FontSize> = {
+  [-2]: 'small',
+  [-1]: 'small',
+  0: 'medium',
+  1: 'large',
+  2: 'extra-large',
+  3: 'extra-large',
+};
 
 /**
- * Provider component for accessibility features
+ * Hook that maps the layout provider's settings API onto the older UI shape
+ * expected by EnhancedImage, OptimizedImageV2, and AccessibilityMenu.
  */
-export function AccessibilityProvider({ children }: AccessibilityProviderProps) {
-  // State for accessibility preferences
-  const [highContrast, setHighContrast] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [fontSizeAdjustment, setFontSizeAdjustment] = useState(0);
-  const [focusVisible, setFocusVisible] = useState(true);
-  
-  // Load preferences from localStorage on mount
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    // Load high contrast preference
-    const savedHighContrast = localStorage.getItem('highContrast');
-    if (savedHighContrast) {
-      setHighContrast(savedHighContrast === 'true');
-    }
-    
-    // Load reduced motion preference
-    const savedReducedMotion = localStorage.getItem('reducedMotion');
-    if (savedReducedMotion) {
-      setReducedMotion(savedReducedMotion === 'true');
-    } else {
-      // Check for prefers-reduced-motion media query
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      setReducedMotion(prefersReducedMotion);
-    }
-    
-    // Load font size adjustment
-    const savedFontSize = localStorage.getItem('fontSizeAdjustment');
-    if (savedFontSize) {
-      setFontSizeAdjustment(parseInt(savedFontSize, 10));
-    }
-  }, []);
-  
-  // Update document with accessibility preferences
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    // Apply high contrast
-    if (highContrast) {
-      document.documentElement.classList.add('high-contrast');
-    } else {
-      document.documentElement.classList.remove('high-contrast');
-    }
-    
-    // Save preference
-    localStorage.setItem('highContrast', highContrast.toString());
-  }, [highContrast]);
-  
-  // Update document with reduced motion preference
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    // Apply reduced motion
-    if (reducedMotion) {
-      document.documentElement.classList.add('reduced-motion');
-    } else {
-      document.documentElement.classList.remove('reduced-motion');
-    }
-    
-    // Save preference
-    localStorage.setItem('reducedMotion', reducedMotion.toString());
-  }, [reducedMotion]);
-  
-  // Update document with font size adjustment
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    // Apply font size adjustment
-    document.documentElement.style.setProperty('--font-size-adjustment', `${fontSizeAdjustment}`);
-    
-    // Save preference
-    localStorage.setItem('fontSizeAdjustment', fontSizeAdjustment.toString());
-  }, [fontSizeAdjustment]);
-  
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Show focus indicators when using keyboard
-      if (event.key === 'Tab') {
-        setFocusVisible(true);
-      }
-    };
-    
-    const handleMouseDown = () => {
-      // Hide focus indicators when using mouse
-      setFocusVisible(false);
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('mousedown', handleMouseDown);
-    
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('mousedown', handleMouseDown);
-    };
-  }, []);
-  
-  // Toggle high contrast mode
-  const toggleHighContrast = () => {
-    setHighContrast(prev => !prev);
-  };
-  
-  // Toggle reduced motion
-  const toggleReducedMotion = () => {
-    setReducedMotion(prev => !prev);
-  };
-  
-  // Increase font size
-  const increaseFontSize = () => {
-    setFontSizeAdjustment(prev => Math.min(prev + 1, 3));
-  };
-  
-  // Decrease font size
-  const decreaseFontSize = () => {
-    setFontSizeAdjustment(prev => Math.max(prev - 1, -2));
-  };
-  
-  // Reset font size
-  const resetFontSize = () => {
-    setFontSizeAdjustment(0);
-  };
-  
-  // Context value
-  const value = {
-    highContrast,
-    toggleHighContrast,
-    reducedMotion,
-    toggleReducedMotion,
-    fontSizeAdjustment,
-    increaseFontSize,
-    decreaseFontSize,
-    resetFontSize,
-    focusVisible,
-    setFocusVisible,
-  };
-  
-  return (
-    <AccessibilityContext.Provider value={value}>
-      <SkipToContent />
-      {children}
-    </AccessibilityContext.Provider>
-  );
-}
+const FALLBACK_SETTINGS = {
+  reducedMotion: false,
+  highContrast: false,
+  largeText: false,
+  focusVisible: true,
+  screenReader: false,
+  keyboardNavigation: true,
+  colorBlind: false,
+  fontSize: 'medium' as FontSize,
+};
 
-/**
- * Hook to use accessibility context
- */
-export function useAccessibility() {
-  const context = useContext(AccessibilityContext);
-  
-  if (context === undefined) {
-    throw new Error('useAccessibility must be used within an AccessibilityProvider');
+function useAccessibilitySettingsSafe() {
+  try {
+    return useAccessibilitySettings();
+  } catch {
+    // Tests and any tree rendered without the root provider should still work.
+    return {
+      settings: FALLBACK_SETTINGS,
+      updateSetting: () => undefined,
+      resetSettings: () => undefined,
+      announceToScreenReader: () => undefined,
+    };
   }
-  
-  return context;
 }
 
+export function useAccessibility() {
+  const { settings, updateSetting, resetSettings } = useAccessibilitySettingsSafe();
+  const fontSize = (FONT_SIZES.includes(settings.fontSize as FontSize)
+    ? settings.fontSize
+    : 'medium') as FontSize;
+
+  return {
+    highContrast: settings.highContrast,
+    toggleHighContrast: () => updateSetting('highContrast', !settings.highContrast),
+    reducedMotion: settings.reducedMotion,
+    toggleReducedMotion: () => updateSetting('reducedMotion', !settings.reducedMotion),
+    fontSizeAdjustment: SIZE_TO_ADJUSTMENT[fontSize],
+    increaseFontSize: () => {
+      const index = FONT_SIZES.indexOf(fontSize);
+      updateSetting('fontSize', FONT_SIZES[Math.min(index + 1, FONT_SIZES.length - 1)]);
+    },
+    decreaseFontSize: () => {
+      const index = FONT_SIZES.indexOf(fontSize);
+      updateSetting('fontSize', FONT_SIZES[Math.max(index - 1, 0)]);
+    },
+    resetFontSize: () => updateSetting('fontSize', 'medium'),
+    focusVisible: settings.focusVisible,
+    setFocusVisible: (visible: boolean) => updateSetting('focusVisible', visible),
+    resetSettings,
+    settings,
+    updateSetting,
+    // Allow callers that pass a numeric adjustment to still land on a valid size
+    setFontSizeFromAdjustment: (adjustment: number) => {
+      updateSetting('fontSize', ADJUSTMENT_TO_SIZE[adjustment] || 'medium');
+    },
+  };
+}
+
+export { AccessibilityProvider };
 export default AccessibilityProvider;

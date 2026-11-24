@@ -107,8 +107,8 @@ export async function GET(request: Request) {
     : 'Latest travel stories and insights from around the world';
 
   const feedUrl = categorySlug
-    ? `${baseUrl}/api/feed/rss?category=${categorySlug}`
-    : `${baseUrl}/api/feed/rss`;
+    ? `${baseUrl}/rss.xml?category=${categorySlug}`
+    : `${baseUrl}/rss.xml`;
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0"
@@ -135,7 +135,7 @@ export async function GET(request: Request) {
       <sy:updatePeriod>hourly</sy:updatePeriod>
       <sy:updateFrequency>24</sy:updateFrequency>
       <image>
-        <url>${baseUrl}/logo-gtr.png</url>
+        <url>${baseUrl}/images/logo-512.png</url>
         <title>${escapeXml(feedTitle)}</title>
         <link>${baseUrl}</link>
         <width>144</width>

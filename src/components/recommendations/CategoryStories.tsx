@@ -10,7 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage';
 import { LazyLoad } from '@/components/ui/LazyLoad';
 import { cn } from '@/utils/cn';
-import { getCategoryBySlug, findBestMatchingCategory } from '@/src/config/categories';
+import { getCategoryBySlug, findBestMatchingCategory, normalizeCategorySlug } from '@/src/config/categories';
 
 interface CategoryStoriesProps {
   category: string;
@@ -56,11 +56,10 @@ export function CategoryStories({ category, limit = 4, excludeStoryId }: Categor
   }, [category, limit, excludeStoryId]);
 
   // Get category info from our standardized categories
-  const categoryInfo = getCategoryBySlug(category.toLowerCase().replace(/\s+/g, '-')) ||
-                      findBestMatchingCategory(category);
+  const categoryInfo = getCategoryBySlug(category) || findBestMatchingCategory(category);
 
   const categoryName = categoryInfo?.name || category;
-  const categorySlug = categoryInfo?.slug || category.toLowerCase().replace(/\s+/g, '-');
+  const categorySlug = categoryInfo?.slug || normalizeCategorySlug(category);
   const categoryIcon = categoryInfo?.icon || '📄';
 
   if (loading) {

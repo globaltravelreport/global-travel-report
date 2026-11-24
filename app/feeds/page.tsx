@@ -36,11 +36,11 @@ function FeedsPageContent() {
                 Get all the latest stories from Global Travel Report in one feed.
               </p>
               <code className="bg-gray-100 px-3 py-1 rounded text-sm font-mono break-all">
-                {`${baseUrl}/api/feed/rss`}
+                {`${baseUrl}/rss.xml`}
               </code>
             </div>
             <Link
-              href="/api/feed/rss"
+              href="/rss.xml"
               target="_blank"
               className="flex items-center gap-2 bg-[#19273A] text-[#C9A14A] px-4 py-2 rounded-md hover:bg-[#2a3b52] transition-colors"
             >
@@ -66,10 +66,10 @@ function FeedsPageContent() {
                 </p>
                 <div className="mt-auto">
                   <code className="block bg-gray-100 px-3 py-1 rounded text-sm font-mono mb-4 break-all">
-                    {`${baseUrl}/api/feed/rss?category=${category.slug}`}
+                    {`${baseUrl}/rss.xml?category=${category.slug}`}
                   </code>
                   <Link
-                    href={`/api/feed/rss?category=${category.slug}`}
+                    href={`/rss.xml?category=${category.slug}`}
                     target="_blank"
                     className="flex items-center gap-2 bg-[#19273A] text-[#C9A14A] px-4 py-2 rounded-md hover:bg-[#2a3b52] transition-colors w-fit"
                   >

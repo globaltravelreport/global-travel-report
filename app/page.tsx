@@ -5,11 +5,9 @@ import { getAllStories, getHomepageStories } from '../src/utils/stories';
 import type { Metadata } from 'next';
 import type { Story } from '../types/Story';
 
-// The homepage is a live newsroom index. It must read the same current Supabase
-// data as the individual story routes and sitemap instead of serving a stale
-// render after a new story has been published.
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
+// Short ISR cache keeps the homepage fresh while cutting repeat Supabase reads
+// (egress was exhausting the quota and taking publishing offline).
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: {

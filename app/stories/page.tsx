@@ -2,8 +2,7 @@ import { Metadata } from 'next';
 import StoriesIndexClient from './StoriesIndexClient.tsx';
 import { getAllStories } from '@/src/utils/stories';
 
-// Force dynamic rendering to ensure stories are loaded at runtime
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Travel Stories',

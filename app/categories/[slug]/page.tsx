@@ -7,6 +7,8 @@ import { Story } from '@/types/Story';
 import Image from 'next/image';
 import InterlineSponsorPlacement from '@/src/components/sponsorship/InterlineSponsorPlacement';
 
+export const revalidate = 60;
+
 type CategoryPageProps = {
   params: Promise<{
     slug: string;
@@ -355,7 +357,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         {story.publishedAt && (
                           <time dateTime={new Date(story.publishedAt).toISOString()}>
-                            {new Date(story.publishedAt).toLocaleDateString('en-US', {
+                            {new Date(story.publishedAt).toLocaleDateString('en-AU', {
                               month: 'short',
                               day: 'numeric',
                               year: 'numeric'
@@ -429,7 +431,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">{story.title}</h4>
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <time dateTime={new Date(story.publishedAt).toISOString()}>
-                          {new Date(story.publishedAt).toLocaleDateString('en-US', {
+                          {new Date(story.publishedAt).toLocaleDateString('en-AU', {
                             month: 'short',
                             day: 'numeric',
                             year: 'numeric'

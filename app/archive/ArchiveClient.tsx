@@ -276,7 +276,7 @@ export default function ArchiveClient() {
           <div className="space-y-8 mb-12">
             {Object.entries(getStoriesByMonth(filteredStories)).map(([monthKey, monthStories]) => {
               const [year, month] = monthKey.split('-');
-              const monthName = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('en-US', {
+              const monthName = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('en-AU', {
                 year: 'numeric',
                 month: 'long'
               });
@@ -314,7 +314,7 @@ export default function ArchiveClient() {
                               <p className="text-sm text-gray-600 line-clamp-2 mb-3">{story.excerpt}</p>
                               <div className="flex items-center justify-between text-xs text-gray-500">
                                 <time dateTime={new Date(story.publishedAt).toISOString()}>
-                                  {new Date(story.publishedAt).toLocaleDateString('en-US', {
+                                  {new Date(story.publishedAt).toLocaleDateString('en-AU', {
                                     month: 'short',
                                     day: 'numeric'
                                   })}
@@ -399,7 +399,7 @@ export default function ArchiveClient() {
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         {story.publishedAt && (
                           <time dateTime={new Date(story.publishedAt).toISOString()}>
-                            {new Date(story.publishedAt).toLocaleDateString('en-US', {
+                            {new Date(story.publishedAt).toLocaleDateString('en-AU', {
                               month: 'short',
                               day: 'numeric',
                               year: 'numeric'

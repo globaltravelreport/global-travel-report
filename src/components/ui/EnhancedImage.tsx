@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/utils/cn';
 import { useAccessibility } from '@/components/ui/AccessibilityProvider';
+import { capUnsplashImageWidth } from '@/utils/imageUrl';
 
 interface EnhancedImageProps {
   /**
@@ -142,12 +143,13 @@ export function EnhancedImage({
   const [isHovered, setIsHovered] = useState(false);
   const [error, setError] = useState(false);
   const { highContrast } = useAccessibility();
+  const resolvedSrc = capUnsplashImageWidth(src);
   
   // Reset loaded state when src changes
   useEffect(() => {
     setIsLoaded(false);
     setError(false);
-  }, [src]);
+  }, [resolvedSrc]);
   
   // Handle image load
   const handleLoad = () => {
@@ -164,31 +166,31 @@ export function EnhancedImage({
   // Optimize image URL
   const optimizedSrc = React.useMemo(() => {
     // For Unsplash images, add quality and format parameters
-    if (src.includes('unsplash.com') && !src.includes('q=')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}fm=webp&q=${isHovered && enhanceOnHover ? 90 : quality}&auto=compress`;
+    if (resolvedSrc.includes('unsplash.com') && !resolvedSrc.includes('q=')) {
+      const separator = resolvedSrc.includes('?') ? '&' : '?';
+      return `${resolvedSrc}${separator}fm=webp&q=${isHovered && enhanceOnHover ? 90 : quality}&auto=compress`;
     }
     
     // For Pexels images, add auto format and quality parameters
-    if (src.includes('pexels.com') && !src.includes('auto=')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}auto=webp&q=${isHovered && enhanceOnHover ? 90 : quality}`;
+    if (resolvedSrc.includes('pexels.com') && !resolvedSrc.includes('auto=')) {
+      const separator = resolvedSrc.includes('?') ? '&' : '?';
+      return `${resolvedSrc}${separator}auto=webp&q=${isHovered && enhanceOnHover ? 90 : quality}`;
     }
     
     // For Cloudinary images, add format and quality parameters
-    if (src.includes('cloudinary.com') && !src.includes('f_auto')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}f_auto,q_${isHovered && enhanceOnHover ? 90 : quality}`;
+    if (resolvedSrc.includes('cloudinary.com') && !resolvedSrc.includes('f_auto')) {
+      const separator = resolvedSrc.includes('?') ? '&' : '?';
+      return `${resolvedSrc}${separator}f_auto,q_${isHovered && enhanceOnHover ? 90 : quality}`;
     }
     
     // For Imgix images, add format and quality parameters
-    if (src.includes('imgix.net') && !src.includes('fm=')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}fm=webp&q=${isHovered && enhanceOnHover ? 90 : quality}&auto=compress`;
+    if (resolvedSrc.includes('imgix.net') && !resolvedSrc.includes('fm=')) {
+      const separator = resolvedSrc.includes('?') ? '&' : '?';
+      return `${resolvedSrc}${separator}fm=webp&q=${isHovered && enhanceOnHover ? 90 : quality}&auto=compress`;
     }
     
-    return src;
-  }, [src, quality, isHovered, enhanceOnHover]);
+    return resolvedSrc;
+  }, [resolvedSrc, quality, isHovered, enhanceOnHover]);
   
   // If there's an error, show a fallback
   if (error) {

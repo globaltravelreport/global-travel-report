@@ -154,7 +154,43 @@ const nextConfig = withBundleAnalyzer({
       {
         source: '/',
         headers: [
-          { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=900, stale-while-revalidate=86400' },
+          { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=60, stale-while-revalidate=300' },
+        ],
+      },
+      {
+        source: '/og/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/api/og/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/stories/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
+        ],
+      },
+      {
+        source: '/categories/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
+        ],
+      },
+      {
+        source: '/countries/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
+        ],
+      },
+      {
+        source: '/rss.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
         ],
       },
       {
@@ -278,6 +314,25 @@ const nextConfig = withBundleAnalyzer({
         destination: '/terms-of-service',
         permanent: true,
       },
+      {
+        source: '/categories/food-&-drink',
+        destination: '/categories/food-drink',
+        permanent: true,
+      },
+      {
+        source: '/categories/food-and-drink',
+        destination: '/categories/food-drink',
+        permanent: true,
+      },
+    ];
+  },
+
+  // Public feed URLs outside the robots-blocked /api/ path
+  async rewrites() {
+    return [
+      { source: '/rss.xml', destination: '/api/feed/rss' },
+      { source: '/feed', destination: '/api/feed/rss' },
+      { source: '/feed.xml', destination: '/api/feed/rss' },
     ];
   },
 

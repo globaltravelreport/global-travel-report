@@ -58,7 +58,7 @@ export function CategoriesIndexStructuredData({
       'name': 'Global Travel Report',
       'logo': {
         '@type': 'ImageObject',
-        'url': `${siteUrl}/logo-gtr.png`,
+        'url': `${siteUrl}/images/logo-512.png`,
         'width': 600,
         'height': 60
       }

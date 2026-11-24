@@ -42,7 +42,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         description: 'Discover the latest Mediterranean cruise offerings for 2024',
         pubDate: new Date().toISOString(),
         author: 'Cruise Industry News',
-        imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',
+        imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1080',
         category: 'Cruises'
       },
       {
@@ -52,7 +52,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         description: 'Explore Japan\'s lesser-known destinations',
         pubDate: new Date().toISOString(),
         author: 'Travel + Leisure',
-        imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=2400',
+        imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=1080',
         category: 'Destinations'
       },
       {
@@ -62,7 +62,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         description: 'New luxury hotel openings in Southeast Asia',
         pubDate: new Date().toISOString(),
         author: 'Luxury Travel Magazine',
-        imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=2400',
+        imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=1080',
         category: 'Hotels'
       },
       {
@@ -72,7 +72,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         description: 'Latest trends in European river cruising',
         pubDate: new Date().toISOString(),
         author: 'River Cruise Advisor',
-        imageUrl: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&q=80&w=2400',
+        imageUrl: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&q=80&w=1080',
         category: 'Cruises'
       },
       {
@@ -82,7 +82,7 @@ export async function fetchRSSFeeds(): Promise<Story[]> {
         description: 'Sustainable travel destinations making a difference',
         pubDate: new Date().toISOString(),
         author: 'Sustainable Travel International',
-        imageUrl: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&q=80&w=2400',
+        imageUrl: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&q=80&w=1080',
         category: 'Destinations'
       }
     ];
@@ -194,11 +194,11 @@ function extractTags(content: string): string[] {
  */
 function getDefaultImage(category: string): string {
   const defaultImages = {
-    'Cruises': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=2400',
-    'Hotels': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=2400',
-    'Flights': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=2400',
-    'Destinations': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400',
-    'Food': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&q=80&w=2400'
+    'Cruises': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&q=80&w=1080',
+    'Hotels': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&q=80&w=1080',
+    'Flights': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&q=80&w=1080',
+    'Destinations': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1080',
+    'Food': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&q=80&w=1080'
   };
 
   return defaultImages[category as keyof typeof defaultImages] || defaultImages['Destinations'];
@@ -222,7 +222,7 @@ function getBackupStories(): Story[] {
       featured: true,
       editorsPick: true,
       publishedAt: '2025-04-24T09:00:00.000Z',
-      imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=2400',
+      imageUrl: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&q=80&w=1080',
       metaTitle: 'Mediterranean Cruise Guide 2024',
       metaDescription: 'Complete guide to Mediterranean cruises in 2024'
     },
@@ -239,7 +239,7 @@ function getBackupStories(): Story[] {
       featured: true,
       editorsPick: false,
       publishedAt: '2025-04-25T09:00:00.000Z',
-      imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=2400',
+      imageUrl: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&q=80&w=1080',
       metaTitle: 'Hidden Gems of Japan',
       metaDescription: 'Discover Japan\'s lesser-known destinations'
     }

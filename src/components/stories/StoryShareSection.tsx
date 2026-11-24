@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Copy, Rss, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { FacebookShareButton } from '@/components/social/FacebookShareButton';
+import { normalizeCategorySlug } from '@/src/config/categories';
 
 interface StoryShareSectionProps {
   /**
@@ -91,8 +92,8 @@ export function StoryShareSection({
   const getRssFeedUrl = () => {
     if (!story.category) return `${baseUrl}/api/feed/rss`;
 
-    const categorySlug = story.category.toLowerCase().replace(/\s+/g, '-');
-    return `${baseUrl}/api/feed/rss?category=${categorySlug}`;
+    const categorySlug = normalizeCategorySlug(story.category);
+    return `${baseUrl}/rss.xml?category=${categorySlug}`;
   };
 
   return (

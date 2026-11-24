@@ -71,7 +71,7 @@ export function generateArticleStructuredData(article: any) {
       'name': 'Global Travel Report',
       'logo': {
         '@type': 'ImageObject',
-        'url': `${baseUrl}/logo-gtr.png`,
+        'url': `${baseUrl}/images/logo-512.png`,
         'width': 600,
         'height': 60
       }
@@ -139,7 +139,7 @@ export function generateOrganizationStructuredData() {
     'url': baseUrl,
     'logo': {
       '@type': 'ImageObject',
-      'url': `${baseUrl}/logo-gtr.png`,
+      'url': `${baseUrl}/images/logo-512.png`,
       'width': 600,
       'height': 60
     },

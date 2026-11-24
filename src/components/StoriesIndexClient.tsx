@@ -207,7 +207,7 @@ export default function StoriesIndexClient() {
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     {story.publishedAt && (
                       <time dateTime={new Date(story.publishedAt).toISOString()}>
-                        {new Date(story.publishedAt).toLocaleDateString('en-US', {
+                        {new Date(story.publishedAt).toLocaleDateString('en-AU', {
                           month: 'short',
                           day: 'numeric',
                           year: 'numeric'

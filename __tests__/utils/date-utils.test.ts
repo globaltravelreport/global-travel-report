@@ -3,7 +3,7 @@ import { formatDate } from '../../src/utils/stories'
 describe('Date Utils', () => {
   describe('formatDate', () => {
     it('formats a valid date string correctly', () => {
-      expect(formatDate('2024-03-24')).toBe('March 24, 2024')
+      expect(formatDate('2024-03-24')).toBe('24 March 2024')
     })
 
     it('returns an empty string for invalid date strings', () => {

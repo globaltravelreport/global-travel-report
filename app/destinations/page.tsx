@@ -1,8 +1,11 @@
 import { getAllStories } from '@/src/utils/stories';
+import { capUnsplashImageWidth } from '@/utils/imageUrl';
+
+export const revalidate = 60;
 
 // Simple server-side story card component to avoid client-side rendering issues
 function SimpleStoryCard({ story }: { story: any }) {
-  const imageUrl = story.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=2400';
+  const imageUrl = capUnsplashImageWidth(story.imageUrl || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&q=80&w=1080');
   const _photographer = story.photographer?.name || 'Unknown Photographer';
 
   return (
@@ -27,7 +30,7 @@ function SimpleStoryCard({ story }: { story: any }) {
 
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-2 text-xs text-gray-500">
-              <span>{story.publishedAt ? new Date(story.publishedAt).toLocaleDateString() : 'Unknown date'}</span>
+              <span>{story.publishedAt ? new Date(story.publishedAt).toLocaleDateString('en-AU') : 'Unknown date'}</span>
             </div>
 
             {story.country && (

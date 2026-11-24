@@ -1,5 +1,6 @@
 import { Story } from '@/types/Story';
 import { getCategoryBySlug, findBestMatchingCategory } from '@/src/config/categories';
+import { normalizeCategorySlug } from '@/src/config/categories';
 
 /**
  * Extracts keywords from story content and tags
@@ -47,7 +48,7 @@ export function generateNewsArticleSchema(story: Story, siteUrl: string = 'https
     : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
 
   // Get category information if available
-  const categorySlug = story.category?.toLowerCase().replace(/\s+/g, '-');
+  const categorySlug = normalizeCategorySlug(story.category);
   const categoryInfo = categorySlug ? getCategoryBySlug(categorySlug) || findBestMatchingCategory(story.category) : null;
 
   // Get optimized keywords
@@ -121,7 +122,7 @@ export function generateArticleSchema(story: Story, siteUrl: string = 'https://w
     : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
 
   // Get category information if available
-  const categorySlug = story.category?.toLowerCase().replace(/\s+/g, '-');
+  const categorySlug = normalizeCategorySlug(story.category);
   const categoryInfo = categorySlug ? getCategoryBySlug(categorySlug) || findBestMatchingCategory(story.category) : null;
 
   // Get optimized keywords
@@ -184,7 +185,7 @@ export function generateTravelDestinationSchema(story: Story, siteUrl: string = 
     : `${siteUrl}${story.imageUrl || '/images/default-story.jpg'}`;
 
   // Get category information if available
-  const categorySlug = story.category?.toLowerCase().replace(/\s+/g, '-');
+  const categorySlug = normalizeCategorySlug(story.category);
   const categoryInfo = categorySlug ? getCategoryBySlug(categorySlug) || findBestMatchingCategory(story.category) : null;
 
   // Determine if this is a cruise destination
@@ -294,7 +295,7 @@ export function generateBreadcrumbSchema(story: Story, siteUrl: string = 'https:
   // Add category if available
   if (story.category) {
     // Get category information from our standardized categories
-    const categorySlug = story.category.toLowerCase().replace(/\s+/g, '-');
+    const categorySlug = normalizeCategorySlug(story.category);
     const categoryInfo = getCategoryBySlug(categorySlug) || findBestMatchingCategory(story.category);
 
     if (categoryInfo) {
