@@ -2,6 +2,8 @@
  * URL utilities for consistent URL handling
  */
 
+import { normalizeCategorySlug } from '@/src/config/categories';
+
 /**
  * Convert a string to a URL-friendly slug
  * @param text - The text to convert to a slug
@@ -35,7 +37,7 @@ export function getStoryUrl(slug: string, absolute: boolean = false): string {
  */
 export function getCategoryUrl(category: string, absolute: boolean = false): string {
   const base = absolute ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com') : '';
-  return `${base}/categories/${slugify(category)}`;
+  return `${base}/categories/${normalizeCategorySlug(category)}`;
 }
 
 /**

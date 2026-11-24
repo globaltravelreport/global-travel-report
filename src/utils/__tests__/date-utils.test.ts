@@ -34,11 +34,11 @@ describe('Date Utilities', () => {
   describe('formatDisplayDate', () => {
     it('should format a valid date correctly', () => {
       const date = new Date('2023-05-15T12:00:00Z');
-      expect(formatDisplayDate(date)).toMatch(/May 15, 2023/);
+      expect(formatDisplayDate(date)).toMatch(/15 May 2023/);
     });
 
     it('should handle string dates', () => {
-      expect(formatDisplayDate('2023-05-15T12:00:00Z')).toMatch(/May 15, 2023/);
+      expect(formatDisplayDate('2023-05-15T12:00:00Z')).toMatch(/15 May 2023/);
     });
 
     it('should return "Unknown date" for invalid dates', () => {

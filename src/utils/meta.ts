@@ -15,7 +15,7 @@ export function generateStoryMetaDescription(story: Story, maxLength: number = 1
   // If the description is empty or too short, generate one from story data
   if (!description || description.length < 50) {
     const categoryInfo = story.category 
-      ? getCategoryBySlug(story.category.toLowerCase().replace(/\s+/g, '-')) || findBestMatchingCategory(story.category)
+      ? getCategoryBySlug(story.category) || findBestMatchingCategory(story.category)
       : null;
       
     const categoryName = categoryInfo?.name || story.category || '';
@@ -65,24 +65,13 @@ export function generateStoryMetaDescription(story: Story, maxLength: number = 1
  * @param maxLength - Maximum length of the title (default: 60)
  * @returns Optimized meta title
  */
-export function generateStoryMetaTitle(story: Story, siteName: string = 'Global Travel Report', maxLength: number = 60): string {
+export function generateStoryMetaTitle(story: Story, siteName: string = 'Global Travel Report', _maxLength: number = 60): string {
   // Remove any "Title: " prefix that might be in the story title
-  let title = story.title.replace(/^Title:\s*/i, '');
-  
-  // Calculate the available space for the title
+  const title = story.title.replace(/^Title:\s*/i, '').trim();
   const separator = ' - ';
-  const availableSpace = maxLength - siteName.length - separator.length;
-  
-  // If the title is too long, truncate it
-  if (title.length > availableSpace) {
-    // Truncate at the last complete word
-    title = title.substring(0, availableSpace);
-    const lastSpace = title.lastIndexOf(' ');
-    if (lastSpace > availableSpace * 0.7) {
-      title = title.substring(0, lastSpace);
-    }
-  }
-  
+
+  // Keep the full headline so the document title matches the story.
+  // Do not truncate to a 60-character SEO budget; that was clipping titles.
   return `${title}${separator}${siteName}`;
 }
 

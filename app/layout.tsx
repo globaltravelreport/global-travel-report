@@ -123,6 +123,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="alternate" type="application/rss+xml" title="Global Travel Report" href="/rss.xml" />
         
         <meta name="msapplication-TileColor" content="#19273A" />
         <meta name="mobile-web-app-capable" content="yes" />

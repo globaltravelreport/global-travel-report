@@ -78,7 +78,7 @@ export function generateEnhancedNewsArticleSchema(story: Story, siteUrl: string 
       'url': canonicalSiteUrl,
       'logo': {
         '@type': 'ImageObject',
-        'url': `${canonicalSiteUrl}/images/logo-gtr.png`,
+        'url': `${canonicalSiteUrl}/images/logo-512.png`,
         'width': 1024,
         'height': 1024
       },

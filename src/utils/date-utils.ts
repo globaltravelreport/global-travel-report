@@ -7,12 +7,12 @@
  *
  * 1. Format a date for display:
  *    ```typescript
- *    const formatted = formatDisplayDate(new Date()); // e.g., 'March 24, 2024'
+ *    const formatted = formatDisplayDate(new Date()); // e.g., '24 March 2024'
  *    ```
  *
  * 2. Format a date with time:
  *    ```typescript
- *    const formatted = formatDisplayDateTime(new Date()); // e.g., 'March 24, 2024, 10:30 AM'
+ *    const formatted = formatDisplayDateTime(new Date()); // e.g., '24 March 2024, 10:30 AM'
  *    ```
  *
  * 3. Format a date for ISO string:
@@ -39,10 +39,10 @@
 /**
  * Format a date for display in the UI
  * @param date - The date to format
- * @param locale - The locale to use for formatting (default: 'en-US')
+ * @param locale - The locale to use for formatting (default: 'en-AU')
  * @returns A formatted date string
  */
-export function formatDisplayDate(date: Date | string, locale: string = 'en-US'): string {
+export function formatDisplayDate(date: Date | string, locale: string = 'en-AU'): string {
   // If the date is invalid, return 'Unknown date'
   if (!date) {
     return 'Unknown date';
@@ -73,10 +73,10 @@ export function formatDisplayDate(date: Date | string, locale: string = 'en-US')
 /**
  * Format a date for display with time
  * @param date - The date to format
- * @param locale - The locale to use for formatting (default: 'en-US')
+ * @param locale - The locale to use for formatting (default: 'en-AU')
  * @returns A formatted date and time string
  */
-export function formatDisplayDateTime(date: Date | string, locale: string = 'en-US'): string {
+export function formatDisplayDateTime(date: Date | string, locale: string = 'en-AU'): string {
   const dateObj = date instanceof Date ? date : new Date(date);
 
   return new Intl.DateTimeFormat(locale, {

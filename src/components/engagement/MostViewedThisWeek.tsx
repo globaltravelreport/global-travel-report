@@ -177,7 +177,7 @@ export function MostViewedThisWeek({
                   <span className="text-xs text-gray-500">{story.category}</span>
                   <span className="text-xs text-gray-300">•</span>
                   <span className="text-xs text-gray-500">
-                    {new Date(story.publishedAt || '').toLocaleDateString()}
+                    {new Date(story.publishedAt || '').toLocaleDateString('en-AU')}
                   </span>
                 </div>
               </div>

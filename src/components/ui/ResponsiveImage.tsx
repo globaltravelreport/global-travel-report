@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { LazyLoad } from './LazyLoad';
 import { cn } from '@/utils/cn';
+import { capUnsplashImageWidth } from '@/utils/imageUrl';
 
 interface ResponsiveImageProps {
   src: string;
@@ -56,11 +57,11 @@ export function ResponsiveImage({
   const [imageSrc, setImageSrc] = useState(() => {
     // If we have a valid src, use it
     if (src && typeof src === 'string') {
-      return src;
+      return capUnsplashImageWidth(src);
     }
 
     // If no valid src is provided, use a default image
-    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400'; // Default image
+    return 'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=1080'; // Default image
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -93,7 +94,7 @@ export function ResponsiveImage({
       if (onError) onError();
     } else {
       // Use a reliable fallback image
-      setImageSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=2400');
+      setImageSrc('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&q=80&w=1080');
     }
   };
 

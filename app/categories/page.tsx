@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { ArrowUpRight, Compass, Sparkles } from 'lucide-react';
 import { CATEGORIES } from '@/src/config/categories';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = { title: 'Categories', description: 'Explore travel stories by air travel, destinations, food, safety, deals, and more.', alternates: { canonical: '/categories' } };
 
 export default function CategoriesPage() {

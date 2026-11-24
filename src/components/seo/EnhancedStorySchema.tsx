@@ -39,7 +39,7 @@ export function EnhancedStorySchema({
       'name': 'Global Travel Report',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://www.globaltravelreport.com/logo.png',
+        'url': 'https://www.globaltravelreport.com/images/logo-512.png',
         'width': 400,
         'height': 60
       }

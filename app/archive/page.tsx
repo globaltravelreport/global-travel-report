@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import ArchiveClient from './ArchiveClient.tsx';
 
-// Force dynamic rendering for archive content
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Story Archive - Global Travel Report',

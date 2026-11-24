@@ -46,7 +46,7 @@ export function WebsiteStructuredData() {
       'logo': {
         '@type': 'ImageObject',
         '@id': `${baseUrl}/#logo`,
-        'url': `${baseUrl}/logo.png`,
+        'url': `${baseUrl}/images/logo-512.png`,
         'width': 600,
         'height': 60
       }
@@ -82,7 +82,7 @@ export function OrganizationStructuredData() {
     'logo': {
       '@type': 'ImageObject',
       '@id': `${baseUrl}/#logo`,
-      'url': `${baseUrl}/logo.png`,
+      'url': `${baseUrl}/images/logo-512.png`,
       'width': 600,
       'height': 60
     },
@@ -205,7 +205,7 @@ export function ArticleStructuredData({
       'logo': {
         '@type': 'ImageObject',
         '@id': `${baseUrl}/#logo`,
-        'url': `${baseUrl}/logo.png`,
+        'url': `${baseUrl}/images/logo-512.png`,
         'width': 600,
         'height': 60
       }

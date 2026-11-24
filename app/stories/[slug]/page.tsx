@@ -19,6 +19,7 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { generateAllEnhancedSchemas } from "@/utils/enhancedSchemaGenerator";
 import { ContextualAffiliateRecommendations } from "@/components/affiliates/ContextualAffiliateRecommendations";
 import { generateFacebookMeta } from "@/utils/facebook-optimizer";
+import { getCategoryUrl } from '@/utils/url';
 import InterlineSponsorPlacement from "@/components/sponsorship/InterlineSponsorPlacement";
 
 import PopularTags from "@/src/components/ui/PopularTags";
@@ -204,7 +205,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
                 "@type": "ListItem",
                 "position": 3,
                 "name": story.category,
-                "item": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globaltravelreport.com'}/categories/${story.category.toLowerCase().replace(/\s+/g, '-')}`
+                "item": getCategoryUrl(story.category, true)
               },
               {
                 "@type": "ListItem",
@@ -225,7 +226,7 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
             <Breadcrumb
               items={[
                 { label: 'Stories', href: '/stories' },
-                { label: story.category, href: `/categories/${story.category.toLowerCase().replace(/\s+/g, '-')}` },
+                { label: story.category, href: getCategoryUrl(story.category) },
                 { label: story.title, active: true }
               ]}
               className="text-sm"
@@ -255,12 +256,12 @@ export default async function StoryPage({ params }: { params: Promise<StoryParam
                   </div>
                   <div>
                     <span className="font-medium">Published: </span>
-                    <span>{format(validateDate(story.date || story.publishedAt, true), 'MMMM dd, yyyy')}</span>
+                    <span>{format(validateDate(story.date || story.publishedAt, true), 'd MMMM yyyy')}</span>
                   </div>
                   {story.updatedAt && new Date(story.updatedAt).getTime() !== new Date(story.publishedAt).getTime() && (
                     <div>
                       <span className="font-medium text-orange-600">Last updated: </span>
-                      <span className="text-orange-600">{format(validateDate(story.updatedAt, true), 'MMMM dd, yyyy')}</span>
+                      <span className="text-orange-600">{format(validateDate(story.updatedAt, true), 'd MMMM yyyy')}</span>
                     </div>
                   )}
                 </div>

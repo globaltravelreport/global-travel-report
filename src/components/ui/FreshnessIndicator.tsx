@@ -119,7 +119,7 @@ export function FreshnessIndicator({
   };
   
   // Format the date for display
-  const formattedDate = format(date, 'MMMM d, yyyy');
+  const formattedDate = format(date, 'd MMMM yyyy');
   
   // Determine the size classes
   const sizeClasses = {
@@ -155,7 +155,7 @@ export function FreshnessIndicator({
               <>
                 <br />
                 <span className="text-xs">
-                  Originally published on {format(parseISO(publishedDate), 'MMMM d, yyyy')}
+                  Originally published on {format(parseISO(publishedDate), 'd MMMM yyyy')}
                 </span>
               </>
             )}
