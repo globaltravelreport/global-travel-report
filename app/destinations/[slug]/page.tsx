@@ -4,6 +4,8 @@ import { getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 import type { Metadata } from 'next';
 
+export const revalidate = 60;
+
 // Define the params type for Next.js 15
 type DestinationParams = {
   slug: string;

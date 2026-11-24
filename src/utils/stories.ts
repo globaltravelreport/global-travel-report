@@ -164,6 +164,30 @@ export async function getAllStories(): Promise<Story[]> {
 }
 
 /**
+ * Recent story cards for the homepage. Does not load article bodies.
+ * Falls back to mock stories when the database is empty or unavailable.
+ */
+export async function getRecentStoriesForHomepage(): Promise<Story[]> {
+  try {
+    const db = StoryDatabase.getInstance();
+    const stories = await db.getRecentStories(24, 8);
+
+    if (!stories || stories.length === 0) {
+      return mockStories.sort(sortNewestFirst);
+    }
+
+    return stories.sort(sortNewestFirst);
+  } catch (_error) {
+    console.error(_error);
+    return mockStories.sort(sortNewestFirst);
+  }
+}
+
+function storyHasBody(story: Story | null | undefined): boolean {
+  return Boolean(story && story.content && story.content.trim().length > 0);
+}
+
+/**
  * Get recent stories for the homepage, sorted by date.
  * Homepage stories must be from the last 7 days only.
  * Older stories remain available through country, category, search, tag, and archive pages.
@@ -652,13 +676,18 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                                     normalizedSlug.includes(s.slug.toLowerCase()));
     }
 
-    if (foundStory) {
+    if (foundStory && storyHasBody(foundStory)) {
       console.log(`[getStoryBySlug] Found story in getAllStories: ${foundStory.title}`);
+      return foundStory;
+    }
+
+    if (foundStory) {
+      console.log(`[getStoryBySlug] List result for ${foundStory.slug} has no article body; skipping`);
     } else {
       console.log(`[getStoryBySlug] Story not found in getAllStories`);
     }
 
-    return foundStory || null;
+    return null;
   } catch (_error) {
     console.error(_error);
 
@@ -682,13 +711,18 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
                                       normalizedSlug.includes(s.slug.toLowerCase()));
       }
 
-      if (foundStory) {
+      if (foundStory && storyHasBody(foundStory)) {
         console.log(`[getStoryBySlug] Found story in fallback: ${foundStory.title}`);
+        return foundStory;
+      }
+
+      if (foundStory) {
+        console.log(`[getStoryBySlug] Fallback list result for ${foundStory.slug} has no article body; skipping`);
       } else {
         console.log(`[getStoryBySlug] Story not found in fallback`);
       }
 
-      return foundStory || null;
+      return null;
     } catch (fallbackError) {
       console.error(`[getStoryBySlug] Fallback method failed:`, fallbackError);
       return null;

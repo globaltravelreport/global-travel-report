@@ -676,7 +676,7 @@ async function repairPublishedFallbackStories() {
   }
 
   try {
-    const stories = await SupabaseStoryStore.getPublishedStories();
+    const stories = await SupabaseStoryStore.getPublishedStories({ includeContent: true, cache: 'none', limit: 40 });
     // Cap per cron run; ~166 formula titles in sitemap today — flag stays off until CoS approves.
     const repairable = stories.slice(0, 40).filter(shouldRepairFallbackStory);
     let repaired = 0;

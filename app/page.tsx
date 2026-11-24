@@ -1,7 +1,7 @@
 import Hero from '../src/components/home/Hero';
 import StoriesSection from '../src/components/home/StoriesSection';
 import { AdSenseLeaderboard } from '../src/components/ads/AdSense';
-import { getAllStories, getHomepageStories } from '../src/utils/stories';
+import { getAllStories, getHomepageStories, getRecentStoriesForHomepage } from '../src/utils/stories';
 import type { Metadata } from 'next';
 import type { Story } from '../types/Story';
 
@@ -73,7 +73,10 @@ function getHomepageStorySet(allStories: Story[]): Story[] {
 }
 
 export default async function Home() {
-  const stories = getHomepageStorySet(await getAllStories());
+  const recentStories = getHomepageStorySet(await getRecentStoriesForHomepage());
+  const stories = recentStories.length > 0
+    ? recentStories
+    : getHomepageStorySet(await getAllStories());
 
   return (
     <div className="min-h-screen">

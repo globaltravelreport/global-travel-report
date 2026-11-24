@@ -1,4 +1,51 @@
 import { Story } from '@/types/Story';
+import { revalidateStoryCache, STORY_CACHE_REVALIDATE_SECONDS, STORY_CACHE_TAG } from '@/lib/story-cache';
+
+/** Card/list columns — excludes the full article HTML body. */
+export const STORY_LIST_SELECT = [
+  'id',
+  'slug',
+  'title',
+  'excerpt',
+  'published_at',
+  'updated_at',
+  'original_published_at',
+  'first_seen_at',
+  'author',
+  'category',
+  'country',
+  'tags',
+  'featured',
+  'editors_pick',
+  'image_url',
+  'image_alt',
+  'image_credit',
+  'image_credit_url',
+  'photographer',
+  'source',
+  'source_url',
+  'ingestion_source',
+  'content_hash',
+  'word_count',
+  'rewritten',
+  'processed_at',
+  'status'
+].join(',');
+
+/** Single-story pages may also load the article body. */
+export const STORY_DETAIL_SELECT = `${STORY_LIST_SELECT},content`;
+
+/** Safety cap for public list/sitemap/RSS queries. */
+export const STORY_LIST_LIMIT = 500;
+
+export type StoryReadCache = 'public' | 'none';
+
+export type GetPublishedStoriesOptions = {
+  includeContent?: boolean;
+  limit?: number;
+  publishedAfter?: string;
+  cache?: StoryReadCache;
+};
 
 type SupabaseStoryRow = {
   id: string;
@@ -78,6 +125,7 @@ type SupabaseRequestOptions = {
   query?: Record<string, string>;
   body?: unknown;
   prefer?: string;
+  cache?: StoryReadCache;
 };
 
 export type StoryGenerationJob = {
@@ -141,8 +189,11 @@ export class SupabaseStoryStore {
       url.searchParams.set(key, value);
     });
 
+    const method = options.method || 'GET';
+    const usePublicCache = method === 'GET' && options.cache === 'public';
+
     const response = await fetch(url.toString(), {
-      method: options.method || 'GET',
+      method,
       headers: {
         apikey: serviceKey,
         Authorization: `Bearer ${serviceKey}`,
@@ -150,7 +201,9 @@ export class SupabaseStoryStore {
         ...(options.prefer ? { Prefer: options.prefer } : {})
       },
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
-      cache: 'no-store'
+      ...(usePublicCache
+        ? { next: { revalidate: STORY_CACHE_REVALIDATE_SECONDS, tags: [STORY_CACHE_TAG] } }
+        : { cache: 'no-store' as const })
     });
 
     if (!response.ok) {
@@ -243,42 +296,51 @@ export class SupabaseStoryStore {
     };
   }
 
-  public static async getPublishedStories(): Promise<Story[]> {
-    const rows = await this.request<SupabaseStoryRow[]>('stories', {
-      query: {
-        select: '*',
-        status: 'eq.published',
-        order: 'published_at.desc.nullslast'
-      }
-    });
+  public static async getPublishedStories(options: GetPublishedStoriesOptions = {}): Promise<Story[]> {
+    const includeContent = Boolean(options.includeContent);
+    const cache: StoryReadCache = options.cache ?? (includeContent ? 'none' : 'public');
+    const limit = options.limit ?? STORY_LIST_LIMIT;
+    const query: Record<string, string> = {
+      select: includeContent ? STORY_DETAIL_SELECT : STORY_LIST_SELECT,
+      status: 'eq.published',
+      order: 'published_at.desc.nullslast',
+      limit: String(limit)
+    };
 
-    return rows.map((row) => this.toStory(row));
+    if (options.publishedAfter) {
+      query.published_at = `gte.${options.publishedAfter}`;
+    }
+
+    const rows = await this.request<SupabaseStoryRow[]>('stories', { query, cache });
+    return (rows || []).map((row) => this.toStory(row));
   }
 
   public static async getStoryById(id: string): Promise<Story | null> {
     const rows = await this.request<SupabaseStoryRow[]>('stories', {
       query: {
-        select: '*',
+        select: STORY_DETAIL_SELECT,
         id: `eq.${id}`,
         status: 'eq.published',
         limit: '1'
-      }
+      },
+      cache: 'public'
     });
 
-    return rows[0] ? this.toStory(rows[0]) : null;
+    return rows?.[0] ? this.toStory(rows[0]) : null;
   }
 
   public static async getStoryBySlug(slug: string): Promise<Story | null> {
     const rows = await this.request<SupabaseStoryRow[]>('stories', {
       query: {
-        select: '*',
+        select: STORY_DETAIL_SELECT,
         slug: `eq.${slug}`,
         status: 'eq.published',
         limit: '1'
-      }
+      },
+      cache: 'public'
     });
 
-    return rows[0] ? this.toStory(rows[0]) : null;
+    return rows?.[0] ? this.toStory(rows[0]) : null;
   }
 
   public static async upsertStory(story: Story): Promise<Story> {
@@ -287,12 +349,15 @@ export class SupabaseStoryStore {
       body: this.toStoryRow(story),
       query: {
         on_conflict: 'id',
-        select: '*'
+        select: STORY_DETAIL_SELECT
       },
-      prefer: 'resolution=merge-duplicates,return=representation'
+      prefer: 'resolution=merge-duplicates,return=representation',
+      cache: 'none'
     });
 
-    return rows[0] ? this.toStory(rows[0]) : story;
+    const saved = rows?.[0] ? this.toStory(rows[0]) : story;
+    await revalidateStoryCache(saved.slug ? [`/stories/${saved.slug}`] : []);
+    return saved;
   }
 
   public static async saveDraft(story: Story): Promise<void> {
@@ -632,7 +697,7 @@ export class SupabaseStoryStore {
           // First try: same category AND country, excluding current slug
           const rows = await this.request<SupabaseStoryRow[]>('stories', {
                   query: {
-                            select: '*',
+                            select: STORY_LIST_SELECT,
                             status: 'eq.published',
                             category: `eq.${story.category}`,
                             country: `eq.${story.country}`,
@@ -640,31 +705,34 @@ export class SupabaseStoryStore {
                             order: 'published_at.desc.nullslast',
                             limit: String(limit),
                           },
+                  cache: 'public',
                 });
           if (rows.length >= limit) return rows.map((r) => this.toStory(r));
 
           // Fallback: same category only, excluding current slug
           const byCat = await this.request<SupabaseStoryRow[]>('stories', {
                   query: {
-                            select: '*',
+                            select: STORY_LIST_SELECT,
                             status: 'eq.published',
                             category: `eq.${story.category}`,
                             slug: `neq.${story.slug}`,
                             order: 'published_at.desc.nullslast',
                             limit: String(limit),
                           },
+                  cache: 'public',
                 });
           if (byCat.length >= limit) return byCat.map((r) => this.toStory(r));
 
           // Final fallback: most recent published stories, excluding current slug
           const recent = await this.request<SupabaseStoryRow[]>('stories', {
                   query: {
-                            select: '*',
+                            select: STORY_LIST_SELECT,
                             status: 'eq.published',
                             slug: `neq.${story.slug}`,
                             order: 'published_at.desc.nullslast',
                             limit: String(limit),
                           },
+                  cache: 'public',
                 });
           return recent.map((r) => this.toStory(r));
         }

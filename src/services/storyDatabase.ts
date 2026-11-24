@@ -127,6 +127,35 @@ export class StoryDatabase {
   }
 
   /**
+   * Recent published story cards for the homepage (no article body).
+   * Falls back to in-memory/mock stories when Supabase is not configured or fails.
+   */
+  public async getRecentStories(limit = 24, days = 8): Promise<Story[]> {
+    await this.initialize();
+
+    if (SupabaseStoryStore.isConfigured()) {
+      try {
+        const since = new Date();
+        since.setUTCDate(since.getUTCDate() - days);
+        const supabaseStories = await SupabaseStoryStore.getPublishedStories({
+          limit,
+          publishedAfter: since.toISOString()
+        });
+        const byId = new Map<string, Story>();
+        [...this.stories, ...supabaseStories].forEach((story) => {
+          byId.set(story.id, story);
+        });
+        return visibleStories(Array.from(byId.values()));
+      } catch (error) {
+        console.error('Supabase recent story fetch failed; serving cached in-memory stories only', error);
+        return visibleStories([...this.stories]);
+      }
+    }
+
+    return visibleStories([...this.stories]);
+  }
+
+  /**
    * Get a story by ID
    * @param id - The ID of the story to get
    * @returns The story with the specified ID, or null if not found

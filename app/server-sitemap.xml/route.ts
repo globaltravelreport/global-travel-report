@@ -4,6 +4,8 @@ import { getAllStories } from '@/src/utils/stories';
 import { CATEGORIES } from '@/src/config/categories';
 import { getAllCountries } from '@/utils/countries';
 
+export const revalidate = 60;
+
 /**
  * Generate a server-side sitemap for the website
  * This is a Next.js App Router API route that generates a sitemap
