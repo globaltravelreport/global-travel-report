@@ -4,6 +4,8 @@ import { enhanceStoryForSEO } from '@/utils/seoEnhancer';
 import { CATEGORIES } from '@/src/config/categories';
 import { slugify } from '@/src/utils/url';
 
+export const revalidate = 60;
+
 /**
  * Generate a dynamic sitemap based on actual content
  * @returns A sitemap configuration for Next.js

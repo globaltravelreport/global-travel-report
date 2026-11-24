@@ -3,7 +3,7 @@ import { getAllStories } from '@/src/utils/stories';
 import { Story } from '@/types/Story';
 import { getCategoryUrl, getCountryUrl } from '@/src/utils/url';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 function escapeXml(value: string): string {
   return String(value)

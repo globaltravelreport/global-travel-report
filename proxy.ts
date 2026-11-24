@@ -1,8 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/proxy';
+import { requiresAuthSession } from '@/lib/requires-auth-session';
+
+export { requiresAuthSession };
 
 export async function proxy(request: NextRequest) {
-  const response = await updateSession(request);
+  // Anonymous public pages should not refresh Supabase Auth on every visit.
+  const response = requiresAuthSession(request.nextUrl.pathname)
+    ? await updateSession(request)
+    : NextResponse.next({ request });
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
